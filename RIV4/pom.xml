@@ -123,4 +123,8 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<scm>
+		<url>https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</url>
+		<connection>scm:svn:https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</connection>
+	</scm>
 </project>
