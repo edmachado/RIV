@@ -1,1 +1,0 @@
-<%@ attribute name="color" %><div class="datadivider ${color}"></div>
