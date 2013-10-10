@@ -1,0 +1,12 @@
+riv.version=
+build.version=
+releases.dir=
+jdk=${jdkPath}
+os.family=
+
+izpack.dir=
+# include panel.jar (workaround for bug in IzPack 5.0.11)
+izpack.panel.include=
+
+war.dir=
+war-riv4.dir=

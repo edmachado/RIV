@@ -1,0 +1,6 @@
+<langpack>
+<str id="InstallationGroupPanel.group.NewInstall.html" txt="Instalación nueva de RuralInvest"/>
+<str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest será instalado en una base de datos en blanco. Datos existentes (proyectos y perfiles) serán eliminados."/>
+<str id="InstallationGroupPanel.group.Upgrade.html" txt="Instalación de actualización de RuralInvest"/>
+<str id="InstallationGroupPanel.description.Upgrade.html" txt="El software de RuralInvest será actualizado y los datos existentes (proyectos y perfiles) se conservarán."/>
+</langpack>

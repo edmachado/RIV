@@ -1,0 +1,48 @@
+<processing>
+	<logfiledir>$INSTALL_PATH</logfiledir>
+	<job name="uninstalling ruralinvest3" condition="dbExists-old">
+		<os family="windows" />
+		<executefile name="$TEMP_DIRECTORY/uninstall-riv3.bat"/>
+	</job>
+	<job name="adding first user">
+		<os family="windows" />
+		<executeForPack name="New (blank) database for RuralInvest"/>
+		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
+			<arg>$INSTALL_PATH</arg>
+			<arg>$RIV_USER_NAME</arg>
+			<arg>$RIV_FULL_NAME</arg>
+			<arg>$RIV_PASSWORD</arg>
+			<arg>$RIV_ORGANIZATION</arg>
+			<arg>$RIV_LOCATION</arg>
+			<arg>$RIV_TELEPHONE</arg>
+			<arg>$RIV_EMAIL</arg>
+		</executeclass>
+	</job>
+	<job name="retrieving migrated database">
+		<os family="windows" />
+		<executeForPack name="Update existing RuralInvest database"/>
+		<executeclass name="org.fao.riv.installer.util.MigrateDb">
+			<arg>$MIGRATED_DB</arg>
+			<arg>$INSTALL_PATH/webapp/WEB-INF/data</arg>
+		</executeclass>
+	</job>
+	<job name="upgrading sql structure">
+		<os family="windows" />
+		<executeForPack name="Update existing RuralInvest database"/>
+		<executeclass name="org.fao.riv.installer.sql.UpdateSql">
+			<arg>$INSTALL_PATH</arg>
+			<arg>$TEMP_DIRECTORY/sql.xml</arg>
+			<arg>${riv3installed}</arg>
+		</executeclass>
+	</job>
+	<job name="creating service" condition="!RIV4-service-exists">
+		<os family="windows" />
+		<executefile name="$TEMP_DIRECTORY/createService.bat">
+			<env>JAVA_HOME=$java_home</env>
+		</executefile>
+	</job>
+	<job name="starting service">
+		<os family="windows" />
+		<executefile name="$TEMP_DIRECTORY/startService.bat"/>
+	</job>
+</processing>
