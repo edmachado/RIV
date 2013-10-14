@@ -48,7 +48,7 @@
 				  	<div style="display:inline-block;width:45%;">
 				  		<div class="dataentry">
 				  			<a href="../../report/${blockEntry.blockId}/projectBlock.xlsx"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="export.download"/></a>
-							<c:if test="${accessOK}"><a id="upload${unique}" href="javascript:uploadBlock(${blockEntry.blockId});"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
+<%-- 							<c:if test="${accessOK}"><a id="upload${unique}" href="javascript:uploadBlock(${blockEntry.blockId});"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if> --%>
 				  		</div>
 				  		<c:if test="${accessOK}">
 							<div class="dataentry"><a href="../block/${blockEntry.blockId}"><img src="../../img/edit.png" border="0"/> <spring:message code="${blockType}.editDesc"/></a></div>

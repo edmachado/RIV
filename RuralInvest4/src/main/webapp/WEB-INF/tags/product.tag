@@ -19,7 +19,7 @@
 								<a href="../../report/${product.productId}/profileProduct.xlsx"><spring:message code="export.download"/></a>
 							</td>
 							<td>	
-								<c:if test="${accessOK}"><a id="upload${product.orderBy}" href="javascript:uploadBlock(${product.productId});"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
+<%-- 								<c:if test="${accessOK}"><a id="upload${product.orderBy}" href="javascript:uploadBlock(${product.productId});"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if> --%>
 	 							<br/>
 	 						</td>
 					    </tr>
