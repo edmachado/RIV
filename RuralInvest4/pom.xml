@@ -33,6 +33,63 @@
 		<jasper-reports-version>5.2.0</jasper-reports-version>
 		<poi-version>3.9</poi-version>
 	</properties>
+	
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>compile-reports</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jasperreports-maven-plugin</artifactId>
+						<version>1.0-beta-2</version>
+						<configuration>
+							<outputDirectory>${war.dir}/WEB-INF/classes/reports</outputDirectory>
+							<sourceDirectory>${reports.target.dir}</sourceDirectory>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>compile-reports</goal>
+								</goals>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>org.codehaus.mojo</groupId>
+								<artifactId>jasperreports-maven-plugin</artifactId>
+								<version>1.0-beta-2</version>
+								<exclusions>
+									<exclusion>
+										<groupId>jasperreports</groupId>
+										<artifactId>jasperreports</artifactId>
+									</exclusion>
+								</exclusions>
+							</dependency>
+							<dependency>
+								<groupId>net.sf.jasperreports</groupId>
+								<artifactId>jasperreports</artifactId>
+								<version>${jasper-reports-version}</version>
+								<exclusions>
+									<exclusion>
+										<groupId>commons-logging</groupId>
+										<artifactId>commons-logging</artifactId>
+									</exclusion>
+								</exclusions>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<repositories>
 		<repository>
@@ -513,47 +570,6 @@
 		          </dependency>
 		        </dependencies>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.codehaus.mojo</groupId> -->
-<!-- 				<artifactId>jasperreports-maven-plugin</artifactId> -->
-<!-- 				<version>1.0-beta-2</version> -->
-<!-- 				<configuration> -->
-<!-- 					<outputDirectory>${war.dir}/WEB-INF/classes/reports</outputDirectory> -->
-<!-- 					<sourceDirectory>${reports.target.dir}</sourceDirectory> -->
-<!-- 				</configuration> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<phase>compile</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>compile-reports</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 				<dependencies> -->
-<!-- 					<dependency> -->
-<!-- 						<groupId>org.codehaus.mojo</groupId> -->
-<!-- 						<artifactId>jasperreports-maven-plugin</artifactId> -->
-<!-- 						<version>1.0-beta-2</version> -->
-<!-- 						<exclusions> -->
-<!-- 							<exclusion> -->
-<!-- 								<groupId>jasperreports</groupId> -->
-<!-- 								<artifactId>jasperreports</artifactId> -->
-<!-- 							</exclusion> -->
-<!-- 						</exclusions> -->
-<!-- 					</dependency> -->
-<!-- 					<dependency> -->
-<!-- 						<groupId>net.sf.jasperreports</groupId> -->
-<!-- 						<artifactId>jasperreports</artifactId> -->
-<!-- 						<version>${jasper-reports-version}</version> -->
-<!-- 						<exclusions> -->
-<!-- 							<exclusion> -->
-<!-- 								<groupId>commons-logging</groupId> -->
-<!-- 								<artifactId>commons-logging</artifactId> -->
-<!-- 							</exclusion> -->
-<!-- 						</exclusions> -->
-<!-- 					</dependency> -->
-<!-- 				</dependencies> -->
-<!-- 			</plugin> -->
 		</plugins>
 		<pluginManagement>
 			<plugins>
