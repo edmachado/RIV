@@ -37,10 +37,8 @@ public class ProfileXls extends WebTestUtil {
 	@Before
 	public void deleteExisting() {
 		login();
-		deletePros(false, true, false);
-		deletePros(false, true, true);
-		deletePros(false, false, false);
-		deletePros(false, false, true);
+		deletePros(false, true);
+		deletePros(false, false);
 	}
 	
 	@After

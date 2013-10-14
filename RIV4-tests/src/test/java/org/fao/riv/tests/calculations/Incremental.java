@@ -22,8 +22,7 @@ public class Incremental extends WebTestUtil {
 	public void deleteExisting() {
 		login();
 		// delete IG projects
-		deletePros(true, true, false);
-		deletePros(true, true, true);
+		deletePros(true, true);
 	}
 	
 	@After

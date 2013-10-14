@@ -37,10 +37,8 @@ public class ProjectXls extends WebTestUtil {
 	@Before
 	public void deleteExisting() {
 		login();
-		deletePros(true, true, false);
-		deletePros(true, true, true);
-		deletePros(true, false, false);
-		deletePros(true, false, true);
+		deletePros(true, true);
+		deletePros(true, false);
 	}
 	
 	@After

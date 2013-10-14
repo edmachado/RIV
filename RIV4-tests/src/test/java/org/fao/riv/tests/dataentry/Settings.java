@@ -35,14 +35,10 @@ public class Settings extends WebTestUtil {
 	public void deleteExisting() {
 		login();
 		// remove existing profiles, projects and settings
-		deletePros(false, true, false);
-		deletePros(false, true, true);
-		deletePros(false, false, false);
-		deletePros(false, false, true);
-		deletePros(true, true, false);
-		deletePros(true, true, true);
-		deletePros(true, false, false);
-		deletePros(true, false, true);
+		deletePros(false, true);
+		deletePros(false, false);
+		deletePros(true, true);
+		deletePros(true, false);
 		deleteAppConfigs();
 	}
 	

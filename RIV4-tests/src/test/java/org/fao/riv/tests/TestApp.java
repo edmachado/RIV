@@ -24,7 +24,7 @@ import org.fao.riv.tests.importfile.ImportSuite;
 @RunWith(Suite.class)
 @SuiteClasses({ ImportSuite.class, DataEntrySuite.class, ExcelDownloadSuite.class, ExcelImportSuite.class, DownloadSuite.class }) //  ,  CalculationSuite.class })
 public class TestApp {
-	public static String baseUrl;//"http://apps3.fao.org/riv-qa";//"http://172.16.110.128:8085/RuralInvest";//
+	public static String baseUrl="http://localhost:8080/RuralInvest";//"http://apps3.fao.org/riv-qa";//"http://172.16.110.128:8085/RuralInvest";//
 	public static String username="initialUser";
 	public static String password="initialPassword";
 	public static String buildLang="qa";
@@ -34,7 +34,7 @@ public class TestApp {
 	private static String basePath;
 	private static String webappPath;
 	
-	public static String appURL="http://localhost:8080/RuralInvest";
+	public static String appURL;
 	
 	
     @BeforeClass

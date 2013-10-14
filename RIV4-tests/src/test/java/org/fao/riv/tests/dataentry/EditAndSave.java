@@ -33,8 +33,7 @@ public class EditAndSave extends WebTestUtil {
 	 */
 	@Test
 	public void IgProject() throws Exception {
-		deletePros(true, true, false);
-		deletePros(true, true, true);
+		deletePros(true, true);
 		
 		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
 		clickLinkWithImage("edit.png");
@@ -69,8 +68,7 @@ public class EditAndSave extends WebTestUtil {
 	
 	@Test
 	public void NigProject() throws Exception {
-		deletePros(true, false, false);
-		deletePros(true, false, true);
+		deletePros(true, false);
 		
 		importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
 		clickLinkWithImage("edit.png");
@@ -100,8 +98,7 @@ public class EditAndSave extends WebTestUtil {
 	
 	@Test
 	public void IgProfile() throws Exception {
-		deletePros(false, true, false);
-		deletePros(false, true, true);
+		deletePros(false, true);
 		
 		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
 		clickLinkWithImage("edit.png");
@@ -125,8 +122,7 @@ public class EditAndSave extends WebTestUtil {
 	
 	@Test
 	public void NigProfile() throws Exception {
-		deletePros(false, false, false);
-		deletePros(false, false, true);
+		deletePros(false, false);
 		
 		importProfile(ImportFile.ProfileNig40, "nigpf_no", false, false, "Community Health Centre");
 		clickLinkWithImage("edit.png");
@@ -149,8 +145,11 @@ public class EditAndSave extends WebTestUtil {
 	
 	private void testEditSaveTable(String tablePageTitleKey, String itemPageTitleKey, String tableName) {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage(tablePageTitleKey));
-		clickElementByXPath("//table[@id='"+tableName+"']/tbody/tr/td/a[img[@alt='View/Edit item']]");
+		String xpath = "//table[@id='"+tableName+"']/tbody/tr/td/a[img[@alt='View/Edit item']]";
+		// open item
+		clickElementByXPath(xpath);
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage(itemPageTitleKey));
+		// save item
 		rivSubmitForm();
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage(tablePageTitleKey));
 	}

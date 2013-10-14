@@ -22,8 +22,7 @@ public class InputProjectNig extends WebTestUtil {
 	 @Before
 	 public void deleteExisting() {
 		login();
-		deletePros(true, false, false);
-		deletePros(true, false, true); 
+		deletePros(true, false); 
 	 }
 	 
 	 @After

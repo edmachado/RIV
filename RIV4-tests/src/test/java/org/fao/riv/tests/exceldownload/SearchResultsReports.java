@@ -43,7 +43,7 @@ public class SearchResultsReports extends WebTestUtil {
 	@Test
 	public void profileIGResults() throws IOException {
 		login();
-		deletePros(false, true, true);
+		deletePros(false, true);
 		
 		// import a few profiles
 		importProfile(ImportFile.ProfileIgV22, "igpf", false, false, "Artesanal Clothing Workshop");
@@ -74,7 +74,7 @@ public class SearchResultsReports extends WebTestUtil {
 	@Test
 	public void profileNIGResults() throws IOException {
 		login();
-		deletePros(false, false, true);
+		deletePros(false, false);
 		
 		// import a nig profiles
 		importProfile(ImportFile.ProfileNig16, "nigpf_no", false, true, "Community Health Centre");
@@ -103,7 +103,7 @@ public class SearchResultsReports extends WebTestUtil {
 	@Test
 	public void projectIGResults() throws IOException {
 		login();
-		deletePros(true, true, true);
+		deletePros(true, true);
 		
 		// import a few projects
 		importProject(ImportFile.ProjectV16, "igpj", false, true, "Test IG Project");
@@ -134,7 +134,7 @@ public class SearchResultsReports extends WebTestUtil {
 	@Test
 	public void projectNIGResults() throws IOException {
 		login();
-		deletePros(true, false, true);
+		deletePros(true, false);
 		
 		// import a few projects
 		importProject(ImportFile.ProjectNig16, "nigpj", false, false, "Access Road & Bridge");

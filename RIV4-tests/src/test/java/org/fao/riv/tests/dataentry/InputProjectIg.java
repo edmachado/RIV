@@ -39,8 +39,7 @@ public class InputProjectIg extends WebTestUtil {
 	@Before
 	public void deleteExisting() {
 		login();
-		deletePros(true, true, false);
-		deletePros(true, true, true);
+		deletePros(true, true);
 	}
 	
 	@After
@@ -57,8 +56,7 @@ public class InputProjectIg extends WebTestUtil {
 			titles[i]=getMessage("ruralInvest")+" :: "+getMessage("project.step"+(i+1));
 		}
 
-		deletePros(false, true, false);
-		deletePros(false, true, true);
+		deletePros(false, true);
 		clickLink("goHome");
 		importProfile(ImportFile.ProfileIgV22, "igpf", false, false, "Artesanal Clothing Workshop");
 		goToPro(false, true, true);

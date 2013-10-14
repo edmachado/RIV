@@ -24,8 +24,7 @@ public class InputProfileIg extends WebTestUtil {
 	@Before
 	public void deleteExisting() {
 		login();
-		deletePros(false, true, false);
-		deletePros(false, true, true);
+		deletePros(false, true);
 	}
 	
 	@After

@@ -20,8 +20,7 @@ public class ProjectIgChangeDuration extends WebTestUtil {
 	@Before
 	public void deleteExisting() {
 		login();
-		deletePros(true, true, false);
-		deletePros(true, true, true);
+		deletePros(true, true);
 	}
 	
 	@After

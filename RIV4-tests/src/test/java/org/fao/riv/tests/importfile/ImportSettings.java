@@ -21,14 +21,10 @@ public class ImportSettings extends WebTestUtil {
 	@Before
 	public void deleteExisting() {
 		login();
-		deletePros(false, true, false);
-		deletePros(false, true, true);
-		deletePros(false, false, false);
-		deletePros(false, false, true);
-		deletePros(true, true, false);
-		deletePros(true, true, true);
-		deletePros(true, false, false);
-		deletePros(true, false, true);
+		deletePros(false, true);
+		deletePros(false, false);
+		deletePros(true, true);
+		deletePros(true, false);
 		deleteAppConfigs();
 	}
 	

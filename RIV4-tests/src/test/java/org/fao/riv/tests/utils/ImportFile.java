@@ -20,8 +20,11 @@ public enum ImportFile {
 	ProfileNig16("profile/profile-nig-1.6.riv"),
 	ProfileNig40("profile/profile-nig-4.0.riv"),
 	ProfileXlsInvest("profile/profile-invest.xlsx"),
+	ProfileXlsInvestNig("profile/profile-invest-nig.xlsx"),
 	ProfileXlsInvestErrorLogic("profile/profile-invest-error-logic.xlsx"),
 	ProfileXlsInvestErrorData("profile/profile-invest-error-data.xlsx"),
+	ProfileXlsGeneral("profile/profile-general.xlsx"),
+	ProfileXlsGeneralNig("profile/profile-general-nig.xlsx"),
 	
 	ProjectV16("project/project-ig-1.6.riv"), 
 	ProjectV20("project/project-ig-2.0.riv"), 
@@ -29,7 +32,11 @@ public enum ImportFile {
 	ProjectV31Generic("project/project-ig-3.1-generic.riv"),
 	ProjectV40("project/project-ig-4.0.riv"), 
 	ProjectNig16("project/project-nig-1.6.riv"), 
-	ProjectNig40("project/project-nig-4.0.riv");
+	ProjectNig40("project/project-nig-4.0.riv"),
+	ProjectXlsInvest("project/project-invest.xlsx"),
+	ProjectXlsGeneral("project/project-general.xlsx"),
+	ProjectXlsInvestNig("project/project-invest-nig.xlsx"),
+	ProjectXlsGeneralNig("project/project-general-nig.xlsx");
 	
 	private final String fileName;
 	private ImportFile(String fileName) {
