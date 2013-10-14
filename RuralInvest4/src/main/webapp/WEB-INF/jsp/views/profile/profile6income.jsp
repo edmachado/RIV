@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="profile" value="${profileProductItem.profileProduct.profile}" scope="request"/>
-<c:if test="${profile.incomeGen}"><c:set var="title"></c:set></c:if>
-<c:if test="${not profile.incomeGen}"><c:set var="title"></c:set></c:if>
+<c:if test="${profile.incomeGen}"><c:set var="title"><spring:message code="profileProductIncome"/></c:set></c:if>
+<c:if test="${not profile.incomeGen}"><c:set var="title"><spring:message code="profileActivityCharge"/></c:set></c:if>
 <c:set var="product" value="${profileProductItem.profileProduct}" scope="request"/>
 <html><head><title>${title}</title>
 </head><body>

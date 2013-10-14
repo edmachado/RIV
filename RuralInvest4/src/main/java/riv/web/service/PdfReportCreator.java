@@ -74,7 +74,7 @@ public class PdfReportCreator {
 		ReportWrapper general = profileGeneral(profile, page);
 		page = page+general.getJp().getPages().size();
 		reports.add(general);
-		ReportWrapper product = profileProduct(profile, page);
+		ReportWrapper product = profileProducts(profile, page);
 		page = page+product.getJp().getPages().size();
 		reports.add(product);
 		ReportWrapper anal = profilePrelimAnalysis(pr, page);
@@ -120,8 +120,8 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper profileProduct(Profile profile, int startPage) {
-		ReportWrapper report = new ReportWrapper("/reports/profile/profileProduct.jasper", true, profile.getProducts(), "profileProduct.pdf", startPage);
+	public ReportWrapper profileProducts(Profile profile, int startPage) {
+		ReportWrapper report = new ReportWrapper("/reports/profile/profileProduct.jasper", true, profile.getProducts(), "profileProducts.pdf", startPage);
 		
 		JasperReport jrInc = compileReport("/reports/profile/profileProductIncome.jasper");
 		report.getParams().put("incomeSubReport", jrInc);

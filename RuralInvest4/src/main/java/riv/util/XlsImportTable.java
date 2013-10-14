@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,26 @@ public class XlsImportTable<E extends OrderByable> {
 		XlsImportColumn c = new XlsImportColumn();
 		c.column=column;
 		c.property=property;
-		c.numeric=numeric;
+		c.isNumeric=numeric;
+		columns.add(c);
+		return this;
+	}
+	
+	public XlsImportTable<E> addBooleanColumn(int column, String property) {
+		XlsImportColumn c = new XlsImportColumn();
+		c.column=column;
+		c.property=property;
+		c.isBoolean=true;
+		columns.add(c);
+		return this;
+	}
+	
+	public XlsImportTable<E> addSelectColumn(int column, String property, Map options) {
+		XlsImportColumn c = new XlsImportColumn();
+		c.column=column;
+		c.property=property;
+		c.isSelect=true;
+		c.options=options;
 		columns.add(c);
 		return this;
 	}
@@ -55,10 +75,21 @@ public class XlsImportTable<E extends OrderByable> {
 	@SuppressWarnings("unchecked")
 	public List<E> readTable(Sheet sheet, MessageSource messageSource) throws ExcelImportException {
 		if (sheet!=null) {
-			int rowNum = skipTo(sheet, startRow, startWhenColumnIsNumeric);
+			int rowNum = skipTo(sheet, startRow, startWhenColumnIsNumeric, messageSource);
 			boolean goOn=true;
 			while(goOn) {
-				if (sheet.getRow(rowNum).getCell(3).getCellType()==Cell.CELL_TYPE_NUMERIC) {
+				boolean rowOk;
+				 // if the first cell (always "description") is blank, the table is considered finished
+				try {
+					rowOk = sheet.getRow(rowNum)!=null && sheet.getRow(rowNum).getCell(0)!=null 
+							&& sheet.getRow(rowNum).getCell(0).getCellType()!=Cell.CELL_TYPE_BLANK
+							&! sheet.getRow(rowNum).getCell(0).getStringCellValue().isEmpty();
+				} catch (NullPointerException e) {
+					e.printStackTrace(System.out);
+					throw new ExcelImportException(messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale())
+							+messageSource.getMessage("import.error.excel.read", new Object[0], LocaleContextHolder.getLocale()));
+				}
+				if (rowOk) {
 					E item;
 					try {
 						item =  (E) clazz.newInstance();
@@ -66,17 +97,34 @@ public class XlsImportTable<E extends OrderByable> {
 						throw new RuntimeException("Programming error: class passed to readTable should be same as parameterized generic!", e);
 					}
 					try {
-						for (XlsImportColumn col : columns) {
-							if (col.numeric) {
-								setObjectProperty(item, col.property, sheet.getRow(rowNum).getCell(col.column).getNumericCellValue());
+						for (XlsImportColumn column : columns) {
+							if (column.isBoolean) {
+								boolean yes = sheet.getRow(rowNum).getCell(column.column)!=null && sheet.getRow(rowNum).getCell(column.column).getCellType()!=Cell.CELL_TYPE_BLANK;
+								setObjectProperty(item, column.property, yes);//value.equals("#"));//messageSource.getMessage("misc.yes", new Object[0], LocaleContextHolder.getLocale())));
+							} else if (column.isSelect) {
+								Object value = sheet.getRow(rowNum).getCell(column.column).getStringCellValue();
+								for (Object key : column.options.keySet()) {
+									if (column.options.get(key).equals(value)) {
+										value = key;
+										break;
+									}
+								}
+								setObjectProperty(item, column.property, value);
+							} else if (column.isNumeric) {
+								setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getNumericCellValue());
 							} else {
-								setObjectProperty(item, col.property, sheet.getRow(rowNum).getCell(col.column).getStringCellValue());
+								setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getStringCellValue());
 							}
 						}
 					} catch (IllegalStateException e) {
+						e.printStackTrace(System.out);
 						String error = 
-								messageSource.getMessage("import.excel.error", new Object[] {rowNum+1}, LocaleContextHolder.getLocale()) +
+								messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
 								messageSource.getMessage("import.excel.error.datatype", new Object[0], LocaleContextHolder.getLocale());
+						throw new ExcelImportException(error);
+					} catch (NullPointerException e) {
+						e.printStackTrace(System.out);
+						String error = "Error occurred reading line "+(rowNum+1);
 						throw new ExcelImportException(error);
 					}
 					
@@ -85,7 +133,7 @@ public class XlsImportTable<E extends OrderByable> {
 					validator.validate(item, errors);
 					if (errors.hasErrors()) {
 						 String error = 
-								messageSource.getMessage("import.excel.error", new Object[] {rowNum+1}, LocaleContextHolder.getLocale()) +
+								messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
 								errors.getAllErrors().get(0).getDefaultMessage().replace("\"", "\\\"");
 						throw new ExcelImportException(error);
 					}
@@ -102,11 +150,28 @@ public class XlsImportTable<E extends OrderByable> {
 		return items;
 	}
 	
-	private int skipTo(Sheet sheet, int rowNum, int column) {
+	/* 
+	 * Keep reading lines until you get to a number cell 
+	 */
+	private int skipTo(Sheet sheet, int rowNum, int column, MessageSource messageSource) throws ExcelImportException {
 		boolean goOn=true;
+		int skipped=0;
 		while (goOn) {
-			if (sheet.getRow(rowNum).getCell(3)==null || sheet.getRow(rowNum).getCell(3).getCellType()!=Cell.CELL_TYPE_NUMERIC) {
+			boolean skipRow;
+			try {
+				skipRow = sheet.getRow(rowNum)==null || sheet.getRow(rowNum).getCell(column)==null
+						|| sheet.getRow(rowNum).getCell(column).getCellType()!=Cell.CELL_TYPE_FORMULA ;
+			} catch (NullPointerException e) {
+				e.printStackTrace(System.out);
+				throw new ExcelImportException(messageSource.getMessage("import.excel.error", new Object[] {rowNum+1}, LocaleContextHolder.getLocale())
+						+messageSource.getMessage("import.error.excel.read", new Object[0], LocaleContextHolder.getLocale()));
+			}
+			if (skipRow) {
 				rowNum++;
+				if (skipped++ >10) { // skipping too many rows, problem with format
+					throw new ExcelImportException(messageSource.getMessage("import.excel.error", new Object[] {rowNum+1}, LocaleContextHolder.getLocale())
+							+messageSource.getMessage("import.error.excel.read", new Object[0], LocaleContextHolder.getLocale()));
+				}
 			} else {
 				goOn=false;
 			}
@@ -117,6 +182,9 @@ public class XlsImportTable<E extends OrderByable> {
 	public class XlsImportColumn {
 		public int column;
 		public String property;
-		public boolean numeric;
+		public boolean isNumeric;
+		public boolean isBoolean;
+		public boolean isSelect;
+		public Map options;
 	}
 }

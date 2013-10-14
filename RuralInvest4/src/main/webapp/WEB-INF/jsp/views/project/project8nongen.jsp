@@ -6,9 +6,7 @@
 	<div align="left">
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectGeneralDetail.xlsx?template=true"><spring:message code="export.downloadTemplate"/></a><br/>
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectGeneralDetail.xlsx"><spring:message code="export.download"/></a><br/>
-	 	<%-- 
-	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="importXls.htm?type=profileInvestment&pid=${profile.profileId}"><spring:message code="import.importExcel"/></a>
- 		--%>
+		<c:if test="${accessOK}"><a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
  	</div>
 	
 	<tags:tableContainer titleKey="projectGeneral">
@@ -247,6 +245,6 @@
 	</tags:tableContainer>
 					
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step9"/></tags:submit>
-	
 </form:form>
+<tags:excelImport submitUrl="../../import/project/generalNongen/${project.projectId}"/>
 </body></html>

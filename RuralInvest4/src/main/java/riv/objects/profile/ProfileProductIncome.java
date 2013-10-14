@@ -44,11 +44,11 @@ public class ProfileProductIncome extends ProfileProductItem implements java.io.
     }
     
     public BigDecimal getTotal() {
-    	if (getUnitCost()==null || getUnitNum()==null 
-    			|| (getProfileProduct().getProfile().getIncomeGen() && getTransport()==null)) 
-    		return BigDecimal.valueOf(0);
-    	return getProfileProduct().getProfile().getIncomeGen() 
-    		? getUnitNum().multiply(getUnitCost().subtract(getTransport()))
+    	if (getUnitCost()==null || getUnitNum()==null) {
+    		return BigDecimal.valueOf(0); 
+    	}
+    	return transport!=null 
+    		? getUnitNum().multiply(getUnitCost().subtract(transport))
     		: getUnitNum().multiply(getUnitCost());
     }
    

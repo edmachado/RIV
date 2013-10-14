@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import riv.objects.profile.Profile;
+import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
@@ -149,7 +150,7 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectCashFlow(report, p, pr);
+		ewb.getProjectCashFlow2(report, p, pr);
 		response.setHeader("Content-disposition", "attachment; filename=projectCashFlow.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -226,7 +227,7 @@ public class ExcelReportController {
 			   }
 			   ewb.getProjectParameters(report, project);
 			   ewb.getProjectCashFlowFirst(report, project, result);
-			   ewb.getProjectCashFlow(report, project, result);
+			   ewb.getProjectCashFlow2(report, project, result);
 			   ewb.getProjectProfitability(report, project, result);
 		   } else {
 			   ewb.getBlocks(report, project, false);
@@ -271,15 +272,26 @@ public class ExcelReportController {
 		report.getWorkbook().dispose();
    }
    
-   @RequestMapping(value="/{id}/profileProduct.xlsx", method=RequestMethod.GET)
-   public void profileProduct(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException  {
+   @RequestMapping(value="/{id}/profileProducts.xlsx", method=RequestMethod.GET)
+   public void profileProducts(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException  {
 	   Profile p = dataService.getProfile(id, 6);
 	   ExcelWrapper report = ewb.create();
-	   ewb.getProfileProduct(report, p);
-	   response.setHeader("Content-disposition", "attachment; filename=profileProduct.xlsx");
+	   ewb.getProfileProducts(report, p);
+	   response.setHeader("Content-disposition", "attachment; filename=profileProducts.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
    }
+   
+   @RequestMapping(value="{id}/profileProduct.xlsx", method=RequestMethod.GET)
+	public void oneProduct(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException {
+		ProfileProduct p = template!=null ? new ProfileProduct() : dataService.getProfileProduct(id, "all");
+		boolean isIg = template!=null ? Boolean.parseBoolean(template) :p.getProfile().getIncomeGen();
+		ExcelWrapper report = ewb.create();
+		ewb.getProduct(report, p, isIg);
+		response.setHeader("Content-disposition", "attachment; filename=profileProduct.xlsx");
+		report.getWorkbook().write(response.getOutputStream());
+		report.getWorkbook().dispose();
+	}
    
    @RequestMapping(value="/{id}/profilePrelimAnalysis.xlsx", method=RequestMethod.GET)
    public void profilePrelimAnalysis(@PathVariable int id, HttpServletResponse response) throws IOException  {
@@ -310,7 +322,7 @@ public class ExcelReportController {
 	   ewb.getProfileSummary(report, p);
 	   ewb.getProfileInvest(report, p, false);
 	   ewb.getProfileGeneral(report, p, false);
-	   ewb.getProfileProduct(report, p);
+	   ewb.getProfileProducts(report, p);
 	   ewb.getProfilePrelimAnalysis(report, pr);
 	   ewb.getProfileRecommendation(report, p);
 	   response.setHeader("Content-disposition", "attachment; filename=profileComplete.xlsx");

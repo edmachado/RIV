@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -27,7 +28,8 @@ import riv.objects.profile.ProfileFile;
 import riv.objects.project.ProjectFile;
  
 @Component
-public class AttachTools {
+public class AttachTools implements Serializable {
+	private static final long serialVersionUID = -6816402803334737761L;
 	static final Logger LOG = LoggerFactory.getLogger(AttachTools.class);
 	public static final long dirSizeLimit = 3145728;
 	

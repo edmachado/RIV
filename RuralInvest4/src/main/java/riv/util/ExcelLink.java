@@ -1,8 +1,8 @@
 package riv.util;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/*
+ * References to cells for use by complete excel report
+ */
 public enum ExcelLink {
 	PROFILE_INVEST_GOODS_RESERVE,
 	PROFILE_INVEST_TOTAL,
@@ -27,5 +27,10 @@ public enum ExcelLink {
 	PROJECT_LOAN1_GRACE_INTEREST,
 	PROJECT_LOAN1_DURATION,
 	PROJECT_LOAN1_RATE,
+	PROJECT_LOAN2_AMOUNT,
+	PROJECT_LOAN2_GRACE_CAPITAL,
+	PROJECT_LOAN2_GRACE_INTEREST,
+	PROJECT_LOAN2_DURATION,
+	PROJECT_LOAN2_RATE,
 	PROJECT_INFLATION;
 }

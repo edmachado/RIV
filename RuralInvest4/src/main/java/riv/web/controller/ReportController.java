@@ -194,10 +194,10 @@ public class ReportController {
 	   reportCreator.export(response, report);
    }
    
-   @RequestMapping(value="/{id}/profileProduct.pdf", method=RequestMethod.GET)
+   @RequestMapping(value="/{id}/profileProducts.pdf", method=RequestMethod.GET)
    public void profileProduct(@PathVariable int id, HttpServletRequest request, HttpServletResponse response)  {
 	   Profile p = dataService.getProfile(id, 6);
-	   ReportWrapper report = reportCreator.profileProduct(p, 0);
+	   ReportWrapper report = reportCreator.profileProducts(p, 0);
 	   reportCreator.export(response, report);
    }
    

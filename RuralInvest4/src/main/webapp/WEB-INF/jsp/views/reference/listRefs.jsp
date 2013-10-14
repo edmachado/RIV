@@ -13,9 +13,11 @@
 					<display:column titleKey="reference.income.unitCost" sortProperty="unitCost" sortable="true">
 						<tags:formatCurrency value="${item.unitCost}"/>
 					</display:column>
-					<display:column titleKey="reference.income.transport" sortProperty="transport" sortable="true">
-						<tags:formatCurrency value="${item.transport}"/>
-					</display:column>
+					<c:if test="${probase.incomeGen}">
+						<display:column titleKey="reference.income.transport" sortProperty="transport" sortable="true">
+							<tags:formatCurrency value="${item.transport}"/>
+						</display:column>
+					</c:if>
 					<c:if test="${accessOK}">
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${item_rowNum ne 1}">

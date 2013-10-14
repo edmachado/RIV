@@ -89,6 +89,12 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping("help/deleteAll")
+	public String deleteAll(@RequestParam String type, @RequestParam String ig) {
+		dataService.deleteAll(type.equals("project"), ig.equals("true"));
+		return "redirect:../home";
+	}
+	
 	@RequestMapping("help/recalculate")
 	public String recalculate() {
 		attachTools.migrateFromVersion3(sc.getRealPath("/WEB-INF/data"));

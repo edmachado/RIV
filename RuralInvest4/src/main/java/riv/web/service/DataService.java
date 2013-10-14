@@ -38,9 +38,26 @@ import riv.objects.profile.ProfileProductItem;
 import riv.objects.profile.ProfileProductLabour;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.BlockBase;
+import riv.objects.project.BlockIncome;
+import riv.objects.project.BlockInput;
 import riv.objects.project.BlockItem;
+import riv.objects.project.BlockLabour;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
+import riv.objects.project.ProjectItemAsset;
+import riv.objects.project.ProjectItemAssetWithout;
+import riv.objects.project.ProjectItemContribution;
+import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemGeneralWithout;
+import riv.objects.project.ProjectItemLabour;
+import riv.objects.project.ProjectItemLabourWithout;
+import riv.objects.project.ProjectItemNongenLabour;
+import riv.objects.project.ProjectItemNongenMaintenance;
+import riv.objects.project.ProjectItemNongenMaterials;
+import riv.objects.project.ProjectItemPersonnel;
+import riv.objects.project.ProjectItemPersonnelWithout;
+import riv.objects.project.ProjectItemService;
+import riv.objects.project.ProjectItemServiceWithout;
 import riv.objects.project.ProjectResult;
 import riv.objects.reference.ReferenceItem;
 
@@ -49,12 +66,36 @@ public class DataService implements UserDetailsService {
 	@Autowired
 	private DataRepository repo;
 	
+	public void deleteAll(boolean project, boolean incomeGen) {
+		repo.deleteAll(project, incomeGen);
+	}
+	
+	public void replaceProjectContribution(int projectId, List<ProjectItemContribution> items) {
+		repo.replaceProjectContribution(projectId, items);
+	}
+	
 	public void replaceProfileProduct(int productId, List<ProfileProductIncome> incs, List<ProfileProductInput> inps, List<ProfileProductLabour> labs) {
 		repo.replaceProfileProduct(productId, incs, inps, labs);
 	}
 	
+	public void replaceProjectGeneralNongen(int projectId, List<ProjectItemNongenMaterials> materials, List<ProjectItemNongenLabour> labours, List<ProjectItemNongenMaintenance> maints) {
+		repo.replaceProjectGeneralNongen(projectId, materials, labours, maints);
+	}
+	
 	public void replaceProfileGeneral(int profileId, List<ProfileItemGeneral> gens, List<ProfileItemGeneralWithout> gensWo) {
 		repo.replaceProfileGeneral(profileId, gens, gensWo);
+	}
+	
+	public void replaceBlock(int blockId, List<BlockIncome> incs, List<BlockInput> inps, List<BlockLabour> labs) {
+		repo.replaceBlock(blockId, incs, inps, labs);
+	}
+	
+	public void replaceProjectGeneral(int projectId, List<ProjectItemGeneral> gens, List<ProjectItemPersonnel> pers, List<ProjectItemGeneralWithout> gensWo, List<ProjectItemPersonnelWithout> persWo) {
+		repo.replaceProjectGeneral(projectId, gens, pers, gensWo, persWo);
+	}
+	
+	public void replaceProjectInvest(int projectId, List<ProjectItemAsset> assets, List<ProjectItemLabour> labours, List<ProjectItemService> services, List<ProjectItemAssetWithout> assetsWo, List<ProjectItemLabourWithout> laboursWo, List<ProjectItemServiceWithout> servicesWo) {
+		repo.replaceProjectInvest(projectId, assets, labours, services, assetsWo, laboursWo, servicesWo);
 	}
 	
 	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours) {

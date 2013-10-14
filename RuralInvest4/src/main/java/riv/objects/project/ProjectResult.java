@@ -33,7 +33,7 @@ public class ProjectResult implements java.io.Serializable {
 	@JoinColumn(name="TECHNICIAN")
 	private User technician;
 	@ManyToOne
-	@JoinColumn(name="PROJECT_CATEGORY")
+	@JoinColumn(name="PROJ_CATEGORY")
 	private ProjectCategory projCategory;
 	@ManyToOne
 	@JoinColumn(name="BENEFICIARY")

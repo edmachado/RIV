@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.safehaus.uuid.UUIDGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -48,6 +50,8 @@ import riv.web.service.DataService;
 @Controller
 @RequestMapping({"/project"})
 public class ProjectController {
+	static final Logger LOG = LoggerFactory.getLogger(ProjectController.class);
+	
 	@Autowired
     private DataService dataService;
 	@Autowired
@@ -196,11 +200,14 @@ public class ProjectController {
 				if (withWithoutChanged) {
 					dataService.updateBlocksWithWithout(project.getProjectId(), project.isWithWithout());
 				}
-				dataService.storeProjectResult(project.getProjectId());
+				if (project.getWizardStep()==null) {
+					dataService.storeProjectResult(project.getProjectId());
+				}
 			// otherwise just save the project
 			} else {
 				dataService.storeProject(project, calculateResult);
 			}
+			
 			return "redirect:../step"+(step+1)+"/"+project.getProjectId();
 		}
 	}

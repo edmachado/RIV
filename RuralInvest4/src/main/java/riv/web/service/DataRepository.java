@@ -100,28 +100,46 @@ public class DataRepository {
 		return sessionFactory.getCurrentSession();
 	}
 	
-	public void replaceProfileProduct(int productId, List<ProfileProductIncome> incs, List<ProfileProductInput> inps, List<ProfileProductLabour> labs) {
-		ProfileProduct pp = getProfileProduct(productId, "all");
+	@SuppressWarnings("unchecked")
+	public void deleteAll(boolean project, boolean incomeGen) {
+		Criteria c = currentSession().createCriteria(project ? Project.class : Profile.class).add(Restrictions.eq("incomeGen", incomeGen));	
+
+		if (project) {
+			List<Project> results = c.list();
+			for (Project p : results) {
+				deleteProject(p);
+			}
+		} else {
+			List<Profile> results = c.list();
+			for (Profile p : results) {
+				deleteProfile(p);
+			}
+		}
+	}
+	
+	public void replaceProjectContribution(int projectId, List<ProjectItemContribution> items) {
+		String[] classes = new String[] {"ProjectItemContribution"};
+		deleteCollections(classes, "project.projectId", projectId);
 		
-		Query q = currentSession().createQuery("delete from ProfileProductIncome i where i.profileProduct.productId=:pid");
-		q.setInteger("pid", productId);
-		q.executeUpdate();
+		Project p = getProject(projectId, 10);
+		for (ProjectItemContribution i : items) {
+			p.addContribution(i);
+		}
+	}
+	
+	public void replaceProfileProduct(int productId, List<ProfileProductIncome> incs, List<ProfileProductInput> inps, List<ProfileProductLabour> labs) {
+		String[] classes = new String[] {"ProfileProductIncome", "ProfileProductInput", "ProfileProductLabour"};
+		deleteCollections(classes, "profileProduct.productId", productId);
+		
+		ProfileProduct pp = getProfileProduct(productId, "all");
 		
 		for (ProfileProductIncome item : incs) {
 			pp.addProfileIncome(item);
 		}
 		
-		q = currentSession().createQuery("delete from ProfileProductInput i where i.profileProduct.productId=:pid");
-		q.setInteger("pid", productId);
-		q.executeUpdate();
-		
 		for (ProfileProductInput item : inps) {
 			pp.addProfileInput(item);
 		}
-		
-		q = currentSession().createQuery("delete from ProfileProductLabour i where i.profileProduct.productId=:pid");
-		q.setInteger("pid", productId);
-		q.executeUpdate();
 		
 		for (ProfileProductLabour item : labs) {
 			pp.addProfileLabour(item);
@@ -129,37 +147,139 @@ public class DataRepository {
 	}
 	
 	public void replaceProfileGeneral(int profileId, List<ProfileItemGeneral> gens, List<ProfileItemGeneralWithout> gensWo) {
-		Query q = currentSession().createQuery("delete from ProfileItemGeneral g where g.profile.profileId=:pid");
-		q.setInteger("pid", profileId);
-		q.executeUpdate();
+		deleteCollections(new String[] {"ProfileItemGeneral","ProfileItemGeneralWithout"}, "profile.profileId", profileId);
 		
 		Profile p = getProfile(profileId, 5);
+		
 		for (ProfileItemGeneral item : gens) {
 			p.addGlsGeneral(item);
 		}
 		
-		q = currentSession().createQuery("delete from ProfileItemGeneralWithout g where g.profile.profileId=:pid");
-		q.setInteger("pid", profileId);
-		q.executeUpdate();
-		
-		for (ProfileItemGeneralWithout item : gensWo) {
-			p.addGlsGeneralWithout(item);
+		if (gensWo != null) {
+			for (ProfileItemGeneralWithout item : gensWo) {
+				p.addGlsGeneralWithout(item);
+			}
 		}
 	}
 	
+	public void replaceProjectGeneralNongen(int projectId, List<ProjectItemNongenMaterials> materials, List<ProjectItemNongenLabour> labours, List<ProjectItemNongenMaintenance> maints) {
+		String[] classes = new String[] {"ProjectItemNongenMaterials", "ProjectItemNongenLabour", "ProjectItemNongenMaintenance"};
+		deleteCollections(classes, "project.projectId", projectId);
+		
+		Project p = getProject(projectId, 8);
+		
+		for (ProjectItemNongenMaterials i : materials) {
+			p.addNongenMaterial(i);
+		}
+		for (ProjectItemNongenLabour i : labours) {
+			p.addNongenLabour(i);
+		}
+		for (ProjectItemNongenMaintenance i : maints) {
+			p.addNongenMaintenance(i);
+		}
+		
+		storeProject(p, p.getWizardStep()==null);
+	}
+	
+	public void replaceBlock(int blockId, List<BlockIncome> incs, List<BlockInput> inps, List<BlockLabour> labs) {
+		String[] classes = new String[] {"BlockIncome", "BlockInput", "BlockLabour"};
+		deleteCollections(classes, "block.BlockId", blockId);
+		
+		BlockBase b = getBlock(blockId, "all");
+		
+		for (BlockIncome i : incs) {
+			b.addIncome(i);
+		}
+		for(BlockInput i : inps) {
+			b.addInput(i);
+		}
+		for(BlockLabour i : labs) {
+			b.addLabour(i);
+		}
+		
+		storeBlock(b);
+		
+	}
+	
+	public void replaceProjectGeneral(int projectId, List<ProjectItemGeneral> gens, List<ProjectItemPersonnel> pers, List<ProjectItemGeneralWithout> gensWo, List<ProjectItemPersonnelWithout> persWo) {
+		String[] classes = new String[] {"ProjectItemGeneral", "ProjectItemPersonnel", "ProjectItemGeneralWithout", "ProjectItemPersonnelWithout"};
+		deleteCollections(classes, "project.projectId", projectId);
+		
+		Project p = getProject(projectId, 8);
+		
+		for (ProjectItemGeneral i : gens) {
+			p.addGeneral(i);
+		}
+		
+		for (ProjectItemPersonnel i : pers) {
+			p.addPersonnel(i);
+		}
+		
+		if (p.getIncomeGen()) {
+			for (ProjectItemGeneralWithout i : gensWo) {
+				p.addGeneralWithout(i);
+			}
+			
+			for (ProjectItemPersonnelWithout i : persWo) {
+				p.addPersonnelWithout(i);
+			}
+		}
+		
+		storeProject(p, p.getWizardStep()==null);
+	}
+	
+	private void deleteCollections(String[] classes, String idProperty, int id) {
+		Query q; String sql;
+		for (String s : classes) {
+			sql = String.format("delete from %s i where i.%s=:id", s, idProperty);
+			q = currentSession().createQuery(sql);
+			q.setInteger("id", id);
+			q.executeUpdate();
+		}
+	}
+	
+	public void replaceProjectInvest(int projectId, List<ProjectItemAsset> assets, List<ProjectItemLabour> labours, List<ProjectItemService> services, List<ProjectItemAssetWithout> assetsWo, List<ProjectItemLabourWithout> laboursWo, List<ProjectItemServiceWithout> servicesWo) {
+		String[] classes = new String[] {"ProjectItemAsset", "ProjectItemLabour", "ProjectItemService", "ProjectItemAssetWithout", "ProjectItemLabourWithout", "ProjectItemServiceWithout"};
+		deleteCollections(classes, "project.projectId", projectId);
+		
+		Project p = getProject(projectId, 7);
+		
+		for (ProjectItemAsset i : assets) {
+			p.addAsset(i);
+		}
+		
+		for (ProjectItemLabour i : labours) {
+			p.addLabour(i);
+		}
+		
+		for (ProjectItemService i : services) {
+			p.addService(i);
+		}
+		
+		if (p.getIncomeGen()) {
+			for (ProjectItemAssetWithout i : assetsWo) {
+				p.addAssetWithout(i);
+			}
+			
+			for (ProjectItemLabourWithout i : laboursWo) {
+				p.addLabourWithout(i);
+			}
+			
+			for (ProjectItemServiceWithout i : servicesWo) {
+				p.addServiceWithout(i);
+			}
+		}
+		
+		storeProject(p, p.getWizardStep()==null);
+	}
+	
 	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours) {
-		Query q = currentSession().createQuery("delete from ProfileItemGood g where g.profile.profileId=:pid");
-		q.setInteger("pid", profileId);
-		q.executeUpdate();
+		deleteCollections(new String[] {"ProfileItemGood","ProfileItemLabour"}, "profile.profileId", profileId);
 		
 		Profile p = getProfile(profileId, 4);
 		for (ProfileItemGood good : goods) {
 			p.addGlsGood(good);
 		}
-		
-		q = currentSession().createQuery("delete from ProfileItemLabour i where i.profile.profileId=:pid");
-		q.setInteger("pid", profileId);
-		q.executeUpdate();
 		
 		for (ProfileItemLabour labour : labours) {
 			p.addGlsLabour(labour);
@@ -196,11 +316,6 @@ public class DataRepository {
 		return fromOtherClass;
 	}
 	
-//	public void addOrgLogo(byte[] bytes, Setting setting) {
-//		Blob blob = Hibernate.getLobCreator(currentSession()).createBlob(bytes);
-//		setting.setOrgLogo(blob);
-//	}
-//	
 	public boolean attachedFileExistsWithFilename(int id, boolean isProject, String filename) {
 		Criteria c = isProject ? currentSession().createCriteria(ProjectFile.class)
 				: currentSession().createCriteria(ProfileFile.class);
@@ -937,22 +1052,24 @@ public class DataRepository {
 	public void updateReferenceLinks(ReferenceItem ref) {
 		if (ref.getClass().isAssignableFrom(ReferenceIncome.class)) {
 			ReferenceIncome i = (ReferenceIncome)ref;
-			if (i.getProbase().isProject()) {
-				Query q = currentSession().createQuery("update BlockIncome bi set unitType=:unitType, unitCost=:unitCost, transport=:transport where linkedTo=:linkedTo");
-				q.setString("unitType", ref.getUnitType());
-				q.setBigDecimal("unitCost", new BigDecimal(ref.getUnitCost()));
+			String hql = String.format("update %s i set unitType=:unitType, unitCost=:unitCost %s where linkedTo=:linkedTo",
+					i.getProbase().isProject() ? "BlockIncome" : "ProfileProductIncome",
+					i.getProbase().getIncomeGen() ? ", transport=:transport" : "");
+			Query q = currentSession().createQuery(hql);
+			q.setString("unitType", ref.getUnitType());
+			q.setBigDecimal("unitCost", new BigDecimal(ref.getUnitCost()));
+			if (i.getProbase().getIncomeGen()) {
 				q.setBigDecimal("transport", new BigDecimal(i.getTransport()));
-				q.setParameter("linkedTo", i);
-				q.executeUpdate();
-				if (ref.getProject().getWizardStep()==null) { storeProjectResult(ref.getProject().getProjectId()); }
-			} else {
-				Query q = currentSession().createQuery("update ProfileProductIncome ppi set unitType=:unitType, unitCost=:unitCost, transport=:transport where linkedTo=:linkedTo");
-				q.setString("unitType", ref.getUnitType());
-				q.setBigDecimal("unitCost", new BigDecimal(ref.getUnitCost()));
-				q.setBigDecimal("transport", new BigDecimal(i.getTransport()));
-				q.setParameter("linkedTo", i);
-				q.executeUpdate();
-				if (ref.getProfile().getWizardStep()==null) { storeProfileResult(ref.getProfile().getProfileId()); }
+			}
+			q.setParameter("linkedTo", i);
+			q.executeUpdate();
+			
+			if (i.getProbase().getWizardStep()==null) {
+				if (i.getProbase().isProject()) {
+					storeProjectResult(i.getProject().getProjectId());
+				} else {
+					storeProfileResult(i.getProfile().getProfileId());
+				}
 			}
 		} else if (ref.getClass().isAssignableFrom(ReferenceLabour.class)) {
 			ReferenceLabour i = (ReferenceLabour)ref;

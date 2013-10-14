@@ -90,14 +90,14 @@ public class BlockItemController {
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public String saveProjectItem(@RequestParam Integer linkedToId, HttpServletRequest request,
-			@RequestParam(required=false) Boolean addLink, @RequestParam(required=false) Double addTransport,
+			@RequestParam(required=false) Boolean addLink, //@RequestParam(required=false) String addTransport,
 			@Valid @ModelAttribute BlockItem blockItem, BindingResult result, Model model) {
     	
     	if (result.hasErrors()) {
 			setupPageAttributes(blockItem, model, request);
 			return form(blockItem);
 		} else {
-			checkLinked(blockItem, linkedToId, addLink, addTransport);
+			checkLinked(blockItem, linkedToId, addLink);//, Double.parseDouble(addTransport));
 			dataService.storeBlockItem(blockItem);
 			return "redirect:"+successView(blockItem);
 		}
@@ -140,7 +140,7 @@ public class BlockItemController {
     	return "../step9/"+b.getProject().getProjectId()+"#b"+b.getBlockId();
     }
     
-    private void checkLinked(BlockItem item, Integer linkedToId, Boolean addLink, Double addTransport) {
+    private void checkLinked(BlockItem item, Integer linkedToId, Boolean addLink) {
     	if (addLink!=null) {
     		ReferenceItem ref = null;
 			if (item.getClass().isAssignableFrom(BlockIncome.class)) {
@@ -167,14 +167,14 @@ public class BlockItemController {
     	} else if (linkedToId!=null) {
     		ReferenceItem ref = dataService.getReferenceItem(linkedToId);
     		item.setLinkedTo(ref);
-    		if (addTransport!=null) {
-    			if (item.getClass().isAssignableFrom(BlockIncome.class)) {
-    				((ReferenceIncome)ref).setTransport(addTransport);
-    			} else if (item.getClass().isAssignableFrom(BlockInput.class)) {
-    				((ReferenceCost)ref).setTransport(addTransport);
+    		//if (addTransport!=null) {
+    			if (item.getClass().isAssignableFrom(BlockIncome.class) && item.getProbase().getIncomeGen() && ((ReferenceIncome)ref).getTransport()==null) {
+    				((ReferenceIncome)ref).setTransport(((BlockIncome)item).getTransport().doubleValue());
+    			} else if (item.getClass().isAssignableFrom(BlockInput.class) && ((ReferenceCost)ref).getTransport()==null) {
+    				((ReferenceCost)ref).setTransport(((BlockInput)item).getTransport().doubleValue());
     			}
     			dataService.storeReferenceItem(ref);
-    		}
+    		//}
     	} else {
     		item.setLinkedTo(null);
     	}

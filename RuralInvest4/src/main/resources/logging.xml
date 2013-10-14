@@ -24,8 +24,9 @@
 		</triggeringPolicy>
 	</appender>
 	
-<!-- 	<logger name="org.hibernate.engine.jdbc.internal.jdbcCoordinatorImpl" level="ERROR"/> -->
-	<logger name="org.hibernate.SQL" level="WARN"/>
+	<logger name="org.hibernate.engine.jdbc.internal.jdbcCoordinatorImpl" level="OFF"/>
+	<logger name="org.hibernate.engine" level="OFF"/>
+	<logger name="org.hibernate.SQL" level="INFO"/>
   	<logger name="riv" level="DEBUG" />
 	
 	<root level="INFO">

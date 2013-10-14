@@ -6,14 +6,21 @@ import org.springframework.validation.Errors;
 import riv.objects.project.*;
 
 public class BlockItemValidator implements Validator {
+	private Boolean incomeGen;
+	
 	@SuppressWarnings("rawtypes")
 	public boolean supports(Class clazz) {
 		return BlockItem.class.isAssignableFrom(clazz);
 	}
+	public void setIncomeGen(boolean incomeGen) {
+		this.incomeGen=incomeGen;
+	}
+	
 	public void validate(Object obj, Errors errors) {
 		BlockItem i = (BlockItem)obj;
+		boolean isIg = incomeGen!=null ? incomeGen : i.getBlock().getProject().getIncomeGen();
 		if (obj.getClass().isAssignableFrom(BlockIncome.class)){
-			if (i.getBlock().getProject().getIncomeGen()) {
+			if (isIg) {
 				ValidateUtils.rejectIfEmpty(i, "description", "projectBlockIncome.desc", errors);
 				ValidateUtils.rejectIfEmpty(i, "unitType", "projectBlockIncome.unitType", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectBlockIncome.unitNum", errors);

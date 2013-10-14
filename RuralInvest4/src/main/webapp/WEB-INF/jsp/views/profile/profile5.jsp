@@ -6,8 +6,8 @@
 	<div align="left">
 		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${profile.profileId}/profileGeneral.xlsx?template=true"><spring:message code="export.downloadTemplate"/></a><br/>
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${profile.profileId}/profileGeneral.xlsx"><spring:message code="export.download"/></a><br/>
-	 	<%--<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="importXls.htm?type=profileGeneral"><spring:message code="import.importExcel"/></a>--%>
- 	</div>
+	 	<c:if test="${accessOK}"><a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
+	</div>
 	<tags:tableContainer titleKey="profileGeneral">
 	
 	<c:if test="${profile.withWithout}"><c:set var="tableTitle">project.with</c:set></c:if>
@@ -144,5 +144,6 @@
 </tags:tableContainer>
 <tags:submit><spring:message code="misc.goto"/> <spring:message code="profile.step6"/></tags:submit>
 </form:form>
+<tags:excelImport submitUrl="../../import/profile/general/${profile.profileId}"/>
 </body>
 </html>

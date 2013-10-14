@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,8 @@ import riv.web.service.DataService;
 @Controller
 @RequestMapping({"/project/item"})
 public class ProjectItemController {
+	static final Logger LOG = LoggerFactory.getLogger(ProjectItemController.class);
+			
 	@Autowired
     private DataService dataService;
 	@Autowired
@@ -155,7 +159,9 @@ public class ProjectItemController {
 			return form(projectItem);
 		} else {
 			checkLinked(projectItem, linkedToId, addLink);
+			
 			dataService.storeProjectItem(projectItem);
+			
 			return "redirect:"+successView(projectItem);
 		}
     }

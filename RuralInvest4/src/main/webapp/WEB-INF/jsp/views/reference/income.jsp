@@ -14,9 +14,11 @@
 				<display:column titleKey="reference.income.unitCost" sortProperty="unitCost" sortable="true">
 					<tags:formatDecimal value="${row.unitCost}" />
 				</display:column>
-				<display:column titleKey="reference.income.transport" sortProperty="transport" sortable="true" >
-					<tags:formatDecimal value="${row.transport}" />
-				</display:column>
+				<c:if test="${referenceItem.probase.incomeGen}">
+					<display:column titleKey="reference.income.transport" sortProperty="transport" sortable="true" >
+						<tags:formatDecimal value="${row.transport}" />
+					</display:column>
+				</c:if>
 			</display:table>
 		</tags:table>
 	</div>
@@ -28,7 +30,9 @@
 			<tags:dataentry field="description" labelKey="reference.income.description" helpText="reference.income.description.help" inputClass="text" size="20" maxLength="30"/>
 			<tags:dataentry field="unitType" labelKey="reference.income.unitType" helpText="reference.income.unitType.help" inputClass="text" size="20"/>
 			<tags:dataentry field="unitCost" labelKey="reference.income.unitCost" helpText="reference.income.unitCost.help" currency="true" />
-			<tags:dataentry field="transport" labelKey="reference.income.transport" helpText="reference.income.transport.help" currency="true" />
+			<c:if test="${referenceItem.probase.incomeGen}">
+				<tags:dataentry field="transport" labelKey="reference.income.transport" helpText="reference.income.transport.help" currency="true" />
+			</c:if>
 		</fieldset>
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>

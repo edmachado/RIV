@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
-<html><head><title><spring:message code="project.invest"/></title></head>
+<html><head><title><spring:message code="projectInvestService"/></title></head>
 <body>
 	<div class="datatitle">
 		<c:if test="${not project.withWithout}"><spring:message code="project.invest"/></c:if>
@@ -9,7 +9,9 @@
 	<div align="right"><a href="#" onClick="toggle('tblService')"><spring:message code="misc.toggle"/></a></div>
 	<div id="tblService" style="display:none">
 		<tags:table titleKey="projectInvestService">
-			<display:table list="${project.services}" id="serv" requestURI="" cellspacing="0" cellpadding="0"
+			<c:if test="${projectItem.getClass().getSimpleName() eq 'ProjectItemService'}"><c:set var="tableSource" value="${project.services}"/></c:if>
+			<c:if test="${projectItem.getClass().getSimpleName() eq 'ProjectItemServiceWithout'}"><c:set var="tableSource" value="${project.servicesWithout}"/></c:if>
+			<display:table list="${tableSource}" id="serv" requestURI="" cellspacing="0" cellpadding="0"
 				 export="false">
 				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 				<display:column titleKey="projectInvestService.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>

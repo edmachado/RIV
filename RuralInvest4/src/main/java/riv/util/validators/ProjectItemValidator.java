@@ -5,13 +5,25 @@ import org.springframework.validation.Validator;
 import riv.objects.project.*;
 
 public class ProjectItemValidator implements Validator {
+	private Boolean incomeGen;
+	private Integer duration;
+	
 	@SuppressWarnings("rawtypes")
 	public boolean supports(Class clazz) {
 		return ProjectItem.class.isAssignableFrom(clazz);
 	}
+	public void setIncomeGen(boolean incomeGen) {
+		this.incomeGen=incomeGen;
+	}
+	public void setDuration(int duration) {
+		this.duration=duration;
+	}
 	public void validate(Object obj, Errors errors) {
 		ProjectItem i = (ProjectItem)obj;
-		String nongen = i.getProject().getIncomeGen() ? "" : "Nongen";
+		boolean isIncomeGen = incomeGen!=null ? incomeGen : i.getProject().getIncomeGen();
+		if (duration==null) { duration=i.getProject().getDuration(); }
+		
+		String nongen = isIncomeGen ? "" : "Nongen";
 		if (obj.getClass().isAssignableFrom(ProjectItemAsset.class) || obj.getClass().isAssignableFrom(ProjectItemAssetWithout.class)){
 			ValidateUtils.rejectIfEmpty(i, "description", "projectInvestAsset"+nongen+".description", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectInvestAsset"+nongen+".unitNum", errors);
@@ -27,11 +39,11 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfNegative(i, "financed", "projectInvestAsset.financed", errors);
 			
 			if (obj.getClass().isAssignableFrom(ProjectItemAsset.class)) {
-				if (((ProjectItemAsset)i).getYearBegin()!=null && ((ProjectItemAsset)i).getYearBegin()>i.getProject().getDuration()) {
+				if (((ProjectItemAsset)i).getYearBegin()!=null && ((ProjectItemAsset)i).getYearBegin()>duration) {
 					errors.rejectValue("yearBegin", "error.assetYearExceeds", "The first year of the asset exceeds the project duration.");
 				}
 			} else {
-				if (((ProjectItemAssetWithout)i).getYearBegin()!=null && ((ProjectItemAssetWithout)i).getYearBegin()>i.getProject().getDuration()) {
+				if (((ProjectItemAssetWithout)i).getYearBegin()!=null && ((ProjectItemAssetWithout)i).getYearBegin()>duration) {
 					errors.rejectValue("yearBegin", "error.assetYearExceeds", "The first year of the asset exceeds the project duration.");
 				}
 			}

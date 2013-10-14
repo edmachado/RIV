@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${blockItem.block.project}" scope="request"/>
-<html><head><title><spring:message code="project.step9.nongen"/></title></head>
+<html><head><title><spring:message code="projectActivityCharge"/></title></head>
 <body>
 		<div align="right"><a href="#" onClick="toggle('tblIncome')"><spring:message code="misc.toggle"/></a></div>
 		<div id="tblIncome" style="display:none">

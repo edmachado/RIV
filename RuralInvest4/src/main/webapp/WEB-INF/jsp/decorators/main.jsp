@@ -13,8 +13,8 @@
 	function test(input) {$(":text").val(input); $('textarea').val(input);} 
 	var threek1 = "x"; for (var i=0;i<300;i++) {threek1=threek1+"01234567890";}
 	</script>
-	<div style="text-align:center">Testing: <a onclick="javascript:test('');">add blanks</a> | <a onclick="javascript:test('-1');">add negative</a> |
-	<a onclick="javascript:test(threek1);">add 3001 characters</a>
+	<div style="text-align:center">Testing: <a id="test-blanks" onclick="javascript:test('');">add blanks</a> | <a id="test-negative" onclick="javascript:test('-1');">add negative</a> |
+	<a id="test-3001" onclick="javascript:test(threek1);">add 3001 characters</a>
 	</div></c:if>
 	<%-- End testing --%>
 	

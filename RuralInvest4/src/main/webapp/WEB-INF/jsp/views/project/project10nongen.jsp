@@ -7,9 +7,7 @@
 	<div align="left">
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectContributions.xlsx?template=true"><spring:message code="export.downloadTemplate"/></a><br/>
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectContributions.xlsx"><spring:message code="export.download"/></a><br/>
-	 	<%-- 
-	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="importXls.htm?type=profileInvestment&pid=${profile.profileId}"><spring:message code="import.importExcel"/></a>
- 		--%>
+		<c:if test="${accessOK}"><a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
  	</div>
 	
 	<tags:tableContainer titleKey="projectContribution">
@@ -80,9 +78,7 @@
 			<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 		</tags:table>
 	</tags:tableContainer>
-	
-	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step10"/></tags:submit>
-	
 </form:form>
+<tags:excelImport submitUrl="../../import/project/contribution/${project.projectId}"/>
 </body></html>

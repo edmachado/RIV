@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${blockItem.block.project}" scope="request"/>
-<html><head><title><c:if test="${project.incomeGen}"><spring:message code="project.step9"/></c:if><c:if test="${not project.incomeGen}"><spring:message code="project.step9.nongen"/></c:if></title></head>
+<html><head><title><spring:message code="projectBlockInput"/></title></head>
 <body>
 		<div align="right"><a href="#" onClick="toggle('tblInput')"><spring:message code="misc.toggle"/></a></div>
 			<div id="tblInput" style="display:none">

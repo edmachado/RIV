@@ -545,3 +545,11 @@ td.production-year {font-size : 11px; text-align:center; padding: 0 7px;}
 	margin:5px 20px 10px 5px;
 	text-align: justify;
 }
+#upload-dialog ol {
+	margin-left:25px;
+}
+
+li.qq-upload-fail {
+	color:#E44F3C !important;
+	background-color: #FAF5F5 !important;
+}
