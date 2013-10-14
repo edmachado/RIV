@@ -127,7 +127,6 @@ public class InputProfileIg extends WebTestUtil {
 		// STEP 6
 		//TODO: download excel template and check
 		// add products
-		//TODO: change entry data for second product
 		//TODO: test clone product
 		//TODO: test delete product
 		int i=1;

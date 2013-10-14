@@ -24,11 +24,11 @@ import org.fao.riv.tests.importfile.ImportSuite;
 @RunWith(Suite.class)
 @SuiteClasses({ ImportSuite.class, DataEntrySuite.class, ExcelDownloadSuite.class, ExcelImportSuite.class, DownloadSuite.class }) //  ,  CalculationSuite.class })
 public class TestApp {
-	public static String baseUrl;
+	public static String baseUrl;//"http://apps3.fao.org/riv-qa";//"http://172.16.110.128:8085/RuralInvest";//
 	public static String username="initialUser";
 	public static String password="initialPassword";
-	
-	private static boolean ownTomcat;
+	public static String buildLang="qa";
+	private static boolean ownTomcat=false;
 
 	private static Tomcat tomcat;
 	private static String basePath;
@@ -36,18 +36,15 @@ public class TestApp {
 	
 	public static String appURL="http://localhost:8080/RuralInvest";
 	
-    private static void tomcatStart() throws LifecycleException {
-    	setupDb();
-    	tomcat.start();
-    }
 	
     @BeforeClass
     public static void setupWebserver() throws LifecycleException {
     	System.out.println("Getting parameters");
-    	baseUrl = System.getProperty("base-url") != null ? System.getProperty("base-url") : "http://localhost:8080/RuralInvest";//"http://apps3.fao.org/riv-qa";//"http://172.16.110.128:8085/RuralInvest";//
+    	baseUrl = System.getProperty("base-url") != null ? System.getProperty("base-url") : baseUrl;
     	username = System.getProperty("username") != null ? System.getProperty("username") : "initialUser";
     	password = System.getProperty("password") != null ? System.getProperty("password") : "initialPassword";
-    	ownTomcat = System.getProperty("own-tomcat") != null ? Boolean.parseBoolean(System.getProperty("own-tomcat")) : false;
+    	ownTomcat = System.getProperty("own-tomcat") != null ? Boolean.parseBoolean(System.getProperty("own-tomcat")) : ownTomcat;
+    	buildLang = System.getProperty("build-lang") != null ? System.getProperty("build-lang") : buildLang;
     	System.out.println(baseUrl);
     	
     	System.out.println("Setting up tomcat and war");
@@ -55,9 +52,8 @@ public class TestApp {
     	basePath = new File(new File(relPath).getParent()).getParent();
     	if (ownTomcat) {
 	    	setupWar();
-	   	 	
 	   	 	setupTomcat();
-	   	 	tomcatStart();
+	   	 	tomcat.start();
 	   	 	appURL = "http://localhost:"+tomcat.getConnector().getLocalPort()+"/RuralInvest";
         } else {
         	appURL = TestApp.baseUrl;
@@ -90,7 +86,7 @@ public class TestApp {
 		try {
 			File targetData = new File(webappPath+"/WEB-INF/data");
 			FileUtils.deleteDirectory(targetData);
-			File dataDir = new File(basePath+"/src/main/appdata/data-qa");
+			File dataDir = new File(new File(basePath).getParent()+"/RuralInvest4/src/main/appdata/data-"+buildLang);
 	    	FileUtils.copyDirectory(dataDir, targetData);
 		} catch (IOException e) {
 			e.printStackTrace(System.out);
@@ -98,7 +94,7 @@ public class TestApp {
     }
     
     private static void setupWar() {
-		String sourceWarPath = basePath+"/target/riv-qa/";
+		String sourceWarPath = new File(basePath).getParent()+"/RuralInvest4"+"/target/riv-"+buildLang+"/";
 		webappPath = System.getProperty("java.io.tmpdir");
 		try {
 			// copy war
@@ -107,13 +103,14 @@ public class TestApp {
 		} catch (IOException e) {
 			e.printStackTrace(System.out);
 		}
+		setupDb();
 	 }
     
     private static void setupTomcat() {
     	tomcat = new Tomcat();
 
         try {
-			System.out.println("basepath="+basePath);
+			//System.out.println("basepath="+basePath);
 			System.out.println("webapp location="+webappPath);
 			
 			tomcat.setPort(0);

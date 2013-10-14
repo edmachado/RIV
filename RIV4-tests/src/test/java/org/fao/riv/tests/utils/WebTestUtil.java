@@ -134,6 +134,11 @@ public class WebTestUtil {
 		goToResults(project, incGen, complete);
 		deleteRows();
 		clickLink("goHome");
+		
+//		String url = String.format("/help/deleteAll?type=%s&ig=%s&complete=%s", 
+//				project ? "project" : "profile", Boolean.toString(incGen), Boolean.toString(complete));
+//		gotoPage(getTestingEngine().getPageURL().toString().replace("/home", url));
+//		
 		assertTitleEquals("RuralInvest :: Home");
 	}
 	
