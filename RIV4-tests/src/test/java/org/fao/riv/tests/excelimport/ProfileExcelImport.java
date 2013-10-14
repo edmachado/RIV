@@ -48,12 +48,6 @@ public class ProfileExcelImport extends WebTestUtil {
 	public void IgExcelImportDataError() throws Exception {
 		deletePros(false, true);
 		
-		// This will make the ajax call synchronous - no more Thread.sleep() !
-		// from http://nesbot.com/2011/10/16/play-framework-sample-app-JWebUnit-synchronous-ajax
-//		if (getTestingEngine() instanceof HtmlUnitTestingEngineImpl) {
-//			((HtmlUnitTestingEngineImpl)getTestingEngine()).getWebClient().setAjaxController(new NicelyResynchronizingAjaxController());
-//		}
-		
 		String[] titles = new String[9];
 		for (int i=0;i<9;i++) {
 			titles[i]= getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
@@ -79,8 +73,6 @@ public class ProfileExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		assertTextNotPresent(getMessage("import.excel.error.datatype"));
 		setTextField("qqfile", ImportFile.ProfileXlsInvestErrorData.getFile().getAbsolutePath());
-		//TODO: get jwebunit to recognize ajax callback
-//		Thread.sleep(10000);
 		assertTextPresent(getMessage("import.excel.error.datatype"));
 	}
 
@@ -115,40 +107,25 @@ public class ProfileExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsInvest.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
-		
-		// check if import was successful
-		// goods table
-		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("salvage").addParam("reserve")
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
-		tt = new TestTable("labourListTable", "step4.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
+		verifyProfileTablesStep4();
 		rivSubmitForm();
+		assertTitleEquals(titles[4]);
 		
 		// STEP 5
+		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsGeneral.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
-		tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
+		verifyProfileTablesStep5();
+		rivSubmitForm();
+		assertTitleEquals(titles[5]);
 		
-		tt = new TestTable("generalTableWo", "step5.generalWo.", "newGeneralWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
+		// STEP 6
+		clickLink("upload0");
+		setTextField("qqfile", ImportFile.ProfileXlsProduct.getFile().getAbsolutePath());
+		gotoPage(getTestingEngine().getPageURL().toString());
+		verifyProfileTablesStep6(1);
+		rivSubmitForm();
+		assertTitleEquals(titles[6]);
 		
 		
     	getTestContext().setResourceBundleName("messages/messages");
@@ -182,34 +159,23 @@ public class ProfileExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsInvestNig.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
-		
-		// check if import was successful
-		// goods & services
-		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("salvage").addParam("reserve").addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
-		// labour
-		tt = new TestTable("labourListTable", "step4.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
+		verifyProfileNigTablesStep4();
 		rivSubmitForm();
 		
 		// STEP 5
+		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsGeneralNig.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
-		tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
+		verifyProfileNigTablesStep5();
+		rivSubmitForm();
+		
+		// STEP 6
+		clickLink("upload0");
+		setTextField("qqfile", ImportFile.ProfileXlsProductNig.getFile().getAbsolutePath());
+		gotoPage(getTestingEngine().getPageURL().toString());
+		verifyProfileNigTablesStep6(1);
+		rivSubmitForm();
+		assertTitleEquals(titles[6]);
 		
 		
     	getTestContext().setResourceBundleName("messages/messages");

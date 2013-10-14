@@ -9,6 +9,8 @@ import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
+import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
+
 import org.apache.catalina.LifecycleException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
@@ -17,6 +19,8 @@ import org.junit.Before;
 
 import org.fao.riv.tests.TestApp;
 import org.fao.riv.tests.utils.InputParam.InputParamType;
+
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 
 public class WebTestUtil {
 	@Before
@@ -46,6 +50,13 @@ public class WebTestUtil {
 	
 	public void login() {
 		beginAt("/");
+		
+		// This will make the ajax call synchronous - no more Thread.sleep() !
+		// from http://nesbot.com/2011/10/16/play-framework-sample-app-JWebUnit-synchronous-ajax
+		if (getTestingEngine() instanceof HtmlUnitTestingEngineImpl) {
+			((HtmlUnitTestingEngineImpl)getTestingEngine()).getWebClient().setAjaxController(new NicelyResynchronizingAjaxController());
+		}
+		
 		assertFormPresent("login");
 		assertFormElementPresent("j_username");
 	    assertFormElementPresent("j_password");
@@ -181,12 +192,7 @@ public class WebTestUtil {
 		System.out.println("importing "+file.toString());
 		boolean isIG = type.startsWith("ig");
 		
-		String[] titles = new String[9];
-		for (int i=0;i<9;i++) {
-			titles[i]= i==5 &! isIG ? 
-					getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1)+".nongen")
-					:getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
-		}
+		String[] titles = profileStepTitles(isIG);
 
 		clickLink("goHome");
 		
@@ -334,6 +340,27 @@ public class WebTestUtil {
 		return titles;
     }
     
+    protected String[] profileStepTitles(boolean incomeGen) {
+    	String[] titles = new String[9];
+ 		for (int i=0;i<9;i++) {
+ 			titles[i]= i==5 &! incomeGen ? 
+ 					getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1)+".nongen")
+ 					:getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
+ 		}
+ 		return titles;
+    }
+    
+    protected void verifyProjectNigTablesStep10() {
+    	TestTable tt = new TestTable("contributionTable", "step10.contribution", "newContrib", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
+		tt.addParam("description")
+		.addParam("contribType", InputParamType.SELECT, false)
+		.addParam("unitType")
+		.addParam("unitNum").addParam("unitCost");
+		tt.addParam("total", InputParamType.TEXT, true)
+		.addBlanks(5);
+		tt.testOutput();
+    }
+    
     protected void verifyProjectNig(String properties) {
 		getTestContext().setResourceBundleName("messages/messages");
     	String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
@@ -407,63 +434,39 @@ public class WebTestUtil {
 				
 		// STEP 9
 		int i=1;
-		assertTextPresent(getMessage("step9.block."+i+".description"));
-		assertTextInElement(i-1+"unitType", getMessage("step9.block."+i+".unitType"));
-		assertTextInElement(i-1+"cycleLength", getMessage("step9.block."+i+".cycleLength"));
-		assertTextInElement(i-1+"lengthUnit", getMessage("step9.block."+i+".lengthUnit"));
-		assertTextInElement(i-1+"cyclePerYear", getMessage("step9.block."+i+".cyclePerYear"));
-		
-		// production pattern 
-		for (int x=1; x<16; x++) {
-			assertTextInElement("0prod"+x,getMessage("step9.block."+i+".pat"+x));
+		boolean nextItem=true;
+		while (nextItem) {
+			assertTextPresent(getMessage("step9.block."+i+".description"));
+			assertTextInElement(i-1+"unitType", getMessage("step9.block."+i+".unitType"));
+			assertTextInElement(i-1+"cycleLength", getMessage("step9.block."+i+".cycleLength"));
+			assertTextInElement(i-1+"lengthUnit", getMessage("step9.block."+i+".lengthUnit"));
+			assertTextInElement(i-1+"cyclePerYear", getMessage("step9.block."+i+".cyclePerYear"));
+			
+			// production pattern 
+			for (int x=1; x<16; x++) {
+				assertTextInElement("0prod"+x,getMessage("step9.block."+i+".pat"+x));
+			}
+			
+			verifyProjectNigTablesStep9(i);
+			i++;
+			try {
+				getMessage("step9.block."+i+".withoutProject");
+			} catch (Exception e) {
+				nextItem=false;
+			}
 		}
 		
-		// income
-		TestTable tt = new TestTable("incomeTable"+(i-1), "step9.block"+i+".income", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType")
-		.addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
-		// input
-		tt = new TestTable("inputTable"+(i-1), "step9.block"+i+".input", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("extern", InputParamType.TEXT, true)
-		.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
-		// labour
-		tt = new TestTable("labourTable"+(i-1), "step9.block"+i+".labour", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false)
-		.addParam("unitNum")
-		.addParam("unitCost").addParam("qtyIntern").addParam("extern", InputParamType.TEXT, true)
-		.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-	
 		rivSubmitForm();
 		assertTitleEquals(titles[9]);
 		
 		// STEP 10
-		tt = new TestTable("contributionTable", "step10.contribution", "newContrib", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description")
-		.addParam("contribType", InputParamType.SELECT, false)
-		.addParam("unitType")
-		.addParam("unitNum").addParam("unitCost");
-		tt.addParam("total", InputParamType.TEXT, true)
-		.addBlanks(5);
-		tt.testOutput();
-		
+		verifyProjectNigTablesStep10();
 		rivSubmitForm();
 		assertTitleEquals(titles[10]);
 		
 		// STEP 11
 		// reference income
-		tt = new TestTable("IncomeTable", "step11.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		TestTable tt = new TestTable("IncomeTable", "step11.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
 		.addBlanks(4);
 		tt.testOutput();
@@ -494,6 +497,35 @@ public class WebTestUtil {
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
 	}
+    protected void verifyProjectNigTablesStep9(int i) {
+    	// income
+		TestTable tt = new TestTable("incomeTable"+(i-1), "step9.block"+i+".income", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType")
+		.addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// input
+		tt = new TestTable("inputTable"+(i-1), "step9.block"+i+".input", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("extern", InputParamType.TEXT, true)
+		.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// labour
+		tt = new TestTable("labourTable"+(i-1), "step9.block"+i+".labour", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType", InputParamType.SELECT, false)
+		.addParam("unitNum")
+		.addParam("unitCost").addParam("qtyIntern").addParam("extern", InputParamType.TEXT, true)
+		.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+	
+    }
     
     protected void verifyProjectNigTablesStep8() {
     	TestTable tt = new TestTable("inputTable", "step8.input", "addMaterial", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
@@ -630,7 +662,8 @@ public class WebTestUtil {
 		.addBlanks(5);
 		tt.testOutput();
     }
-    protected void verifyProjectTablesStep10() {
+    
+    protected void verifyProjectTablesStep9() {
     	TestTable tt = new TestTable("IncomeTable", "step10.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
 		.addBlanks(4);
@@ -646,6 +679,32 @@ public class WebTestUtil {
 		tt = new TestTable("LabourTable", "step10.labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitCost")
 		.addBlanks(4);
+		tt.testOutput();
+    }
+    
+    protected void verifyBlockTables(int i) {
+    	// income
+		TestTable tt = new TestTable("incomeTable"+(i-1), "step9.block."+i+".income.", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
+		.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+	.	addBlanks(5);
+		tt.testOutput();
+		
+		// input
+		tt = new TestTable("inputTable"+(i-1), "step9.block."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
+		.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// labour
+		tt = new TestTable("labourTable"+(i-1), "step9.block."+i+".labour.", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
+		.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
 		tt.testOutput();
     }
     
@@ -761,29 +820,7 @@ public class WebTestUtil {
 				}
 			}
 			
-			// income
-			TestTable tt = new TestTable("incomeTable"+(i-1), "step9.block."+i+".income.", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-			.addParam("linked", InputParamType.LINKED, false)
-		.	addBlanks(5);
-			tt.testOutput();
-			
-			// input
-			tt = new TestTable("inputTable"+(i-1), "step9.block."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-			.addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
-			
-			// labour
-			tt = new TestTable("labourTable"+(i-1), "step9.block."+i+".labour.", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-			.addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
+			verifyBlockTables(i);
 			
 			i++;
 			try {
@@ -797,7 +834,7 @@ public class WebTestUtil {
 		
 		// STEP 10
 		// reference income table
-		verifyProjectTablesStep10();
+		verifyProjectTablesStep9();
 		rivSubmitForm();
 		assertTitleEquals(titles[10]);
 	
@@ -840,14 +877,65 @@ public class WebTestUtil {
 		assertTitleEquals(resultsTitle);
 	}
     
+    protected void verifyProfileTablesStep4() {
+    	// goods table
+		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
+		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
+		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true);
+		tt.addParam("econLife").addParam("salvage").addParam("reserve")
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		tt = new TestTable("labourListTable", "step4.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+    }
+    
+    protected void verifyProfileTablesStep5() {
+    	TestTable tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		tt = new TestTable("generalTableWo", "step5.generalWo.", "newGeneralWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+    }
+    
+    public void verifyProfileTablesStep6(int i) {
+    	// income
+		TestTable tt = new TestTable("incomeTable"+(i-1), "step6.product."+i+".income.", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("transport")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// input
+		tt = new TestTable("inputTable"+(i-1), "step6.product."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("transport")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// input
+		tt = new TestTable("labourTable"+(i-1), "step6.product."+i+".labour.", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+    }
     protected void verifyProfile(String properties) {
     	getTestContext().setResourceBundleName("messages/messages");
     	
     	String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
-		String[] titles = new String[9];
-		for (int i=0;i<9;i++) {
-			titles[i]=getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
-		}
+		String[] titles = profileStepTitles(true);
 		
     	getTestContext().setResourceBundleName(properties);
     	assertTextFieldEquals("profileName", getMessage("step1.profileName"));
@@ -874,36 +962,12 @@ public class WebTestUtil {
 		rivSubmitForm();
 		assertTitleEquals(titles[3]);
 		
-		// goods table
-		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("salvage").addParam("reserve")
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
-		tt = new TestTable("labourListTable", "step4.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
+		verifyProfileTablesStep4();
 		
 		// STEP 5
 		rivSubmitForm();
 		assertTitleEquals(titles[4]);
-		tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
-		tt = new TestTable("generalTableWo", "step5.generalWo.", "newGeneralWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
+		verifyProfileTablesStep5();
 		
 		// STEP 6
 		rivSubmitForm();
@@ -916,26 +980,7 @@ public class WebTestUtil {
 			assertTextInElement(i-1+"cycleLength", getMessage("step6.product."+i+".cycleLength"));
 			assertTextInElement(i-1+"cyclePerYear", getMessage("step6.product."+i+".cyclePerYear"));
 			
-			// income
-			tt = new TestTable("incomeTable"+(i-1), "step6.product."+i+".income.", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("transport")
-			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
-			
-			// input
-			tt = new TestTable("inputTable"+(i-1), "step6.product."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("transport")
-			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
-			
-			// input
-			tt = new TestTable("labourTable"+(i-1), "step6.product."+i+".labour.", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
+			verifyProfileTablesStep6(i);
 		}
 		
 
@@ -944,7 +989,7 @@ public class WebTestUtil {
 		assertTitleEquals(titles[6]);
 		
 		// reference income table
-		tt = new TestTable("IncomeTable", "step7.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		TestTable tt = new TestTable("IncomeTable", "step7.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
 		.addBlanks(4);
 		tt.testOutput();
@@ -975,18 +1020,61 @@ public class WebTestUtil {
 		assertTitleEquals(resultsTitle);
     }
     
+    protected void verifyProfileNigTablesStep4() {
+    	// goods & services
+		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
+		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
+		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true);
+		tt.addParam("econLife").addParam("salvage").addParam("reserve").addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// labour
+		tt = new TestTable("labourListTable", "step4.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+    }
+    
+    protected void verifyProfileNigTablesStep5() {
+    	TestTable tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+    }
+    
+    protected void verifyProfileNigTablesStep6(int i) {
+    	// income
+		TestTable tt = new TestTable("incomeTable"+(i-1), "step6.product."+i+".income.", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// input
+		tt = new TestTable("inputTable"+(i-1), "step6.product."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("transport")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+		
+		// input
+		tt = new TestTable("labourTable"+(i-1), "step6.product."+i+".labour.", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testOutput();
+    }
+    
     protected void verifyProfileNig(String properties) {
 
 		getTestContext().setResourceBundleName("messages/messages");
 		
     	String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
-		String[] titles = new String[9];
-		for (int i=0;i<9;i++) {
-			titles[i]= i==5 ? 
-					getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1)+".nongen")
-					:getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
-		}
-		
+		String[] titles = profileStepTitles(false);
 
 		getTestContext().setResourceBundleName(properties);
     	// step 1
@@ -1015,31 +1103,13 @@ public class WebTestUtil {
 		assertTitleEquals(titles[3]);
 
 		// step4
-		// goods & services
-		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("salvage").addParam("reserve").addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
-		
-		// labour
-		tt = new TestTable("labourListTable", "step4.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
+		verifyProfileNigTablesStep4();
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[4]);
 		
 		// STEP 5
-		tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testOutput();
+		verifyProfileNigTablesStep5();
 		rivSubmitForm();
 		assertTitleEquals(titles[5]);
 		
@@ -1051,33 +1121,14 @@ public class WebTestUtil {
 			assertTextInElement(i-1+"cycleLength", getMessage("step6.product."+i+".cycleLength"));
 			assertTextInElement(i-1+"cyclePerYear", getMessage("step6.product."+i+".cyclePerYear"));
 			
-			// income
-			tt = new TestTable("incomeTable"+(i-1), "step6.product."+i+".income.", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
-			
-			// input
-			tt = new TestTable("inputTable"+(i-1), "step6.product."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("transport")
-			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
-			
-			// input
-			tt = new TestTable("labourTable"+(i-1), "step6.product."+i+".labour.", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testOutput();
+			verifyProfileNigTablesStep6(i);
 		}
 		rivSubmitForm();
 		assertTitleEquals(titles[6]);
 		
 		// STEP 7
 		// reference income table
-		tt = new TestTable("IncomeTable", "step7.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		TestTable tt = new TestTable("IncomeTable", "step7.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
 		.addBlanks(4);
 		tt.testOutput();

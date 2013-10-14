@@ -34,7 +34,7 @@ public class TestApp {
 	private static String basePath;
 	private static String webappPath;
 	
-	public static String appURL;
+	public static String appURL="http://localhost:8080/RuralInvest";
 	
 	
     @BeforeClass

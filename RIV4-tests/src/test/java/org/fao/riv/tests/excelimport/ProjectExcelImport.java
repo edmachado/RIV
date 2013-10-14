@@ -72,12 +72,22 @@ public class ProjectExcelImport extends WebTestUtil {
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
+		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsGeneral.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
 		verifyProjectTablesStep8();
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
+		
+		// STEP 9
+		clickLink("upload0");
+		setTextField("qqfile", ImportFile.ProjectXlsBlock.getFile().getAbsolutePath());
+		gotoPage(getTestingEngine().getPageURL().toString());
+		verifyBlockTables(1);
+		
+		rivSubmitForm();
+		assertTitleEquals(titles[9]);
 		
     	getTestContext().setResourceBundleName("messages/messages");
 	}
@@ -111,11 +121,28 @@ public class ProjectExcelImport extends WebTestUtil {
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
+		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsGeneralNig.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
 		verifyProjectNigTablesStep8();
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
+		
+		// STEP 9
+		clickLink("upload0");
+		setTextField("qqfile", ImportFile.ProjectXlsBlockNig.getFile().getAbsolutePath());
+		gotoPage(getTestingEngine().getPageURL().toString());
+		verifyProjectNigTablesStep9(1);
+		rivSubmitForm();
+		assertTitleEquals(titles[9]);
+		
+		// STEP 10
+		clickLink("importExcel");
+		setTextField("qqfile", ImportFile.ProjectXlsContributions.getFile().getAbsolutePath());
+		gotoPage(getTestingEngine().getPageURL().toString());
+		verifyProjectNigTablesStep10();
+		rivSubmitForm();
+		assertTitleEquals(titles[10]);
 		
     	getTestContext().setResourceBundleName("messages/messages");
 	}
