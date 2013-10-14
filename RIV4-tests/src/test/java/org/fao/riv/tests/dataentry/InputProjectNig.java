@@ -255,23 +255,8 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(titles[10]);
 		
 		// STEP 11
-		// reference income
-		tt = new TestTable("IncomeTable", "step11.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference cost table
-		tt = new TestTable("GoodsTable", "step11.input.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference labour table
-		tt = new TestTable("LabourTable", "step11.labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost")
-		.addBlanks(4);
-		tt.testOutput();
+		// reference incom
+		verifyProjectNigTablesStep11();
 		rivSubmitForm();
 		assertTitleEquals(titles[11]);
 		

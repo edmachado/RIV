@@ -183,23 +183,7 @@ public class InputProfileNig extends WebTestUtil {
 		assertTitleEquals(titles[6]);
 		
 		// STEP 7
-		// reference income table
-		tt = new TestTable("IncomeTable", "step7.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference cost table
-		tt = new TestTable("GoodsTable", "step7.input.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference labour table
-		tt = new TestTable("LabourTable", "step7.labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost")
-		.addBlanks(4);
-		tt.testOutput();
+		verifyProfileNigTablesStep7();
 		
 		//TODO: test add, delete, copy and move reference item
 

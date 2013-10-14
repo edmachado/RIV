@@ -124,21 +124,23 @@ public class WebTestUtil {
 	}
 	
 	public void deleteAppConfigs() {
-		String[] links = new String[]{"gotoOffices","gotoCategories","gotoBenefs","gotoEnviros","gotoStatuses"};
-		for (int l=0;l<links.length;l++) {
-			clickLink(links[l]);
-			deleteRows();
-		}
+		gotoPage(getTestingEngine().getPageURL().toString().replace("/home", "/help/deleteAllAppConfigs"));
 		
-		
-		links = new String[]{"gotoAppConfig1","gotoAppConfig2"};
-		for (int l=0;l<links.length;l++) {
-			boolean exists = getElementsByXPath("//a[@id='"+l+"']").size()!=0;
-			if (exists) {
-				clickLink(links[l]);
-				deleteRows();
-			}
-		}
+//		String[] links = new String[]{"gotoOffices","gotoCategories","gotoBenefs","gotoEnviros","gotoStatuses"};
+//		for (int l=0;l<links.length;l++) {
+//			clickLink(links[l]);
+//			deleteRows();
+//		}
+//		
+//		
+//		links = new String[]{"gotoAppConfig1","gotoAppConfig2"};
+//		for (int l=0;l<links.length;l++) {
+//			boolean exists = getElementsByXPath("//a[@id='"+l+"']").size()!=0;
+//			if (exists) {
+//				clickLink(links[l]);
+//				deleteRows();
+//			}
+//		}
 	}
 	
 	private void deleteRows() {
@@ -236,6 +238,13 @@ public class WebTestUtil {
 	protected void importSettings(ImportFile file) {
 		System.out.println("importing "+file.toString());
 		login();
+		
+		deletePros(false, true);
+		deletePros(false, false);
+		deletePros(true, true);
+		deletePros(true, false);
+		deleteAppConfigs();
+		
     	clickLink("gotoImportSettings");
     	assertTitleEquals(getMessage("ruralInvest")+" :: Import");
     	importFile(file.getFile());
@@ -372,6 +381,26 @@ public class WebTestUtil {
 		tt.testOutput();
     }
     
+    protected void verifyProjectNigTablesStep11() {
+    	// reference income
+		TestTable tt = new TestTable("IncomeTable", "step11.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost")//.addParam("transport")
+		.addBlanks(4);
+		tt.testOutput();
+		
+		// reference cost table
+		tt = new TestTable("GoodsTable", "step11.input.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
+		.addBlanks(4);
+		tt.testOutput();
+		
+		// reference labour table
+		tt = new TestTable("LabourTable", "step11.labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost")
+		.addBlanks(4);
+		tt.testOutput();
+    }
+    
     protected void verifyProjectNig(String properties) {
 		getTestContext().setResourceBundleName("messages/messages");
     	String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
@@ -476,23 +505,7 @@ public class WebTestUtil {
 		assertTitleEquals(titles[10]);
 		
 		// STEP 11
-		// reference income
-		TestTable tt = new TestTable("IncomeTable", "step11.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference cost table
-		tt = new TestTable("GoodsTable", "step11.input.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference labour table
-		tt = new TestTable("LabourTable", "step11.labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost")
-		.addBlanks(4);
-		tt.testOutput();
+		verifyProjectNigTablesStep11();
 	
 		rivSubmitForm();
 		assertTitleEquals(titles[11]);
@@ -1080,6 +1093,25 @@ public class WebTestUtil {
 		tt.testOutput();
     }
     
+    protected void verifyProfileNigTablesStep7() {
+    	TestTable tt = new TestTable("IncomeTable", "step7.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost")//.addParam("transport")
+		.addBlanks(4);
+		tt.testOutput();
+		
+		// reference cost table
+		tt = new TestTable("GoodsTable", "step7.input.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
+		.addBlanks(4);
+		tt.testOutput();
+		
+		// reference labour table
+		tt = new TestTable("LabourTable", "step7.labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost")
+		.addBlanks(4);
+		tt.testOutput();
+    }
+    
     protected void verifyProfileNig(String properties) {
 
 		getTestContext().setResourceBundleName("messages/messages");
@@ -1139,22 +1171,7 @@ public class WebTestUtil {
 		
 		// STEP 7
 		// reference income table
-		TestTable tt = new TestTable("IncomeTable", "step7.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference cost table
-		tt = new TestTable("GoodsTable", "step7.input.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-		.addBlanks(4);
-		tt.testOutput();
-		
-		// reference labour table
-		tt = new TestTable("LabourTable", "step7.labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitCost")
-		.addBlanks(4);
-		tt.testOutput();
+		verifyProfileNigTablesStep7();
 		
 		// STEP 8
 		rivSubmitForm();
