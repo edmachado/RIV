@@ -4,6 +4,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
 import org.apache.catalina.LifecycleException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.After;
 import org.junit.Before;
 
@@ -86,6 +89,14 @@ public class WebTestUtil {
 			assertTableRowsEqual("attachedFiles", 0, new String[][] {
 					{"",""},{"profile-ig-1.6.riv",""}
 				});
+	}
+	
+	protected void testXls(File f, String title) throws IOException {
+		FileInputStream in = new FileInputStream(f);
+		XSSFWorkbook workbook = new XSSFWorkbook(in);
+		in.close();
+		Sheet sheet = workbook.getSheetAt(0);
+		org.junit.Assert.assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(title));
 	}
 	
 	public void rivSubmitForm() {

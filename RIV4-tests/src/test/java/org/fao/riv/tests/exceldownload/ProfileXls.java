@@ -9,6 +9,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Sheet;
@@ -63,11 +64,7 @@ public class ProfileXls extends WebTestUtil {
 			clickLinkWithImage("xls.gif", i);
 			File f = folder.newFile(i+".xls"); 
 			saveAs(f);
-			FileInputStream in = new FileInputStream(f);
-			XSSFWorkbook workbook = new XSSFWorkbook(in);
-			in.close();
-			Sheet sheet = workbook.getSheetAt(0);
-			org.junit.Assert.assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(titles[i]));
+			testXls(f, titles[i]);
 		}
 	}
 	

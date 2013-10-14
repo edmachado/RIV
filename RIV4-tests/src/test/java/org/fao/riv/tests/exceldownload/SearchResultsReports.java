@@ -63,12 +63,7 @@ public class SearchResultsReports extends WebTestUtil {
 		clickLinkWithImage("xls.gif");
 		f = folder.newFile("resultsIgpf.xls"); 
 		saveAs(f);
-		FileInputStream in = new FileInputStream(f);
-		XSSFWorkbook workbook = new XSSFWorkbook(in);
-		Sheet sheet = workbook.getSheetAt(0);
-		in.close();
-		assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(getMessage("profile.report.results.IG")));
-	
+		testXls(f, getMessage("profile.report.results.IG"));
 	}
 	
 	@Test
@@ -93,11 +88,7 @@ public class SearchResultsReports extends WebTestUtil {
 		clickLinkWithImage("xls.gif");
 		f = folder.newFile("resultsNigpf.xls"); 
 		saveAs(f);
-		FileInputStream in = new FileInputStream(f);
-		XSSFWorkbook workbook = new XSSFWorkbook(in);
-		Sheet sheet = workbook.getSheetAt(0);
-		in.close();
-		assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(getMessage("profile.report.results.NIG")));
+		testXls(f, getMessage("profile.report.results.NIG"));
 	}
 	
 	@Test
@@ -124,11 +115,7 @@ public class SearchResultsReports extends WebTestUtil {
 		clickLinkWithImage("xls.gif");
 		f = folder.newFile("resultsIgpj.xls"); 
 		saveAs(f);
-		FileInputStream in = new FileInputStream(f);
-		XSSFWorkbook workbook = new XSSFWorkbook(in);
-		Sheet sheet = workbook.getSheetAt(0);
-		in.close();
-		assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(getMessage("project.report.results.IG")));
+		testXls(f, getMessage("project.report.results.IG"));
 	}
 	
 	@Test
@@ -153,10 +140,6 @@ public class SearchResultsReports extends WebTestUtil {
 		clickLinkWithImage("xls.gif");
 		f = folder.newFile("resultsNigpj.xls"); 
 		saveAs(f);
-		FileInputStream in = new FileInputStream(f);
-		XSSFWorkbook workbook = new XSSFWorkbook(in);
-		Sheet sheet = workbook.getSheetAt(0);
-		in.close();
-		assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(getMessage("project.report.results.NIG")));
+		testXls(f, getMessage("project.report.results.NIG"));
 	}
 }
