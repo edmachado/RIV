@@ -89,9 +89,22 @@ public class MainController {
 		}
 	}
 	
+	/*
+	 * Used by testing framework
+	 */
 	@RequestMapping("help/deleteAll")
 	public String deleteAll(@RequestParam String type, @RequestParam String ig) {
 		dataService.deleteAll(type.equals("project"), ig.equals("true"));
+		return "redirect:../home";
+	}
+	
+	/*
+	 * Used by testing framework
+	 */
+	@RequestMapping("help/deleteAllAppConfigs")
+	public String deleteAllAppConfigs() {
+		dataService.deleteAllAppConfigs();
+		rivConfig.reload();
 		return "redirect:../home";
 	}
 	

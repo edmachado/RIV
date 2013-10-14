@@ -70,6 +70,10 @@ public class DataService implements UserDetailsService {
 		repo.deleteAll(project, incomeGen);
 	}
 	
+	public void deleteAllAppConfigs() {
+		repo.deleteAllAppConfigs();
+	}
+	
 	public void replaceProjectContribution(int projectId, List<ProjectItemContribution> items) {
 		repo.replaceProjectContribution(projectId, items);
 	}

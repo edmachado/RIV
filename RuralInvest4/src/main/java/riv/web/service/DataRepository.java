@@ -117,6 +117,11 @@ public class DataRepository {
 		}
 	}
 	
+	public void deleteAllAppConfigs() {
+		Query q = currentSession().createQuery("delete from AppConfig where configId not in  (-4,-3,-5,-2,-6,-7)");
+		q.executeUpdate();
+	}
+	
 	public void replaceProjectContribution(int projectId, List<ProjectItemContribution> items) {
 		String[] classes = new String[] {"ProjectItemContribution"};
 		deleteCollections(classes, "project.projectId", projectId);
