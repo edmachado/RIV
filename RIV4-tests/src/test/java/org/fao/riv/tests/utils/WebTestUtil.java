@@ -56,9 +56,9 @@ public class WebTestUtil {
 		
 		// This will make the ajax call synchronous - no more Thread.sleep() !
 		// from http://nesbot.com/2011/10/16/play-framework-sample-app-JWebUnit-synchronous-ajax
-		if (getTestingEngine() instanceof HtmlUnitTestingEngineImpl) {
-			((HtmlUnitTestingEngineImpl)getTestingEngine()).getWebClient().setAjaxController(new NicelyResynchronizingAjaxController());
-		}
+//		if (getTestingEngine() instanceof HtmlUnitTestingEngineImpl) {
+//			((HtmlUnitTestingEngineImpl)getTestingEngine()).getWebClient().setAjaxController(new NicelyResynchronizingAjaxController());
+//		}
 		
 		assertFormPresent("login");
 		assertFormElementPresent("j_username");

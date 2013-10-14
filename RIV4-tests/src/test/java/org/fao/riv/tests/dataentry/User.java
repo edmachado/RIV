@@ -1,19 +1,6 @@
 package org.fao.riv.tests.dataentry;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertElementNotPresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTablePresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInTable;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextNotInTable;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickButtonWithText;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLinkWithImage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
-import static net.sourceforge.jwebunit.junit.JWebUnit.selectOption;
-import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,6 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import org.fao.riv.tests.TestApp;
 import org.fao.riv.tests.utils.WebTestUtil;
 
 public class User extends WebTestUtil {
@@ -78,9 +66,50 @@ public class User extends WebTestUtil {
 		assertTextNotInTable("users", getMessage("name"));
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	public void changePasswordForExistingUser() {
-		//TODO: implement
+		String username="asdfasdf";
+		String password="zvxvczxv";
+		
+		// change username and password for current user
+		changeUsername(username, password);
+		clickLink("logoff");
+		assertTitleEquals("RuralInvest login");
+
+		// make sure old username doesn't work anymore
+		setTextField("j_username", TestApp.username);
+	    setTextField("j_password", TestApp.password);
+		submit();
+		assertTitleEquals("RuralInvest login");
+		assertTextPresent(getMessage("login.incorrect"));
+		setTextField("j_username", username);
+	    setTextField("j_password", password);
+	    submit();
+	    assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.home"));
+	    
+	    // reset correct username and password
+	    changeUsername(TestApp.username, TestApp.password);
+	    clickLink("logoff");
+		assertTitleEquals("RuralInvest login");
+		setTextField("j_username", TestApp.username);
+	    setTextField("j_password", TestApp.password);
+		submit();
+	    assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.home"));
+	}
+	
+	private void changeUsername(String username, String password) {
+		clickLink("welcome");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config.users.addEdit"));
+		clickLink("changeUser");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config.users.addEdit"));
+		assertTextPresent("Change username and password");
+		setTextField("username",username);
+		setTextField("password",password);
+		setTextField("passwordRepeat",password);
+		assertTextFieldEquals("passwordRepeat",password);
+		rivSubmitForm();
+		assertElementNotPresent("errorbox");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("user.users"));
 	}
 }

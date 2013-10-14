@@ -16,6 +16,7 @@ import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ProjectExcelImport extends WebTestUtil {
@@ -37,6 +38,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		closeBrowser();
     }
 
+	@Ignore
 	@Test
 	public void IgExcelImport() throws Exception {
 		deletePros(true, true);
@@ -92,6 +94,7 @@ public class ProjectExcelImport extends WebTestUtil {
     	getTestContext().setResourceBundleName("messages/messages");
 	}
 	
+	@Ignore
 	@Test
 	public void NigExcelImport() throws Exception {
 		deletePros(true, false);

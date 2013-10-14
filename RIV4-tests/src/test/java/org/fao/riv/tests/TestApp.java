@@ -110,7 +110,6 @@ public class TestApp {
     	tomcat = new Tomcat();
 
         try {
-			//System.out.println("basepath="+basePath);
 			System.out.println("webapp location="+webappPath);
 			
 			tomcat.setPort(0);

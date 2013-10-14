@@ -76,6 +76,7 @@ public class ProfileExcelImport extends WebTestUtil {
 		assertTextPresent(getMessage("import.excel.error.datatype"));
 	}
 
+	@Ignore
 	@Test
 	public void IgExcelImport() throws Exception {
 		deletePros(false, true);
@@ -132,6 +133,7 @@ public class ProfileExcelImport extends WebTestUtil {
 		
 	}
 	
+	@Ignore
 	@Test
 	public void NigExcelImport() throws Exception {
 		deletePros(false, false);
