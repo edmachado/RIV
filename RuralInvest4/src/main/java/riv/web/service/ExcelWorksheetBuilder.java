@@ -2266,9 +2266,9 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.amtRequired"));
 		if (report.isCompleteReport()) {
-			String range = "'"+sheetName(translate("project.report.cashFlowFirst"))+"'!B18:M18";
+			String range = "'"+sheetName(translate("project.report.cashFlowFirst"))+"'!B14:M14";
 			String formula = 
-				"IF(COUNTIF("+range+",\"<0\")>0,MIN("+range+")*-1,0)";	
+				"IF(MIN("+range+")<0,MIN("+range+")*-1,0)";	
 			report.addFormulaCell(row, 1, formula, Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, 1, amtRequired, Style.CURRENCY);
@@ -2277,11 +2277,11 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.period"));
 		if (report.isCompleteReport()) {
-			String range = "'"+sheetName(translate("project.report.cashFlowFirst"))+"'!B18:M18";
+			String range = "'"+sheetName(translate("project.report.cashFlowFirst"))+"'!B14:M14";
 			String formula = 
 					"IF(COUNTIF("+range+",\"<0\"), IF(MATCH(2,1/MMULT(1,-("+range+"<0)))>9,12,MATCH(2,1/MMULT(1,-("+range+"<0)))+2),0)";	
 			report.addFormulaCell(row, 1, formula);
-			report.getLinks().put(ExcelLink.PROJECT_WC_PERIOD, "'"+sheet.getSheetName()+"'$B$"+rowNum);
+			report.getLinks().put(ExcelLink.PROJECT_WC_PERIOD, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		} else {
 			report.addNumericCell(row, 1, financePrd);
 		}
@@ -2292,7 +2292,7 @@ public class ExcelWorksheetBuilder {
 		report.addNumericCell(row, 1, project.getCapitalInterest(), Style.CURRENCY);
 		report.addTextCell(row, 2, "%");
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_WC_INTEREST, "'"+sheet.getSheetName()+"'$B$"+rowNum);
+			report.getLinks().put(ExcelLink.PROJECT_WC_INTEREST, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		}
 		
 		row = sheet.createRow(rowNum++);
@@ -2309,7 +2309,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("project.amtFinanced"));
 		report.addFormulaCell(row, 1, "B23-B26-B27", Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_WC_FINANCED, "'"+sheet.getSheetName()+"'$B$"+rowNum);
+			report.getLinks().put(ExcelLink.PROJECT_WC_FINANCED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		}
 		return sheet;
 	}
