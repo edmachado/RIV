@@ -53,23 +53,31 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getIncSalesExternal() {
 		return incSales-incSalesInternal;
 	}
+	public double getIncSalesExternalWithout() {
+		return incSalesWithout-incSalesInternalWithout;
+	}
 	
 	public double getCostInvestFinance() {
 		return costInvest-costInvestOwn-costInvestDonated;
 	}
+	public double getCostInvestFinanceWithout() {
+		return costInvestWithout-costInvestOwnWithout-costInvestDonatedWithout;
+	}
 	
 	public double getTotalIncome() {
-		if (analType==AnalysisType.CashFlow) 
+		if (analType==AnalysisType.CashFlow) {
 			return incSales-incSalesInternal+incSalvage+workingCapitalDonation;
-		else 
+		} else { 
 			return incSales-incSalesWithout+incSalvage+incResidual;
+		}
 	}
 	
 	public double getTotalCosts() {
-		if (analType==AnalysisType.CashFlow)
+		if (analType==AnalysisType.CashFlow) {
 			return costOperation-costOperationInternal+costReplace+costGeneral-costGeneralOwn+costMaintenance;
-		else 
-			return costOperation-costOperationWithout+costReplace+costGeneral-costGeneralWithout+costMaintenance+costInvest;
+		} else { 
+			return costOperation-costOperationWithout+costReplace-costReplaceWithout+costGeneral-costGeneralWithout+costMaintenance-costMaintenanceWithout+costInvest-costInvestWithout;
+		}
 	}
 	
 	public double getNetIncome() {
@@ -356,34 +364,33 @@ public class ProjectFinanceData implements java.io.Serializable{
 		}
 		
 		// INVESTMENT COSTS: ASSETS (WITHOUT PROJECT)
-				for (ProjectItemAssetWithout asset : project.getAssetsWithout()) {
-					// original purchase (once)
-					data.get(asset.getYearBegin()-1).setCostInvestWithout(data.get(asset.getYearBegin()-1).getCostInvestWithout()+asset.getUnitCost()*asset.getUnitNum());
-					data.get(asset.getYearBegin()-1).setCostInvestOwnWithout(data.get(asset.getYearBegin()-1).getCostInvestOwnWithout()+asset.getOwnResources());
-					data.get(asset.getYearBegin()-1).setCostInvestDonatedWithout(data.get(asset.getYearBegin()-1).getCostInvestDonatedWithout()+asset.getDonated());
-					
-					int lastAssetYear = asset.getReplace() ? project.getDuration() : asset.getYearBegin()-1+asset.getEconLife();
-					if (lastAssetYear>project.getDuration()) lastAssetYear = project.getDuration();
-					for (int i=asset.getYearBegin()-1; i<lastAssetYear; i++) {
-						// maintenance (every year)
-						data.get(i).setCostMaintenanceWithout(data.get(i).getCostMaintenanceWithout()+(asset.getMaintCost()*asset.getUnitNum()));
-						// replace and salvage (year after every expiry)
-						if (asset.getReplace()&&i!=asset.getYearBegin()-1&&(i+1-asset.getYearBegin())%asset.getEconLife()==0) {
-							data.get(i).setCostReplaceWithout(data.get(i).getCostReplaceWithout()+asset.getUnitNum()*asset.getUnitCost());
-							data.get(i).setIncSalvageWithout(data.get(i).getIncSalvageWithout()+asset.getSalvage()*asset.getUnitNum());
-						// salvage value for non-replacing assets
-						} else if (!asset.getReplace() && i==lastAssetYear-1 && !(asset.getYearBegin()-1+asset.getEconLife()>project.getDuration())) {
-							data.get(i).setIncSalvageWithout(data.get(i).getIncSalvageWithout()+asset.getSalvage()*asset.getUnitNum());
-						}
-					}
-					if (asset.getReplace() || asset.getYearBegin()-1+asset.getEconLife()>project.getDuration()) {
-						double annualReserve = (asset.getUnitCost()-asset.getSalvage())/asset.getEconLife();
-						double yearsLeft = asset.getEconLife()-((project.getDuration()+1-asset.getYearBegin())%asset.getEconLife());
-						double residual = asset.getUnitNum()*annualReserve*yearsLeft+asset.getUnitNum()*asset.getSalvage();
-						data.get(data.size()-1).setIncResidualWithout(data.get(data.size()-1).getIncResidualWithout()+residual);
-					}
+		for (ProjectItemAssetWithout asset : project.getAssetsWithout()) {
+			// original purchase (once)
+			data.get(asset.getYearBegin()-1).setCostInvestWithout(data.get(asset.getYearBegin()-1).getCostInvestWithout()+asset.getUnitCost()*asset.getUnitNum());
+			data.get(asset.getYearBegin()-1).setCostInvestOwnWithout(data.get(asset.getYearBegin()-1).getCostInvestOwnWithout()+asset.getOwnResources());
+			data.get(asset.getYearBegin()-1).setCostInvestDonatedWithout(data.get(asset.getYearBegin()-1).getCostInvestDonatedWithout()+asset.getDonated());
+			
+			int lastAssetYear = asset.getReplace() ? project.getDuration() : asset.getYearBegin()-1+asset.getEconLife();
+			if (lastAssetYear>project.getDuration()) lastAssetYear = project.getDuration();
+			for (int i=asset.getYearBegin()-1; i<lastAssetYear; i++) {
+				// maintenance (every year)
+				data.get(i).setCostMaintenanceWithout(data.get(i).getCostMaintenanceWithout()+(asset.getMaintCost()*asset.getUnitNum()));
+				// replace and salvage (year after every expiry)
+				if (asset.getReplace()&&i!=asset.getYearBegin()-1&&(i+1-asset.getYearBegin())%asset.getEconLife()==0) {
+					data.get(i).setCostReplaceWithout(data.get(i).getCostReplaceWithout()+asset.getUnitNum()*asset.getUnitCost());
+					data.get(i).setIncSalvageWithout(data.get(i).getIncSalvageWithout()+asset.getSalvage()*asset.getUnitNum());
+				// salvage value for non-replacing assets
+				} else if (!asset.getReplace() && i==lastAssetYear-1 && !(asset.getYearBegin()-1+asset.getEconLife()>project.getDuration())) {
+					data.get(i).setIncSalvageWithout(data.get(i).getIncSalvageWithout()+asset.getSalvage()*asset.getUnitNum());
 				}
-		
+			}
+			if (asset.getReplace() || asset.getYearBegin()-1+asset.getEconLife()>project.getDuration()) {
+				double annualReserve = (asset.getUnitCost()-asset.getSalvage())/asset.getEconLife();
+				double yearsLeft = asset.getEconLife()-((project.getDuration()+1-asset.getYearBegin())%asset.getEconLife());
+				double residual = asset.getUnitNum()*annualReserve*yearsLeft+asset.getUnitNum()*asset.getSalvage();
+				data.get(data.size()-1).setIncResidualWithout(data.get(data.size()-1).getIncResidualWithout()+residual);
+			}
+		}
 		
 		
 		// INVESTMENT COSTS: INPUTS (WITH PROJECT)
@@ -584,11 +591,8 @@ public class ProjectFinanceData implements java.io.Serializable{
 		
 		// calculate interest during capital grace period
 		if (project.getLoan2GraceInterest()<project.getLoan2GraceCapital()) {
-			//double interestDue = 0.0;
 			for (int i=project.getLoan2GraceInterest();i<project.getLoan2GraceCapital();i++) {
-				//interestDue = interestDue+loan2amt*loan2interest;
 				int year = i+project.getLoan2InitPeriod()-1;
-				//data.get(year).setLoan2interest(interestDue);
 				data.get(year).setLoan2interest(loan2amt*loan2interest);
 			}
 		}

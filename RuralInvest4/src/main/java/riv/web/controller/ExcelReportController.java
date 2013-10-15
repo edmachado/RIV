@@ -150,7 +150,7 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectCashFlow2(report, p, pr);
+		ewb.getProjectCashFlow(report, p, pr);
 		response.setHeader("Content-disposition", "attachment; filename=projectCashFlow.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -227,7 +227,7 @@ public class ExcelReportController {
 			   }
 			   ewb.getProjectParameters(report, project);
 			   ewb.getProjectCashFlowFirst(report, project, result);
-			   ewb.getProjectCashFlow2(report, project, result);
+			   ewb.getProjectCashFlow(report, project, result);
 			   ewb.getProjectProfitability(report, project, result);
 		   } else {
 			   ewb.getBlocks(report, project, false);

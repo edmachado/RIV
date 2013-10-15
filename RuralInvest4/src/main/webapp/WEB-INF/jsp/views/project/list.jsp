@@ -67,13 +67,13 @@
 						<c:if test="${row.enviroCategory.configId!=-6}">${row.enviroCategory.description}</c:if>
 					</display:column>
 				</c:if>
-				<c:if test="${user.resultAdminCategory1}"><c:set var="cols" value="${cols+1}"/>
+				<c:if test="${rivConfig.setting.admin1Enabled and user.resultAdminCategory1}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" title="${rivConfig.setting.admin1Title}" sortable="true">
 						<c:if test="${row.appConfig1.configId==-8}"><spring:message code="customFields.appConfig1.generic"/></c:if>
 						<c:if test="${row.appConfig1.configId!=-8}">${row.appConfig1.description}</c:if>
 					</display:column>
 				</c:if>
-				<c:if test="${user.resultAdminCategory2}"><c:set var="cols" value="${cols+1}"/>
+				<c:if test="${rivConfig.setting.admin2Enabled and user.resultAdminCategory2}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" title="${rivConfig.setting.admin2Title}" sortable="true">
 						<c:if test="${row.appConfig2.configId==-9}"><spring:message code="customFields.appConfig2.generic"/></c:if>
 						<c:if test="${row.appConfig2.configId!=-9}">${row.appConfig2.description}</c:if>
@@ -226,8 +226,8 @@
 						<c:if test="${user.resultProjectCategory}"><td/></c:if>
 						<c:if test="${user.resultBenefCategory}"><td/></c:if>
 						<c:if test="${user.resultEnviron}"><td/></c:if>
-						<c:if test="${user.resultAdminCategory1}"><td/></c:if>
-						<c:if test="${user.resultAdminCategory2}"><td/></c:if>
+						<c:if test="${rivConfig.setting.admin1Enabled and user.resultAdminCategory1}"><td/></c:if>
+						<c:if test="${rivConfig.setting.admin2Enabled and user.resultAdminCategory2}"><td/></c:if>
 						<c:if test="${user.resultInvestTotal}"><td><tags:formatCurrency value="${investTotal}" noDecimals="true"/></td></c:if>
 						<c:if test="${user.resultInvestOwn}"><td><tags:formatCurrency value="${investOwn}" noDecimals="true"/></td></c:if>
 						<c:if test="${user.resultInvestDonated}"><td><tags:formatCurrency value="${investDonated}" noDecimals="true"/></td></c:if>
@@ -265,8 +265,8 @@
 						<c:if test="${user.resultProjectCategory}"><td/></c:if>
 						<c:if test="${user.resultBenefCategory}"><td/></c:if>
 						<c:if test="${user.resultEnviron}"><td/></c:if>
-						<c:if test="${user.resultAdminCategory1}"><td/></c:if>
-						<c:if test="${user.resultAdminCategory2}"><td/></c:if>
+						<c:if test="${rivConfig.setting.admin1Enabled and user.resultAdminCategory1}"><td/></c:if>
+						<c:if test="${rivConfig.setting.admin2Enabled and user.resultAdminCategory2}"><td/></c:if>
 						<c:if test="${user.resultInvestTotal}"><td><tags:formatCurrency value="${investTotal/fn:length(results)}" noDecimals="true"/></td></c:if>
 						<c:if test="${user.resultInvestOwn}"><td><tags:formatCurrency value="${investOwn/fn:length(results)}" noDecimals="true"/></td></c:if>
 						<c:if test="${user.resultInvestDonated}"><td><tags:formatCurrency value="${investDonated/fn:length(results)}" noDecimals="true"/></td></c:if>
