@@ -2452,7 +2452,9 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		rowNum = addLoans(report, sheet, rowNum, translate("project.loan2"), loan2,null,  project.getLoan1Interest(), 
 				project.getLoan1Duration(), project.getLoan1GraceCapital(), project.getLoan1GraceInterest());
-
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.loan2InitPeriod"));
+		report.addNumericCell(row, 1, project.getLoan2InitPeriod());
 		
 		rowNum++;	row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.workingCapital"), Style.H2);

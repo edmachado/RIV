@@ -33,7 +33,7 @@ $(function() { $("#confirmDelete").dialog({
 				</c:if>
 			</display:column>
 			<display:column>
-				<c:if test="${usage[row.configId] eq null and row.configId!=-4 and row.configId!=-3 and row.configId!=-5 and row.configId!=-2 and row.configId!=-6  and row.configId!=-7}">
+				<c:if test="${usage[row.configId] eq null and row.configId!=-4 and row.configId!=-3 and row.configId!=-5 and row.configId!=-2 and row.configId!=-6  and row.configId!=-7 and row.configId!=-8 and row.configId!=-9}">
 					<a onclick="confirmDelete(document.URL+'/delete/${row.configId}');" >
 						<img src="../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0">
 					</a>

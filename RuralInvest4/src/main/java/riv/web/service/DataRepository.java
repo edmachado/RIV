@@ -118,7 +118,7 @@ public class DataRepository {
 	}
 	
 	public void deleteAllAppConfigs() {
-		Query q = currentSession().createQuery("delete from AppConfig where configId not in  (-4,-3,-5,-2,-6,-7)");
+		Query q = currentSession().createQuery("delete from AppConfig where configId not in  (-4,-3,-5,-2,-6,-7,-8,-9)");
 		q.executeUpdate();
 	}
 	

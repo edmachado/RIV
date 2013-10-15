@@ -20,20 +20,27 @@ public class ProjectFinanceData implements java.io.Serializable{
 	private double incSalesInternal;
 	private double incSalesInternalWithout;
 	private double incSalvage;
+	private double incSalvageWithout;
 	private double incResidual;
+	private double incResidualWithout;
 	private double costOperation;
 	private double costOperationWithout;
 	private double costOperationInternal;
 	private double costOperationInternalWithout;
 	private double costReplace;
+	private double costReplaceWithout;
 	private double costGeneral;
 	private double costGeneralOwn;
 	private double costGeneralWithout;
 	private double costGeneralWithoutOwn;
 	private double costMaintenance;
+	private double costMaintenanceWithout;
 	private double costInvest;
 	private double costInvestOwn;
 	private double costInvestDonated;
+	private double costInvestWithout;
+	private double costInvestOwnWithout;
+	private double costInvestDonatedWithout;
 	private double cumulative;
 	private double workingCapitalInterest;
 	private double loan1interest;
@@ -119,12 +126,28 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getIncSalvage() {
 		return incSalvage;
 	}
+	public double getIncSalvageWithout() {
+		return incSalvageWithout;
+	}
+
+	public void setIncSalvageWithout(double incSalvageWithout) {
+		this.incSalvageWithout = incSalvageWithout;
+	}
+
 	public void setIncResidual(double incResidual) {
 		this.incResidual = incResidual;
 	}
 	public double getIncResidual() {
 		return incResidual;
 	}
+	public double getIncResidualWithout() {
+		return incResidualWithout;
+	}
+
+	public void setIncResidualWithout(double incResidualWithout) {
+		this.incResidualWithout = incResidualWithout;
+	}
+
 	public void setIncCapitalDonation(double incCapitalDonation) {
 		this.workingCapitalDonation = incCapitalDonation;
 	}
@@ -161,6 +184,14 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getCostReplace() {
 		return costReplace;
 	}
+	public double getCostReplaceWithout() {
+		return costReplaceWithout;
+	}
+
+	public void setCostReplaceWithout(double costReplaceWithout) {
+		this.costReplaceWithout = costReplaceWithout;
+	}
+
 	public void setCostGeneral(double costGeneral) {
 		this.costGeneral = costGeneral;
 	}
@@ -191,6 +222,14 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getCostMaintenance() {
 		return costMaintenance;
 	}
+	public double getCostMaintenanceWithout() {
+		return costMaintenanceWithout;
+	}
+
+	public void setCostMaintenanceWithout(double costMaintenanceWithout) {
+		this.costMaintenanceWithout = costMaintenanceWithout;
+	}
+
 	public void setCostInvest(double costInvest) {
 		this.costInvest = costInvest;
 	}
@@ -210,6 +249,30 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getCostInvestDonated() {
 		return costInvestDonated;
 	}
+	public double getCostInvestWithout() {
+		return costInvestWithout;
+	}
+
+	public void setCostInvestWithout(double costInvestWithout) {
+		this.costInvestWithout = costInvestWithout;
+	}
+
+	private double getCostInvestOwnWithout() {
+		return costInvestOwnWithout;
+	}
+
+	private void setCostInvestOwnWithout(double costInvestOwnWithout) {
+		this.costInvestOwnWithout = costInvestOwnWithout;
+	}
+
+	public double getCostInvestDonatedWithout() {
+		return costInvestDonatedWithout;
+	}
+
+	public void setCostInvestDonatedWithout(double costInvestDonatedWithout) {
+		this.costInvestDonatedWithout = costInvestDonatedWithout;
+	}
+
 	public void setCumulative(double cumulative) {
 		this.cumulative = cumulative;
 	}
@@ -263,7 +326,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 		ArrayList<ProjectFinanceData> data = new ArrayList<ProjectFinanceData>();
 		for (int i=0;i<project.getDuration();i++) { data.add(new ProjectFinanceData(i+1, analType)); }
 		
-		// INVESTMENT COSTS: ASSETS
+		// INVESTMENT COSTS: ASSETS (WITH PROJECT)
 		for (ProjectItemAsset asset : project.getAssets()) {
 			// original purchase (once)
 			data.get(asset.getYearBegin()-1).setCostInvest(data.get(asset.getYearBegin()-1).getCostInvest()+asset.getUnitCost()*asset.getUnitNum());
@@ -292,18 +355,61 @@ public class ProjectFinanceData implements java.io.Serializable{
 			}
 		}
 		
-		// INVESTMENT COSTS: INPUTS
+		// INVESTMENT COSTS: ASSETS (WITHOUT PROJECT)
+				for (ProjectItemAssetWithout asset : project.getAssetsWithout()) {
+					// original purchase (once)
+					data.get(asset.getYearBegin()-1).setCostInvestWithout(data.get(asset.getYearBegin()-1).getCostInvestWithout()+asset.getUnitCost()*asset.getUnitNum());
+					data.get(asset.getYearBegin()-1).setCostInvestOwnWithout(data.get(asset.getYearBegin()-1).getCostInvestOwnWithout()+asset.getOwnResources());
+					data.get(asset.getYearBegin()-1).setCostInvestDonatedWithout(data.get(asset.getYearBegin()-1).getCostInvestDonatedWithout()+asset.getDonated());
+					
+					int lastAssetYear = asset.getReplace() ? project.getDuration() : asset.getYearBegin()-1+asset.getEconLife();
+					if (lastAssetYear>project.getDuration()) lastAssetYear = project.getDuration();
+					for (int i=asset.getYearBegin()-1; i<lastAssetYear; i++) {
+						// maintenance (every year)
+						data.get(i).setCostMaintenanceWithout(data.get(i).getCostMaintenanceWithout()+(asset.getMaintCost()*asset.getUnitNum()));
+						// replace and salvage (year after every expiry)
+						if (asset.getReplace()&&i!=asset.getYearBegin()-1&&(i+1-asset.getYearBegin())%asset.getEconLife()==0) {
+							data.get(i).setCostReplaceWithout(data.get(i).getCostReplaceWithout()+asset.getUnitNum()*asset.getUnitCost());
+							data.get(i).setIncSalvageWithout(data.get(i).getIncSalvageWithout()+asset.getSalvage()*asset.getUnitNum());
+						// salvage value for non-replacing assets
+						} else if (!asset.getReplace() && i==lastAssetYear-1 && !(asset.getYearBegin()-1+asset.getEconLife()>project.getDuration())) {
+							data.get(i).setIncSalvageWithout(data.get(i).getIncSalvageWithout()+asset.getSalvage()*asset.getUnitNum());
+						}
+					}
+					if (asset.getReplace() || asset.getYearBegin()-1+asset.getEconLife()>project.getDuration()) {
+						double annualReserve = (asset.getUnitCost()-asset.getSalvage())/asset.getEconLife();
+						double yearsLeft = asset.getEconLife()-((project.getDuration()+1-asset.getYearBegin())%asset.getEconLife());
+						double residual = asset.getUnitNum()*annualReserve*yearsLeft+asset.getUnitNum()*asset.getSalvage();
+						data.get(data.size()-1).setIncResidualWithout(data.get(data.size()-1).getIncResidualWithout()+residual);
+					}
+				}
+		
+		
+		
+		// INVESTMENT COSTS: INPUTS (WITH PROJECT)
 		for (ProjectItemLabour labour : project.getLabours()) {
 			data.get(0).setCostInvest(data.get(0).getCostInvest()+labour.getUnitCost()*labour.getUnitNum());
 			data.get(0).setCostInvestOwn(data.get(0).getCostInvestOwn()+labour.getOwnResources());
 			data.get(0).setCostInvestDonated(data.get(0).getCostInvestDonated()+labour.getDonated());
 		}
+		// INVESTMENT COSTS: INPUTS (WITHOUT PROJECT
+		for (ProjectItemLabourWithout labour : project.getLaboursWithout()) {
+			data.get(0).setCostInvestWithout(data.get(0).getCostInvestWithout()+labour.getUnitCost()*labour.getUnitNum());
+			data.get(0).setCostInvestOwnWithout(data.get(0).getCostInvestOwnWithout()+labour.getOwnResources());
+			data.get(0).setCostInvestDonatedWithout(data.get(0).getCostInvestDonatedWithout()+labour.getDonated());
+		}
 		
-		// INVESTMENT COSTS: SERVICES
+		// INVESTMENT COSTS: SERVICES (WITH PROJECT)
 		for (ProjectItemService service : project.getServices()) {
 			data.get(0).setCostInvest(data.get(0).getCostInvest()+service.getUnitCost()*service.getUnitNum());
 			data.get(0).setCostInvestOwn(data.get(0).getCostInvestOwn()+service.getOwnResources());
 			data.get(0).setCostInvestDonated(data.get(0).getCostInvestDonated()+service.getDonated());
+		}
+		// INVESTMENT COSTS: SERVICES (WITHOUT PROJECT)
+		for (ProjectItemServiceWithout service : project.getServicesWithout()) {
+			data.get(0).setCostInvestWithout(data.get(0).getCostInvestWithout()+service.getUnitCost()*service.getUnitNum());
+			data.get(0).setCostInvestOwnWithout(data.get(0).getCostInvestOwnWithout()+service.getOwnResources());
+			data.get(0).setCostInvestDonatedWithout(data.get(0).getCostInvestDonatedWithout()+service.getDonated());
 		}
 			
 		// GENERAL COSTS (WITH PROJECT)

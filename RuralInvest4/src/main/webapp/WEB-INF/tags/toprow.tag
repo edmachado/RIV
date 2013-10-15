@@ -1,9 +1,9 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><div id="top">
-	<div id="user" align="right"> <a href="<%=request.getContextPath()%>/config/user/${user.userId}">(Welcome ${user.description})</a> | <a id="logoff" href="<%=request.getContextPath()%>/j_spring_security_logout">Log off</a>&nbsp;</div>
+	<div id="user" align="right"> <a id="welcome" href="<%=request.getContextPath()%>/config/user/${user.userId}">(<spring:message code="header.welcome"/> ${user.description})</a> | <a id="logoff" href="<%=request.getContextPath()%>/j_spring_security_logout">Log off</a>&nbsp;</div>
 	<div id="search">
 		<img src="<%=request.getContextPath()%>/img/logo.gif" alt="RuralInvest"/>
 		<div>
-			<span>Quick Search:</span>
+			<span><spring:message code="header.quickSearch"/>:</span>
 			<form name="quickSearch" action="<%=request.getContextPath()%>/search/quick" method="post" style="margin:0;display:inline-block;">
 			<input name="freeText" id="myFreeText" size="16"/>
 			<input type="hidden" name="unfinished"/>

@@ -9,7 +9,7 @@
 				<legend><spring:message code="user.addUser"/></legend> 
 				<c:if test="${currentUser.userId==user.userId}">
 					<div class="dataentry">
-					<a href="${user.userId}?changePassword" class="button">&nbsp;<spring:message code="user.changePassword"/>&nbsp;</a>
+					<a id="changeUser" href="${user.userId}?changePassword" class="button">&nbsp;<spring:message code="user.changePassword"/>&nbsp;</a>
 					</div>
 				</c:if>
 				<c:if test="${empty user.userId}">
