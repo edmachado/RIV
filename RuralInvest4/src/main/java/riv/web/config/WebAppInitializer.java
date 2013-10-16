@@ -94,6 +94,13 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/project/*");
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/search/*");
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/help/*");
+			
+			FilterRegistration.Dynamic ieEdgeFilter = servletContext.addFilter("ieEdge", new IEEdgeFilter());
+			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/config/*");
+			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/profile/*");
+			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/project/*");
+			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/search/*");
+			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/help/*");
 	}
 	
 	private String getRootKey() {
