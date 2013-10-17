@@ -1,5 +1,7 @@
 =
 
+#4.0 translation request 2
+#new text items
 error.logo=Please add a logo for your organization.
 error.import.profile=An error occurred when saving profile.
 import.excel.file=Choose a file
@@ -10,6 +12,22 @@ import.excel.error=Error on line {0}.
 import.error.excel.read=Could not open the imported Excel file. Make sure that the file is a working xlsx file based on the correct RuralInvest excel template.
 import.generic.info=This project or profile has been converted to USD and will be converted to the currency of your RuralInvest installation.
 import.generic.confirm=Please confirm the exchange rate from USD:
+project.report.cashFlow.loanRecieved=Loan(s) received
+project.report.cashFlow.invest=Investment
+project.report.cashFlow.loan1.total=Primary total payment
+project.report.cashFlow.loan1.capitalDuringGrace=Primary initial capital when grace on interest
+project.report.cashFlow.loan1.interestDuringGrace=Primary interest during grace for interest
+project.report.cashFlow.loan1.interestDuringGraceCapital=Primary interest when grace on capital
+project.report.cashFlow.loan2=Secondary total payment
+project.report.cashFlow.loan2.capitalDuringGrace=Secondary initial capital when grace on interest
+project.report.cashFlow.loan2.interestDuringGrace=Secondary interest during grace for interest
+project.report.cashFlow.loan2.interestDuringGraceCapital=Secondary interest when grace on capital
+
+
+
+#changed text items
+project.report.cashFlow.financing=Financing payments
+
 
 #demo site login page
 demo.welcome=WELCOME TO RURALINVEST
@@ -26,7 +44,9 @@ demo.create=If you want to try creating a case of your own, select Create New un
 demo.username=Visitor
 demo.password=Visitor
 
-#new in 4.0
+
+
+#4.0 translation request 1
 error.maxLength={0} cannot be longer than {1} characters.
 error.max={0} cannot be greater than {1}.
 error.requiredNonNegative={0} cannot be negative.
@@ -696,7 +716,6 @@ project.report.blockDetail.netIncome.nongen=Net balance
 project.report.blockDetail.totalPerUnitCycle=Totals per unit per cycle
 project.report.blockDetail=Operations income and cost details by block
 project.report.cashFlow.cumulative=Cumulative cash flow
-project.report.cashFlow.financing=Financing
 project.report.cashFlow.priCapital=Primary capital
 project.report.cashFlow.priInterest=Primary interest
 project.report.cashFlow.profitAfter=Profit after financing
