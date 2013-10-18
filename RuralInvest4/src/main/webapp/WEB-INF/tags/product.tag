@@ -2,18 +2,19 @@
 <%@ attribute name="product" required="true" type="riv.objects.profile.ProfileProductBase" %>
 <%@ attribute name="prodType" required="true" %>
 
+<c:set var="unique"><c:if test="${product.getClass().simpleName eq 'ProfileProductWithout'}">${fn:length(product.profile.products) + product.orderBy}</c:if><c:if test="${product.getClass().simpleName eq 'ProfileProduct'}">${product.orderBy}</c:if></c:set>
 <c:set var="incTotal" value="0"/><c:set var="inpTotal" value="0"/><c:set var="labTotal" value="0"/>
-		<c:set var="product" value="${productEntry}" scope="request"/><a name="b${product.productId}"></a>
-		<c:set var="incomeTitle"><c:if test="${profile.incomeGen}"><spring:message code="profileProductIncome"/></c:if><c:if test="${not profile.incomeGen}"><spring:message code="profileActivityCharge"/></c:if> <tags:blockExplanation block="${productEntry}"/></c:set>
-		<c:set var="inputTitle"><spring:message code="profileProductInput"/>  <tags:blockExplanation block="${productEntry}"/></c:set>
-		<c:set var="labourTitle"><spring:message code="profileProductLabour"/>  <tags:blockExplanation block="${productEntry}"/></c:set>
+		<a name="b${product.productId}" id="b${product.productId}"></a>
+		<c:set var="incomeTitle"><c:if test="${profile.incomeGen}"><spring:message code="profileProductIncome"/></c:if><c:if test="${not profile.incomeGen}"><spring:message code="profileActivityCharge"/></c:if> <tags:blockExplanation block="${product}"/></c:set>
+		<c:set var="inputTitle"><spring:message code="profileProductInput"/>  <tags:blockExplanation block="${product}"/></c:set>
+		<c:set var="labourTitle"><spring:message code="profileProductLabour"/>  <tags:blockExplanation block="${product}"/></c:set>
 				
 		<tags:tableContainer title="${product.description}">
 				<fieldset><legend><spring:message code="${prodType}.desc"/>s</legend>
 					<table id="descriptionTable" width="100%" border="0" cellspacing="2" cellpadding="2">
 					  <tr>
 							<td><tags:help title="${prodType}.name" text="${prodType}.name.help"><b><spring:message code="${prodType}.name"/></b></tags:help></td>
-							<td><span id="${product.orderBy}description">${product.description}</span></td>
+							<td><span id="${unique}description">${product.description}</span></td>
 							<td>
 								<img src="../../img/xls.gif" alt="Excel" title="Excel"/> 
 								<a href="../../report/${product.productId}/profileProduct.xlsx"><spring:message code="export.download"/></a>
@@ -25,7 +26,7 @@
 					    </tr>
 					    <tr>
 							<td><tags:help title="${prodType}.prodUnit" text="${prodType}.prodUnit.help"><b><spring:message code="${prodType}.prodUnit"/></b></tags:help></td>
-							<td><span id="${product.orderBy}unitType">${product.unitType}</span></td>
+							<td><span id="${unique}unitType">${product.unitType}</span></td>
 							<c:if test="${accessOK}">
 								<td><a href="../product/${product.productId}"><img src="../../img/edit.png" border="0"/> <spring:message code="${prodType}.editDesc"/></a></td>
 						    	<td><a href="javascript:confirmDelete('../product/${product.productId}/delete');"><img src="../../img/delete.gif" border="0"/> <spring:message code="${prodType}.delete"/></a></td>
@@ -36,7 +37,7 @@
 					    </tr>
 						<tr>
 							<td><tags:help title="${prodType}.numUnits" text="${prodType}.numUnits.help"><b><spring:message code="${prodType}.numUnits"/></b></tags:help></td>
-							<td><span id="${product.orderBy}unitNum"><tags:formatDecimal value="${product.unitNum}"/></span></td>
+							<td><span id="${unique}unitNum"><tags:formatDecimal value="${product.unitNum}"/></span></td>
 							<td>
 							   	<c:if test="${accessOK}">
 							   		<a href="../product/${product.productId}/clone"><img src="../../img/duplicate.gif" border="0"/> <spring:message code="${prodType}.clone"/></a>
@@ -46,7 +47,7 @@
 						</tr>
 						<tr>
 							<td><tags:help title="${prodType}.cycleLength" text="${prodType}.cycleLength.help"><b><spring:message code="${prodType}.cycleLength"/></b></tags:help></td>
-							<td><span id="${product.orderBy}cycleLength"><tags:formatDecimal value="${product.cycleLength}"/></span>
+							<td><span id="${unique}cycleLength"><tags:formatDecimal value="${product.cycleLength}"/></span>
 								<c:if test="${product.lengthUnit==0}"><spring:message code="units.months"/></c:if>
 								<c:if test="${product.lengthUnit==1}"><spring:message code="units.weeks"/></c:if>
 								<c:if test="${product.lengthUnit==2}"><spring:message code="units.days.calendar"/></c:if>
@@ -75,29 +76,16 @@
 						 <tr>
 						   
 							<td><tags:help title="${prodType}.cycles" text="${prodType}.cycles.help"><b><spring:message code="${prodType}.cycles"/></b></tags:help></td>
-							<td><span id="${product.orderBy}cyclePerYear"><tags:formatDecimal value="${product.cyclePerYear}"/></span> <spring:message code="units.perYear"/></td>
+							<td><span id="${unique}cyclePerYear"><tags:formatDecimal value="${product.cyclePerYear}"/></span> <spring:message code="units.perYear"/></td>
 							
 	 						<td colspan="2"/>
 					   	</tr>
-					   	<tr>
-					   		<td colspan="3">testing: type=${product.getClass().getSimpleName()}</td>
-					   	</tr>
-					   	<%--<c:if test="${profile.withWithout}">
-						    <tr>
-	 							<td><tags:help title="profileProduct.with.description" text="profileProduct.with.description.help"><b><spring:message code="${prodType}.with.description"/></b></tags:help></td>
-								<td>
-									<c:if test="${product.withWithout}"><spring:message code="projectBlock.with.with"/></c:if>
-									<c:if test="${!product.withWithout}"><spring:message code="projectBlock.with.without"/></c:if>
-								</td>	
-						    	<td colspan="2"/>
-						    </tr>
-					    </c:if> --%>
 					</table>
 			</fieldset>
 			<br/>
 			<tags:table title="${incomeTitle}">
 				<display:table list="${product.profileIncomes}" id="inc" requestURI="" cellspacing="0" cellpadding="0"
-					export="false" htmlId="incomeTable${product.orderBy}">
+					export="false" htmlId="incomeTable${unique}">
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					<display:column titleKey="profileProductIncome.desc" property="description" sortable="true" style="text-align:${left};" headerClass="left"/>
 					<display:column titleKey="profileProductIncome.unitType" property="unitType" sortable="true" style="text-align:${left};" headerClass="left"/>
@@ -160,13 +148,13 @@
 					</display:footer>
 				</display:table> 
 				<c:if test="${accessOK}">
-					<div class="addNew"><a id="newIncome${product.orderBy}" href="../prodItem/-1?itemType=income&productId=${product.productId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+					<div class="addNew"><a id="newIncome${unique}" href="../prodItem/-1?itemType=income&productId=${product.productId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				</c:if>
 			</tags:table>
 			
 			<tags:table title="${inputTitle}">
 				<display:table name="${product.profileInputs}" id="inp" requestURI="" class="data-table" cellspacing="0" cellpadding="0"
-					export="false" htmlId="inputTable${product.orderBy}">
+					export="false" htmlId="inputTable${unique}">
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					<display:column titleKey="profileProductInput.desc" property="description" sortable="true" style="text-align:${left};" headerClass="left"/>
 					<display:column titleKey="profileProductInput.unitType" property="unitType" sortable="true" style="text-align:${left};" headerClass="left"/>
@@ -226,13 +214,13 @@
 					</display:footer>
 				</display:table>
 				<c:if test="${accessOK}">
-					<div class="addNew"><a id="newInput${product.orderBy}" href="../prodItem/-1?itemType=input&productId=${product.productId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+					<div class="addNew"><a id="newInput${unique}" href="../prodItem/-1?itemType=input&productId=${product.productId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				</c:if>
 			</tags:table>
 			
 			<tags:table title="${labourTitle}">
 				<display:table name="${product.profileLabours}" id="lab" requestURI="" class="data-table" cellpadding="0" cellspacing="0"
-					export="false" htmlId="labourTable${product.orderBy}">
+					export="false" htmlId="labourTable${unique}">
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					<display:column titleKey="profileProductLabour.desc" property="description" sortable="true" style="text-align:${left};" headerClass="left"/>
 					<display:column titleKey="profileProductLabour.unitType" property="unitType" sortable="true" style="text-align:${left};" headerClass="left"/>
@@ -289,7 +277,7 @@
 					</display:footer>
 				</display:table>
 				<c:if test="${accessOK}">
-					<div class="addNew"><a id="newLabour${product.orderBy}" href="../prodItem/-1?itemType=labour&productId=${product.productId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+					<div class="addNew"><a id="newLabour${unique}" href="../prodItem/-1?itemType=labour&productId=${product.productId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				</c:if>
 			</tags:table>
 		</tags:tableContainer>

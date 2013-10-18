@@ -153,7 +153,7 @@ $( "#radioWithWithout" ).buttonset();
 							<display:table htmlId="attachedFiles" list="${files}" id="row" requestURI="" cellspacing="0" cellpadding="0">
 								<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 								<display:column style="text-align:${left};">
-									<a href="../${profile.profileId}/attach/${row.id}/${row.filename}">${row.filename}</a>
+									<a href="../${profile.profileId}/attach/${row.id}/${row.filename}" target="_blank">${row.filename}</a>
 								</display:column>
 								<c:if test="${accessOK}">
 									<display:column media="html">

@@ -37,7 +37,6 @@ import riv.objects.config.FieldOffice;
 import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Block;
-import riv.objects.project.BlockBase;
 import riv.objects.project.BlockWithout;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
@@ -612,6 +611,21 @@ public class Profile extends Probase implements java.io.Serializable {
 				 i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));				
 			 }
 		 }
+		 for (ProfileProductWithout prod : productsWithout) {
+			 for (ProfileProductIncome i : prod.getProfileIncomes()) {
+				 if (this.incomeGen) {
+					 i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange))));
+				 }
+				 i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));
+			 }
+			 for (ProfileProductInput i : prod.getProfileInputs()) {
+				 i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange))));
+				 i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));
+			 }
+			 for (ProfileProductLabour i : prod.getProfileLabours()) {
+				 i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));				
+			 }
+		 }
 		// refitems
 			for (ReferenceIncome i : refIncomes) {
 				i.setUnitCost(i.getUnitCost()*exchange);
@@ -718,6 +732,17 @@ public class Profile extends Probase implements java.io.Serializable {
 				linkedToImport(item);
 			}
 		}
+		for (ProfileProductWithout p : productsWithout) {
+			for (ProfileProductIncome item : p.getProfileIncomes()) {
+				linkedToImport(item);
+			}
+			for (ProfileProductInput item : p.getProfileInputs()) {
+				linkedToImport(item);
+			}
+			for (ProfileProductLabour item : p.getProfileLabours()) {
+				linkedToImport(item);
+			}
+		}
 	}
 
 	 /**
@@ -764,6 +789,7 @@ public class Profile extends Probase implements java.io.Serializable {
 		 newProf.setRefIncomes(new HashSet<ReferenceIncome>());
 		 newProf.setRefLabours(new HashSet<ReferenceLabour>());
 		 newProf.setProducts(new HashSet<ProfileProduct>());
+		 newProf.setProductsWithout(new HashSet<ProfileProductWithout>());
 		 
 		 //TODO: copy attached files
 		 if (!forExport) {
@@ -822,7 +848,7 @@ public class Profile extends Probase implements java.io.Serializable {
 			} 
 		 }
 		for (ProfileProductWithout prod : productsWithout) {
-			ProfileProductWithout newProd = (ProfileProductWithout)prod.copy();
+			ProfileProductWithout newProd = (ProfileProductWithout) prod.copy();
 			newProf.addProfileProduct(newProd);
 			
 			for (ProfileProductIncome item : newProd.getProfileIncomes()) {
@@ -954,36 +980,18 @@ public class Profile extends Probase implements java.io.Serializable {
 		 for (ProfileItemGeneral gen : this.glsGeneral) {
 			 generalCost += gen.getUnitCost()*gen.getUnitNum();
 		 }
+		 for (ProfileItemGeneralWithout gen : this.glsGeneralWithout) {
+			 generalCost -= gen.getUnitCost()*gen.getUnitNum();
+		 }
 
 		 for (ProfileProduct prod : this.products) {
-			 double unitNum = prod.getUnitNum();
-			 double cycles = prod.getCyclePerYear();
-			 for (ProfileProductIncome inc : prod.getProfileIncomes()) {
-				 double productIncome;
-				 if (this.incomeGen) {
-					 productIncome = unitNum*cycles*inc.getUnitNum().doubleValue()*(inc.getUnitCost().doubleValue()-inc.getTransport().doubleValue());
-				 } else {
-					 productIncome = unitNum*cycles*inc.getUnitNum().doubleValue()*inc.getUnitCost().doubleValue();
-				 }
-				 if (this.incomeGen) {
-					 totalIncome -= productIncome;
-				 } else {
-					 totalIncome += productIncome;
-				 }
-			}
-			 for (ProfileProductInput inp : prod.getProfileInputs()) {
-				 if (this.incomeGen) {
-					 operationCost -= unitNum*cycles*inp.getUnitNum().doubleValue()*(inp.getUnitCost().doubleValue()+inp.getTransport().doubleValue());
-				 } else { 
-					 operationCost += unitNum*cycles*inp.getUnitNum().doubleValue()*(inp.getUnitCost().doubleValue()+inp.getTransport().doubleValue());
-				 }
-			}
-			 for (ProfileProductLabour lab : prod.getProfileLabours()) {
-				 if (this.incomeGen) {
-					 operationCost -= unitNum*cycles*lab.getUnitNum().doubleValue()*lab.getUnitCost().doubleValue();
-				 } else {
-					 operationCost += unitNum*cycles*lab.getUnitNum().doubleValue()*lab.getUnitCost().doubleValue();
-				 }
+			 totalIncome+=prod.getTotalIncome().doubleValue();
+			 operationCost+=prod.getTotalCost().doubleValue();			
+		 }
+		 if (this.withWithout) {
+			 for (ProfileProductWithout prod : this.productsWithout) {
+				 totalIncome-=prod.getTotalIncome().doubleValue();
+				 operationCost-=prod.getTotalCost().doubleValue();			
 			 }
 		 }
 
@@ -995,41 +1003,6 @@ public class Profile extends Probase implements java.io.Serializable {
 		 pr.setAnnualReserve(round(annualReserve));
 		 return pr;
 	 }
-	
-	 /**
-	  * Compare Set<ProfileProduct>
-	  */
-	 /*private boolean compareProfileProduct(Set<ProfileProduct> setA, Set<ProfileProduct> setB){
-		 setA.removeAll(setB);
-		 return setA.isEmpty();
-	 }*/
-	 
-	 
-	 /**
-	  * Compare lists
-	  * @param Set<ProfileItemLabour> setA
-	  * @param Set<ProfileItemLabour> setB
-	  * @return boolean
-	  */
-	/*private boolean compareLabours(Set<ProfileItemLabour> setA, Set<ProfileItemLabour> setB) {
-		setA.removeAll(setB);
-		 return setA.isEmpty();	
-	 }
-
-	private boolean compareGenerals(Set<ProfileItemGeneral> setA, Set<ProfileItemGeneral> setB) {
-		setA.removeAll(setB);
-		 return setA.isEmpty();	
-	 }*/
-	 /**
-	  * Compare lists
-	  * @param Set<ProfileItemGood> setA
-	  * @param Set<ProfileItemGood> setB
-	  * @return boolean
-	  */
-	/* private boolean compareProfileItemGood(Set<ProfileItemGood> setA, Set<ProfileItemGood> setB) {
-		 setA.removeAll(setB);
-		 return setA.isEmpty();
-	 }*/
 	 
 	@Override
 	public int hashCode() {

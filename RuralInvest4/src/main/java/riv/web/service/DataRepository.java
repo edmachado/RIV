@@ -561,7 +561,7 @@ public class DataRepository {
 		Criteria criteria = currentSession()
 				.createCriteria(ProfileProductBase.class)
 				.add(Restrictions.eq("productId", id));
-		ProfileProduct pp = (ProfileProduct) criteria.uniqueResult();
+		ProfileProductBase pp = (ProfileProductBase) criteria.uniqueResult();
 		if (collectionToInizialize!=null) {
 			if (collectionToInizialize.equals("income") || collectionToInizialize.equals("all")) {
 				Hibernate.initialize(pp.getProfileIncomes());
@@ -917,6 +917,10 @@ public class DataRepository {
 				Hibernate.initialize(b.getPatterns());
 				Hibernate.initialize(b.getChrons());
 			}
+		}
+		
+		if (b.getClass()==BlockWithout.class) {
+			Hibernate.initialize(b.getProject().getBlocks());
 		}
 		return b;
 	}

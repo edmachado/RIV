@@ -32,9 +32,9 @@ $(function() {
 	<div align="right">
 		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectBlock.xlsx?template=${project.incomeGen}"><spring:message code="export.downloadTemplate"/></a><br/>
  	</div>
- 	
+ 	<br/>
 	<div id="tabs">
-		<c:if test="${project.withWithout}"><br/><ul>
+		<c:if test="${project.withWithout}"><ul>
 			<li><a href="#tabs-with"><spring:message code="projectBlock.with.with"/></a></li>
 			<li><a href="#tabs-without"><spring:message code="projectBlock.with.without"/></a></li>
 		</ul></c:if>

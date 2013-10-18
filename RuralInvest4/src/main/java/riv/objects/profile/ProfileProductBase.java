@@ -16,8 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -27,7 +25,6 @@ import org.hibernate.annotations.Where;
 
 import riv.objects.HasProbase;
 import riv.objects.OrderByable;
-import riv.objects.Probase;
 import riv.objects.ProductOrBlock;
 
 /**
@@ -87,12 +84,9 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 	public BigDecimal getTotalIncome() {
 		 BigDecimal total=new BigDecimal(0);
 		 for(ProfileProductIncome inc : profileIncomes) {
-//			 BigDecimal totInc = this.getProfile().getIncomeGen()
-//			 	? (inc.getUnitCost().subtract(inc.getTransport())).multiply(inc.getUnitNum())
-//			 	: inc.getUnitCost().multiply(inc.getUnitNum());
-			 total=total.add(inc.getTotal());//totInc);
+			 total=total.add(inc.getTotal());
 		 }
-		 return total;
+		 return total.multiply(new BigDecimal(cyclePerYear));
 	 }
 	 /**
 	  * Calculates the product's total cost by cycling through the input and labour collections
@@ -101,10 +95,10 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 	public BigDecimal getTotalCost() {
 		 BigDecimal total=new BigDecimal(0);
 		 for (ProfileProductInput inp:profileInputs)
-			 total=total.add(inp.getTotal());// (inp.getUnitCost().add(inp.getTransport())).multiply(inp.getUnitNum()));
+			 total=total.add(inp.getTotal());
 		 for (ProfileProductLabour lab:profileLabours)
-			 total=total.add(lab.getTotal());//lab.getUnitCost().multiply(lab.getUnitNum()));
-		 return total;
+			 total=total.add(lab.getTotal());
+		 return total.multiply(new BigDecimal(cyclePerYear));
 	 }
     
     // Property accessors
@@ -174,14 +168,6 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
     public void setUnitNum(Double unitNum) {
         this.unitNum = unitNum;
     }
-    
-//    public boolean getWithWithout() {
-//    	return this.withWithout;
-//    }
-//    
-//    public void setWithWithout(boolean withWithout) {
-//    	this.withWithout = withWithout;
-//    }
 
     public Set<ProfileProductInput> getProfileInputs() {
         return this.profileInputs;
@@ -230,7 +216,7 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 	 * @return copy of the ProfileProduct
 	 */
 	public ProfileProductBase copy() {
-		ProfileProduct newProd = new ProfileProduct();
+		ProfileProductBase newProd = this.getClass()==ProfileProduct.class ? new ProfileProduct() : new ProfileProductWithout();
 		newProd.setOrderBy(getOrderBy());
 		newProd.setCycleLength(getCycleLength());
 		newProd.setCyclePerYear(getCyclePerYear());
@@ -238,7 +224,6 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 		newProd.setLengthUnit(getLengthUnit());
 		newProd.setUnitNum(getUnitNum());
 		newProd.setUnitType(getUnitType());
-//		newProd.setWithWithout(withWithout);
 		newProd.setProfileIncomes(new HashSet<ProfileProductIncome>());
 		newProd.setProfileInputs(new HashSet<ProfileProductInput>());
 		newProd.setProfileLabours(new HashSet<ProfileProductLabour>());
@@ -254,18 +239,18 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 		return newProd;
 	}
 	
-	 private boolean compareIncomes(Set<ProfileProductIncome> setA, Set<ProfileProductIncome> setB){
-		 setA.removeAll(setB);
-		 return setA.isEmpty();
-	 }
-	 private boolean compareInputs(Set<ProfileProductInput> setA, Set<ProfileProductInput> setB){
-		 setA.removeAll(setB);
-		 return setA.isEmpty();
-	 }
-	 private boolean compareLabours(Set<ProfileProductLabour> setA, Set<ProfileProductLabour> setB){
-		 setA.removeAll(setB);
-		 return setA.isEmpty();
-	 }
+//	 private boolean compareIncomes(Set<ProfileProductIncome> setA, Set<ProfileProductIncome> setB){
+//		 setA.removeAll(setB);
+//		 return setA.isEmpty();
+//	 }
+//	 private boolean compareInputs(Set<ProfileProductInput> setA, Set<ProfileProductInput> setB){
+//		 setA.removeAll(setB);
+//		 return setA.isEmpty();
+//	 }
+//	 private boolean compareLabours(Set<ProfileProductLabour> setA, Set<ProfileProductLabour> setB){
+//		 setA.removeAll(setB);
+//		 return setA.isEmpty();
+//	 }
 	 
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;
@@ -302,9 +287,9 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 			cyclePerYear.equals(other.cyclePerYear) &&
 			description.equals(other.description) &&
 			lengthUnit.equals(other.lengthUnit) &&
-			compareIncomes(profileIncomes, other.profileIncomes) &&
-			compareInputs(profileInputs, other.profileInputs) &&
-			compareLabours(profileLabours, other.profileLabours) &&
+//			compareIncomes(profileIncomes, other.profileIncomes) &&
+//			compareInputs(profileInputs, other.profileInputs) &&
+//			compareLabours(profileLabours, other.profileLabours) &&
 			unitNum.equals(other.unitNum) &&
 			unitType.equals(other.unitType); //&&
 //			withWithout == other.withWithout;
