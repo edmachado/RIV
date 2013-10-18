@@ -158,15 +158,64 @@ public class InputProjectIg extends WebTestUtil {
 	}
 	
 	@Test
+	public void addBlockToCompleteProject() throws Exception {
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.with")+")";
+		String[] titles = projectStepTitles(true);
+		
+		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(titles[0]);
+		clickLink("step9");
+		assertTitleEquals(titles[8]);
+		
+		getTestContext().setResourceBundleName("dataentry/projectIg");
+		
+		int i=1;
+		clickLink("addBlock");
+		assertTitleEquals(blockTitleWith);
+		setTextField("description", getMessage("step9.block."+i+".description"));
+		setTextField("unitType", getMessage("step9.block."+i+".unitType"));
+		setTextField("cycleLength", getMessage("step9.block."+i+".cycleLength"));
+		selectOption("lengthUnit", getMessage("step9.block."+i+".lengthUnit"));
+		setTextField("cyclePerYear", getMessage("step9.block."+i+".cyclePerYear"));
+		setTextField("cycleFirstYear", getMessage("step9.block."+i+".cycleFirstYear"));
+		setTextField("cycleFirstYearIncome", getMessage("step9.block."+i+".cycleFirstYearIncome"));
+		
+		
+		for (int h=0; h<3; h++) {
+			for (int j=0; j<12; j++) {
+				for (int k=0; k<2; k++) {
+					if (getMessage("step9.block."+i+".ch"+h+"-"+j+"-"+k).equals("true"))
+						clickElementByXPath("//table[@id='blockChron']/tbody/tr/td[@id='3-"+h+"-"+j+"-"+k+"']");
+				}
+			}
+		}
+		
+		// production pattern
+		int x=1;
+		boolean nextPat=true;
+		while (nextPat) {
+			setTextField("pat"+x,getMessage("step9.block."+i+".pat"+x));
+			x++;
+			try {
+				getMessage("step9.block."+i+".pat"+x);
+			} catch (Exception e) {
+				nextPat=false;
+			}
+		}
+		
+		rivSubmitForm();
+
+		assertTitleEquals(titles[8]);
+	}
+	
+	@Test
 	public void createProject() throws Exception {
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.with")+")";
 		String blockTitleWithout = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.without")+")";
-		String[] titles = new String[13];
-		for (int i=0;i<13;i++) {
-			titles[i]=getMessage("ruralInvest")+" :: "+getMessage("project.step"+(i+1));
-		}
+		String[] titles = projectStepTitles(true);
 		
 		goHome();
 		

@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.fao.riv.tests.utils.InputParam.InputParamType;
+import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.TestTable;
 import org.fao.riv.tests.utils.WebTestUtil;
 
@@ -34,13 +35,34 @@ public class InputProfileIg extends WebTestUtil {
     }
 	
 	@Test
+	public void addProductToCompleteProfile() throws Exception {
+		String[] titles = profileStepTitles(true);
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";
+		
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(titles[0]);
+		clickLink("step6");
+		assertTitleEquals(titles[5]);
+		
+		clickLink("addProduct");
+		assertTitleEquals(blockTitleWith);
+		getTestContext().setResourceBundleName("dataentry/profileIg");
+		int i=1;
+		setTextField("description", getMessage("step6.product."+i+".description"));
+		setTextField("unitType", getMessage("step6.product."+i+".unitType"));
+		setTextField("unitNum", getMessage("step6.product."+i+".unitNum"));
+		setTextField("cycleLength", getMessage("step6.product."+i+".cycleLength"));
+		setTextField("cyclePerYear", getMessage("step6.product."+i+".cyclePerYear"));
+		rivSubmitForm();
+		assertTitleEquals(titles[5]);
+	}
+	
+	@Test
 	public void createProfile() throws Exception {
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
-		String[] titles = new String[9];
-		for (int i=0;i<9;i++) {
-			titles[i]=getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
-		}
+		String[] titles = profileStepTitles(true);
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";
 		String blockTitleWithout = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.without")+")";
 		
@@ -128,9 +150,9 @@ public class InputProfileIg extends WebTestUtil {
 		
 		// STEP 6
 		//TODO: download excel template and check
-		// add products
 		//TODO: test clone product
 		//TODO: test delete product
+		// add products
 		int i=1; int withs=0;
 		boolean nextItem=true;
 		while (nextItem) {
@@ -149,7 +171,7 @@ public class InputProfileIg extends WebTestUtil {
 			setTextField("unitNum", getMessage("step6.product."+i+".unitNum"));
 			setTextField("cycleLength", getMessage("step6.product."+i+".cycleLength"));
 			setTextField("cyclePerYear", getMessage("step6.product."+i+".cyclePerYear"));
-			// non-default select option
+			//TODO non-default select option
 			rivSubmitForm();
 			
 			// income

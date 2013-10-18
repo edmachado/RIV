@@ -50,12 +50,7 @@ public class InputProfileNig extends WebTestUtil {
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String activitiesTitle = getMessage("ruralInvest")+" :: "+getMessage("profile.step6.nongen");
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
-		String[] titles = new String[9];
-		for (int i=0;i<9;i++) {
-			titles[i]= i==5 ? 
-					getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1)+".nongen")
-					:getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
-		}
+		String[] titles = profileStepTitles(false);
 		
 		goHome();
 		
