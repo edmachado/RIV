@@ -12,7 +12,7 @@
 	</variables>
 	<info>
 		<appname>RuralInvest</appname>
-		<appversion>@{riv.version}</appversion>
+		<appversion>@version</appversion>
 		<authors>
 			<author name="Food and Agriculture Organization" email="TCI-Ruralinvest@fao.org" />
 		</authors>
