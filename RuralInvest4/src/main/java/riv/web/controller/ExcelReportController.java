@@ -37,7 +37,7 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectSummary(report, p, pr);
+		ewb.projectSummary(report, p, pr);
 		response.setHeader("Content-disposition", "attachment; filename=projectSummary.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -47,7 +47,7 @@ public class ExcelReportController {
 	public void projectDescription(@PathVariable int id, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, 1);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectGeneralDescription(report, p);
+		ewb.projectGeneralDescription(report, p);
 		response.setHeader("Content-disposition", "attachment; filename=projectDescription.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -57,9 +57,9 @@ public class ExcelReportController {
 	public void projectInvestDetail(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, 7);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectInvestmentDetail(report, p, false, template!=null);
+		ewb.projectInvestmentDetail(report, p, false, template!=null);
 		if (p.isWithWithout()) {
-			ewb.getProjectInvestmentDetail(report, p, true, template!=null);
+			ewb.projectInvestmentDetail(report, p, true, template!=null);
 		}
 		response.setHeader("Content-disposition", "attachment; filename=projectInvestDetail.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
@@ -71,9 +71,9 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, 8);
 		ExcelWrapper report = ewb.create();
 		if (p.getIncomeGen()) {
-			ewb.getProjectGeneralDetail(report, p, template!=null);
+			ewb.projectGeneralDetail(report, p, template!=null);
 		} else {
-			ewb.getProjectGeneralDetailNongen(report, p, template!=null);
+			ewb.projectGeneralDetailNongen(report, p, template!=null);
 		}
 		response.setHeader("Content-disposition", "attachment; filename=projectGeneralDetail.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
@@ -84,7 +84,7 @@ public class ExcelReportController {
 	public void projectProduction(@PathVariable int id, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, 9);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectProduction(report, p);
+		ewb.projectProduction(report, p);
 		response.setHeader("Content-disposition", "attachment; filename=projectProduction.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -94,7 +94,7 @@ public class ExcelReportController {
 	public void projectContributions(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, 10);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectContributions(report, p, template!=null);
+		ewb.projectContributions(report, p, template!=null);
 		response.setHeader("Content-disposition", "attachment; filename=projectContributions.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -104,7 +104,7 @@ public class ExcelReportController {
 	public void projectChronology(@PathVariable int id, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, 9);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectChronology(report, p);
+		ewb.projectChronology(report, p);
 		response.setHeader("Content-disposition", "attachment; filename=projectChronology.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -114,9 +114,9 @@ public class ExcelReportController {
 	public void projectBlocks(@PathVariable int id, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, 9);
 		ExcelWrapper report = ewb.create();
-		ewb.getBlocks(report, p, false);
+		ewb.blocks(report, p, false);
 		if (p.isWithWithout()) {
-			ewb.getBlocks(report, p, true);
+			ewb.blocks(report, p, true);
 		}
 		response.setHeader("Content-disposition", "attachment; filename=projectBlocks.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
@@ -128,7 +128,7 @@ public class ExcelReportController {
 		BlockBase block = template!=null ? new Block() : dataService.getBlock(id, "all");
 		boolean isIg = template!=null ? Boolean.parseBoolean(template) : block.getProject().getIncomeGen();
 		ExcelWrapper report = ewb.create();
-		ewb.getBlock(report, block, isIg);
+		ewb.block(report, block, isIg);
 		response.setHeader("Content-disposition", "attachment; filename=block.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -140,7 +140,7 @@ public class ExcelReportController {
 	public void projectParameters(@PathVariable int id, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, -1);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectParameters(report, p);
+		ewb.projectParameters(report, p);
 		response.setHeader("Content-disposition", "attachment; filename=projectParameters.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -151,7 +151,7 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectCashFlow(report, p, pr);
+		ewb.projectCashFlow(report, p, pr);
 		response.setHeader("Content-disposition", "attachment; filename=projectCashFlow.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -162,7 +162,7 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectSustainability(report, p, pr);
+		ewb.projectSustainability(report, p, pr);
 		response.setHeader("Content-disposition", "attachment; filename=projectCashFlowNongen.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -173,7 +173,7 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectCashFlowFirst(report, p, pr);
+		ewb.projectCashFlowFirst(report, p, pr);
 		response.setHeader("Content-disposition", "attachment; filename=projectCashFlowFirst.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -184,7 +184,7 @@ public class ExcelReportController {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
-		ewb.getProjectProfitability(report, p, pr);
+		ewb.projectProfitability(report, p, pr);
 		response.setHeader("Content-disposition", "attachment; filename=projectProfitability.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -194,7 +194,7 @@ public class ExcelReportController {
 	   public void projectRecommendation(@PathVariable int id, HttpServletResponse response) throws IOException {
 		   Project p = dataService.getProject(id, 12);
 		   ExcelWrapper report = ewb.create();
-			ewb.getProjectRecommendation(report, p);
+			ewb.projectRecommendation(report, p);
 			response.setHeader("Content-disposition", "attachment; filename=projectRecommendation.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
 			report.getWorkbook().dispose();
@@ -207,35 +207,35 @@ public class ExcelReportController {
 		   ExcelWrapper report = ewb.create();
 		   report.setCompleteReport(true);
 		   
-		   Sheet summary = ewb.getProjectSummary(report, project, result);
-		   ewb.getProjectGeneralDescription(report, project);
-		   ewb.getProjectInvestmentDetail(report, project, false, false);
+		   Sheet summary = ewb.projectSummary(report, project, result);
+		   ewb.projectGeneralDescription(report, project);
+		   ewb.projectInvestmentDetail(report, project, false, false);
 		   if (project.isWithWithout()) {
-			   ewb.getProjectInvestmentDetail(report, project, true, false);
+			   ewb.projectInvestmentDetail(report, project, true, false);
 		   }
 		  if (project.getIncomeGen()) {
-		   ewb.getProjectGeneralDetail(report, project, false);
+		   ewb.projectGeneralDetail(report, project, false);
 		  } else {
-			  ewb.getProjectGeneralDetailNongen(report, project, false);
+			  ewb.projectGeneralDetailNongen(report, project, false);
 		  }
-		   ewb.getProjectProduction(report, project);
+		   ewb.projectProduction(report, project);
 			
 		   if (project.getIncomeGen()) {
-			   ewb.getProjectChronology(report, project);
-			   ewb.getBlocks(report, project, false);
+			   ewb.projectChronology(report, project);
+			   ewb.blocks(report, project, false);
 			   if (project.isWithWithout()) {
-				   ewb.getBlocks(report, project, true);
+				   ewb.blocks(report, project, true);
 			   }
-			   ewb.getProjectParameters(report, project);
-			   ewb.getProjectCashFlowFirst(report, project, result);
-			   ewb.getProjectCashFlow(report, project, result);
-			   ewb.getProjectProfitability(report, project, result);
+			   ewb.projectParameters(report, project);
+			   ewb.projectCashFlowFirst(report, project, result);
+			   ewb.projectCashFlow(report, project, result);
+			   ewb.projectProfitability(report, project, result);
 		   } else {
-			   ewb.getBlocks(report, project, false);
-			   ewb.getProjectContributions(report, project, false);
-			   ewb.getProjectSustainability(report, project, result);
+			   ewb.blocks(report, project, false);
+			   ewb.projectContributions(report, project, false);
+			   ewb.projectSustainability(report, project, result);
 		   }
-		   ewb.getProjectRecommendation(report, project);
+		   ewb.projectRecommendation(report, project);
 		   summary.setSelected(true);
 		   
 		   response.setHeader("Content-disposition", "attachment; filename=projectComplete.xlsx");
@@ -247,7 +247,7 @@ public class ExcelReportController {
    public void profileSummary(@PathVariable int id, HttpServletResponse response) throws IOException  {
 	   Profile p = dataService.getProfile(id, 1);
 	   ExcelWrapper report = ewb.create();
-	   ewb.getProfileSummary(report, p);
+	   ewb.profileSummary(report, p);
 	   response.setHeader("Content-disposition", "attachment; filename=profileSummary.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -257,7 +257,7 @@ public class ExcelReportController {
    public void profileInvest(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException  {
 	   Profile p = dataService.getProfile(id, 4);
 	   ExcelWrapper report = ewb.create();
-	   ewb.getProfileInvest(report, p, template!=null);
+	   ewb.profileInvest(report, p, template!=null);
 	   response.setHeader("Content-disposition", "attachment; filename=profileInvest.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -267,7 +267,7 @@ public class ExcelReportController {
    public void profileGeneral(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException  {
 	   Profile p = dataService.getProfile(id, 5);
 	   ExcelWrapper report = ewb.create();
-	   ewb.getProfileGeneral(report, p, template!=null);
+	   ewb.profileGeneral(report, p, template!=null);
 	   response.setHeader("Content-disposition", "attachment; filename=profileGeneral.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -277,10 +277,13 @@ public class ExcelReportController {
    public void profileProducts(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException  {
 	   Profile p = dataService.getProfile(id, 6);
 	   ExcelWrapper report = ewb.create();
-	   ewb.getProfileProducts(report, p);
+	   ewb.profileProducts(report, p, false);
+	   if (p.getWithWithout()) {
+		   ewb.profileProducts(report, p, true);
+	   }
 	   response.setHeader("Content-disposition", "attachment; filename=profileProducts.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
-		report.getWorkbook().dispose();
+	   report.getWorkbook().dispose();
    }
    
    @RequestMapping(value="{id}/profileProduct.xlsx", method=RequestMethod.GET)
@@ -288,7 +291,7 @@ public class ExcelReportController {
 		ProfileProductBase p = template!=null ? new ProfileProduct() : dataService.getProfileProduct(id, "all");
 		boolean isIg = template!=null ? Boolean.parseBoolean(template) :p.getProfile().getIncomeGen();
 		ExcelWrapper report = ewb.create();
-		ewb.getProduct(report, p, isIg);
+		ewb.profileProduct(report, p, isIg);
 		response.setHeader("Content-disposition", "attachment; filename=profileProduct.xlsx");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -298,7 +301,7 @@ public class ExcelReportController {
    public void profilePrelimAnalysis(@PathVariable int id, HttpServletResponse response) throws IOException  {
 	   ProfileResult pr = dataService.getProfileResult(id);
 	   ExcelWrapper report = ewb.create();
-	   ewb.getProfilePrelimAnalysis(report, pr);
+	   ewb.profilePrelimAnalysis(report, pr);
 	   response.setHeader("Content-disposition", "attachment; filename=profilePrelimAnalysis.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -308,7 +311,7 @@ public class ExcelReportController {
    public void profileRecommendation(@PathVariable int id, HttpServletResponse response) throws IOException {
 	   Profile p = dataService.getProfile(id, 8);
 	   ExcelWrapper report = ewb.create();
-	   ewb.getProfileRecommendation(report, p);
+	   ewb.profileRecommendation(report, p);
 	   response.setHeader("Content-disposition", "attachment; filename=profileRecommendation.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -320,12 +323,15 @@ public class ExcelReportController {
 	   ProfileResult pr = dataService.getProfileResult(id);
 	   ExcelWrapper report = ewb.create();
 	   report.setCompleteReport(true);
-	   ewb.getProfileSummary(report, p);
-	   ewb.getProfileInvest(report, p, false);
-	   ewb.getProfileGeneral(report, p, false);
-	   ewb.getProfileProducts(report, p);
-	   ewb.getProfilePrelimAnalysis(report, pr);
-	   ewb.getProfileRecommendation(report, p);
+	   ewb.profileSummary(report, p);
+	   ewb.profileInvest(report, p, false);
+	   ewb.profileGeneral(report, p, false);
+	   ewb.profileProducts(report, p, false);
+	   if (p.getWithWithout()) {
+		   ewb.profileProducts(report, p, true);
+	   }
+	   ewb.profilePrelimAnalysis(report, pr);
+	   ewb.profileRecommendation(report, p);
 	   response.setHeader("Content-disposition", "attachment; filename=profileComplete.xlsx");
 	   report.getWorkbook().write(response.getOutputStream());
 	   report.getWorkbook().dispose();

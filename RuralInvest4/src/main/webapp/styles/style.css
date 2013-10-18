@@ -553,3 +553,8 @@ li.qq-upload-fail {
 	color:#E44F3C !important;
 	background-color: #FAF5F5 !important;
 }
+
+.ui-buttonset label {
+	width:100px !important;
+	font-size:1em;
+}

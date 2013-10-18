@@ -1,5 +1,11 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<html><head><title><spring:message code="project.step1"/></title></head>
+<html><head><title><spring:message code="project.step1"/></title>
+<script>
+$(function() {
+$( "#radioWithWithout" ).buttonset();
+$( "#radioShared" ).buttonset();
+});
+</script></head>
 <body>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
@@ -139,9 +145,13 @@
 					<div class="dataentry">
 						<input name="oldWithWithout" type="hidden" value="${project.withWithout}"/>
 						<tags:help text="project.withWithout.help" title="project.withWithout"></tags:help>
-						<spring:message code="project.withWithoutMessage" /><br>
-	                 	<form:radiobutton path="withWithout" value="true"/> <spring:message code="misc.yes"/>
-	                 	<form:radiobutton path="withWithout" value="false"/> <spring:message code="misc.no"/>
+						<spring:message code="project.withWithoutMessage" />
+						<div id="radioWithWithout">
+							<form:radiobutton path="withWithout" id="yes" value="true" />
+							<form:label path="withWithout" for="yes"><spring:message code="misc.yes"/></form:label>
+							<form:radiobutton path="withWithout" id="no" value="false" />
+							<form:label path="withWithout" for="no"><spring:message code="misc.no"/></form:label>
+						</div>
 					</div>
 					<c:if test="${project.withWithout && (project.wizardStep==null || project.wizardStep gt 9)}"><script type="text/javascript">
 					$("input[name='withWithout']").change(function() {
@@ -192,8 +202,12 @@
               	</legend>
                  <div class="dataentry">
                  	<spring:message code="project.sharingMessage"/><br>
-                 	<form:radiobutton path="shared" value="true"/> <spring:message code="misc.yes"/>
-                 	<form:radiobutton path="shared" value="false"/> <spring:message code="misc.no"/>
+                 	<div id="radioShared">
+	                	<form:radiobutton path="shared" id="yesShared" value="true"/> 
+	                	<form:label path="shared" for="yesShared"><spring:message code="misc.yes"/></form:label>
+	                	<form:radiobutton path="shared" id="noShared" value="false"/> 
+	                	<form:label path="shared" for="noShared"><spring:message code="misc.no"/></form:label>
+                 	</div>
             	</div>
             </fieldset>
 			

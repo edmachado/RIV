@@ -73,7 +73,7 @@ public class SearchController {
     	List<ProjectResult> results = dataService.getProjectResults(filter);
     	ExcelWrapper report = ewb.create();
 		//ExcelWorksheetBuilder ewb = new ExcelWorksheetBuilder(messageSource, rivConfig);
-		ewb.ProjectResults(report, results, filter);
+		ewb.projectResults(report, results, filter);
 		response.setHeader("Content-disposition", "attachment; filename=projectResults.xls");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();
@@ -90,7 +90,7 @@ public class SearchController {
     public void profileListXls(HttpServletResponse response) throws IOException {
     	List<ProfileResult> results = dataService.getProfileResults(filter);
     	ExcelWrapper report = ewb.create();
-		ewb.ProfileResults(report, results, filter);
+		ewb.profileResults(report, results, filter);
 		response.setHeader("Content-disposition", "attachment; filename=profileResults.xls");
 		report.getWorkbook().write(response.getOutputStream());
 		report.getWorkbook().dispose();

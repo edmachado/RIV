@@ -3,6 +3,7 @@
  <script>
 $(function() {
 $( "#radioWithWithout" ).buttonset();
+$( "#radioShared" ).buttonset();
 });
 </script>
 </head>
@@ -134,8 +135,12 @@ $( "#radioWithWithout" ).buttonset();
               	</legend>
                  <div class="dataentry">
                  	<spring:message code="profile.sharingMessage"/><br>
-                 	<form:radiobutton path="shared" value="true"/> <spring:message code="misc.yes"/>
-                 	<form:radiobutton path="shared" value="false"/> <spring:message code="misc.no"/>
+                 	<div id="radioShared">
+	                	<form:radiobutton path="shared" id="yesShared" value="true"/> 
+	                	<form:label path="shared" for="yesShared"><spring:message code="misc.yes"/></form:label>
+	                	<form:radiobutton path="shared" id="noShared" value="false"/> 
+	                	<form:label path="shared" for="noShared"><spring:message code="misc.no"/></form:label>
+                 	</div>
             	</div>
             </fieldset>
 			

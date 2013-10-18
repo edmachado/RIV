@@ -1,18 +1,23 @@
 package riv.util;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.DataValidation;
+import org.apache.poi.ss.usermodel.DataValidationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 
 import riv.util.ExcelLink;
@@ -27,11 +32,28 @@ public class ExcelWrapper {
 
 	public ExcelWrapper(String currencyPattern) {
 		workbook = new SXSSFWorkbook();
-		//links = new ExcelLinkHolder();
 		links = new HashMap<ExcelLink, String>();
 		blockLinks = new HashMap<Integer, ExcelBlockLink>();
 		blockLinksWithoutProject = new HashMap<Integer, ExcelBlockLink>();
 		buildCellStyles(currencyPattern);
+	}
+	
+	public String getLink(ExcelLink link) {
+		return links.get(link);
+	}
+	public void addLink(ExcelLink link, String value) {
+		links.put(link, value);
+	}
+	
+	public Cell addSelectCell(Row row, int cellNum, Object value, Map<?,String> options, Sheet sheet) {
+		XSSFDataValidationConstraint constraint = new XSSFDataValidationConstraint(options.values().toArray(new String[0]));
+		CellRangeAddressList range = new CellRangeAddressList(row.getRowNum(), row.getRowNum(), cellNum, cellNum);
+		DataValidationHelper helper = sheet.getDataValidationHelper();
+		DataValidation dv = helper.createValidation(constraint, range);
+		dv.setShowErrorBox(true);
+		sheet.addValidationData(dv);
+		
+		return addTextCell(row, cellNum, options.get(value));
 	}
 	
 	
@@ -191,15 +213,10 @@ public class ExcelWrapper {
 	public Map<Style, CellStyle> getStyles() {
 		return styles;
 	}
-	public Map<ExcelLink, String> getLinks() {
-		return links;
-	}
-
 
 	public boolean isCompleteReport() {
 		return completeReport;
 	}
-
 
 	public void setCompleteReport(boolean completeReport) {
 		this.completeReport = completeReport;

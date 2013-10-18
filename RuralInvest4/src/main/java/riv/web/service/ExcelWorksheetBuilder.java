@@ -89,8 +89,12 @@ public class ExcelWorksheetBuilder {
 		return wrap;
 	}
 	
+	private String sheetName(String rawName) {
+		rawName=rawName.replace(":", "-");
+		return (rawName.length()>31) ? rawName.substring(0, 31) : rawName;
+	}
 	
-	public void ProfileResults(ExcelWrapper report, List<ProfileResult> results, FilterCriteria filter) {
+	public void profileResults(ExcelWrapper report, List<ProfileResult> results, FilterCriteria filter) {
 		String reportName = filter.isIncomeGen() ? "profile.report.results.IG" : "profile.report.results.NIG";
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate(reportName)));
 		sheet.setSelected(true);
@@ -143,12 +147,7 @@ public class ExcelWorksheetBuilder {
 			    
 	}
 	
-	private String sheetName(String rawName) {
-		rawName=rawName.replace(":", "-");
-		return (rawName.length()>31) ? rawName.substring(0, 31) : rawName;
-	}
-	
-	public void ProjectResults(ExcelWrapper report, List<ProjectResult> results, FilterCriteria filter){//, HashMap<Integer, String> projectStatuses) {
+	public void projectResults(ExcelWrapper report, List<ProjectResult> results, FilterCriteria filter){//, HashMap<Integer, String> projectStatuses) {
 		String reportName = filter.isIncomeGen() ? "project.report.results.IG" : "project.report.results.NIG";
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate(reportName)));
 		sheet.setSelected(true);
@@ -299,14 +298,14 @@ public class ExcelWorksheetBuilder {
 		return formula.replace("X",Integer.toString(row));
 	}
 	
-	public Sheet getBlock(ExcelWrapper report, BlockBase block, boolean incomeGen) {
+	public Sheet block(ExcelWrapper report, BlockBase block, boolean incomeGen) {
 		XlsTable[] xlsTables = blockXlsTables(report, incomeGen);
 		Sheet sheet = report.getWorkbook().createSheet();
 		addBlock(block, incomeGen, report, sheet, 0, xlsTables);
 		return sheet;
 	}
 	
-	public Sheet getBlocks(ExcelWrapper report, Project project, boolean isWithout) {
+	public Sheet blocks(ExcelWrapper report, Project project, boolean isWithout) {
 		// data
 		int rowNum=0; 
 		
@@ -467,10 +466,9 @@ public class ExcelWorksheetBuilder {
 		return rowNum;
 	}
 	
-	public Sheet getProjectChronology(ExcelWrapper report, Project project) {
+	public Sheet projectChronology(ExcelWrapper report, Project project) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.chronology")));
 
-		
 		SheetConditionalFormatting formatting = sheet.getSheetConditionalFormatting();
 		ConditionalFormattingRule rule = formatting.createConditionalFormattingRule(ComparisonOperator.NOT_EQUAL, "");
 		PatternFormatting fill = rule.createPatternFormatting();
@@ -581,7 +579,7 @@ public class ExcelWorksheetBuilder {
 		}
 	}
 	
-	public Sheet getProjectProduction(ExcelWrapper report, Project project) {
+	public Sheet projectProduction(ExcelWrapper report, Project project) {
 		boolean incomeGen = project.getIncomeGen();
 		int duration = project.getDuration();
 
@@ -673,7 +671,7 @@ public class ExcelWorksheetBuilder {
 		
 		report.addTextCell(row, cellNum++, block.getUnitType());
 		report.addNumericCell(row, cellNum++, block.getCycleLength());
-		report.addTextCell(row, cellNum++, lengthUnits().get(block.getLengthUnit()));
+		report.addSelectCell(row, cellNum++, block.getLengthUnit(), lengthUnits(), sheet);
 		report.addNumericCell(row, cellNum++, block.getCyclePerYear());
 		report.addTextCell(row, cellNum++, translate("units.perYear"));
 		
@@ -710,9 +708,8 @@ public class ExcelWorksheetBuilder {
 		return rowNum;
 	}
 	
-	public Sheet getProjectGeneralDescription(ExcelWrapper report, Project project) {
+	public Sheet projectGeneralDescription(ExcelWrapper report, Project project) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.general")));
-
 
 		setColumnWidth(sheet, 0, 286);
 		setColumnWidth(sheet, 2, 200);
@@ -870,7 +867,7 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 	
-	public Sheet getProjectGeneralDetailNongen(ExcelWrapper report, Project project, boolean template) {
+	public Sheet projectGeneralDetailNongen(ExcelWrapper report, Project project, boolean template) {
 
 		int[] subtotalRows = new int[3];
 		int rowNum=0;
@@ -938,8 +935,7 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 	
-	
-	public Sheet getProjectGeneralDetail(ExcelWrapper report, Project project, boolean template) {
+	public Sheet projectGeneralDetail(ExcelWrapper report, Project project, boolean template) {
 		int rowNum=0;
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.generalCostsDetail")));
 
@@ -1021,20 +1017,20 @@ public class ExcelWorksheetBuilder {
 		
 		if (report.isCompleteReport()) {
 			if (withProject) {
-				report.getLinks().put(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
-				report.getLinks().put(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!R"+rowNum);
-				report.getLinks().put(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!G"+rowNum);
+				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
+				report.addLink(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!R"+rowNum);
+				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!G"+rowNum);
 			} else {
-				report.getLinks().put(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
-				report.getLinks().put(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!R"+rowNum);
-				report.getLinks().put(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!G"+rowNum);
+				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
+				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!R"+rowNum);
+				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!G"+rowNum);
 			}
 		}
 		
 		return rowNum;
 	}
 	
-	public Sheet getProjectInvestmentDetail(ExcelWrapper report, Project project, boolean without, boolean template) {
+	public Sheet projectInvestmentDetail(ExcelWrapper report, Project project, boolean without, boolean template) {
 
 		int rowNum=0; int[] totalRows = new int[3];
 		String title = without ? translate("project.report.investDetail") + " " + translate("project.without")
@@ -1058,8 +1054,8 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("projectInvestAsset"), Style.H2);
 		if (!without) {
-			report.getLinks().put(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW, String.valueOf(rowNum+2));
-			report.getLinks().put(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET, "'"+sheet.getSheetName()+"'");
+			report.addLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW, String.valueOf(rowNum+2));
+			report.addLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET, "'"+sheet.getSheetName()+"'");
 		}
 		
 		String[] headerAssets = new String[]{"projectInvestAsset.description", "projectInvestAsset.unitType", "projectInvestAsset.unitNum", "projectInvestAsset.unitCost", "projectInvestAsset.totalCost", "projectInvestAsset.donated", 
@@ -1137,12 +1133,12 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 7, getColumn(7)+totalRows[0]+"+"+getColumn(7)+totalRows[1]+"+"+getColumn(7)+totalRows[2], Style.CURRENCY);
 		
 		if (report.isCompleteReport() &! without) {
-			report.getLinks().put(ExcelLink.PROJECT_INVEST_FINANCED, "'"+sheet.getSheetName()+"'!$H$"+rowNum);
+			report.addLink(ExcelLink.PROJECT_INVEST_FINANCED, "'"+sheet.getSheetName()+"'!$H$"+rowNum);
 		}
 		return sheet;
 	}
 
-	public Sheet getProjectSummary(ExcelWrapper report, Project project, ProjectResult pr) {
+	public Sheet projectSummary(ExcelWrapper report, Project project, ProjectResult pr) {
 
 		
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.summary")));
@@ -1371,7 +1367,7 @@ public class ExcelWorksheetBuilder {
 		return row;
 	}
 	
-	public Sheet getProjectSustainability(ExcelWrapper report, Project project, ProjectResult result) {
+	public Sheet projectSustainability(ExcelWrapper report, Project project, ProjectResult result) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.cashFlowNongen")));
 
 		sheet.setSelected(true);
@@ -1480,7 +1476,7 @@ public class ExcelWorksheetBuilder {
 		return rowNum;
 	}
 	
-	public Sheet getProjectContributions(ExcelWrapper report, Project project, boolean template) {
+	public Sheet projectContributions(ExcelWrapper report, Project project, boolean template) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.step10.nongen")));
 
 		sheet.setSelected(true);
@@ -1496,7 +1492,7 @@ public class ExcelWorksheetBuilder {
 		String[] header = new String[]{"projectContribution.description","projectContribution.contribType","projectContribution.unitType","projectContribution.unitNum","projectContribution.unitCost","projectContribution.totalCost"};
 		XlsTable table = new XlsTable(report, header)
 		.addColumn(XlsColumnType.TEXT, "getDescription", false)
-		.addSelectColumnIntBased("getContribType", getContribTypes())
+		.addSelectColumnIntBased("getContribType", contribTypes())
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitCost", false)
@@ -1521,7 +1517,7 @@ public class ExcelWorksheetBuilder {
 		return rowStart+titles.length+1;
 	}
 	
-	public Sheet getProjectCashFlow(ExcelWrapper report, Project project, ProjectResult result) {
+	public Sheet projectCashFlow(ExcelWrapper report, Project project, ProjectResult result) {
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
 		ProjectFinanceData.AddLoanAmortization(project, data);
 		ProjectFinanceData.AddWorkingCapital(project, data);
@@ -1599,8 +1595,8 @@ public class ExcelWorksheetBuilder {
 				
 				// salvage
 				formulaBuild = new StringBuilder();
-				int firstRow = Integer.parseInt(report.getLinks().get(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-				String assetSheetName = report.getLinks().get(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
+				int firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
+				String assetSheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
 				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
 					formulaBuild.append(
 						"IF(AND(" +col+"2<>"+assetSheetName+"!$M$"+i+
@@ -1612,16 +1608,16 @@ public class ExcelWorksheetBuilder {
 			
 				// wc donation
 				if (yearNum==1) {
-					report.addFormulaCell(sheet.getRow(5), 1, report.getLinks().get(ExcelLink.PROJECT_WC_DONATED), Style.CURRENCY);
+					report.addFormulaCell(sheet.getRow(5), 1, report.getLink(ExcelLink.PROJECT_WC_DONATED), Style.CURRENCY);
 				} else {
 					report.addNumericCell(sheet.getRow(5), yearNum, 0, Style.CURRENCY);
 				}
 				
 				// loan received
 				formula=String.format("IF(%s2=1,%s,0)+IF(%s=%s2,%s,0)", 
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN1_AMOUNT),
-						report.getLinks().get(ExcelLink.PROJECT_LOAN2_YEAR),
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_AMOUNT));
+						col, report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT),
+						report.getLink(ExcelLink.PROJECT_LOAN2_YEAR),
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT));
 				report.addFormulaCell(sheet.getRow(6), yearNum, formula, Style.CURRENCY);
 		
 				// total
@@ -1641,7 +1637,7 @@ public class ExcelWorksheetBuilder {
 
 				// replacement
 				formulaBuild = new StringBuilder();
-				firstRow = Integer.parseInt(report.getLinks().get(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
+				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
 				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
 					formulaBuild.append(
 						"IF(" +
@@ -1652,11 +1648,11 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(11), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 
 				// general
-				report.addFormulaCell(sheet.getRow(12), yearNum, report.getLinks().get(ExcelLink.PROJECT_GENERAL_CASH), Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(12), yearNum, report.getLink(ExcelLink.PROJECT_GENERAL_CASH), Style.CURRENCY);
 				
 				// maintenance
 				formulaBuild = new StringBuilder();
-				firstRow = Integer.parseInt(report.getLinks().get(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
+				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
 				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
 					formulaBuild.append(
 					"IF("+assetSheetName+"!$M$"+i+"<="+ yearNum +", "+assetSheetName+"!$C$"+i+"*"+assetSheetName+"!$J$"+i+",0)+"
@@ -1674,15 +1670,15 @@ public class ExcelWorksheetBuilder {
 				// financing
 				if (yearNum==1) {
 					formula = String.format("%s*%s/12*%s*0.01",
-							report.getLinks().get(ExcelLink.PROJECT_WC_FINANCED),
-							report.getLinks().get(ExcelLink.PROJECT_WC_PERIOD),
-							report.getLinks().get(ExcelLink.PROJECT_WC_INTEREST));
+							report.getLink(ExcelLink.PROJECT_WC_FINANCED),
+							report.getLink(ExcelLink.PROJECT_WC_PERIOD),
+							report.getLink(ExcelLink.PROJECT_WC_INTEREST));
 				} else if (yearNum==2) {
 					formula = String.format("IF(%s<0,-1*%s*C14/B14*%s/12*%s*0.01,0)",
-							report.getLinks().get(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
-							report.getLinks().get(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
-							report.getLinks().get(ExcelLink.PROJECT_WC_PERIOD),
-							report.getLinks().get(ExcelLink.PROJECT_WC_INTEREST));
+							report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
+							report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
+							report.getLink(ExcelLink.PROJECT_WC_PERIOD),
+							report.getLink(ExcelLink.PROJECT_WC_INTEREST));
 				} else {
 					formula="0";
 				}
@@ -1694,15 +1690,15 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(21), yearNum, col+loan1Interest, Style.CURRENCY);
 				// secondary capital
 				formula = String.format("IF(%s2<%s,0,LOOKUP(%s2-%s+1,B2:%s2,B%d:%s%d))",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_YEAR),
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_YEAR),
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR),
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR),
 						getColumn(project.getDuration()), 
 						loan2Capital, getColumn(project.getDuration()), loan2Capital);
 				report.addFormulaCell(sheet.getRow(22), yearNum, formula, Style.CURRENCY);
 				// secondary interest
 				formula = String.format("IF(%s2<%s,0,LOOKUP(%s2-%s+1,B2:%s2,B%d:%s%d))",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_YEAR), 
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_YEAR),
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR), 
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR),
 						getColumn(project.getDuration()), 
 						loan2Interest, getColumn(project.getDuration()), loan2Interest);
 				report.addFormulaCell(sheet.getRow(23), yearNum, formula, Style.CURRENCY);
@@ -1721,82 +1717,82 @@ public class ExcelWorksheetBuilder {
 				// primary loan
 				// primary total payment
 				formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PMT((%s-%s)/100,%s-%s,-MAX(%s%d,%s),0)))",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL), col,
-						report.getLinks().get(ExcelLink.PROJECT_LOAN1_DURATION),
-						report.getLinks().get(ExcelLink.PROJECT_LOAN1_RATE), report.getLinks().get(ExcelLink.PROJECT_INFLATION),
-						report.getLinks().get(ExcelLink.PROJECT_LOAN1_DURATION), report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-						col,loan1InterestCapital,report.getLinks().get(ExcelLink.PROJECT_LOAN1_AMOUNT)
+						col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL), col,
+						report.getLink(ExcelLink.PROJECT_LOAN1_DURATION),
+						report.getLink(ExcelLink.PROJECT_LOAN1_RATE), report.getLink(ExcelLink.PROJECT_INFLATION),
+						report.getLink(ExcelLink.PROJECT_LOAN1_DURATION), report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
+						col,loan1InterestCapital,report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT)
 						);
 				report.addFormulaCell(sheet.getRow(loan1Total-1), yearNum, formula, Style.CURRENCY);
 				// primary capital
 				formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PPMT((%s-%s)/100,%s2-%s,%s-%s,-MAX(%s%d,%s),0)))",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL), col,
-						report.getLinks().get(ExcelLink.PROJECT_LOAN1_DURATION), report.getLinks().get(ExcelLink.PROJECT_LOAN1_RATE),
-						report.getLinks().get(ExcelLink.PROJECT_INFLATION), col, report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-						report.getLinks().get(ExcelLink.PROJECT_LOAN1_DURATION),report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-						col, loan1InterestCapital, report.getLinks().get(ExcelLink.PROJECT_LOAN1_AMOUNT));
+						col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL), col,
+						report.getLink(ExcelLink.PROJECT_LOAN1_DURATION), report.getLink(ExcelLink.PROJECT_LOAN1_RATE),
+						report.getLink(ExcelLink.PROJECT_INFLATION), col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
+						report.getLink(ExcelLink.PROJECT_LOAN1_DURATION),report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
+						col, loan1InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT));
 				report.addFormulaCell(sheet.getRow(loan1Capital-1), yearNum, formula, Style.CURRENCY);
 				// primary interest
 				formula = String.format("%s%d-%s%d+IF(%s2<=%s,0,%s%d)",
-						col,loan1Total,col,loan1Capital, col, report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST),col, loan1InterestAfterGrace);
+						col,loan1Total,col,loan1Capital, col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST),col, loan1InterestAfterGrace);
 				report.addFormulaCell(sheet.getRow(loan1Interest-1), yearNum, formula, Style.CURRENCY);
 				// primary initial capital when grace on interest
-				formula = yearNum==1 ? report.getLinks().get(ExcelLink.PROJECT_LOAN1_AMOUNT) : 
+				formula = yearNum==1 ? report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT) : 
 					String.format("%s%d+%s%d", getColumn(yearNum-1),loan1InterestCapital, getColumn(yearNum-1), loan1InterestDuringGrace);
 				report.addFormulaCell(sheet.getRow(loan1InterestCapital-1), yearNum, formula, Style.CURRENCY);
 				// primary interest during grace for interest
 				formula = String.format("IF(%s2<=%s,%s%d*(%s-%s)/100,0)",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST), col, loan1InterestCapital, 
-						report.getLinks().get(ExcelLink.PROJECT_LOAN1_RATE), report.getLinks().get(ExcelLink.PROJECT_INFLATION));
+						col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST), col, loan1InterestCapital, 
+						report.getLink(ExcelLink.PROJECT_LOAN1_RATE), report.getLink(ExcelLink.PROJECT_INFLATION));
 				report.addFormulaCell(sheet.getRow(loan1InterestDuringGrace-1), yearNum, formula, Style.CURRENCY);
 				// primary interest when grace on capital
 				formula = String.format("IF(%s%d>0,0,IF(%s2<=%s,%s%d*(%s-%s)/100,0))",
-						col, loan1InterestDuringGrace, col, report.getLinks().get(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-						col, loan1InterestCapital,report.getLinks().get(ExcelLink.PROJECT_LOAN1_RATE), report.getLinks().get(ExcelLink.PROJECT_INFLATION));
+						col, loan1InterestDuringGrace, col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
+						col, loan1InterestCapital,report.getLink(ExcelLink.PROJECT_LOAN1_RATE), report.getLink(ExcelLink.PROJECT_INFLATION));
 				report.addFormulaCell(sheet.getRow(loan1InterestAfterGrace-1), yearNum, formula, Style.CURRENCY);
 				
 				// secondary loan
 				// secondary total payment
 				formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PMT((%s-%s)/100,%s-%s,-MAX(%s%d,%s),0)))",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), 
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_DURATION), 
-						report.getLinks().get(ExcelLink.PROJECT_LOAN2_RATE), report.getLinks().get(ExcelLink.PROJECT_INFLATION), 
-						report.getLinks().get(ExcelLink.PROJECT_LOAN2_DURATION), report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), 
-						col, loan2InterestCapital, report.getLinks().get(ExcelLink.PROJECT_LOAN2_AMOUNT));
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), 
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), 
+						report.getLink(ExcelLink.PROJECT_LOAN2_RATE), report.getLink(ExcelLink.PROJECT_INFLATION), 
+						report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), 
+						col, loan2InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT));
 				report.addFormulaCell(sheet.getRow(loan2Total-1), yearNum, formula, Style.CURRENCY);
 				
 				// secondary capital
 				formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PPMT((%s-%s)/100,%s2-%s,%s-%s,-MAX(%s%d,%s),0)))",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), col,
-						report.getLinks().get(ExcelLink.PROJECT_LOAN2_DURATION), report.getLinks().get(ExcelLink.PROJECT_LOAN2_RATE),
-						report.getLinks().get(ExcelLink.PROJECT_INFLATION), col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
-						report.getLinks().get(ExcelLink.PROJECT_LOAN2_DURATION), report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
-						col, loan2InterestCapital, report.getLinks().get(ExcelLink.PROJECT_LOAN2_AMOUNT));
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), col,
+						report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), report.getLink(ExcelLink.PROJECT_LOAN2_RATE),
+						report.getLink(ExcelLink.PROJECT_INFLATION), col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
+						report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
+						col, loan2InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT));
 				report.addFormulaCell(sheet.getRow(loan2Capital-1), yearNum, formula, Style.CURRENCY);
 				
 				// secondary interest
 				formula = String.format("%s%d-%s%d+IF(%s2<=%s,0,%s%d)",
-						col, loan2Total, col, loan2Capital, col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST),
+						col, loan2Total, col, loan2Capital, col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST),
 						col, loan2InterestAfterGrace);
 				report.addFormulaCell(sheet.getRow(loan2Interest-1), yearNum, formula, Style.CURRENCY);
 				
 				// secondary interest capital when grace on interest
-				formula = yearNum==1 ? report.getLinks().get(ExcelLink.PROJECT_LOAN2_AMOUNT) : 
+				formula = yearNum==1 ? report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT) : 
 					String.format("%s%d+%s%d", getColumn(yearNum-1),loan2InterestCapital, getColumn(yearNum-1), loan2InterestDuringGrace);
 				report.addFormulaCell(sheet.getRow(loan2InterestCapital-1), yearNum, formula, Style.CURRENCY);
 				
 				// secondary interest during grace for interest
 				formula = String.format("IF(%s2<=%s,%s%d*(%s-%s)/100,0)",
-						col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST), col, loan2InterestCapital,
-								report.getLinks().get(ExcelLink.PROJECT_LOAN2_RATE),
-								report.getLinks().get(ExcelLink.PROJECT_INFLATION));
+						col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST), col, loan2InterestCapital,
+								report.getLink(ExcelLink.PROJECT_LOAN2_RATE),
+								report.getLink(ExcelLink.PROJECT_INFLATION));
 				report.addFormulaCell(sheet.getRow(loan2InterestDuringGrace-1), yearNum, formula, Style.CURRENCY);
 				
 				// secondary interest when grace on capital
 				formula = String.format("IF(%s%d>0,0,IF(%s2<=%s,%s%d*(%s-%s)/100,0))",
-						col, loan2InterestDuringGrace, col, report.getLinks().get(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST),
-						col, loan2InterestCapital, report.getLinks().get(ExcelLink.PROJECT_LOAN2_RATE),
-						report.getLinks().get(ExcelLink.PROJECT_INFLATION));
+						col, loan2InterestDuringGrace, col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST),
+						col, loan2InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN2_RATE),
+						report.getLink(ExcelLink.PROJECT_INFLATION));
 				report.addFormulaCell(sheet.getRow(loan2InterestAfterGrace-1), yearNum, formula, Style.CURRENCY);
 				
 			} else {
@@ -1838,7 +1834,7 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 
-	public Sheet getProjectProfitability(ExcelWrapper report, Project project, ProjectResult pr) {
+	public Sheet projectProfitability(ExcelWrapper report, Project project, ProjectResult pr) {
 
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.TotalCosts);
 		ProjectFinanceData.AddLoanAmortization(project, data);
@@ -2014,7 +2010,7 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 
-	public Sheet getProjectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result) {
+	public Sheet projectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result) {
 
 		ProjectFirstYear pfy = new ProjectFirstYear(project);
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.cashFlowFirst")));
@@ -2109,8 +2105,8 @@ public class ExcelWorksheetBuilder {
 		
 		row = sheet.createRow(++rowNum);
 		if (report.isCompleteReport()) {
-			int firstRow = Integer.parseInt(report.getLinks().get(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-			String sheetName = report.getLinks().get(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
+			int firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
+			String sheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
 			StringBuilder formula = new StringBuilder();
 			for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
 				formula.append(
@@ -2125,7 +2121,7 @@ public class ExcelWorksheetBuilder {
 
 		row = sheet.createRow(++rowNum);
 		if (report.isCompleteReport()) {
-			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", report.getLinks().get(ExcelLink.PROJECT_GENERAL_TOTAL)+"/12");
+			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL)+"/12");
 		} else {
 			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", pfy.getGeneralCost());
 		}
@@ -2154,7 +2150,7 @@ public class ExcelWorksheetBuilder {
 		for (short i=2;i<=12;i++) {
 			report.addFormulaCell(row, i, String.format("%s%d+%s%d", getColumn(i), rowNum, getColumn(i-1), rowNum+1), Style.CURRENCY);
 			if (i==12 && report.isCompleteReport()) {
-				report.getLinks().put(ExcelLink.PROJECT_1ST_YEAR_TOTAL, "'"+sheet.getSheetName()+"'!$M$"+rowNum);
+				report.addLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL, "'"+sheet.getSheetName()+"'!$M$"+rowNum);
 			}
 		}
 		return sheet;
@@ -2240,7 +2236,7 @@ public class ExcelWorksheetBuilder {
 	}
 
 	
-	private HashMap<Integer, String> getContribTypes() {
+	private HashMap<Integer, String> contribTypes() {
 		HashMap<Integer, String> contribTypes = new HashMap<Integer, String>();
 		contribTypes.put(0, translate("projectContribution.contribType.govtCentral"));
 		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
@@ -2254,7 +2250,7 @@ public class ExcelWorksheetBuilder {
 		sheet.setColumnWidth(col, size*36);
 	}
 
-	public Sheet getProjectRecommendation(ExcelWrapper report, Project project) {
+	public Sheet projectRecommendation(ExcelWrapper report, Project project) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.recommendation")));
 
 		sheet.setSelected(true);
@@ -2296,7 +2292,7 @@ public class ExcelWorksheetBuilder {
 		
 	}
 
-	public Sheet getProjectParameters(ExcelWrapper report, Project project) {
+	public Sheet projectParameters(ExcelWrapper report, Project project) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.parameters")));
 
 		sheet.setSelected(true);
@@ -2319,7 +2315,7 @@ public class ExcelWorksheetBuilder {
 		report.addNumericCell(row, cellNum+1, project.getInflationAnnual(), Style.CURRENCY);
 		report.addTextCell(row, cellNum+2, "%");
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_INFLATION, "'"+sheet.getSheetName()+"'!$B$4");
+			report.addLink(ExcelLink.PROJECT_INFLATION, "'"+sheet.getSheetName()+"'!$B$4");
 		}
 
 
@@ -2343,14 +2339,14 @@ public class ExcelWorksheetBuilder {
 
 		row = sheet.createRow(rowNum++);
 		if (report.isCompleteReport()) {
-			String loan1amt = report.getLinks().get(ExcelLink.PROJECT_INVEST_FINANCED)+"-$B$15";
+			String loan1amt = report.getLink(ExcelLink.PROJECT_INVEST_FINANCED)+"-$B$15";
 			rowNum = addLoans(report, sheet, rowNum, translate("project.loan1"), 0.0, loan1amt, project.getLoan1Interest(), 
 					project.getLoan1Duration(),	project.getLoan1GraceCapital(), project.getLoan1GraceInterest());
-			report.getLinks().put(ExcelLink.PROJECT_LOAN1_AMOUNT, "'"+sheet.getSheetName()+"'!$B$7");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN1_RATE, "'"+sheet.getSheetName()+"'!$B$8");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN1_DURATION, "'"+sheet.getSheetName()+"'!$B$9");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$B$10");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$B$11");
+			report.addLink(ExcelLink.PROJECT_LOAN1_AMOUNT, "'"+sheet.getSheetName()+"'!$B$7");
+			report.addLink(ExcelLink.PROJECT_LOAN1_RATE, "'"+sheet.getSheetName()+"'!$B$8");
+			report.addLink(ExcelLink.PROJECT_LOAN1_DURATION, "'"+sheet.getSheetName()+"'!$B$9");
+			report.addLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$B$10");
+			report.addLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$B$11");
 		} else {
 			rowNum = addLoans(report, sheet, rowNum, translate("project.loan1"), loan1, null, project.getLoan1Interest(), 
 				project.getLoan1Duration(),	project.getLoan1GraceCapital(), project.getLoan1GraceInterest());
@@ -2362,18 +2358,18 @@ public class ExcelWorksheetBuilder {
 		rowNum = addLoans(report, sheet, rowNum, translate("project.loan2"), loan2,null,  project.getLoan1Interest(), 
 				project.getLoan1Duration(), project.getLoan1GraceCapital(), project.getLoan1GraceInterest());
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_LOAN2_AMOUNT, "'"+sheet.getSheetName()+"'!$B$15");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN2_RATE, "'"+sheet.getSheetName()+"'!$B$16");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN2_DURATION, "'"+sheet.getSheetName()+"'!$B$17");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$B$18");
-			report.getLinks().put(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$B$19");
+			report.addLink(ExcelLink.PROJECT_LOAN2_AMOUNT, "'"+sheet.getSheetName()+"'!$B$15");
+			report.addLink(ExcelLink.PROJECT_LOAN2_RATE, "'"+sheet.getSheetName()+"'!$B$16");
+			report.addLink(ExcelLink.PROJECT_LOAN2_DURATION, "'"+sheet.getSheetName()+"'!$B$17");
+			report.addLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$B$18");
+			report.addLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$B$19");
 		}
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.loan2InitPeriod"));
 		report.addNumericCell(row, 1, project.getLoan2InitPeriod());
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_LOAN2_YEAR, "'"+sheet.getSheetName()+"'!$B$"+rowNum);			
+			report.addLink(ExcelLink.PROJECT_LOAN2_YEAR, "'"+sheet.getSheetName()+"'!$B$"+rowNum);			
 		}
 		
 		rowNum++;	row = sheet.createRow(rowNum++);
@@ -2397,7 +2393,7 @@ public class ExcelWorksheetBuilder {
 			String formula = 
 					"IF(COUNTIF("+range+",\"<0\"), IF(MATCH(2,1/MMULT(1,-("+range+"<0)))>9,12,MATCH(2,1/MMULT(1,-("+range+"<0)))+2),0)";	
 			report.addFormulaCell(row, 1, formula);
-			report.getLinks().put(ExcelLink.PROJECT_WC_PERIOD, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
+			report.addLink(ExcelLink.PROJECT_WC_PERIOD, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		} else {
 			report.addNumericCell(row, 1, financePrd);
 		}
@@ -2408,14 +2404,14 @@ public class ExcelWorksheetBuilder {
 		report.addNumericCell(row, 1, project.getCapitalInterest(), Style.CURRENCY);
 		report.addTextCell(row, 2, "%");
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_WC_INTEREST, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
+			report.addLink(ExcelLink.PROJECT_WC_INTEREST, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		}
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.capitalDonate"));
 		report.addNumericCell(row, 1, project.getCapitalDonate(), Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_WC_DONATED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
+			report.addLink(ExcelLink.PROJECT_WC_DONATED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		}
 		
 		row = sheet.createRow(rowNum++);
@@ -2427,7 +2423,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("project.amtFinanced"));
 		report.addFormulaCell(row, 1, "B23-B26-B27", Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROJECT_WC_FINANCED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
+			report.addLink(ExcelLink.PROJECT_WC_FINANCED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		}
 		return sheet;
 	}
@@ -2467,7 +2463,7 @@ public class ExcelWorksheetBuilder {
 
 	
 	
-	public Sheet getProfileSummary(ExcelWrapper report, Profile profile) {
+	public Sheet profileSummary(ExcelWrapper report, Profile profile) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("profile.report.summary")));
 
 		Setting setting = rivConfig.getSetting();
@@ -2567,7 +2563,7 @@ public class ExcelWorksheetBuilder {
 		
 	}
 	
-	public void getProfileInvest(ExcelWrapper report, Profile profile, boolean template) {
+	public void profileInvest(ExcelWrapper report, Profile profile, boolean template) {
 
 		//	goods and materials
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("profile.report.investDetail")));
@@ -2608,7 +2604,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.FORMULA, "((DX-IX)*CX)/HX", true);
 		rowNum = table.writeTable(sheet, rowNum++, template ? null : profile.getGlsGoods(), true);
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROFILE_INVEST_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
+			report.addLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
 		}
 		
 		int sumGoods = rowNum;
@@ -2640,14 +2636,14 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 5, String.format("F%d+F%d", sumGoods, rowNum-1), Style.CURRENCY);
 		report.addFormulaCell(row, 6, String.format("G%d+G%d", sumGoods, rowNum-1), Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROFILE_INVEST_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
-			report.getLinks().put(ExcelLink.PROFILE_INVEST_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
-			report.getLinks().put(ExcelLink.PROFILE_INVEST_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
+			report.addLink(ExcelLink.PROFILE_INVEST_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
+			report.addLink(ExcelLink.PROFILE_INVEST_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
+			report.addLink(ExcelLink.PROFILE_INVEST_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
 		}
 		
 	}
 
-	public void getProfileGeneral(ExcelWrapper report, Profile profile, boolean template) {
+	public void profileGeneral(ExcelWrapper report, Profile profile, boolean template) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("profileGeneral")));
 
 		sheet.setSelected(true);
@@ -2676,7 +2672,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.FORMULA, "CX*DX", true);
 		rowNum = table.writeTable(sheet, rowNum, template ? null : profile.getGlsGeneral(), true);
 		if (report.isCompleteReport()) {
-			report.getLinks().put(ExcelLink.PROFILE_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
+			report.addLink(ExcelLink.PROFILE_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
 		}
 		
 		
@@ -2686,7 +2682,7 @@ public class ExcelWorksheetBuilder {
 			report.addTextCell(row, 0, translate("profileGeneral") + " " + translate("project.without"), Style.H2);
 			rowNum = table.writeTable(sheet, rowNum, profile.getGlsGeneralWithout(), true);
 			if (report.isCompleteReport()) {
-				report.getLinks().put(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!E"+(rowNum-1));
+				report.addLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!E"+(rowNum-1));
 			}
 		}
 		
@@ -2903,16 +2899,18 @@ public class ExcelWorksheetBuilder {
 		return tables;
 	}
 	
-	public void getProfileProducts(ExcelWrapper report, Profile profile) {
+	public Sheet profileProducts(ExcelWrapper report, Profile profile, boolean without) {
 		boolean ig = profile.getIncomeGen();
 		int rowNum = 0;
 		String sheetName = null;
 		if (ig) {
-			sheetName = "profile.report.productDetail";
+			sheetName = translate("profile.report.productDetail");
+			if (profile.getWithWithout()) {
+				sheetName = without ? "("+translate("profileProduct.with.without")+") "+sheetName : "("+translate("profileProduct.with.with")+") "+sheetName;
+			}
 		} else {
-			sheetName = "profile.report.productDetailNongen";
+			sheetName = translate("profile.report.productDetailNongen");
 		}
-		sheetName = translate(sheetName);
 		
 		Sheet sheet = report.getWorkbook().createSheet(sheetName);
 		setColumnWidth(sheet, 0, 200);
@@ -2928,69 +2926,142 @@ public class ExcelWorksheetBuilder {
 
 		XlsTable[] tables = productTables(report, profile.getIncomeGen());
 		
-		for (ProfileProduct prod : profile.getProducts()) {
-			rowNum = addProduct(prod, rowNum, incomeTitle, sheet, report, tables);
+		for (ProfileProductBase prod : without ? profile.getProductsWithout() : profile.getProducts()) {
+			row = sheet.createRow(rowNum++);
+			report.addTextCell(row, 0, prod.getDescription(), Style.H2);
+			rowNum = addProductDescription(prod, rowNum, sheet, report);
+			rowNum = addProductTables(prod, rowNum, true, incomeTitle, sheet, report, tables);
 		}
 		
 		setColumnWidth(sheet, 5, 100);
-	}
-	
-	public Sheet getProduct(ExcelWrapper report, ProfileProductBase product, boolean incomeGen) {
-		XlsTable[] tables = productTables(report, incomeGen);
-		Sheet sheet = report.getWorkbook().createSheet();
-		String incomeTitle = incomeGen ? translate("profileProductIncome") : translate("profileActivityCharge");
-		addProduct(product, 0, incomeTitle, sheet, report, tables);
 		return sheet;
 	}
 	
-	private int addProduct(ProfileProductBase prod, int rowNum, String incomeTitle, Sheet sheet, ExcelWrapper report, XlsTable[] tables) {
+	public Sheet profileProduct(ExcelWrapper report, ProfileProductBase product, boolean incomeGen) {
+		XlsTable[] tables = productTables(report, incomeGen);
+		Sheet sheet = report.getWorkbook().createSheet();
+		String incomeTitle = incomeGen ? translate("profileProductIncome") : translate("profileActivityCharge");
+		addProductTables(product, 0, false, incomeTitle, sheet, report, tables);
+		return sheet;
+	}
+	
+	private int addProductDescription(ProfileProductBase prod, int rowNum, Sheet sheet, ExcelWrapper report) {		
+		String prodType = prod.getProfile().getIncomeGen() ? "profileProduct" : "profileActivity";
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, prod.getDescription(), Style.H2);
-		
+		report.addTextCell(row, 0, translate(prodType+".prodUnit"));
+		report.addTextCell(row, 1, prod.getUnitType());
+
 		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, incomeTitle, Style.H2);
-		rowNum=tables[0].writeTable(sheet, rowNum++, prod.getProfileIncomes(), true);
-		if (report.isCompleteReport()) {
-			String value = "'"+sheet.getSheetName()+"'!F"+rowNum;
-			ExcelLink incomeLink = ExcelLink.PROFILE_PRODUCT_INCOME;
-			if (report.getLinks().get(incomeLink)==null) {
-				report.getLinks().put(incomeLink, value);
-			} else {
-			report.getLinks().put(incomeLink, report.getLinks().get(incomeLink)+"+"+value);
-			}
+		report.addTextCell(row, 0, translate(prodType+".numUnits"));
+		report.addNumericCell(row, 1, prod.getUnitNum());
+
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate(prodType+".cycleLength"));
+		report.addNumericCell(row, 1, prod.getCycleLength());
+		report.addSelectCell(row, 2, prod.getLengthUnit(), lengthUnits(), sheet);
+
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate(prodType+".cycles"));
+		report.addNumericCell(row, 1, prod.getCyclePerYear());
+		report.addTextCell(row, 2, translate("units.perYear"));
+		
+		ExcelBlockLink blockLink = new ExcelBlockLink();
+		blockLink.qtyProfileProduct = "'"+sheet.getSheetName()+"'!$B$"+(rowNum-2);
+		blockLink.cycles = "'"+sheet.getSheetName()+"'!$B$"+rowNum;
+		if (prod.getClass()==ProfileProduct.class) {
+			report.getBlockLinks().put(prod.getProductId(), blockLink);
+		} else {
+			report.getBlockLinksWithoutProject().put(prod.getProductId(), blockLink);
 		}
 		
-		rowNum++;
+		return rowNum++;
+	}
+	
+	
+	private int addProductTables(ProfileProductBase prod, int rowNum, boolean showSummary, String incomeTitle, Sheet sheet, ExcelWrapper report, XlsTable[] tables) {
+		ExcelBlockLink blockLink=null;
+		if (showSummary) {
+			blockLink = prod.getClass()==ProfileProduct.class ? report.getBlockLinks().get(prod.getProductId()) : report.getBlockLinksWithoutProject().get(prod.getProductId());
+		}
+		
+		Row row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, incomeTitle, Style.H2);
+		rowNum=tables[0].writeTable(sheet, rowNum++, prod.getProfileIncomes(), true);
+		if (showSummary) {
+			blockLink.income = "'"+sheet.getSheetName()+"'!$F$"+rowNum;
+		}
+		
+		//rowNum++;
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("profileProductInput").replace('/',' '), Style.H2);
 		rowNum=tables[1].writeTable(sheet, rowNum++, prod.getProfileInputs(), true);
-		if (report.isCompleteReport()) {
-			String value = "'"+sheet.getSheetName()+"'!F"+rowNum;
-			ExcelLink inputLink = ExcelLink.PROFILE_PRODUCT_INPUT;
-			if (report.getLinks().get(inputLink)==null) {
-				report.getLinks().put(inputLink, value);
-			} else {
-			report.getLinks().put(inputLink, report.getLinks().get(inputLink)+"+"+value);
-			}
+		if (showSummary) {
+			blockLink.cost = "'"+sheet.getSheetName()+"'!$F$"+rowNum;
 		}
 		
-		rowNum++;
+		//rowNum++;
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("profileProductLabour"), Style.H2);
 		rowNum=tables[2].writeTable(sheet, rowNum++, prod.getProfileLabours(), true);
-		if (report.isCompleteReport()) {
-			String value = "'"+sheet.getSheetName()+"'!F"+rowNum;
-			ExcelLink labourLink = ExcelLink.PROFILE_PRODUCT_LABOUR;
-			if (report.getLinks().get(labourLink)==null) {
-				report.getLinks().put(labourLink, value);
-			} else {
-				report.getLinks().put(labourLink, report.getLinks().get(labourLink)+"+"+value);
+		if (showSummary) {
+			blockLink.cost = "("+blockLink.cost+"+'"+sheet.getSheetName()+"'!$F$"+rowNum+")";
+		}
+		//rowNum++;
+		
+		if (showSummary) {
+			row = sheet.createRow(rowNum++);
+			report.addTextCell(row, 0, translate("profile.report.blockDetail.totalPerUnitCycle"), Style.H2);
+			
+			row = sheet.createRow(rowNum++);
+			report.addTextCell(row, 0, translate("profile.report.blockDetail.incomes"));
+			report.addFormulaCell(row, 1, "("+blockLink.income+"*"+blockLink.qtyProfileProduct+"*"+blockLink.cycles+")", Style.CURRENCY);
+			if (report.isCompleteReport()) {
+				String income= "'"+sheet.getSheetName()+"'!$B$"+rowNum;
+				if (prod.getClass()==ProfileProduct.class) {
+					if (report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME)==null) {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_INCOME, income);
+					} else {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_INCOME, report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME)+"+"+income);
+					}
+				} else {
+					if (report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT)==null) {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT, income);
+					} else {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT, report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT)+"+"+income);
+					}
+				}
+				
 			}
+			
+			row = sheet.createRow(rowNum++);
+			report.addTextCell(row, 0, translate("profile.report.blockDetail.costs"));
+			report.addFormulaCell(row, 1, "("+blockLink.cost+"*"+blockLink.qtyProfileProduct+"*"+blockLink.cycles+")", Style.CURRENCY);
+			if (report.isCompleteReport()) {
+				String cost="'"+sheet.getSheetName()+"'!$B$"+rowNum;
+				if (prod.getClass()==ProfileProduct.class) {
+					if (report.getLink(ExcelLink.PROFILE_PRODUCT_COST)==null) {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_COST, cost);
+					} else {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_COST, report.getLink(ExcelLink.PROFILE_PRODUCT_COST)+"+"+cost);
+					}
+				} else {
+					if (report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT)==null) {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT, cost);
+					} else {
+						report.addLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT, report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT)+"+"+cost);
+					}
+				}
+				
+			}
+			
+			row = sheet.createRow(rowNum++);
+			report.addTextCell(row, 0, translate("profile.report.blockDetail.netIncome"));
+			report.addFormulaCell(row, 1, String.format("B%d-B%d", rowNum-2, rowNum-1), Style.CURRENCY);
 		}
 		return rowNum+2;
 	}
 
-	public void getProfilePrelimAnalysis(ExcelWrapper report, ProfileResult result) {
+	public void profilePrelimAnalysis(ExcelWrapper report, ProfileResult result) {
 
 		boolean incomeGen = result.isIncomeGen();
 		String[] titles = new String[5];
@@ -3014,6 +3085,7 @@ public class ExcelWorksheetBuilder {
 		int rowNum=0;
 		short rowHeader = 0;
 		short cellNum = 1;
+		StringBuilder formulaBuilder;
 		setColumnWidth(sheet, rowHeader, 500);
 		setColumnWidth(sheet, cellNum, 100);
 		sheet.setDefaultColumnStyle(cellNum, report.getStyles().get(Style.CURRENCY));
@@ -3028,7 +3100,7 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (A)", translate("profile.report.preliminary.investExtern")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLinks().get(ExcelLink.PROFILE_INVEST_EXTERNAL), Style.CURRENCY);
+			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_EXTERNAL), Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, cellNum, result.getInvestmentExt(), Style.CURRENCY);
 		}
@@ -3036,14 +3108,17 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (B)", translate("profile.report.preliminary.investOwn")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLinks().get(ExcelLink.PROFILE_INVEST_OWN), Style.CURRENCY);
+			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_OWN), Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, cellNum, result.getInvestmentOwn(), Style.CURRENCY);
 		}
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (C)", titles[1]));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLinks().get(ExcelLink.PROFILE_PRODUCT_INCOME), Style.CURRENCY);
+			String formula = report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT)==null
+					? report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME)
+					: report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME) + "-"+report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT);
+			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, cellNum, result.getTotIncome(), Style.CURRENCY);
 		}
@@ -3051,7 +3126,10 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (D)", translate("profile.report.preliminary.annualCost")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLinks().get(ExcelLink.PROFILE_PRODUCT_INPUT)+"+"+report.getLinks().get(ExcelLink.PROFILE_PRODUCT_LABOUR), Style.CURRENCY);
+			String formula = report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT)==null
+					? report.getLink(ExcelLink.PROFILE_PRODUCT_COST)
+					: report.getLink(ExcelLink.PROFILE_PRODUCT_COST) + "-"+report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT);
+			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, cellNum, result.getOperCost(), Style.CURRENCY);
 		}
@@ -3059,7 +3137,7 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (E)", translate("profile.report.preliminary.annualGeneral")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLinks().get(ExcelLink.PROFILE_GENERAL_TOTAL), Style.CURRENCY);
+			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_GENERAL_TOTAL), Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, cellNum, result.getGeneralCost(), Style.CURRENCY);
 		}
@@ -3070,7 +3148,7 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (F)", translate("profile.report.preliminary.annualReserve")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLinks().get(ExcelLink.PROFILE_INVEST_GOODS_RESERVE), Style.CURRENCY);
+			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE), Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, cellNum, result.getAnnualReserve(), Style.CURRENCY);
 		}
@@ -3097,7 +3175,7 @@ public class ExcelWorksheetBuilder {
 		}
 	}
 
-	public Sheet getProfileRecommendation(ExcelWrapper report, Profile profile) {
+	public Sheet profileRecommendation(ExcelWrapper report, Profile profile) {
 		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.recommendation")));
 
 		int rowNum=0;
@@ -3146,83 +3224,83 @@ public class ExcelWorksheetBuilder {
 			return labourTypes;
 		}
 	   
-	    private void copyRow(Sheet worksheet, int sourceRowNum, int destinationRowNum) {
-	        // Get the source / new row
-	        Row newRow = worksheet.getRow(destinationRowNum);
-	        Row sourceRow = worksheet.getRow(sourceRowNum);
-
-	        // If the row exist in destination, push down all rows by 1 else create a new row
-	        if (newRow != null) {
-	            worksheet.shiftRows(destinationRowNum, worksheet.getLastRowNum(), 1);
-	        } else {
-	            newRow = worksheet.createRow(destinationRowNum);
-	        }
-
-	        // Loop through source columns to add to new row
-	        for (int i = 0; i < sourceRow.getLastCellNum(); i++) {
-	            // Grab a copy of the old/new cell
-	            Cell oldCell = sourceRow.getCell(i);
-	            Cell newCell = newRow.createCell(i);
-
-	            // If the old cell is null jump to next cell
-	            if (oldCell == null) {
-	                newCell = null;
-	                continue;
-	            }
-
-	            // Copy style from old cell and apply to new cell
-	            newCell.setCellStyle(oldCell.getCellStyle());
-
-	            // If there is a cell comment, copy
-	            if (oldCell.getCellComment() != null) {
-	                newCell.setCellComment(oldCell.getCellComment());
-	            }
-
-	            // If there is a cell hyperlink, copy
-	            if (oldCell.getHyperlink() != null) {
-	                newCell.setHyperlink(oldCell.getHyperlink());
-	            }
-
-	            // Set the cell data type
-	            newCell.setCellType(oldCell.getCellType());
-
-	            // Set the cell data value
-	            switch (oldCell.getCellType()) {
-	                case Cell.CELL_TYPE_BLANK:
-	                    newCell.setCellValue(oldCell.getStringCellValue());
-	                    break;
-	                case Cell.CELL_TYPE_BOOLEAN:
-	                    newCell.setCellValue(oldCell.getBooleanCellValue());
-	                    break;
-	                case Cell.CELL_TYPE_ERROR:
-	                    newCell.setCellErrorValue(oldCell.getErrorCellValue());
-	                    break;
-	                case Cell.CELL_TYPE_FORMULA:
-	                    newCell.setCellFormula(oldCell.getCellFormula());
-	                    break;
-	                case Cell.CELL_TYPE_NUMERIC:
-	                    newCell.setCellValue(oldCell.getNumericCellValue());
-	                    break;
-	                case Cell.CELL_TYPE_STRING:
-	                    newCell.setCellValue(oldCell.getRichStringCellValue());
-	                    break;
-	            }
-	        }
-
-	        // If there are are any merged regions in the source row, copy to new row
-	        for (int i = 0; i < worksheet.getNumMergedRegions(); i++) {
-	            CellRangeAddress cellRangeAddress = worksheet.getMergedRegion(i);
-	            if (cellRangeAddress.getFirstRow() == sourceRow.getRowNum()) {
-	                CellRangeAddress newCellRangeAddress = new CellRangeAddress(newRow.getRowNum(),
-	                        (newRow.getRowNum() +
-	                                (cellRangeAddress.getLastRow() - cellRangeAddress.getFirstRow()
-	                                        )),
-	                        cellRangeAddress.getFirstColumn(),
-	                        cellRangeAddress.getLastColumn());
-	                worksheet.addMergedRegion(newCellRangeAddress);
-	            }
-	        }
-	    }
+//	    private void copyRow(Sheet worksheet, int sourceRowNum, int destinationRowNum) {
+//	        // Get the source / new row
+//	        Row newRow = worksheet.getRow(destinationRowNum);
+//	        Row sourceRow = worksheet.getRow(sourceRowNum);
+//
+//	        // If the row exist in destination, push down all rows by 1 else create a new row
+//	        if (newRow != null) {
+//	            worksheet.shiftRows(destinationRowNum, worksheet.getLastRowNum(), 1);
+//	        } else {
+//	            newRow = worksheet.createRow(destinationRowNum);
+//	        }
+//
+//	        // Loop through source columns to add to new row
+//	        for (int i = 0; i < sourceRow.getLastCellNum(); i++) {
+//	            // Grab a copy of the old/new cell
+//	            Cell oldCell = sourceRow.getCell(i);
+//	            Cell newCell = newRow.createCell(i);
+//
+//	            // If the old cell is null jump to next cell
+//	            if (oldCell == null) {
+//	                newCell = null;
+//	                continue;
+//	            }
+//
+//	            // Copy style from old cell and apply to new cell
+//	            newCell.setCellStyle(oldCell.getCellStyle());
+//
+//	            // If there is a cell comment, copy
+//	            if (oldCell.getCellComment() != null) {
+//	                newCell.setCellComment(oldCell.getCellComment());
+//	            }
+//
+//	            // If there is a cell hyperlink, copy
+//	            if (oldCell.getHyperlink() != null) {
+//	                newCell.setHyperlink(oldCell.getHyperlink());
+//	            }
+//
+//	            // Set the cell data type
+//	            newCell.setCellType(oldCell.getCellType());
+//
+//	            // Set the cell data value
+//	            switch (oldCell.getCellType()) {
+//	                case Cell.CELL_TYPE_BLANK:
+//	                    newCell.setCellValue(oldCell.getStringCellValue());
+//	                    break;
+//	                case Cell.CELL_TYPE_BOOLEAN:
+//	                    newCell.setCellValue(oldCell.getBooleanCellValue());
+//	                    break;
+//	                case Cell.CELL_TYPE_ERROR:
+//	                    newCell.setCellErrorValue(oldCell.getErrorCellValue());
+//	                    break;
+//	                case Cell.CELL_TYPE_FORMULA:
+//	                    newCell.setCellFormula(oldCell.getCellFormula());
+//	                    break;
+//	                case Cell.CELL_TYPE_NUMERIC:
+//	                    newCell.setCellValue(oldCell.getNumericCellValue());
+//	                    break;
+//	                case Cell.CELL_TYPE_STRING:
+//	                    newCell.setCellValue(oldCell.getRichStringCellValue());
+//	                    break;
+//	            }
+//	        }
+//
+//	        // If there are are any merged regions in the source row, copy to new row
+//	        for (int i = 0; i < worksheet.getNumMergedRegions(); i++) {
+//	            CellRangeAddress cellRangeAddress = worksheet.getMergedRegion(i);
+//	            if (cellRangeAddress.getFirstRow() == sourceRow.getRowNum()) {
+//	                CellRangeAddress newCellRangeAddress = new CellRangeAddress(newRow.getRowNum(),
+//	                        (newRow.getRowNum() +
+//	                                (cellRangeAddress.getLastRow() - cellRangeAddress.getFirstRow()
+//	                                        )),
+//	                        cellRangeAddress.getFirstColumn(),
+//	                        cellRangeAddress.getLastColumn());
+//	                worksheet.addMergedRegion(newCellRangeAddress);
+//	            }
+//	        }
+//	    }
 }
 
 class Value {

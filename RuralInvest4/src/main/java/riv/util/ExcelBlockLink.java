@@ -8,6 +8,7 @@ public class ExcelBlockLink {
 	public String netIncome;
 	public String netIncomeCash;
 	public String[] qtyPerYear;
+	public String qtyProfileProduct;
 	public String cycles;
 	public String cyclesFirstYearPayment;
 	public String cyclesFirstYearProduction;
