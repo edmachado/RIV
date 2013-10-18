@@ -491,19 +491,6 @@
 			    						<include name="**/*.*" />
 			    					</fileset>
 			    				</copy>
-			    				
-			    				<!-- make backup of demo db for monthly refresh -->
-			    				<if>
-			    					<equals arg1="${build-lang}" arg2="demo" />
-			    					<then>
-			    						<echo message="making copy of demo db for monthly refresh" />
-			    						<copy toDir="${war.dir}/WEB-INF/data-snapshot">
-			    							<fileset dir="${war.dir}/WEB-INF/data">
-			    								<include name="**/*.*" />
-			    							</fileset>
-			    						</copy>
-			    					</then>
-			    				</if>
 			    			</target>
 			    		</configuration>
 			    	</execution>
