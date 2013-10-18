@@ -6,7 +6,8 @@
 	<version>4.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<izpack.version>5.0.0-rc1-SNAPSHOT</izpack.version>
+		<izpack.version>5.0.0-rc1</izpack.version>
+<!-- 		<izpack.version>5.0.0-rc1-SNAPSHOT</izpack.version> -->
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,10 +38,10 @@
 		<repository>
 			<id>izpack</id>
 			<name>izpack</name>
-			<url>https://nexus.codehaus.org/content/repositories/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<url>https://nexus.codehaus.org/content/repositories/releases</url>
+<!-- 			<snapshots> -->
+<!-- 				<enabled>true</enabled> -->
+<!-- 			</snapshots> -->
 		</repository>
 		<repository>
 			<id>hsql-snaps</id>
@@ -55,10 +56,10 @@
 		<pluginRepository>
 			<id>izpack</id>
 			<name>izpack</name>
-			<url>https://nexus.codehaus.org/content/repositories/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<url>https://nexus.codehaus.org/content/repositories/releases</url>
+<!-- 			<snapshots> -->
+<!-- 				<enabled>true</enabled> -->
+<!-- 			</snapshots> -->
 		</pluginRepository>
 	</pluginRepositories>
 	<build>
