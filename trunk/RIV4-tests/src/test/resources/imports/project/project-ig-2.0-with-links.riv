@@ -1,0 +1,2725 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_20" class="java.beans.XMLDecoder"> 
+ <object id="Project0" class="riv.Project"> 
+  <void property="activities"> 
+   <string>pendiente</string> 
+  </void> 
+  <void property="assets"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProjectItemAsset"> 
+      <void property="description"> 
+       <string>plastico y malla</string> 
+      </void> 
+      <void property="donated"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="econLife"> 
+       <int>3</int> 
+      </void> 
+      <void property="exportLinkedTo"> 
+       <int>0</int> 
+      </void> 
+      <void property="maintCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="ownResources"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="replace"> 
+       <boolean>true</boolean> 
+      </void> 
+      <void property="salvage"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>1500.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unidad</string> 
+      </void> 
+      <void property="yearBegin"> 
+       <int>1</int> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProjectItemAsset"> 
+      <void property="description"> 
+       <string>invernadero</string> 
+      </void> 
+      <void property="donated"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="econLife"> 
+       <int>15</int> 
+      </void> 
+      <void property="exportLinkedTo"> 
+       <int>1</int> 
+      </void> 
+      <void property="maintCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="ownResources"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="replace"> 
+       <boolean>true</boolean> 
+      </void> 
+      <void property="salvage"> 
+       <double>7300.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>73000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unidad</string> 
+      </void> 
+      <void property="yearBegin"> 
+       <int>1</int> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProjectItemAsset"> 
+      <void property="description"> 
+       <string>sustrato</string> 
+      </void> 
+      <void property="donated"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="econLife"> 
+       <int>1</int> 
+      </void> 
+      <void property="exportLinkedTo"> 
+       <int>2</int> 
+      </void> 
+      <void property="maintCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>2</int> 
+      </void> 
+      <void property="ownResources"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="replace"> 
+       <boolean>true</boolean> 
+      </void> 
+      <void property="salvage"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>117.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>66.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>m3</string> 
+      </void> 
+      <void property="yearBegin"> 
+       <int>1</int> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="assumptions"> 
+   <string>pendiente</string> 
+  </void> 
+  <void property="beneDirectChild"> 
+   <int>10</int> 
+  </void> 
+  <void property="beneDirectMen"> 
+   <int>5</int> 
+  </void> 
+  <void property="beneDirectNum"> 
+   <int>5</int> 
+  </void> 
+  <void property="beneDirectWomen"> 
+   <int>5</int> 
+  </void> 
+  <void property="beneIndirectChild"> 
+   <int>10</int> 
+  </void> 
+  <void property="beneIndirectMen"> 
+   <int>5</int> 
+  </void> 
+  <void property="beneIndirectNum"> 
+   <int>5</int> 
+  </void> 
+  <void property="beneIndirectWomen"> 
+   <int>5</int> 
+  </void> 
+  <void property="benefDesc"> 
+   <string>xx</string> 
+  </void> 
+  <void property="benefName"> 
+   <string>xx</string> 
+  </void> 
+  <void property="beneficiary"> 
+   <object class="riv.Beneficiary"> 
+    <void property="configId"> 
+     <int>2</int> 
+    </void> 
+    <void property="description"> 
+     <string>Jeune</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="blocks"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object id="ProjectBlock0" class="riv.ProjectBlock"> 
+      <void property="chrons"> 
+       <void method="put"> 
+        <string>0-8-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-8-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>8</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-8-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-8-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>8</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-10-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-10-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>10</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-5-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-5-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>5</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-5-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-5-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>5</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-9-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-9-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>9</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-6-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-6-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>6</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>1-11-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>1-11-0</string> 
+         </void> 
+         <void property="chronType"> 
+          <int>1</int> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-6-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-6-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>6</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-7-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-7-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>7</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-0-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-0-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-7-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-7-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>7</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-0-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-0-1</string> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-10-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-10-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>10</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-9-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-9-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>9</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-1-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-1-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-4-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-4-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>4</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-4-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-4-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>4</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-3-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-3-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-2-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-2-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-2-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-2-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-1-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-1-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-3-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-3-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>2-11-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>2-11-1</string> 
+         </void> 
+         <void property="chronType"> 
+          <int>2</int> 
+         </void> 
+         <void property="monthNum"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+      </void> 
+      <void property="cycleFirstYear"> 
+       <int>1</int> 
+      </void> 
+      <void property="cycleLength"> 
+       <int>11</int> 
+      </void> 
+      <void property="cyclePerYear"> 
+       <int>1</int> 
+      </void> 
+      <void property="description"> 
+       <string>cloned block</string> 
+      </void> 
+      <void property="incomes"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockIncome"> 
+          <void property="description"> 
+           <string>venta meses 4-6</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>2</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal0" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="transport"> 
+           <object id="BigDecimal1" class="java.math.BigDecimal"> 
+            <string>0.00</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal2" class="java.math.BigDecimal"> 
+            <string>100.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal3" class="java.math.BigDecimal"> 
+            <string>186.3</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>cajas</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockIncome"> 
+          <void property="description"> 
+           <string>venta media 7-9</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>1</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal4" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="transport"> 
+           <object id="BigDecimal5" class="java.math.BigDecimal"> 
+            <string>0.00</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal6" class="java.math.BigDecimal"> 
+            <string>100.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal7" class="java.math.BigDecimal"> 
+            <string>186.3</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>cajas</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockIncome"> 
+          <void property="description"> 
+           <string>venta meses 10-12</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>0</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal8" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="transport"> 
+           <object id="BigDecimal9" class="java.math.BigDecimal"> 
+            <string>0.00</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal10" class="java.math.BigDecimal"> 
+            <string>100.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal11" class="java.math.BigDecimal"> 
+            <string>186.3</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>cajas</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="inputs"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockInput"> 
+          <void property="description"> 
+           <string>enraizador</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>7</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal12" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="transport"> 
+           <object id="BigDecimal13" class="java.math.BigDecimal"> 
+            <string>0.00</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal14" class="java.math.BigDecimal"> 
+            <string>60.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal15" class="java.math.BigDecimal"> 
+            <string>3</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>sobre</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockInput"> 
+          <void property="description"> 
+           <string>reposicion sustrato</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>5</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal16" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="transport"> 
+           <object id="BigDecimal17" class="java.math.BigDecimal"> 
+            <string>0.00</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal18" class="java.math.BigDecimal"> 
+            <string>117.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal19" class="java.math.BigDecimal"> 
+            <string>2.4</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>M3</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockInput"> 
+          <void property="description"> 
+           <string>captan</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>6</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal20" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="transport"> 
+           <object id="BigDecimal21" class="java.math.BigDecimal"> 
+            <string>0.00</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal22" class="java.math.BigDecimal"> 
+            <string>60.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal23" class="java.math.BigDecimal"> 
+            <string>1</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>sobre</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="labours"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockLabour"> 
+          <void property="description"> 
+           <string>preparacion de bolsas</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>2</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal24" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal25" class="java.math.BigDecimal"> 
+            <string>100.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal26" class="java.math.BigDecimal"> 
+            <string>10</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>3</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockLabour"> 
+          <void property="description"> 
+           <string>transplante</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>4</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal27" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal28" class="java.math.BigDecimal"> 
+            <string>100.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal29" class="java.math.BigDecimal"> 
+            <string>10</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>3</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockLabour"> 
+          <void property="description"> 
+           <string>desinfeccion</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>3</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock0"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object id="BigDecimal30" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal31" class="java.math.BigDecimal"> 
+            <string>100.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal32" class="java.math.BigDecimal"> 
+            <string>2.5</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>3</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="lengthUnit"> 
+       <int>0</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="patterns"> 
+       <void method="put"> 
+        <int>1</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>2</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>3</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>4</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>4</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>5</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>5</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>6</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>6</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>7</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>7</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>8</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>8</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>9</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>9</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>10</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>10</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>11</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>12</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>13</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>13</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>14</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>14</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>15</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock0"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>15</int> 
+         </void> 
+        </object> 
+       </void> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitType"> 
+       <string>invernadero 500 m2</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object id="ProjectBlock1" class="riv.ProjectBlock"> 
+      <void property="chrons"> 
+       <void method="put"> 
+        <string>0-8-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-8-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>8</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-8-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-8-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>8</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-10-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-10-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>10</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-5-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-5-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>5</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-5-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-5-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>5</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-9-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-9-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>9</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-6-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-6-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>6</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>1-11-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>1-11-0</string> 
+         </void> 
+         <void property="chronType"> 
+          <int>1</int> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-6-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-6-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>6</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-7-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-7-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>7</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-0-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-0-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-7-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-7-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>7</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-0-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-0-1</string> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-10-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-10-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>10</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-9-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-9-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>9</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-1-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-1-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-4-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-4-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>4</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-4-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-4-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>4</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-3-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-3-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-2-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-2-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-2-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-2-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-1-0</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-1-0</string> 
+         </void> 
+         <void property="firstPart"> 
+          <boolean>true</boolean> 
+         </void> 
+         <void property="monthNum"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>0-3-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>0-3-1</string> 
+         </void> 
+         <void property="monthNum"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <string>2-11-1</string> 
+        <object class="riv.ProjectBlockChron"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="chronId"> 
+          <string>2-11-1</string> 
+         </void> 
+         <void property="chronType"> 
+          <int>2</int> 
+         </void> 
+         <void property="monthNum"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+      </void> 
+      <void property="cycleFirstYear"> 
+       <int>1</int> 
+      </void> 
+      <void property="cycleLength"> 
+       <int>11</int> 
+      </void> 
+      <void property="cyclePerYear"> 
+       <int>1</int> 
+      </void> 
+      <void property="description"> 
+       <string>produccion de tomate</string> 
+      </void> 
+      <void property="incomes"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockIncome"> 
+          <void property="description"> 
+           <string>venta meses 10-12</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>0</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal8"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal9"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal10"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal11"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>cajas</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockIncome"> 
+          <void property="description"> 
+           <string>venta media 7-9</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>1</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal4"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal5"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal6"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal7"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>cajas</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockIncome"> 
+          <void property="description"> 
+           <string>venta meses 4-6</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>2</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal1"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal2"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal3"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>cajas</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="inputs"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockInput"> 
+          <void property="description"> 
+           <string>captan</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>6</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal20"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal21"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal22"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal23"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>sobre</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockInput"> 
+          <void property="description"> 
+           <string>enraizador</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>7</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal12"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal13"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal14"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal15"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>sobre</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockInput"> 
+          <void property="description"> 
+           <string>reposicion sustrato</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>5</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal16"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal17"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal18"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal19"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>M3</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="labours"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockLabour"> 
+          <void property="description"> 
+           <string>transplante</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>4</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal27"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal28"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal29"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>3</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockLabour"> 
+          <void property="description"> 
+           <string>desinfeccion</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>3</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal30"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal31"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal32"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>3</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProjectBlockLabour"> 
+          <void property="description"> 
+           <string>preparacion de bolsas</string> 
+          </void> 
+          <void property="exportLinkedTo"> 
+           <int>2</int> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="projectBlock"> 
+           <object idref="ProjectBlock1"/> 
+          </void> 
+          <void property="qtyIntern"> 
+           <object idref="BigDecimal24"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal25"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal26"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>3</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="lengthUnit"> 
+       <int>0</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="patterns"> 
+       <void method="put"> 
+        <int>1</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>1</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>2</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>2</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>3</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>3</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>4</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>4</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>5</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>5</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>6</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>6</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>7</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>7</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>8</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>8</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>9</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>9</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>10</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>10</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>11</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>11</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>12</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>12</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>13</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>13</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>14</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>14</int> 
+         </void> 
+        </object> 
+       </void> 
+       <void method="put"> 
+        <int>15</int> 
+        <object class="riv.ProjectBlockPattern"> 
+         <void property="block"> 
+          <object idref="ProjectBlock1"/> 
+         </void> 
+         <void property="qty"> 
+          <double>1.0</double> 
+         </void> 
+         <void property="yearNum"> 
+          <int>15</int> 
+         </void> 
+        </object> 
+       </void> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitType"> 
+       <string>invernadero 500 m2</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="capitalDonate"> 
+   <double>0.0</double> 
+  </void> 
+  <void property="capitalInterest"> 
+   <double>5.0</double> 
+  </void> 
+  <void property="capitalOwn"> 
+   <double>0.0</double> 
+  </void> 
+  <void property="contributions"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="duration"> 
+   <int>15</int> 
+  </void> 
+  <void property="enviroCategory"> 
+   <object class="riv.EnviroCategory"> 
+    <void property="configId"> 
+     <int>-30</int> 
+    </void> 
+    <void property="description"> 
+     <string>A</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="enviroImpact"> 
+   <string>xx</string> 
+  </void> 
+  <void property="exchRate"> 
+   <double>11.0</double> 
+  </void> 
+  <void property="fieldOffice"> 
+   <object class="riv.FieldOffice"> 
+    <void property="configId"> 
+     <int>9</int> 
+    </void> 
+    <void property="description"> 
+     <string> PCDA Sikasso</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="generals"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProjectItemGeneral"> 
+      <void property="description"> 
+       <string>servicio1</string> 
+      </void> 
+      <void property="exportLinkedTo"> 
+       <int>4</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="ownResources"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unidad</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="incomeGen"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="inflationAnnual"> 
+   <double>5.0</double> 
+  </void> 
+  <void property="justification"> 
+   <string>pendiente</string> 
+  </void> 
+  <void property="labours"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProjectItemLabour"> 
+      <void property="description"> 
+       <string>xx</string> 
+      </void> 
+      <void property="donated"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="exportLinkedTo"> 
+       <int>0</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="ownResources"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>1</string> 
+      </void> 
+      <void property="yearBegin"> 
+       <int>1</int> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="loan1Duration"> 
+   <int>5</int> 
+  </void> 
+  <void property="loan1GraceCapital"> 
+   <int>0</int> 
+  </void> 
+  <void property="loan1GraceInterest"> 
+   <int>0</int> 
+  </void> 
+  <void property="loan1Interest"> 
+   <double>5.0</double> 
+  </void> 
+  <void property="loan2Amt"> 
+   <double>0.0</double> 
+  </void> 
+  <void property="loan2Duration"> 
+   <int>0</int> 
+  </void> 
+  <void property="loan2GraceCapital"> 
+   <int>0</int> 
+  </void> 
+  <void property="loan2GraceInterest"> 
+   <int>0</int> 
+  </void> 
+  <void property="loan2InitPeriod"> 
+   <int>1</int> 
+  </void> 
+  <void property="loan2Interest"> 
+   <double>5.0</double> 
+  </void> 
+  <void property="location1"> 
+   <string>xx</string> 
+  </void> 
+  <void property="location2"> 
+   <string>xx</string> 
+  </void> 
+  <void property="location3"> 
+   <string>xx</string> 
+  </void> 
+  <void property="market"> 
+   <string>xx</string> 
+  </void> 
+  <void property="nongenGenerals"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="nongenInputs"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="nongenLabours"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="organization"> 
+   <string>pendiente</string> 
+  </void> 
+  <void property="personnels"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProjectItemPersonnel"> 
+      <void property="description"> 
+       <string>operador1</string> 
+      </void> 
+      <void property="exportLinkedTo"> 
+       <int>0</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="ownResources"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>1</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="projCategory"> 
+   <object class="riv.ProjectCategory"> 
+    <void property="configId"> 
+     <int>20</int> 
+    </void> 
+    <void property="description"> 
+     <string>PCDA Autres</string> 
+    </void> 
+    <void property="incomeGen"> 
+     <boolean>true</boolean> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="projDesc"> 
+   <string>xx</string> 
+  </void> 
+  <void property="projectName"> 
+   <string>copy</string> 
+  </void> 
+  <void property="reccCode"> 
+   <int>1</int> 
+  </void> 
+  <void property="reccDesc"> 
+   <string>solo prueba</string> 
+  </void> 
+  <void property="refCosts"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>sustrato</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>2</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>117.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>m3</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>servicio1</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>4</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unidad</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>xx</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>3</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>xx</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>invernadero</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>73000.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unidad</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>reposicion sustrato</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>5</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="transport"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>117.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>M3</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>plastico y malla</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>1500.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unidad</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>enraizador</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>7</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="transport"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>60.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>sobre</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceCost"> 
+      <void property="description"> 
+       <string>captan</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>6</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="transport"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>60.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>sobre</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="refIncomes"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceIncome"> 
+      <void property="description"> 
+       <string>venta meses 10-12</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="transport"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>100.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>cajas</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceIncome"> 
+      <void property="description"> 
+       <string>venta meses 4-6</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>2</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="transport"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>100.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>cajas</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceIncome"> 
+      <void property="description"> 
+       <string>venta media 7-9</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="transport"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>100.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>cajas</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="refLabours"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceLabour"> 
+      <void property="description"> 
+       <string>transplante</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>4</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>100.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>3</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceLabour"> 
+      <void property="description"> 
+       <string>preparacion de bolsas</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>2</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>100.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>3</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceLabour"> 
+      <void property="description"> 
+       <string>xx</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>1</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceLabour"> 
+      <void property="description"> 
+       <string>operador1</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>1</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.reference.ReferenceLabour"> 
+      <void property="description"> 
+       <string>desinfeccion</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>3</int> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>100.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>3</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="requirements"> 
+   <string>pendiente</string> 
+  </void> 
+  <void property="services"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProjectItemService"> 
+      <void property="description"> 
+       <string>xx</string> 
+      </void> 
+      <void property="donated"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="exportLinkedTo"> 
+       <int>3</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="ownResources"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="project"> 
+       <object idref="Project0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>xx</string> 
+      </void> 
+      <void property="yearBegin"> 
+       <int>1</int> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="startupMonth"> 
+   <int>1</int> 
+  </void> 
+  <void property="status"> 
+   <int>0</int> 
+  </void> 
+  <void property="technology"> 
+   <string>pendiente</string> 
+  </void> 
+  <void property="uniqueId"> 
+   <array class="byte" length="16"> 
+    <void index="0"> 
+     <byte>-108</byte> 
+    </void> 
+    <void index="1"> 
+     <byte>-48</byte> 
+    </void> 
+    <void index="2"> 
+     <byte>38</byte> 
+    </void> 
+    <void index="3"> 
+     <byte>-32</byte> 
+    </void> 
+    <void index="4"> 
+     <byte>25</byte> 
+    </void> 
+    <void index="5"> 
+     <byte>15</byte> 
+    </void> 
+    <void index="6"> 
+     <byte>17</byte> 
+    </void> 
+    <void index="7"> 
+     <byte>-29</byte> 
+    </void> 
+    <void index="8"> 
+     <byte>-109</byte> 
+    </void> 
+    <void index="9"> 
+     <byte>109</byte> 
+    </void> 
+    <void index="10"> 
+     <byte>-65</byte> 
+    </void> 
+    <void index="11"> 
+     <byte>-8</byte> 
+    </void> 
+    <void index="12"> 
+     <byte>-116</byte> 
+    </void> 
+    <void index="13"> 
+     <byte>54</byte> 
+    </void> 
+    <void index="14"> 
+     <byte>-27</byte> 
+    </void> 
+    <void index="15"> 
+     <byte>-12</byte> 
+    </void> 
+   </array> 
+  </void> 
+  <void property="userCode"> 
+   <string></string> 
+  </void> 
+ </object> 
+</java> 

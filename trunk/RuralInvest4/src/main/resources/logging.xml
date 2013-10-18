@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<Target>System.out</Target>
+		<encoder>
+			<pattern>%d{ABSOLUTE} %5p %c{1}:%L - %m%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+		<File>${build-lang}/WEB-INF/riv-application.log</File>
+		<encoder>
+			<pattern>%d{ABSOLUTE} %5p %c{1},%t:%L - %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>1</maxIndex>
+			<FileNamePattern>${build-lang}/WEB-INF/riv-application.log.%i
+			</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>1024KB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+	
+	<logger name="org.hibernate.engine.jdbc.internal.jdbcCoordinatorImpl" level="OFF"/>
+	<logger name="org.hibernate.engine" level="OFF"/>
+	<logger name="org.hibernate.SQL" level="INFO"/>
+  	<logger name="riv" level="DEBUG" />
+	
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>
