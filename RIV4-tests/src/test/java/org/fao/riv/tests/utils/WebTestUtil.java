@@ -10,8 +10,6 @@ import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
-import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
-
 import org.apache.catalina.LifecycleException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
@@ -22,8 +20,6 @@ import org.junit.Before;
 
 import org.fao.riv.tests.TestApp;
 import org.fao.riv.tests.utils.InputParam.InputParamType;
-
-import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 
 public class WebTestUtil {
 	@Before
@@ -125,32 +121,6 @@ public class WebTestUtil {
 	
 	public void deleteAppConfigs() {
 		gotoPage(getTestingEngine().getPageURL().toString().replace("/home", "/help/deleteAllAppConfigs"));
-		
-//		String[] links = new String[]{"gotoOffices","gotoCategories","gotoBenefs","gotoEnviros","gotoStatuses"};
-//		for (int l=0;l<links.length;l++) {
-//			clickLink(links[l]);
-//			deleteRows();
-//		}
-//		
-//		
-//		links = new String[]{"gotoAppConfig1","gotoAppConfig2"};
-//		for (int l=0;l<links.length;l++) {
-//			boolean exists = getElementsByXPath("//a[@id='"+l+"']").size()!=0;
-//			if (exists) {
-//				clickLink(links[l]);
-//				deleteRows();
-//			}
-//		}
-	}
-	
-	private void deleteRows() {
-		int linkNum=getElementsByXPath("//a[starts-with(@onclick,'confirmDelete')]").size();
-		for (int i=0; i<linkNum; i++) {
-			assertLinkPresentWithImage("delete.gif");
-			clickLinkWithImage("delete.gif", 0);
-			clickButtonWithText("Delete item");
-		}
-		assertElementNotPresentByXPath("//a[starts-with(@onclick,'confirmDelete')]");
 	}
 	
 	public void deletePros(boolean project, boolean incGen) {
