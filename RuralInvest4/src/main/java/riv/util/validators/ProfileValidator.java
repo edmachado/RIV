@@ -8,7 +8,6 @@ import org.springframework.validation.Validator;
 
 import riv.objects.config.Setting;
 import riv.objects.profile.Profile;
-import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
 import riv.web.config.RivConfig;
 

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +53,7 @@ public class XlsImportTable<E extends OrderByable> {
 		return this;
 	}
 	
-	public XlsImportTable<E> addSelectColumn(int column, String property, Map options) {
+	public XlsImportTable<E> addSelectColumn(int column, String property, @SuppressWarnings("rawtypes") Map options) {
 		XlsImportColumn c = new XlsImportColumn();
 		c.column=column;
 		c.property=property;
@@ -185,6 +184,7 @@ public class XlsImportTable<E extends OrderByable> {
 		public boolean isNumeric;
 		public boolean isBoolean;
 		public boolean isSelect;
+		@SuppressWarnings("rawtypes")
 		public Map options;
 	}
 }

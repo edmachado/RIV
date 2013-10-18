@@ -1,7 +1,6 @@
 package riv.util;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
