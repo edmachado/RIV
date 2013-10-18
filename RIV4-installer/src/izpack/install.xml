@@ -26,7 +26,7 @@
 		<langpack iso3="eng" />
 	 	<langpack iso3="fra"/>
 		<langpack iso3="spa"/>
-		<langpack iso3="por"/>
+<!-- 		<langpack iso3="por"/> -->
 		<langpack iso3="rus"/>
 		<langpack iso3="tur"/>
 		<!-- langpack iso3="ara"/ --><!--  Arabic not yet supported by IZpack -->

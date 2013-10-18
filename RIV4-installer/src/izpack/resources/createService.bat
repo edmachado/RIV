@@ -15,7 +15,7 @@ set PR_LOGLEVEL=Debug
 
 REM Path to java installation
 set PR_JVM=%JAVA_HOME%\bin\client\jvm.dll
-set PR_CLASSPATH=riv-service.jar
+set PR_CLASSPATH=RIV4-service.jar
 
 REM Startup configuration
 set PR_STARTUP=auto
