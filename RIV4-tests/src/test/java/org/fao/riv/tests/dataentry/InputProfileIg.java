@@ -41,6 +41,9 @@ public class InputProfileIg extends WebTestUtil {
 		for (int i=0;i<9;i++) {
 			titles[i]=getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
 		}
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";
+		String blockTitleWithout = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.without")+")";
+		
 		clickLink("goHome");
 		
 		getTestContext().setResourceBundleName("dataentry/profileIg");
@@ -128,11 +131,19 @@ public class InputProfileIg extends WebTestUtil {
 		// add products
 		//TODO: test clone product
 		//TODO: test delete product
-		int i=1;
+		int i=1; int withs=0;
 		boolean nextItem=true;
 		while (nextItem) {
-			clickLink("addProduct");
-			//assertTitleEquals(igTitle);
+			boolean withoutProject = Boolean.parseBoolean(getMessage("step6.product."+i+".withoutProject")); 
+			if (withoutProject) {
+				clickLink("addProductWithout");
+				assertTitleEquals(blockTitleWithout);
+			} else {
+				clickLink("addProduct");
+				assertTitleEquals(blockTitleWith);
+				withs++;
+			}
+			
 			setTextField("description", getMessage("step6.product."+i+".description"));
 			setTextField("unitType", getMessage("step6.product."+i+".unitType"));
 			setTextField("unitNum", getMessage("step6.product."+i+".unitNum"));

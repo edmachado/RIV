@@ -967,7 +967,14 @@ public class WebTestUtil {
 		rivSubmitForm();
 		assertTitleEquals(titles[5]);
 		
-		for (int i=1; i<=2; i++) {
+		int i=1;
+		boolean nextItem=true;
+		while (nextItem) {
+			boolean without = Boolean.parseBoolean(getMessage("step6.product."+i+".withoutProject"));
+			if (without) {
+				clickLink("ui-id-2");
+			}
+			
 			assertTextInElement(i-1+"description", getMessage("step6.product."+i+".description"));
 			assertTextInElement(i-1+"unitType", getMessage("step6.product."+i+".unitType"));
 			assertTextInElement(i-1+"unitNum", getMessage("step6.product."+i+".unitNum"));
@@ -975,6 +982,13 @@ public class WebTestUtil {
 			assertTextInElement(i-1+"cyclePerYear", getMessage("step6.product."+i+".cyclePerYear"));
 			
 			verifyProfileTablesStep6(i);
+			
+			i++;
+			try {
+				getMessage("step6.product."+i+".withoutProject");
+			} catch (Exception e) {
+				nextItem=false;
+			}
 		}
 		
 
