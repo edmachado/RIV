@@ -141,8 +141,18 @@
 		</pluginManagement>
 	</build>
 	<distributionManagement>
+        <repository>
+            <id>artifactory.fao.org</id>
+            <name>ruralInvest-releases</name>
+            <url>http://artifactory.fao.org/artifactory/ruralinvest-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory.fao.org</id>
+            <name>ruralinvest-snapshot</name>
+            <url>http://artifactory.fao.org/artifactory/ruralinvest-snapshot-local</url>
+        </snapshotRepository>
 		<downloadUrl>http://artifactory.fao.org/artifactory/ruralinvest</downloadUrl>
-	</distributionManagement>
+    </distributionManagement>
 	<scm>
 		<url>https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</url>
 		<connection>scm:svn:https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</connection>
