@@ -30,6 +30,8 @@ import riv.objects.config.Status;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
+import riv.objects.profile.ProfileProductWithout;
 import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
 import riv.objects.project.BlockWithout;
@@ -140,6 +142,27 @@ public class Upgrader {
 			}
 		}
 		
+		// <4.0 separate ProfileProductWithout from ProfileProducts and re-order both collections
+		addOrders(profile.getProducts());
+		if (profile.getProductsWithout()==null) {
+			profile.setProductsWithout(new HashSet<ProfileProductWithout>());
+			int orderWithout=0;
+			int orderWith=0;
+			
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			TreeSet myBlocks = new TreeSet(profile.getProducts());
+			for (Object o : myBlocks) {
+				ProfileProductBase b = (ProfileProductBase)o;
+				if (b.getClass()==ProfileProductWithout.class) {
+					profile.getProducts().remove(b);
+					b.setOrderBy(orderWithout++);
+					profile.getProductsWithout().add((ProfileProductWithout)b);
+				} else {
+					b.setOrderBy(orderWith++);
+				}
+			}
+		}
+		
 		if (profile.isMissingOrders()) { profile.addOrders(); }
 		if (profile.isBlockOrderProblem()) { profile.correctBlockOrderProblem(); }
 		
@@ -155,11 +178,11 @@ public class Upgrader {
 		}
 		
 		// <4.0 set block withProject
-		if (!profile.getWithWithout()) {	
-			for (ProfileProduct pp : profile.getProducts()) {
-				pp.setWithWithout(true);
-			}
-		}
+//		if (!profile.getWithWithout()) {	
+//			for (ProfileProductBase pp : profile.getProducts()) {
+//				pp.setWithWithout(true);
+//			}
+//		}
 		
 		profile.importRefLinks();
 		

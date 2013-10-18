@@ -9,6 +9,7 @@ import org.springframework.validation.Validator;
 import riv.objects.config.Setting;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
 import riv.web.config.RivConfig;
 
 public class ProfileValidator implements Validator {
@@ -74,7 +75,7 @@ public class ProfileValidator implements Validator {
 			if (profile.getProducts().size()==0) {
 				errors.rejectValue("products", noProductError, noProductErrorText);
 			} else { // check product subtables
-				for (ProfileProduct prod : profile.getProducts()) {
+				for (ProfileProductBase prod : profile.getProducts()) {
 					if (prod.getProfileIncomes().size()==0) {
 						if (profile.getIncomeGen()) {
 							ValidateUtils.rejectBlockEmptyTable(prod.getDescription(), "Income", "profileProductIncome", noTableError, errors);

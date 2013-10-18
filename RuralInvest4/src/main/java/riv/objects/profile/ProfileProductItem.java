@@ -63,8 +63,8 @@ public abstract class ProfileProductItem  implements Serializable, OrderByable, 
      public Probase getProbase() {
     	 return this.getProfileProduct().getProbase();
      }
-     public abstract ProfileProduct getProfileProduct();
-     public abstract void setProfileProduct(ProfileProduct profileProduct);
+     public abstract ProfileProductBase getProfileProduct();
+     public abstract void setProfileProduct(ProfileProductBase profileProduct);
      
     // Constructors
 

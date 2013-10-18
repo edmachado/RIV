@@ -19,7 +19,7 @@ public class ProfileProductInput extends ProfileProductItem implements java.io.S
 	private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn(name="PRODUCT_ID", nullable=false)
-   ProfileProduct profileProduct;
+   ProfileProductBase profileProduct;
 	@Column(name="transport", precision=12, scale=4)
 	private BigDecimal transport;
 
@@ -35,11 +35,11 @@ public class ProfileProductInput extends ProfileProductItem implements java.io.S
         super(inoutId);
     }
    
-    public ProfileProduct getProfileProduct() {
+    public ProfileProductBase getProfileProduct() {
         return this.profileProduct;
     }
     
-    public void setProfileProduct(ProfileProduct profileProduct) {
+    public void setProfileProduct(ProfileProductBase profileProduct) {
         this.profileProduct = profileProduct;
     }
     public BigDecimal getTotal() {

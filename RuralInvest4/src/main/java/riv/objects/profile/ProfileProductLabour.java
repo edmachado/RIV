@@ -18,7 +18,7 @@ public class ProfileProductLabour extends ProfileProductItem implements java.io.
 
 	@ManyToOne
 	@JoinColumn(name="PRODUCT_ID", nullable=false)
-   ProfileProduct profileProduct;
+   ProfileProductBase profileProduct;
    
 	// Constructors
 
@@ -37,11 +37,11 @@ public class ProfileProductLabour extends ProfileProductItem implements java.io.
     	return getUnitNum().multiply(getUnitCost());
     }
     
-    public ProfileProduct getProfileProduct() {
+    public ProfileProductBase getProfileProduct() {
         return this.profileProduct;
     }
     
-    public void setProfileProduct(ProfileProduct profileProduct) {
+    public void setProfileProduct(ProfileProductBase profileProduct) {
         this.profileProduct = profileProduct;
     }
     

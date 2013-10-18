@@ -8,10 +8,10 @@ import riv.objects.profile.*;
 public class ProfileProductValidator implements Validator {
 	@SuppressWarnings("rawtypes")
 	public boolean supports(Class clazz) {
-		return ProfileProduct.class.isAssignableFrom(clazz);
+		return ProfileProductBase.class.isAssignableFrom(clazz);
 	}
 	public void validate(Object obj, Errors errors) {
-		ProfileProduct pp = (ProfileProduct)obj;
+		ProfileProductBase pp = (ProfileProductBase)obj;
 		if (pp.getProfile().getIncomeGen()) {
 			ValidateUtils.rejectIfEmpty(pp, "description", "profileProduct.desc", errors);
 			ValidateUtils.rejectIfEmpty(pp, "unitType", "profileProduct.prodUnit", errors);

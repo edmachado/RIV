@@ -1253,6 +1253,19 @@ public double getInvestmentTotal() {
 				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));
 			}
 		}
+		for (BlockWithout block : this.getBlocksWithout()) {
+			for (BlockIncome i : block.getIncomes()) {
+				if (block.getProject().getIncomeGen()) i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange))));
+				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));				
+			}
+			for (BlockInput i : block.getInputs()) {
+				i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange))));
+				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));				
+			}
+			for (BlockLabour i : block.getLabours()) {
+				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange))));
+			}
+		}
 		//  step 10
 		for (ProjectItemContribution i : contributions) {
 			i.setUnitCost(round(i.getUnitCost()*exchange));
@@ -1271,12 +1284,6 @@ public double getInvestmentTotal() {
 			i.setUnitCost(round(i.getUnitCost()*exchange));
 		}
 	}
-	
-//	private void linkedToExport(LinkedToable original, LinkedToable newItem) {
-//		if (original.getLinkedTo()!=null) {
-//			newItem.setExportLinkedTo(original.getLinkedTo().getOrderBy());
-//		}
-//	}
 	
 	public void importRefLinks() {
 		for (ProjectItemAsset item : assets) {

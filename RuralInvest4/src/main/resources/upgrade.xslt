@@ -175,6 +175,11 @@
 						<xsl:text>riv.objects.reference</xsl:text>
 						<xsl:value-of select="substring-after($class,'riv.reference')" />
 					</xsl:when>
+					<!-- <RIV4.0 "without project" products are now a separate class -->
+					<!-- case: profile has without products and this product is "without" -->
+					<xsl:when test="$class='riv.ProfileProduct' and not(void[@property='withWithout']) and ../../../../void[@property='withWithout'][boolean='true']">
+						<xsl:text>riv.objects.profile.ProfileProductWithout</xsl:text>
+					</xsl:when>
 					<xsl:when test="starts-with($class,'riv.Profile')">
 						<xsl:text>riv.objects.profile.Profile</xsl:text>
 						<xsl:value-of select="substring-after($class,'riv.Profile')" />

@@ -51,10 +51,12 @@ import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
 import riv.objects.profile.ProfileItemLabour;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;
 import riv.objects.profile.ProfileProductItem;
 import riv.objects.profile.ProfileProductLabour;
+import riv.objects.profile.ProfileProductWithout;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
@@ -136,7 +138,7 @@ public class DataRepository {
 		String[] classes = new String[] {"ProfileProductIncome", "ProfileProductInput", "ProfileProductLabour"};
 		deleteCollections(classes, "profileProduct.productId", productId);
 		
-		ProfileProduct pp = getProfileProduct(productId, "all");
+		ProfileProductBase pp = getProfileProduct(productId, "all");
 		
 		for (ProfileProductIncome item : incs) {
 			pp.addProfileIncome(item);
@@ -468,6 +470,11 @@ public class DataRepository {
 					Hibernate.initialize(pp.getProfileInputs());
 					Hibernate.initialize(pp.getProfileLabours());
 				}
+				for (ProfileProductWithout pp : p.getProductsWithout()) {
+					Hibernate.initialize(pp.getProfileIncomes());
+					Hibernate.initialize(pp.getProfileInputs());
+					Hibernate.initialize(pp.getProfileLabours());
+				}
 			}
 			if (step==7 || step==-1) {
 				Hibernate.initialize(p.getRefIncomes());
@@ -550,9 +557,9 @@ public class DataRepository {
 		}
 	}
 
-	public ProfileProduct getProfileProduct(int id, String collectionToInizialize) {
+	public ProfileProductBase getProfileProduct(int id, String collectionToInizialize) {
 		Criteria criteria = currentSession()
-				.createCriteria(ProfileProduct.class)
+				.createCriteria(ProfileProductBase.class)
 				.add(Restrictions.eq("productId", id));
 		ProfileProduct pp = (ProfileProduct) criteria.uniqueResult();
 		if (collectionToInizialize!=null) {
@@ -573,14 +580,14 @@ public class DataRepository {
 		return pp;
 	}
 
-	public void storeProfileProduct(ProfileProduct pp) {
+	public void storeProfileProduct(ProfileProductBase pp) {
 		currentSession().saveOrUpdate(pp);
 		if (pp.getProfile().getWizardStep() == null) {
 			storeProfileResult(pp.getProfile().getProfileId());
 		}
 	}
 
-	public void deleteProfileProduct(ProfileProduct pp) {
+	public void deleteProfileProduct(ProfileProductBase pp) {
 		Profile p = pp.getProfile();
 		int pid = pp.getProfile().getProfileId();
 		int orderBy = pp.getOrderBy();
@@ -1485,7 +1492,7 @@ public class DataRepository {
 						.getProfileId(), item.getOrderBy(), up);
 	}
 
-	public void moveProfileProduct(ProfileProduct p, boolean up) {
+	public void moveProfileProduct(ProfileProductBase p, boolean up) {
 		genericMoveOrder(p.getClass().getSimpleName(), "product_id",
 				p.getProductId(), "profile_id", p.getProfile().getProfileId(),
 				p.getOrderBy(), up);

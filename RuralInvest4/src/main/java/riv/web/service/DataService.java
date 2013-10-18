@@ -32,6 +32,7 @@ import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
 import riv.objects.profile.ProfileItemLabour;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;
 import riv.objects.profile.ProfileProductItem;
@@ -177,16 +178,16 @@ public class DataService implements UserDetailsService {
 		repo.deleteProfileItem(pi);
 	}
 	
-	public ProfileProduct getProfileProduct(int id) {
+	public ProfileProductBase getProfileProduct(int id) {
 		return repo.getProfileProduct(id, null);
 	}
-	public ProfileProduct getProfileProduct(int id, String collectionToInizialize) {
+	public ProfileProductBase getProfileProduct(int id, String collectionToInizialize) {
 		return repo.getProfileProduct(id, collectionToInizialize);
 	}
-	public void storeProfileProduct(ProfileProduct pp) {
+	public void storeProfileProduct(ProfileProductBase pp) {
 		repo.storeProfileProduct(pp);
 	}
-	public void deleteProfileProduct(ProfileProduct pp) {
+	public void deleteProfileProduct(ProfileProductBase pp) {
 		repo.deleteProfileProduct(pp);
 	}
 		
@@ -371,7 +372,7 @@ public class DataService implements UserDetailsService {
 	public void moveProfItem(ProfileItem item, boolean up) {
 		repo.moveProfItem(item, up);
 	}
-	public void moveProfileProduct(ProfileProduct p, boolean up) {
+	public void moveProfileProduct(ProfileProductBase p, boolean up) {
 		repo.moveProfileProduct(p, up);
 	}
 	public void moveProfProdItem(ProfileProductItem item, boolean up) {

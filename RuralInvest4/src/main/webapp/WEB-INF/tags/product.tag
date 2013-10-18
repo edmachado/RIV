@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<%@ attribute name="product" required="true" type="riv.objects.profile.ProfileProduct" %>
+<%@ attribute name="product" required="true" type="riv.objects.profile.ProfileProductBase" %>
 <%@ attribute name="prodType" required="true" %>
 
 <c:set var="incTotal" value="0"/><c:set var="inpTotal" value="0"/><c:set var="labTotal" value="0"/>
@@ -79,7 +79,10 @@
 							
 	 						<td colspan="2"/>
 					   	</tr>
-					   	<c:if test="${profile.withWithout}">
+					   	<tr>
+					   		<td colspan="3">testing: type=${product.getClass().getSimpleName()}</td>
+					   	</tr>
+					   	<%--<c:if test="${profile.withWithout}">
 						    <tr>
 	 							<td><tags:help title="profileProduct.with.description" text="profileProduct.with.description.help"><b><spring:message code="${prodType}.with.description"/></b></tags:help></td>
 								<td>
@@ -88,7 +91,7 @@
 								</td>	
 						    	<td colspan="2"/>
 						    </tr>
-					    </c:if>
+					    </c:if> --%>
 					</table>
 			</fieldset>
 			<br/>

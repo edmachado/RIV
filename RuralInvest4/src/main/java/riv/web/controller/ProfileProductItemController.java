@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import riv.objects.config.User;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;
 import riv.objects.profile.ProfileProductItem;
@@ -62,7 +63,7 @@ public class ProfileProductItemController {
 		if (id!=-1) {
 			pi = dataService.getProfileProductItem(id);
 		} else {
-			ProfileProduct pp = dataService.getProfileProduct(productId, itemType);
+			ProfileProductBase pp = dataService.getProfileProduct(productId, itemType);
 			if (itemType.equals("income")) {
 				pi = new ProfileProductIncome();
 				pi.setOrderBy(pp.getProfileIncomes().size());
@@ -130,7 +131,7 @@ public class ProfileProductItemController {
     }
     
     private String successView(ProfileProductItem pi) {
-    	ProfileProduct pp = pi.getProfileProduct();
+    	ProfileProductBase pp = pi.getProfileProduct();
     	return "../step6/"+pp.getProfile().getProfileId()+"#b"+pp.getProductId();
     }
     

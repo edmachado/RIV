@@ -37,6 +37,7 @@ import riv.objects.config.Setting;
 import riv.objects.config.User;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
@@ -2869,7 +2870,7 @@ public class ExcelWorksheetBuilder {
 		setColumnWidth(sheet, 5, 100);
 	}
 	
-	public Sheet getProduct(ExcelWrapper report, ProfileProduct product, boolean incomeGen) {
+	public Sheet getProduct(ExcelWrapper report, ProfileProductBase product, boolean incomeGen) {
 		XlsTable[] tables = productTables(report, incomeGen);
 		Sheet sheet = report.getWorkbook().createSheet();
 		String incomeTitle = incomeGen ? translate("profileProductIncome") : translate("profileActivityCharge");
@@ -2877,7 +2878,7 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 	
-	private int addProduct(ProfileProduct prod, int rowNum, String incomeTitle, Sheet sheet, ExcelWrapper report, XlsTable[] tables) {
+	private int addProduct(ProfileProductBase prod, int rowNum, String incomeTitle, Sheet sheet, ExcelWrapper report, XlsTable[] tables) {
 		Row row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, prod.getDescription(), Style.H2);
 		

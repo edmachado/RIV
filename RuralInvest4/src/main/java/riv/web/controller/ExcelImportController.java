@@ -29,6 +29,7 @@ import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
 import riv.objects.profile.ProfileItemLabour;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;
 import riv.objects.profile.ProfileProductLabour;
@@ -419,7 +420,7 @@ public class ExcelImportController {
 	private void importProfileProduct(int id, InputStream file) throws ExcelImportException {
 		Workbook workbook = getWorkbook(file);
 		int rowNum=0;
-		ProfileProduct pp = dataService.getProfileProduct(id);
+		ProfileProductBase pp = dataService.getProfileProduct(id);
 		ProfileProductItemValidator validator = new ProfileProductItemValidator();
 		validator.setIncomeGen(pp.getProfile().getIncomeGen());
 		

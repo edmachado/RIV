@@ -152,7 +152,14 @@ public class Profile extends Probase implements java.io.Serializable {
 	
 	@OneToMany(mappedBy="profile", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
+	@Where(clause="class='0'")
 	private Set<ProfileProduct> products;
+	@OneToMany(mappedBy="profile", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OrderBy("ORDER_BY")
+	@Where(clause="class='1'")
+	private Set<ProfileProductWithout> productsWithout;
+	
+	
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGood.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='0'")
@@ -446,11 +453,21 @@ public class Profile extends Probase implements java.io.Serializable {
 	 public void setProducts(Set<ProfileProduct> profileProducts) {
 		 this.products = profileProducts;
 	 }
+	public Set<ProfileProductWithout> getProductsWithout() {
+		 return this.productsWithout;
+	 }
 
+	 public void setProductsWithout(Set<ProfileProductWithout> profileProducts) {
+		 this.productsWithout = profileProducts;
+	 }
 
-	 public void addProfileProduct(ProfileProduct pp) {
+	 public void addProfileProduct(ProfileProductBase pp) {
 		 pp.setProfile(this);
-		 products.add(pp);
+		 if (pp.getClass()==ProfileProduct.class) {
+			 products.add((ProfileProduct)pp);
+		 } else {
+			 productsWithout.add((ProfileProductWithout)pp);
+		 }
 	 }
 
 	 public void setGlsGoods(Set<ProfileItemGood> profileGoods) {
@@ -657,16 +674,23 @@ public class Profile extends Probase implements java.io.Serializable {
 	 public void addOrders() {
 		 int i=0;
 		 // glsGoods
-		 for (ProfileItem item : glsGoods)  item.setOrderBy(i++); i=0; 
-		 for (ProfileItem item : glsLabours)  item.setOrderBy(i++); i=0; 
-		 for (ProfileItem item : glsGeneral)  item.setOrderBy(i++); i=0; 
+		 for (ProfileItem item : glsGoods)  { item.setOrderBy(i++); } i=0; 
+		 for (ProfileItem item : glsLabours)  { item.setOrderBy(i++); } i=0; 
+		 for (ProfileItem item : glsGeneral)  { item.setOrderBy(i++); } i=0; 
 
 		 int p=0;
 		 for (ProfileProduct prod : products) {
 			 prod.setOrderBy(p++);
-			 for (ProfileProductItem item : prod.getProfileIncomes()) item.setOrderBy(i++); i=0; 
-			 for (ProfileProductItem item : prod.getProfileInputs()) item.setOrderBy(i++); i=0; 
-			 for (ProfileProductItem item : prod.getProfileLabours()) item.setOrderBy(i++); i=0; 
+			 for (ProfileProductItem item : prod.getProfileIncomes()) { item.setOrderBy(i++); } i=0; 
+			 for (ProfileProductItem item : prod.getProfileInputs()) { item.setOrderBy(i++); } i=0; 
+			 for (ProfileProductItem item : prod.getProfileLabours()) { item.setOrderBy(i++); } i=0; 
+		 }
+		 p=0;
+		 for (ProfileProductWithout prod : productsWithout) {
+			 prod.setOrderBy(p++);
+			 for (ProfileProductItem item : prod.getProfileIncomes()) { item.setOrderBy(i++); } i=0; 
+			 for (ProfileProductItem item : prod.getProfileInputs()) { item.setOrderBy(i++); } i=0; 
+			 for (ProfileProductItem item : prod.getProfileLabours()) { item.setOrderBy(i++); } i=0; 
 		 }
 	 }
 	 
@@ -784,7 +808,21 @@ public class Profile extends Probase implements java.io.Serializable {
 		 
 		// prepare linkedto of profileproductitems for export
 		for (ProfileProduct prod : products) {
-			ProfileProduct newProd = prod.copy();
+			ProfileProduct newProd = (ProfileProduct)prod.copy();
+			newProf.addProfileProduct(newProd);
+			
+			for (ProfileProductIncome item : newProd.getProfileIncomes()) {
+				prepareLinkedToableForExport(item, forExport);
+			}
+			for (ProfileProductInput item : newProd.getProfileInputs()) {
+				prepareLinkedToableForExport(item, forExport);
+			}
+			for (ProfileProductLabour item : newProd.getProfileLabours()) {
+				prepareLinkedToableForExport(item, forExport);
+			} 
+		 }
+		for (ProfileProductWithout prod : productsWithout) {
+			ProfileProductWithout newProd = (ProfileProductWithout)prod.copy();
 			newProf.addProfileProduct(newProd);
 			
 			for (ProfileProductIncome item : newProd.getProfileIncomes()) {
@@ -850,14 +888,23 @@ public class Profile extends Probase implements java.io.Serializable {
 
 		 // add products
 		 for (ProfileProduct prod : products) {
-			 BlockBase block = prod.getWithWithout() ? new Block() : new BlockWithout();
+			 Block block = new Block();
 			 block.setDescription(prod.getDescription());
 			 block.setOrderBy(prod.getOrderBy());
 			 block.setUnitType(prod.getUnitType());
 			 block.setCycleLength(prod.getCycleLength());
 			 block.setCyclePerYear(prod.getCyclePerYear().intValue());
 			 block.setLengthUnit(prod.getLengthUnit());
-			 //block.setWithProject(prod.getWithWithout());
+			 proj.addBlock(block);
+		 }
+		 for (ProfileProductWithout prod : productsWithout) {
+			 BlockWithout block = new BlockWithout();
+			 block.setDescription(prod.getDescription());
+			 block.setOrderBy(prod.getOrderBy());
+			 block.setUnitType(prod.getUnitType());
+			 block.setCycleLength(prod.getCycleLength());
+			 block.setCyclePerYear(prod.getCyclePerYear().intValue());
+			 block.setLengthUnit(prod.getLengthUnit());
 			 proj.addBlock(block);
 		 }
 
@@ -918,21 +965,21 @@ public class Profile extends Probase implements java.io.Serializable {
 				 } else {
 					 productIncome = unitNum*cycles*inc.getUnitNum().doubleValue()*inc.getUnitCost().doubleValue();
 				 }
-				 if (this.incomeGen && this.withWithout &! prod.getWithWithout()) {
+				 if (this.incomeGen) {
 					 totalIncome -= productIncome;
 				 } else {
 					 totalIncome += productIncome;
 				 }
 			}
 			 for (ProfileProductInput inp : prod.getProfileInputs()) {
-				 if (this.incomeGen && this.withWithout &! prod.getWithWithout()) {
+				 if (this.incomeGen) {
 					 operationCost -= unitNum*cycles*inp.getUnitNum().doubleValue()*(inp.getUnitCost().doubleValue()+inp.getTransport().doubleValue());
 				 } else { 
 					 operationCost += unitNum*cycles*inp.getUnitNum().doubleValue()*(inp.getUnitCost().doubleValue()+inp.getTransport().doubleValue());
 				 }
 			}
 			 for (ProfileProductLabour lab : prod.getProfileLabours()) {
-				 if (this.incomeGen && this.withWithout &! prod.getWithWithout()) {
+				 if (this.incomeGen) {
 					 operationCost -= unitNum*cycles*lab.getUnitNum().doubleValue()*lab.getUnitCost().doubleValue();
 				 } else {
 					 operationCost += unitNum*cycles*lab.getUnitNum().doubleValue()*lab.getUnitCost().doubleValue();

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileProduct;
+import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
@@ -284,7 +285,7 @@ public class ExcelReportController {
    
    @RequestMapping(value="{id}/profileProduct.xlsx", method=RequestMethod.GET)
 	public void oneProduct(@PathVariable int id, @RequestParam(required=false) String template, HttpServletResponse response) throws IOException {
-		ProfileProduct p = template!=null ? new ProfileProduct() : dataService.getProfileProduct(id, "all");
+		ProfileProductBase p = template!=null ? new ProfileProduct() : dataService.getProfileProduct(id, "all");
 		boolean isIg = template!=null ? Boolean.parseBoolean(template) :p.getProfile().getIncomeGen();
 		ExcelWrapper report = ewb.create();
 		ewb.getProduct(report, p, isIg);

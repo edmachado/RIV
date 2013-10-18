@@ -9,10 +9,9 @@ import riv.objects.OrderByable;
 import riv.objects.Probase;
 
 @Entity
-@DiscriminatorValue("0")
-public class ProfileProduct extends ProfileProductBase {
-	private static final long serialVersionUID = 4480547276656860398L;
-	
+@DiscriminatorValue("1")
+public class ProfileProductWithout extends ProfileProductBase {
+	private static final long serialVersionUID = 1289131014112050459L;
 	@ManyToOne
 		@JoinColumn(name="PROFILE_ID", nullable=false)
 	   private Profile profile;

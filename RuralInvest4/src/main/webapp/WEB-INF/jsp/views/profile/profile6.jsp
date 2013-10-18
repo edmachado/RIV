@@ -28,6 +28,11 @@ $(function() { $("#confirmDelete").dialog({
 		<tags:product product="${productEntry}" prodType="${prodType}"/>
 		<br/>
 	</c:forEach>
+	
+	<c:forEach var="productEntry" items="${profile.productsWithout}">
+		<tags:product product="${productEntry}" prodType="${prodType}"/>
+		<br/>
+	</c:forEach>
 						
 	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="profile.step7"/></tags:submit>
