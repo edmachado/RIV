@@ -74,9 +74,14 @@ public class PdfReportCreator {
 		ReportWrapper general = profileGeneral(profile, page);
 		page = page+general.getJp().getPages().size();
 		reports.add(general);
-		ReportWrapper product = profileProducts(profile, page);
+		ReportWrapper product = profileProducts(profile, page, false);
 		page = page+product.getJp().getPages().size();
 		reports.add(product);
+		if (profile.getWithWithout()) {
+			ReportWrapper productWithout = profileProducts(profile, page, true);
+			page = page+productWithout.getJp().getPages().size();
+			reports.add(productWithout);
+		}
 		ReportWrapper anal = profilePrelimAnalysis(pr, page);
 		page = page+anal.getJp().getPages().size();
 		reports.add(anal);
@@ -120,8 +125,8 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper profileProducts(Profile profile, int startPage) {
-		ReportWrapper report = new ReportWrapper("/reports/profile/profileProduct.jasper", true, profile.getProducts(), "profileProducts.pdf", startPage);
+	public ReportWrapper profileProducts(Profile profile, int startPage, boolean without) {
+		ReportWrapper report = new ReportWrapper("/reports/profile/profileProduct.jasper", true, without ? profile.getProductsWithout() : profile.getProducts(), "profileProducts.pdf", startPage);
 		
 		JasperReport jrInc = compileReport("/reports/profile/profileProductIncome.jasper");
 		report.getParams().put("incomeSubReport", jrInc);
@@ -133,8 +138,16 @@ public class PdfReportCreator {
 		report.getParams().put("profileName", profile.getProfileName());
 		report.getParams().put("incomeGen", profile.getIncomeGen());
 		report.getParams().put("lengthUnits", this.lengthUnits());
-		String reportCode = profile.getIncomeGen() ? "profile.report.productDetail" : "profile.report.productDetailNongen";
-		report.getParams().put("reportname", "D: "+translate(reportCode));
+		String reportTitle = profile.getIncomeGen() ? translate("profile.report.productDetail") : translate("profile.report.productDetailNongen");
+		if (profile.getWithWithout()) {
+			if (!without) {
+				reportTitle = reportTitle+" ("+translate("profileProduct.with.with")+")";
+			} else {
+				reportTitle = reportTitle+" ("+translate("profileProduct.with.without")+")";
+			}
+		}
+		report.getParams().put("reportTitle", reportTitle);
+		report.getParams().put("reportname", "D: "+reportTitle);
 		runReport(report);
 		return report;
 	}

@@ -57,8 +57,6 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
      private String unitType;
      @Column(name="UNIT_NUM")
      private Double unitNum;
-//     @Column(name="WITH_WITHOUT")
-//     private boolean withWithout=true;;
      
      @OneToMany(mappedBy="profileProduct", targetEntity=ProfileProductIncome.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
      @OrderBy("ORDER_BY")
@@ -245,19 +243,6 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 		}		
 		return newProd;
 	}
-	
-//	 private boolean compareIncomes(Set<ProfileProductIncome> setA, Set<ProfileProductIncome> setB){
-//		 setA.removeAll(setB);
-//		 return setA.isEmpty();
-//	 }
-//	 private boolean compareInputs(Set<ProfileProductInput> setA, Set<ProfileProductInput> setB){
-//		 setA.removeAll(setB);
-//		 return setA.isEmpty();
-//	 }
-//	 private boolean compareLabours(Set<ProfileProductLabour> setA, Set<ProfileProductLabour> setB){
-//		 setA.removeAll(setB);
-//		 return setA.isEmpty();
-//	 }
 	 
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;
@@ -298,8 +283,7 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 //			compareInputs(profileInputs, other.profileInputs) &&
 //			compareLabours(profileLabours, other.profileLabours) &&
 			unitNum.equals(other.unitNum) &&
-			unitType.equals(other.unitType); //&&
-//			withWithout == other.withWithout;
+			unitType.equals(other.unitType);
 		return isEqual;
 	}
 	

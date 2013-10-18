@@ -3,8 +3,8 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="38"/>
+	<property name="ireport.x" value="53"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -22,6 +22,7 @@
 	<parameter name="lengthUnits" class="java.util.Map" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="reportTitle" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -31,9 +32,9 @@
 	<field name="cyclePerYear" class="java.lang.Double"/>
 	<field name="cycleLength" class="java.lang.Double"/>
 	<field name="productId" class="java.lang.Integer"/>
-	<field name="rsIncomes" class="java.lang.Object"/>
-	<field name="rsInputs" class="java.lang.Object"/>
-	<field name="rsLabour" class="java.lang.Object"/>
+	<field name="profileIncomes" class="java.lang.Object"/>
+	<field name="profileInputs" class="java.lang.Object"/>
+	<field name="profileLabours" class="java.lang.Object"/>
 	<field name="subTotal" class="java.lang.Double"/>
 	<field name="totalIncome" class="java.math.BigDecimal"/>
 	<field name="totalCost" class="java.math.BigDecimal"/>
@@ -52,7 +53,7 @@
 					<subreportParameterExpression><![CDATA[$P{profileName}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="reportTitle">
-					<subreportParameterExpression><![CDATA[($P{incomeGen}.booleanValue()) ? $R{profile.report.productDetail} : $R{profile.report.productDetailNongen}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{reportTitle}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[($P{incomeGen}.booleanValue()) ? $R{profile.incomeGen} : $R{profile.nonIncomeGen}]]></subreportParameterExpression>
@@ -84,7 +85,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{rsIncomes}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[$F{profileIncomes}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{incomeSubReport}]]></subreportExpression>
 			</subreport>
 			<textField pattern="" isBlankWhenNull="false">
@@ -218,7 +219,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{rsInputs}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[$F{profileInputs}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{inputSubReport}]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="true">
@@ -232,7 +233,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{rsLabour}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[$F{profileLabours}]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{labourSubReport}]]></subreportExpression>
 			</subreport>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
