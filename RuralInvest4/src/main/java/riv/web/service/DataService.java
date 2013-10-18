@@ -31,7 +31,6 @@ import riv.objects.profile.ProfileItemGeneral;
 import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
 import riv.objects.profile.ProfileItemLabour;
-import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;

@@ -21,7 +21,6 @@ import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductWithout;
-import riv.objects.project.BlockWithout;
 import riv.util.validators.ProfileProductValidator;
 import riv.web.config.RivConfig;
 import riv.web.service.DataService;

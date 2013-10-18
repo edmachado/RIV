@@ -3085,7 +3085,6 @@ public class ExcelWorksheetBuilder {
 		int rowNum=0;
 		short rowHeader = 0;
 		short cellNum = 1;
-		StringBuilder formulaBuilder;
 		setColumnWidth(sheet, rowHeader, 500);
 		setColumnWidth(sheet, cellNum, 100);
 		sheet.setDefaultColumnStyle(cellNum, report.getStyles().get(Style.CURRENCY));

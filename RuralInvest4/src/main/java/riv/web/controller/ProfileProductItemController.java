@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import riv.objects.config.User;
 import riv.objects.profile.Profile;
-import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;

@@ -2,7 +2,6 @@ package riv.objects.profile;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,11 +26,6 @@ import org.hibernate.annotations.Where;
 import riv.objects.HasProbase;
 import riv.objects.OrderByable;
 import riv.objects.ProductOrBlock;
-import riv.objects.project.BlockChron;
-import riv.objects.project.BlockIncome;
-import riv.objects.project.BlockInput;
-import riv.objects.project.BlockLabour;
-import riv.objects.project.BlockPattern;
 
 /**
  * A product (income-generating) or an activity (non-income-generating) held by a Profile.
