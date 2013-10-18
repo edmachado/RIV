@@ -79,7 +79,7 @@ public class SettingsController {
 			rivConfig.setSetting(dataService.getAppSetting());
 			
 			// if discount has changed, recalculate indicators
-			if (request.getParameter("exDiscountRate")!=null) {
+			if (request.getParameter("exDiscountRate")!=null &! request.getParameter("exDiscountRate").isEmpty()) {
 				Double exDiscountRate =  Double.parseDouble(request.getParameter("exDiscountRate"));
 				if (!exDiscountRate.equals(setting.getDiscountRate())) {
 					dataService.recalculateCompletedProjects();
