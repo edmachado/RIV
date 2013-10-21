@@ -12,7 +12,7 @@
 	</variables>
 	<info>
 		<appname>RuralInvest</appname>
-		<appversion>@version</appversion>
+		<appversion>@{version}</appversion>
 		<authors>
 			<author name="Food and Agriculture Organization" email="TCI-Ruralinvest@fao.org" />
 		</authors>
@@ -158,6 +158,7 @@
         	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="no" override="true">
         	
         	</fileset>
+        	<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
 			
 			<!-- Uninstaller for riv3 -->
 			<file src="resources/uninstall-riv3.bat" targetdir="$TEMP_DIRECTORY" override="true" />
