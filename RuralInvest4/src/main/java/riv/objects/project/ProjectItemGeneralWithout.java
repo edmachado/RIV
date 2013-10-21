@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @DiscriminatorValue("6")
-public class ProjectItemGeneralWithout extends ProjectItem implements GeneralCosts {
+public class ProjectItemGeneralWithout extends ProjectItem {//implements GeneralCosts {
 
 	private static final long serialVersionUID = 1L;
 

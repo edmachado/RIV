@@ -12,7 +12,7 @@ import javax.persistence.Column;
  */
 @Entity
 @DiscriminatorValue("2")
-public class ProjectItemGeneral extends ProjectItem  implements GeneralCosts { //  GeneralCostsDetail
+public class ProjectItemGeneral extends ProjectItem {// implements GeneralCosts {
 
 	private static final long serialVersionUID = 1L;
 

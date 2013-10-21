@@ -791,12 +791,7 @@ public class Profile extends Probase implements java.io.Serializable {
 		 newProf.setProducts(new HashSet<ProfileProduct>());
 		 newProf.setProductsWithout(new HashSet<ProfileProductWithout>());
 		 
-		 //TODO: copy attached files
-		 if (!forExport) {
-			 
-		 }
-
-		// reference items
+		 // reference items
 		 for (ReferenceIncome ref : refIncomes) {
 			 ReferenceIncome newRef = ref.copy();
 			 newProf.addReferenceIncome(newRef);

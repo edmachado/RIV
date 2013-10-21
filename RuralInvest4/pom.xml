@@ -404,6 +404,7 @@
 			<version>1.9.12</version>
 			<scope>runtime</scope>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>riv-${build-lang}</finalName>
@@ -502,6 +503,8 @@
 						</goals>
 						<configuration>
 							<target>
+								<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath" />
+ 
 								<echo message="processing files..." />
 								<echo message="preassembly.dir = ${preassembly.dir}" />
 						        <!-- copy the file to be processed -->
@@ -511,12 +514,34 @@
 								      <include name="logging.xml" />
 								    </fileset>
 								</copy>
-						        <!-- do the processing (replace the token value with a value passed in on the command line) -->
+								 <!-- sent build-lang where necessary -->
 						        <replace dir="${preassembly.dir}" value="build-${build-lang}">
 						        	<include name="application.properties" />
 						        	<include name="logging.xml" />
 						        	<replacetoken>build-lang</replacetoken>
 						        </replace>
+						        <!--  set demo to user version and qa to admin version -->
+								<if>
+			    					<equals arg1="${build-lang}" arg2="demo" />
+			    					<then>
+			    						<echo message="making demo user version" />
+			    						<replace dir="${preassembly.dir}" value="av=false">
+								        	<include name="application.properties" />
+								        	<replacetoken>av=${IS_ADMIN}</replacetoken>
+								        </replace>
+			    					</then>
+			    				</if>
+			    				<if>
+			    					<equals arg1="${build-lang}" arg2="qa" />
+			    					<then>
+			    						<echo message="making qa admin version" />
+			    						<replace dir="${preassembly.dir}" value="av=true">
+								        	<include name="application.properties" />
+								        	<replacetoken>av=${IS_ADMIN}</replacetoken>
+								        </replace>
+			    					</then>
+			    				</if>
+						        
 							</target>
 						</configuration>
 			    	</execution> 
@@ -541,12 +566,23 @@
 			    	</execution>
 				</executions>
 				<dependencies>
-		          <dependency>
-		            <groupId>ant-contrib</groupId>
-		            <artifactId>ant-contrib</artifactId>
-		            <version>20020829</version>
-		          </dependency>
-		        </dependencies>
+				  <dependency>
+                            <groupId>ant-contrib</groupId>
+                            <artifactId>ant-contrib</artifactId>
+                            <version>1.0b3</version>
+                            <exclusions>
+                                <exclusion>
+                                    <groupId>ant</groupId>
+                                    <artifactId>ant</artifactId>
+                                </exclusion>
+                            </exclusions>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.ant</groupId>
+                            <artifactId>ant-nodeps</artifactId>
+                            <version>1.8.1</version>
+                        </dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 		<pluginManagement>

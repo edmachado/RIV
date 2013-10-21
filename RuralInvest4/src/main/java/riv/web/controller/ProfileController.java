@@ -118,7 +118,6 @@ public class ProfileController {
 	
 	@RequestMapping(value="step{step}/{id}/upgrade", method=RequestMethod.GET)
 	public String upgradeToProject(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Profile profile, HttpServletRequest request) {
-		//TODO:test
 		User u = (User) request.getAttribute("user");
 		Project proj = dataService.getProfile(id, -1).convertToProject();
 		proj.setTechnician(u);

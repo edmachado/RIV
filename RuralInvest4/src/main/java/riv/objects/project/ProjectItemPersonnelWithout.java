@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue("7")
-public class ProjectItemPersonnelWithout extends ProjectItem  implements GeneralCosts { 
+public class ProjectItemPersonnelWithout extends ProjectItem  {//implements GeneralCosts { 
 
 	private static final long serialVersionUID = 1L;
 
