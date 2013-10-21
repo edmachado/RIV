@@ -64,6 +64,16 @@ public class MainController {
 	@Autowired
 	Exporter exporter;
 	
+	@PostConstruct
+	public void onAppStart() {
+		Version v = dataService.getLatestVersion();
+		if (v.isRecalculate()) {
+			recalculate();
+			v.setRecalculate(false);
+			dataService.storeVersion(v);
+		}
+	}
+	
     @RequestMapping("/login")
     public String login(@RequestParam(required=false) String lang, Model model, HttpServletRequest request) {
     	if (rivConfig.isDemo() && lang!=null) {
@@ -78,16 +88,6 @@ public class MainController {
 		model.addAttribute("homeData", dataService.homeData());
 		return "home";
     }
-	
-	@PostConstruct
-	public void onAppStart() {
-		Version v = dataService.getLatestVersion();
-		if (v.isRecalculate()) {
-			recalculate();
-			v.setRecalculate(false);
-			dataService.storeVersion(v);
-		}
-	}
 	
 	/*
 	 * Used by testing framework

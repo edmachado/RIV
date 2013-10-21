@@ -744,7 +744,11 @@ public class DataRepository {
 		Criteria criteria = currentSession()
 				.createCriteria(ProjectResult.class)
 				.add(Restrictions.eq("projectId", id));
-		return (ProjectResult) criteria.uniqueResult();
+		try {
+			return (ProjectResult) criteria.uniqueResult();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public Project getProject(int id, int step) {
@@ -1012,18 +1016,42 @@ public class DataRepository {
 			sq.executeUpdate();
 		}
 		
-		// project items missing orderBy
-		//TODO more efficient directly in sql
-		Query q = currentSession().createQuery("select a.project.projectId from ProjectItemAsset a where a.OrderBy is null group by a.project.projectId");
-		for (Object pId : q.list()) {
-			Project p = getProject((Integer)pId, -1);
-			Upgrader.correctMissingOrders(p);
-			currentSession().save(p);
+		// project items missing orderBy or orderBy is corrupted
+		sql = 
+				"SELECT p.project_id, i.class, MAX(i.order_by), COUNT(i.proj_item_id) "+
+				"FROM project p LEFT JOIN project_item i ON p.project_id=i.project_id  "+
+				"GROUP BY p.project_id, i.class "+
+				"HAVING MAX(i.order_by)<>COUNT(i.proj_item_id)-1 OR (MAX(i.order_by) IS NULL AND COUNT(i.proj_item_id)>0)";
+		sq = currentSession().createSQLQuery(sql);
+		for (Object o : sq.list()) {
+			Object[] data = (Object[])o;
+			int id = (Integer)data[0];
+			String clazz = (String)data[1];
+			sql = "UPDATE project_item SET order_by=ROWNUM()-1 WHERE project_id=:id AND class=:class";
+			sq = currentSession().createSQLQuery(sql);
+			sq.setInteger("id", id);
+			sq.setString("class", clazz);
+			sq.executeUpdate();
+		}
+		
+		// project block items order by is corrupted
+		sql = "select i.block_id, i.class as maks from project_block_item  i "+
+				"group by i.block_id, i.class "+
+				"having max(i.order_by)<>count(i.prod_item_id)-1";
+		sq = currentSession().createSQLQuery(sql);
+		for (Object o : sq.list()) {
+			Object[] data = (Object[])o;
+			int id = (Integer)data[0];
+			String clazz = (String)data[1];
+			sql = "UPDATE project_block_item SET order_by=ROWNUM()-1 WHERE block_id=:id AND class=:class";
+			sq = currentSession().createSQLQuery(sql);
+			sq.setInteger("id", id);
+			sq.setString("class", clazz);
+			sq.executeUpdate();
 		}
 		
 		// createdBy is null
-		//TODO more efficient directly in sql
-		q = currentSession().createQuery("select p.projectId from Project p where p.createdBy is null");
+		Query q = currentSession().createQuery("select p.projectId from Project p where p.createdBy is null");
 		for (Object pId : q.list()) {
 			Project p = getProject((Integer)pId, 1);
 			p.setCreatedBy(p.getTechnician().getDescription() + " ("+p.getTechnician().getOrganization()+")");
