@@ -36,11 +36,20 @@
 	    </form>
     </td>
     <td background="img/divider.gif" width="1"><img src="img/spacer.gif" width="1" height="1" alt=""></td>
-    <td width="400" align="left" valign="top"><img src="img/faoinaction1x400.jpg" width="400" height="225" alt="<spring:message code="misc.faoInAction"/>" /></td>
+    <td width="400" align="left" valign="top"><img id="mainPhoto" src="img/spacer.gif"  width="400" height="225" alt="<spring:message code="misc.faoInAction"/>" /></td>
     <td background="img/divider.gif" width="1"><img src="img/spacer.gif" width="1" height="1" alt=""></td>
   </tr>
   <tr><td height="20" colspan="5" bgcolor="#E7AE0F">&nbsp;</td></tr>
 </table>
+<script>
+	var photos = ["faoinaction1x400.jpg","faoinaction4x248.jpg","faoinaction5x248.jpg"];
+	var d = new Date();
+	var seconds = d.getSeconds(); 
+	var ofThree = seconds % 3;
+	var photo = photos[ofThree]; 
+	$('#mainPhoto').attr('src',"img/"+photo);
+	
+</script>
 <c:if test="${rivConfig.demo}">
 <script>
 	$('#j_username').val('<spring:message code="demo.username"/>');
