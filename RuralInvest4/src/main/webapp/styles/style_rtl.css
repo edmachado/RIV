@@ -133,6 +133,16 @@ width:100%;
 padding:8px 20px 10px 10px;
 }
 
+#login-demo {
+	width:740px; text-align:justify; padding:10px;
+}
+#login-demo p {
+	margin:10px 5px;
+}
+#login-demo ul {
+	margin-right:60px;
+}
+
 #main {
 background:#f5f5f5;
 border:1px solid #005CAB;
@@ -510,4 +520,41 @@ div.financial div {display:block; width:100%;}
 div.financial span {display:inline-block;width:210px;}
 div.financial select {margin-left:50px;}
 
+#download-dialog ul {
+	margin:5px 14px 0 0;
+}
+
 td.production-year {font-size : 11px; text-align:center; padding: 0 7px;}
+
+#uploader-button { margin-bottom:10px; }
+#uploader-error, .alert-danger, .alert-error {
+    background-color: #F2DEDE;
+    border-color: #EED3D7;
+    color: #B94A48;
+}
+.alert {
+    background-color: #FCF8E3;
+    border: 1px solid #FBEED5;
+    border-radius: 4px 4px 4px 4px;
+    color: #C09853;
+    margin-bottom: 20px;
+    padding: 8px 14px 8px 35px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+#upload-dialog p {
+	margin:5px 5px 10px 20px;
+	text-align: justify;
+}
+#upload-dialog ol {
+	margin-right:25px;
+}
+
+li.qq-upload-fail {
+	color:#E44F3C !important;
+	background-color: #FAF5F5 !important;
+}
+
+.ui-buttonset label {
+	width:100px !important;
+	font-size:1em;
+}
