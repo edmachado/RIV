@@ -78,10 +78,12 @@ public class ProjectFirstYear {
 		}
 	}
 	
+	/*
+	 * results[0] is financing period (no. months)
+	 * results[1] is largest negative value
+	 * results[2] is number of negative months
+	 */
 	public static double[] WcAnalysis(ProjectFirstYear pfy) {
-		// results[0] is financing period (no. months)
-		// results[1] is largest negative value
-		// results[2] is number of negative months
 		double[] results = new double[3];
 		
 		int lastNegMonth=0; int negMonths=0;

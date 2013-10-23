@@ -1,5 +1,6 @@
 package riv.objects.project;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import riv.util.Calculator;
@@ -337,7 +338,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 		// INVESTMENT COSTS: ASSETS (WITH PROJECT)
 		for (ProjectItemAsset asset : project.getAssets()) {
 			// original purchase (once)
-			data.get(asset.getYearBegin()-1).setCostInvest(data.get(asset.getYearBegin()-1).getCostInvest()+asset.getUnitCost()*asset.getUnitNum());
+			data.get(asset.getYearBegin()-1).setCostInvest(data.get(asset.getYearBegin()-1).getCostInvest()+asset.getTotal());
 			data.get(asset.getYearBegin()-1).setCostInvestOwn(data.get(asset.getYearBegin()-1).getCostInvestOwn()+asset.getOwnResources());
 			data.get(asset.getYearBegin()-1).setCostInvestDonated(data.get(asset.getYearBegin()-1).getCostInvestDonated()+asset.getDonated());
 			
@@ -422,13 +423,13 @@ public class ProjectFinanceData implements java.io.Serializable{
 		// GENERAL COSTS (WITH PROJECT)
 		for (ProjectItemGeneral general : project.getGenerals()) {
 			for (int i=0;i<project.getDuration();i++) {
-				data.get(i).setCostGeneral(data.get(i).getCostGeneral()+general.getUnitCost()*general.getUnitNum());
+				data.get(i).setCostGeneral(data.get(i).getCostGeneral()+general.getTotal());
 				data.get(i).setCostGeneralOwn(data.get(i).getCostGeneralOwn()+general.getOwnResources());
 			}
 		}
 		for (ProjectItemPersonnel personnel : project.getPersonnels()) {
 			for (int i=0;i<project.getDuration();i++) {
-				data.get(i).setCostGeneral(data.get(i).getCostGeneral()+personnel.getUnitCost()*personnel.getUnitNum());
+				data.get(i).setCostGeneral(data.get(i).getCostGeneral()+personnel.getTotal());
 				data.get(i).setCostGeneralOwn(data.get(i).getCostGeneralOwn()+personnel.getOwnResources());
 			}
 		}
@@ -436,13 +437,13 @@ public class ProjectFinanceData implements java.io.Serializable{
 		// GENERAL COSTS (WITHOUT PROJECT)
 		for (ProjectItemGeneralWithout gwo : project.getGeneralWithouts()) {
 			for (int i=0;i<project.getDuration();i++) {
-				data.get(i).setCostGeneralWithout(data.get(i).getCostGeneralWithout()+gwo.getUnitCost()*gwo.getUnitNum());
+				data.get(i).setCostGeneralWithout(data.get(i).getCostGeneralWithout()+gwo.getTotal());
 				data.get(i).setCostGeneralWithoutOwn(data.get(i).getCostGeneralWithoutOwn()+gwo.getOwnResources());
 			}
 		}
 		for (ProjectItemPersonnelWithout pwo : project.getPersonnelWithouts()) {
 			for (int i=0;i<project.getDuration();i++) {
-				data.get(i).setCostGeneralWithout(data.get(i).getCostGeneralWithout()+pwo.getUnitCost()*pwo.getUnitNum());
+				data.get(i).setCostGeneralWithout(data.get(i).getCostGeneralWithout()+pwo.getTotal());
 				data.get(i).setCostGeneralWithoutOwn(data.get(i).getCostGeneralWithoutOwn()+pwo.getOwnResources());
 			}
 		}
@@ -453,15 +454,15 @@ public class ProjectFinanceData implements java.io.Serializable{
 			for (BlockIncome income : block.getIncomes()) {
 				for (int i=0;i<project.getDuration();i++) {
 					// use # of cycles for first year if calculating first year
-					if (i==0) { cycles = block.getCycleFirstYear(); }
+					if (i==0) { cycles = block.getCycleFirstYearIncome(); }
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
-					double inc=(income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getUnitNum().doubleValue()*prodQty*cycles;
-					double incIntern= block.getProject().getIncomeGen()
-							? (income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles
-									: (income.getUnitCost().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles;
-					data.get(i).setIncSalesWithout(data.get(i).getIncSalesWithout()-inc);
-					data.get(i).setIncSalesInternal(data.get(i).getIncSalesInternalWithout()-incIntern);
+					//double inc=(income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getUnitNum().doubleValue()*prodQty*cycles;
+					//double incIntern= block.getProject().getIncomeGen()
+					//		? (income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles
+					//				: (income.getUnitCost().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles;
+					data.get(i).setIncSalesWithout(data.get(i).getIncSalesWithout()+income.getTotal().multiply(new BigDecimal(prodQty*cycles)).doubleValue());
+					data.get(i).setIncSalesInternalWithout(data.get(i).getIncSalesInternalWithout()+(income.getTotal().subtract(income.getTotalCash())).multiply(new BigDecimal(prodQty*cycles)).doubleValue());
 					
 					// use # of cycles if ending calc for first year
 					if (i==0) { cycles = block.getCyclePerYear(); }
@@ -475,10 +476,10 @@ public class ProjectFinanceData implements java.io.Serializable{
 					if (i==0) { cycles = block.getCycleFirstYear(); }
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
-					double opCost=(input.getUnitCost().doubleValue()+input.getTransport().doubleValue())*input.getUnitNum().doubleValue()*prodQty*cycles;
-					double opInternal = (input.getUnitCost().doubleValue()+input.getTransport().doubleValue())*input.getQtyIntern().doubleValue()*prodQty*cycles;
-					data.get(i).setCostOperationWithout(data.get(i).getCostOperationWithout()-opCost);
-					data.get(i).setCostOperationInternalWithout(data.get(i).getCostOperationInternalWithout()-opInternal);
+					double opCost=input.getTotal().multiply(new BigDecimal(prodQty*cycles)).doubleValue();
+					double opInternal = input.getTotal().subtract(input.getTotalCash()).multiply(new BigDecimal(prodQty*cycles)).doubleValue();
+					data.get(i).setCostOperationWithout(data.get(i).getCostOperationWithout()+opCost);
+					data.get(i).setCostOperationInternalWithout(data.get(i).getCostOperationInternalWithout()+opInternal);
 					
 					// use # of cycles if ending calc for first year
 					if (i==0) { cycles = block.getCyclePerYear(); }
@@ -492,11 +493,11 @@ public class ProjectFinanceData implements java.io.Serializable{
 					if (i==0) cycles = block.getCycleFirstYear();
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
-					double cost=labour.getUnitCost().doubleValue()*labour.getUnitNum().doubleValue()*prodQty*cycles;
-					double costInternal = labour.getUnitCost().doubleValue()*labour.getQtyIntern().doubleValue()*prodQty*cycles;
+					double cost=labour.getTotal().doubleValue()*prodQty*cycles;
+					double costInternal = (labour.getTotal().subtract(labour.getTotalCash())).doubleValue()*prodQty*cycles;
 					// subtract block info if w/wo situation and block is without 
-					data.get(i).setCostOperationWithout(data.get(i).getCostOperationWithout()-cost);
-					data.get(i).setCostOperationInternalWithout(data.get(i).getCostOperationInternalWithout()-costInternal);
+					data.get(i).setCostOperationWithout(data.get(i).getCostOperationWithout()+cost);
+					data.get(i).setCostOperationInternalWithout(data.get(i).getCostOperationInternalWithout()+costInternal);
 					// use # of cycles if ending calc for first year
 					if (i==0) cycles = block.getCyclePerYear();
 				}
@@ -512,10 +513,8 @@ public class ProjectFinanceData implements java.io.Serializable{
 					if (i==0) { cycles = block.getCycleFirstYearIncome(); }
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
-					double inc=(income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getUnitNum().doubleValue()*prodQty*cycles;
-					double incIntern= block.getProject().getIncomeGen()
-						? (income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles
-						: (income.getUnitCost().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles;
+					double inc=income.getTotal().doubleValue()*prodQty*cycles;
+					double incIntern= (income.getTotal().doubleValue()-income.getTotalCash().doubleValue())*prodQty*cycles;
 					data.get(i).setIncSales(data.get(i).getIncSales()+inc);
 					data.get(i).setIncSalesInternal(data.get(i).getIncSalesInternal()+incIntern);
 					// use # of cycles if ending calc for first year
@@ -530,8 +529,8 @@ public class ProjectFinanceData implements java.io.Serializable{
 					if (i==0) cycles = block.getCycleFirstYear();
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
-					double opCost=(input.getUnitCost().doubleValue()+input.getTransport().doubleValue())*input.getUnitNum().doubleValue()*prodQty*cycles;
-					double opInternal = (input.getUnitCost().doubleValue()+input.getTransport().doubleValue())*input.getQtyIntern().doubleValue()*prodQty*cycles;
+					double opCost=input.getTotal().doubleValue()*prodQty*cycles;
+					double opInternal = (input.getTotal().doubleValue()-input.getTotalCash().doubleValue())*prodQty*cycles;
 					data.get(i).setCostOperation(data.get(i).getCostOperation()+opCost);
 					data.get(i).setCostOperationInternal(data.get(i).getCostOperationInternal()+opInternal);
 					// use # of cycles if ending calc for first year
@@ -546,8 +545,8 @@ public class ProjectFinanceData implements java.io.Serializable{
 					if (i==0) cycles = block.getCycleFirstYear();
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
-					double cost=labour.getUnitCost().doubleValue()*labour.getUnitNum().doubleValue()*prodQty*cycles;
-					double costInternal = labour.getUnitCost().doubleValue()*labour.getQtyIntern().doubleValue()*prodQty*cycles;
+					double cost=labour.getTotal().doubleValue()*prodQty*cycles;
+					double costInternal = (labour.getTotal().doubleValue()-labour.getTotalCash().doubleValue())*prodQty*cycles;
 					data.get(i).setCostOperation(data.get(i).getCostOperation()+cost);
 					data.get(i).setCostOperationInternal(data.get(i).getCostOperationInternal()+costInternal);
 					// use # of cycles if ending calc for first year

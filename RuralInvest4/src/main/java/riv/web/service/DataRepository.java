@@ -88,7 +88,6 @@ import riv.objects.reference.ReferenceCost;
 import riv.objects.reference.ReferenceIncome;
 import riv.objects.reference.ReferenceItem;
 import riv.objects.reference.ReferenceLabour;
-import riv.util.Upgrader;
 
 @Transactional
 @Repository
