@@ -1891,7 +1891,7 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 	
-	public Sheet projectProfitability2(ExcelWrapper report, Project project, ProjectResult result) {
+	public Sheet projectProfitability(ExcelWrapper report, Project project, ProjectResult result) {
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.TotalCosts);
 		ProjectFinanceData.AddLoanAmortization(project, data);
 		ProjectFinanceData.AddWorkingCapital(project, data);
@@ -1922,12 +1922,12 @@ public class ExcelWorksheetBuilder {
 		rowNum = addRowTitles(new String[] {"project.report.profitability.donations","project.report.profitability.donations.wc","project.report.profitability.donations.investment","misc.total","project.report.profitability.donations.netAfter"}, rowNum++, sheet, report);
 		
 		// real data
-		int yearNum=0;
+		//int yearNum=0;
 		String col;
 		StringBuilder formulaBuild;
 		String formula;
-		for (ProjectFinanceData pfd : data) {
-			yearNum++;
+		for (int yearNum=1;yearNum<=project.getDuration();yearNum++) {
+			//yearNum++;
 			 col = getColumn(yearNum);
 			if (report.isCompleteReport()) {
 				// sales income
@@ -2220,9 +2220,31 @@ public class ExcelWorksheetBuilder {
 				
 				
 			} else {
+				ProjectFinanceData pfd = data.get(yearNum-1);
 				
+				// Income
+				report.addNumericCell(sheet.getRow(3), yearNum, pfd.getIncSales()-pfd.getIncSalesWithout(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(4), yearNum, pfd.getIncSalvage(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(5), yearNum, pfd.getIncResidual(), Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(6), yearNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 4, 6), Style.CURRENCY);
+
+				
+				// Costs
+				report.addNumericCell(sheet.getRow(9), yearNum, pfd.getCostOperation()-pfd.getCostOperationWithout(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(10), yearNum, pfd.getCostReplace(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(11), yearNum, pfd.getCostGeneral()-pfd.getCostGeneralWithout(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(12), yearNum, pfd.getCostMaintenance(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(13), yearNum, pfd.getCostInvest(), Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(14), yearNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 10, 14), Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(15), yearNum, String.format("SUM(%1$s7-%1$s15)", col), Style.CURRENCY);
+
+				
+				// Donations
+				report.addNumericCell(sheet.getRow(18), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(19), yearNum, pfd.getCostInvestDonated(), Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(20), yearNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 20, 21), Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(21), yearNum, String.format("SUM(%1$s17+%1$s22)", col), Style.CURRENCY);
 			}
-			
 		}
 		
 		// Indicators
@@ -2250,157 +2272,157 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 
-	public Sheet projectProfitability(ExcelWrapper report, Project project, ProjectResult pr) {
-		if (report.isCompleteReport()) { return projectProfitability2(report, project, pr); }
-				
-		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.TotalCosts);
-		ProjectFinanceData.AddLoanAmortization(project, data);
-		ProjectFinanceData.AddWorkingCapital(project, data);
-		ProjectFinanceData.CalculateCumulative(data);
-		
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.profitability")));
-
-		sheet.setSelected(true);
-
-		int rowNum=0;
-		
-		sheet.setColumnWidth(0, 165*36);
-		
-		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("project.report.profitability"), Style.TITLE);
-		
-		String[] incomeHeader = new String[] {"project.report.profitability.incomes.sales", "project.report.profitability.incomes.salvage",
-				"project.report.profitability.incomes.residual"};
-		String[] costsHeader = new String[] {"project.report.profitability.costs.operation", "project.report.profitability.costs.replacement",
-				"project.report.profitability.costs.general", "project.report.profitability.costs.maintenance", "project.report.profitability.costs.investment"};
-		String[] donationHeaders = new String[] {"project.report.profitability.donations.wc","project.report.profitability.donations.investment"};
-		       
-		Row[] rows = new Row[incomeHeader.length + costsHeader.length + donationHeaders.length];
-		
-		row = sheet.createRow(rowNum);
-		for (int index=1; index <= data.size(); index++) {
-			report.addNumericCell(row, index, index).setCellStyle(report.getStyles().get(Style.DATE));
-			sheet.setDefaultColumnStyle(index, report.getStyles().get(Style.CURRENCY));
-
-			sheet.setColumnWidth(index, 90*36);
-		}
-		
-		// Income
-		row = sheet.createRow(++rowNum);
-		report.addTextCell(row, 0, translate("project.report.profitability.incomes"), Style.H2);
-
-		
-		rowNum = addRows(report, sheet, rows, incomeHeader, ++rowNum, 0);
-		
-		Row rowTotalIncome = sheet.createRow(rowNum++);
-		report.addTextCell(rowTotalIncome, 0, translate("misc.total"), Style.LABEL);
-
-		
-		// Costs
-		row = sheet.createRow(rowNum++);	row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("project.report.profitability.costs"), Style.H2);
-
-		
-		rowNum = addRows(report, sheet, rows, costsHeader, rowNum++, incomeHeader.length);
-		
-		Row rowTotalCosts = sheet.createRow(rowNum++);
-		report.addTextCell(rowTotalCosts, 0, translate("misc.total"), Style.LABEL);
-
-		
-		row = sheet.createRow(rowNum++);
-		Row rowNetIncome = sheet.createRow(rowNum++);
-		report.addTextCell(rowNetIncome, 0, translate("project.report.profitability.donations.netBefore"), Style.LABEL);
-
-	
-		// Donations
-		row = sheet.createRow(rowNum++); row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("project.report.profitability.donations"), Style.H2);
-
-		
-		rowNum = addRows(report, sheet, rows, donationHeaders, rowNum++, costsHeader.length+incomeHeader.length);
-		
-		Row rowTotalDonations = sheet.createRow(rowNum++);
-		report.addTextCell(rowTotalDonations, 0, translate("misc.total"), Style.LABEL);
-
-		
-		Row rowNetIncomeWithDonation = sheet.createRow(rowNum++);
-		report.addTextCell(rowNetIncomeWithDonation, 0, translate("project.report.profitability.donations.netAfter"), Style.LABEL);
-
-		
-		int cellNum = 1;
-		for (ProjectFinanceData pfd : data) {
-			String col = getColumn(cellNum);
-			
-			int index = 0;
-			
-			// Income
-			report.addNumericCell(rows[index++], cellNum, pfd.getIncSales()-pfd.getIncSalesWithout(), Style.CURRENCY);
-			report.addNumericCell(rows[index++], cellNum, pfd.getIncSalvage(), Style.CURRENCY);
-			report.addNumericCell(rows[index++], cellNum, pfd.getIncResidual(), Style.CURRENCY);
-
-			
-			// Income total
-			report.addFormulaCell(rowTotalIncome, cellNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 4, 6), Style.CURRENCY);
-
-			
-			// Costs
-			report.addNumericCell(rows[index++], cellNum, pfd.getCostOperation()-pfd.getCostOperationWithout(), Style.CURRENCY);
-			report.addNumericCell(rows[index++], cellNum, pfd.getCostReplace(), Style.CURRENCY);
-			report.addNumericCell(rows[index++], cellNum, pfd.getCostGeneral()-pfd.getCostGeneralWithout(), Style.CURRENCY);
-			report.addNumericCell(rows[index++], cellNum, pfd.getCostMaintenance(), Style.CURRENCY);
-			report.addNumericCell(rows[index++], cellNum, pfd.getCostInvest(), Style.CURRENCY);
-
-			
-			// Costs total
-			report.addFormulaCell(rowTotalCosts, cellNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 10, 14), Style.CURRENCY);
-
-			
-			// Net Balance
-			report.addFormulaCell(rowNetIncome, cellNum, String.format("SUM(%1$s7-%1$s15)", col), Style.CURRENCY);
-
-			
-			// Donations
-			report.addNumericCell(rows[index++], cellNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
-			report.addNumericCell(rows[index++], cellNum, pfd.getCostInvestDonated(), Style.CURRENCY);
-
-			
-			// Donation total
-			report.addFormulaCell(rowTotalDonations, cellNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 20, 21), Style.CURRENCY);
-
-			
-			// Net balance with donation
-			report.addFormulaCell(rowNetIncomeWithDonation, cellNum, String.format("SUM(%1$s17+%1$s22)", col), Style.CURRENCY);
-
-			
-			cellNum++;
-		}
-		
-		
-		// Indicators
-		int tind = 4;
-		row = sheet.createRow(++rowNum);	row = sheet.createRow(++rowNum);
-		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
-		report.addTextCell(row, 0, translate("project.report.profitability.indicators"), Style.H2);
-
-		row = sheet.createRow(++rowNum);
-		report.addTextCell(row, 1, translate("project.report.profitability.totInvestAllCosts"), Style.H2);
-		report.addTextCell(row, tind, translate("project.report.profitability.totInvestApplicant"), Style.H2);
-
-		row = sheet.createRow(++rowNum);	cellNum = 0;
-		report.addTextCell(row, 0, translate("project.irr.long"));
-
-		report.addFormulaCell(row, 1, String.format("IRR(B17:%1$s17)", getColumn(data.size())),Style.PERCENT);
-		report.addFormulaCell(row, tind, String.format("IRR(B23:%1$s23)", getColumn(data.size())),Style.PERCENT);
-		
-		row = sheet.createRow(++rowNum);	cellNum = 0;
-		report.addTextCell(row, 0, translate("project.npv.long"));
-		
-		report.addFormulaCell(row, 1, String.format("NPV(%1$f,B17:%2$s17)", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())));
-		report.addFormulaCell(row, tind, String.format("NPV(%1$f,B23:%2$s23)", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())));
-		
-		
-		return sheet;
-	}
+//	public Sheet projectProfitability(ExcelWrapper report, Project project, ProjectResult pr) {
+//		if (report.isCompleteReport()) { return projectProfitability2(report, project, pr); }
+//				
+//		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.TotalCosts);
+//		ProjectFinanceData.AddLoanAmortization(project, data);
+//		ProjectFinanceData.AddWorkingCapital(project, data);
+//		ProjectFinanceData.CalculateCumulative(data);
+//		
+//		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.profitability")));
+//
+//		sheet.setSelected(true);
+//
+//		int rowNum=0;
+//		
+//		sheet.setColumnWidth(0, 165*36);
+//		
+//		Row row = sheet.createRow(rowNum++);
+//		report.addTextCell(row, 0, translate("project.report.profitability"), Style.TITLE);
+//		
+//		String[] incomeHeader = new String[] {"project.report.profitability.incomes.sales", "project.report.profitability.incomes.salvage",
+//				"project.report.profitability.incomes.residual"};
+//		String[] costsHeader = new String[] {"project.report.profitability.costs.operation", "project.report.profitability.costs.replacement",
+//				"project.report.profitability.costs.general", "project.report.profitability.costs.maintenance", "project.report.profitability.costs.investment"};
+//		String[] donationHeaders = new String[] {"project.report.profitability.donations.wc","project.report.profitability.donations.investment"};
+//		       
+//		Row[] rows = new Row[incomeHeader.length + costsHeader.length + donationHeaders.length];
+//		
+//		row = sheet.createRow(rowNum);
+//		for (int index=1; index <= data.size(); index++) {
+//			report.addNumericCell(row, index, index).setCellStyle(report.getStyles().get(Style.DATE));
+//			sheet.setDefaultColumnStyle(index, report.getStyles().get(Style.CURRENCY));
+//
+//			sheet.setColumnWidth(index, 90*36);
+//		}
+//		
+//		// Income
+//		row = sheet.createRow(++rowNum);
+//		report.addTextCell(row, 0, translate("project.report.profitability.incomes"), Style.H2);
+//
+//		
+//		rowNum = addRows(report, sheet, rows, incomeHeader, ++rowNum, 0);
+//		
+//		Row rowTotalIncome = sheet.createRow(rowNum++);
+//		report.addTextCell(rowTotalIncome, 0, translate("misc.total"), Style.LABEL);
+//
+//		
+//		// Costs
+//		row = sheet.createRow(rowNum++);	row = sheet.createRow(rowNum++);
+//		report.addTextCell(row, 0, translate("project.report.profitability.costs"), Style.H2);
+//
+//		
+//		rowNum = addRows(report, sheet, rows, costsHeader, rowNum++, incomeHeader.length);
+//		
+//		Row rowTotalCosts = sheet.createRow(rowNum++);
+//		report.addTextCell(rowTotalCosts, 0, translate("misc.total"), Style.LABEL);
+//
+//		
+//		row = sheet.createRow(rowNum++);
+//		Row rowNetIncome = sheet.createRow(rowNum++);
+//		report.addTextCell(rowNetIncome, 0, translate("project.report.profitability.donations.netBefore"), Style.LABEL);
+//
+//	
+//		// Donations
+//		row = sheet.createRow(rowNum++); row = sheet.createRow(rowNum++);
+//		report.addTextCell(row, 0, translate("project.report.profitability.donations"), Style.H2);
+//
+//		
+//		rowNum = addRows(report, sheet, rows, donationHeaders, rowNum++, costsHeader.length+incomeHeader.length);
+//		
+//		Row rowTotalDonations = sheet.createRow(rowNum++);
+//		report.addTextCell(rowTotalDonations, 0, translate("misc.total"), Style.LABEL);
+//
+//		
+//		Row rowNetIncomeWithDonation = sheet.createRow(rowNum++);
+//		report.addTextCell(rowNetIncomeWithDonation, 0, translate("project.report.profitability.donations.netAfter"), Style.LABEL);
+//
+//		
+//		int cellNum = 1;
+//		for (ProjectFinanceData pfd : data) {
+//			String col = getColumn(cellNum);
+//			
+//			int index = 0;
+//			
+//			// Income
+//			report.addNumericCell(rows[index++], cellNum, pfd.getIncSales()-pfd.getIncSalesWithout(), Style.CURRENCY);
+//			report.addNumericCell(rows[index++], cellNum, pfd.getIncSalvage(), Style.CURRENCY);
+//			report.addNumericCell(rows[index++], cellNum, pfd.getIncResidual(), Style.CURRENCY);
+//
+//			
+//			// Income total
+//			report.addFormulaCell(rowTotalIncome, cellNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 4, 6), Style.CURRENCY);
+//
+//			
+//			// Costs
+//			report.addNumericCell(rows[index++], cellNum, pfd.getCostOperation()-pfd.getCostOperationWithout(), Style.CURRENCY);
+//			report.addNumericCell(rows[index++], cellNum, pfd.getCostReplace(), Style.CURRENCY);
+//			report.addNumericCell(rows[index++], cellNum, pfd.getCostGeneral()-pfd.getCostGeneralWithout(), Style.CURRENCY);
+//			report.addNumericCell(rows[index++], cellNum, pfd.getCostMaintenance(), Style.CURRENCY);
+//			report.addNumericCell(rows[index++], cellNum, pfd.getCostInvest(), Style.CURRENCY);
+//
+//			
+//			// Costs total
+//			report.addFormulaCell(rowTotalCosts, cellNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 10, 14), Style.CURRENCY);
+//
+//			
+//			// Net Balance
+//			report.addFormulaCell(rowNetIncome, cellNum, String.format("SUM(%1$s7-%1$s15)", col), Style.CURRENCY);
+//
+//			
+//			// Donations
+//			report.addNumericCell(rows[index++], cellNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
+//			report.addNumericCell(rows[index++], cellNum, pfd.getCostInvestDonated(), Style.CURRENCY);
+//
+//			
+//			// Donation total
+//			report.addFormulaCell(rowTotalDonations, cellNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 20, 21), Style.CURRENCY);
+//
+//			
+//			// Net balance with donation
+//			report.addFormulaCell(rowNetIncomeWithDonation, cellNum, String.format("SUM(%1$s17+%1$s22)", col), Style.CURRENCY);
+//
+//			
+//			cellNum++;
+//		}
+//		
+//		
+//		// Indicators
+//		int tind = 4;
+//		row = sheet.createRow(++rowNum);	row = sheet.createRow(++rowNum);
+//		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
+//		report.addTextCell(row, 0, translate("project.report.profitability.indicators"), Style.H2);
+//
+//		row = sheet.createRow(++rowNum);
+//		report.addTextCell(row, 1, translate("project.report.profitability.totInvestAllCosts"), Style.H2);
+//		report.addTextCell(row, tind, translate("project.report.profitability.totInvestApplicant"), Style.H2);
+//
+//		row = sheet.createRow(++rowNum);	cellNum = 0;
+//		report.addTextCell(row, 0, translate("project.irr.long"));
+//
+//		report.addFormulaCell(row, 1, String.format("IRR(B17:%1$s17)", getColumn(data.size())),Style.PERCENT);
+//		report.addFormulaCell(row, tind, String.format("IRR(B23:%1$s23)", getColumn(data.size())),Style.PERCENT);
+//		
+//		row = sheet.createRow(++rowNum);	cellNum = 0;
+//		report.addTextCell(row, 0, translate("project.npv.long"));
+//		
+//		report.addFormulaCell(row, 1, String.format("NPV(%1$f,B17:%2$s17)", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())));
+//		report.addFormulaCell(row, tind, String.format("NPV(%1$f,B23:%2$s23)", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())));
+//		
+//		
+//		return sheet;
+//	}
 
 	public Sheet projectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result) {
 
