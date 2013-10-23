@@ -2017,7 +2017,7 @@ public class ExcelWorksheetBuilder {
 							);
 						}
 					}
-					report.addTextCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
+					report.addFormulaCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				} else {
 					report.addNumericCell(sheet.getRow(5), yearNum, 0, Style.CURRENCY);
 				}
@@ -2156,10 +2156,96 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(14), yearNum, "SUM("+col+"10:"+col+"14)", Style.CURRENCY);
 				// net income before investment
 				report.addFormulaCell(sheet.getRow(15), yearNum, col+"7-"+col+"15", Style.CURRENCY);
+				
+				// FINANCIAL COSTS
+				// wc donation (first year)
+				report.addFormulaCell(sheet.getRow(18), yearNum, String.format("IF(%s2=1,%s,0)",col,report.getLink(ExcelLink.PROJECT_WC_DONATED)), Style.CURRENCY);
+			
+				// investment donation
+				formulaBuild = new StringBuilder();
+				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
+				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
+					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$F$%d,0)+",
+							assetSheetName, i, col,
+							assetSheetName, i
+							));
+				}
+				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW));
+				for (int i=firstRow; i<firstRow+project.getLabours().size();i++) {
+					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$F$%d,0)+",
+							assetSheetName, i, col,
+							assetSheetName, i
+							));
+				}
+				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_ROW));
+				for (int i=firstRow; i<firstRow+project.getServices().size();i++) {
+					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$F$%d,0)+",
+							assetSheetName, i, col,
+							assetSheetName, i
+							));
+				}
+				formulaBuild.deleteCharAt(formulaBuild.length()-1);
+				
+				if (project.isWithWithout()) {
+					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW));
+					for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
+						formulaBuild.append(String.format("-IF(%s!$M$%d=%s2,%s!$F$%d,0)",
+								assetWithoutSheetName, i, col,
+								assetWithoutSheetName, i
+								));
+					}
+					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_WITHOUT_ROW));
+					for (int i=firstRow; i<firstRow+project.getLaboursWithout().size();i++) {
+						formulaBuild.append(String.format("-IF(%s!$M$%d=%s2,%s!$F$%d,0)",
+								assetWithoutSheetName, i, col,
+								assetWithoutSheetName, i
+								));
+					}
+					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_WITHOUT_ROW));
+					for (int i=firstRow; i<firstRow+project.getServicesWithout().size();i++) {
+						formulaBuild.append(String.format("-IF(%s!$M$%d=%s2,%s!$F$%d,0)",
+								assetWithoutSheetName, i, col,
+								assetWithoutSheetName, i
+								));
+					}
+				}
+				report.addFormulaCell(sheet.getRow(19), yearNum, formulaBuild.toString(), Style.CURRENCY);
+				
+				// total
+				report.addFormulaCell(sheet.getRow(20), yearNum, col+"19+"+col+"20", Style.CURRENCY);
+				// net income after donation
+				report.addFormulaCell(sheet.getRow(21), yearNum, col+"16+"+col+"21", Style.CURRENCY);
+				
+				rowNum++;
+				
+				
 			} else {
 				
 			}
+			
 		}
+		
+		// Indicators
+		int tind = 4;
+		row = sheet.createRow(++rowNum);	row = sheet.createRow(++rowNum);
+		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
+		report.addTextCell(row, 0, translate("project.report.profitability.indicators"), Style.H2);
+
+		row = sheet.createRow(++rowNum);
+		report.addTextCell(row, 1, translate("project.report.profitability.totInvestAllCosts"), Style.H2);
+		report.addTextCell(row, tind, translate("project.report.profitability.totInvestApplicant"), Style.H2);
+
+		row = sheet.createRow(++rowNum);
+		report.addTextCell(row, 0, translate("project.irr.long"));
+		
+		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(IRR(B16:%1$s16)),IRR(B16:%1$s16),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
+		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(IRR(B22:%1$s22)),IRR(B22:%1$s22),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
+		
+		row = sheet.createRow(++rowNum);
+		report.addTextCell(row, 0, translate("project.npv.long"));
+		
+		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(NPV(%1$f,B16:%2$s16)),NPV(%1$f,B16:%2$s16),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
+		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(NPV(%1$f,B22:%2$s22)),NPV(%1$f,B22:%2$s22),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
 		
 		return sheet;
 	}
@@ -2180,10 +2266,8 @@ public class ExcelWorksheetBuilder {
 		
 		sheet.setColumnWidth(0, 165*36);
 		
-		
 		Row row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.report.profitability"), Style.TITLE);
-
 		
 		String[] incomeHeader = new String[] {"project.report.profitability.incomes.sales", "project.report.profitability.incomes.salvage",
 				"project.report.profitability.incomes.residual"};
@@ -2298,36 +2382,15 @@ public class ExcelWorksheetBuilder {
 		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
 		report.addTextCell(row, 0, translate("project.report.profitability.indicators"), Style.H2);
 
-		
 		row = sheet.createRow(++rowNum);
 		report.addTextCell(row, 1, translate("project.report.profitability.totInvestAllCosts"), Style.H2);
 		report.addTextCell(row, tind, translate("project.report.profitability.totInvestApplicant"), Style.H2);
-		
-		/*double npvNoDonation = pr.getNpv();
-		BigDecimal irrNoDonation = pr.getIrr();
-		double npv = pr.getNpvWithDonation();
-		BigDecimal irr = pr.getIrrWithDonation();*/
 
 		row = sheet.createRow(++rowNum);	cellNum = 0;
 		report.addTextCell(row, 0, translate("project.irr.long"));
 
-		
 		report.addFormulaCell(row, 1, String.format("IRR(B17:%1$s17)", getColumn(data.size())),Style.PERCENT);
 		report.addFormulaCell(row, tind, String.format("IRR(B23:%1$s23)", getColumn(data.size())),Style.PERCENT);
-
-
-		/*if (irr.doubleValue()*100 >= 1000.0 || irr.doubleValue()*100 <= -1000.0) {//irr.compareTo(new BigDecimal(10)) <= 0) {
-			report.addTextCell(row, 1, translate("misc.undefined"));
-		} else {
-			report.addNumericCell(row, 1, irr).setCellStyle(percStyle);
-		}
-		
-		if (irrNoDonation.doubleValue()*100 >= 1000.0 || irrNoDonation.doubleValue()*100 <= -1000.0) {
-			report.addTextCell(row, tind, translate("misc.undefined"));
-		} else {
-			report.addNumericCell(row, tind, irrNoDonation).setCellStyle(percStyle);
-		}*/
-		
 		
 		row = sheet.createRow(++rowNum);	cellNum = 0;
 		report.addTextCell(row, 0, translate("project.npv.long"));
@@ -2335,8 +2398,6 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 1, String.format("NPV(%1$f,B17:%2$s17)", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())));
 		report.addFormulaCell(row, tind, String.format("NPV(%1$f,B23:%2$s23)", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())));
 		
-		/*report.addNumericCell(row, 1, npv);
-		report.addNumericCell(row, tind, npvNoDonation);*/
 		
 		return sheet;
 	}
