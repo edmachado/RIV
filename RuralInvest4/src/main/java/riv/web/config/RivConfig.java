@@ -213,6 +213,25 @@ public Map<Integer, User> getUsers() {
 		this.categories = categories;
 	}
 
+	
+	public Map<Integer, ProjectCategory> getCategoriesIG() {
+		HashMap<Integer, ProjectCategory> cats = new HashMap<Integer, ProjectCategory>();
+		for (ProjectCategory cat : categories.values()) {
+			if (cat.getIncomeGen()) {
+				cats.put(cat.getConfigId(), cat);
+			}
+		}
+		return cats;
+	}
+	public Map<Integer, ProjectCategory> getCategoriesNig() {
+		HashMap<Integer, ProjectCategory> cats = new HashMap<Integer, ProjectCategory>();
+		for (ProjectCategory cat : categories.values()) {
+			if (!cat.getIncomeGen()) {
+				cats.put(cat.getConfigId(), cat);
+			}
+		}
+		return cats;
+	}
 	public Map<Integer, ProjectCategory> getCategories() {
 		return categories;
 	}

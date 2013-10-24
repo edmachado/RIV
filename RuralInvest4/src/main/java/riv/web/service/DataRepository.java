@@ -877,9 +877,24 @@ public class DataRepository {
 			q.setInteger("projectId", projectId);
 			q.setInteger("yearNum", duration);
 			q.executeUpdate();
-		} else {
+		} else { // project duration has become larger
 			Project project = getProject(projectId, 9);
 			for (Block block : project.getBlocks()) {
+				int size; double qty;
+				if (block.getPatterns()==null) { // shouldn't occur, but just in case...
+					size=0;qty=0.0;
+				} else {
+					size = block.getPatterns().size();
+					qty=block.getPatterns().get(size).getQty();
+				}
+				for (int i=size+1;i<=project.getDuration();i++) {
+					BlockPattern pat = new BlockPattern();
+					pat.setQty(qty);
+					pat.setYearNum(i);
+					block.addPattern(pat);
+				}	
+			}
+			for (BlockWithout block : project.getBlocksWithout()) {
 				int size; double qty;
 				if (block.getPatterns()==null) { // shouldn't occur, but just in case...
 					size=0;qty=0.0;

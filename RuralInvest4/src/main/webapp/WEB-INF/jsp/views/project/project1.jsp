@@ -75,11 +75,12 @@ $( "#radioShared" ).buttonset();
 				<div class="dataentry">
 					<label><tags:help text="project.category.help" title="project.category"><spring:message code="project.category"/></tags:help></label>
 					<form:select path="projCategory">
-						<c:forEach var="cat" items="${rivConfig.categories.values()}">
-							<c:if test="${(project.incomeGen eq cat.incomeGen)}">
-							<form:option value="${cat.configId}" label="${cat.description}"/>
-							</c:if>
-						</c:forEach>
+						<c:if test="${project.incomeGen}">
+							<form:options items="${rivConfig.categoriesIG.values()}" itemValue="configId" itemLabel="description" />
+						</c:if>
+						<c:if test="${!project.incomeGen}">
+							<form:options items="${rivConfig.categoriesNig.values()}" itemValue="configId" itemLabel="description" />
+						</c:if>
 					</form:select>
 				</div>
 				

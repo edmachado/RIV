@@ -30,7 +30,7 @@ $(function() {
 	<tags:errors />
 	
 	<div align="right">
-		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectBlock.xlsx?template=${project.incomeGen}"><spring:message code="export.downloadTemplate"/></a><br/>
+		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${project.projectId}/projectBlock.xlsx?template=${project.incomeGen}"><spring:message code="export.downloadTemplate"/></a><br/>
  	</div>
  	<br/>
 	<div id="tabs">
