@@ -109,7 +109,7 @@
 						<form:option value="2"><spring:message code="search.greaterThan"/></form:option>
 						<form:option value="3"><spring:message code="search.lessThan"/></form:option>
 					</form:select> 
-					<input type="text" name="irrValue" id="irrPercentage" maxlength="11" size="8" value="" class="percent" />
+					<form:input type="text" path="irrValue" id="irrPercentage" maxlength="11" size="8" value="" class="percent" />
 					%
 				</div>
 				<div class="dataentry">
