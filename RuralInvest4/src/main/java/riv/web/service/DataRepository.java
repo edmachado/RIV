@@ -667,7 +667,7 @@ public class DataRepository {
 			criteria.add(Restrictions.in("appConfig2", filter.getAppConfig2s()));
 		}
 		if (filter.getEnviroCategories() != null && filter.getEnviroCategories().size() > 0) {
-			criteria.add(Restrictions.in("enviroClass",
+			criteria.add(Restrictions.in("enviroCategory",
 					filter.getEnviroCategories()));
 		}
 		if (filter.getIrrCriteria() != 0) {
