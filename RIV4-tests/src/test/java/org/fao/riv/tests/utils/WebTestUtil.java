@@ -2,6 +2,7 @@ package org.fao.riv.tests.utils;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -87,16 +88,44 @@ public class WebTestUtil {
 				});
 	}
 	
-	protected void testXls(File f, String title) throws IOException {
-		FileInputStream in = new FileInputStream(f);
-		XSSFWorkbook workbook = new XSSFWorkbook(in);
-		in.close();
+	protected void testXls(File f, String title) {
+		FileInputStream in=null;
+		XSSFWorkbook workbook=null;
+		try {
+			in = new FileInputStream(f);
+			workbook  = new XSSFWorkbook(in);
+		} catch (Exception e) {
+			fail("Failure testing Excel file: "+e.getMessage());
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				fail("Couldn't close Excel file. "+e.getMessage());
+			}
+		}
+		
 		Sheet sheet = workbook.getSheetAt(0);
-		org.junit.Assert.assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(title));
+		assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(title));
 	}
 	
 	public void rivSubmitForm() {
 		clickButton("submit");
+	}
+	
+	/*
+	 * 2-letter language code
+	 */
+	protected void setLanguage(String language) {
+		// set language
+		clickLink("welcome");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config.users.addEdit"));
+		
+		getTestContext().setResourceBundleName("messages/messages_"+language);
+		
+		selectOptionByValue("lang", language);
+		rivSubmitForm();
+		String newTitle = getMessage("ruralInvest")+" :: "+getMessage("user.users");
+		assertTitleEquals(newTitle);
 	}
 	
 	public void goToPro(boolean project, boolean incGen, boolean complete) {

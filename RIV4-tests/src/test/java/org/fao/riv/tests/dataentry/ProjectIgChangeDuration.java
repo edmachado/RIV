@@ -32,7 +32,7 @@ public class ProjectIgChangeDuration extends WebTestUtil {
 	@Test
 	public void changeDuration() throws Exception {
 		// import complete project
-		importProject(ImportFile.ProjectV20, "igpj", false, false, "Tomate Curungueo");
+		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
 		// edit project
 		goToPro(true, true, true);
 		
@@ -62,7 +62,7 @@ public class ProjectIgChangeDuration extends WebTestUtil {
 	private void checkProdPatterns(int expectedNum) {
 		clickLink("step9");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step9"));
-		int existing = getElementsByXPath("//td[@class='production-year']").size();
+		int existing = getElementsByXPath("//table[@id='prodPattern0']/tbody/tr/td[@class='production-year']").size();
 		org.junit.Assert.assertTrue(existing==expectedNum);
 	}
 }
