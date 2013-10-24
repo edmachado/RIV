@@ -747,13 +747,12 @@ public class ExcelWorksheetBuilder {
 		if (rivConfig.getSetting().getAdmin1Enabled()) {
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, rivConfig.getSetting().getAdmin1Title());
-			report.addTextCell(row, 2, project.getAppConfig1().getDescription());
+			report.addTextCell(row, 2, project.getAppConfig1()==null ? translate("customFields.appConfig1.generic"): project.getAppConfig1().getDescription());
 		}
 		if (rivConfig.getSetting().getAdmin2Enabled()) {
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, rivConfig.getSetting().getAdmin2Title());
-			report.addTextCell(row, 2, project.getAppConfig2().getDescription());
-
+			report.addTextCell(row, 2, project.getAppConfig2()==null ? translate("customFields.appConfig2.generic") : project.getAppConfig2().getDescription());
 		}
 		
 		rowNum++;	row = sheet.createRow(rowNum++);

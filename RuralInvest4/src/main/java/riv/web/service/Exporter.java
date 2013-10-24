@@ -154,18 +154,18 @@ public class Exporter {
 	            
 			 // 1. zip main file
 			if (serialized!=null) {
-				addByteArrayToZip(serialized, filename+".riv", zos);
+				addByteArrayToZip(serialized, getDownloadName(filename)+".riv", zos);
 			}
             
             // 2.second file
             if (fileToZip!=null) {
-            	addByteArrayToZip(fileToZip, bytesFileName, zos);
+            	addByteArrayToZip(fileToZip,  getDownloadName(bytesFileName), zos);
             }
             
             // 3. other attached files
             if (filesToZip!=null) {
 	            for (ExportFile pf : filesToZip) {            	
-					addByteArrayToZip(pf.getContentBytes(), pf.getFilename(), zos);
+					addByteArrayToZip(pf.getContentBytes(),  getDownloadName(pf.getFilename()), zos);
 				}
             }
             
@@ -253,5 +253,12 @@ public class Exporter {
 		}*/
 		return encoder;
 	}
+	
+	// for downloading
+	public String getDownloadName(String input) {
+		// filename shouldn't contain unacceptable characters
+		return input.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+	}
+
 	
 }

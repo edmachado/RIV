@@ -1,5 +1,7 @@
 package riv.web.config;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,9 @@ public class RivControllerAdvice {
 	RivConfig rivConfig;
 	
 	@ExceptionHandler(Exception.class)
-	public ModelAndView handleException(Exception ex) {
-		LOG.warn("Exception during running application.",ex);
+	public ModelAndView handleException(HttpServletRequest request, Exception ex) {
+		LOG.error("Exception during running application.",ex);
+		LOG.error("Request URL: "+request.getRequestURL().toString());
 		return errorModelAndView(ex);
 	}
 	

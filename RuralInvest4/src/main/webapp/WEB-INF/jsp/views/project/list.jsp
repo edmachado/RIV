@@ -315,12 +315,12 @@
 	<ul><li><b><spring:message code="export.local.title"/></b><br/>
 	<spring:message code="export.local.desc"/><br/>
 	<a id="dd_local">
-	<img src="../img/export_riv.gif" alt="foo" title="foo" width="16" height="16" border="0"/>
+	<img src="../img/export_riv.gif" alt="export" title="export" width="16" height="16" border="0"/>
 	<spring:message code="export.local"/></a><br/><br/></li>
 	<li><b><spring:message code="export.generic.title"/></b><br/>
 	<spring:message code="export.generic.desc"/><br/>
 	<a id="dd_generic">
-	<img src="../img/export_riv.gif" alt="foo" title="foo" width="16" height="16" border="0"/>
+	<img src="../img/export_riv.gif" alt="export" title="export" width="16" height="16" border="0"/>
 	<spring:message code="export.generic"/></a></li></ul>
 </div>
 </body></html>
