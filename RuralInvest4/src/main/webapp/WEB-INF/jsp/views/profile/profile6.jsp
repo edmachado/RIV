@@ -23,7 +23,7 @@ $(function() {
 <form:form name="form" method="post" commandName="profile">
 	<tags:errors />
 	<div align="right">
-		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${profile.profileId}/profileProduct.xlsx?template=true"><spring:message code="export.downloadTemplate"/></a>
+		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${profile.profileId}/profileProduct.xlsx?template=${profile.incomeGen}" target="_blank"><spring:message code="export.downloadTemplate"/></a>
  	</div>
  	<br/>
  	<div id="tabs">

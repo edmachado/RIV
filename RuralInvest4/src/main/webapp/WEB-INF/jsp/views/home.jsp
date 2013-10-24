@@ -1,13 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="${rivConfig.setting.lang}"<c:if test="${rivConfig.setting.lang=='ar'}"> dir="rtl"</c:if>><head>
-	<title><spring:message code="ruralInvest"/> :: <spring:message code="mainMenu.home"/></title>
-	 <tags:htmlHead/>
-</head>
-<body>
-<tags:toprow/>
+<html lang="${lang}"<c:if test="${lang=='ar'}"> dir="rtl"</c:if>>
+<head><title><spring:message code="ruralInvest"/> :: <spring:message code="mainMenu.home"/></title><tags:htmlHead/></head>
+<body><tags:toprow/>
 <div id="home">
-
 	<div id="homeheader"><!-- first row of titles -->
 		<div> &gt; <spring:message code="home.incGen"/></div><!-- 
 		 --><div> &gt; <spring:message code="home.nonIncGen"/></div><!-- 
@@ -59,7 +55,6 @@
 							<c:otherwise><c:set var="pname" value="${ip.name}"/></c:otherwise>
 						</c:choose>
 						<span class="inprogress-date"><a href="${link}" title="${ip.name}">${pname}</a></span>
-<%-- 						<span>${ip.technician}</span> --%>
 						<span><fmt:formatDate value="${ip.lastModified}" type="both" pattern="dd/MM/yy" /></span>
 					</c:if>
 					<c:set var="i" value="${i+1}"/>

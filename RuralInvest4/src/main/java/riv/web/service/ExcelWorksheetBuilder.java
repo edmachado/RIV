@@ -2242,8 +2242,12 @@ public class ExcelWorksheetBuilder {
 				// Donations
 				report.addNumericCell(sheet.getRow(18), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
 				report.addNumericCell(sheet.getRow(19), yearNum, pfd.getCostInvestDonated(), Style.CURRENCY);
-				report.addFormulaCell(sheet.getRow(20), yearNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 20, 21), Style.CURRENCY);
-				report.addFormulaCell(sheet.getRow(21), yearNum, String.format("SUM(%1$s17+%1$s22)", col), Style.CURRENCY);
+				// total
+				report.addFormulaCell(sheet.getRow(20), yearNum, col+"19+"+col+"20", Style.CURRENCY);
+				// net income after donation
+				report.addFormulaCell(sheet.getRow(21), yearNum, col+"16+"+col+"21", Style.CURRENCY);
+				
+				rowNum++;
 			}
 		}
 		
