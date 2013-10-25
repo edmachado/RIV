@@ -9,7 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(value = Suite.class)
 @SuiteClasses(value = { InputProfileIg.class, InputProfileNig.class, InputProjectIg.class, InputProjectNig.class, 
-		ProjectIgChangeDuration.class, User.class, Settings.class })
+		ProjectIgChangeDuration.class, EditAndSave.class, ProjectIgRemoveWithWithout.class, User.class, Settings.class })
 public class DataEntrySuite {
 	
 	 @BeforeClass 

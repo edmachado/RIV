@@ -16,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -64,12 +65,26 @@ public class ProjectXls extends WebTestUtil {
 			File f = folder.newFile(i+".xls"); 
 			saveAs(f);
 			testXls(f, titles[i]);
+			f.delete();
 		}
 	}	
 	
+	@Ignore
 	@Test
 	public void projectIg() throws IOException {
 		testProject(ImportFile.ProjectV20, "igpj", false, false, "Tomate Curungueo");
+	}
+	
+	@Test
+	public void projectIGi18n() throws IOException {
+		String[] langs = {"en","es","fr","pt","tr","ru","ar"};
+		for (String lang : langs) {
+			clickLink("goHome");
+			deletePros(true, true);
+			setLanguage(lang);
+			testProject(ImportFile.ProjectV20, "igpj", false, false, "Tomate Curungueo");
+			setLanguage("en");
+		}
 	}
 	
 	@Test

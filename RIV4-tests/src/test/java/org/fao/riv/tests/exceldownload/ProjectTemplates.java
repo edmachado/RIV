@@ -108,7 +108,6 @@ public class ProjectTemplates extends WebTestUtil {
 		testProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
 	}
 	
-	@Ignore
 	@Test
 	public void projectIgInSpanish() throws IOException {
 		setLanguage("es");
