@@ -861,8 +861,13 @@ public class DataRepository {
 	
 	public void updateBlocksWithWithout(int projectId, boolean withWithout) {
 		if (!withWithout) { // yes to no: set all blocks to "with project"
-			String sql = "update project_block set with_project=true where project_id=:projectId";
-			SQLQuery q = currentSession().createSQLQuery(sql);
+			SQLQuery q = currentSession().createSQLQuery("SELECT COUNT(block_id) FROM project_block WHERE project_id=:id AND class='0'");
+			q.setInteger("id", projectId);
+			int existingWithBlocks = ((java.math.BigInteger)q.uniqueResult()).intValue();
+					
+			String sql = "UPDATE project_block SET class='0', order_by=order_by+:orderIncr WHERE project_id=:projectId AND class='1'";
+			q = currentSession().createSQLQuery(sql);
+			q.setInteger("orderIncr", existingWithBlocks);
 			q.setInteger("projectId", projectId);
 			q.executeUpdate();
 		}
@@ -1015,12 +1020,12 @@ public class DataRepository {
 		// RIV<2.0 blocks missing orderBy field 
 		// RIV<4.0 blocks orderBy sequence is corrupted (without blocks moved to different collection)
 		String sql = 
-				"SELECT p.project_id " +
-				"FROM project p LEFT JOIN project_block b ON p.project_id=b.project_id "+
-				"RIGHT JOIN project_block b2 ON p.project_id=b2.project_id " +
-				"WHERE b.class='0' AND b2.class='0' AND b2.order_by IS NULL "+
-				"GROUP BY p.project_id " +
-				"HAVING MAX(b.order_by)<>COUNT(b.block_id)-1 OR COUNT(b2.block_id)>0";
+				"SELECT p.project_id FROM project p "+
+				"LEFT JOIN project_block b ON (p.project_id=b.project_id AND  b.class='0') "+
+				"LEFT OUTER JOIN project_block b2 ON (p.project_id=b2.project_id AND b2.class='0' AND b2.order_by IS NULL) "+
+				"GROUP BY p.project_id "+
+				"HAVING MAX(b.order_by)<>COUNT(b.block_id)-1  "+
+				"OR COUNT(b2.block_id)>0";
 		SQLQuery sq = currentSession().createSQLQuery(sql);
 		for (Object pId : sq.list()) {
 			int id = (Integer)pId;

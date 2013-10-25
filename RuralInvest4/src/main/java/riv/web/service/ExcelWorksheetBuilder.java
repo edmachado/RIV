@@ -90,14 +90,14 @@ public class ExcelWorksheetBuilder {
 		return wrap;
 	}
 	
-	private String sheetName(String rawName) {
-		rawName=rawName.replace(":", "-");
-		return (rawName.length()>31) ? rawName.substring(0, 31) : rawName;
-	}
+//	private String sheetName(String rawName) {
+//		rawName=rawName.replace(":", "-");
+//		return (rawName.length()>31) ? rawName.substring(0, 31) : rawName;
+//	}
 	
 	public void profileResults(ExcelWrapper report, List<ProfileResult> results, FilterCriteria filter) {
 		String reportName = filter.isIncomeGen() ? "profile.report.results.IG" : "profile.report.results.NIG";
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate(reportName)));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_RESULTS));
 		sheet.setSelected(true);
 		setColumnWidth(sheet, 0, 200);
 		String[] colTitles = filter.isIncomeGen() ?
@@ -150,7 +150,7 @@ public class ExcelWorksheetBuilder {
 	
 	public void projectResults(ExcelWrapper report, List<ProjectResult> results, FilterCriteria filter){//, HashMap<Integer, String> projectStatuses) {
 		String reportName = filter.isIncomeGen() ? "project.report.results.IG" : "project.report.results.NIG";
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate(reportName)));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_RESULTS));
 		sheet.setSelected(true);
 		setColumnWidth(sheet, 0, 200);
 		
@@ -291,6 +291,9 @@ public class ExcelWorksheetBuilder {
 		}
 	}
 	
+	private String translate(SheetName name) {
+		return translate(name.toString());
+	}
 	private String translate(String messageCode) {
 		return messageSource.getMessage(messageCode, null, LocaleContextHolder.getLocale());
 	}
@@ -311,14 +314,19 @@ public class ExcelWorksheetBuilder {
 		int rowNum=0; 
 		
 		String title = project.getIncomeGen() ? translate("project.report.blockDetail") : translate("project.report.activityDetail");
+		SheetName sheetname;
 		if (project.isWithWithout()) {
 			if (isWithout)  {
 				title =  "("+translate("projectBlock.with.without")+") "+ title;
+				sheetname = SheetName.PROJECT_BLOCKS_WITH;
 			} else {
 				title =  "("+translate("projectBlock.with.with")+") "+ title;
+				sheetname = SheetName.PROJECT_BLOCKS_WITHOUT;
 			}
+		} else {
+			sheetname = project.getIncomeGen() ? SheetName.PROJECT_BLOCKS : SheetName.PROJECT_ACTIVITIES;
 		}
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(title));
+		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
 
 		
 		Row row = sheet.createRow(rowNum++);
@@ -468,7 +476,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet projectChronology(ExcelWrapper report, Project project) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.chronology")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CHRONOLOGY));
 
 		SheetConditionalFormatting formatting = sheet.getSheetConditionalFormatting();
 		ConditionalFormattingRule rule = formatting.createConditionalFormattingRule(ComparisonOperator.NOT_EQUAL, "");
@@ -613,7 +621,7 @@ public class ExcelWorksheetBuilder {
 		String reportName = incomeGen ? translate("project.report.production") : translate("project.report.production.nonGen");
 		int rowNum = 0;
 		
-		Sheet sheet = report.getWorkbook().createSheet(reportName);
+		Sheet sheet = report.getWorkbook().createSheet(translate(incomeGen ? SheetName.PROJECT_PATTERN : SheetName.PROJECT_PATTERN_NONGEN));
 		
 		Row row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, reportName, Style.TITLE);
@@ -710,7 +718,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet projectGeneralDescription(ExcelWrapper report, Project project) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.general")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_DESCRIPTION));
 
 		setColumnWidth(sheet, 0, 286);
 		setColumnWidth(sheet, 2, 200);
@@ -879,7 +887,7 @@ public class ExcelWorksheetBuilder {
 
 		int[] subtotalRows = new int[3];
 		int rowNum=0;
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.generalCostsDetail")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_GENERAL));
 
 		sheet.setColumnWidth(1, 75*36);
 		
@@ -945,7 +953,7 @@ public class ExcelWorksheetBuilder {
 	
 	public Sheet projectGeneralDetail(ExcelWrapper report, Project project, boolean template) {
 		int rowNum=0;
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.generalCostsDetail")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_GENERAL));
 
 		sheet.setColumnWidth(1, 75*36);
 		sheet.setSelected(true);
@@ -1044,7 +1052,9 @@ public class ExcelWorksheetBuilder {
 		String title = without ? translate("project.report.investDetail") + " " + translate("project.without")
 				: project.isWithWithout() ? translate("project.report.investDetail") + " " + translate("project.with")
 				: translate("project.report.investDetail");
-		Sheet sheet = report.getWorkbook().createSheet(title);
+		SheetName sheetname = project.isWithWithout() ? without ? SheetName.PROJECT_INVEST_WITHOUT : SheetName.PROJECT_INVEST_WITH : SheetName.PROJECT_INVEST;
+				
+		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
 
 		for (short i = 3; i <= 10; i++) {
 			if (! (i == 8) ) {
@@ -1164,7 +1174,7 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectSummary(ExcelWrapper report, Project project, ProjectResult pr) {
 
 		
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.summary")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_SUMMARY));
 
 		sheet.setSelected(true);
 		Setting setting = rivConfig.getSetting();
@@ -1349,7 +1359,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, cellNum++, translate("misc.total"), Style.LABEL);
 		report.addFormulaCell(row, cellNum++, String.format("SUM(B%d:B%d)",rowNum-3,rowNum-1) ,Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum++, String.format("B%d / %s", rowNum, "'"+sheetName(translate("project.report.general"))+"'!C3"), Style.CURRENCYUSD);
+			report.addFormulaCell(row, cellNum++, String.format("B%d / %s", rowNum, "'"+translate(SheetName.PROJECT_GENERAL)+"'!C3"), Style.CURRENCYUSD);
 			} else {
 			report.addFormulaCell(row, cellNum++, String.format("B%d / %f", rowNum, exchRate),Style.CURRENCYUSD);
 		}
@@ -1364,7 +1374,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, cellNum++, translate(key));
 		report.addNumericCell(row, cellNum++, value, Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum++, String.format("B%d / %s", rowNum, "'"+sheetName(translate("project.report.general"))+"'!C3"), Style.CURRENCYUSD);
+			report.addFormulaCell(row, cellNum++, String.format("B%d / %s", rowNum, "'"+translate(SheetName.PROJECT_DESCRIPTION)+"'!$C$3"), Style.CURRENCYUSD);
 		} else {
 			report.addFormulaCell(row, cellNum++, String.format("B%d / %f", rowNum, exchRate), Style.CURRENCYUSD);
 		}
@@ -1391,7 +1401,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet projectSustainability(ExcelWrapper report, Project project, ProjectResult result) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.cashFlowNongen")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CASH_FLOW_NONGEN));
 
 		sheet.setSelected(true);
 		
@@ -1500,7 +1510,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet projectContributions(ExcelWrapper report, Project project, boolean template) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.step10.nongen")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CONTRIBUTIONS));
 
 		sheet.setSelected(true);
 		int rowNum=0;
@@ -1546,7 +1556,7 @@ public class ExcelWorksheetBuilder {
 		ProjectFinanceData.AddWorkingCapital(project, data);
 		ProjectFinanceData.CalculateCumulative(data);
 		
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.cashFlow")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CASH_FLOW));
 		sheet.setSelected(true);
 		
 		// setup header and row titles
@@ -1897,7 +1907,7 @@ public class ExcelWorksheetBuilder {
 		ProjectFinanceData.AddWorkingCapital(project, data);
 		ProjectFinanceData.CalculateCumulative(data);
 		
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.profitability")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_PROFITABILITY));
 		sheet.setSelected(true);
 		
 		// setup header and row titles
@@ -2431,12 +2441,14 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result) {
 
 		ProjectFirstYear pfy = new ProjectFirstYear(project);
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.cashFlowFirst")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CASH_FLOW_FIRST));
 
 		sheet.setSelected(true);
 		int rowNum=0;
 		int[] firstRows = new int[2];
 		sheet.setColumnWidth(0, 165*36);
+		
+		String chronSheet = "'"+translate(SheetName.PROJECT_CHRONOLOGY)+"'";
 		
 		for (int i = 1; i <= 13; i++) {
 			sheet.setColumnWidth(i, 90*36);
@@ -2462,7 +2474,6 @@ public class ExcelWorksheetBuilder {
 		if (report.isCompleteReport()) {
 			row = sheet.createRow(++rowNum);
 			report.addTextCell(row, 0, translate("project.report.cashFlowFirst.operIncomes"), Style.H2);
-			String chronSheet = "'"+sheetName(translate("project.report.chronology"))+"'";
 			
 			for (Block block : project.getBlocks()) {
 				ExcelBlockLink blockLink = report.getBlockLinks().get(block.getBlockId());
@@ -2494,7 +2505,6 @@ public class ExcelWorksheetBuilder {
 			row = sheet.createRow(++rowNum);
 			report.addTextCell(row, 0, translate("project.report.cashFlowFirst.operCosts"), Style.H2);
 			
-			String chronSheet = "'"+sheetName(translate("project.report.chronology"))+"'";
 			
 			for (Block block : project.getBlocks()) {
 				ExcelBlockLink blockLink = report.getBlockLinks().get(block.getBlockId());
@@ -2602,7 +2612,6 @@ public class ExcelWorksheetBuilder {
 			values[i] = value;
 		}
 		addCashFlowOtherRow(report, row, key, values);
-
 	}
 	
 	/**
@@ -2669,7 +2678,7 @@ public class ExcelWorksheetBuilder {
 	}
 
 	public Sheet projectRecommendation(ExcelWrapper report, Project project) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.recommendation")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_RECOMMENDATION));
 
 		sheet.setSelected(true);
 		int rowNum=0;
@@ -2711,7 +2720,7 @@ public class ExcelWorksheetBuilder {
 	}
 
 	public Sheet projectParameters(ExcelWrapper report, Project project) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.parameters")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_PARAMETERS));
 
 		sheet.setSelected(true);
 		int rowNum=0;
@@ -2797,7 +2806,7 @@ public class ExcelWorksheetBuilder {
 		int firstYearCumulativeRow = 12+project.getBlocks().size()*2;
 		String range = 
 				String.format("'%s'!$B$%d:$M$%d",
-						sheetName(translate("project.report.cashFlowFirst")),
+						translate(SheetName.PROJECT_CASH_FLOW_FIRST),
 						firstYearCumulativeRow, firstYearCumulativeRow);
 		
 		row = sheet.createRow(rowNum++);
@@ -2885,11 +2894,9 @@ public class ExcelWorksheetBuilder {
 		
 		return rowNum;
 	}
-
-	
 	
 	public Sheet profileSummary(ExcelWrapper report, Profile profile) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("profile.report.summary")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_SUMMARY));//sheetName(translate("profile.report.summary")));
 
 		Setting setting = rivConfig.getSetting();
 		setColumnWidth(sheet, 0, 300);
@@ -2991,7 +2998,7 @@ public class ExcelWorksheetBuilder {
 	public void profileInvest(ExcelWrapper report, Profile profile, boolean template) {
 
 		//	goods and materials
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("profile.report.investDetail")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_INVEST));
 
 		sheet.setSelected(true);
 		setColumnWidth(sheet, 0, 150);
@@ -3069,7 +3076,7 @@ public class ExcelWorksheetBuilder {
 	}
 
 	public void profileGeneral(ExcelWrapper report, Profile profile, boolean template) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("profileGeneral")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_GENERAL));
 
 		sheet.setSelected(true);
 		setColumnWidth(sheet, 0, 130);
@@ -3327,21 +3334,31 @@ public class ExcelWorksheetBuilder {
 	public Sheet profileProducts(ExcelWrapper report, Profile profile, boolean without) {
 		boolean ig = profile.getIncomeGen();
 		int rowNum = 0;
-		String sheetName = null;
+		String title = null;
+		SheetName sheetname;
 		if (ig) {
-			sheetName = translate("profile.report.productDetail");
+			title = translate("profile.report.productDetail");
 			if (profile.getWithWithout()) {
-				sheetName = without ? "("+translate("profileProduct.with.without")+") "+sheetName : "("+translate("profileProduct.with.with")+") "+sheetName;
+				if (without) {
+					title= "("+translate("profileProduct.with.without")+") "+title; 
+					sheetname=SheetName.PROFILE_PRODUCTS_WITHOUT;
+				} else {
+					title = "("+translate("profileProduct.with.with")+") "+title;
+					sheetname=SheetName.PROFILE_PRODUCTS_WITH;
+				}
+			} else {
+				sheetname = SheetName.PROFILE_PRODUCTS;
 			}
 		} else {
-			sheetName = translate("profile.report.productDetailNongen");
+			title = translate("profile.report.productDetailNongen");
+			sheetname=SheetName.PROFILE_PRODUCTS;
 		}
-		
-		Sheet sheet = report.getWorkbook().createSheet(sheetName);
+				
+		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
 		setColumnWidth(sheet, 0, 200);
 		
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, sheetName, Style.TITLE);
+		report.addTextCell(row, 0, title, Style.TITLE);
 
 		
 		row = sheet.createRow(rowNum++);
@@ -3505,7 +3522,7 @@ public class ExcelWorksheetBuilder {
 			titles[4] = String.format("%s (G)", translate("profile.benefNum"));
 		}
 		
-		Sheet sheet = report.getWorkbook().createSheet(titles[0]);
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_PRELIM));
 
 		int rowNum=0;
 		short rowHeader = 0;
@@ -3600,7 +3617,7 @@ public class ExcelWorksheetBuilder {
 	}
 
 	public Sheet profileRecommendation(ExcelWrapper report, Profile profile) {
-		Sheet sheet = report.getWorkbook().createSheet(sheetName(translate("project.report.recommendation")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_RECCOMENDATION));
 
 		int rowNum=0;
 		short cellNum = 0;
@@ -3727,6 +3744,54 @@ public class ExcelWorksheetBuilder {
 //	    }
 }
 
+enum SheetName {
+	PROFILE_SUMMARY("profile.report.summary.sheetname"),
+	PROFILE_GENERAL("profile.report.general.sheetname"),
+	PROFILE_GENERAL_WITH("profile.report.costDetail.with.sheetname"),
+	PROFILE_GENERAL_WITHOUT("profile.report.costDetail.without.sheetname"),
+	PROFILE_INVEST("profile.report.investDetail.sheetname"),
+	PROFILE_INVEST_WITH("profile.report.investDetail.with.sheetname"),
+	PROFILE_INVEST_WITHOUT("profile.report.investDetail.without.sheetname"),
+	PROFILE_PRODUCTS("profile.report.productDetail.sheetname"),
+	PROFILE_PRODUCTS_WITH("profile.report.productDetail.with.sheetname"),
+	PROFILE_PRODUCTS_WITHOUT("profile.report.productDetail.without.sheetname"),
+	PROFILE_PRELIM("profile.report.preliminary.sheetname"),
+	PROFILE_BENEFITS("profile.report.benefits.sheetname"),
+	PROFILE_RECCOMENDATION("project.report.recommendation.sheetname"),
+	PROFILE_RESULTS("profile.report.results.sheetname"),
+	
+	PROJECT_SUMMARY("project.report.summary.sheetname"),
+	PROJECT_DESCRIPTION("project.report.general.sheetname"),
+	PROJECT_GENERAL("project.report.generalCostsDetail.sheetname"),
+	PROJECT_GENERAL_WITH("project.report.generalCostsDetail.with.sheetname"),
+	PROJECT_GENERAL_WITHOUT("project.report.generalCostsDetail.without.sheetname"),
+	PROJECT_INVEST("project.report.investDetail.sheetname"),
+	PROJECT_INVEST_WITH("project.report.investDetail.with.sheetname"),
+	PROJECT_INVEST_WITHOUT("project.report.investDetail.without.sheetname"),
+	PROJECT_CHRONOLOGY("project.report.chronology.sheetname"),
+	PROJECT_PATTERN("project.report.production.sheetname"),
+	PROJECT_PATTERN_NONGEN("project.report.production.nonGen.sheetname"),
+	PROJECT_BLOCKS("project.report.blockDetail.sheetname"),
+	PROJECT_BLOCKS_WITH("project.report.blockDetail.with.sheetname"),
+	PROJECT_BLOCKS_WITHOUT("project.report.blockDetail.without.sheetname"),
+	PROJECT_ACTIVITIES("project.report.activityDetail.sheetname"),
+	PROJECT_PARAMETERS("project.report.parameters.sheetname"),
+	PROJECT_CASH_FLOW_FIRST("project.report.cashFlowFirst.sheetname"),
+	PROJECT_CASH_FLOW("project.report.cashFlow.sheetname"),
+	PROJECT_CASH_FLOW_NONGEN("project.report.cashFlowNongen.sheetname"),
+	PROJECT_PROFITABILITY("project.report.profitability.sheetname"),
+	PROJECT_CONTRIBUTIONS("project.report.contributions.sheetname"),
+	PROJECT_RECOMMENDATION("project.report.recommendation.sheetname"),
+	PROJECT_RESULTS("project.report.results.sheetname");
+	
+	private final String name;
+	private SheetName(String name) {
+		this.name=name;
+	}
+	@Override public String toString() {
+		return this.name;
+	}
+}
 class Value {
 	private String key;
 	private Double value;

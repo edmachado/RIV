@@ -2,6 +2,49 @@
 
 #4.0 translation request 2
 #new text items
+
+# Translator: the maximum length of a sheet name in Excel is 31 characters,
+# and two sheets cannot have the same name.
+# Please make sure that the length is less than 31 characters and that they are distinct.
+profile.report.summary.sheetname=Summary
+profile.report.general.sheetname=General costs
+profile.report.costDetail.with.sheetname=General costs (w.out)
+profile.report.costDetail.without.sheetname=General costs (with)
+profile.report.investDetail.sheetname=Invest. costs
+profile.report.investDetail.with.sheetname=Invest. costs (with)
+profile.report.investDetail.without.sheetname=Invest. costs (w.out)
+profile.report.productDetail.sheetname=Products
+profile.report.productDetail.with.sheetname=Products (with)
+profile.report.productDetail.without.sheetname=Products (w.out)
+profile.report.preliminary.sheetname=Analysis
+profile.report.benefits.sheetname=Benefits
+project.report.recommendation.sheetname=Reccomendation
+profile.report.results.sheetname=Profiles
+
+project.report.summary.sheetname=Summary
+project.report.general.sheetname=Description
+project.report.generalCostsDetail.sheetname=General costs
+project.report.generalCostsDetail.with.sheetname=General costs (with)
+project.report.generalCostsDetail.without.sheetname=General costs (w.out)
+project.report.investDetail.sheetname=Invest. costs
+project.report.investDetail.with.sheetname=Invest. costs (with)
+project.report.investDetail.without.sheetname=Invest. costs (without)
+project.report.chronology.sheetname=Chronology
+project.report.production.sheetname=Production pattern
+project.report.production.nonGen.sheetname=Activity pattern
+project.report.blockDetail.sheetname=Blocks
+project.report.blockDetail.with.sheetname=Blocks (with)
+project.report.blockDetail.without.sheetname=Blocks (w.out)
+project.report.activityDetail.sheetname=Activities
+project.report.parameters.sheetname=Parameters
+project.report.cashFlowFirst.sheetname=Cash Flow 1st yr
+project.report.cashFlow.sheetname=Cash Flow
+project.report.profitability.sheetname=Profitability
+project.report.contributions.sheetname=Contributions
+project.report.recommendation.sheetname=Recommendation
+project.report.results.sheetname=Projects
+
+
 error.logo=Please add a logo for your organization.
 error.import.profile=An error occurred when saving profile.
 import.excel.file=Choose a file
@@ -54,7 +97,7 @@ error.maxLoanLength={0}: The length of the loan cannot be greater than the maxim
 error.import.incompatibleSettings=The settings you are importing is not compatible with your existing configuration.
 
 # Translator: The below comes after the text "an error has occurred, please contact the RIV team etc..."
-error.unknown.log=Please provide them with the following file to help them understand the problem:
+error.unknown.log=Please provide the following file to help them understand the problem:
 # "Link" as a verb in the imperative...
 reference.item.link.imperative=Link
 user.language=Language
