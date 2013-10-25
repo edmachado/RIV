@@ -1,11 +1,3 @@
-=
-
-#4.0 translation request 2
-#new text items
-
-# Translator: the maximum length of a sheet name in Excel is 31 characters,
-# and two sheets cannot have the same name.
-# Please make sure that the length is less than 31 characters and that they are distinct.
 profile.report.summary.sheetname=Summary
 profile.report.general.sheetname=General costs
 profile.report.costDetail.with.sheetname=General costs (w.out)
@@ -18,7 +10,7 @@ profile.report.productDetail.with.sheetname=Products (with)
 profile.report.productDetail.without.sheetname=Products (w.out)
 profile.report.preliminary.sheetname=Analysis
 profile.report.benefits.sheetname=Benefits
-project.report.recommendation.sheetname=Reccomendation
+project.report.recommendation.sheetname=Recommendation
 profile.report.results.sheetname=Profiles
 
 project.report.summary.sheetname=Summary
@@ -44,6 +36,8 @@ project.report.contributions.sheetname=Contributions
 project.report.recommendation.sheetname=Recommendation
 project.report.results.sheetname=Projects
 
+project.report.cashFlowNongen.sheetname=Sustainability
+
 
 error.logo=Please add a logo for your organization.
 error.import.profile=An error occurred when saving profile.
@@ -66,9 +60,6 @@ project.report.cashFlow.loan2.capitalDuringGrace=Secondary initial capital when 
 project.report.cashFlow.loan2.interestDuringGrace=Secondary interest during grace for interest
 project.report.cashFlow.loan2.interestDuringGraceCapital=Secondary interest when grace on capital
 
-
-
-#changed text items
 project.report.cashFlow.financing=Financing payments
 
 
@@ -88,8 +79,6 @@ demo.username=Visitor
 demo.password=Visitor
 
 
-
-#4.0 translation request 1
 error.maxLength={0} cannot be longer than {1} characters.
 error.max={0} cannot be greater than {1}.
 error.requiredNonNegative={0} cannot be negative.
@@ -108,11 +97,6 @@ project.with=(With project)
 project.without=(Without project)
 attach.newProfile=You may attach an external file to this profile in this section once step 1 has been saved.
 attach.newProject=You may attach an external file to this project in this section once step 1 has been saved.
-
-# remove: 
-#home.help.info
-
-# update: 
 home.help.help=Most terms in RuralInvest are described in depth in the help text.  Click on the name of the term and a popup message like this one will appear.  The message will disappear once you move the mouse away from the message.
 settings.language=Default language
 
@@ -291,7 +275,6 @@ home.nonIncGen=Non income generating...
 home.showAll=Show completed
 home.weblinks=Useful weblinks
 home.help=Don't miss the help text!
-home.help.info=Click for more information.
 home.help.faq=Questions?
 home.help.faq.info=See the Frequently Asked Questions
 import.config=Import configuration data
@@ -929,7 +912,7 @@ projectActivity.cyclePerYear=Cycles
 projectActivity.cycles.help=Define the number of cycles per year. If a cycle has a duration of 1 month and is continuous, there will be 12 cycles per year
 projectActivity.delete=Delete activity
 projectActivity.desc=Activity description
-projectActivity.edit=Edit activity
+#projectActivity.edit=Edit activity
 projectActivity.name.help=Briefly describe the activity which will occur once the investment is complete and the project is functioning
 projectActivity.name=Activity
 projectActivity.pattern.help=If the number of units of activity per cycle will change over time, define the number of units per cycle over the project period being analysed (e.g. if in the case of a school, the unit is the student, it may be that the number of students is expected to increase with time)

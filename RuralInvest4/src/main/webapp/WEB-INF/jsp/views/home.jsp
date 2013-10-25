@@ -76,7 +76,7 @@
 			</div>
 			<div class="hometitle" style="color:#fff;background-color:#344378"> &gt; <spring:message code="project"/></div>
 			<div class="homeitems">
-				<a href="profile/step1/-1?incgen=false" title="<spring:message code="home.createNIGProj"/>"><img src="img/new.gif" width="16" height="12" border="0">
+				<a href="project/step1/-1?incgen=false" title="<spring:message code="home.createNIGProj"/>"><img src="img/new.gif" width="16" height="12" border="0">
 					<spring:message code="home.createNew"/></a>
 				<a id="nigpj_no" href="javascript:search(true, 'nigpj', '');"><img src="img/complete.gif" border="0">
 					 <spring:message code="home.inProgress"/> (${homeData.dbStats[7]})</a>

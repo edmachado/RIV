@@ -3623,7 +3623,7 @@ public class ExcelWorksheetBuilder {
 		short cellNum = 0;
 		setColumnWidth(sheet, 0, 500);
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, cellNum, translate("project.report.recommendation"), Style.TITLE);	
+		report.addTextCell(row, cellNum, translate("profile.report.recommendation"), Style.TITLE);	
 
 
 		row = sheet.createRow(rowNum++);
