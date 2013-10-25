@@ -110,7 +110,6 @@ public class InputProfileIg extends WebTestUtil {
 		assertTitleEquals(titles[3]);
 		
 		// STEP 4
-		// TODO: download excel template and check that it's correct
 		// goods & services
 		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
@@ -132,7 +131,6 @@ public class InputProfileIg extends WebTestUtil {
 		assertTitleEquals(titles[4]);
 		
 		// STEP 5
-		// TODO: download excel template and check
 		tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
@@ -149,7 +147,6 @@ public class InputProfileIg extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 		
 		// STEP 6
-		//TODO: download excel template and check
 		//TODO: test clone product
 		//TODO: test delete product
 		// add products

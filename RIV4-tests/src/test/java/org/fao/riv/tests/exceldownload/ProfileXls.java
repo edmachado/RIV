@@ -27,7 +27,7 @@ public class ProfileXls extends WebTestUtil {
 	
 	 @BeforeClass 
 	 public static void setUpClass() {      
-	       System.out.println("     test ProfilePdf");
+	       System.out.println("     test ProfileXls");
 	 }
 	
 	@Before
@@ -60,17 +60,34 @@ public class ProfileXls extends WebTestUtil {
 			File f = folder.newFile(i+".xls"); 
 			saveAs(f);
 			testXls(f, titles[i]);
+			f.delete();
 		}
 	}
 	
 	@Test
 	public void profileIg() throws IOException {
-		testProfile(ImportFile.ProfileIgV22, "igpf", false, false, "Artesanal Clothing Workshop");
+		//TODO: enable other languages when translations are complete
+		String[] langs = {"en","es","fr"};//,"pt","tr","ru","ar"};
+		for (String lang : langs) {
+			clickLink("goHome");
+			deletePros(false, true);
+			setLanguage(lang);
+			testProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+			setLanguage("en");
+		}
 	}
 	
 	@Test
 	public void profileNg() throws IOException {
-		testProfile(ImportFile.ProfileNig16, "nigpf", false, true, "Community Health Centre");
+		//TODO: enable other languages when translations are complete
+		String[] langs = {"en","es","fr"};//,"pt","tr","ru","ar"};
+		for (String lang : langs) {
+			clickLink("goHome");
+			deletePros(false, false);
+			setLanguage(lang);
+			testProfile(ImportFile.ProfileNig16, "nigpf", false, true, "Community Health Centre");
+			setLanguage("en");
+		}	
 	}
 	
 	private String[] reportTitles(boolean isIG) {
@@ -79,7 +96,7 @@ public class ProfileXls extends WebTestUtil {
 		titles[1]=getMessage("profile.report.investDetail");
 		titles[2]=getMessage("profile.report.costsDetail");
 		String reportCode_product = isIG ? "profile.report.productDetail" : "profile.report.productDetailNongen";
-		titles[3]=getMessage(reportCode_product );
+		titles[3]=isIG? "("+getMessage("profileProduct.with.with")+") "+getMessage(reportCode_product) : getMessage(reportCode_product);
 		String reportCode_preliminary = isIG ? "profile.report.preliminary" : "profile.report.benefits";
 		titles[4]=getMessage(reportCode_preliminary);
 		titles[5]=getMessage("profile.report.recommendation");

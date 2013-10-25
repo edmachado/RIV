@@ -8,11 +8,10 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.fao.riv.tests.utils.ImportFile;
+import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -20,9 +19,6 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
 
 public class ProjectXls extends WebTestUtil {
 	String igTitle;
@@ -67,17 +63,11 @@ public class ProjectXls extends WebTestUtil {
 			testXls(f, titles[i]);
 			f.delete();
 		}
-	}	
-	
-	@Ignore
-	@Test
-	public void projectIg() throws IOException {
-		testProject(ImportFile.ProjectV20, "igpj", false, false, "Tomate Curungueo");
 	}
 	
 	@Test
 	public void projectIGi18n() throws IOException {
-		String[] langs = {"en","es","fr","pt","tr","ru","ar"};
+		String[] langs = {"en","es","fr"};//,"pt","tr","ru","ar"};
 		for (String lang : langs) {
 			clickLink("goHome");
 			deletePros(true, true);

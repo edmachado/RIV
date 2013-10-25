@@ -96,7 +96,6 @@ public class InputProfileNig extends WebTestUtil {
 		assertTitleEquals(titles[3]);
 		
 		// STEP 4
-		// TODO: download excel template and check that it's correct
 		// goods & services
 		TestTable tt = new TestTable("goodsListTable", "step4.good.", "newGood", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
@@ -117,7 +116,6 @@ public class InputProfileNig extends WebTestUtil {
 		assertTitleEquals(titles[4]);
 		
 		// STEP 5
-		// TODO: download excel template and check
 		tt = new TestTable("generalTable", "step5.general.", "newGeneral", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
@@ -128,7 +126,6 @@ public class InputProfileNig extends WebTestUtil {
 		
 		// STEP 6
 		// add products
-		//TODO: download excel template and check
 		//TODO: test clone product
 		//TODO: test delete product
 		int i=1;
@@ -186,7 +183,6 @@ public class InputProfileNig extends WebTestUtil {
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
-		//TODO: add recommendation
 		clickRadioOption("reccCode", getMessage("step8.reccCode"));
 		setTextField("reccDate", getMessage("step8.reccDate"));
 		setTextField("reccDesc", getMessage("step8.reccDesc"));

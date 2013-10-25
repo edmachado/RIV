@@ -114,8 +114,6 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(titles[6]);
 		
 		// STEP 7
-		
-		// TODO: download excel template and check that it's correct
 		// assets
 		TestTable tt = new TestTable("assetsTable", "step7.asset.", "newAsset", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
@@ -145,8 +143,6 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
-		// TODO: download excel template and check
-		// TODO: With and without scenario
 		tt = new TestTable("inputTable", "step8.input", "addMaterial", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
@@ -175,10 +171,8 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(titles[8]);
 		
 		// STEP 9
-		//TODO: download excel template and check
-		//TODO: test clone product
-		//TODO: test delete product
-		
+		//TODO: test clone block
+		//TODO: test delete block
 		// add blocks
 		int i=1;
 		boolean nextItem=true;
@@ -255,7 +249,7 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(titles[10]);
 		
 		// STEP 11
-		// reference incom
+		// reference income
 		verifyProjectNigTablesStep11();
 		rivSubmitForm();
 		assertTitleEquals(titles[11]);

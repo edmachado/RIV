@@ -289,8 +289,6 @@ public class InputProjectIg extends WebTestUtil {
 		assertTitleEquals(titles[6]);
 		
 		// STEP 7
-		
-		// TODO: download excel template and check that it's correct
 		// assets
 		TestTable tt = new TestTable("assetsTable", "step7.asset.", "newAsset", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
@@ -346,7 +344,6 @@ public class InputProjectIg extends WebTestUtil {
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
-		// TODO: download excel template and check
 		// with project items
 		tt = new TestTable("suppliesTable", "step8.supply.", "newSupply", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
@@ -381,8 +378,6 @@ public class InputProjectIg extends WebTestUtil {
 		assertTitleEquals(titles[8]);
 		
 		// STEP 9
-		//TODO: download excel template and check
-		
 		// add blocks
 		int i=1; int withs=0;
 		boolean nextItem=true;

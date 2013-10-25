@@ -9,19 +9,15 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.fao.riv.tests.utils.ImportFile;
+import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
 
 public class SearchResultsReports extends WebTestUtil {
 	String igTitle;
