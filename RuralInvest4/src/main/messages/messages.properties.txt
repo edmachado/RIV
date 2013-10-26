@@ -1,3 +1,4 @@
+=
 profile.report.summary.sheetname=Summary
 profile.report.general.sheetname=General costs
 profile.report.costDetail.with.sheetname=General costs (w.out)
