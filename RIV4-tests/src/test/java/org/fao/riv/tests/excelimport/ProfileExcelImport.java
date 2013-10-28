@@ -12,11 +12,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.getTestingEngine;
 import static net.sourceforge.jwebunit.junit.JWebUnit.gotoPage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 
-import java.util.concurrent.Callable;
-
 import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.InputParam.InputParamType;
-import org.fao.riv.tests.utils.TestTable;
 import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;

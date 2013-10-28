@@ -150,7 +150,8 @@ public class InputProfileIg extends WebTestUtil {
 		//TODO: test clone product
 		//TODO: test delete product
 		// add products
-		int i=1; int withs=0;
+		int i=1; 
+		int withs=0;
 		boolean nextItem=true;
 		while (nextItem) {
 			boolean withoutProject = Boolean.parseBoolean(getMessage("step6.product."+i+".withoutProject")); 

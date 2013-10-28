@@ -13,7 +13,7 @@
 	<logger name="com.gargoylesoftware.htmlunit.javascript.host.ActiveXObject" level="OFF" />
 	<logger name="com.gargoylesoftware.htmlunit.javascript.host.html.HTMLDocument" level="OFF" />
 	<logger name="com.gargoylesoftware.htmlunit.html.HtmlScript" level="OFF" />
-
+	<logger name="java.util" level="OFF" />
 	<root level="ERROR">
 		<!-- appender referenced after it is defined -->
 		<appender-ref ref="STDOUT" />
