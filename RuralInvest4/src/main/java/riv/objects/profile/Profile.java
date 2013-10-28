@@ -173,7 +173,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	private Set<ProfileItemLabour> glsLabours;
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemLabour.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
-	@Where(clause="class='1'")
+	@Where(clause="class='5'")
 	private Set<ProfileItemLabourWithout> glsLaboursWithout;
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGeneral.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")

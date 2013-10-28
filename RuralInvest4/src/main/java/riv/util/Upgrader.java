@@ -173,7 +173,7 @@ public class Upgrader {
 		}
 		
 		//if <4.0 add investment and general costs without project
-		if (profile.getGlsGoodsWithout()==null) {
+		if (profile.getGlsGeneralWithout()==null) {
 			profile.setGlsGoodsWithout(new HashSet<ProfileItemGoodWithout>());
 			profile.setGlsLaboursWithout(new HashSet<ProfileItemLabourWithout>());
 			profile.setGlsGeneralWithout(new HashSet<ProfileItemGeneralWithout>());

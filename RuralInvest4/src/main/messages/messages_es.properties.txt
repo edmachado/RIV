@@ -1,4 +1,71 @@
-
+# Translator: La longitud máxima del nombre de una hoja en Excel es de 31 caracteres,
+# y dos hojas no pueden tener el mismo nombre.
+# Por favor, asegúrese que la longitud los nombres sea menor de 31 caracteres y que sean distintos entre ellos.
+profile.report.summary.sheetname=Resumen
+profile.report.general.sheetname=Costos generales
+profile.report.costDetail.with.sheetname=Costos generales (con)
+profile.report.costDetail.without.sheetname=Costos generales (sin)
+profile.report.investDetail.sheetname=Costos Inversión
+profile.report.investDetail.with.sheetname=Costos Inversión (con)
+profile.report.investDetail.without.sheetname=Costos Inversión (sin)
+profile.report.productDetail.sheetname=Productos
+profile.report.productDetail.with.sheetname=Productos (con)
+profile.report.productDetail.without.sheetname=Productos (sin)
+profile.report.preliminary.sheetname=Análisis
+profile.report.benefits.sheetname=Beneficios
+project.report.recommendation.sheetname=Recomendación
+profile.report.results.sheetname=Perfiles
+project.report.summary.sheetname=Resumen
+project.report.general.sheetname=Descripción
+project.report.generalCostsDetail.sheetname=Costos generales
+project.report.generalCostsDetail.with.sheetname=Costos generales (con)
+project.report.generalCostsDetail.without.sheetname=Costos generales (sin)
+project.report.investDetail.sheetname=Costos Inversión
+project.report.investDetail.with.sheetname=Costos Inversión (con)
+project.report.investDetail.without.sheetname=Costos Inversión (sin)
+project.report.chronology.sheetname=Cronología
+project.report.production.sheetname=Patrón de producción
+project.report.production.nonGen.sheetname=Patrón de actividades
+project.report.blockDetail.sheetname=Bloques
+project.report.blockDetail.with.sheetname=Bloques (con)
+project.report.blockDetail.without.sheetname=Bloques (sin)
+project.report.activityDetail.sheetname=Actividades
+project.report.parameters.sheetname=Parámetros
+project.report.cashFlowFirst.sheetname=Flujo Efectivo 1er año
+project.report.cashFlow.sheetname=Flujo Efectivo
+project.report.profitability.sheetname=Rentabilidad
+project.report.contributions.sheetname=Contribuciones
+project.report.results.sheetname=Proyectos
+ 
+ 
+ 
+error.logo=Por favor, añada un logo de su organización.
+error.import.profile=Un error ocurrió al grabar el perfil.
+import.excel.file=Escoja un archivo
+import.excel.instruction=<p>Puede importar datos directamente desde una planilla Excel a RuralInvest. Solo planillas Excel correctamente formateadas son aceptadas.</p><p>Para el formato apropiado, seleccione "cancelar" y des[ués descargue ya sea <ol><li>una proforma Excel en blanco , o</li><li>un archivo Excel con los datos existentes.</li></ol></p><p>Los rubros en tables existentes serán eliminados y reemplazados por los datos que está importando.</p>
+import.excel.fail=La importación no fue exitosa.
+import.excel.error.datatype=Se encontró texto cuando se esperaba datos numéricos. Por favor corrija los datos e intente de nuevo.
+import.excel.error=Error en línea {0}.
+import.error.excel.read=No se pudo abrir el archivo Excel importado. Asegúrese que el archivo es un archivo xlsx basado en el formato Excel correcto de RuralInvest.
+import.generic.info=Este proyecto o perfil ha sido convertido a USD y será convertido a la moneda definida en su RuralInvest instalado.
+import.generic.confirm=Por favor confirme el tipo de cambio en relación con USD:
+project.report.cashFlow.loanRecieved=Préstamo(s) recibidos
+project.report.cashFlow.invest=Inversión
+project.report.cashFlow.loan1.total=Pago total primario
+project.report.cashFlow.loan1.capitalDuringGrace=Capital inicial primario cuando hay gracia para intereses
+project.report.cashFlow.loan1.interestDuringGrace=Interés primario durante la gracia para intereses
+project.report.cashFlow.loan1.interestDuringGraceCapital=Interés primario cuando hay gracia para capital
+project.report.cashFlow.loan2.total=Pago total secundario
+project.report.cashFlow.loan2.capitalDuringGrace=Capital inicial secundario cuando hay gracia para intereses
+project.report.cashFlow.loan2.interestDuringGrace=Interés secundario durante la gracia para intereses
+project.report.cashFlow.loan2.interestDuringGraceCapital=Interés secundario cuando hay gracia para capital
+project.report.cashFlow.financing=Pagos por financiamiento
+error.block.cyclesPerFirstYearIncome=El número total de ciclos de pago (en primer año) no puede exeder un año.
+error.import.logoTooBig=La dimensión máxima de una imagen es 70 kb.
+error.import.notImage=El logo debe ser una imagen jpeg ó gif.
+manual.mod2.formats=Formulario para Módulo 2
+reference.item.linkedTo=Enlazado a:
+reference.transport=El rubro de referencia enlazado no tiene aún costo de transporte. Por favor, registre aquí el costo de transporte.
 
 project.report.profitability.donations=Donaciones
 project.report.profitability.donations.wc=Capital de trabajo
