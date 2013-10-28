@@ -1,3 +1,19 @@
+### RIV4.0 translation request 3
+
+project.report.cashFlow.income.main=Main income
+project.report.cashFlow.income.finance=Financing sources
+project.report.cashFlow.income.invest=Donation for investment
+project.report.cashFlow.income.own=Own resources for investment
+project.report.cashFlow.income.loans=Loans for investment
+project.report.cashFlow.income.loanwc=Loan for working capital
+
+project.report.cashFlow.costs=Expenses
+project.report.cashFlow.costs.invest=Investment costs
+project.report.cashFlow.costs.initial=Initial investment
+project.report.cashFlow.costs.recurrent=Recurrent costs
+project.report.cashFlow.wcCapital=Working capital - capital
+
+###
 =
 profile.report.summary.sheetname=Summary
 profile.report.general.sheetname=General costs

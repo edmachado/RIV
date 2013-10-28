@@ -43,6 +43,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 	private double costInvestOwnWithout;
 	private double costInvestDonatedWithout;
 	private double cumulative;
+	private double workingCapitalCapital;
 	private double workingCapitalInterest;
 	private double loan1interest;
 	private double loan1capital;
@@ -287,6 +288,12 @@ public class ProjectFinanceData implements java.io.Serializable{
 	}
 	public double getCumulative() {
 		return cumulative;
+	}
+	public void setWorkingCapitalCapital(double wcCapital) {
+		this.workingCapitalCapital=wcCapital;
+	}
+	public double getWorkingCapitalCapital() {
+		return workingCapitalCapital;
 	}
 	public void setWorkingCapital(double workingCapital) {
 		this.workingCapitalInterest = workingCapital;
@@ -609,12 +616,15 @@ public class ProjectFinanceData implements java.io.Serializable{
 		ProjectFirstYear pfy = new ProjectFirstYear(project);
 		double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
 		// year 1
+		
+		data.get(0).setWorkingCapitalCapital(-1*pfyResults[1]);
 		double wc = -1*(pfyResults[1] +project.getCapitalDonate()+project.getCapitalOwn())*pfyResults[0]/12*(project.getCapitalInterest()*0.01);
 		data.get(0).setWorkingCapital(wc); 
+		
 		// year 2
 		double remainingNegative = pfy.getCumulative()[11];
-		
 		if (remainingNegative<0) {
+			data.get(1).setWorkingCapitalCapital(-1*remainingNegative);
 			double interestYear2 = remainingNegative * data.get(1).getTotalCosts()/data.get(0).getTotalCosts()
 				* pfyResults[0]/12 *(project.getCapitalInterest()*0.01);
 			data.get(1).setWorkingCapital(-1*interestYear2);

@@ -1549,7 +1549,125 @@ public class ExcelWorksheetBuilder {
 		return rowStart+titles.length+1;
 	}
 	
+	public Sheet projectCashFlow2(ExcelWrapper report, Project project) {
+		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
+		ProjectFinanceData.AddLoanAmortization(project, data);
+		ProjectFinanceData.AddWorkingCapital(project, data);
+		ProjectFinanceData.CalculateCumulative(data);
+		
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CASH_FLOW));
+		sheet.setSelected(true);
+		
+		// setup header and row titles
+		int rowNum=0;
+		Row row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.report.cashFlow"), Style.TITLE);
+		sheet.setColumnWidth(0, 165*36);
+		
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("projectBlock.pattern.years"), Style.LABEL);
+		for (short index=1; index <= data.size(); index++) {
+			report.addNumericCell(row, index, index);
+			sheet.setColumnWidth(index, 90*36);
+		}
+		
+		// Incomes
+		rowNum = addRowTitles(new String[] { "project.report.profitability.incomes",
+				"project.report.cashFlow.income.main","project.report.profitability.incomes.sales", "project.report.profitability.incomes.salvage","misc.subtotal","","project.report.cashFlow.income.finance","project.report.cashFlow.income.invest", "project.report.cashFlow.income.own",
+				"project.report.cashFlow.income.loans","project.report.cashFlow.income.loanwc","misc.subtotal"
+		}, rowNum++, sheet, report);
+		row = sheet.createRow(--rowNum);
+		report.addTextCell(row, 0, translate("misc.total"), Style.LABEL);
+		rowNum=rowNum+2;
+		
+		// Expenses
+		rowNum = addRowTitles(new String[] { "project.report.cashFlow.costs",
+				"project.report.cashFlow.costs.invest","project.report.cashFlow.costs.initial", "project.report.profitability.costs.replacement","misc.subtotal"
+		,"",
+				"project.report.cashFlow.costs.recurrent","project.report.profitability.costs.operation", "project.report.profitability.costs.general",
+				 "project.report.profitability.costs.maintenance","misc.subtotal"
+		,"",
+				 "project.report.cashFlow.financing","project.report.cashFlow.wcCapital","project.report.cashFlow.wcInterest", "project.report.cashFlow.priCapital", "project.report.cashFlow.priInterest",
+				"project.report.cashFlow.secCapital", "project.report.cashFlow.secInterest", "misc.subtotal"
+		}, rowNum++, sheet, report);
+		row = sheet.createRow(--rowNum);
+		report.addTextCell(row, 0, translate("misc.total"), Style.LABEL);
+		rowNum=rowNum+2;
+		
+		// totals
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.report.cashFlow.profitBefore"));
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.report.cashFlow.profitAfter"));
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.report.cashFlow.cumulative"));
+		
+		int[] labels = {3,8,17,22,28};
+		for (int i : labels) {
+			sheet.getRow(i).getCell(0).setCellStyle(report.getStyles().get(Style.LABEL));
+		}
+		
+		String col;
+		for (int yearNum=1;yearNum<=project.getDuration();yearNum++) {
+			col = getColumn(yearNum);
+			if (report.isCompleteReport()) {
+				StringBuilder formulaBuild;
+				String formula;
+				
+			} else {
+				ProjectFinanceData pfd = data.get(yearNum-1);
+				
+				// income
+				report.addNumericCell(sheet.getRow(4), yearNum, pfd.getIncSalesExternal(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(5), yearNum, pfd.getIncSalvage(), Style.CURRENCY);
+				
+				report.addNumericCell(sheet.getRow(9), yearNum, pfd.getCostInvestDonated(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(10), yearNum, pfd.getCostInvestOwn(), Style.CURRENCY);
+				
+				double loansReceived = yearNum==1 ? project.getLoan1Amt() : 0;
+				if (yearNum==project.getLoan2InitPeriod()) { loansReceived+=project.getLoan2Amt(); }
+				report.addNumericCell(sheet.getRow(11), yearNum, loansReceived, Style.CURRENCY);
+				
+				report.addNumericCell(sheet.getRow(12), yearNum, pfd.getCostInvestDonated(), Style.CURRENCY);
+				double wcDonated = yearNum==1 ? project.getCapitalDonate() : 0;
+				report.addNumericCell(sheet.getRow(13), yearNum, wcDonated, Style.CURRENCY);
+				
+				report.addNumericCell(sheet.getRow(18), yearNum, pfd.getCostInvest(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(19), yearNum, pfd.getCostReplace(), Style.CURRENCY);
+				
+				report.addNumericCell(sheet.getRow(23), yearNum, pfd.getCostOperation(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(24), yearNum, pfd.getCostGeneral(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(25), yearNum, pfd.getCostMaintenance(), Style.CURRENCY);
+				
+				report.addNumericCell(sheet.getRow(29), yearNum, pfd.getWorkingCapitalCapital(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(30), yearNum, pfd.getWorkingCapital(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(31), yearNum, pfd.getLoan1capital(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(32), yearNum, pfd.getLoan1interest(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(33), yearNum, pfd.getLoan2capital(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(34), yearNum, pfd.getLoan2interest(), Style.CURRENCY);
+			}
+			
+			// sum rows with formulas
+			report.addFormulaCell(sheet.getRow(6), yearNum, String.format("SUM(%s5:%s6)",col,col), Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(13), yearNum, String.format("SUM(%s10:%s13)",col,col), Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(14), yearNum, String.format("%s7+%s14",col,col), Style.CURRENCY);
+
+			report.addFormulaCell(sheet.getRow(20), yearNum, String.format("SUM(%s19:%s20)",col,col), Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(26), yearNum, String.format("SUM(%s24:%s26)",col,col), Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(35), yearNum, String.format("SUM(%s30:%s35)",col,col), Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(36), yearNum, String.format("%s21+%s27+%s36",col,col, col), Style.CURRENCY);
+		
+			report.addFormulaCell(sheet.getRow(38), yearNum, String.format("%s7-%s21-%s27",col,col,col), Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(39), yearNum, String.format("%s15-%s37",col,col), Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(40), yearNum, yearNum==1 ? "B40" : String.format("%s41+%s40",getColumn(yearNum-1),col), Style.CURRENCY);
+		}
+		
+		return sheet;
+	}
+	
 	public Sheet projectCashFlow(ExcelWrapper report, Project project, ProjectResult result) {
+		if (!report.isCompleteReport()) { return projectCashFlow2(report, project); }
+		
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
 		ProjectFinanceData.AddLoanAmortization(project, data);
 		ProjectFinanceData.AddWorkingCapital(project, data);
