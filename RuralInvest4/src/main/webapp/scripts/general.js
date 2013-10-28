@@ -1,3 +1,10 @@
+function randomPhoto(src, begin, end) {
+	var d = new Date();
+	var seconds = d.getSeconds(); 
+	var ofThree = (seconds % (end-begin+1)) +1;
+	$('#'+src).attr('src',"img/faoinaction"+ofThree+"x400.jpg");
+}
+
 function formSubmit() {document.form.submit;}
 
 function openDownloadDialog(type, pid) {

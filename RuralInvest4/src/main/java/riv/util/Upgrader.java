@@ -29,6 +29,8 @@ import riv.objects.config.ProjectCategory;
 import riv.objects.config.Status;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileItemGeneralWithout;
+import riv.objects.profile.ProfileItemGoodWithout;
+import riv.objects.profile.ProfileItemLabourWithout;
 import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductWithout;
@@ -53,8 +55,6 @@ public class Upgrader {
 	
 	@Autowired
 	private RivConfig rivConfig;
-	
-	
 	
 	public void upgradeRivConfig(RivConfig rcNew) {
 		// <3.1 add decimal separator, thousand separator and decimal length
@@ -172,17 +172,12 @@ public class Upgrader {
 			profile.setStatus(rivConfig.getStatuses().get(-7));
 		}
 		
-		//if <4.0 add generals without project
-		if (profile.getGlsGeneralWithout()==null) {
+		//if <4.0 add investment and general costs without project
+		if (profile.getGlsGoodsWithout()==null) {
+			profile.setGlsGoodsWithout(new HashSet<ProfileItemGoodWithout>());
+			profile.setGlsLaboursWithout(new HashSet<ProfileItemLabourWithout>());
 			profile.setGlsGeneralWithout(new HashSet<ProfileItemGeneralWithout>());
 		}
-		
-		// <4.0 set block withProject
-//		if (!profile.getWithWithout()) {	
-//			for (ProfileProductBase pp : profile.getProducts()) {
-//				pp.setWithWithout(true);
-//			}
-//		}
 		
 		profile.importRefLinks();
 		

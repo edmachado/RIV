@@ -1,4 +1,11 @@
 
+
+project.report.profitability.donations=Donaciones
+project.report.profitability.donations.wc=Capital de trabajo
+project.report.profitability.donations.investment=Inversiones
+project.report.profitability.donations.netBefore=Ingresos netos antes de donaciones
+project.report.profitability.donations.netAfter=Ingresos netos después de donaciones
+
 #demo site login page
 demo.welcome=BIENVENIDO A RURALINVEST
 demo.version=VERSIÓN

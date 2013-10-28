@@ -49,7 +49,9 @@ import riv.objects.profile.ProfileItem;
 import riv.objects.profile.ProfileItemGeneral;
 import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
+import riv.objects.profile.ProfileItemGoodWithout;
 import riv.objects.profile.ProfileItemLabour;
+import riv.objects.profile.ProfileItemLabourWithout;
 import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
@@ -451,6 +453,8 @@ public class DataRepository {
 			if (step==4 || step==-1) {
 				Hibernate.initialize(p.getGlsGoods());
 				Hibernate.initialize(p.getGlsLabours());
+				Hibernate.initialize(p.getGlsGoodsWithout());
+				Hibernate.initialize(p.getGlsLaboursWithout());
 				Hibernate.initialize(p.getRefCosts());
 				Hibernate.initialize(p.getRefLabours());
 			}
@@ -522,13 +526,19 @@ public class DataRepository {
 				.createCriteria(ProfileItem.class)
 				.add(Restrictions.eq("profItemId", id));
 		ProfileItem item = (ProfileItem) criteria.uniqueResult();
-		if (item.getClass().isAssignableFrom(ProfileItemGood.class)) {
+		if (item.getClass()==ProfileItemGood.class) {
 			Hibernate.initialize(item.getProfile().getGlsGoods());
 			Hibernate.initialize(item.getProfile().getRefCosts());
-		} else if (item.getClass().isAssignableFrom(ProfileItemLabour.class)) {
+		} else if (item.getClass()==ProfileItemGoodWithout.class) {
+			Hibernate.initialize(item.getProfile().getGlsGoodsWithout());
+			Hibernate.initialize(item.getProfile().getRefCosts());
+		} else if (item.getClass()==ProfileItemLabour.class) {
 			Hibernate.initialize(item.getProfile().getGlsLabours());
 			Hibernate.initialize(item.getProfile().getRefLabours());
-		} else if (item.getClass().isAssignableFrom(ProfileItemGeneral.class)) {
+		} else if (item.getClass()==ProfileItemLabourWithout.class) {
+			Hibernate.initialize(item.getProfile().getGlsLaboursWithout());
+			Hibernate.initialize(item.getProfile().getRefLabours());
+		} else if (item.getClass()==ProfileItemGeneral.class) {
 			Hibernate.initialize(item.getProfile().getGlsGeneral());
 			Hibernate.initialize(item.getProfile().getRefCosts());
 		} else {

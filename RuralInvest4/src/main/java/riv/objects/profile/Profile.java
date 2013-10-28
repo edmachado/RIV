@@ -163,10 +163,18 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='0'")
 	private Set<ProfileItemGood> glsGoods;
+	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGood.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OrderBy("ORDER_BY")
+	@Where(clause="class='4'")
+	private Set<ProfileItemGoodWithout> glsGoodsWithout;
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemLabour.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='1'")
 	private Set<ProfileItemLabour> glsLabours;
+	@OneToMany(mappedBy="profile", targetEntity=ProfileItemLabour.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OrderBy("ORDER_BY")
+	@Where(clause="class='1'")
+	private Set<ProfileItemLabourWithout> glsLaboursWithout;
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGeneral.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='2'")
@@ -487,14 +495,26 @@ public class Profile extends Probase implements java.io.Serializable {
 		 this.glsGoods.add(good);
 	 }
 
-	 public void setGlsLabours(Set<ProfileItemLabour> profileGlsLabours) {
+	 public Set<ProfileItemGoodWithout> getGlsGoodsWithout() {
+		return glsGoodsWithout;
+	}
+
+	public void setGlsGoodsWithout(Set<ProfileItemGoodWithout> glsGoodsWithout) {
+		this.glsGoodsWithout = glsGoodsWithout;
+	}
+	 public void addGlsGoodWithout(ProfileItemGoodWithout good) {
+		 good.setProfile(this);
+		 this.glsGoodsWithout.add(good);
+	 }
+
+	public void setGlsLabours(Set<ProfileItemLabour> profileGlsLabours) {
 		 this.glsLabours = profileGlsLabours;
 	 }
 
 	 public Set<ProfileItemLabour> getGlsLabours() {
 		 return glsLabours;
 	 }
-
+	 
 	 /**
 	  * Adds a Labour cost to the Profile's Labour costs collection. 
 	  * Sets the cost's Profile property to this profile as well.
@@ -505,7 +525,20 @@ public class Profile extends Probase implements java.io.Serializable {
 		 glsLabours.add(labour);
 	 }
 
-	 public void setGlsGeneral(Set<ProfileItemGeneral> profileGlsGeneral) {
+	 public Set<ProfileItemLabourWithout> getGlsLaboursWithout() {
+		return glsLaboursWithout;
+	}
+
+	public void setGlsLaboursWithout(Set<ProfileItemLabourWithout> glsLaboursWithout) {
+		this.glsLaboursWithout = glsLaboursWithout;
+	}
+	public void addGlsLabourWithout(ProfileItemLabourWithout labour){
+		 labour.setProfile(this);
+		 glsLaboursWithout.add(labour);
+	 }
+
+
+	public void setGlsGeneral(Set<ProfileItemGeneral> profileGlsGeneral) {
 		 this.glsGeneral = profileGlsGeneral;
 	 }
 
@@ -586,7 +619,16 @@ public class Profile extends Probase implements java.io.Serializable {
 			 i.setSalvage(round(i.getSalvage()*exchange));
 			 i.setUnitCost(round(i.getUnitCost()*exchange));
 		 }
+		 for (ProfileItemGoodWithout i : glsGoodsWithout) {
+			 i.setOwnResource(round(i.getOwnResource()*exchange));
+			 i.setSalvage(round(i.getSalvage()*exchange));
+			 i.setUnitCost(round(i.getUnitCost()*exchange));
+		 }
 		 for (ProfileItemLabour i : glsLabours) {
+			 i.setOwnResource(round(i.getOwnResource()*exchange));
+			 i.setUnitCost(round(i.getUnitCost()*exchange));			
+		 }
+		 for (ProfileItemLabourWithout i : glsLaboursWithout) {
 			 i.setOwnResource(round(i.getOwnResource()*exchange));
 			 i.setUnitCost(round(i.getUnitCost()*exchange));			
 		 }
@@ -811,9 +853,19 @@ public class Profile extends Probase implements java.io.Serializable {
 			newProf.addGlsGood(newItem);
 			prepareLinkedToableForExport(newItem, forExport);
 		 }
+		 for (ProfileItemGoodWithout item : glsGoodsWithout) {
+			ProfileItemGoodWithout newItem = item.copy();
+			newProf.addGlsGoodWithout(newItem);
+			prepareLinkedToableForExport(newItem, forExport);
+		 }
 		 for (ProfileItemLabour item : glsLabours) {
 			 ProfileItemLabour newItem = item.copy();
 			 newProf.addGlsLabour(newItem);
+			 prepareLinkedToableForExport(newItem, forExport);
+		 }
+		 for (ProfileItemLabourWithout item : glsLaboursWithout) {
+			 ProfileItemLabourWithout newItem = item.copy();
+			 newProf.addGlsLabourWithout(newItem);
 			 prepareLinkedToableForExport(newItem, forExport);
 		 }
 		 for (ProfileItemGeneral item : glsGeneral) {

@@ -24,7 +24,9 @@ import riv.objects.profile.ProfileItem;
 import riv.objects.profile.ProfileItemGeneral;
 import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
+import riv.objects.profile.ProfileItemGoodWithout;
 import riv.objects.profile.ProfileItemLabour;
+import riv.objects.profile.ProfileItemLabourWithout;
 import riv.objects.reference.ReferenceCost;
 import riv.objects.reference.ReferenceItem;
 import riv.objects.reference.ReferenceLabour;
@@ -69,17 +71,22 @@ public class ProfileItemController {
 				p= dataService.getProfile(profileId, 4);
 				pi = new ProfileItemGood();
 				pi.setOrderBy(p.getGlsGoods().size());
-				//p.getRefCosts().size(); // causes hibernate to initialize objects
+			} else if (type.equals("goodWithout")) {
+				p= dataService.getProfile(profileId, 4);
+				pi = new ProfileItemGoodWithout();
+				pi.setOrderBy(p.getGlsGoodsWithout().size());
 			} else if (type.equals("labour")) {
 				p= dataService.getProfile(profileId, 4);
 				pi = new ProfileItemLabour();
 				pi.setOrderBy(p.getGlsLabours().size());
-				//p.getRefLabours().size();  // causes hibernate to initialize objects
+			} else if (type.equals("labourWithout")) {
+				p= dataService.getProfile(profileId, 4);
+				pi = new ProfileItemLabourWithout();
+				pi.setOrderBy(p.getGlsLaboursWithout().size());
 			} else if (type.equals("general")){
 				p= dataService.getProfile(profileId, 5);
 				pi = new ProfileItemGeneral();
 				pi.setOrderBy(p.getGlsGeneral().size());
-				//p.getRefCosts().size(); // // causes hibernate to initialize objects
 			} else { // general without
 				p= dataService.getProfile(profileId, 5);
 				pi = new ProfileItemGeneralWithout();
@@ -126,14 +133,18 @@ public class ProfileItemController {
     @RequestMapping(value="/{id}/copy", method=RequestMethod.GET)
     public String copy(@ModelAttribute ProfileItem profileItem) {
     	ProfileItem newItem = profileItem.copy();
-    	if (newItem.getClass().isAssignableFrom(ProfileItemGood.class)) {
+    	if (newItem.getClass()==ProfileItemGood.class) {
     		newItem.setOrderBy(newItem.getProfile().getGlsGoods().size());
-    	} else if (newItem.getClass().isAssignableFrom(ProfileItemGeneral.class)) {
+    	} else if (newItem.getClass()==ProfileItemGoodWithout.class) {
+    		newItem.setOrderBy(newItem.getProfile().getGlsGoodsWithout().size());
+    	} else if (newItem.getClass()==ProfileItemGeneral.class) {
     		newItem.setOrderBy(newItem.getProfile().getGlsGeneral().size());
-    	} else if (newItem.getClass().isAssignableFrom(ProfileItemGeneralWithout.class)) {
+    	} else if (newItem.getClass()==ProfileItemGeneralWithout.class) {
     		newItem.setOrderBy(newItem.getProfile().getGlsGeneralWithout().size());
-    	} else { // labour
+    	} else if (newItem.getClass()==ProfileItemLabour.class) { 
     		newItem.setOrderBy(newItem.getProfile().getGlsLabours().size());
+    	} else {
+    		newItem.setOrderBy(newItem.getProfile().getGlsLaboursWithout().size());
     	}
     	dataService.storeProfileItem(newItem);
     	String view = "../"+successView(profileItem);
@@ -149,11 +160,11 @@ public class ProfileItemController {
     private void checkLinked(ProfileItem item, Integer linkedToId, Boolean addLink) {
     	if (addLink!=null) {
     		ReferenceItem ref = null;
-			if (item.getClass().isAssignableFrom(ProfileItemGood.class)) {
+			if (item.getClass()==ProfileItemGood.class || item.getClass()==ProfileItemGoodWithout.class) {
 				ref = new ReferenceCost();
 				ref.setOrderBy(item.getProfile().getRefCosts().size());
-			} else if (item.getClass().isAssignableFrom(ProfileItemGeneral.class) || 
-					item.getClass().isAssignableFrom(ProfileItemGeneralWithout.class)) {
+			} else if (item.getClass()==ProfileItemGeneral.class || 
+					item.getClass()==ProfileItemGeneralWithout.class) {
 				ref = new ReferenceCost();
 				ref.setOrderBy(item.getProfile().getRefCosts().size());
 			} else {
@@ -175,8 +186,8 @@ public class ProfileItemController {
 		
     private String form(ProfileItem pi) {
     	String form;
-    	if (pi.getClass().isAssignableFrom(ProfileItemGood.class)) form="profile/profile4good";
-    	else if (pi.getClass().isAssignableFrom(ProfileItemLabour.class)) form="profile/profile4labour";
+    	if (pi.getClass()==ProfileItemGood.class || pi.getClass()==ProfileItemGoodWithout.class) form="profile/profile4good";
+    	else if (pi.getClass()==ProfileItemLabour.class || pi.getClass()==ProfileItemLabourWithout.class) form="profile/profile4labour";
     	else form="profile/profile5general";
     	return form;
     }
@@ -185,7 +196,7 @@ public class ProfileItemController {
 		Profile p = pi.getProfile();
     	User u = (User)request.getAttribute("user");
 		model.addAttribute("accessOK", p.isShared() || p.getTechnician().getUserId().equals(u.getUserId()));
-		int curStep = (pi.getClass().isAssignableFrom(ProfileItemGeneral.class) || pi.getClass().isAssignableFrom(ProfileItemGeneralWithout.class)) ? 5 : 4;
+		int curStep = (pi.getClass()==ProfileItemGeneral.class || pi.getClass()==ProfileItemGeneralWithout.class) ? 5 : 4;
 		model.addAttribute("currentStep", curStep);
 		model.addAttribute("currentId",p.getProfileId());
 		model.addAttribute("wizardStep",p.getWizardStep());
