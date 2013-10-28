@@ -1666,7 +1666,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet projectCashFlow(ExcelWrapper report, Project project, ProjectResult result) {
-		if (!report.isCompleteReport()) { return projectCashFlow2(report, project); }
+		//if (!report.isCompleteReport()) { return projectCashFlow2(report, project); }
 		
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
 		ProjectFinanceData.AddLoanAmortization(project, data);
