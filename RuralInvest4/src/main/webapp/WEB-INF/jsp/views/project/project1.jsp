@@ -169,7 +169,7 @@ $( "#radioShared" ).buttonset();
 			</fieldset>
 			<fieldset>
   				<legend>
-  					<tags:help title="project.step1.3" text="project.step1.3.help">iv. <spring:message code="project.step1.3"/></tags:help>
+  					<tags:help title="project.step1.4" text="project.step1.4.help">iv. <spring:message code="project.step1.4"/></tags:help>
   				</legend>
 			    <div class="dataentry">
 			    	<label><spring:message code="user.name"/></label>
@@ -199,7 +199,7 @@ $( "#radioShared" ).buttonset();
 			
 			<fieldset>
               	<legend>
-              		<tags:help title="project.step1.4" text="project.step1.4.help">v. <spring:message code="project.step1.4"/></tags:help>
+              		<tags:help title="project.step1.5" text="project.step1.5.help">v. <spring:message code="project.step1.5"/></tags:help>
               	</legend>
                  <div class="dataentry">
                  	<spring:message code="project.sharingMessage"/><br>

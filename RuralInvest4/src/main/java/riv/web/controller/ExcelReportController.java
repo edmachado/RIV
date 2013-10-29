@@ -333,7 +333,7 @@ public class ExcelReportController {
 				   }
 				   ewb.projectParameters(report, project);
 				   ewb.projectCashFlowFirst(report, project, result);
-				   ewb.projectCashFlow(report, project, result);
+				  ewb.projectCashFlow(report, project, result);
 				   ewb.projectProfitability(report, project, result);
 			   } else {
 				   ewb.blocks(report, project, false);

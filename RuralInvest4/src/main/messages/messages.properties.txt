@@ -1,4 +1,3 @@
-error.noChronology.payment=Please indicate the payment chronology.
 
 ###
 project.report.cashFlow.income.main=Main income

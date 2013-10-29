@@ -2246,7 +2246,7 @@ public class ExcelWorksheetBuilder {
 					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW));
 					for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
 						formulaBuild.append(
-								String.format("-IF(AND(%s2>=%s!$M$%d, OR(%s!K%d=\"#\", %s2<%s!M%d+%s!I%d)), %s!$C$%d*%s!$J$%d,0)+",
+								String.format("-IF(AND(%s2>=%s!$M$%d, OR(%s!K%d=\"#\", %s2<%s!M%d+%s!I%d)), %s!$C$%d*%s!$J$%d,0)",
 										col,assetWithoutSheetName, i, 
 										assetWithoutSheetName, i,
 										col, assetWithoutSheetName, i,
@@ -2625,11 +2625,16 @@ public class ExcelWorksheetBuilder {
 				row = sheet.createRow(++rowNum);
 				report.addTextCell(row, 0, block.getDescription());
 				for (int month=0;month<12;month++) {
-					String formula=
-							blockLink.incomeCash+"/COUNTIF("+chronSheet+"!B"+blockLink.paymentRow+":Y"+blockLink.paymentRow+",\"#\")" +
-							"*COUNTIF("+chronSheet+"!"+getColumn(month*2+1)+blockLink.paymentRow+":"+getColumn(month*2+2)+blockLink.paymentRow+",\"#\")" +
-							"*"+blockLink.qtyPerYear[0]
-							+"*"+blockLink.cyclesFirstYearPayment;
+					String formula=String.format("IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
+								"*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s,0)", 
+							chronSheet, blockLink.paymentRow, blockLink.paymentRow, 
+							blockLink.incomeCash, 
+							chronSheet, blockLink.paymentRow, blockLink.paymentRow,
+							chronSheet,getColumn(month*2+1),blockLink.paymentRow,
+							getColumn(month*2+2),blockLink.paymentRow,
+							blockLink.qtyPerYear[0],
+							blockLink.cyclesFirstYearPayment
+							);
 					report.addFormulaCell(row, month+1, formula, Style.CURRENCY);
 				}
 				report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
@@ -2650,17 +2655,20 @@ public class ExcelWorksheetBuilder {
 			row = sheet.createRow(++rowNum);
 			report.addTextCell(row, 0, translate("project.report.cashFlowFirst.operCosts"), Style.H2);
 			
-			
 			for (Block block : project.getBlocks()) {
 				ExcelBlockLink blockLink = report.getBlockLinks().get(block.getBlockId());
 				row = sheet.createRow(++rowNum);
 				report.addTextCell(row, 0, block.getDescription());
+				String formulaBase = "%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s";
 				for (int month=0;month<12;month++) {
-					String formula=
-							blockLink.costCash+"/COUNTIF("+chronSheet+"!B"+blockLink.productionRow+":Y"+blockLink.productionRow+",\"#\")" +
-							"*COUNTIF("+chronSheet+"!"+getColumn(month*2+1)+blockLink.productionRow+":"+getColumn(month*2+2)+blockLink.productionRow+",\"#\")" +
-							"*"+blockLink.qtyPerYear[0]
-							+"*"+blockLink.cyclesFirstYearProduction;
+					String formula=String.format(formulaBase,
+							blockLink.costCash,
+							chronSheet,blockLink.productionRow,blockLink.productionRow,
+							chronSheet, getColumn(month*2+1), blockLink.productionRow,
+							getColumn(month*2+2), blockLink.productionRow,
+							blockLink.qtyPerYear[0],
+							blockLink.cyclesFirstYearProduction
+						);
 					report.addFormulaCell(row, month+1, formula, Style.CURRENCY);
 				}
 				report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
@@ -2738,9 +2746,7 @@ public class ExcelWorksheetBuilder {
 			report.addNumericCell(row, cellNum++, value, Style.CURRENCY);
 
 		}
-		report.addFormulaCell(row, cellNum, String.format("SUM(B%d:M%d)",row.getRowNum()+1, row.getRowNum()+1), Style.CURRENCY);
-
-		
+		report.addFormulaCell(row, cellNum, String.format("SUM(B%d:M%d)",row.getRowNum()+1, row.getRowNum()+1), Style.CURRENCY);	
 	}
 	
 	private void addCashFlowOtherRow(ExcelWrapper report, Row row, String key, String formula) {

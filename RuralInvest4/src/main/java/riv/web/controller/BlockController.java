@@ -158,12 +158,10 @@ public class BlockController {
     }
    
     private void updateChronology(BlockBase pb, HttpServletRequest request, BindingResult result) {
-    	boolean hasProduction=false;
-    	boolean hasPayment=false;
+    	boolean productionNeeded=pb.getPatterns().get(1).getQty()>0;
     	
     	// update chronology if income gen
 		if (pb.getProject().getIncomeGen()) {
-			//pb.getChrons().clear();
 			for (int i=0;i<3;i++) {
 				for (int j=0;j<12;j++) {
 					for (int k=0;k<2;k++) {
@@ -176,16 +174,13 @@ public class BlockController {
 						} else if (pb.getChrons().containsKey(key) &! selected) {
 							pb.getChrons().remove(key);
 						}
-						if (!hasProduction && i==0 && selected) {
-							hasProduction=true;
-						} if (!hasPayment && i==2 && selected) {
-							hasPayment=true;
+						if (productionNeeded && i==0 && selected) {
+							productionNeeded=false;
 						}
 					}
 				}
 			}
-			if (!hasProduction) { result.reject("error.noChronology"); }
-			if (!hasPayment) { result.reject("error.noChronology.payment"); }
+			if (productionNeeded) { result.reject("error.noChronology"); }
 		}
     }
 }
