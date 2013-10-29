@@ -2109,7 +2109,7 @@ public class ExcelWorksheetBuilder {
 					for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
 						formulaBuild.append(
 								String.format("IF(OR(EXACT(%s!$L$%d,\"#\"), %s!$M$%d-1+%s!$I$%d>%s), " +
-										"%s!$C$%d*(%s!$D$%d-%s!$K$%d)/%s!$I$%d*(%s!$I$%d-(MOD(%s+1-%s!$M$%d,%s!$I$%d)))+%s!$C$%d*%s!$K$%d"+
+										"%s!$C$%d*(%s!$D$%d-%s!$K$%d)/%s!$I$%d*(MOD(%s!$I$%d-%s-%s!$M$%d,%s!$I$%d))+%s!$C$%d*%s!$K$%d"+
 										", 0)+", 
 										assetSheetName, i, 
 										assetSheetName, i, 
@@ -2119,6 +2119,7 @@ public class ExcelWorksheetBuilder {
 										assetSheetName, i,
 										assetSheetName, i,
 										assetSheetName, i,
+										
 										assetSheetName, i,
 										report.getLink(ExcelLink.PROJECT_DURATION),
 										assetSheetName, i,
@@ -2134,7 +2135,7 @@ public class ExcelWorksheetBuilder {
 						for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
 							formulaBuild.append(
 									String.format("-IF(OR(EXACT(%s!$L$%d,\"#\"), %s!$M$%d-1+%s!$I$%d>%s), " +
-											"%s!$C$%d*(%s!$D$%d-%s!$K$%d)/%s!$I$%d*(%s!$I$%d-(MOD(%s+1-%s!$M$%d,%s!$I$%d)))+%s!$C$%d*%s!$K$%d"+
+											"%s!$C$%d*(%s!$D$%d-%s!$K$%d)/%s!$I$%d*(MOD(%s!$I$%d-%s-%s!$M$%d,%s!$I$%d))+%s!$C$%d*%s!$K$%d"+
 											", 0)", 
 											assetWithoutSheetName, i, 
 											assetWithoutSheetName, i, 
@@ -2154,7 +2155,7 @@ public class ExcelWorksheetBuilder {
 							);
 						}
 					}
-					report.addFormulaCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
+					report.addTextCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				} else {
 					report.addNumericCell(sheet.getRow(5), yearNum, 0, Style.CURRENCY);
 				}
@@ -2221,7 +2222,7 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(10), yearNum, formulaBuild.toString(), Style.CURRENCY);
 
 				// general
-				formula = project.isWithWithout() ?
+				formula = project.isWithWithout() && report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL)!=null ?
 						report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL) :
 							report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL) + "-"+report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL);
 				report.addFormulaCell(sheet.getRow(11), yearNum, formula, Style.CURRENCY);
