@@ -1358,8 +1358,8 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, cellNum++, translate("misc.total"), Style.LABEL);
 		report.addFormulaCell(row, cellNum++, String.format("SUM(B%d:B%d)",rowNum-3,rowNum-1) ,Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum++, String.format("B%d / %s", rowNum, "'"+translate(SheetName.PROJECT_GENERAL)+"'!C3"), Style.CURRENCYUSD);
-			} else {
+			report.addFormulaCell(row, cellNum++, String.format("B%d / %s", rowNum, "'"+translate(SheetName.PROJECT_DESCRIPTION)+"'!C3"), Style.CURRENCYUSD);
+		} else {
 			report.addFormulaCell(row, cellNum++, String.format("B%d / %f", rowNum, exchRate),Style.CURRENCYUSD);
 		}
 		report.addNumericCell(row, cellNum++, 1,Style.PERCENT);
