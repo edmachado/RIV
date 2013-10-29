@@ -1,5 +1,6 @@
-### RIV4.0 translation request 3
+error.noChronology.payment=Please indicate the payment chronology.
 
+###
 project.report.cashFlow.income.main=Main income
 project.report.cashFlow.income.finance=Financing sources
 project.report.cashFlow.income.invest=Donation for investment
@@ -13,7 +14,6 @@ project.report.cashFlow.costs.initial=Initial investment
 project.report.cashFlow.costs.recurrent=Recurrent costs
 project.report.cashFlow.wcCapital=Working capital - capital
 
-###
 =
 profile.report.summary.sheetname=Summary
 profile.report.general.sheetname=General costs
