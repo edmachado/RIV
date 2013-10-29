@@ -1,7 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="${lang}"<c:if test="${lang=='ar'}"> dir="rtl"</c:if>>
-<head><title><spring:message code="ruralInvest"/> :: <spring:message code="mainMenu.home"/></title><tags:htmlHead/></head>
+<head><title><spring:message code="ruralInvest"/> :: <spring:message code="mainMenu.home"/></title><tags:htmlHead/>
+<script>
+$(document).ready(function () {
+	randomPhoto('image1',1,3);
+	randomPhoto('image2',4,6);
+	randomPhoto('image3',7,8);
+});
+</script>
+</head>
 <body><tags:toprow/>
 <div id="home">
 	<div id="homeheader"><!-- first row of titles -->
@@ -24,7 +32,7 @@
 				<br/>
 				<a id="igpj_yes" href="javascript:search(false, 'igpj', '');"><img src="img/all.gif" width="16" height="12" border="0"><spring:message code="home.showAll"/> (${homeData.dbStats[4]})</a>
 			</div>
-		</div><img width="248" height="140" alt="FAO in action" src="img/faoinaction5x248.jpg"><div class="homecontainer" style="background:#F5F5F5">
+		</div><img width="248" height="140" alt="FAO in action" id="image1"><div class="homecontainer" style="background:#F5F5F5">
 				<div style="height:65px;">
 					<c:if test="${not empty rivConfig.setting.link1Text}">
 						<div><a href="http://${rivConfig.setting.link1Url}" target="_blank"><img src="img/external.gif" width="11" height="10" border="0"/>${rivConfig.setting.link1Text}</a></div>
@@ -63,7 +71,7 @@
 		
 		</div>
 		</div>
-	</div><div><img width="248" height="140" alt="FAO in action" src="img/faoinaction1x248.jpg"><div class="homecontainer">
+	</div><div><img width="248" height="140" alt="FAO in action" id="image2"><div class="homecontainer">
 			<div class="hometitle" style="color:#fff;background-color:#8C94B1"> &gt; <spring:message code="profile"/></div>
 			<div class="homeitems">
 				<a href="profile/step1/-1?incgen=false" title="<spring:message code="home.createNIGProf"/>"><img src="img/new.gif" width="16" height="12" border="0">
@@ -84,7 +92,7 @@
 				<a id="nigpj_yes" href="javascript:search(false, 'nigpj', '');"><img src="img/all.gif" width="16" height="12" border="0">
 					<spring:message code="home.showAll"/> (${homeData.dbStats[6]})</a>
 			</div>
-		</div><img width="248" height="140" alt="FAO in action" src="img/faoinaction4x248.jpg"/>
+		</div><img width="248" height="140" alt="FAO in action" id="image3"/>
 	</div>
 </div>
 

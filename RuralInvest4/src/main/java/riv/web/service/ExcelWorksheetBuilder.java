@@ -2049,7 +2049,6 @@ public class ExcelWorksheetBuilder {
 		rowNum = addRowTitles(new String[] {"project.report.profitability.donations","project.report.profitability.donations.wc","project.report.profitability.donations.investment","misc.total","project.report.profitability.donations.netAfter"}, rowNum++, sheet, report);
 		
 		// real data
-		//int yearNum=0;
 		String col;
 		StringBuilder formulaBuild;
 		String formula;

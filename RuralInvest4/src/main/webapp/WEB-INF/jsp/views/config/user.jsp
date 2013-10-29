@@ -23,7 +23,7 @@
 						<input type="password" maxlength="20" size="20" name="passwordRepeat" class="text"/>
 					</div>
 				</c:if>
-			<tags:dataentry field="description" helpText="user.description.help" labelKey="user.description" inputClass="text" size="20" maxLength="20"/>
+			<tags:dataentry field="description" helpText="user.description.help" labelKey="user.description" inputClass="text" size="20" maxLength="80"/>
 			<div class="dataentry">
 				<span class="helpSpacer"></span>
 				<form:label path="lang"><spring:message code="user.language"/></form:label>
