@@ -1,3 +1,5 @@
+project.report.cashFlow.income.total=Total income
+project.report.cashFlow.costs.total=Total expenses
 
 ###
 project.report.cashFlow.income.main=Main income
