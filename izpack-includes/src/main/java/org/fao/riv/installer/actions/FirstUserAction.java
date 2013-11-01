@@ -12,29 +12,7 @@ import java.sql.Statement;
 
 import com.izforge.izpack.panels.process.AbstractUIProcessHandler;
 
-public class FirstUserAction {//implements PanelAction {
-	
-	/*@Override
-	public void executeAction(InstallData idata, AbstractUIHandler uih) {
-		if (idata.getRules().isConditionTrue("newInstallSelected")) {
-			System.out.println("Adding first user (new install).");
-			FirstUserData user = new FirstUserData();
-			user.webroot = String.format("%s/webapp/WEB-INF/data/riv", idata.getInstallPath());
-			user.username = idata.getVariable("RIV_USER_NAME");
-			user.name = idata.getVariable("RIV_FULL_NAME");
-			user.password = idata.getVariable("RIV_PASSWORD");
-			user.organization = idata.getVariable("RIV_ORGANIZATION");
-			user.location = idata.getVariable("RIV_LOCATION");
-			user.telephone = idata.getVariable("RIV_TELEPHONE");
-			user.email = idata.getVariable("RIV_EMAIL");
-			
-			try {
-				execute(user);
-			} catch (Exception e) {
-				e.printStackTrace(System.out);
-			}
-		}
-	}*/
+public class FirstUserAction {
 	
 	private class FirstUserData {
 		public String webroot;
@@ -45,9 +23,9 @@ public class FirstUserAction {//implements PanelAction {
 		public String location;
 		public String telephone;
 		public String email;
+		public String language;
 	}
 	
-	// for calling from within processpanel
 	public void run(AbstractUIProcessHandler uih, String[] args) {
 		uih.logOutput("Adding first user.", false);
 		FirstUserData user = new FirstUserData();
@@ -59,6 +37,7 @@ public class FirstUserAction {//implements PanelAction {
 		user.location = args[5];
 		user.telephone = args[6];
 		user.email = args[7];
+		user.language = args[8];
 		
 		try {
 			execute(user);
@@ -66,8 +45,6 @@ public class FirstUserAction {//implements PanelAction {
 			e.printStackTrace(System.out);
 		}
 	}
-
-	
 	
 	private void execute(FirstUserData user) throws Exception {
 		// Encrypt password
@@ -99,8 +76,8 @@ public class FirstUserAction {//implements PanelAction {
 			}
 
 			// add new user
-			String sql = "INSERT into User (username, description, password, organization, location, telephone, email, administrator) "
-					+ "values (?,?,?,?,?,?,?,false)";
+			String sql = "INSERT into User (username, description, password, organization, location, telephone, email, administrator, lang) "
+					+ "values (?,?,?,?,?,?,?,true,?)";
 			System.out.println(sql.getBytes());
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, user.username);
@@ -110,6 +87,7 @@ public class FirstUserAction {//implements PanelAction {
 			st.setString(5, user.location);
 			st.setString(6, user.telephone);
 			st.setString(7, user.email);
+			st.setString(8, user.language);
 
 			int result = st.executeUpdate();
 			System.out.println(String.format("Result of insert: %d", result).getBytes());
@@ -133,16 +111,14 @@ public class FirstUserAction {//implements PanelAction {
 			sqle.printStackTrace();
 			throw sqle;
 		}
-
-
 	}
 	
-	private  String encryptSHA1(String text) throws NoSuchAlgorithmException,
+	private String encryptSHA1(String text) throws NoSuchAlgorithmException,
 		UnsupportedEncodingException {
 		MessageDigest md;
 		md = MessageDigest.getInstance("SHA-1");
 		byte[] sha1hash = new byte[40];
-		md.update(text.getBytes("iso-8859-1"), 0, text.length());
+		md.update(text.getBytes("UTF8"), 0, text.length());//"iso-8859-1"
 		sha1hash = md.digest();
 		return convertToHex(sha1hash);
 	}
@@ -162,10 +138,4 @@ public class FirstUserAction {//implements PanelAction {
 		}
 		return buf.toString();
 	}
-
-	/*@Override
-	public void initialize(PanelActionConfiguration arg0) {
-		// TODO Auto-generated method stub
-	}*/
-	
 }
