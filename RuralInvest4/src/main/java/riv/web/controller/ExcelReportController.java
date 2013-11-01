@@ -218,10 +218,9 @@ public class ExcelReportController {
 	@RequestMapping(value="{id}/projectCashFlow.xlsx", method=RequestMethod.GET)
 	public void projectCashFlow(@PathVariable int id, HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, -1);
-		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
 		try {
-			ewb.projectCashFlow(report, p, pr);
+			ewb.projectCashFlow(report, p);
 			response.setHeader("Content-disposition", "attachment; filename=projectCashFlow.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
 		} catch (IOException e) {
@@ -333,7 +332,7 @@ public class ExcelReportController {
 				   }
 				   ewb.projectParameters(report, project);
 				   ewb.projectCashFlowFirst(report, project, result);
-				  ewb.projectCashFlow(report, project, result);
+				  ewb.projectCashFlow(report, project);
 				   ewb.projectProfitability(report, project, result);
 			   } else {
 				   ewb.blocks(report, project, false);
