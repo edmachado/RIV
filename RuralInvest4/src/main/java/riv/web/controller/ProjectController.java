@@ -271,7 +271,7 @@ public class ProjectController {
 			if (p.getWizardStep()==null) {
 				ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 				period = pr.getWcPeriod();
-				amount = pr.getWcFinanced();
+				amount = pr.getWorkingCapital();//.getWcFinanced();
 			} else {
 				ProjectFirstYear pfy = new ProjectFirstYear(p);
 				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
