@@ -88,8 +88,8 @@ public class ProjectResult implements java.io.Serializable {
 	private double wcDonated;
 	@Column(name="WC_FINANCED")
 	private double wcFinanced;
-//	@Column(name="YEARS_NEGATIVE")
-//	private Integer yearsNegative;
+	@Column(name="WC_PERIOD")
+	private int wcPeriod;
 	
 	// for downloading
 	public String getDownloadName() {
@@ -255,6 +255,16 @@ public class ProjectResult implements java.io.Serializable {
 	public double getWcFinanced() {
 		return wcFinanced;
 	}
+
+	public int getWcPeriod() {
+		return wcPeriod;
+	}
+
+
+	public void setWcPeriod(int wcPeriod) {
+		this.wcPeriod = wcPeriod;
+	}
+
 
 	public void setAppConfig1(AppConfig1 adminCategory1) {
 		this.appConfig1 = adminCategory1;

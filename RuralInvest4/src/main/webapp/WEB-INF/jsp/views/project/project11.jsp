@@ -54,6 +54,6 @@
 	
 </form:form>
 <tags:jscriptCalc fieldA="investmentTotal" fieldB="loan2Amt" fieldC="loan1Amt" functionName="Calculate" calc="-"/>
-<tags:jscriptCalc fieldA="wcAmountRequired" fieldB="capitalDonate" fieldC="amtFinanced" fieldD="capitalOwn" functionName="CalcFinance" calc="-" calc2="-" />
+<tags:jscriptCalc fieldA="wcAmountRequired" fieldB="capitalDonate" fieldC="wcAmountFinanced" fieldD="capitalOwn" functionName="CalcFinance" calc="-" calc2="-" />
 
 </body></html>

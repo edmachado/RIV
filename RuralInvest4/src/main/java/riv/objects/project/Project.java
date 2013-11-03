@@ -325,7 +325,7 @@ public class Project extends Probase implements java.io.Serializable {
 	}
 
 	public BigDecimal getWcAmountFinanced() {
-		return (wcAmountRequired==null || capitalDonate==null || capitalOwn==null) ? null : wcAmountRequired.subtract(BigDecimal.valueOf(capitalDonate-capitalOwn));
+		return (wcAmountRequired==null || capitalDonate==null || capitalOwn==null) ? null : wcAmountRequired.subtract(BigDecimal.valueOf(capitalDonate+capitalOwn));
 	}
 
 /**
@@ -1608,6 +1608,7 @@ public double getInvestmentTotal() {
 			double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
 			BigDecimal amtRequired = new BigDecimal(-1*pfyResults[1]);
 			pr.setWorkingCapital(amtRequired.doubleValue());
+			pr.setWcPeriod((int)pfyResults[0]);
 			pr.setWcOwn(this.getCapitalOwn());
 			pr.setWcDonated(this.getCapitalDonate());
 			pr.setWcFinanced(amtRequired.doubleValue()-this.getCapitalDonate()-this.getCapitalOwn());

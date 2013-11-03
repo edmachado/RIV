@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlow" columnCount="10" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="71" leftMargin="110" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2b8b13e1-9e1f-4c82-8039-353fbc6f5c93">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlow" columnCount="8" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="79" columnSpacing="2" leftMargin="181" rightMargin="14" topMargin="14" bottomMargin="14" uuid="2b8b13e1-9e1f-4c82-8039-353fbc6f5c93">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="424"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="20"/>
+	<property name="ireport.y" value="1138"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -43,8 +43,37 @@
 	<field name="cumulative" class="java.lang.Double"/>
 	<field name="incSalesExternal" class="java.lang.Double"/>
 	<field name="costGeneralOwn" class="java.lang.Double"/>
+	<field name="loanReceived" class="java.lang.Double"/>
+	<field name="costInvestOwn" class="java.lang.Double"/>
+	<field name="workingCapitalCapital" class="java.lang.Double"/>
+	<field name="capitalDonate" class="java.lang.Double"/>
+	<field name="capitalOwn" class="java.lang.Double"/>
+	<field name="incCapitalOwn" class="java.lang.Double"/>
 	<variable name="showRowLabel" class="java.lang.Boolean">
-		<variableExpression><![CDATA[new java.lang.Boolean($F{year}.intValue()==1||$F{year}.intValue()%11==0)]]></variableExpression>
+		<variableExpression><![CDATA[new java.lang.Boolean($F{year}.intValue()==1||($F{year}.intValue()-1)%8==0)]]></variableExpression>
+	</variable>
+	<variable name="incFinanceTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{costInvestDonated}+$F{costInvestOwn}+$F{loanReceived}
++$F{workingCapitalCapital}+$F{incCapitalDonation}+$F{incCapitalOwn}]]></variableExpression>
+	</variable>
+	<variable name="incMainTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{incSalesExternal}+$F{incSalvage}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="costInvestTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{costInvest}+$F{costReplace}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="costRecurrentTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{costOperation}+$F{costGeneral}+$F{costMaintenance}]]></variableExpression>
+	</variable>
+	<variable name="costFinanceTotal" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{workingCapitalCapital}+$F{workingCapital}+$F{loan1capital}
++$F{loan1interest}+$F{loan2capital}+$F{loan2interest}]]></variableExpression>
+	</variable>
+	<variable name="cumulativeCF" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{incMainTotal}+$V{incFinanceTotal}-$V{costInvestTotal}-$V{costRecurrentTotal}-$V{costFinanceTotal}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -55,7 +84,7 @@
 	<pageHeader>
 		<band height="31" splitType="Stretch">
 			<subreport isUsingCache="true">
-				<reportElement uuid="7c7337d7-8c2c-4e6d-ba53-1a74a5135ee9" key="subreport-1" mode="Opaque" x="-87" y="0" width="760" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="7c7337d7-8c2c-4e6d-ba53-1a74a5135ee9" key="subreport-1" mode="Opaque" x="-137" y="0" width="760" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
 				<subreportParameter name="proName">
 					<subreportParameterExpression><![CDATA[$P{projectName}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -80,21 +109,21 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="419" splitType="Stretch">
+		<band height="428" splitType="Stretch">
 			<rectangle radius="0">
-				<reportElement uuid="d79eb56a-345f-4395-a2c0-4b3912d8302b" key="rectangle-1" positionType="Float" mode="Opaque" x="-98" y="24" width="164" height="13" forecolor="#000000" backcolor="#E5E5E5"/>
+				<reportElement uuid="d79eb56a-345f-4395-a2c0-4b3912d8302b" key="rectangle-1" positionType="Float" mode="Opaque" x="-134" y="14" width="200" height="12" forecolor="#000000" backcolor="#E5E5E5"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.0" lineStyle="Solid"/>
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement uuid="aa5ede75-2188-4511-9526-480b9bfc4393" key="rectangle-2" positionType="Float" mode="Opaque" x="-98" y="106" width="165" height="15" forecolor="#000000" backcolor="#E5E5E5"/>
+				<reportElement uuid="aa5ede75-2188-4511-9526-480b9bfc4393" key="rectangle-2" positionType="Float" mode="Opaque" x="-134" y="183" width="200" height="11" forecolor="#000000" backcolor="#E5E5E5"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.0" lineStyle="Solid"/>
 				</graphicElement>
 			</rectangle>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="87b8b32b-f26b-410b-9964-798070109d3d" key="textField" mode="Opaque" x="9" y="39" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="87b8b32b-f26b-410b-9964-798070109d3d" key="textField" mode="Opaque" x="9" y="38" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -108,7 +137,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incSalesExternal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="41e2b50c-cf94-4bc1-89ff-0596d65cdb84" key="textField" mode="Opaque" x="9" y="51" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="41e2b50c-cf94-4bc1-89ff-0596d65cdb84" key="textField" mode="Opaque" x="9" y="50" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -122,7 +151,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incSalvage},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="277f3cb7-0bad-4660-9310-6b3b4d0b34d4" key="textField" positionType="Float" mode="Opaque" x="9" y="63" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="277f3cb7-0bad-4660-9310-6b3b4d0b34d4" key="textField" positionType="Float" mode="Opaque" x="9" y="84" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -133,10 +162,10 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incCapitalDonation},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvestDonated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="bc970c2b-339f-4f97-b4d7-8b60d5da1f8a" key="textField" positionType="Float" mode="Opaque" x="9" y="123" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="5a3bd483-6048-4c16-92da-aa9e307db363" key="textField" mode="Opaque" x="9" y="207" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -147,10 +176,10 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costOperation}.doubleValue()-$F{costOperationInternal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5a3bd483-6048-4c16-92da-aa9e307db363" key="textField" mode="Opaque" x="9" y="135" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="3f8ed719-d4f1-472c-a6ae-5b7ac059af0f" key="textField" mode="Opaque" x="9" y="219" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -164,21 +193,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costReplace},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="3f8ed719-d4f1-472c-a6ae-5b7ac059af0f" key="textField" mode="Opaque" x="9" y="147" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costGeneral}-$F{costGeneralOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="89aff31e-be22-4276-9c77-f7efdbd617aa" key="textField" mode="Opaque" x="9" y="159" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="89aff31e-be22-4276-9c77-f7efdbd617aa" key="textField" mode="Opaque" x="9" y="275" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -192,53 +207,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costMaintenance},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c121f76d-38f9-41ac-a803-52504de3c84b" key="textField-16" positionType="Float" mode="Opaque" x="9" y="87" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
-    $F{totalIncome}
-, riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="71dfc78a-dfca-4181-b159-9d4974f51b74" key="textField-17" mode="Opaque" x="9" y="184" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totalCosts},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="3a4688e2-3d92-47d1-a5b9-8bd8cee46bc7" key="textField-22" mode="Opaque" x="-98" y="24" width="94" height="13" forecolor="#003365" backcolor="#E5E5E5">
-					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
-				</reportElement>
-				<box bottomPadding="1">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
-					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.profitability.incomes}]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="1e44cb5c-b915-4451-a4c6-8d9012534a50" key="textField-23" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="39" width="95" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="1e44cb5c-b915-4451-a4c6-8d9012534a50" key="textField-23" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="38" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -254,7 +223,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.profitability.incomes.sales}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="e89ea471-9e90-400f-9bd3-04a1661125ae" key="textField-24" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="51" width="95" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="e89ea471-9e90-400f-9bd3-04a1661125ae" key="textField-24" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="50" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -270,7 +239,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.profitability.incomes.salvage}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b7da723f-c602-4cca-84ff-2f27c8b4019a" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="63" width="95" height="20" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="b7da723f-c602-4cca-84ff-2f27c8b4019a" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="62" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -283,10 +252,10 @@
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.profitability.incomes.capDonation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="4bd7ce52-7031-4f61-ad97-93e17c9a7b8e" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="87" width="95" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="4bd7ce52-7031-4f61-ad97-93e17c9a7b8e" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="149" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -299,10 +268,26 @@
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{misc.total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="d50b40e6-b722-4c7f-9005-ff529386b4f6" key="textField-28" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="109" width="95" height="11" forecolor="#003365" backcolor="#E5E5E5">
+				<reportElement uuid="d50b40e6-b722-4c7f-9005-ff529386b4f6" key="textField-28" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="183" width="160" height="11" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="f15fe714-bc49-41c4-87d3-09127738ebf8" key="textField-29" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="207" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -315,26 +300,10 @@
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.profitability.costs}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs.initial}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f15fe714-bc49-41c4-87d3-09127738ebf8" key="textField-29" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="123" width="95" height="11" forecolor="#003365" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
-				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.operation}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="884bb9f1-3192-4a1e-bec3-8ecfbe3bbbc9" key="textField-30" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="135" width="95" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="884bb9f1-3192-4a1e-bec3-8ecfbe3bbbc9" key="textField-30" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="219" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -350,23 +319,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.replacement}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="48f6cf41-3170-467a-92bf-57002fe5432c" key="textField-31" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="147" width="95" height="11" forecolor="#003365" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
-				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.general}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="23354403-81f6-4d03-a351-f83e0a4fa32b" key="textField-33" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="159" width="95" height="22" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="23354403-81f6-4d03-a351-f83e0a4fa32b" key="textField-33" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="275" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -382,7 +335,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.maintenance}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="e28d61fb-69e9-4f19-b8d4-d333f54d2446" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="184" width="95" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="e28d61fb-69e9-4f19-b8d4-d333f54d2446" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="287" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -395,22 +348,22 @@
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{misc.total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="75d7dbda-8adc-46b4-8af8-cf220a4b57b4" key="line-1" positionType="Float" mode="Opaque" x="-98" y="86" width="165" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<reportElement uuid="75d7dbda-8adc-46b4-8af8-cf220a4b57b4" key="line-1" positionType="Float" mode="Opaque" x="-167" y="149" width="234" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="250cd0a7-fcdf-441f-ab6c-84e628010d25" key="line-2" positionType="Float" mode="Opaque" x="-98" y="182" width="165" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<reportElement uuid="250cd0a7-fcdf-441f-ab6c-84e628010d25" key="line-2" positionType="Float" mode="Opaque" x="-167" y="286" width="234" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<textField pattern="###0" isBlankWhenNull="false">
-				<reportElement uuid="2905c257-5204-408b-8819-457f8c54a3de" key="textField-21" mode="Opaque" x="9" y="5" width="58" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="2905c257-5204-408b-8819-457f8c54a3de" key="textField-21" mode="Opaque" x="9" y="1" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -424,23 +377,7 @@
 				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c779a1fb-c439-45d1-869b-c3f3710410d9" key="textField-42" mode="Opaque" x="-98" y="228" width="95" height="13" forecolor="#003365" backcolor="#E5E5E5">
-					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
-				</reportElement>
-				<box bottomPadding="1">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
-					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.cashFlow.financing}]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9775f7fd-c6a1-42b6-af67-fb90caeb58b2" key="textField-40" mode="Opaque" x="8" y="268" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="9775f7fd-c6a1-42b6-af67-fb90caeb58b2" key="textField-40" mode="Opaque" x="8" y="350" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -451,16 +388,10 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan1capital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan2capital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
-			<rectangle radius="0">
-				<reportElement uuid="64c25bb1-58a3-4600-8954-0e292552dc0e" key="rectangle-3" positionType="Float" mode="Opaque" x="-98" y="228" width="164" height="13" forecolor="#000000" backcolor="#E5E5E5"/>
-				<graphicElement fill="Solid">
-					<pen lineWidth="0.0" lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b6a5d0ea-05a2-41b8-b3cc-05bb2adeba94" key="textField-46" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="268" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="b6a5d0ea-05a2-41b8-b3cc-05bb2adeba94" key="textField-46" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="329" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -476,7 +407,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.priCapital}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c0c18de8-3b46-4f70-853e-bdcf7539e61c" key="textField-48" mode="Opaque" x="8" y="243" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="c0c18de8-3b46-4f70-853e-bdcf7539e61c" key="textField-48" mode="Opaque" x="8" y="329" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -487,40 +418,10 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{workingCapital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan1capital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="74425a07-8619-4a01-aa0f-708a9799005f" key="textField-49" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="243" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
-				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.cashFlow.wcInterest}]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="cd08c6db-ac28-4b2a-a9f1-e6ae1d56d004" key="textField-50" mode="Opaque" x="8" y="318" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan2capital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="bef87a22-9fa9-42ec-9745-31ccc2bea85d" key="textField-51" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="318" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="bef87a22-9fa9-42ec-9745-31ccc2bea85d" key="textField-51" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="350" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -536,7 +437,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.secCapital}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="8c49eee8-28f6-4081-82c7-5ecad490b88e" key="textField-52" mode="Opaque" x="8" y="293" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="8c49eee8-28f6-4081-82c7-5ecad490b88e" key="textField-52" mode="Opaque" x="8" y="360" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -547,10 +448,10 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan1interest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan2interest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="ecfad1f8-c72e-4857-ae2f-cbfdc9a17615" key="textField-53" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="293" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="ecfad1f8-c72e-4857-ae2f-cbfdc9a17615" key="textField-53" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="339" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -566,21 +467,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.priInterest}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="77e2ccb1-778a-4bab-885e-e72884f9f8fa" key="textField-54" mode="Opaque" x="8" y="343" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan2interest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9f6d3c3c-2eda-4f48-abeb-8a609901eca9" key="textField-55" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="343" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="9f6d3c3c-2eda-4f48-abeb-8a609901eca9" key="textField-55" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="360" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -596,7 +483,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.secInterest}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9b398487-f99e-49f4-a563-c52a124819cf" key="textField-56" mode="Opaque" x="8" y="368" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="9b398487-f99e-49f4-a563-c52a124819cf" key="textField-56" mode="Opaque" x="8" y="407" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -607,10 +494,13 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{profitAfterFinance},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
+    $V{incMainTotal}+$V{incFinanceTotal}
+    -$V{costInvestTotal}-$V{costRecurrentTotal}-$V{costFinanceTotal}
+ ,riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c69961cb-0064-4e8f-95ff-16061ff58ad4" key="textField-57" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="368" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="c69961cb-0064-4e8f-95ff-16061ff58ad4" key="textField-57" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="407" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -620,27 +510,13 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.profitAfter}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c0b10667-0676-4dad-8ead-49abdfd5a1fc" key="textField-58" mode="Opaque" x="9" y="197" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{netIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a122ac41-2b01-4b8c-9b4d-14918e7433c8" key="textField-59" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="197" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="a122ac41-2b01-4b8c-9b4d-14918e7433c8" key="textField-59" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="308" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -653,10 +529,10 @@
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.cashFlow.profitBefore}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.wcCapital}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="7924a202-7e7d-4443-b687-f0ac5980a126" key="textField-60" isPrintRepeatedValues="false" mode="Opaque" x="-98" y="392" width="94" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="7924a202-7e7d-4443-b687-f0ac5980a126" key="textField-60" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="417" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -666,13 +542,335 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.cumulative}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b9cc67a8-d756-4046-af9e-ca9b5e2efbea" key="textField-61" mode="Opaque" x="8" y="394" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="8a5a5f3c-5e80-419c-ab9e-fc92c0d27705" key="textField-23" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="27" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.main}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="b662cf4c-837a-4deb-8a02-7150df3c2cec" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="126" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.wcDonation}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="7c0b943d-0b85-4e87-9cbd-3952597fb159" key="line-1" positionType="Float" mode="Opaque" x="-167" y="62" width="235" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="9d5fa365-5e29-416d-a20f-8d0d16412153" key="textField-23" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="72" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.finance}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="805f4edb-0735-4d53-a64f-ac3a809099b7" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="83" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.invest}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="6ae4af96-6a86-4681-809a-4d571ea22f75" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="94" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.own}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="e8d2ce5a-9e95-45ca-a77d-d0b4064e272f" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="105" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.loans}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="df90b0f2-2a94-4f5f-aecd-e506cc36d0c7" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="116" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.loanwc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="d64717c0-da86-49c9-b5eb-c8f458102d0d" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="137" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.wcOwn}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="e36dabf7-ec52-4ed4-bf6c-56e66c04b47c" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="160" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="bdd9ee21-04c0-4108-87b4-d23f8a381bde" key="line-2" positionType="Float" mode="Opaque" x="-167" y="230" width="235" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="27bbfc2c-9626-449e-bd06-63471946f4c9" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="231" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="24838b97-8f2b-4fc8-8fb2-0ca4b8af0c5e" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="242" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs.recurrent}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="4f0ef1f1-3d1e-4579-9796-7c2784e0b304" key="textField-33" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="252" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.operation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="5c5806bb-b06e-4594-98c4-df252aebbcb9" key="textField-33" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="264" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.general}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="57baf0d1-4691-429c-9e2a-a2538179b2c6" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="297" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.financing}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="e7dab557-e642-4b3e-a300-6b49dbf60a29" key="textField-59" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="318" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.wcInterest}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="5cc8bb18-ae34-4d51-82a8-99037cdfc66a" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="371" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="ce262b84-ae25-4c0b-8141-fc0bdee7e4d8" key="line-2" positionType="Float" mode="Opaque" x="-167" y="371" width="235" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="3ef6446b-3061-4fad-aa9c-087d6b969e96" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="381" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs.total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="3a4688e2-3d92-47d1-a5b9-8bd8cee46bc7" key="textField-22" mode="Opaque" x="-167" y="14" width="160" height="12" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box bottomPadding="1">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.profitability.incomes}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="957e30ba-2ae1-4f7a-a1b5-5b9ce8681550" key="textField-57" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="397" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.profitBefore}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="8b2459f1-60c3-478e-b36b-f3802e42b7b4" key="textField" positionType="Float" mode="Opaque" x="8" y="94" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -683,7 +881,277 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{cumulative},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvestOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="a7a119df-15bd-4cf1-8995-948aca59946e" key="textField" positionType="Float" mode="Opaque" x="8" y="105" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loanReceived},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="027bfeb9-efae-4bcb-98b9-c7a111daf1a9" key="textField" positionType="Float" mode="Opaque" x="8" y="116" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{workingCapitalCapital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="9f3dfc7b-8f98-4550-a314-82605321ddd6" key="textField" positionType="Float" mode="Opaque" x="8" y="126" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incCapitalDonation},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="bd78c015-f3d6-45be-a668-80e17bb3487a" key="textField" positionType="Float" mode="Opaque" x="8" y="137" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incCapitalOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="ee7c75a8-b9eb-4328-ba75-6e307b59fd89" key="textField-29" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="195" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs.invest}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="eeb95436-7fe9-4d6e-a5ec-ed1db96bb01d" key="textField" mode="Opaque" x="9" y="252" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costOperation},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="01df11fa-4f73-447f-a686-a38816b3b6d5" key="textField" mode="Opaque" x="8" y="264" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costGeneral},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="5efb8ef6-2bd3-4b19-9763-fedd10648297" key="textField" mode="Opaque" x="9" y="308" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{workingCapitalCapital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="e98e3d20-2db1-4146-b4f2-1bfe35715a31" key="textField" mode="Opaque" x="9" y="318" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{workingCapital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="58674fc0-71c5-49f6-9b04-b6e5a881bca3" key="textField-48" mode="Opaque" x="8" y="339" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{loan1interest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="4a6c18ed-e114-496e-8620-de40df4ea58d" key="textField-56" mode="Opaque" x="8" y="397" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incMainTotal}-$V{costInvestTotal}-$V{costRecurrentTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="050c3168-aa73-40ce-aa86-fc4e9493cd1b" key="textField" positionType="Float" mode="Opaque" x="8" y="150" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incFinanceTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="de23ca52-1fe6-4ca1-ac0a-18681c32009e" key="textField" mode="Opaque" x="9" y="63" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incMainTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="6f08264a-4eff-45a4-8971-2d14b0137163" key="textField" positionType="Float" mode="Opaque" x="8" y="161" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incMainTotal}+$V{incFinanceTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="8c2a7cb0-6814-4430-9649-0f1c12a5ed35" key="textField" mode="Opaque" x="9" y="231" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costInvestTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="1dc1ad61-4762-447a-a5c6-fbb347b0ea2e" key="textField" mode="Opaque" x="9" y="287" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costRecurrentTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="91b0bd7c-8a33-4270-977e-2e1ba82c9a90" key="textField-52" mode="Opaque" x="8" y="372" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costFinanceTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="6f8a5da8-e593-4ff0-814d-4229fc85d089" key="textField-52" mode="Opaque" x="8" y="383" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costInvestTotal}+$V{costRecurrentTotal}+$V{costFinanceTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="4e7bf940-1ee2-44a2-861e-65458d6122b8" key="textField-56" mode="Opaque" x="8" y="417" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
+    $V{cumulativeCF}
+ ,riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -693,7 +1161,7 @@
 	<pageFooter>
 		<band height="26" splitType="Prevent">
 			<subreport>
-				<reportElement uuid="cc8c8d5a-ea94-4456-a62d-99922f4a6b5e" x="-87" y="0" width="785" height="26" backcolor="#FFFFFF"/>
+				<reportElement uuid="cc8c8d5a-ea94-4456-a62d-99922f4a6b5e" x="-152" y="0" width="785" height="26" backcolor="#FFFFFF"/>
 				<subreportParameter name="pageNo">
 					<subreportParameterExpression><![CDATA[$V{PAGE_NUMBER}+$P{startPage}]]></subreportParameterExpression>
 				</subreportParameter>

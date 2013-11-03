@@ -37,7 +37,6 @@ import riv.objects.project.ProjectFinanceData.AnalysisType;
 import riv.objects.project.ProjectFinanceNongen;
 import riv.objects.project.ProjectFirstYear;
 import riv.objects.project.ProjectItem;
-import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemService;
 import riv.objects.project.ProjectResult;
@@ -271,7 +270,7 @@ public class PdfReportCreator {
 		}
 
 		if (project.getIncomeGen()) {
-			ReportWrapper params = projectParameters(project, page);
+			ReportWrapper params = projectParameters(project, pr, page);
 			page=page+params.getJp().getPages().size();
 			reports.add(params);
 			ReportWrapper cff = projectCashFlowFirst(project, page);
@@ -413,26 +412,11 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper projectParameters(Project project, int startPage) {
+	public ReportWrapper projectParameters(Project project, ProjectResult pr, int startPage) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectParameters.jasper", false, project, "projectParameters.pdf", startPage);
-		
-		// calculate investmentTotal - 
-		//TODO: how to get from results table
-		double investTotal=0;
-		for(ProjectItemAsset ass:project.getAssets())
-			investTotal+=ass.getUnitCost()*ass.getUnitNum()-ass.getOwnResources()-ass.getDonated();
-		for(ProjectItemLabour lab:project.getLabours())
-			investTotal+=lab.getUnitCost()*lab.getUnitNum()-lab.getOwnResources()-lab.getDonated();
-		for(ProjectItemService ser:project.getServices())
-			investTotal+=ser.getUnitCost()*ser.getUnitNum()-ser.getOwnResources()-ser.getDonated();
-		
-		// get working capital info
-		//TODO: save and retrieve from results table
-		ProjectFirstYear pfy = new ProjectFirstYear(project);
-		double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-		report.getParams().put("financePrd", pfyResults[0]);
-		report.getParams().put("amtRequired", -1*pfyResults[1]);	
-		report.getParams().put("investTotal", investTotal);
+		report.getParams().put("financePrd", pr.getWcPeriod());
+		report.getParams().put("amtRequired", pr.getWcFinanced());
+		report.getParams().put("investTotal", pr.getInvestmentFinanced());
 		report.getParams().put("reportname", "H: "+translate("project.report.parameters"));
 		
 		runReport(report);

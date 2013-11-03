@@ -1,7 +1,7 @@
 project.report.cashFlow.income.total=Total income
 project.report.cashFlow.costs.total=Total expenses
-project.report.cashFlow.income.wcDonation=Donation for working capital
-project.report.cashFlow.income.own=Own resources for working capital
+project.report.cashFlow.income.wcDonation=Working capital donation
+project.report.cashFlow.income.wcOwn=Working capital own resources
 
 ###
 project.report.cashFlow.income.main=Main income

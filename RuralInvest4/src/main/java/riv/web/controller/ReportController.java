@@ -126,7 +126,8 @@ public class ReportController {
 	@RequestMapping(value="{id}/projectParameters.pdf", method=RequestMethod.GET)
 	public void projectParameters(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
-		ReportWrapper report = reportCreator.projectParameters(p, 0);
+		ProjectResult pr = dataService.getProjectResult(id);
+		ReportWrapper report = reportCreator.projectParameters(p, pr, 0);
 		reportCreator.export(response, report);
 	}
 	

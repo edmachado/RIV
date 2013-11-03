@@ -50,6 +50,8 @@ public class ProjectFinanceData implements java.io.Serializable{
 	private double loan2interest;
 	private double loan2capital;
 	private double workingCapitalDonation;
+	private double workingCapitalOwn;
+	private double loanReceived;
 	
 	// calculated fields
 	public double getIncSalesExternal() {
@@ -92,7 +94,6 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getProfitAfterFinance() {
 		return getNetIncome()-workingCapitalInterest-loan1interest-loan1capital-loan2interest-loan2capital;
 	}
-	
 	
 	public ProjectFinanceData(int year, AnalysisType analType) {
 		this.year=year;
@@ -164,6 +165,13 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getIncCapitalDonation() {
 		return workingCapitalDonation;
 	}
+	public void setIncCapitalOwn(double incCapitalOwn) {
+		this.workingCapitalOwn = incCapitalOwn;
+	}
+	public double getIncCapitalOwn() {
+		return workingCapitalOwn;
+	}
+	
 	public void setCostOperation(double costOperation) {
 		this.costOperation = costOperation;
 	}
@@ -326,6 +334,13 @@ public class ProjectFinanceData implements java.io.Serializable{
 		return loan2capital;
 	}
 	
+	public double getLoanReceived() {
+		return loanReceived;
+	}
+	public void setLoanReceived(double loanReceived) {
+		this.loanReceived = loanReceived;
+	}
+
 	public enum AnalysisType {
 		CashFlow, TotalCosts, ProducerCosts
 	}
@@ -548,7 +563,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 			// BLOCK: LABOUR
 			for (BlockLabour labour : block.getLabours()) {
 				for (int i=0;i<project.getDuration();i++) {
-//					// use # of cycles for first year if calculating first year
+					// use # of cycles for first year if calculating first year
 					if (i==0) cycles = block.getCycleFirstYear();
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
@@ -562,8 +577,12 @@ public class ProjectFinanceData implements java.io.Serializable{
 			}
 		} // close block loop
 		
-		// add donated working capital
+		// add donated and own working capital
 		data.get(0).setIncCapitalDonation(project.getCapitalDonate());
+		data.get(0).setIncCapitalOwn(project.getCapitalOwn());
+		// add loans received
+		data.get(project.getLoan2InitPeriod()-1).setLoanReceived(project.getLoan2Amt());
+		data.get(0).setLoanReceived(data.get(0).getLoanReceived()+project.getLoan1Amt());
 		
 		return data;
 	}
@@ -613,12 +632,12 @@ public class ProjectFinanceData implements java.io.Serializable{
 	
 	
 	public static void AddWorkingCapital(Project project, ArrayList<ProjectFinanceData> data) {
+		// year 1
 		ProjectFirstYear pfy = new ProjectFirstYear(project);
 		double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-		// year 1
-		
-		data.get(0).setWorkingCapitalCapital(-1*pfyResults[1]);
-		double wc = -1*(pfyResults[1] +project.getCapitalDonate()+project.getCapitalOwn())*pfyResults[0]/12*(project.getCapitalInterest()*0.01);
+		double wcFinanced = -1*pfyResults[1] -project.getCapitalDonate()-project.getCapitalOwn();
+		data.get(0).setWorkingCapitalCapital(wcFinanced);
+		double wc = wcFinanced*pfyResults[0]/12*(project.getCapitalInterest()*0.01);
 		data.get(0).setWorkingCapital(wc); 
 		
 		// year 2

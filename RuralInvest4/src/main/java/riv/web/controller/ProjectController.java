@@ -39,6 +39,7 @@ import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectFirstYear;
+import riv.objects.project.ProjectResult;
 import riv.util.CurrencyFormat;
 import riv.util.validators.ProjectValidator;
 import riv.web.config.RivConfig;
@@ -264,12 +265,21 @@ public class ProjectController {
 			model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
 			model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
 		} else if (step==11 && p.getIncomeGen()) {
-			ProjectFirstYear pfy = new ProjectFirstYear(p);
-			double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-			int financePrd = (int)pfyResults[0];
-			BigDecimal amtRequired = new BigDecimal(-1*pfyResults[1]);
-			p.setWcFinancePeriod(financePrd);
-			p.setWcAmountRequired(amtRequired);	
+			int period;
+			double amount;
+			
+			if (p.getWizardStep()==null) {
+				ProjectResult pr = dataService.getProjectResult(p.getProjectId());
+				period = pr.getWcPeriod();
+				amount = pr.getWcFinanced();
+			} else {
+				ProjectFirstYear pfy = new ProjectFirstYear(p);
+				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
+				period = (int)pfyResults[0];
+				amount=-1*pfyResults[1];
+			}
+			p.setWcFinancePeriod(period);
+			p.setWcAmountRequired(new BigDecimal(amount));	
 		}
 	}
 }
