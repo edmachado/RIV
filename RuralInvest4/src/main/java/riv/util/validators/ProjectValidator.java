@@ -1,5 +1,6 @@
 package riv.util.validators;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.springframework.context.MessageSource;
@@ -190,14 +191,11 @@ public class ProjectValidator implements Validator {
 				// calculate the working capital fields and validate them
 				ProjectFirstYear pfy = new ProjectFirstYear(project);
 				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-				int period = (int)pfyResults[0];
-				double amount=-1*pfyResults[1];
-				
-				//TODO: complete
-//				ValidateUtils.rejectIfNegative(project, "wcAmountRequired", "project.amtRequired", errors);
-//				ValidateUtils.rejectIfNegative(project, "wcAmountFinanced", "project.amtFinanced", errors);
-//				ValidateUtils.rejectIfNegative(project, "wcFinancePeriod", "project.period", errors);
-				
+				project.setWcFinancePeriod((int)pfyResults[0]);
+				project.setWcAmountRequired(new BigDecimal(-1*pfyResults[1]));
+				ValidateUtils.rejectIfNegative(project, "wcAmountRequired", "project.amtRequired", errors);
+				ValidateUtils.rejectIfNegative(project, "wcAmountFinanced", "project.amtFinanced", errors);
+				ValidateUtils.rejectIfNegative(project, "wcFinancePeriod", "project.period", errors);
 				
 				
 				if (project.getLoan1Duration()!=null && 
