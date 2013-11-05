@@ -14,7 +14,7 @@
    	<cd>${project.build.directory}/CD</cd>
    	<maven.compiler.source>1.6</maven.compiler.source>
    	<maven.compiler.target>1.6</maven.compiler.target>
-   	
+   	<app.version>${project.version}</app.version>
   </properties>
   <dependencies>
     <dependency>
@@ -65,6 +65,9 @@
 						<includes>
 							<include>**/*</include>
 						</includes>
+						<excludes>
+				          <exclude>**/.gitignore</exclude>
+				        </excludes>
 					</resource>
 						</resources>
   					</configuration>
@@ -84,6 +87,9 @@
 								<includes>
 									<include>**/*</include>
 								</includes>
+								<excludes>
+						          <exclude>**/.gitignore</exclude>
+						        </excludes>
   							</resource>
   						</resources>
   					</configuration>

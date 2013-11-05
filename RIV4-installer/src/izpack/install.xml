@@ -12,7 +12,7 @@
 	</variables>
 	<info>
 		<appname>RuralInvest</appname>
-		<appversion>@{project.version}</appversion>
+		<appversion>@{app.version}</appversion>
 		<authors>
 			<author name="Food and Agriculture Organization" email="TCI-Ruralinvest@fao.org" />
 		</authors>
@@ -47,7 +47,6 @@
 	</guiprefs>
 
 	<jar src="@{izpack.staging}/custom/izpack-includes.jar" stage="install"/>
-<!-- 	<jar src="@{izpack.staging}/custom/izpack-panel.jar" stage="install" /> -->
 	<jar src="@{izpack.staging}/lib/hsqldb.jar" stage="install"/>
 	<jar src="@{izpack.staging}/lib/hsqldb18.jar" stage="install"/>
 	<jar src="@{izpack.staging}/lib/commons-io.jar" stage="install"/>
@@ -63,12 +62,12 @@
 		<res id="JFrameIcon.png" src="icons/riv16x16.ico"/> -->
 		
 		<!-- InfoPanel (readme.txt) -->
-		<res id="InfoPanel.info_eng" src="resources/lang/Readme_eng.txt" />
-		<res id="InfoPanel.info_fra" src="resources/lang/Readme_fra.txt" />
-		<res id="InfoPanel.info_bra" src="resources/lang/Readme_bra.txt" />
-		<res id="InfoPanel.info_rus" src="resources/lang/Readme_rus.txt" />
-		<res id="InfoPanel.info_spa" src="resources/lang/Readme_spa.txt" />
-		<res id="InfoPanel.info_tur" src="resources/lang/Readme_tur.txt" />
+		<res id="HTMLInfoPanel.info_eng" src="resources/lang/Readme_eng.html" />
+		<res id="HTMLInfoPanel.info_fra" src="resources/lang/Readme_fra.html" />
+		<res id="HTMLInfoPanel.info_bra" src="resources/lang/Readme_bra.html" />
+		<res id="HTMLInfoPanel.info_rus" src="resources/lang/Readme_rus.html" />
+		<res id="HTMLInfoPanel.info_spa" src="resources/lang/Readme_spa.html" />
+		<res id="HTMLInfoPanel.info_tur" src="resources/lang/Readme_tur.html" />
 		
 		<!-- InputPanel -->
 		<res id="userInputLang.xml_eng" src="resources/lang/userInputLang.xml_eng" />
@@ -89,7 +88,7 @@
 
 	<panels>
 		<panel classname="HelloPanel" />
-		<panel classname="InfoPanel">
+		<panel classname="HTMLInfoPanel">
 			<actions>
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.CollectVariablesAction"/>
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.StopWindowsServiceAction" />
@@ -99,7 +98,6 @@
 		</panel>
 		<panel classname="InstallationGroupPanel" condition="dbExists" />
 		<panel classname="DefaultTargetPanel" />
-<!-- 		<panel classname="TargetPanel" /> -->
 		<panel classname="UserInputPanel" id="panel.newUser" condition="newInstallSelected"/>
 		<panel classname="InstallPanel">
 			<actions>
