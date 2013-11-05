@@ -16,6 +16,7 @@
 			<arg>$RIV_LOCATION</arg>
 			<arg>$RIV_TELEPHONE</arg>
 			<arg>$RIV_EMAIL</arg>
+			<arg>$ISO2_LANG</arg>
 		</executeclass>
 	</job>
 	<job name="retrieving migrated database">

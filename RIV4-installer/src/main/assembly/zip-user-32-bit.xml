@@ -12,10 +12,16 @@
 		<fileSet>
 			<directory>${project.build.directory}/CD</directory>
 			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>**/.gitignore</exclude>
+			</excludes>
 		</fileSet>
 		<fileSet>
 			<directory>${izpack.dir}/jre/win32</directory>
 			<outputDirectory>jre</outputDirectory>
+			<excludes>
+				<exclude>**/.gitignore</exclude>
+			</excludes>
 		</fileSet>
 	</fileSets>
 	<files>
