@@ -1,5 +1,5 @@
 
-RuralInvest ${riv.version}
+RuralInvest ${app.version}
 
 ================================================================================
 		    COPYRIGHT
