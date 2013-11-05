@@ -12,7 +12,7 @@
 	</variables>
 	<info>
 		<appname>RuralInvest</appname>
-		<appversion>@{version}</appversion>
+		<appversion>@{project.version}</appversion>
 		<authors>
 			<author name="Food and Agriculture Organization" email="TCI-Ruralinvest@fao.org" />
 		</authors>
@@ -26,7 +26,7 @@
 		<langpack iso3="eng" />
 	 	<langpack iso3="fra"/>
 		<langpack iso3="spa"/>
-<!-- 		<langpack iso3="por"/> -->
+		<langpack iso3="bra"/>
 		<langpack iso3="rus"/>
 		<langpack iso3="tur"/>
 		<!-- langpack iso3="ara"/ --><!--  Arabic not yet supported by IZpack -->
@@ -65,7 +65,7 @@
 		<!-- InfoPanel (readme.txt) -->
 		<res id="InfoPanel.info_eng" src="resources/lang/Readme_eng.txt" />
 		<res id="InfoPanel.info_fra" src="resources/lang/Readme_fra.txt" />
-		<res id="InfoPanel.info_por" src="resources/lang/Readme_por.txt" />
+		<res id="InfoPanel.info_bra" src="resources/lang/Readme_bra.txt" />
 		<res id="InfoPanel.info_rus" src="resources/lang/Readme_rus.txt" />
 		<res id="InfoPanel.info_spa" src="resources/lang/Readme_spa.txt" />
 		<res id="InfoPanel.info_tur" src="resources/lang/Readme_tur.txt" />
@@ -74,14 +74,14 @@
 		<res id="userInputLang.xml_eng" src="resources/lang/userInputLang.xml_eng" />
 		<res id="userInputLang.xml_spa" src="resources/lang/userInputLang.xml_spa" />
 		<res id="userInputLang.xml_fra" src="resources/lang/userInputLang.xml_fra" />
-		<res id="userInputLang.xml_por" src="resources/lang/userInputLang.xml_por" />
+		<res id="userInputLang.xml_bra" src="resources/lang/userInputLang.xml_bra" />
 		<res id="userInputLang.xml_rus" src="resources/lang/userInputLang.xml_rus" />
 		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang.xml_tur" />
 		
 		<!-- Group selection -->
 		<res id="packsLang.xml_eng" src="resources/lang/packsLang.xml_eng"/>
 		<res id="packsLang.xml_fra" src="resources/lang/packsLang.xml_fra"/>
-		<res id="packsLang.xml_por" src="resources/lang/packsLang.xml_por"/>
+		<res id="packsLang.xml_bra" src="resources/lang/packsLang.xml_bra"/>
 		<res id="packsLang.xml_rus" src="resources/lang/packsLang.xml_rus"/>
 		<res id="packsLang.xml_spa" src="resources/lang/packsLang.xml_spa"/>
 		<res id="packsLang.xml_tur" src="resources/lang/packsLang.xml_tur"/>

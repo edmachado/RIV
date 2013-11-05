@@ -365,7 +365,7 @@ ALTER TABLE project_block DROP COLUMN with_without;
 
 -- profile product split into two subclasses
 ALTER TABLE profile_product ADD COLUMN class VARCHAR(1) DEFAULT '0' NOT NULL;
-UPDATE profile_product SET class='1' WHERE with_without=false;
+UPDATE profile_product SET class='0' WHERE with_without=false;
 ALTER TABLE profile_product DROP COLUMN with_without;
 
 -- profile product should be with/without=true if profile's with/without is false

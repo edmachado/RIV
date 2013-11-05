@@ -44,6 +44,7 @@
     </dependency>
   </dependencies>
   <build>
+  	<finalName>RuralInvest-${project.version}</finalName>
   <plugins>
   		<plugin>
   			<groupId>org.apache.maven.plugins</groupId>
@@ -143,7 +144,7 @@
              <baseDir>${izpack.dir}</baseDir>
              <installFile>${izpack.dir}/install.xml</installFile>
              <outputDirectory>${cd}/lib</outputDirectory>
-             <finalName>RIV4-installer</finalName>
+             <finalName>riv</finalName>
           </configuration>
        </execution>
      </executions>
@@ -166,8 +167,10 @@
 	  <version>2.2-beta-5</version>
 	  <configuration>
 	    <descriptors>
-	      <descriptor>src/main/assembly/zip-admin.xml</descriptor>
-	      <descriptor>src/main/assembly/zip-user.xml</descriptor>
+	      <descriptor>src/main/assembly/zip-admin-32-bit.xml</descriptor>
+	      <descriptor>src/main/assembly/zip-user-32-bit.xml</descriptor>
+	      <descriptor>src/main/assembly/zip-admin-64-bit.xml</descriptor>
+	      <descriptor>src/main/assembly/zip-user-64-bit.xml</descriptor>
 	    </descriptors>
 	  </configuration>
 	  <executions>
