@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <userInput>
-
 	<!-- user info -->
 	<panel id="panel.newUser">
 		<field type="title" id="input.userconfig" bold="true" size="2"/>
