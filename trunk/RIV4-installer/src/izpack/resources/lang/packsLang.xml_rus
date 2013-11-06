@@ -1,6 +1,0 @@
-<langpack>
-<str id="InstallationGroupPanel.group.NewInstall.html" txt="Установка новой программы RuralInvest"/>
-<str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest будет установлена как. Вся существующая информация (проекты и профайлы) будут удалены."/>
-<str id="InstallationGroupPanel.group.Upgrade.html" txt="Обновление программы установки RuralInvest"/>
-<str id="InstallationGroupPanel.description.Upgrade.html" txt="Программы RuralInvest будет обновлена и существующая информация (проекты и профайлы) будут сохранены."/>
-</langpack>
