@@ -1,7 +1,6 @@
 package org.fao.riv.installer.actions;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
