@@ -39,6 +39,9 @@ public class FirstUserAction {
 		user.email = args[7];
 		user.language = args[8];
 		
+
+		uih.logOutput("TEST: password: "+ user.password, false);
+		
 		try {
 			execute(user);
 		} catch (Exception e) {
@@ -48,14 +51,14 @@ public class FirstUserAction {
 	
 	private void execute(FirstUserData user) throws Exception {
 		// Encrypt password
-		String passwordHash = null;
-		try {
-			passwordHash = encryptSHA1(user.password);
-		} catch (NoSuchAlgorithmException e) {
-			throw (e);
-		} catch (UnsupportedEncodingException e) {
-			throw (e);
-		}
+//		String passwordHash = null;
+//		try {
+//			passwordHash = computeSha1OfByteArray(user.password);
+//		} catch (NoSuchAlgorithmException e) {
+//			throw (e);
+//		} catch (UnsupportedEncodingException e) {
+//			throw (e);
+//		}
 
 		try {
 			// delete riv.lck
@@ -82,7 +85,7 @@ public class FirstUserAction {
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, user.username);
 			st.setString(2, user.name);
-			st.setString(3, passwordHash);
+			st.setString(3, computeSha1OfByteArray(user.password.getBytes("UTF8")));
 			st.setString(4, user.organization);
 			st.setString(5, user.location);
 			st.setString(6, user.telephone);
@@ -113,15 +116,17 @@ public class FirstUserAction {
 		}
 	}
 	
-	private String encryptSHA1(String text) throws NoSuchAlgorithmException,
-		UnsupportedEncodingException {
-		MessageDigest md;
-		md = MessageDigest.getInstance("SHA-1");
-		byte[] sha1hash = new byte[40];
-		md.update(text.getBytes("UTF8"), 0, text.length());//"iso-8859-1"
-		sha1hash = md.digest();
-		return convertToHex(sha1hash);
-	}
+	private String computeSha1OfByteArray(final byte[] message)
+		    throws UnsupportedOperationException {
+		        try {
+		            MessageDigest md = MessageDigest.getInstance("SHA-1");
+		            md.update(message);
+		            byte[] res = md.digest();
+		            return convertToHex(res);
+		        } catch (NoSuchAlgorithmException ex) {
+		            throw new UnsupportedOperationException(ex);
+		        }
+		}
 	
 	private String convertToHex(byte[] data) {
 		StringBuffer buf = new StringBuffer();
