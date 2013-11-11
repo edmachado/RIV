@@ -23,7 +23,6 @@
     	<version>${project.version}</version>
     	<scope>runtime</scope>
     </dependency>
- 
     <dependency>
     	<groupId>org.fao.riv</groupId>
     	<artifactId>RIV4-service</artifactId>
@@ -51,6 +50,25 @@
   			<artifactId>maven-resources-plugin</artifactId>
   			<executions>
   				<execution>
+  					<id>make ftp index</id>
+  					<phase>generate-resources</phase>
+  					<goals>
+  						<goal>copy-resources</goal>
+  					</goals>
+  					<configuration>
+  						<outputDirectory>${project.build.directory}</outputDirectory>
+  						<resources>
+  							<resource>
+  								<directory>${basedir}/src/distro-ftp</directory>
+  								<filtering>true</filtering>
+						        <includes>
+						          <include>**/*.html</include>
+						        </includes>
+  							</resource>
+  						</resources>
+  					</configuration>
+  				</execution>
+  				<execution>
   					<id>prepare-cd</id>
   					<phase>generate-resources</phase>
   					<goals>
@@ -59,16 +77,16 @@
   					<configuration>
 						<outputDirectory>${cd}</outputDirectory>
 						<resources>
-					<resource>
-						<directory>${izpack.dir}/CD</directory>
-						<filtering>false</filtering>
-						<includes>
-							<include>**/*</include>
-						</includes>
-						<excludes>
-				          <exclude>**/.gitignore</exclude>
-				        </excludes>
-					</resource>
+							<resource>
+								<directory>${izpack.dir}/CD</directory>
+								<filtering>false</filtering>
+								<includes>
+									<include>**/*</include>
+								</includes>
+								<excludes>
+						          <exclude>**/.gitignore</exclude>
+						        </excludes>
+							</resource>
 						</resources>
   					</configuration>
   				</execution>
