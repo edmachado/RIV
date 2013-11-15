@@ -38,9 +38,6 @@ public class FirstUserAction {
 		user.email = args[7];
 		user.language = args[8];
 		
-
-		uih.logOutput("TEST: password: "+ user.password, false);
-		
 		try {
 			execute(user);
 		} catch (Exception e) {
