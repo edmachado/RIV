@@ -217,6 +217,12 @@ public class DataService implements UserDetailsService {
 	public void storeProject(Project project, boolean storeResult) {
 		repo.storeProject(project, storeResult);
 	}
+	public void deleteProjectResult(int id) {
+		repo.deleteProjectResult(id);
+	}
+	public void deleteProfileResult(int id) {
+		repo.deleteProfileResult(id);
+	}
 	public void deleteProject(Project p) {
 		repo.deleteProject(p);
 	}

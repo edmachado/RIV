@@ -3540,7 +3540,10 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (E)", translate("profile.report.preliminary.annualGeneral")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_GENERAL_TOTAL), Style.CURRENCY);
+			String formula = report.getLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL)==null 
+					? report.getLink(ExcelLink.PROFILE_GENERAL_TOTAL)
+					: report.getLink(ExcelLink.PROFILE_GENERAL_TOTAL) + "-" + report.getLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL);
+			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
 			report.addNumericCell(row, cellNum, result.getGeneralCost(), Style.CURRENCY);
 		}

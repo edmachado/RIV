@@ -117,6 +117,15 @@ public class BlockController {
     public String delete(@ModelAttribute("block") BlockBase block) {
     	String view = "../"+successView(block);
     	dataService.deleteBlock(block);
+    	// if last block has been removed, can't be considered complete anymore
+    	if (block.getClass()==Block.class && block.getOrderBy()==0) {
+    		Project p = dataService.getProject(block.getProject().getProjectId(), 9);
+    		if (p.getBlocks().size()==0) {
+    			p.setWizardStep(9);
+    			dataService.storeProject(p, false);
+    			dataService.deleteProjectResult(p.getProjectId());
+    		}
+    	}
     	return "redirect:"+view;
     }
     

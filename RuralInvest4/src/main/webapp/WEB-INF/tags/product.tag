@@ -29,7 +29,7 @@
 							<td><span id="${unique}unitType">${product.unitType}</span></td>
 							<c:if test="${accessOK}">
 								<td><a href="../product/${product.productId}"><img src="../../img/edit.png" border="0"/> <spring:message code="${prodType}.editDesc"/></a></td>
-						    	<td><a href="javascript:confirmDelete('../product/${product.productId}/delete');"><img src="../../img/delete.gif" border="0"/> <spring:message code="${prodType}.delete"/></a></td>
+						    	<td><a id="delete${unique}" href="javascript:confirmDelete('../product/${product.productId}/delete');"><img src="../../img/delete.gif" border="0"/> <spring:message code="${prodType}.delete"/></a></td>
 					   		</c:if>
 					   		<c:if test="${not accessOK}"><td colspan="2"/></td></c:if>
 							

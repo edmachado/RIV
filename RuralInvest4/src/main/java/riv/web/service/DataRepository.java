@@ -852,10 +852,17 @@ public class DataRepository {
 		}
 	}
 	
+	public void deleteProjectResult(int id) {
+		currentSession().createQuery("delete from ProjectResult where projectId=:id").setInteger("id", id).executeUpdate();
+	}
+	
+	public void deleteProfileResult(int id) {
+		currentSession().createQuery("delete from ProfileResult where profileId=:id").setInteger("id", id).executeUpdate();
+	}
+	
 	public void deleteProject(Project p) {
 		if (p.getWizardStep() == null) {
-			ProjectResult pr = getProjectResult(p.getProjectId());
-			currentSession().delete(pr);
+			deleteProjectResult(p.getProjectId());
 		}
 		currentSession().createQuery("delete from ProjectFile where probaseId=:id").setInteger("id", p.getProjectId()).executeUpdate();
 		currentSession().delete(p);

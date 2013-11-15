@@ -113,6 +113,17 @@ public class ProfileProductController {
     public String delete(@ModelAttribute("profileProduct") ProfileProductBase profileProduct) {
     	String view = "../"+successView(profileProduct);
     	dataService.deleteProfileProduct(profileProduct);
+    	
+    	// if last product has been removed, can't be considered complete anymore
+    	if (profileProduct.getClass()==ProfileProduct.class && profileProduct.getOrderBy()==0) {
+    		Profile p = dataService.getProfile(profileProduct.getProfile().getProfileId(), 6);
+    		if (p.getProducts().size()==0) {
+    			p.setWizardStep(6);
+    			dataService.storeProfile(p, false);
+    			dataService.deleteProfileResult(p.getProfileId());
+    		}
+    	}
+    	
     	return "redirect:"+view;
     }
     
