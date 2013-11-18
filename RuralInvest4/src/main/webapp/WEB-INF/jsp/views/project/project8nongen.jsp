@@ -183,7 +183,7 @@
 					<tags:formatCurrency value="${gen.total}"/><c:set var="genTotal" value="${genTotal+gen.total}"/>
 				</display:column>
 				<display:column titleKey="projectNongenGeneral.statePublic" sortable="true" sortProperty="statePublic">
-					<tags:formatCurrency value="${gen.statePublic}"/><c:set var="genState" value="${genState+row.statePublic}"/>
+					<tags:formatCurrency value="${gen.statePublic}"/><c:set var="genState" value="${genState+gen.statePublic}"/>
 				</display:column>
 				<display:column titleKey="projectNongenGeneral.other1" sortable="true" sortProperty="other1">
 					<tags:formatCurrency value="${gen.other1}"/><c:set var="genOther" value="${genOther+gen.other1}"/>

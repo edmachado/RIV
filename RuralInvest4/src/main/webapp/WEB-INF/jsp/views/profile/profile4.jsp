@@ -147,7 +147,7 @@
 					</c:if>
 				</display:column>
 				<display:column title="&nbsp;" style="margin-left:5px;" media="html">
-					<a href="../item/${lab.profItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
+					<a id="editLabour${lab.orderBy}" href="../item/${lab.profItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 				</display:column>
 				<display:column title="&nbsp;" media="html">
 					<a href="../item/${lab.profItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>

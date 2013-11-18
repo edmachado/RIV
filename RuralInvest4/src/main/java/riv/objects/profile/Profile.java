@@ -73,7 +73,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="FIELD_OFFICE")
 	private FieldOffice fieldOffice;
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne //(fetch=FetchType.LAZY)
 	@JoinColumn(name="TECHNICIAN")
 	private User technician;
 	@ManyToOne(fetch=FetchType.LAZY)

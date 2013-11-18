@@ -445,10 +445,10 @@ public class DataRepository {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Profile.class).add(Restrictions.eq("profileId", id));
 		Profile p = (Profile)criteria.uniqueResult();
 		if (p!=null) {
+			//Hibernate.initialize(p.getTechnician());
 			if (step==1 || step==-1) {
 				Hibernate.initialize(p.getFieldOffice());
 				Hibernate.initialize(p.getStatus());
-				Hibernate.initialize(p.getTechnician());
 			}
 			if (step==4 || step==-1) {
 				Hibernate.initialize(p.getGlsGoods());
@@ -765,12 +765,12 @@ public class DataRepository {
 				.createCriteria(Project.class)
 				.add(Restrictions.eq("projectId", id));
 		Project p = (Project) criteria.uniqueResult();
-		
+
 		// only populate collections necessary for the operation performed
+		Hibernate.initialize(p.getTechnician());
 		if (step==1 || step==-1) {
 			Hibernate.initialize(p.getFieldOffice());
 			Hibernate.initialize(p.getStatus());
-			Hibernate.initialize(p.getTechnician());
 			Hibernate.initialize(p.getBeneficiary());
 			Hibernate.initialize(p.getEnviroCategory());
 			Hibernate.initialize(p.getProjCategory());

@@ -1,6 +1,8 @@
 package riv.util.validators;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -117,10 +119,16 @@ public class ValidateUtils {
 		}
 		if (isMissing)  {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
-		} else if (propertyValue < 0) {
+		} else if (round(propertyValue, 4) < 0 ) { 
 			errors.rejectValue(fieldName, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
 		}
 	}
+	
+	private static double round(double d, int scale) {
+		 BigDecimal bd = new BigDecimal(Double.toString(d));
+		    bd = bd.setScale(scale,BigDecimal.ROUND_HALF_UP);
+		    return bd.doubleValue();
+	 }
 	
 	public static void rejectIfEmptyOrNegative(Object bean, String fieldName, String fieldCode, Errors errors) {
 		double propertyValue=0;

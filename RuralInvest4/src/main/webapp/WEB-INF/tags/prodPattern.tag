@@ -6,7 +6,7 @@
 	<c:if test="${project.incomeGen}"><spring:message code="projectBlock.pattern.qty"/></c:if>
 	<c:if test="${not project.incomeGen}"><spring:message code="projectActivity.pattern.qty"/></c:if>
 </c:set>
-<table id="prodPattern${unique}" border="0" cellspacing="0" cellpadding="1" bgcolor="#B5B6B5" align="left">
+<table id="prodPattern${unique}" border="0" cellspacing="0" cellpadding="1" bgcolor="#B5B6B5" align="left" style="border: 1px solid #B5B6B5;">
 <tbody>
 		<tr class="data-header">								
 			<th style="text-align:left; font-size : 11px;" width="150"><spring:message code="projectBlock.pattern.years"/></th>

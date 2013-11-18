@@ -29,7 +29,7 @@ public class ProfileItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "profileLabour.unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", "profileLabour.unitCost", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResource", "profileLabour.ownResource", errors);
-			ValidateUtils.rejectIfNegative(i, "donated", "profileLabour.donated", errors);
+			ValidateUtils.rejectIfNegative(i, "donated", "profileLabour.externalResources", errors);
 			ValidateUtils.rejectIfNegative(i, "total", "profileLabour.totalCost", errors);
 		} else {// if (obj.getClass().isAssignableFrom(ProfileItemGeneral.class)) {
 			ValidateUtils.rejectIfEmpty(i, "description", "profileGeneral.description", errors);
