@@ -103,6 +103,9 @@ public class UploadController implements Serializable {
 			try {
 				dataService.storeProfile(p, false);
 				attachTools.saveAttachedFilesFromZip(p, containingFile);
+			} catch (javax.validation.ConstraintViolationException ex) {
+				LOG.error("Constraint exception when importing profile");
+				throw new RuntimeException("Constraint error:"+ex.getLocalizedMessage(),ex);
 			} catch (Exception e) {
 				LOG.error("Error saving imported profile.", e);
 				throw new RuntimeException("Error saving imported profile.", e);
@@ -137,6 +140,9 @@ public class UploadController implements Serializable {
 			try {
 				dataService.storeProject(p, false);
 				attachTools.saveAttachedFilesFromZip(p,  containingFile);
+			} catch (javax.validation.ConstraintViolationException ex) {
+				LOG.error("Constraint exception when importing project");
+				throw new RuntimeException("Constraint error: "+ex.getLocalizedMessage(),ex);
 			} catch (Exception e) {
 				LOG.error("Error saving imported project.", e);
 				throw new RuntimeException("Error saving imported project.", e);

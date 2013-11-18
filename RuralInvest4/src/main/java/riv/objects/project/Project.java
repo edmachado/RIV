@@ -119,11 +119,11 @@ public class Project extends Probase implements java.io.Serializable {
 	private String location3;
 	@Column(name="BENEF_NAME")
 	private String benefName;
-	@Size(max=3000)
+	@Size(max=10000)
 	@Column(name="BENEF_DESC")
 	private String benefDesc;
 	private Integer duration;
-	@Size(max=3000)
+	@Size(max=10000)
 	@Column(name="PROJ_DESC")
 	private String projDesc;
 	@Column(name="BENE_DIRECT_NUM")
@@ -142,24 +142,24 @@ public class Project extends Probase implements java.io.Serializable {
 	private Integer beneIndirectWomen;
 	@Column(name="BENE_INDIRECT_CHILD")
 	private Integer beneIndirectChild;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String justification;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String activities;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String technology;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String requirements;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String sustainability;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String market;
-	@Size(max=3000)
+	@Size(max=10000)
 	@Column(name="ENVIRO_IMPACT")
 	private String enviroImpact;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String organization;
-	@Size(max=3000)
+	@Size(max=10000)
 	private String assumptions;
 	@Column(name="LOAN1_INTEREST")
 	private Double loan1Interest;
@@ -195,7 +195,7 @@ public class Project extends Probase implements java.io.Serializable {
 	@DateTimeFormat(iso=ISO.DATE)
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date reccDate;
-	@Size(max=3000)
+	@Size(max=10000)
 	@Column(name="RECC_DESC")
 	private String reccDesc;
 	
