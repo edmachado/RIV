@@ -117,14 +117,14 @@ public class Profile extends Probase implements java.io.Serializable {
 	@Size(max=150)
 	private String benefName;
 	@Column(name="BENEF_DESC")
-	@Size(max=2000)
+	@Size(max=3000)
 	private String benefDesc;
 	@Column(name="BENEF_NUM")
 	private Integer benefNum;
 	@Column(name="BENEF_FAMILIES")
 	private Integer benefFamilies;
 	@Column(name="PROJ_DESC")
-	@Size(max=2000)
+	@Size(max=3000)
 	private String projDesc;
 	@Column(name="RECC_CODE")
 	private Short reccCode;
@@ -133,17 +133,17 @@ public class Profile extends Probase implements java.io.Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date reccDate;
 	@Column(name="RECC_DESC")
-	@Size(max=2000)
+	@Size(max=3000)
 	private String reccDesc;
-	@Size(max=2000)
+	@Size(max=3000)
 	private String market;
 	@Column(name="ENVIRO_IMPACT")
-	@Size(max=2000)
+	@Size(max=3000)
 	private String enviroImpact;
-	@Size(max=2000)
+	@Size(max=3000)
 	private String organization;
 	@Column(name="SOURCE_FUNDS")
-	@Size(max=2000)
+	@Size(max=3000)
 	private String sourceFunds;
 	private boolean shared=true;
 	@Column(name="WITH_WITHOUT")
