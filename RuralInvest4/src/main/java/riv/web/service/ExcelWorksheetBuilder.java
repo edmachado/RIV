@@ -1932,7 +1932,7 @@ public class ExcelWorksheetBuilder {
 				
 				// secondary interest when grace on capital
 				formula = String.format("IF(%s%d>0,0,IF(%s2<=%s,%s%d*(%s-%s)/100,0))",
-						col, loan2InterestDuringGrace, col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST),
+						col, loan2InterestDuringGrace, col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
 						col, loan2InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN2_RATE),
 						report.getLink(ExcelLink.PROJECT_INFLATION));
 				report.addFormulaCell(sheet.getRow(loan2InterestAfterGrace-1), yearNum, formula, Style.CURRENCY);
