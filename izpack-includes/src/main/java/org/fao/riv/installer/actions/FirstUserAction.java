@@ -46,16 +46,6 @@ public class FirstUserAction {
 	}
 	
 	private void execute(FirstUserData user) throws Exception {
-		// Encrypt password
-//		String passwordHash = null;
-//		try {
-//			passwordHash = computeSha1OfByteArray(user.password);
-//		} catch (NoSuchAlgorithmException e) {
-//			throw (e);
-//		} catch (UnsupportedEncodingException e) {
-//			throw (e);
-//		}
-
 		try {
 			// delete riv.lck
 			File dblock = new File(user.webroot+"/riv.lck");
