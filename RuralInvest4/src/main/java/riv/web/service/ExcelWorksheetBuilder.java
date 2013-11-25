@@ -1046,13 +1046,7 @@ public class ExcelWorksheetBuilder {
 		SheetName sheetname = project.isWithWithout() ? without ? SheetName.PROJECT_INVEST_WITHOUT : SheetName.PROJECT_INVEST_WITH : SheetName.PROJECT_INVEST;
 				
 		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
-
-		for (short i = 3; i <= 10; i++) {
-			if (! (i == 8) ) {
-				sheet.setDefaultColumnStyle(i, report.getStyles().get(Style.CURRENCY));
-
-			}
-		}
+		
 		sheet.setColumnWidth(1, 75*36);
 		sheet.setSelected(!without);
 		
@@ -1299,7 +1293,6 @@ public class ExcelWorksheetBuilder {
 
 		
 		// Investment - Breakdown by type
-		//ArrayList<Value> list = new ArrayList<Value>();
 		double investAssets = 0.0;
 		double investLabour = 0.0;
 		double investService= 0.0;
