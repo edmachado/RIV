@@ -347,7 +347,7 @@ public class PdfReportCreator {
 	}
 	
 	public ReportWrapper projectProfitability(Project project, ProjectResult result, int startPage) {
-		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.TotalCosts);
+		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.Incremental);
 		ReportWrapper report = new ReportWrapper("/reports/project/projectProfitability.jasper", true, data, "projectProfitability.pdf", startPage);
 		
 		JasperReport jrIndicators = compileReport("/reports/project/projectProfitabilityIndicators.jasper");

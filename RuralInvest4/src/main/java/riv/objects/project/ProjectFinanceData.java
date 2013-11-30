@@ -342,7 +342,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 	}
 
 	public enum AnalysisType {
-		CashFlow, TotalCosts, ProducerCosts
+		CashFlow, Incremental// TotalCosts//, ProducerCosts
 	}
 	
 	/**

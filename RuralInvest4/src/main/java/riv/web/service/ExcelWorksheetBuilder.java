@@ -1981,7 +1981,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet projectProfitability(ExcelWrapper report, Project project, ProjectResult result) {
-		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.TotalCosts);
+		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.Incremental);
 		ProjectFinanceData.AddLoanAmortization(project, data);
 		ProjectFinanceData.AddWorkingCapital(project, data);
 		ProjectFinanceData.CalculateCumulative(data);

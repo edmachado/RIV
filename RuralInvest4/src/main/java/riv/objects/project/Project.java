@@ -1586,7 +1586,7 @@ public double getInvestmentTotal() {
 		double investDonated=0.0;
 		
 		if (this.getIncomeGen()) { // INCOME GENERATING
-			ArrayList<ProjectFinanceData> finData = ProjectFinanceData.analyzeProject(this, AnalysisType.TotalCosts);
+			ArrayList<ProjectFinanceData> finData = ProjectFinanceData.analyzeProject(this, AnalysisType.Incremental);
 			double annualNetIncome=0.0;
 			annualNetIncome = finData.get(finData.size()-1).getNetIncome() - finData.get(finData.size()-1).getIncResidual();
 			pr.setAnnualNetIncome(annualNetIncome);
@@ -1597,9 +1597,9 @@ public double getInvestmentTotal() {
 			pr.setIrr(Calculator.internalRateOfReturn(discount,finData, false));
 			
 			// npv and irr with donation
-			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(this, AnalysisType.ProducerCosts);
-			double npvWith = Calculator.netPresentValue(discount, data, true);
-			BigDecimal irrWith = Calculator.internalRateOfReturn(discount, data, true);
+			//ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(this, AnalysisType.Incremental);
+			double npvWith = Calculator.netPresentValue(discount, finData, true);
+			BigDecimal irrWith = Calculator.internalRateOfReturn(discount, finData, true);
 			pr.setNpvWithDonation(npvWith);
 			pr.setIrrWithDonation(irrWith);
 			

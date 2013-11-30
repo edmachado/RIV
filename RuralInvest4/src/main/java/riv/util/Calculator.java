@@ -11,6 +11,18 @@ import riv.objects.project.ProjectFinanceData;
  */
 public class Calculator {
 	
+	private static double[] getFlow(ArrayList<ProjectFinanceData> financeData, boolean includeDonation) {
+		double[] cashFlows = new double[financeData.size()+1];
+		cashFlows[0] = financeData.get(0).getCostInvestDonated()-financeData.get(0).getCostInvestDonatedWithout();
+		int index=0;
+		for (ProjectFinanceData data : financeData) {
+			cashFlows[index] = includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
+	   		index++;
+		}
+		cashFlows[1]=cashFlows[1]-(financeData.get(0).getCostInvestDonated()-financeData.get(0).getCostInvestDonatedWithout());
+		return cashFlows;
+	}
+	
 	/**
 	 * Wrapper for netPresentValue(double discountRate, double[] cashFlows).  Uses ArrayList of ProjectFinanceData to a cash flow array.
 	 * @param discountRate The discount rate at which to calculate NPV
@@ -19,13 +31,16 @@ public class Calculator {
 	 * @return the calculated Net Present Value
 	 */
 	public static final double  netPresentValue (double discountRate, ArrayList<ProjectFinanceData> financeData, boolean includeDonation)	{
+		/*
 		double[] cashFlows = new double[financeData.size()];
 	   	int index=0;
 	   	 for(ProjectFinanceData data:financeData) {
 	   		 cashFlows[index]= includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
 	   		 index++;
 	   	 }
-		return netPresentValue(discountRate, cashFlows);
+		*/
+	   	 double[] cashFlows = getFlow(financeData, includeDonation);
+	   	 return netPresentValue(discountRate, cashFlows);
 	}
 	
 	/**
@@ -49,12 +64,15 @@ public class Calculator {
 	 * @return calculated IRR
 	 */
 	public static final BigDecimal  internalRateOfReturn (double irrEstimate, ArrayList<ProjectFinanceData> financeData, boolean includeDonation) {
-		 double[] cashFlows = new double[financeData.size()];
+		/* double[] cashFlows = new double[financeData.size()];
 		   	int index=0;
 		   	 for(ProjectFinanceData data:financeData) {
 		   		 cashFlows[index]= includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
 		   		 index++;
 		   	 }
+		   	 */
+		double[] cashFlows = getFlow(financeData, includeDonation);
+	   	 
 			return internalRateOfReturn(irrEstimate, cashFlows);
 	 }
 	 
