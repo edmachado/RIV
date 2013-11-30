@@ -1594,7 +1594,12 @@ public double getInvestmentTotal() {
 			// !! npv and irr without donation
 			double discount = setting.getDiscountRate()/100;
 			pr.setNpv(Calculator.netPresentValue(discount, finData, false));
-			pr.setIrr(Calculator.internalRateOfReturn(discount,finData, false));
+			BigDecimal irrWithout = Calculator.internalRateOfReturn(discount,finData, false);
+			pr.setIrr(irrWithout);
+//					(irrWithout.compareTo(new BigDecimal(-1000))!=-1
+//					&& irrWithout.compareTo(new BigDecimal(1000))!=-1)
+//					? irrWithout : null
+//				);
 			
 			// npv and irr with donation
 			//ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(this, AnalysisType.Incremental);
@@ -1602,6 +1607,10 @@ public double getInvestmentTotal() {
 			BigDecimal irrWith = Calculator.internalRateOfReturn(discount, finData, true);
 			pr.setNpvWithDonation(npvWith);
 			pr.setIrrWithDonation(irrWith);
+//					(irrWith.compareTo(new BigDecimal(-1000))!=-1
+//					&& irrWith.compareTo(new BigDecimal(1000))!=-1)
+//					? irrWith : null
+//				);
 			
 			// add working capital
 			ProjectFirstYear pfy = new ProjectFirstYear(this);

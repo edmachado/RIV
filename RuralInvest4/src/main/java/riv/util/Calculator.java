@@ -12,14 +12,21 @@ import riv.objects.project.ProjectFinanceData;
 public class Calculator {
 	
 	private static double[] getFlow(ArrayList<ProjectFinanceData> financeData, boolean includeDonation) {
-		double[] cashFlows = new double[financeData.size()+1];
-		cashFlows[0] = financeData.get(0).getCostInvestDonated()-financeData.get(0).getCostInvestDonatedWithout();
-		int index=0;
-		for (ProjectFinanceData data : financeData) {
-			cashFlows[index] = includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
-	   		index++;
-		}
-		cashFlows[1]=cashFlows[1]-(financeData.get(0).getCostInvestDonated()-financeData.get(0).getCostInvestDonatedWithout());
+//		double[] cashFlows = new double[financeData.size()+1];
+//		double firstYrInvestment = financeData.get(0).getCostInvestDonated()-financeData.get(0).getCostInvestDonatedWithout();
+//		cashFlows[0] = firstYrInvestment;
+//		for (ProjectFinanceData data : financeData) {
+//			cashFlows[data.getYear()] = includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
+//		}
+//		cashFlows[1]=cashFlows[1]-firstYrInvestment;
+		
+		double[] cashFlows = new double[financeData.size()];
+	   	int index=0;
+	   	 for(ProjectFinanceData data:financeData) {
+	   		 cashFlows[index]= includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
+	   		 index++;
+	   	 }
+		
 		return cashFlows;
 	}
 	
@@ -31,16 +38,8 @@ public class Calculator {
 	 * @return the calculated Net Present Value
 	 */
 	public static final double  netPresentValue (double discountRate, ArrayList<ProjectFinanceData> financeData, boolean includeDonation)	{
-		/*
-		double[] cashFlows = new double[financeData.size()];
-	   	int index=0;
-	   	 for(ProjectFinanceData data:financeData) {
-	   		 cashFlows[index]= includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
-	   		 index++;
-	   	 }
-		*/
-	   	 double[] cashFlows = getFlow(financeData, includeDonation);
-	   	 return netPresentValue(discountRate, cashFlows);
+		double[] cashFlows = getFlow(financeData, includeDonation);
+	   	return netPresentValue(discountRate, cashFlows);
 	}
 	
 	/**
@@ -50,9 +49,9 @@ public class Calculator {
 	 * @return the Net Present Value
 	 */
 	private static final double  netPresentValue (double discountRate, double[] cashFlows)	{	   	 
-	   	double  npv = 0.0;
+		double  npv = 0.0;
 	   	for (int i=0; i<cashFlows.length; i++ ) {
-	   		npv += cashFlows [ i ] / Math.pow ( 1.0 + discountRate, i+1 );
+	   		npv += cashFlows[i] / Math.pow ( 1.0 + discountRate, i+1 );
 	   	}
 	   	return npv;
     }
@@ -64,16 +63,8 @@ public class Calculator {
 	 * @return calculated IRR
 	 */
 	public static final BigDecimal  internalRateOfReturn (double irrEstimate, ArrayList<ProjectFinanceData> financeData, boolean includeDonation) {
-		/* double[] cashFlows = new double[financeData.size()];
-		   	int index=0;
-		   	 for(ProjectFinanceData data:financeData) {
-		   		 cashFlows[index]= includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
-		   		 index++;
-		   	 }
-		   	 */
 		double[] cashFlows = getFlow(financeData, includeDonation);
-	   	 
-			return internalRateOfReturn(irrEstimate, cashFlows);
+	   	return internalRateOfReturn(irrEstimate, cashFlows);
 	 }
 	 
     /**

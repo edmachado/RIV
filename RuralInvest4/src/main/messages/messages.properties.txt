@@ -1,3 +1,6 @@
+project.report.profitability.totalMinusInvest.before=Total before donation minus investment in first year
+project.report.profitability.totalMinusInvest.after=Total after donation minus investment in first year
+
 project.report.cashFlow.income.total=Total income
 project.report.cashFlow.costs.total=Total expenses
 project.report.cashFlow.income.wcDonation=Working capital donation

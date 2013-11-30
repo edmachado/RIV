@@ -2010,6 +2010,13 @@ public class ExcelWorksheetBuilder {
 		
 		rowNum = addRowTitles(new String[] {"project.report.profitability.donations","project.report.profitability.donations.wc","project.report.profitability.donations.investment","misc.total","project.report.profitability.donations.netAfter"}, rowNum++, sheet, report);
 		
+		row = sheet.createRow(23);
+		report.addTextCell(row, 0, translate("project.report.profitability.totalMinusInvest.before"));
+		row = sheet.createRow(24);
+		row = sheet.createRow(25);
+		report.addTextCell(row, 0, translate("project.report.profitability.totalMinusInvest.after"));
+		row = sheet.createRow(26);
+		
 		// real data
 		String col;
 		StringBuilder formulaBuild;
@@ -2330,12 +2337,9 @@ public class ExcelWorksheetBuilder {
 				}
 				report.addFormulaCell(sheet.getRow(19), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				
-				// total
-				report.addFormulaCell(sheet.getRow(20), yearNum, col+"19+"+col+"20", Style.CURRENCY);
-				// net income after donation
-				report.addFormulaCell(sheet.getRow(21), yearNum, col+"16+"+col+"21", Style.CURRENCY);
 				
-				rowNum++;
+				
+				//rowNum++;
 				
 				
 			} else {
@@ -2361,34 +2365,44 @@ public class ExcelWorksheetBuilder {
 				// Donations
 				report.addNumericCell(sheet.getRow(18), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
 				report.addNumericCell(sheet.getRow(19), yearNum, pfd.getCostInvestDonated(), Style.CURRENCY);
-				// total
-				report.addFormulaCell(sheet.getRow(20), yearNum, col+"19+"+col+"20", Style.CURRENCY);
-				// net income after donation
-				report.addFormulaCell(sheet.getRow(21), yearNum, col+"16+"+col+"21", Style.CURRENCY);
 				
-				rowNum++;
+				//rowNum++;
 			}
+			
+			// formulas for both complete report and profitability-only report
+			// total
+			report.addFormulaCell(sheet.getRow(20), yearNum, col+"19+"+col+"20", Style.CURRENCY);
+			// net income after donation
+			report.addFormulaCell(sheet.getRow(21), yearNum, col+"16+"+col+"21", Style.CURRENCY);
+
+			// helper rows for irr/npv flows
+			report.addFormulaCell(sheet.getRow(24), yearNum, yearNum==1 ? "B16-B20" : getColumn(yearNum)+"16", Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(26), yearNum, yearNum==1 ? "B22-B20" : getColumn(yearNum)+"22", Style.CURRENCY);
 		}
+		
+		// helper rows for npv/irr
+		report.addFormulaCell(sheet.getRow(24), 0, "B20", Style.CURRENCY);
+		report.addFormulaCell(sheet.getRow(26), 0, "B20", Style.CURRENCY);
 		
 		// Indicators
 		int tind = 4;
-		row = sheet.createRow(23);
+		row = sheet.createRow(28);
 		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
 		report.addTextCell(row, 0, translate("project.report.profitability.indicators"), Style.H2);
 
-		row = sheet.createRow(24);
+		row = sheet.createRow(29);
 		report.addTextCell(row, 1, translate("project.report.profitability.totInvestAllCosts"), Style.H2);
 		report.addTextCell(row, tind, translate("project.report.profitability.totInvestApplicant"), Style.H2);
 
-		row = sheet.createRow(25);
+		row = sheet.createRow(30);
 		report.addTextCell(row, 0, translate("project.irr.long"));
-		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(IRR(B16:%1$s16)),IRR(B16:%1$s16),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
-		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(IRR(B22:%1$s22)),IRR(B22:%1$s22),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
+		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(IRR(A25:%1$s25)),IRR(A25:%1$s25),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
+		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(IRR(A27:%1$s27)),IRR(A27:%1$s27),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
 		
-		row = sheet.createRow(26);
+		row = sheet.createRow(31);
 		report.addTextCell(row, 0, translate("project.npv.long"));
-		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(NPV(%1$f,B16:%2$s16)),NPV(%1$f,B16:%2$s16),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
-		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(NPV(%1$f,B22:%2$s22)),NPV(%1$f,B22:%2$s22),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
+		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(NPV(%1$f,A25:%2$s25)),NPV(%1$f,A25:%2$s25),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
+		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(NPV(%1$f,A27:%2$s27)),NPV(%1$f,A27:%2$s27),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
 		
 		return sheet;
 	}
