@@ -151,6 +151,7 @@ public class InputProfileIg extends WebTestUtil {
 		//TODO: test delete product
 		// add products
 		int i=1; 
+		@SuppressWarnings("unused")
 		int withs=0;
 		boolean nextItem=true;
 		while (nextItem) {

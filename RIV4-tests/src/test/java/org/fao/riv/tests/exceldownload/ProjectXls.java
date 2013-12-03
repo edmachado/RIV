@@ -66,7 +66,7 @@ public class ProjectXls extends WebTestUtil {
 	
 	@Test
 	public void projectIGi18n() throws IOException {
-		String[] langs = {"en","es","fr"};//,"pt","tr","ru","ar"};
+		String[] langs = {"en","es","fr","ru","pt"};//,"tr","ar"};
 		for (String lang : langs) {
 			clickLink("goHome");
 			deletePros(true, true);
