@@ -2,6 +2,7 @@ package riv.web.controller;
  
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -60,9 +61,33 @@ public class SettingsController {
 	@RequestMapping(value="/config/settings", method=RequestMethod.POST)
 	public String saveSettings(@Valid Setting setting, BindingResult result,
 			HttpServletRequest request, @RequestParam("tempLogo") MultipartFile tempLogo) {
+		
 		if (setting.getOrgLogo()==null && tempLogo.getSize()==0) {
 			result.reject("error.logo");
 		}
+		
+		// in case decimal separator is changing... make sure decimals are parsed correctly
+		boolean decProblem=false;
+		try {
+			decProblem= setting.getDiscountRate()!=Double.parseDouble(request.getParameter("discountRate"))
+				||	setting.getExchRate()!=Double.parseDouble(request.getParameter("exchRate"));	
+		} catch (NumberFormatException e) {
+			decProblem=true;
+		}
+		if (decProblem) {
+			DecimalFormat df = setting.getDecimalFormat();
+			try {
+				setting.setDiscountRate(df.parse(request.getParameter("discountRate")).doubleValue());
+			} catch (ParseException e) {
+				result.rejectValue("discountRate", "error.fieldRequired");
+			}
+			try {
+				setting.setExchRate(df.parse(request.getParameter("exchRate")).doubleValue());
+			} catch (ParseException e) {
+				result.rejectValue("exchRate", "error.fieldRequired");
+			}
+		}
+		
 		if (result.hasErrors()) {
 			return "config/settings";
 		} else {

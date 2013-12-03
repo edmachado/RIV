@@ -34,17 +34,21 @@
 		<band height="32" splitType="Stretch">
 			<subreport isUsingCache="true">
 				<reportElement uuid="567c3e0f-1d36-4a87-988f-cfb8b5e0f746" key="subreport-1" mode="Opaque" x="1" y="1" width="807" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
-				<subreportParameter name="rivConfig">
-					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="proName">
 					<subreportParameterExpression><![CDATA[$P{projectName}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="reportTitle">
-					<subreportParameterExpression><![CDATA[$R{project.report.production}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{incomeGen} ?
+$R{project.report.production}
+: $R{project.report.production.nonGen}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="proType">
-					<subreportParameterExpression><![CDATA[($P{incomeGen}.booleanValue()) ? $R{project.incomeGen} : $R{project.nonIncomeGen}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{incomeGen}
+? $R{project.report.production}
+: $R{project.report.production.nonGen}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rivConfig">
+					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -591,10 +595,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[!$P{withWithout} ? $F{description} :
-$F{withProject}
-? $F{description} + " ("+$R{projectBlock.with.with}+")"
-: $F{description} + " ("+$R{projectBlock.with.without}+")"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="49cb6da1-4446-4f71-8eca-d29bba0b79f9" key="textField-24" mode="Opaque" x="163" y="1" width="50" height="11" forecolor="#003365" backcolor="#FFFFFF"/>

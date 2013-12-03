@@ -439,16 +439,16 @@ public class PdfReportCreator {
 		report.getParams().put("labourTypes", this.labourTypes());
 		report.getParams().put("lengthUnits", this.lengthUnits());
 		report.getParams().put("withWithout", project.isWithWithout());
-		
-		String reportname = project.getIncomeGen() ? "G: "+translate("project.report.blockDetail") : "F: "+translate("project.report.activityDetail");
+		String reportTitle = project.getIncomeGen() ? translate("project.report.blockDetail") : translate("project.report.activityDetail");
 		if (project.isWithWithout()) {
 			if (withoutProject) {
-				reportname = reportname + " ("+translate("projectBlock.with.without")+")";
+			    reportTitle = reportTitle + " ("+translate("projectBlock.with.without")+")";
 			} else {
-				reportname = reportname + " ("+translate("projectBlock.with.with")+")";
+				 reportTitle = reportTitle + " ("+translate("projectBlock.with.with")+")";
 			}
 		}
-		report.getParams().put("reportname", reportname);
+		report.getParams().put("reportTitle", reportTitle);
+		report.getParams().put("reportname", project.getIncomeGen() ? "G: "+reportTitle : "F: "+reportTitle);
 		
 		runReport(report);
 		return report;
@@ -495,8 +495,9 @@ public class PdfReportCreator {
 		report.getParams().put("duration", project.getDuration());
 		report.getParams().put("withWithout", project.isWithWithout());
 		report.getParams().put("lengthUnits", lengthUnits());
-		String reportName = project.getIncomeGen() ? "E: "+translate("project.report.production") : "E: "+translate("project.report.production.nonGen");
-		report.getParams().put("reportname", reportName);
+		String reportName = project.getIncomeGen() ? translate("project.report.production") : translate("project.report.production.nonGen");
+		report.getParams().put("reportname", "E: "+reportName);
+		
 		
 		runReport(report);
 		return report;
