@@ -12,23 +12,28 @@ import riv.objects.project.ProjectFinanceData;
 public class Calculator {
 	
 	private static double[] getFlow(ArrayList<ProjectFinanceData> financeData, boolean includeDonation) {
-//		double[] cashFlows = new double[financeData.size()+1];
-//		double firstYrInvestment = financeData.get(0).getCostInvestDonated()-financeData.get(0).getCostInvestDonatedWithout();
-//		cashFlows[0] = firstYrInvestment;
-//		for (ProjectFinanceData data : financeData) {
-//			cashFlows[data.getYear()] = includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
-//		}
-//		cashFlows[1]=cashFlows[1]-firstYrInvestment;
+		double[] cashFlows = new double[financeData.size()+1];
 		
-		double[] cashFlows = new double[financeData.size()];
-	   	int index=0;
-	   	 for(ProjectFinanceData data:financeData) {
-	   		 cashFlows[index]= includeDonation ? data.getNetIncomeAfterDonation() : data.getNetIncome();
-	   		 index++;
-	   	 }
+		cashFlows[0] = -1*(financeData.get(0).getCostInvest()-financeData.get(0).getCostInvestWithout());
+		for (ProjectFinanceData data : financeData) {
+			cashFlows[data.getYear()] = includeDonation ? round(data.getNetIncomeAfterDonation()) : round(data.getNetIncome());
+		}
+		
+		if (includeDonation) {
+			double donation =  round(financeData.get(0).getCostInvestDonated()-financeData.get(0).getCostInvestDonatedWithout());
+			cashFlows[0] = cashFlows[0]+donation;
+		}
+		
+		cashFlows[1]=cashFlows[1]-cashFlows[0];
 		
 		return cashFlows;
 	}
+	
+	private static double round(double d) {
+		 BigDecimal bd = new BigDecimal(Double.toString(d));
+		    bd = bd.setScale(2,BigDecimal.ROUND_HALF_UP);
+		    return bd.doubleValue();
+	 }
 	
 	/**
 	 * Wrapper for netPresentValue(double discountRate, double[] cashFlows).  Uses ArrayList of ProjectFinanceData to a cash flow array.
@@ -37,9 +42,14 @@ public class Calculator {
 	 * @param includeDonation whether or not to consider investment donations in calculation.  wc donation is not part of the calculation because wc donation should already be excluded or not (specified as a parameter in analyzeProject).
 	 * @return the calculated Net Present Value
 	 */
-	public static final double  netPresentValue (double discountRate, ArrayList<ProjectFinanceData> financeData, boolean includeDonation)	{
-		double[] cashFlows = getFlow(financeData, includeDonation);
-	   	return netPresentValue(discountRate, cashFlows);
+	public static final double netPresentValue (double discountRate, ArrayList<ProjectFinanceData> financeData, boolean includeDonation)	{
+		double[] cashFlowsIrr = getFlow(financeData, includeDonation);
+		// leave off first flow (investment 1st year + donation)
+		double[] cashFlowsNpv = new double[cashFlowsIrr.length-1];
+		for (int i=0;i<cashFlowsNpv.length;i++) {
+			cashFlowsNpv[i]=cashFlowsIrr[i+1];
+		}
+	   	return netPresentValue(discountRate, cashFlowsNpv)+cashFlowsIrr[0];
 	}
 	
 	/**

@@ -2011,10 +2011,10 @@ public class ExcelWorksheetBuilder {
 		rowNum = addRowTitles(new String[] {"project.report.profitability.donations","project.report.profitability.donations.wc","project.report.profitability.donations.investment","misc.total","project.report.profitability.donations.netAfter"}, rowNum++, sheet, report);
 		
 		row = sheet.createRow(23);
-		report.addTextCell(row, 0, translate("project.report.profitability.totalMinusInvest.before"));
+		report.addTextCell(row, 0, translate("project.report.profitability.totalMinusInvest.before"), Style.LABEL);
 		row = sheet.createRow(24);
 		row = sheet.createRow(25);
-		report.addTextCell(row, 0, translate("project.report.profitability.totalMinusInvest.after"));
+		report.addTextCell(row, 0, translate("project.report.profitability.totalMinusInvest.after"), Style.LABEL);
 		row = sheet.createRow(26);
 		
 		// real data
@@ -2078,21 +2078,36 @@ public class ExcelWorksheetBuilder {
 					for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
 						formulaBuild.append(
 								String.format("IF(OR(EXACT(%s!$L$%d,\"#\"), %s!$M$%d-1+%s!$I$%d>%s), " +
-										"%s!$C$%d*(%s!$D$%d-%s!$K$%d)/%s!$I$%d*(MOD(%s!$I$%d-%s-%s!$M$%d,%s!$I$%d))+%s!$C$%d*%s!$K$%d"+
+										"%s!$C$%d*"+
+										"(%s!$D$%d-%s!$K$%d)/%s!$I$%d*"+
+										
+										"IF(%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d)),0)+"+
+										
+										"%s!$C$%d*%s!$K$%d"+
 										", 0)+", 
 										assetSheetName, i, 
 										assetSheetName, i, 
 										assetSheetName, i,
 										report.getLink(ExcelLink.PROJECT_DURATION),
+										
+										assetSheetName, i,
+										
+										assetSheetName, i,
+										assetSheetName, i,
+										assetSheetName, i,
+										
 										assetSheetName, i,
 										assetSheetName, i,
 										assetSheetName, i,
 										assetSheetName, i,
 										
 										assetSheetName, i,
-										report.getLink(ExcelLink.PROJECT_DURATION),
+										
 										assetSheetName, i,
 										assetSheetName, i,
+										assetSheetName, i,
+										assetSheetName, i,
+										
 										assetSheetName, i,
 										assetSheetName, i
 									)
@@ -2124,7 +2139,7 @@ public class ExcelWorksheetBuilder {
 							);
 						}
 					}
-					report.addFormulaCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
+					report.addTextCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				} else {
 					report.addNumericCell(sheet.getRow(5), yearNum, 0, Style.CURRENCY);
 				}
@@ -2201,7 +2216,7 @@ public class ExcelWorksheetBuilder {
 				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
 				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
 					formulaBuild.append(
-							String.format("IF(AND(%S2>=%s!$M$%d, OR(%s!K%d=\"#\", %s2<%s!M%d+%s!I%d)), %s!$C$%d*%s!$J$%d,0)+",
+							String.format("IF(AND(%S2>=%s!$M$%d, OR(%s!$L$%d=\"#\", %s2<%s!$M$%d+%s!$I$%d)), %s!$C$%d*%s!$J$%d,0)+",
 									col,assetSheetName, i, 
 									assetSheetName, i,
 									col, assetSheetName, i,
@@ -2215,7 +2230,7 @@ public class ExcelWorksheetBuilder {
 					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW));
 					for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
 						formulaBuild.append(
-								String.format("-IF(AND(%s2>=%s!$M$%d, OR(%s!K%d=\"#\", %s2<%s!M%d+%s!I%d)), %s!$C$%d*%s!$J$%d,0)",
+								String.format("-IF(AND(%s2>=%s!$M$%d, OR(%s!$L$%d=\"#\", %s2<%s!$M$%d+%s!$I$%d)), %s!$C$%d*%s!$J$%d,0)",
 										col,assetWithoutSheetName, i, 
 										assetWithoutSheetName, i,
 										col, assetWithoutSheetName, i,
@@ -2376,13 +2391,13 @@ public class ExcelWorksheetBuilder {
 			report.addFormulaCell(sheet.getRow(21), yearNum, col+"16+"+col+"21", Style.CURRENCY);
 
 			// helper rows for irr/npv flows
-			report.addFormulaCell(sheet.getRow(24), yearNum, yearNum==1 ? "B16-B20" : getColumn(yearNum)+"16", Style.CURRENCY);
-			report.addFormulaCell(sheet.getRow(26), yearNum, yearNum==1 ? "B22-B20" : getColumn(yearNum)+"22", Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(24), yearNum, yearNum==1 ? "B16-A25" : getColumn(yearNum)+"16", Style.CURRENCY);
+			report.addFormulaCell(sheet.getRow(26), yearNum, yearNum==1 ? "B22-A27" : getColumn(yearNum)+"22", Style.CURRENCY);
 		}
 		
 		// helper rows for npv/irr
-		report.addFormulaCell(sheet.getRow(24), 0, "B20", Style.CURRENCY);
-		report.addFormulaCell(sheet.getRow(26), 0, "B20", Style.CURRENCY);
+		report.addFormulaCell(sheet.getRow(24), 0, "-1*B14", Style.CURRENCY);
+		report.addFormulaCell(sheet.getRow(26), 0, "A25+B20", Style.CURRENCY);
 		
 		// Indicators
 		int tind = 4;
@@ -2401,8 +2416,8 @@ public class ExcelWorksheetBuilder {
 		
 		row = sheet.createRow(31);
 		report.addTextCell(row, 0, translate("project.npv.long"));
-		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(NPV(%1$f,A25:%2$s25)),NPV(%1$f,A25:%2$s25),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
-		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(NPV(%1$f,A27:%2$s27)),NPV(%1$f,A27:%2$s27),\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
+		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(NPV(%1$f,B25:%2$s25)),NPV(%1$f,B25:%2$s25)+A25,\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
+		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(NPV(%1$f,B27:%2$s27)),NPV(%1$f,B27:%2$s27)+A27,\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
 		
 		return sheet;
 	}

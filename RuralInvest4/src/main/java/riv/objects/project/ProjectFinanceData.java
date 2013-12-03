@@ -380,7 +380,13 @@ public class ProjectFinanceData implements java.io.Serializable{
 			}
 			if (asset.getReplace() || asset.getYearBegin()-1+asset.getEconLife()>project.getDuration()) {
 				double annualReserve = (asset.getUnitCost()-asset.getSalvage())/asset.getEconLife();
-				double yearsLeft = Math.abs((asset.getEconLife()-project.getDuration()-asset.getYearBegin()-1)%asset.getEconLife()); //asset.getEconLife()-((project.getDuration()+1-asset.getYearBegin())%asset.getEconLife());
+				double yearsLeft = asset.getEconLife()-(asset.getEconLife()-asset.getYearBegin()-1)%asset.getEconLife();
+				if (yearsLeft==asset.getEconLife()) {
+					yearsLeft=0;
+				}
+						//(asset.getEconLife()-project.getDuration()+asset.getYearBegin())%asset.getEconLife();
+						// Math.abs((asset.getEconLife()-project.getDuration()-asset.getYearBegin()-1)%asset.getEconLife()); 
+						//asset.getEconLife()-((project.getDuration()+1-asset.getYearBegin())%asset.getEconLife());
 				double residual = asset.getUnitNum()*annualReserve*yearsLeft+asset.getUnitNum()*asset.getSalvage();
 				data.get(data.size()-1).setIncResidual(data.get(data.size()-1).getIncResidual()+residual);
 			}
