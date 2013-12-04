@@ -2351,12 +2351,6 @@ public class ExcelWorksheetBuilder {
 					}
 				}
 				report.addFormulaCell(sheet.getRow(19), yearNum, formulaBuild.toString(), Style.CURRENCY);
-				
-				
-				
-				//rowNum++;
-				
-				
 			} else {
 				ProjectFinanceData pfd = data.get(yearNum-1);
 				
@@ -2379,9 +2373,7 @@ public class ExcelWorksheetBuilder {
 				
 				// Donations
 				report.addNumericCell(sheet.getRow(18), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
-				report.addNumericCell(sheet.getRow(19), yearNum, pfd.getCostInvestDonated(), Style.CURRENCY);
-				
-				//rowNum++;
+				report.addNumericCell(sheet.getRow(19), yearNum, pfd.getCostInvestDonated()-pfd.getCostInvestDonatedWithout(), Style.CURRENCY);
 			}
 			
 			// formulas for both complete report and profitability-only report

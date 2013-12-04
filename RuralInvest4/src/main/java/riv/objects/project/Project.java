@@ -1596,10 +1596,6 @@ public double getInvestmentTotal() {
 			pr.setNpv(Calculator.netPresentValue(discount, finData, false));
 			BigDecimal irrWithout = Calculator.internalRateOfReturn(discount,finData, false);
 			pr.setIrr(irrWithout);
-//					(irrWithout.compareTo(new BigDecimal(-1000))!=-1
-//					&& irrWithout.compareTo(new BigDecimal(1000))!=-1)
-//					? irrWithout : null
-//				);
 			
 			// npv and irr with donation
 			//ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(this, AnalysisType.Incremental);

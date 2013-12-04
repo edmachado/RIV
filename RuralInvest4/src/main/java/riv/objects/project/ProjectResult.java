@@ -207,13 +207,13 @@ public class ProjectResult implements java.io.Serializable {
 		return npvWithDonation;
 	}
 	public void setIrr(BigDecimal irr) {
-		this.irr = irr;
+		this.irr = onlyValidIrrs(irr);
 	}
 	public BigDecimal getIrr() {
 		return irr;
 	}
 	public void setIrrWithDonation(BigDecimal irrWithDonation) {
-		this.irrWithDonation = irrWithDonation;
+		this.irrWithDonation = onlyValidIrrs(irrWithDonation);
 	}
 	public BigDecimal getIrrWithDonation() {
 		return irrWithDonation;
@@ -306,6 +306,16 @@ public class ProjectResult implements java.io.Serializable {
 	public double getTotalCostsFinanced() {
 		return wcFinanced+investmentTotal-investmentDonated-investmentOwn;
 	}
+	
+	private BigDecimal onlyValidIrrs(BigDecimal irr) {
+		if (irr.compareTo(new BigDecimal(1000))==1) {
+			irr = new BigDecimal(9999999);
+		} else if (irr.compareTo(new BigDecimal(-1000))==-1) {
+			irr = new BigDecimal(-9999999);
+		}
+		return irr;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
