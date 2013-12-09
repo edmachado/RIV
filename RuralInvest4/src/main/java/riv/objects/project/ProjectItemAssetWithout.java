@@ -43,6 +43,18 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 			if (getUnitNum()==null || this.getUnitCost()==null) return 0.0;
 			return this.getUnitCost()*this.getUnitNum();
 		}
+		public Double getResidual() {
+			if (replace || yearBegin-1+econLife>this.getProject().getDuration()) {
+				double annualReserve = (unitCost-salvage)/econLife;
+				double yearsLeft = econLife-(econLife-yearBegin-1)%econLife;
+				if (yearsLeft==econLife) {
+					yearsLeft=0;
+				}
+				return unitNum*annualReserve*yearsLeft+unitNum*salvage;
+			} else {
+				return 0.0;
+			}
+		}
 		public Double getDonated() {
 		    return this.donated;
 		}

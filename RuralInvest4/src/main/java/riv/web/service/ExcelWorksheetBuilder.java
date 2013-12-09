@@ -2119,27 +2119,43 @@ public class ExcelWorksheetBuilder {
 						for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
 							formulaBuild.append(
 									String.format("-IF(OR(EXACT(%s!$L$%d,\"#\"), %s!$M$%d-1+%s!$I$%d>%s), " +
-											"%s!$C$%d*(%s!$D$%d-%s!$K$%d)/%s!$I$%d*(MOD(%s!$I$%d-%s-%s!$M$%d,%s!$I$%d))+%s!$C$%d*%s!$K$%d"+
+											"%s!$C$%d*"+
+											"(%s!$D$%d-%s!$K$%d)/%s!$I$%d*"+
+											
+											"IF(%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d)),0)+"+
+											
+											"%s!$C$%d*%s!$K$%d"+
 											", 0)", 
 											assetWithoutSheetName, i, 
 											assetWithoutSheetName, i, 
 											assetWithoutSheetName, i,
 											report.getLink(ExcelLink.PROJECT_DURATION),
+											
+											assetWithoutSheetName, i,
+											
+											assetWithoutSheetName, i,
+											assetWithoutSheetName, i,
+											assetWithoutSheetName, i,
+											
 											assetWithoutSheetName, i,
 											assetWithoutSheetName, i,
 											assetWithoutSheetName, i,
 											assetWithoutSheetName, i,
+											
 											assetWithoutSheetName, i,
-											report.getLink(ExcelLink.PROJECT_DURATION),
+											
 											assetWithoutSheetName, i,
 											assetWithoutSheetName, i,
+											assetWithoutSheetName, i,
+											assetWithoutSheetName, i,
+											
 											assetWithoutSheetName, i,
 											assetWithoutSheetName, i
 										)
 							);
 						}
 					}
-					report.addTextCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
+					report.addFormulaCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				} else {
 					report.addNumericCell(sheet.getRow(5), yearNum, 0, Style.CURRENCY);
 				}

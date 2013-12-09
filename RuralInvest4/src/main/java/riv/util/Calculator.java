@@ -49,7 +49,8 @@ public class Calculator {
 		for (int i=0;i<cashFlowsNpv.length;i++) {
 			cashFlowsNpv[i]=cashFlowsIrr[i+1];
 		}
-	   	return netPresentValue(discountRate, cashFlowsNpv)+cashFlowsIrr[0];
+		double npv = netPresentValue(discountRate, cashFlowsNpv);
+	   	return npv+cashFlowsIrr[0];	
 	}
 	
 	/**
