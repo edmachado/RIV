@@ -352,9 +352,13 @@ public class WebTestUtil {
     protected String[] projectStepTitles(boolean incomeGen) {
     	String[] titles = new String[13];
 		for (int i=0;i<13;i++) {
-			titles[i] = !incomeGen && (i==3 || i==8 || i==9 || i==10) ? 
-				getMessage("ruralInvest")+" :: "+getMessage("project.step"+(i+1)+".nongen")
-				: getMessage("ruralInvest")+" :: "+getMessage("project.step"+(i+1));
+			if ((i==10 &! incomeGen) || (i==9 && incomeGen)) {
+				titles[i] = getMessage("ruralInvest")+" :: "+getMessage("reference.reference");
+			} else if (!incomeGen && (i==3 || i==8 || i==9 || i==10)) {
+				titles[i] = getMessage("ruralInvest")+" :: "+getMessage("project.step"+(i+1)+".nongen");
+			} else {
+				titles[i] = getMessage("ruralInvest")+" :: "+getMessage("project.step"+(i+1));
+			}
 		}
 		return titles;
     }
@@ -362,9 +366,13 @@ public class WebTestUtil {
     protected String[] profileStepTitles(boolean incomeGen) {
     	String[] titles = new String[9];
  		for (int i=0;i<9;i++) {
- 			titles[i]= i==5 &! incomeGen ? 
- 					getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1)+".nongen")
- 					:getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
+ 			if (i==6) {
+ 				titles[i]=getMessage("ruralInvest")+" :: "+getMessage("reference.reference");
+ 			} else if (i==5 &! incomeGen) {
+ 				titles[i]= getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1)+".nongen");
+ 			} else {
+ 				titles[i]= getMessage("ruralInvest")+" :: "+getMessage("profile.step"+(i+1));
+ 			}
  		}
  		return titles;
     }
