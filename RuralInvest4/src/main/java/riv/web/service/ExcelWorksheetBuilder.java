@@ -2376,7 +2376,6 @@ public class ExcelWorksheetBuilder {
 				report.addNumericCell(sheet.getRow(5), yearNum, pfd.getIncResidual()-pfd.getIncResidualWithout(), Style.CURRENCY);
 				report.addFormulaCell(sheet.getRow(6), yearNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 4, 6), Style.CURRENCY);
 
-				
 				// Costs
 				report.addNumericCell(sheet.getRow(9), yearNum, pfd.getCostOperation()-pfd.getCostOperationWithout(), Style.CURRENCY);
 				report.addNumericCell(sheet.getRow(10), yearNum, pfd.getCostReplace()-pfd.getCostReplaceWithout(), Style.CURRENCY);
@@ -2385,7 +2384,6 @@ public class ExcelWorksheetBuilder {
 				report.addNumericCell(sheet.getRow(13), yearNum, pfd.getCostInvest()-pfd.getCostInvestWithout(), Style.CURRENCY);
 				report.addFormulaCell(sheet.getRow(14), yearNum, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 10, 14), Style.CURRENCY);
 				report.addFormulaCell(sheet.getRow(15), yearNum, String.format("SUM(%1$s7-%1$s15)", col), Style.CURRENCY);
-
 				
 				// Donations
 				report.addNumericCell(sheet.getRow(18), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
