@@ -25,7 +25,7 @@
 						<form:option value="es">Español</form:option>
 						<form:option value="fr">Français</form:option>
 						<form:option value="ru">Русский</form:option>
-						<form:option value="mn">Mongolian</form:option>
+						<form:option value="mn">Монгол</form:option>
 						<form:option value="tr">Türkçe</form:option>
 						<form:option value="pt">Português</form:option>
 						<form:option value="ar">العربية</form:option>
