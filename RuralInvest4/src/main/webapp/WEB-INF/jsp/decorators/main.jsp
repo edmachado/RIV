@@ -2,7 +2,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="${lang}"<c:if test="${lang=='ar'}"> dir="rtl"</c:if>>
 <head>
-    <title>RuralInvest :: <decorator:title default="RuralInvest"/></title>
+    <title><spring:message code="ruralInvest"/> :: <decorator:title default="RuralInvest"/></title>
     <tags:htmlHead/>
 	<decorator:head/>
 </head>

@@ -3423,7 +3423,8 @@ public class ExcelWorksheetBuilder {
 			blockLink.income = "'"+sheet.getSheetName()+"'!$F$"+rowNum;
 		}
 		
-		//rowNum++;
+		rowNum++;
+		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("profileProductInput").replace('/',' '), Style.H2);
 		rowNum=tables[1].writeTable(sheet, rowNum++, prod.getProfileInputs(), true);
@@ -3431,14 +3432,16 @@ public class ExcelWorksheetBuilder {
 			blockLink.cost = "'"+sheet.getSheetName()+"'!$F$"+rowNum;
 		}
 		
-		//rowNum++;
+		rowNum++;
+		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("profileProductLabour"), Style.H2);
 		rowNum=tables[2].writeTable(sheet, rowNum++, prod.getProfileLabours(), true);
 		if (showSummary) {
 			blockLink.cost = "("+blockLink.cost+"+'"+sheet.getSheetName()+"'!$F$"+rowNum+")";
 		}
-		//rowNum++;
+		
+		rowNum++;
 		
 		if (showSummary) {
 			row = sheet.createRow(rowNum++);
