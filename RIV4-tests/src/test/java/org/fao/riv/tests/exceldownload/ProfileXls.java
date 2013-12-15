@@ -67,8 +67,9 @@ public class ProfileXls extends WebTestUtil {
 	@Test
 	public void profileIg() throws IOException {
 		//TODO: enable other languages when translations are complete
-		String[] langs = {"en","es","fr","ru","pt"};//,"tr","ar"};
+		String[] langs = {"en","es","fr","ru","pt","mn"};//,"tr","ar"};
 		for (String lang : langs) {
+			System.out.println("testing "+lang);
 			clickLink("goHome");
 			deletePros(false, true);
 			setLanguage(lang);
@@ -80,8 +81,9 @@ public class ProfileXls extends WebTestUtil {
 	@Test
 	public void profileNg() throws IOException {
 		//TODO: enable other languages when translations are complete
-		String[] langs = {"en","es","fr","ru","pt"};//,"tr","ar"};
+		String[] langs = {"en","es","fr","ru","pt","mn"};//,"tr","ar"};
 		for (String lang : langs) {
+			System.out.println("testing "+lang);
 			clickLink("goHome");
 			deletePros(false, false);
 			setLanguage(lang);

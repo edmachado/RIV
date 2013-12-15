@@ -9,17 +9,25 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestingEngine;
 import static net.sourceforge.jwebunit.junit.JWebUnit.gotoPage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+
+import java.io.File;
 
 import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 public class ProjectExcelImport extends WebTestUtil {
 	String igTitle;
+	
+	@Rule
+    public TemporaryFolder folder = new TemporaryFolder();
 	
 	 @BeforeClass 
 	 public static void setUpClass() {      
@@ -59,31 +67,64 @@ public class ProjectExcelImport extends WebTestUtil {
 			rivSubmitForm();
 		}
 		
+		String url;
+		
 		// STEP 7
 		// import file
+		url=getTestingEngine().getPageURL().toString();
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsInvest.getFile().getAbsolutePath());
-		gotoPage(getTestingEngine().getPageURL().toString());
+		gotoPage(url);
+		verifyProjectTablesStep7();
 		
-		// check if import was successful
+		// export and import again
+		clickLink("downloadExcel");
+		File f = folder.newFile("step7.xlsx"); 
+		saveAs(f);
+		gotoPage(url);
+		clickLink("importExcel");
+		setTextField("qqfile", f.getAbsolutePath());
+		gotoPage(url);
 		verifyProjectTablesStep7();
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
+		url=getTestingEngine().getPageURL().toString();
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsGeneral.getFile().getAbsolutePath());
-		gotoPage(getTestingEngine().getPageURL().toString());
+		gotoPage(url);
+		verifyProjectTablesStep8();
+		
+		// export and import again
+		clickLink("downloadExcel");
+		File f2 = folder.newFile("step8.xlsx"); 
+		saveAs(f2);
+		gotoPage(url);
+		clickLink("importExcel");
+		setTextField("qqfile", f2.getAbsolutePath());
+		gotoPage(url);
 		verifyProjectTablesStep8();
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
 		
 		// STEP 9
+		url=getTestingEngine().getPageURL().toString();
 		clickLink("upload0");
 		setTextField("qqfile", ImportFile.ProjectXlsBlock.getFile().getAbsolutePath());
-		gotoPage(getTestingEngine().getPageURL().toString());
+		gotoPage(url);
+		verifyBlockTables(1);
+		
+		// export and import again
+		clickLink("downloadExcel0");
+		File f3 = folder.newFile("step9.xlsx"); 
+		saveAs(f3);
+		gotoPage(url);
+		clickLink("upload0");
+		setTextField("qqfile", f3.getAbsolutePath());
+		gotoPage(url);
 		verifyBlockTables(1);
 		
 		rivSubmitForm();
@@ -111,28 +152,66 @@ public class ProjectExcelImport extends WebTestUtil {
 			rivSubmitForm();
 		}
 		
+		String url;
+		
 		// STEP 7
 		// import file
+		url = getTestingEngine().getPageURL().toString();
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsInvestNig.getFile().getAbsolutePath());
-		gotoPage(getTestingEngine().getPageURL().toString());
+		gotoPage(url);
 		verifyProjectNigTablesStep7();
+		
+		// export and import again
+		clickLink("downloadExcel");
+		File f = folder.newFile("step7.xlsx"); 
+		saveAs(f);
+		gotoPage(url);
+		clickLink("importExcel");
+		setTextField("qqfile", f.getAbsolutePath());
+		gotoPage(url);
+		verifyProjectNigTablesStep7();
+		
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
+		url=getTestingEngine().getPageURL().toString();
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsGeneralNig.getFile().getAbsolutePath());
-		gotoPage(getTestingEngine().getPageURL().toString());
+		gotoPage(url);
 		verifyProjectNigTablesStep8();
+		
+		// export and import again
+		clickLink("downloadExcel");
+		File f2 = folder.newFile("step8.xlsx"); 
+		saveAs(f2);
+		gotoPage(url);
+		clickLink("importExcel");
+		setTextField("qqfile", f2.getAbsolutePath());
+		gotoPage(url);
+		verifyProjectNigTablesStep8();
+		
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
 		
 		// STEP 9
+		url=getTestingEngine().getPageURL().toString();
 		clickLink("upload0");
 		setTextField("qqfile", ImportFile.ProjectXlsBlockNig.getFile().getAbsolutePath());
-		gotoPage(getTestingEngine().getPageURL().toString());
+		gotoPage(url);
 		verifyProjectNigTablesStep9(1);
+		
+		// export and import again
+		clickLink("downloadExcel0");
+		File f3 = folder.newFile("step9.xlsx"); 
+		saveAs(f3);
+		gotoPage(url);
+		clickLink("upload0");
+		setTextField("qqfile", f3.getAbsolutePath());
+		gotoPage(url);
+		verifyProjectNigTablesStep9(1);
+		
 		rivSubmitForm();
 		assertTitleEquals(titles[9]);
 		

@@ -74,6 +74,7 @@ public class TestTable {
 		
 		// compare tables
 		assertTableRowCountEquals(tableId, compare.getRowCount());
+		assertTableRowsEqual(tableId, 0, compare);
 		assertTableEquals(tableId, compare);
 	}
 	
