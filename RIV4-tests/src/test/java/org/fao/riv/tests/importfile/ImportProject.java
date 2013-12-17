@@ -66,7 +66,7 @@ public class ImportProject extends WebTestUtil {
 		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProject("dataentry/projectIg");
+		verifyProject("dataentry/projectIg", 1);
 		
 		// export to .riv file
 		getTestContext().setResourceBundleName("messages/messages");
@@ -89,7 +89,7 @@ public class ImportProject extends WebTestUtil {
 		importProject(f, "igpj", false, false, "T3st Santa Cruz River Transport");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProject("dataentry/projectIg");
+		verifyProject("dataentry/projectIg", 1);
 	}
 
 	@Test
@@ -97,7 +97,7 @@ public class ImportProject extends WebTestUtil {
 		importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProjectNig("dataentry/projectNig");
+		verifyProjectNig("dataentry/projectNig", 1);
 		
 		// export to .riv file
 		getTestContext().setResourceBundleName("messages/messages");
@@ -120,6 +120,6 @@ public class ImportProject extends WebTestUtil {
 		importProject(f, "nigpj", false, false, "Example Case: Community Earth Dam");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProjectNig("dataentry/projectNig");
+		verifyProjectNig("dataentry/projectNig", 1);
 	}
 }

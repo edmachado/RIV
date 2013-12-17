@@ -11,6 +11,9 @@ import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
+import net.sourceforge.jwebunit.html.Row;
+import net.sourceforge.jwebunit.html.Table;
+
 import org.apache.catalina.LifecycleException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
@@ -408,7 +411,7 @@ public class WebTestUtil {
 		tt.testOutput();
     }
     
-    protected void verifyProjectNig(String properties) {
+    protected void verifyProjectNig(String properties, int indexResult) {
 		getTestContext().setResourceBundleName("messages/messages");
     	String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String[] titles = projectStepTitles(false);
@@ -527,6 +530,32 @@ public class WebTestUtil {
 		// STEP 13 
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
+		
+		// check indicators
+		Table result = new Table();
+		Row testRow = new Row();
+		testRow.appendCell(getMessage("step1.projectName"));
+		testRow.appendCell(getMessage("step1.userCode"));
+		testRow.appendCell("test user");
+		testRow.appendCell("Generic field office");
+		testRow.appendCell("Proposal");
+		testRow.appendCell("Generic non-income-generating category");
+		testRow.appendCell("Generic beneficiary");
+		testRow.appendCell("Generic environmental category");
+		testRow.appendCell(getMessage("result.investTotal"));
+		testRow.appendCell(getMessage("result.investOwn"));
+		testRow.appendCell(getMessage("result.investDonate"));
+		testRow.appendCell(getMessage("result.investFinance"));
+		testRow.appendCell(getMessage("result.employ"));
+		testRow.appendCell(getMessage("result.investDirect"));
+		testRow.appendCell(getMessage("result.investIndirect"));
+		testRow.appendCell(getMessage("result.benefDirect"));
+		testRow.appendCell(getMessage("result.benefIndirect"));
+		testRow.appendCell("");
+		testRow.appendCell("");
+		testRow.appendCell("");
+		result.appendRow(testRow);
+		assertTableRowsEqual("results", 4+indexResult, result);
 	}
     protected void verifyProjectNigTablesStep9(int i) {
     	// income
@@ -739,7 +768,7 @@ public class WebTestUtil {
 		tt.testOutput();
     }
     
-    protected void verifyProject(String properties) {
+    protected void verifyProject(String properties, int indexResult) {
 		getTestContext().setResourceBundleName("messages/messages");
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String[] titles = projectStepTitles(true);
@@ -906,6 +935,45 @@ public class WebTestUtil {
 		// STEP 13 
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
+		
+		// check indicators
+		Table result = new Table();
+		Row testRow = new Row();
+		testRow.appendCell(getMessage("step1.projectName"));
+		testRow.appendCell(getMessage("step1.userCode"));
+		testRow.appendCell("test user");
+		testRow.appendCell("Generic field office");
+		testRow.appendCell("Proposal");
+		testRow.appendCell("Generic income-generating category");
+		testRow.appendCell("Generic beneficiary");
+		testRow.appendCell("Generic environmental category");
+		testRow.appendCell(getMessage("result.investTotal"));
+		testRow.appendCell(getMessage("result.investOwn"));
+		testRow.appendCell(getMessage("result.investDonate"));
+		testRow.appendCell(getMessage("result.investFinance"));
+		testRow.appendCell(getMessage("result.employ"));
+		testRow.appendCell(getMessage("result.income"));
+		testRow.appendCell(getMessage("result.wcTotal"));
+		testRow.appendCell(getMessage("result.wcOwn"));
+		testRow.appendCell(getMessage("result.wcDonate"));
+		testRow.appendCell(getMessage("result.wcFinance"));
+		testRow.appendCell(getMessage("result.costTotal"));
+		testRow.appendCell(getMessage("result.costOwn"));
+		testRow.appendCell(getMessage("result.costDonate"));
+		testRow.appendCell(getMessage("result.costFinance"));
+		testRow.appendCell(getMessage("result.npvAll"));
+		testRow.appendCell(getMessage("result.irrAll"));
+		testRow.appendCell(getMessage("result.npvApplicant"));
+		testRow.appendCell(getMessage("result.irrApplicant"));
+		testRow.appendCell(getMessage("result.investDirect"));
+		testRow.appendCell(getMessage("result.investIndirect"));
+		testRow.appendCell(getMessage("result.benefDirect"));
+		testRow.appendCell(getMessage("result.benefIndirect"));
+		testRow.appendCell("");
+		testRow.appendCell("");
+		testRow.appendCell("");
+		result.appendRow(testRow);
+		assertTableRowsEqual("results", 4+indexResult, result);
 	}
     
     protected void verifyProfileTablesStep4() {

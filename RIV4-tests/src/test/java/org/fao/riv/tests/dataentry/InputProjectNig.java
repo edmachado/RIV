@@ -278,10 +278,6 @@ public class InputProjectNig extends WebTestUtil {
 		assertImagePresentPartial("locked.gif", null);
 		
 		// step 1
-		verifyProjectNig("dataentry/projectNig");
-		
-		//Check new project exists in results table
-		assertTableRowCountEquals("results", 7);
-		assertTextInTable("results", projName);
+		verifyProjectNig("dataentry/projectNig", 2);
 	}
 }

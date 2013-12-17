@@ -548,7 +548,7 @@ public class InputProjectIg extends WebTestUtil {
 		assertTitleEquals(titles[0]);
 		assertImagePresentPartial("locked.gif", null);
 		
-		verifyProject("dataentry/projectIg");
+		verifyProject("dataentry/projectIg",2);
 		
 		//Check new project exists in results table
 		clickLink("allIgpj");
