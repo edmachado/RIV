@@ -71,78 +71,89 @@ public class XlsImportTable<E extends OrderByable> {
 		}
 	}
 	
+	private boolean cellIsTextAndNotBlank(Sheet sheet, MessageSource messageSource, int rowNum, int cell) throws ExcelImportException {
+		boolean rowOk;
+		 // if the first cell (always "description") is blank, the table is considered finished
+		try {
+			rowOk = sheet.getRow(rowNum)!=null && sheet.getRow(rowNum).getCell(0)!=null 
+					&& sheet.getRow(rowNum).getCell(0).getCellType()!=Cell.CELL_TYPE_BLANK
+					&! sheet.getRow(rowNum).getCell(0).getStringCellValue().isEmpty();
+		} catch (NullPointerException e) {
+			e.printStackTrace(System.out);
+			throw new ExcelImportException(messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale())
+					+messageSource.getMessage("import.error.excel.read", new Object[0], LocaleContextHolder.getLocale()));
+		} catch (IllegalStateException e) {
+			e.printStackTrace(System.out);
+			String error = 
+					messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
+					messageSource.getMessage("import.excel.error.datatype", new Object[0], LocaleContextHolder.getLocale());
+			throw new ExcelImportException(error);
+		}
+		return rowOk;
+	}
+	
 	@SuppressWarnings("unchecked")
+	private E getObjectFromRow(Sheet sheet, int rowNum, MessageSource messageSource) throws ExcelImportException {
+		E item;
+		try {
+			item =  (E) clazz.newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException("Programming error: class passed to readTable should be same as parameterized generic!", e);
+		}
+		try {
+			for (XlsImportColumn column : columns) {
+				if (column.isBoolean) {
+					boolean yes = sheet.getRow(rowNum).getCell(column.column)!=null && sheet.getRow(rowNum).getCell(column.column).getCellType()!=Cell.CELL_TYPE_BLANK;
+					setObjectProperty(item, column.property, yes);
+				} else if (column.isSelect) {
+					Object value = sheet.getRow(rowNum).getCell(column.column).getStringCellValue();
+					for (Object key : column.options.keySet()) {
+						if (column.options.get(key).equals(value)) {
+							value = key;
+							break;
+						}
+					}
+					setObjectProperty(item, column.property, value);
+				} else if (column.isNumeric) {
+					setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getNumericCellValue());
+				} else {
+					setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getStringCellValue());
+				}
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace(System.out);
+			String error = 
+					messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
+					messageSource.getMessage("import.excel.error.datatype", new Object[0], LocaleContextHolder.getLocale());
+			throw new ExcelImportException(error);
+		} catch (NullPointerException e) {
+			e.printStackTrace(System.out);
+			String error = "Error occurred reading line "+(rowNum+1);
+			throw new ExcelImportException(error);
+		}
+		return item;
+	}
+	
 	public List<E> readTable(Sheet sheet, MessageSource messageSource) throws ExcelImportException {
 		if (sheet!=null) {
 			int rowNum = skipTo(sheet, startRow, startWhenColumnIsNumeric, messageSource);
-			boolean goOn=true;
-			while(goOn) {
-				boolean rowOk;
-				 // if the first cell (always "description") is blank, the table is considered finished
-				try {
-					rowOk = sheet.getRow(rowNum)!=null && sheet.getRow(rowNum).getCell(0)!=null 
-							&& sheet.getRow(rowNum).getCell(0).getCellType()!=Cell.CELL_TYPE_BLANK
-							&! sheet.getRow(rowNum).getCell(0).getStringCellValue().isEmpty();
-				} catch (NullPointerException e) {
-					e.printStackTrace(System.out);
-					throw new ExcelImportException(messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale())
-							+messageSource.getMessage("import.error.excel.read", new Object[0], LocaleContextHolder.getLocale()));
+			// if the first cell (always "description") is blank, the table is considered finished
+			while(cellIsTextAndNotBlank(sheet, messageSource, rowNum, 0)) {
+				E item = getObjectFromRow(sheet, rowNum, messageSource);
+				
+				Map<String, String> map = new HashMap<String, String>();
+				MapBindingResult errors = new MapBindingResult(map, clazz.getName());
+				validator.validate(item, errors);
+				if (errors.hasErrors()) {
+					 String error = 
+							messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
+							errors.getAllErrors().get(0).getDefaultMessage().replace("\"", "\\\"");
+					throw new ExcelImportException(error);
 				}
-				if (rowOk) {
-					E item;
-					try {
-						item =  (E) clazz.newInstance();
-					} catch (Exception e) {
-						throw new RuntimeException("Programming error: class passed to readTable should be same as parameterized generic!", e);
-					}
-					try {
-						for (XlsImportColumn column : columns) {
-							if (column.isBoolean) {
-								boolean yes = sheet.getRow(rowNum).getCell(column.column)!=null && sheet.getRow(rowNum).getCell(column.column).getCellType()!=Cell.CELL_TYPE_BLANK;
-								setObjectProperty(item, column.property, yes);//value.equals("#"));//messageSource.getMessage("misc.yes", new Object[0], LocaleContextHolder.getLocale())));
-							} else if (column.isSelect) {
-								Object value = sheet.getRow(rowNum).getCell(column.column).getStringCellValue();
-								for (Object key : column.options.keySet()) {
-									if (column.options.get(key).equals(value)) {
-										value = key;
-										break;
-									}
-								}
-								setObjectProperty(item, column.property, value);
-							} else if (column.isNumeric) {
-								setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getNumericCellValue());
-							} else {
-								setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getStringCellValue());
-							}
-						}
-					} catch (IllegalStateException e) {
-						e.printStackTrace(System.out);
-						String error = 
-								messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
-								messageSource.getMessage("import.excel.error.datatype", new Object[0], LocaleContextHolder.getLocale());
-						throw new ExcelImportException(error);
-					} catch (NullPointerException e) {
-						e.printStackTrace(System.out);
-						String error = "Error occurred reading line "+(rowNum+1);
-						throw new ExcelImportException(error);
-					}
-					
-					Map<String, String> map = new HashMap<String, String>();
-					MapBindingResult errors = new MapBindingResult(map, clazz.getName());
-					validator.validate(item, errors);
-					if (errors.hasErrors()) {
-						 String error = 
-								messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
-								errors.getAllErrors().get(0).getDefaultMessage().replace("\"", "\\\"");
-						throw new ExcelImportException(error);
-					}
-					
-					item.setOrderBy(items.size());
-					items.add((E)item);
-					rowNum++;
-				} else {
-					goOn=false;
-				}
+				
+				item.setOrderBy(items.size());
+				items.add((E)item);
+				rowNum++;
 			}
 		}
 		
@@ -150,7 +161,7 @@ public class XlsImportTable<E extends OrderByable> {
 	}
 	
 	/* 
-	 * Keep reading lines until you get to a number cell 
+	 * Keep reading lines until you get to a numeric cell 
 	 */
 	private int skipTo(Sheet sheet, int rowNum, int column, MessageSource messageSource) throws ExcelImportException {
 		boolean goOn=true;
