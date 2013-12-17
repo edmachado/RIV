@@ -172,7 +172,6 @@ public class ProfileExcelImport extends WebTestUtil {
 		assertTitleEquals(titles[6]);
 		
     	getTestContext().setResourceBundleName("messages/messages");
-		
 	}
 	
 	@Test
