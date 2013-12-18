@@ -206,10 +206,6 @@ public class InputProfileNig extends WebTestUtil {
 		assertTitleEquals(titles[0]);
 		assertImagePresentPartial("locked.gif", null);
 		
-		verifyProfileNig("dataentry/profileNig");
-				
-		//Check new profile exists in results table
-		assertTableRowCountEquals("results", 7);
-		assertTextInTable("results", profName);
+		verifyProfileNig("dataentry/profileNig", 2);
 	}
 }

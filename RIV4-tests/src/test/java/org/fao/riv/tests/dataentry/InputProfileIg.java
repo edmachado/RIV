@@ -252,7 +252,7 @@ public class InputProfileIg extends WebTestUtil {
 		assertTitleEquals(titles[0]);
 		assertImagePresentPartial("locked.gif", null);
 		
-		verifyProfile("dataentry/profileIg");
+		verifyProfile("dataentry/profileIg", 2);
 				
 		//Check new profile exists in results table
 		assertTableRowCountEquals("results", 7);

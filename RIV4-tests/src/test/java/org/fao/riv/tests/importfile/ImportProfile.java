@@ -81,7 +81,7 @@ public class ImportProfile extends WebTestUtil {
 		// import and verify
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProfile("dataentry/profileIg");
+		verifyProfile("dataentry/profileIg", 1);
 		
 		// export to .riv file
 		getTestContext().setResourceBundleName("messages/messages");
@@ -104,7 +104,7 @@ public class ImportProfile extends WebTestUtil {
 		importProfile(f, "igpf_no", false, false, "T3st Irrigation project");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProfile("dataentry/profileIg");
+		verifyProfile("dataentry/profileIg", 1);
 	}
 	
 	@Test
@@ -112,7 +112,7 @@ public class ImportProfile extends WebTestUtil {
 		importProfile(ImportFile.ProfileNig40, "nigpf_no", false, false, "Community Health Centre");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProfileNig("dataentry/profileNig");
+		verifyProfileNig("dataentry/profileNig", 1);
 		
 		// export to .riv file
 		getTestContext().setResourceBundleName("messages/messages");
@@ -135,7 +135,7 @@ public class ImportProfile extends WebTestUtil {
 		importProfile(f, "nigpf_no", false, false, "Community Health Centre");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProfileNig("dataentry/profileNig");
+		verifyProfileNig("dataentry/profileNig", 1);
 		
 	}
 }

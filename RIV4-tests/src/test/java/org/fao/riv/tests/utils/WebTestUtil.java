@@ -1030,7 +1030,7 @@ public class WebTestUtil {
 		.addBlanks(5);
 		tt.testOutput();
     }
-    protected void verifyProfile(String properties) {
+    protected void verifyProfile(String properties, int indexResult) {
     	getTestContext().setResourceBundleName("messages/messages");
     	
     	String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
@@ -1131,6 +1131,25 @@ public class WebTestUtil {
 		assertTitleEquals(titles[8]);
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
+		
+		// check indicators
+		Table result = new Table();
+		Row testRow = new Row();
+		testRow.appendCell(getMessage("step1.profileName"));
+		testRow.appendCell("test user");
+		testRow.appendCell("Proposal");
+		testRow.appendCell("Generic field office");
+		testRow.appendCell(getMessage("result.benefs"));
+		testRow.appendCell(getMessage("result.investTotal"));
+		testRow.appendCell(getMessage("result.investOwn"));
+		testRow.appendCell(getMessage("result.investDonate"));
+		testRow.appendCell(getMessage("result.income"));
+		testRow.appendCell(getMessage("result.yearsRecover"));
+		testRow.appendCell("");
+		testRow.appendCell("");
+		testRow.appendCell("");
+		result.appendRow(testRow);
+		assertTableRowsEqual("results", 4+indexResult, result);
     }
     
     protected void verifyProfileNigTablesStep4() {
@@ -1201,7 +1220,7 @@ public class WebTestUtil {
 		tt.testOutput();
     }
     
-    protected void verifyProfileNig(String properties) {
+    protected void verifyProfileNig(String properties, int indexResult) {
 
 		getTestContext().setResourceBundleName("messages/messages");
 		
@@ -1274,6 +1293,25 @@ public class WebTestUtil {
 		assertTitleEquals(titles[8]);
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
+		
+		// check indicators
+		Table result = new Table();
+		Row testRow = new Row();
+		testRow.appendCell(getMessage("step1.profileName"));
+		testRow.appendCell("test user");
+		testRow.appendCell("Proposal");
+		testRow.appendCell("Generic field office");
+		testRow.appendCell(getMessage("result.benefs"));
+		testRow.appendCell(getMessage("result.investTotal"));
+		testRow.appendCell(getMessage("result.investOwn"));
+		testRow.appendCell(getMessage("result.investDonate"));
+		testRow.appendCell(getMessage("result.incPerBenef"));
+		testRow.appendCell(getMessage("result.costPerBenef"));
+		testRow.appendCell("");
+		testRow.appendCell("");
+		testRow.appendCell("");
+		result.appendRow(testRow);
+		assertTableRowsEqual("results", 4+indexResult, result);
     }
     
 	protected String extractPdfText(File f) throws IOException {
