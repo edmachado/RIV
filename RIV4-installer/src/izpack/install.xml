@@ -169,6 +169,8 @@
 			
 			<file src="resources/startService.bat" targetdir="$TEMP_DIRECTORY" override="true" />
 			<!-- removes the Windows service during uninstall  -->
+			<file src="resources/removeService.bat" targetdir="$INSTALL_PATH" override="true" />
+			<parsable targetfile="$INSTALL_PATH/removeService.bat" />
 			<executable targetfile="$INSTALL_PATH/removeService.bat" keep="true" os="windows" stage="uninstall" />
 		</pack>
 		

@@ -1,2 +1,2 @@
 [InternetShortcut]
-URL=http://localhost:$HTTP_PORT_NO/docs/guide_${ISO3_LANG}.ppt
+URL=http://localhost:$HTTP_PORT_NO/RuralInvest/help/manuals

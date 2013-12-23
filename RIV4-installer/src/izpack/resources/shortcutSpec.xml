@@ -8,11 +8,11 @@
 	       iconIndex="0" programGroup="yes" desktop="yes" applications="no" 
 	       startMenu="no" startup="no"/>
 	       
-	<shortcut name="Uninstall RuralInvest" target="$INSTALL_PATH/Uninstaller/uninstaller.jar" 
-	       workingDirectory="$INSTALL_PATH" description="RuralInvest Unintall" 
+	<!-- shortcut name="Uninstall RuralInvest" target="$INSTALL_PATH/Uninstaller/uninstaller.jar" 
+	       workingDirectory="$INSTALL_PATH" description="RuralInvest Uninstall" 
 	       createForAll="true" iconFile='$INSTALL_PATH/icons/riv.ico' iconIndex="0" 
 	       initialState="noShow" programGroup="yes" desktop="no" applications="no" 
-	       startMenu="no" startup="no"/>
+	       startMenu="no" startup="no"/-->
 
 	<shortcut name="Software Manual" target="$INSTALL_PATH/GuideRuralInvest.url" 
 	       workingDirectory="$INSTALL_PATH" description="Software Manual" 
