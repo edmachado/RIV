@@ -100,7 +100,8 @@
   						<outputDirectory>${izpack.staging}/webapp</outputDirectory>
   						<resources>
   							<resource>
-								<directory>../RuralInvest4/target/riv-cd</directory>
+								<directory>../RuralInvest4/target/riv-${build-lang}</directory>
+<!-- 								<directory>../RuralInvest4/target/riv-cd</directory> -->
 								<filtering>false</filtering>
 								<includes>
 									<include>**/*</include>
