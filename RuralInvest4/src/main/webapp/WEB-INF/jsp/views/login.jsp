@@ -55,9 +55,10 @@
 			<option value="en"<c:if test="${pageLang eq 'en'}"> selected</c:if>>English</option>
 			<option value="es"<c:if test="${pageLang eq 'es'}"> selected</c:if>>Español</option>
 			<option value="fr"<c:if test="${pageLang eq 'fr'}"> selected</c:if>>Français</option>
+			<option value="mn"<c:if test="${pageLang eq 'mn'}"> selected</c:if>>Монгол</option>
+			<option value="pt"<c:if test="${pageLang eq 'pt'}"> selected</c:if>>Português</option>
 			<option value="ru"<c:if test="${pageLang eq 'ru'}"> selected</c:if>>Русский</option>
 			<option value="tr"<c:if test="${pageLang eq 'tr'}"> selected</c:if>>Türkçe</option>
-			<option value="pt"<c:if test="${pageLang eq 'pt'}"> selected</c:if>>Português</option>
 			<option value="ar"<c:if test="${pageLang eq 'ar'}"> selected</c:if>>العربية</option>
 		</select>
 		</center>
