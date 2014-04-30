@@ -1,3 +1,134 @@
+project.report.profitability.totalMinusInvest.before=Тусламжийг оролцуулахгүйгээр эхний жилийн хөрөнгө оруулалтыг хассан дүн 
+project.report.profitability.totalMinusInvest.after= Тусламжийг оролцуулаад эхний жилийн хөрөнгө оруулалтыг хассан дүн
+
+project.report.cashFlow.income.total=Нийт орлого
+project.report.cashFlow.costs.total=Нийт зардал
+project.report.cashFlow.income.wcDonation=Ажлын капитал дахь буцалтгүй тусламж
+project.report.cashFlow.income.wcOwn=Өөрийн эх үүсвэрээр хийгдсэн ажлын капитал 
+
+###
+project.report.cashFlow.income.main=Үндсэн орлого
+project.report.cashFlow.income.finance=Санхүүгийн эх үүсвэр
+project.report.cashFlow.income.invest= Буцалтгүй тусламжаар хийгдсэн хөрөнгө оруулалт
+project.report.cashFlow.income.own=Өөрийн хөрөнгөөр хийгдсэн хөрөнгө оруулалт 
+project.report.cashFlow.income.loans=Зээлээр хийгдсэн хөрөнгө оруулалт 
+project.report.cashFlow.income.loanwc=Зээлээр хийгдсэн ажлын капитал 
+
+project.report.cashFlow.costs=Зарлага
+project.report.cashFlow.costs.invest=Хөрөнгө оруулалтын зардал
+project.report.cashFlow.costs.initial=Дотоод хөрөнгө оруулалт
+project.report.cashFlow.costs.recurrent=Урсгал зардлууд	
+project.report.cashFlow.wcCapital=Ажлийн капитал - капитал
+
+=
+profile.report.summary.sheetname=Дүгнэлт
+profile.report.general.sheetname=Ерөнхий зардал
+profile.report.costDetail.with.sheetname=Ерөнхий зардал (төсөлгүй)
+profile.report.costDetail.without.sheetname=Ерөнхий зардал (төсөлтэй)
+profile.report.investDetail.sheetname=Хөрөнгө оруулалтын зардал
+profile.report.investDetail.with.sheetname=Хөрөнгө оруулалтын зардал (төсөлтэй)
+profile.report.investDetail.without.sheetname=Хөрөнгө оруулалтын зардал (төсөлгүй)
+profile.report.productDetail.sheetname=Бүтээгдэхүүн
+profile.report.productDetail.with.sheetname=Бүтээгдэхүүн (төсөлтэй)
+profile.report.productDetail.without.sheetname=Бүтээгдэхүүн (төсөлгүй)
+profile.report.preliminary.sheetname=Шинжилгээ
+profile.report.benefits.sheetname=Ашиг тус
+project.report.recommendation.sheetname=Зөвлөмж
+profile.report.results.sheetname=Хураангуй
+
+project.report.summary.sheetname=Дүгнэлт
+project.report.general.sheetname=Тодорхойлолт
+project.report.generalCostsDetail.sheetname=Ерөнхий зардал
+project.report.generalCostsDetail.with.sheetname=Ерөнхий зардал (төсөлтэй)
+project.report.generalCostsDetail.without.sheetname=Ерөнхий зардал (төсөлгүй)
+project.report.investDetail.sheetname=Хөрөнгө оруулалтын зардал
+project.report.investDetail.with.sheetname=Хөрөнгө оруулалтын зардал (төсөлтэй)
+project.report.investDetail.without.sheetname=Хөрөнгө оруулалтын зардал (төсөлгүй)
+project.report.chronology.sheetname=Дараалал
+project.report.production.sheetname=Үйлдвэрлэлийн бүтэц
+project.report.production.nonGen.sheetname=Үйл ажиллагааны бүтэц
+project.report.blockDetail.sheetname=Блок
+project.report.blockDetail.with.sheetname=Блок (төсөлтэй)
+project.report.blockDetail.without.sheetname=Блок (төсөлгүй)
+project.report.activityDetail.sheetname=Үйл ажиллагаа
+project.report.parameters.sheetname=Үзүүлэлт
+project.report.cashFlowFirst.sheetname=Эхний жилийн бэлэн мөнгөний гүйлгээ
+project.report.cashFlow.sheetname=Бэлэн мөнгөний гүйлгээ
+project.report.profitability.sheetname=Ашигт байдал
+project.report.contributions.sheetname=Хувь нэмэр
+project.report.recommendation.sheetname=Зөвлөмж
+project.report.results.sheetname=Төсөл
+
+project.report.cashFlowNongen.sheetname=Тогтвортой байдал
+
+
+error.logo=Байгууллагынхаа логог оруулна уу.
+error.import.profile=Хураангуйг хадгалах явцад алдаа гарлаа.
+import.excel.file= Файлаа сонгоно уу
+import.excel.instruction=<p>Та Эксел программын хүснэгтээс шууд РуралИнвэст программ руу өгөгдөл оруулах боломжтой. Зөвхөн зөв форматтай Экселийн хүснэгтүүдийг оруулах боломжтой.</p><p>Тохиромжтой форматыг олохын тулд, “болих” гэдгийг сонгоод эдгээрийн аль нэгийг татна<ol><li>Хоосон Экселийн загвар, эсвэл</li><li>өгөгдөлтэй Экселийн файл.</li></ol></p><p>Таныг өгөгдөл оруулахад боломжтой болгохын тулд хүснэгтэнд байсан мэдээлэл нь устах болно.</p>
+import.excel.fail=Импортлох явц амжилтгүй болллоо.
+import.excel.error.datatype=Тоон мэдээлэл байх ёстой хэсэгт үсгэн мэдээлэл эхэллээ. Мэдээллээ засан дахин оролдоно уу.
+import.excel.error={0}дэх мөрөнд алдаа.
+import.error.excel.read=Оруулж ирсэн Экселийн файлыг нээж чадсангүй. Энэ файл нь РуралИнвэстэд нийцэх Экселийн зөв файл xlsx мөн эсэхийг шалгана уу.
+import.generic.info=Энэ төсөл эсвэл хураангуй нь ам.доллар руу шилжүүлэгдсэн байгаа ба таны суулгасан РуралИнвэстийн дагуу валют нь шилжүүлэгдэх болно.
+import.generic.confirm=Ам.долларын валютын ханшийг арилгана уу:
+project.report.cashFlow.loanRecieved=Авсан зээл
+project.report.cashFlow.invest=Хөрөнгө оруулалт
+project.report.cashFlow.loan1.total=Анхны нийт төлбөр
+project.report.cashFlow.loan1.capitalDuringGrace=Хүүгээс чөлөөлөгдөх үеийн анхдагч эхлэлийн капитал
+project.report.cashFlow.loan1.interestDuringGrace=Хүүгээс чөлөөлөгдөх үеийн анхдагч зээлийн хүү
+project.report.cashFlow.loan1.interestDuringGraceCapital=Капиталын төлбөргүй үеийн анхдагч зээлийн хүү
+project.report.cashFlow.loan2.total=Хоёрдогч нийт төлбөр
+project.report.cashFlow.loan2.capitalDuringGrace=Хүүгээс чөлөөлөгдөх үеийн хоёрдогч эхлэлийн капитал
+project.report.cashFlow.loan2.interestDuringGrace=Хүүгээс чөлөөлөгдөх үеийн хоёрдогч зээлийн хүү
+project.report.cashFlow.loan2.interestDuringGraceCapital=Капиталын төлбөргүй үеийн хоёрдогч зээлийн хүү
+
+
+project.report.cashFlow.financing=Төлбөрийг санхүүжүүлэх 
+
+
+#demo site login page
+demo.welcome=РУРАЛИНВЭСТЭД ТАВТАЙ МОРИЛ
+demo.version=ХУВИЛБАР
+demo.para1=Руралинвэстийн туршилтын сайт нь тус программыг яаж ажилладаг болон ямархуу харагддагийг нь харах хүсэлтэй хүмүүст зориулсан хэсэгчилсэн программ юм.
+demo.para2=Программ руу нэвтрэхийн тулд дараахыг бич<b>Зочин</b> хоёуланд нь <b>Хэрэглэгчийн Нэр</b> мөн <b>Нууц үг</b>.Хэрвээ та өөрийн гэсэн нөхцөл байдлыг үүсгэх хүсэлтэй байгаа бол (доодхыг хар) та өөрийн гэсэн хэрэглэгчийн нэр болон нууц үгийг үүсгэж болно. Үүнийг хийхийн тулд тохируулгын хэсэг рүү ороод “Хэрэглэгч”-ийг сонго. “Хэрэглэгч нэмэх” гэсэн сонголтыг сонгоод холбогдох хэсгийг бөглө. <b>Анхаар:</b> Бидэнд хуулбар нь байхгүй учраас өөрийн Хэрэглэгчийн Нэр болон Нууц үгээ мартаж болохгүй шүү.
+demo.para3=Туршлагыг илүү үр дүнтэй болгохын тулд бид, Руралинвэст программын үндсэн хэсэг бүрт жишээ нөхцлүүдийг оруулж өгсөн байгаа:
+demo.profile=A <b>ХУРААНГУЙ</b> нь төслийн хялбарчилсан хувилбар юм, төслийн нэг жилийн үйл ажиллагааг ашигладаг, мөн санхүүжүүлэх гэх мэт зүйлсийг оруулдаггүй. Хураангуйнууд нь өргөдөл гаргагчтай хамт бэлтгэгдэхэд зориулагдсан – ихэнхдээ цаасан дээр – дараа нь компьютер руу шилжүүлэгддэг. Хялбарчилсан шинжээс нь болоод, хураангуй нь эерэг байлаа гээд бүтэн төслийн шинжилгээ нь эерэг гарна гэсэн үг биш юм, гэхдээ хураангуй нь бүрэн бус санаануудыг тодорхой болгох болно, мөн өргөдөл гаргагчид төслийн гол хэсгүүдийг ойлгож тодорхойлох боломж олгодог.
+demo.project=A <b>ТӨСӨЛ</b>, компьютер дээр бэлтгэгдсэн байх ёстой, учир нь энэ нь маш олон  автоматжуулсан хэсгүүдийг агуулдаг, жишээ нь ажлийн капиталын хэрэгцээ, ажилын байр бий болгох, санхүүжүүлэх гэх мэт. Санал болгосон хөрөнгө оруулалт нь хэдэн мянган доллараар бага байхад бүтэн төслийн шинжилгээ хийх шаардлага байхгүй, гэхдээ энэ нь хураангуйгаас илэрхий их мэдээлэл харуулж байна мөн цаг хугацаа өнгөрөх тусам өөрчлөлтүүдийг тэмдэглэж байна. Төслийн санхүүжүүлэлт нь зээл, тусламж эсвэл энэ хоёрыг аль алийг нь агуулсан байж болно.
+demo.guide=Хэрвээ өмнө нь РуралИнвэсттэй ажиллаж үзээгүй бол, энэ танд хэрэг болно <b>ХЭРЭГЛЭГЧИЙН ПРОГРАММЫН ГАРЫН АВЛАГА</b>. Үүнийг Туслах хэсгийг сонгож дараа нь “Хэрэглэгчийн гарын авлага”-ыг сонгосноор харах боломжтой. <b>Анхаар</b> Энэ гарын авлага нь Powerpoint дээр байгаа ба ойролцоогоор 100 хуудас, гэхдээ хуудсанд олон слайдыг зэрэг хэвлэж болно. Энэ хэсэг нь  <b>ТЕХНИКИЙН ГАРЫН АВЛАГА</b> (Модул 1 ээс 3) агуулсан байдаг, энэ нь явагдаж буй шинжилгээний үндсэн суурь зүйлсийг тайлбарласан болно.
+demo.examples.1=Та эхлээд бэлэн байгаа <b>ЖИШЭЭ НӨХЦЛҮҮД</b> хараад үзээрэй. Эдгээрийг хэсэг бүрийн доорх Дууссан зүйлсийг харуул гэсэн сонголт руу орж Засах товчин дээр дарна
+demo.examples.2=ямар ч файлын нэрний баруун талд. <b>Анхаар:</b> Өөр зочид өөр өөр нөхцлүүд үүсгэсэн байж болно, гэхдээ бүх жишээ нөхцлүүд нь “Жишээ нөхцөл” гэсэн хэллэгээр эхлэнэ. Зочид нь жишээ нөхцлүүдийг харж үзэж болно гэхдээ засварлаж болохгүй.
+demo.create=Хэрвээ та өөрийн файлыг бий болгохыг хүсвэл, хэсэг бүрийн доорх Шинээр үүсгэх гэснийг сонгоод хэрэгтэй мэдээллүүдийг бөглөнө. Компьютер нь таныг өмнөх хуудсаа бөглөж дуустал дараагийн хуудас руу оруулахгүй. <b>Анхаар:</b> РуралИнвэст үзүүлэлтийн сайт нь сар бүрийн сүүлийн өдөр цэвэрлэгддэг, тиймээс таны бүх файл тэр үеээр устах болно. Хэрвээ та файлынхаа тайлангийн хуулбарыг авахыг хүсвэл, файл бүрд байх Тайлан болон Товчлол гэсэн хэсэг рүү орж хүссэн тайлангийн төрлөө сонгоно. <b>Анхаар:</b> Тайлангууд нь зөвхөн бүтэн нөхцлүүдээс л үүсэх боломжтой.
+demo.username=Зочин
+demo.password=Зочин
+
+
+error.maxLength={0} нь  {1} үүнээс олон тэмдэгттэй байж болохгүй.
+error.max={0} нь {1} үүнээс их байж болохгүй.
+error.requiredNonNegative={0} нь сөрөг байж болохгүй.
+error.maxLoanLength={0}: Зээлийн хугацаа нийт төслийн хугацаанаас урт байж болохгүй.
+error.import.incompatibleSettings=Таны оруулж байгаа тохиргоо нь таны өмнөх тохиргоотой нийцэхгүй байна.
+
+# Translator: The below comes after the text "an error has occurred, please contact the RIV team etc..."
+error.unknown.log=Асуудлыг ойлгуулахад туслахын тулд дараах файлаар хангана уу:
+# Translator: "Link" as a verb in the imperative...
+reference.item.link.imperative=Холбоо
+user.language=Хэл
+settings.language.help=Үндсэн хэл. Энэ нь өөрийн хэлээ сонгоогүй хэрэглэгчидэд программын үндсэн хэлийг тохируулж өгдөг.
+project.withWithout.remove=Та энэ төсөлд “төсөлтэй” болон ”төсөлгүй” блокууд байлгахгүйгээр сонголт хийлээ. Одоогоор “төсөлгүй” блокууд бүгд “төсөлтэй” болж солигдох болно.
+profile.withWithout.remove=Та энэ төсөлд “төсөлтэй” болон ”төсөлгүй” бүтээгдэхүүнүүд байлгахгүйгээр сонголт хийлээ. Одоогоор “төсөлгүй” бүтээгдэхүүнүүд бүгд “төсөлтэй” болж солигдох болно. 
+project.with=(Төсөлтэй)
+project.without=(Төсөлгүй)
+attach.newProfile=Алхам 1 хадгалагдсаны дараа та энэ хураангуйд гаднаас файл хавсаргаж болно.
+attach.newProject=Алхам 1 хадгалагдсаны дараа та энэ төсөлд гаднаас файл хавсаргаж болно.
+home.help.help=РуралИнвэстийн ихэнх нэр томъёонууд нь туслах текстэнд тайлбарлагдсан байгаа.  Нэр томъёоныхоо нэрэн дээр дарахад үүнтэй адил дээшээ гарсан зурвас гарч ирэх болно.  Зурваснаас хулганаа холдуулахад зурвас арилах болно.
+settings.language=Үндсэн хэл
+
+projectActivity.desc.help=Хөрөнгө оруулалт хийгдэж, төсөл эхэлсэнээр хийгдэх үйл ажиллагааг товч тайлбарла. 
+projectActivity.desc=Үйл ажиллагаа
+projectActivity.editDesc=Үйл ажиллагааг засварлах
+
+
 misc.per.unitType=нэг бүрт
 misc.per.cycleLength=нэг бүрт
 misc.per.cycleLength.many=нэг бүрт
