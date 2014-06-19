@@ -932,6 +932,7 @@ public class Profile extends Probase implements java.io.Serializable {
 		 proj.setRefIncomes(new HashSet<ReferenceIncome>());
 		 proj.setRefLabours(new HashSet<ReferenceLabour>());
 		 proj.setBlocks(new HashSet<Block>());
+		 proj.setBlocksWithout(new HashSet<BlockWithout>());
 
 		 proj.setIncomeGen(this.incomeGen);
 		 proj.setUniqueId(UUIDGenerator.getInstance().generateTimeBasedUUID().toByteArray());
