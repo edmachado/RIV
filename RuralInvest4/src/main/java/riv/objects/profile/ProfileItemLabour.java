@@ -19,7 +19,7 @@ public class ProfileItemLabour extends ProfileItem {
 	@ManyToOne
 	@JoinColumn(name="PROFILE_ID", nullable=false)
 	private Profile profile;
-	@Column(name="OWN_RESOURCE")
+	@Column(name="OWN_RESOURCE", precision=12, scale=4)
 	private Double ownResource;
     
 	public ProfileItemLabour() {

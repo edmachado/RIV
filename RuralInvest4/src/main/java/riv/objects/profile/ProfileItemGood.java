@@ -21,8 +21,9 @@ public class ProfileItemGood extends ProfileItem {
 	private Profile profile;
 	@Column(name="ECON_LIFE")
 	private Double econLife;
-	@Column(name="OWN_RESOURCE")
+	@Column(name="OWN_RESOURCE", precision=12, scale=4)
 	private Double ownResource;
+	@Column(name="SALVAGE", precision=12, scale=4)
     private Double salvage;
     
 	public ProfileItemGood() {

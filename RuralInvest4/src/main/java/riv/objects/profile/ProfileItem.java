@@ -47,9 +47,9 @@ public abstract class ProfileItem  implements Serializable, OrderByable, LinkedT
 	@Column(name="UNIT_TYPE")
 	@Size(max=50)
 	private String unitType;
-	@Column(name="UNIT_NUM")
+	@Column(name="UNIT_NUM", precision=12, scale=4)
 	private Double unitNum;
-	@Column(name="UNIT_COST")
+	@Column(name="UNIT_COST", precision=12, scale=4)
 	private Double unitCost;
 	@ManyToOne
 	@JoinColumn(name="LINKED_TO")
