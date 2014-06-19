@@ -35,6 +35,18 @@ public class InputProfileIg extends WebTestUtil {
     }
 	
 	@Test
+	public void convertToProject() throws Exception {
+		// import
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		// convert to project
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step1"));
+		clickLink("upgrade");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+	}
+	
+	
+	@Test
 	public void addProductToCompleteProfile() throws Exception {
 		String[] titles = profileStepTitles(true);
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";

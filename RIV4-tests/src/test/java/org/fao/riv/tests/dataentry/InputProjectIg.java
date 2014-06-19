@@ -47,7 +47,6 @@ public class InputProjectIg extends WebTestUtil {
 		clickLink("logoff");
 		closeBrowser();
     }
-	
 	@Test
 	public void upgradeProfile() throws Exception {
 		//String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
