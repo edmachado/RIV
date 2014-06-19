@@ -824,7 +824,9 @@ public class Profile extends Probase implements java.io.Serializable {
 		 newProf.setStatus(status);
 		 newProf.setWithWithout(this.withWithout);
 		 newProf.setGlsGoods(new HashSet<ProfileItemGood>());
+		 //newProf.setGlsGoodsWithout(new HashSet<ProfileItemGoodWithout>());
 		 newProf.setGlsLabours(new HashSet<ProfileItemLabour>());
+		 //newProf.setGlsLaboursWithout(new HashSet<ProfileItemLabourWithout>());
 		 newProf.setGlsGeneral(new HashSet<ProfileItemGeneral>());
 		 newProf.setGlsGeneralWithout(new HashSet<ProfileItemGeneralWithout>());
 		 newProf.setRefCosts(new HashSet<ReferenceCost>());

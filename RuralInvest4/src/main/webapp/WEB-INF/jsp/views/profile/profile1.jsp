@@ -15,7 +15,7 @@ $( "#radioShared" ).buttonset();
 		<tags:help text="profile.clone.help" title="profile.clone">
 			<a id="clone" href="${profile.profileId}/clone"><spring:message code="profile.clone"/> <img src="../../img/duplicate.gif" border="0"/></a>
 		</tags:help>&nbsp;
-		<a href="${profile.profileId}/upgrade"><spring:message code="profile.upgrade"/> <img src="../../img/upgrade.gif" border="0"/></a>&nbsp;
+		<a id="upgrade" href="${profile.profileId}/upgrade"><spring:message code="profile.upgrade"/> <img src="../../img/upgrade.gif" border="0"/></a>&nbsp;
 	</div>
 		
 	<div> <!-- container div -->
