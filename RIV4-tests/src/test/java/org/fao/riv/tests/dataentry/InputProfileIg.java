@@ -45,7 +45,6 @@ public class InputProfileIg extends WebTestUtil {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
 	}
 	
-	
 	@Test
 	public void addProductToCompleteProfile() throws Exception {
 		String[] titles = profileStepTitles(true);

@@ -22,6 +22,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.fao.riv.tests.utils.InputParam.InputParamType;
+import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.TestTable;
 import org.fao.riv.tests.utils.WebTestUtil;
 
@@ -44,6 +45,18 @@ public class InputProfileNig extends WebTestUtil {
 		clickLink("logoff");
         closeBrowser();
     }
+	
+	@Test
+	public void convertToProject() throws Exception {
+		// import
+		importProfile(ImportFile.ProfileNig40, "nigpf_no", false, false, "Community Health Centre");
+		// convert to project
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step1"));
+		clickLink("upgrade");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+	}
+	
 	
 	@Test
 	public void createProfile() throws Exception {
