@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(value = Suite.class)
-@SuiteClasses(value = { ProfilePdf.class, ProjectPdf.class, Error.class, Settings.class })
+@SuiteClasses(value = { ProfilePdf.class, ProjectPdf.class, Error.class, Settings.class, ExportGeneric.class })
 public class DownloadSuite {
 	
 	 @BeforeClass 
