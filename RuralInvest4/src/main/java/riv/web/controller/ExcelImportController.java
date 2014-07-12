@@ -142,7 +142,6 @@ public class ExcelImportController {
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "qtyIntern", true)
 				.addColumn(5, "unitCost", true);
-		if (b.getProject().getIncomeGen())	tableLab.addColumn(6, "transport", true);
 		List<BlockLabour> labs = tableLab.readTable(sheet, messageSource);
 		rowNum = labs.size()+3;
 		
