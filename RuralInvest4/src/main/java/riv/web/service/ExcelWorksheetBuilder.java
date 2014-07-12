@@ -312,10 +312,10 @@ public class ExcelWorksheetBuilder {
 		if (project.isWithWithout()) {
 			if (isWithout)  {
 				title =  "("+translate("projectBlock.with.without")+") "+ title;
-				sheetname = SheetName.PROJECT_BLOCKS_WITH;
+				sheetname = SheetName.PROJECT_BLOCKS_WITHOUT;
 			} else {
 				title =  "("+translate("projectBlock.with.with")+") "+ title;
-				sheetname = SheetName.PROJECT_BLOCKS_WITHOUT;
+				sheetname = SheetName.PROJECT_BLOCKS_WITH;
 			}
 		} else {
 			sheetname = project.getIncomeGen() ? SheetName.PROJECT_BLOCKS : SheetName.PROJECT_ACTIVITIES;
