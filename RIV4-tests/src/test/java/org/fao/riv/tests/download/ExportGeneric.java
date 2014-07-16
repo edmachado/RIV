@@ -36,6 +36,9 @@ public class ExportGeneric  extends WebTestUtil {
 		login();
 		deletePros(false, true);
 		deletePros(false, false);
+
+		deletePros(true, true);
+		deletePros(true, false);
 	}
 	
 	@After
