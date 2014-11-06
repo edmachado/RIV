@@ -22,29 +22,33 @@
 				  	</legend>
 				  	
 				  	<div style="display:inline-block;width:45%;">
-				  		<div class="dataentry">
-				  			<tags:help title="${blockType}.cycleLength" text="${blockType}.cycleLength.help"><label><spring:message code="${blockType}.cycleLength"/></label></tags:help>
-				  			<span id="${unique}cycleLength"><tags:formatDecimal value="${blockEntry.cycleLength}"/></span> <span id="${unique}lengthUnit">${lengthUnit}</span>
-				  		</div>
+				  		
 				  		<div class="dataentry">
 				  			<tags:help title="${blockType}.prodUnit" text="${blockType}.prodUnit.help"><label><spring:message code="${blockType}.prodUnit"/></label></tags:help>
 				  			<span id="${unique}unitType">${blockEntry.unitType}</span>
 				  		</div>
-				  		<div class="dataentry">
-				  			<tags:help title="${blockType}.cyclePerYear" text="${blockType}.cycles.help"><label><spring:message code="${blockType}.cyclePerYear"/></label></tags:help>
-				  			<span id="${unique}cyclePerYear"><tags:formatDecimal value="${blockEntry.cyclePerYear}"/></span> <spring:message code="units.perYear"/>
-				  		</div>
-				  		<c:if test="${project.incomeGen}">
-					  		<div class="dataentry">
-					  			<tags:help title="${blockType}.cycleFirstYear" text="${blockType}.cycleFirstYear.help"><label><spring:message code="${blockType}.cycleFirstYear"/></label></tags:help>
-					  			<span id="${unique}cycleFirstYear"><tags:formatDecimal value="${blockEntry.cycleFirstYear}"/></span> <spring:message code="units.perYear"/>
+				  		<c:if test="${blockEntry.cycles}">
+							<div class="dataentry">
+					  			<tags:help title="${blockType}.cycleLength" text="${blockType}.cycleLength.help"><label><spring:message code="${blockType}.cycleLength"/></label></tags:help>
+					  			<span id="${unique}cycleLength"><tags:formatDecimal value="${blockEntry.cycleLength}"/></span> <span id="${unique}lengthUnit">${lengthUnit}</span>
 					  		</div>
 					  		<div class="dataentry">
-					  			<tags:help title="${blockType}.cycleFirstYearIncome" text="${blockType}.cycleFirstYearIncome.help"><label><spring:message code="${blockType}.cycleFirstYearIncome"/></label></tags:help>
-									<span id="${unique}cycleFirstYearIncome"><tags:formatDecimal value="${blockEntry.cycleFirstYearIncome}"/></span> <spring:message code="units.perYear"/>
+					  			<tags:help title="${blockType}.cyclePerYear" text="${blockType}.cycles.help"><label><spring:message code="${blockType}.cyclePerYear"/></label></tags:help>
+					  			<span id="${unique}cyclePerYear"><tags:formatDecimal value="${blockEntry.cyclePerYear}"/></span> <spring:message code="units.perYear"/>
 					  		</div>
+					  		<c:if test="${project.incomeGen}">
+						  		<div class="dataentry">
+						  			<tags:help title="${blockType}.cycleFirstYear" text="${blockType}.cycleFirstYear.help"><label><spring:message code="${blockType}.cycleFirstYear"/></label></tags:help>
+						  			<span id="${unique}cycleFirstYear"><tags:formatDecimal value="${blockEntry.cycleFirstYear}"/></span> <spring:message code="units.perYear"/>
+						  		</div>
+						  		<div class="dataentry">
+						  			<tags:help title="${blockType}.cycleFirstYearIncome" text="${blockType}.cycleFirstYearIncome.help"><label><spring:message code="${blockType}.cycleFirstYearIncome"/></label></tags:help>
+										<span id="${unique}cycleFirstYearIncome"><tags:formatDecimal value="${blockEntry.cycleFirstYearIncome}"/></span> <spring:message code="units.perYear"/>
+						  		</div>
+							</c:if>
 						</c:if>
 				  	</div>
+				  	
 				  	<div style="display:inline-block;width:45%;">
 				  		<div class="dataentry">
 				  			<a id="downloadExcel${unique}" href="../../report/${blockEntry.blockId}/projectBlock.xlsx"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="export.download"/></a>

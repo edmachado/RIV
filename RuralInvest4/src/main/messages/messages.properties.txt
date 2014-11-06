@@ -5,6 +5,11 @@ projectContribution.copy.toYear=Copy to year:
 projectContribution.yearlyFlow=Cash flow (including existing contributions):
 projectContribution.contribType.beneficiary=Beneficiaries
 
+projectBlock.usesCycles=This block has cycles<br/>(INNA PLEASE CHECK/IMPROVE TEXT)
+projectBlock.usesCycles.help=INNA PLEASE CHECK TEXT (INCLUDING HELP TEXT)
+projectBlock.pattern.noCycles.help=INNA PLEASE CHECK TEXT (INCLUDING HELP TEXT) Indicate the number of units of production over the project period being analysed. Often the number of units (hectares, patient, community) may not stay the same from one cycle to the next
+projectBlock.pattern.noCycles.qty=Number of units of production
+
 ### END RIV4.1
 
 project.report.profitability.totalMinusInvest.before=Total before donation minus investment in first year

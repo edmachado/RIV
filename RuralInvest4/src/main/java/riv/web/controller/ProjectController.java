@@ -41,7 +41,6 @@ import riv.objects.config.User;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectFinanceNongen;
 import riv.objects.project.ProjectFirstYear;
-import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectResult;
 import riv.util.CurrencyFormat;
 import riv.util.validators.ProjectValidator;

@@ -3,7 +3,27 @@
 <c:if test="${not block.project.incomeGen}"><c:set var="blockType">projectActivity</c:set></c:if>
 <html><head><title><spring:message code="${blockType}.name"/> 
 <c:if test="${block.project.withWithout and not isWithout}">(<spring:message code="projectBlock.with.with"/>)</c:if><c:if test="${block.project.withWithout and isWithout}">(<spring:message code="projectBlock.with.without"/>)</c:if>
-</title></head>
+</title>
+<c:set var="noCycles"><c:if test="${not block.cycles}">.noCycles</c:if></c:set>
+<c:set var="prodDescription">${blockType}.pattern.qty</c:set>
+<c:set var="prodDescriptionHelp">${blockType}.pattern.help</c:set>
+<c:set var="prodDescriptionNoCycles">${blockType}.pattern.noCycles.qty</c:set>
+<c:set var="prodDescriptionNoCyclesHelp">${blockType}.pattern.noCycles.help</c:set>
+<script>
+$(function() {
+	$("#cycles1").change(function() {
+		toggle("cycledata");
+		if(this.checked) {
+			$('#prodPattern0').prev().children().first().attr('title','<spring:message code="${prodDescriptionHelp}"/>');
+			$('#prodDescription').text('<spring:message code="${prodDescription}"/>');
+	    } else {
+			$('#prodPattern0').prev().children().first().attr('title','<spring:message code="${prodDescriptionNoCyclesHelp}"/>');
+			$('#prodDescription').text('<spring:message code="${prodDescriptionNoCycles}"/>');
+	    }
+	});
+});
+</script>
+</head>
 <body>
 	<form:form name="form" method="post" commandName="block">
 		<tags:errors />   
@@ -25,22 +45,28 @@
 				</div>
 			</c:if>
 			<tags:dataentry field="unitType" labelKey="${blockType}.prodUnit" helpText="${blockType}.prodUnit" inputClass="text" size="20" maxLength="20" />
-			<div class="dataentry">
-				<tags:help title="${blockType}.cycleLength" text="${blockType}.cycleLength.help"><label><spring:message code="${blockType}.cycleLength"/></label></tags:help>
-				<input class="curlabel" type="text" tabindex="100" size="4" value="" readonly="readonly" disabled="disabled"/>
-				<form:input path="cycleLength" cssClass="num" size="11"/>
-				<form:select path="lengthUnit">
-					<form:option value="0"><spring:message code="units.months"/></form:option>
-					<form:option value="1"><spring:message code="units.weeks"/></form:option>
-					<form:option value="2"><spring:message code="units.days.calendar"/></form:option>
-					<form:option value="3"><spring:message code="units.days.week"/></form:option>
-				</form:select>
+			<%--
+			<tags:dataentryCheckbox field="cycles" labelKey="projectBlock.usesCycles" helpText="projectBlock.usesCycles.help" helpTitle="projectBlock.usesCycles" />
+			 --%>
+			<div id="cycledata" <c:if test="${not block.cycles}">style="display:none;"</c:if><c:if test="${block.cycles}">style="display:block;"</c:if>>
+				<div class="dataentry">
+					<label><tags:help title="${blockType}.cycleLength" text="${blockType}.cycleLength.help"><spring:message code="${blockType}.cycleLength"/></tags:help></label>
+					<input class="curlabel" type="text" tabindex="100" size="4" value="" readonly="readonly" disabled="disabled"/>
+					<form:input path="cycleLength" cssClass="num" size="11"/>
+					<form:select path="lengthUnit">
+						<form:option value="0"><spring:message code="units.months"/></form:option>
+						<form:option value="1"><spring:message code="units.weeks"/></form:option>
+						<form:option value="2"><spring:message code="units.days.calendar"/></form:option>
+						<form:option value="3"><spring:message code="units.days.week"/></form:option>
+					</form:select>
+				</div>
+				<tags:dataentry field="cyclePerYear" labelKey="${blockType}.cyclePerYear" helpText="${blockType}.cycles.help" calcSignKey="units.perYear" />
+				<c:if test="${block.project.incomeGen}">
+					<tags:dataentry field="cycleFirstYear" labelKey="projectBlock.cycleFirstYear" helpText="projectBlock.cycleFirstYear.help" calcSignKey="units.perYear" />
+					<tags:dataentry field="cycleFirstYearIncome" labelKey="projectBlock.cycleFirstYearIncome" helpText="projectBlock.cycleFirstYearIncome.help" calcSignKey="units.perYear" />
+				</c:if>
 			</div>
-			<tags:dataentry field="cyclePerYear" labelKey="${blockType}.cyclePerYear" helpText="${blockType}.cycles.help" calcSignKey="units.perYear" />
-			<c:if test="${block.project.incomeGen}">
-				<tags:dataentry field="cycleFirstYear" labelKey="projectBlock.cycleFirstYear" helpText="projectBlock.cycleFirstYear.help" calcSignKey="units.perYear" />
-				<tags:dataentry field="cycleFirstYearIncome" labelKey="projectBlock.cycleFirstYearIncome" helpText="projectBlock.cycleFirstYearIncome.help" calcSignKey="units.perYear" />
-			</c:if>
+			
 		</fieldset>
 		
 		<c:if test="${block.project.incomeGen}">
@@ -51,7 +77,7 @@
 			</fieldset>
 		</c:if>
 		<fieldset>
-			<legend><tags:help title="${blockType}.pattern" text="${blockType}.pattern.help"><spring:message code="${blockType}.pattern"/></tags:help></legend>
+			<legend><tags:help title="${blockType}.pattern" text="${prodDescriptionHelp}"><spring:message code="${blockType}.pattern"/></tags:help></legend>
 			<tags:prodPattern block="${product.block}" edit="true"/>
 		</fieldset>
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>

@@ -57,8 +57,8 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	private Integer cycleFirstYearIncome;
 	@Column(name="UNIT_TYPE")	
 	private String UnitType;
-	@Column(name="NO_CYCLES")
-	private boolean noCycles;
+	@Column(name="CYCLES")
+	private boolean cycles;
 //	@Column(name="WITH_PROJECT")
 //	private boolean withProject;
 
@@ -225,12 +225,12 @@ public Integer getLengthUnit() {
         this.UnitType = UnitType;
     }
 
-   public boolean isNoCycles() {
-		return noCycles;
+   public boolean isCycles() {
+		return cycles;
 	}
 	
-	public void setNoCycles(boolean noCycles) {
-		this.noCycles = noCycles;
+	public void setCycles(boolean cycles) {
+		this.cycles = cycles;
 	}
 
 	//    public boolean isWithProject() {
