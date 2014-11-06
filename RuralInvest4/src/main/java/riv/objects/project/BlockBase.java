@@ -58,7 +58,7 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	@Column(name="UNIT_TYPE")	
 	private String UnitType;
 	@Column(name="CYCLES")
-	private boolean cycles;
+	private boolean cycles=true;
 //	@Column(name="WITH_PROJECT")
 //	private boolean withProject;
 
