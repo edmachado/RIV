@@ -149,6 +149,7 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 		// at the moment, only ProjectItemContribution is grouped by year and order, not only by order
 		// if other classes implement this feature, they should use an interface
 		if (this.getClass().isAssignableFrom(ProjectItemContribution.class) && i.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+			if (((ProjectItemContribution)this).getYear()==null) return -1;
 			int compare = ((ProjectItemContribution)this).getYear() - ((ProjectItemContribution)i).getYear();
 			if (compare!=0) { return compare; }
 		}
@@ -170,8 +171,7 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 				unitCost.equals(other.unitCost) &&
 			unitNum.equals(other.unitNum) &&
 			unitType.equals(other.unitType) &&
-			description.equals(other.description)
-			&& (getClass().isAssignableFrom(ProjectItemContribution.class) && obj.getClass().isAssignableFrom(ProjectItemContribution.class) && ((ProjectItemContribution)this).getYear()==((ProjectItemContribution)obj).getYear());
+			description.equals(other.description);
 		return isEqual;
 	}
 	
@@ -183,8 +183,6 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	    if (unitNum!=null) code = multiplier * code + unitNum.intValue();
 	    if (unitType!=null) code = multiplier * code + unitType.hashCode();
 	    if (description!=null) code = multiplier * code + description.hashCode();
-	    if (getClass().isAssignableFrom(ProjectItemContribution.class) && ((ProjectItemContribution)this).getYear()!=null) 
-	    	code = multiplier * code + ((ProjectItemContribution)this).getYear().hashCode();
 	    return code;
 	}
 

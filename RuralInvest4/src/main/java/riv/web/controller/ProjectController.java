@@ -236,14 +236,7 @@ public class ProjectController {
 	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
 			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 
 			@ModelAttribute Project p, HttpServletRequest request) {
-		int targetCount = p.getContributionsByYear().get(targetYear).size();
-		for (ProjectItemContribution c : p.getContributionsByYear().get(sourceYear)) {
-			ProjectItemContribution c2 = c.copy();
-			c2.setYear(targetYear);
-			c2.setOrderBy(targetCount++);
-			dataService.storeProjectItem(c2);
-			p.addContribution(c2);
-		}
+		dataService.copyContributions(p, sourceYear, targetYear);
 		dataService.storeProject(p, p.getWizardStep()==null);
 		return "redirect:../../../"+p.getProjectId();
 	}

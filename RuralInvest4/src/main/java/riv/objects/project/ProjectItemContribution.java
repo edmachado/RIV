@@ -74,7 +74,8 @@ public class ProjectItemContribution extends ProjectItem {
 	public boolean equals(Object obj) {
 		if (!super.equals(obj)) return false;
 		ProjectItemContribution x = (ProjectItemContribution)obj;
-		boolean isEqual = contribType.equals(x.contribType);
+		boolean isEqual = contribType.equals(x.contribType)
+		&&  ((year==null && this.getProjItemId()==x.getProjItemId()) || (year!=null && year==x.getYear()));
 		return isEqual;
 	}
 	
@@ -82,7 +83,8 @@ public class ProjectItemContribution extends ProjectItem {
 	public int hashCode() {
 		int code = super.hashCode();
 		final int multiplier = 23;
-	    if (contribType!=null) code = multiplier * code + contribType;	    
+	    if (contribType!=null) { code = multiplier * code + contribType; }	
+	    if (year!=null) { code = multiplier * code + year.hashCode(); }
 	    return code;
 	}
 }

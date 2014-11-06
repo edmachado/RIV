@@ -19,6 +19,7 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -1118,6 +1119,38 @@ public class DataRepository {
 			p.setCreatedBy(p.getTechnician().getDescription() + " ("+p.getTechnician().getOrganization()+")");
 			currentSession().save(p);
 		}
+		
+		// RIV<4.1 convert contributions to year-by-year
+		Criteria criteria = currentSession().createCriteria(Project.class)
+				.createAlias("contributions", "contributions")
+				.add(Restrictions.isNull("contributions.year"))
+				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+		@SuppressWarnings("unchecked")
+		List<Project> projects = criteria.list();
+		for (Project p : projects) {
+			// set all contributions to year 1
+			for (ProjectItemContribution c : p.getContributions()) {
+				c.setYear(1);
+				storeProjectItem(c, true);
+			}
+			// copy contributions to all years
+			for (int i=2; i<=p.getDuration(); i++) {
+				copyContributions(p, 1, i);
+			}
+			storeProject(p, p.getWizardStep()==null);
+		}
+		
+	}
+	
+	public void copyContributions(Project p, int sourceYear, int targetYear) {
+		int targetCount = p.getContributionsByYear().get(targetYear).size();
+		for (ProjectItemContribution c : p.getContributionsByYear().get(sourceYear)) {
+			ProjectItemContribution c2 = c.copy();
+			c2.setYear(targetYear);
+			c2.setOrderBy(targetCount++);
+			storeProjectItem(c2, true);
+			p.addContribution(c2);
+		}
 	}
 	
 	public void recalculateCompletedProjects() {
@@ -1360,11 +1393,15 @@ public class DataRepository {
 		return item;
 	}
 	public void storeProjectItem(ProjectItem pi) {
+		storeProjectItem(pi, false);
+	}
+	public void storeProjectItem(ProjectItem pi, boolean noResult) {
 		currentSession().saveOrUpdate(pi);
-		if (pi.getProject().getWizardStep()==null) {
+		if (!noResult && pi.getProject().getWizardStep()==null) {
 			storeProjectResult(pi.getProject().getProjectId());
 		}
 	}
+	
 	public void deleteProjectItem(ProjectItem item) {
 		int projId = item.getProject().getProjectId();
 		int orderBy = item.getOrderBy();

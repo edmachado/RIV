@@ -282,6 +282,10 @@ public class DataService implements UserDetailsService {
 		repo.checkProjectsOnUpgrade();
 	}
 	
+	public void copyContributions(Project p, int sourceYear, int targetYear) {
+		repo.copyContributions(p, sourceYear, targetYear);
+	}
+	
 	public void recalculateCompletedProjects() {
 		repo.recalculateCompletedProjects();
 	}
