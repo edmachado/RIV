@@ -97,9 +97,11 @@ $(function() {
 						<td/><td/><td/><td/><td/></tr>
 					</display:footer>
 				</display:table>
-				<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}&year=${yearNum}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
-				<c:if test="${fn:length(contribsByYear[yearNum]) gt 0}">
-					<div class="addNew"><a id="copyYear${yearNum}" href="javascript:copyContrib('../step10/${project.projectId}/copyContrib/${yearNum}/');"><img border="0" src="../../img/duplicate.gif"><spring:message code="projectContribution.copy"/></a>&nbsp;&nbsp;</div>
+				<c:if test="${accessOK}">
+					<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}&year=${yearNum}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+					<c:if test="${fn:length(contribsByYear[yearNum]) gt 0}">
+						<div class="addNew"><a id="copyYear${yearNum}" href="javascript:copyContrib('../step10/${project.projectId}/copyContrib/${yearNum}/');"><img border="0" src="../../img/duplicate.gif"><spring:message code="projectContribution.copy"/></a>&nbsp;&nbsp;</div>
+					</c:if>
 				</c:if>
 			</tags:table>
 		</c:forEach>

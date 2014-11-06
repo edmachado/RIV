@@ -2,6 +2,7 @@ package riv.web.controller;
  
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -158,17 +159,27 @@ public class ExcelImportController {
 		XSSFWorkbook workbook = getWorkbook(file);
 		
 		ProjectItemValidator validator = new ProjectItemValidator();
+		Project p = dataService.getProject(id, 10);
 		validator.setIncomeGen(false);
-		validator.setDuration(0); // any value ok 
+		validator.setDuration(p.getDuration()); 
 		
+		List<ProjectItemContribution> items = new ArrayList<ProjectItemContribution>();
 		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, 5, validator)
 				.addColumn(0, "description", false)
 				.addSelectColumn(1, "contribType", contribTypes())
 				.addColumn(2, "unitType", false)
 				.addColumn(3, "unitNum", true)
 				.addColumn(4, "unitCost", true);
-		List<ProjectItemContribution> items = table.readTable(workbook.getSheetAt(0), messageSource);
 		
+		for (int year=1; year<=p.getDuration();year++) {
+			table.setStartRow(2+items.size()+(year-1)*4);
+			List<ProjectItemContribution> yearItems = table.readTable(workbook.getSheetAt(0), messageSource);
+			for (ProjectItemContribution i : yearItems) {
+				i.setYear(year);
+			}
+			items.addAll(yearItems);
+			yearItems.clear();
+		}
 		dataService.replaceProjectContribution(id, items);
 	}
 	
@@ -546,6 +557,7 @@ public class ExcelImportController {
 		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
 		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal"));
 		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
+		contribTypes.put(4, translate("projectContribution.contribType.beneficiary"));
 		contribTypes.put(4, translate("projectContribution.contribType.other"));
 		return contribTypes;
 	}

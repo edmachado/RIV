@@ -235,8 +235,10 @@ public class ProjectController {
 	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
 			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 
 			@ModelAttribute Project p, HttpServletRequest request) {
-		dataService.copyContributions(p, sourceYear, targetYear);
-		dataService.storeProject(p, p.getWizardStep()==null);
+		if (targetYear>0 && targetYear<=p.getDuration()) {
+			dataService.copyContributions(p, sourceYear, targetYear);
+			dataService.storeProject(p, p.getWizardStep()==null);
+		}
 		return "redirect:../../../"+p.getProjectId();
 	}
 	

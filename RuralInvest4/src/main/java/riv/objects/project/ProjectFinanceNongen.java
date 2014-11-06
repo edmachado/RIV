@@ -99,10 +99,7 @@ public class ProjectFinanceNongen {
 		ArrayList<ProjectFinanceNongen> data = new ArrayList<ProjectFinanceNongen>();
 		for (int i=0;i<project.getDuration();i++)	data.add(new ProjectFinanceNongen(i+1));
 		
-		// contributions
-		double contribution=0.0;
-		for (ProjectItemContribution cont : project.getContributions()) 
-			contribution+=cont.getUnitCost()*cont.getUnitNum();
+		
 		// general maintenance and contributions to general costs
 		double maintenance=0.0;
 		double contributionsGeneral=0.0;
@@ -118,10 +115,13 @@ public class ProjectFinanceNongen {
 			maintenance+=gen.getUnitCost()*gen.getUnitNum();
 			contributionsGeneral+=gen.getStatePublic()+gen.getOther1();
 		}
-			
-		// add contributions and maintenance (invariable per year)
+		// contributions
+		for (ProjectItemContribution cont : project.getContributions()) {
+			data.get(cont.getYear()-1).setContributions(data.get(cont.getYear()-1).getContributions()+cont.getTotal());
+		}
+				
+		// add general and maintenance (invariable per year)
 		for (ProjectFinanceNongen pfn : data) {
-			pfn.setContributions(contribution);
 			pfn.setGeneral(maintenance);
 			pfn.setContributionsGeneral(contributionsGeneral);
 		}

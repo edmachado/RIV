@@ -1506,8 +1506,13 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitCost", false)
 		.addColumn(XlsColumnType.FORMULA, "DX*EX", true);
-		table.writeTable(sheet, rowNum, template ? null : project.getContributions(), true);
-
+		
+		for (int i=1;i<=project.getDuration();i++) {
+			row = sheet.createRow(rowNum++);
+			report.addTextCell(row, cellNum, "TRANSLATE year"+" "+i, Style.H2);
+			rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(i), true);
+			rowNum++;
+		}
 		
 		return sheet;
 	}

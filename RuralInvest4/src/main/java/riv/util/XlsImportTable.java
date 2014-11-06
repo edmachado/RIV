@@ -29,7 +29,7 @@ public class XlsImportTable<E extends OrderByable> {
 	
 	public XlsImportTable(Class<? extends OrderByable> clazz, int startRow, int startWhenColumnIsNumeric, Validator validator) {
 		this.clazz=clazz;
-		this.startRow = startRow;
+		this.setStartRow(startRow);
 		this.startWhenColumnIsNumeric=startWhenColumnIsNumeric;
 		this.columns = new ArrayList<XlsImportColumn>();
 		this.validator=validator;
@@ -62,7 +62,11 @@ public class XlsImportTable<E extends OrderByable> {
 		columns.add(c);
 		return this;
 	}
-	
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
 	public void setObjectProperty(E o, String property, Object value) {
 		try {
 			BeanUtils.setProperty(o, property, value);
