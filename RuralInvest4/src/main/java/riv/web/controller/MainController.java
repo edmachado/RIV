@@ -93,8 +93,11 @@ public class MainController {
 	 * Used by testing framework
 	 */
 	@RequestMapping("help/deleteAll")
-	public String deleteAll(@RequestParam String type, @RequestParam String ig) {
-		dataService.deleteAll(type.equals("project"), ig.equals("true"));
+	public String deleteAll(@RequestParam String type, @RequestParam String ig, HttpServletRequest request) {
+		User u = (User)request.getAttribute("user");
+		if (u.isAdministrator()) {
+			dataService.deleteAll(type.equals("project"), ig.equals("true"));
+		}
 		return "redirect:../home";
 	}
 	
@@ -102,9 +105,12 @@ public class MainController {
 	 * Used by testing framework
 	 */
 	@RequestMapping("help/deleteAllAppConfigs")
-	public String deleteAllAppConfigs() {
-		dataService.deleteAllAppConfigs();
-		rivConfig.reload();
+	public String deleteAllAppConfigs(HttpServletRequest request) {
+		User u = (User)request.getAttribute("user");
+		if (u.isAdministrator()) {
+			dataService.deleteAllAppConfigs();
+			rivConfig.reload();
+		}
 		return "redirect:../home";
 	}
 	
