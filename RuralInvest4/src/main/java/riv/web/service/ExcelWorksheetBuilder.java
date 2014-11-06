@@ -1436,13 +1436,6 @@ public class ExcelWorksheetBuilder {
 		cellNum = 1;
 		for (ProjectFinanceNongen pfn : data) {
 			String col = getColumn(cellNum);
-//			if (data.size() > COLS.length) {
-//				int mod = cellNum % COLS.length;
-//				int colIndex = (int) ( (data.size() - mod) / COLS.length);
-//				col = getColumn(colIndex] + getColumn(mod];
-//			} else {
-//				col = getColumn(cellNum];
-//			}
 			
 			report.addNumericCell(firstRow, cellNum, cellNum);
 			

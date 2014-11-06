@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import riv.objects.LinkedToable;
 import riv.objects.OrderByable;
@@ -46,6 +47,8 @@ public abstract class BlockItem  implements Serializable, OrderByable, LinkedToa
 	protected BigDecimal unitCost;
 	@Column(name="QTY_INTERN", precision=12, scale=4)
 	protected BigDecimal qtyIntern;
+	@Size(max=2000)
+	private String note;
 	@ManyToOne
 	@JoinColumn(name="LINKED_TO")
 	private ReferenceItem linkedTo;
@@ -114,6 +117,14 @@ public abstract class BlockItem  implements Serializable, OrderByable, LinkedToa
 
 	public void setQtyIntern (BigDecimal QtyIntern) {
 		this.qtyIntern = QtyIntern;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public void setLinkedTo(ReferenceItem linkedTo) {

@@ -82,6 +82,14 @@ public class BlockController {
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public String saveProjectItem(@Valid @ModelAttribute("block") BlockBase block, BindingResult result, Model model, HttpServletRequest request) {
+    	if (block.isNoCycles()) {
+    		block.setLengthUnit(0); // 0="month(s)"
+    		block.setCycleLength(12.0); // 12 months = 1 year-long cycle
+    		block.setCyclePerYear(1);
+    		block.setCycleFirstYear(1);
+    		block.setCycleFirstYearIncome(1);
+    	}
+    	
     	updateProductionPattern(block, request, result);
     	updateChronology(block, request, result);
     	

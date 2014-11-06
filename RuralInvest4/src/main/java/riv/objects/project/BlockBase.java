@@ -57,6 +57,8 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	private Integer cycleFirstYearIncome;
 	@Column(name="UNIT_TYPE")	
 	private String UnitType;
+	@Column(name="NO_CYCLES")
+	private boolean noCycles;
 //	@Column(name="WITH_PROJECT")
 //	private boolean withProject;
 
@@ -222,7 +224,16 @@ public Integer getLengthUnit() {
    public void setUnitType (java.lang.String UnitType) {
         this.UnitType = UnitType;
     }
-//    public boolean isWithProject() {
+
+   public boolean isNoCycles() {
+		return noCycles;
+	}
+	
+	public void setNoCycles(boolean noCycles) {
+		this.noCycles = noCycles;
+	}
+
+	//    public boolean isWithProject() {
 //    	return withProject;
 //    }
 //    public void setWithProject(boolean withProject) {

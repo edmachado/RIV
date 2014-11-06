@@ -21,6 +21,14 @@ public class ProjectFinanceNongen {
 	public int getYear() {
 		return year;
 	}
+	
+	// calculated field: total
+	public double getTotal() {
+		return 
+				ownContribution+donated+salvage+charges+contributions+contributionsGeneral
+				-(costInvest+replacement+operation+maintenance+general);
+	}
+	
 	public void setCharges(double charges) {
 		this.charges = charges;
 	}

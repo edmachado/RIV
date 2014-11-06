@@ -50,6 +50,8 @@ public abstract class ProfileProductItem  implements Serializable, OrderByable, 
      private BigDecimal unitNum;
      @Column(name="UNIT_COST", precision=12, scale=4)
      private BigDecimal unitCost;
+ 	@Size(max=2000)
+ 	private String note;
      @ManyToOne
  	@JoinColumn(name="LINKED_TO")
  	private ReferenceItem linkedTo;
@@ -130,6 +132,14 @@ public abstract class ProfileProductItem  implements Serializable, OrderByable, 
     public void setUnitCost(BigDecimal unitCost) {
         this.unitCost = unitCost;
     }
+
+    public String getNote() {
+		return note;
+	}
+
+    public void setNote(String note) {
+		this.note = note;
+	}
 
 	public void setLinkedTo(ReferenceItem linkedTo) {
 		this.linkedTo = linkedTo;

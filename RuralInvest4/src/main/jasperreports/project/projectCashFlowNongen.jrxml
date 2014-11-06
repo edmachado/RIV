@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlowNongen" columnCount="10" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="73" leftMargin="100" rightMargin="10" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlowNongen" columnCount="10" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="73" leftMargin="100" rightMargin="10" topMargin="20" bottomMargin="20" uuid="b7a85232-ffe3-4629-b41c-ecb8fd35d18a">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="270"/>
+	<property name="ireport.y" value="613"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="projectName" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="imgPath" class="java.lang.String" isForPrompting="false"/>
-	
 	<parameter name="incomeGen" class="java.lang.Boolean" isForPrompting="false"/>
 	<parameter name="header" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
-	
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
@@ -30,6 +28,7 @@
 	<field name="costInvest" class="java.lang.Double"/>
 	<field name="replace" class="java.lang.Double"/>
 	<field name="general" class="java.lang.Double"/>
+	<field name="total" class="java.lang.Double"/>
 	<variable name="showRowLabel" class="java.lang.Boolean">
 		<variableExpression><![CDATA[new java.lang.Boolean($F{year}.intValue()==1||$F{year}.intValue()%11==0)]]></variableExpression>
 	</variable>
@@ -42,7 +41,7 @@
 	<pageHeader>
 		<band height="31" splitType="Stretch">
 			<subreport isUsingCache="true">
-				<reportElement key="subreport-1" mode="Opaque" x="-85" y="0" width="760" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="b2406b9d-a97a-489a-8743-b16340490f6c" key="subreport-1" mode="Opaque" x="-85" y="0" width="760" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
 				<subreportParameter name="rivConfig">
 					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -52,17 +51,14 @@
 				<subreportParameter name="reportTitle">
 					<subreportParameterExpression><![CDATA[$R{project.report.cashFlowNongen}]]></subreportParameterExpression>
 				</subreportParameter>
-				
-				
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[($P{incomeGen}.booleanValue()) ? $R{project.incomeGen} : $R{project.nonIncomeGen}]]></subreportParameterExpression>
 				</subreportParameter>
-				
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{header}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{header}]]></subreportExpression>
 			</subreport>
 		</band>
 	</pageHeader>
@@ -72,19 +68,19 @@
 	<detail>
 		<band height="396" splitType="Stretch">
 			<rectangle radius="0">
-				<reportElement key="rectangle-1" positionType="Float" mode="Opaque" x="-87" y="22" width="146" height="13" forecolor="#000000" backcolor="#E5E5E5"/>
+				<reportElement uuid="659992be-3e0c-4b8e-a09b-69a1efa164d3" key="rectangle-1" positionType="Float" mode="Opaque" x="-87" y="22" width="146" height="13" forecolor="#000000" backcolor="#E5E5E5"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.0" lineStyle="Solid"/>
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-2" positionType="Float" mode="Opaque" x="-83" y="207" width="142" height="15" forecolor="#000000" backcolor="#E5E5E5"/>
+				<reportElement uuid="52b29545-4e29-4871-a1bc-afe3c940d380" key="rectangle-2" positionType="Float" mode="Opaque" x="-83" y="207" width="142" height="15" forecolor="#000000" backcolor="#E5E5E5"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.0" lineStyle="Solid"/>
 				</graphicElement>
 			</rectangle>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="2" y="113" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="e5204403-b7fd-4346-b5e6-3e9965e216d5" key="textField" positionType="Float" mode="Opaque" x="2" y="113" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -94,10 +90,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{charges},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{charges},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="2" y="167" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="af1b1be6-ef27-494a-ae27-d344b93c4c9c" key="textField" positionType="Float" mode="Opaque" x="2" y="167" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -107,10 +103,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{contributions},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{contributions},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="2" y="301" width="58" height="28" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="4a0cce29-641d-4e14-aaac-80679ede979f" key="textField" positionType="Float" mode="Opaque" x="2" y="301" width="58" height="28" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -120,10 +116,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{operation},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{operation},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField" positionType="Float" mode="Opaque" x="2" y="331" width="58" height="28" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="0fd609af-b451-4a79-bac1-4c7e4668d0af" key="textField" positionType="Float" mode="Opaque" x="2" y="331" width="58" height="28" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -133,10 +129,10 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{general},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{general},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-16" positionType="Float" mode="Opaque" x="2" y="195" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="506f1776-fd30-4d51-9414-a540dddce80a" key="textField-16" positionType="Float" mode="Opaque" x="2" y="195" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -146,13 +142,13 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{ownContribution}.doubleValue()
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{ownContribution}.doubleValue()
 +$F{donated}.doubleValue()+$F{salvage}.doubleValue()
 +$F{charges}.doubleValue()+$F{contributions}.doubleValue()
 +$F{contributionsGeneral}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-17" positionType="Float" mode="Opaque" x="2" y="363" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="9c789f08-139b-484c-9821-1339da4625b4" key="textField-17" positionType="Float" mode="Opaque" x="2" y="363" width="58" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -162,13 +158,13 @@
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
 $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 +$F{operation}.doubleValue()+$F{maintenance}.doubleValue()
 +$F{general}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-22" positionType="Float" mode="Opaque" x="-87" y="22" width="85" height="13" forecolor="#003365" backcolor="#E5E5E5">
+				<reportElement uuid="b2326fd7-6362-4994-a3a3-fb435851899e" key="textField-22" positionType="Float" mode="Opaque" x="-87" y="22" width="85" height="13" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box bottomPadding="1">
@@ -180,10 +176,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.income}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.income}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-23" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="113" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="b5fb47b0-0346-4407-b10e-906365366760" key="textField-23" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="113" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -195,10 +191,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.userCharges}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.userCharges}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-24" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="167" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="c31fdc43-54a4-4546-bf11-2fb09730874b" key="textField-24" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="167" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -210,10 +206,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.contributions}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.contributions}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="195" width="85" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="85297b62-5ede-42e9-9194-fb7f341a334e" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="195" width="85" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -225,10 +221,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{misc.total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{misc.total}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-28" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="207" width="148" height="15" forecolor="#003365" backcolor="#E5E5E5">
+				<reportElement uuid="8ed54375-4805-4b42-ae32-d312a483b72c" key="textField-28" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="207" width="148" height="15" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -240,10 +236,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.costs}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.costs}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-29" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="301" width="85" height="28" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="b16c62e3-02fe-476b-9fc4-3fa70c7f488b" key="textField-29" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="301" width="85" height="28" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -255,10 +251,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.operation}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.operation}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-30" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="331" width="85" height="28" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="851a6660-bf04-476e-9297-56b985b00151" key="textField-30" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="331" width="85" height="28" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -270,10 +266,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.general}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.general}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="363" width="85" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="56499e44-8c92-4817-8b7d-a1f93bc99f63" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="363" width="85" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -285,22 +281,22 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{misc.total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{misc.total}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement key="line-1" positionType="Float" mode="Opaque" x="-87" y="194" width="148" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<reportElement uuid="a2c0ae5d-1695-4eaf-93ed-1ec3db036202" key="line-1" positionType="Float" mode="Opaque" x="-87" y="194" width="148" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement key="line-2" positionType="FixRelativeToBottom" mode="Opaque" x="-87" y="361" width="147" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<reportElement uuid="c9eca6d1-af50-4d52-a0de-f610aab46d74" key="line-2" positionType="FixRelativeToBottom" mode="Opaque" x="-87" y="361" width="147" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="false">
-				<reportElement key="textField-21" positionType="Float" mode="Opaque" x="2" y="3" width="58" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="ece91276-dabb-4af7-9ac3-b77634a663ca" key="textField-21" positionType="Float" mode="Opaque" x="2" y="3" width="58" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -310,10 +306,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
 					<font fontName="Arial" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{year}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-58" positionType="Float" mode="Opaque" x="2" y="378" width="58" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="864c0246-3f14-473c-bf5f-c128cffe0dfd" key="textField-58" positionType="Float" mode="Opaque" x="2" y="378" width="58" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -323,21 +319,12 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
-($F{ownContribution}.doubleValue()
-+$F{donated}.doubleValue()+$F{salvage}.doubleValue()
-+$F{charges}.doubleValue()+$F{contributions}.doubleValue()
-+$F{contributionsGeneral}.doubleValue())
--
-(
-$F{costInvest}.doubleValue()+$F{replace}.doubleValue()
-+$F{operation}.doubleValue()+$F{maintenance}.doubleValue()
-+$F{general}.doubleValue()
-)
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
+   $F{total}
 ,riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-59" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="378" width="84" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="70149e0f-dcc2-4e26-80b8-7829296caa95" key="textField-59" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="378" width="84" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -349,10 +336,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.netBalance}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.netBalance}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-60" positionType="Float" mode="Opaque" x="2" y="140" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="7b287869-fa42-466b-b1d0-7e817285e6f9" key="textField-60" positionType="Float" mode="Opaque" x="2" y="140" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -362,10 +349,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{contributionsGeneral},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{contributionsGeneral},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-61" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="140" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="9038b380-bba6-45f8-9bf1-d1bd83022e36" key="textField-61" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="140" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -377,10 +364,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.contributionsGeneral}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.contributionsGeneral}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-62" positionType="Float" mode="Opaque" x="2" y="62" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="ebe0453b-bd97-4506-bc84-19e9cdfba90d" key="textField-62" positionType="Float" mode="Opaque" x="2" y="62" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -390,10 +377,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{ownContribution},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{ownContribution},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-63" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="62" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="09de085b-466e-4b11-aaf5-b36960264f5d" key="textField-63" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="62" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -405,10 +392,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.investOwn}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.investOwn}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-64" positionType="Float" mode="Opaque" x="2" y="37" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="2a9a1704-ecdf-4fb6-a3c7-49c7a750b913" key="textField-64" positionType="Float" mode="Opaque" x="2" y="37" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -418,10 +405,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{donated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{donated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-65" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="37" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="2efbd258-82a6-4309-9e44-4f61e0943c46" key="textField-65" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="37" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -433,10 +420,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.investDonated}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.investDonated}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-66" positionType="Float" mode="Opaque" x="2" y="87" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="d32a1148-e532-48a8-b967-c297b15ac60c" key="textField-66" positionType="Float" mode="Opaque" x="2" y="87" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -446,10 +433,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{salvage},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{salvage},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-67" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="87" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="3f3e6741-a6f4-4012-ba42-971b6767178a" key="textField-67" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="87" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -461,10 +448,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.salvage}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.salvage}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-68" positionType="Float" mode="Opaque" x="2" y="223" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="3b35f542-0354-405d-a4a2-d67a7c0e3f5b" key="textField-68" positionType="Float" mode="Opaque" x="2" y="223" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -474,10 +461,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-69" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="223" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="e5fe8fe5-f232-4a0b-842c-dcb29939f3c0" key="textField-69" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="223" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -489,10 +476,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.investCosts}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.investCosts}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-70" positionType="Float" mode="Opaque" x="2" y="247" width="58" height="28" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="8f3cd34b-17fd-4ae6-80c7-d03a42090a8b" key="textField-70" positionType="Float" mode="Opaque" x="2" y="247" width="58" height="28" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -502,10 +489,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{replace},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{replace},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-71" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="247" width="85" height="28" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="cb6d375b-6e5d-40f0-a158-323b2694bc18" key="textField-71" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="247" width="85" height="28" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -517,10 +504,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.replacement}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.replacement}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-72" positionType="Float" mode="Opaque" x="2" y="276" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="8a6544be-415b-493c-b6a7-e36e13cfe271" key="textField-72" positionType="Float" mode="Opaque" x="2" y="276" width="58" height="25" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -530,10 +517,10 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{maintenance},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{maintenance},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-73" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="276" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="a835ca96-ac5e-4bcc-b9d5-1b65711c807a" key="textField-73" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="276" width="85" height="25" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -545,7 +532,7 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{project.report.cashFlowNongen.investMaint}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlowNongen.investMaint}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -555,7 +542,7 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 	<pageFooter>
 		<band height="26" splitType="Prevent">
 			<subreport>
-				<reportElement x="-85" y="0" width="785" height="26" backcolor="#FFFFFF"/>
+				<reportElement uuid="51f1ed61-4303-4627-87f4-5b6d5520e351" x="-85" y="0" width="785" height="26" backcolor="#FFFFFF"/>
 				<subreportParameter name="pageNo">
 					<subreportParameterExpression><![CDATA[$V{PAGE_NUMBER}+$P{startPage}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -569,7 +556,7 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 					<subreportParameterExpression><![CDATA[$P{reportname}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{footer}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{footer}]]></subreportExpression>
 			</subreport>
 		</band>
 	</pageFooter>

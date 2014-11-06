@@ -69,6 +69,7 @@
 					onmouseout="CalculateReserve()"/>
 				<tags:datadivider color="blue"/>
 				<tags:dataentry field="reserve" labelKey="profileGoods.reserve" currency="true" helpText="profileGoods.reserve.help" calculated="true"  />
+			
 			</fieldset>
 		</div>
 		<div style="display:inline-block;">
