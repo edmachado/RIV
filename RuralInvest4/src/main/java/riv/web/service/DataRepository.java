@@ -828,6 +828,31 @@ public class DataRepository {
 		
 		if (!p.getIncomeGen() && (step==10 || step==-1)) {
 			Hibernate.initialize(p.getContributions());
+			if (step==10) { // load all data for analysis
+				Hibernate.initialize(p.getNongenLabours());
+				Hibernate.initialize(p.getNongenMaintenance());
+				Hibernate.initialize(p.getNongenMaterials());
+				Hibernate.initialize(p.getAssets());
+				Hibernate.initialize(p.getLabours());
+				Hibernate.initialize(p.getServices());
+				Hibernate.initialize(p.getAssetsWithout());
+				Hibernate.initialize(p.getLaboursWithout());
+				Hibernate.initialize(p.getServicesWithout());
+				for (Block b : p.getBlocks()) {
+					Hibernate.initialize(b.getChrons());
+					Hibernate.initialize(b.getPatterns());
+					Hibernate.initialize(b.getIncomes());
+					Hibernate.initialize(b.getInputs());
+					Hibernate.initialize(b.getLabours());
+				}
+				for (BlockWithout b : p.getBlocksWithout()) {
+					Hibernate.initialize(b.getChrons());
+					Hibernate.initialize(b.getPatterns());
+					Hibernate.initialize(b.getIncomes());
+					Hibernate.initialize(b.getInputs());
+					Hibernate.initialize(b.getLabours());
+				}
+			}
 		}
 		
 		if (p.getIncomeGen() && step==11) {
@@ -1345,7 +1370,12 @@ public class DataRepository {
 		int orderBy = item.getOrderBy();
 		
 		currentSession().delete(item);
-		genericReorder(item.getClass().getSimpleName(), "project_id", projId, orderBy);
+		
+		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+			genericReorderWithYear(item.getClass().getSimpleName(), "project_id", projId, orderBy, ((ProjectItemContribution)item).getYear());
+		} else {
+			genericReorder(item.getClass().getSimpleName(), "project_id", projId, orderBy);
+		}
 	}
 
 	
@@ -1573,7 +1603,12 @@ public class DataRepository {
 	}
 	
 	public void moveProjectItem(ProjectItem item, boolean up) {
-		genericMoveOrder(item.getClass().getSimpleName(), "Proj_Item_Id", item.getProjItemId(), "Project_Id", item.getProject().getProjectId(), item.getOrderBy(), up);
+		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+			genericMoveOrderWithYear(item.getClass().getSimpleName(), "Proj_Item_Id", item.getProjItemId(), "Project_Id", 
+					item.getProject().getProjectId(), item.getOrderBy(), ((ProjectItemContribution)item).getYear(), up);
+		} else {
+			genericMoveOrder(item.getClass().getSimpleName(), "Proj_Item_Id", item.getProjItemId(), "Project_Id", item.getProject().getProjectId(), item.getOrderBy(), up);
+		}
 	}
 
 	public void moveBlockItem(BlockItem item, boolean up) {
@@ -1596,6 +1631,14 @@ public class DataRepository {
 	@Transactional
 	private void genericMoveOrder(String className, String idField, int itemId,
 			String parentIdName, int parentId, int orderBy, boolean dirUp) {
+		genericMoveOrderWithYear(className, idField, itemId,
+				parentIdName, parentId, orderBy, null, dirUp);
+		
+	}
+	
+	@Transactional
+	private void genericMoveOrderWithYear(String className, String idField, int itemId,
+			String parentIdName, int parentId, int orderBy, Integer year, boolean dirUp) {
 
 		String dir1 = dirUp ? "+1" : "-1";
 		String strQry1 = "UPDATE " + className + " SET order_By = (order_By"
@@ -1609,25 +1652,43 @@ public class DataRepository {
 		String strQry2 = "UPDATE " + className + " SET order_By = (order_By"
 				+ dir2 + ") WHERE order_By=:order_by AND " + parentIdName
 				+ "=:pId AND " + idField + " <>:id";
+		if (year!=null) {
+			strQry2+=" AND year_begin=:year";
+		}
 		Query query2 = currentSession().createQuery(strQry2);
 		int replaceWith = dirUp ? orderBy + 1 : orderBy - 1;
 		query2.setInteger("order_by", replaceWith);
 		query2.setInteger("pId", parentId);
 		query2.setInteger("id", itemId);
+		if (year!=null) {
+			query2.setInteger("year", year.intValue());
+		}
 		query2.executeUpdate();
 	}
 
 	@Transactional
 	private void genericReorder(String className, String parentIdName,
 			int parentId, int orderBy) {
+		genericReorderWithYear(className, parentIdName, parentId, orderBy, null);
+	}
+	
+	@Transactional
+	private void genericReorderWithYear(String className, String parentIdName,
+			int parentId, int orderBy, Integer year) {
 		//className = className.substring(0,className.indexOf("_$$_javassist"));
 		String updateQuery = "UPDATE " + className
 				+ " SET order_By = (order_By-1) WHERE order_By>:order_by AND "
 				+ parentIdName + "=:pId";
+		if (year!=null) {
+			updateQuery+=" AND year_begin=:year";
+		}
 		Query reorder = currentSession().createQuery(
 				updateQuery);
 		reorder.setInteger("order_by", orderBy);
 		reorder.setInteger("pId", parentId);
+		if (year!=null) {
+			reorder.setInteger("year", year.intValue());
+		}
 		reorder.executeUpdate();
 	}
 

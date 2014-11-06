@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import riv.objects.LinkedToable;
 import riv.objects.OrderByable;
@@ -44,6 +45,8 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	protected Double unitNum;
 	@Column(name="UNIT_COST")
 	protected Double unitCost;
+	@Size(max=2000)
+	private String note;
 	@ManyToOne
 	@JoinColumn(name="LINKED_TO")
 	private ReferenceItem linkedTo;
@@ -110,6 +113,14 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 		unitCost = UnitCost;
 	}
 
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	public void setLinkedTo(ReferenceItem linkedTo) {
 		this.linkedTo = linkedTo;
 	}
@@ -135,8 +146,14 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;
+		// at the moment, only ProjectItemContribution is grouped by year and order, not only by order
+		// if other classes implement this feature, they should use an interface
+		if (this.getClass().isAssignableFrom(ProjectItemContribution.class) && i.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+			int compare = ((ProjectItemContribution)this).getYear() - ((ProjectItemContribution)i).getYear();
+			if (compare!=0) { return compare; }
+		}
 		int compare = this.getOrderBy() - i.getOrderBy();
-		if(compare == 0) return 1;
+//		if(compare == 0) return 1;
 		return compare; 
 	}
 
@@ -153,7 +170,8 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 				unitCost.equals(other.unitCost) &&
 			unitNum.equals(other.unitNum) &&
 			unitType.equals(other.unitType) &&
-			description.equals(other.description);
+			description.equals(other.description)
+			&& (getClass().isAssignableFrom(ProjectItemContribution.class) && obj.getClass().isAssignableFrom(ProjectItemContribution.class) && ((ProjectItemContribution)this).getYear()==((ProjectItemContribution)obj).getYear());
 		return isEqual;
 	}
 	
@@ -165,6 +183,8 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	    if (unitNum!=null) code = multiplier * code + unitNum.intValue();
 	    if (unitType!=null) code = multiplier * code + unitType.hashCode();
 	    if (description!=null) code = multiplier * code + description.hashCode();
+	    if (getClass().isAssignableFrom(ProjectItemContribution.class) && ((ProjectItemContribution)this).getYear()!=null) 
+	    	code = multiplier * code + ((ProjectItemContribution)this).getYear().hashCode();
 	    return code;
 	}
 

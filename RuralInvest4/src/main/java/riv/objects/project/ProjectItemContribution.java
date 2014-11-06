@@ -22,6 +22,8 @@ public class ProjectItemContribution extends ProjectItem {
 	
 	@Column(name="CONTRIB_TYPE")
 	private Integer contribType;
+	@Column(name="YEAR_BEGIN")
+	private Integer year;
 	
 	public Project getProject () {
 		return this.project;
@@ -38,6 +40,14 @@ public class ProjectItemContribution extends ProjectItem {
 	public Integer getContribType() {
 		return contribType;
 	}
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
 	public double getTotal() {
 		if (getUnitNum()==null || getUnitCost()==null) return 0;
 		return this.getUnitCost()*this.getUnitNum();
@@ -46,6 +56,7 @@ public class ProjectItemContribution extends ProjectItem {
 	 @Override
 	 public ProjectItemContribution copy() {
 	 ProjectItemContribution item = new ProjectItemContribution();
+	 	item.setYear(year);
 	   item.setDescription(description);
 	   ///item.setExportLinkedTo(exportLinkedTo);
 	   item.setLinkedTo(getLinkedTo());

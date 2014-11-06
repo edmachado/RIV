@@ -3,6 +3,7 @@ package riv.web.controller;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,9 @@ import riv.objects.config.ProjectCategory;
 import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Project;
+import riv.objects.project.ProjectFinanceNongen;
 import riv.objects.project.ProjectFirstYear;
+import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectResult;
 import riv.util.CurrencyFormat;
 import riv.util.validators.ProjectValidator;
@@ -229,6 +232,22 @@ public class ProjectController {
 		return "redirect:../../../project/step1/"+newProj.getProjectId()+"?rename=true";
 	}
 	
+	@RequestMapping(value="step{step}/{id}/copyContrib/{sourceYear}/{targetYear}", method=RequestMethod.GET)
+	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
+			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 
+			@ModelAttribute Project p, HttpServletRequest request) {
+		int targetCount = p.getContributionsByYear().get(targetYear).size();
+		for (ProjectItemContribution c : p.getContributionsByYear().get(sourceYear)) {
+			ProjectItemContribution c2 = c.copy();
+			c2.setYear(targetYear);
+			c2.setOrderBy(targetCount++);
+			dataService.storeProjectItem(c2);
+			p.addContribution(c2);
+		}
+		dataService.storeProject(p, p.getWizardStep()==null);
+		return "redirect:../../../"+p.getProjectId();
+	}
+	
 	@RequestMapping(value="step{step}/{id}/delete", method=RequestMethod.GET)
 	public String delete(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Project p) {
 		boolean isComplete=p.getWizardStep()==null;
@@ -264,7 +283,14 @@ public class ProjectController {
 			model.addAttribute("files",files);
 			model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
 			model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
+		} else if (step==10 &! p.getIncomeGen()) {
+			// get yearly cash flow total
+			ArrayList<ProjectFinanceNongen> data = ProjectFinanceNongen.analyzeProject(p);
+			model.addAttribute("years",data);
+			// group contributions by year
+			model.addAttribute("contribsByYear", p.getContributionsByYear());
 		} else if (step==11 && p.getIncomeGen()) {
+		
 			int period;
 			double amount;
 			

@@ -23,6 +23,11 @@ function confirmDelete(href) {
 	$('#confirmDelete').dialog('open');
 }
 
+function copyContrib(href) {
+	$('#copyUrl').val(href);
+	$('#copyYear').dialog('open');
+}
+
 function search(unfinished, objType, freeText) {
 	document.quickSearch.freeText.value=freeText;
 	document.quickSearch.objType.value=objType;

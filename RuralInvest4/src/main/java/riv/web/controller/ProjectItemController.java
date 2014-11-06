@@ -78,7 +78,7 @@ public class ProjectItemController {
 	}
 	
 	@ModelAttribute("projectItem")
-	public ProjectItem getItem(@PathVariable Integer id, @RequestParam(required=false) String type, @RequestParam(required=false) Integer projectId)  {
+	public ProjectItem getItem(@PathVariable Integer id, @RequestParam(required=false) String type, @RequestParam(required=false) Integer projectId, @RequestParam(required=false) Integer year)  {
 		ProjectItem pi;
 		if (id != -1) { pi= dataService.getProjectItem(id); }
 		else {
@@ -138,7 +138,8 @@ public class ProjectItemController {
 			} else { // contribution
 				p = dataService.getProject(projectId, 10);
 				pi = new ProjectItemContribution();
-				pi.setOrderBy(p.getContributions().size());
+				((ProjectItemContribution)pi).setYear(year);
+				pi.setOrderBy(p.getContributionsByYear().get(year).size());
 			}
 			pi.setProject(p);
 		}
@@ -188,7 +189,7 @@ public class ProjectItemController {
     	} else if (newItem.getClass()==ProjectItemAssetWithout.class) {
     		newItem.setOrderBy(newItem.getProject().getAssetsWithout().size());
     	} else if (newItem.getClass()==ProjectItemContribution.class) {
-    		newItem.setOrderBy(newItem.getProject().getContributions().size());
+    		newItem.setOrderBy(newItem.getProject().getContributionsByYear().get(((ProjectItemContribution)projectItem).getYear()).size());
     	} else if (newItem.getClass()==ProjectItemGeneral.class) { 
     		newItem.setOrderBy(newItem.getProject().getGenerals().size());
     	} else if (newItem.getClass()==ProjectItemGeneralWithout.class) {

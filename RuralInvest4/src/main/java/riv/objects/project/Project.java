@@ -3,9 +3,13 @@ package riv.objects.project;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -260,7 +264,7 @@ public class Project extends Probase implements java.io.Serializable {
 	private Set<ProjectItemServiceWithout> servicesWithout;
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemContribution.class, orphanRemoval=true, cascade = CascadeType.ALL)
-	@OrderBy("ORDER_BY")
+	//@OrderBy({"YEAR_BEGIN","ORDER_BY"})
 	@Where(clause="class='5'")
 	private Set<ProjectItemContribution> contributions;
 
@@ -343,6 +347,17 @@ public double getInvestmentTotal() {
 		investTotal+=ser.getUnitCost()*ser.getUnitNum()-ser.getOwnResources()-ser.getDonated();
 	return investTotal;
 }
+
+	public HashMap<Integer, SortedSet<ProjectItemContribution>> getContributionsByYear() {
+		HashMap<Integer, SortedSet<ProjectItemContribution>> contribsByYear = new HashMap<Integer, SortedSet<ProjectItemContribution>>();
+		for (int i=1; i<=duration; i++) {
+			contribsByYear.put(i, new TreeSet<ProjectItemContribution>());
+		}
+		for (ProjectItemContribution contrib : contributions) {
+			contribsByYear.get(contrib.getYear()).add(contrib);
+		} 
+		return contribsByYear;
+	}
 
     // Constructors
 	/** default constructor */

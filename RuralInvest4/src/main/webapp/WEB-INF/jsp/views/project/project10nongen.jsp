@@ -1,6 +1,18 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <html><head><title><spring:message code="project.step10.nongen"/></title></head>
 <body>
+<script>
+$(function() {
+	$("#copyYear").dialog({
+			bgiframe: true, autoOpen: false, resizable: false, height:200, modal: true,
+			overlay: { backgroundColor: '#000', opacity: 0.5 },
+			buttons: {
+				Cancel: function() { $(this).dialog('close'); },
+				'TRANSLATE Copy': function() { location.href=$('#copyUrl').val()+$('#targetYear').val(); }		
+			}
+	});
+});
+</script>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
 	
@@ -11,74 +23,95 @@
  	</div>
 	
 	<tags:tableContainer titleKey="projectContribution">
-		<tags:table>						
-			<display:table list="${project.contributions}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
-					export="false" htmlId="contributionTable">
-				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
-				<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
-				<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left">
-					<c:if test="${contrib.contribType=='0'}"><spring:message code="projectContribution.contribType.govtCentral"/></c:if>
-					<c:if test="${contrib.contribType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if>
-					<c:if test="${contrib.contribType=='2'}"><spring:message code="projectContribution.contribType.ngoLocal"/></c:if>
-					<c:if test="${contrib.contribType=='3'}"><spring:message code="projectContribution.contribType.ngoIntl"/></c:if>
-					<c:if test="${contrib.contribType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if>
-				</display:column>
-				<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
-				<display:column titleKey="projectContribution.unitNum" sortProperty="unitNum" sortable="true">
-					<tags:formatDecimal value="${contrib.unitNum}"/>
-				</display:column>
-				<display:column titleKey="projectContribution.unitCost" sortable="true" sortProperty="unitCost">
-					<tags:formatCurrency value="${contrib.unitCost}"/>
-				</display:column>
-				<display:column titleKey="projectContribution.totalCost" sortable="true" sortProperty="total">
-					<tags:formatCurrency value="${contrib.total}"/><c:set var="total" value="${total+contrib.total}"/>
-				</display:column>
-				<c:if test="${accessOK}">
-					<display:column title="&nbsp;" media="html">
-						<a name="copy" href="../item/${contrib.projItemId}/copy">
-							<img src="../../img/duplicate.gif" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
-						</a>
+		<c:forEach var="year" items="${years}">
+			<c:set var="yearNum" value="${year.year}"/>
+			<a name="year${yearNum}" id="year${yearNum}"></a>
+			<h3>Year ${yearNum}</h3> 
+			<c:set var="total" value="0"/>
+			Cash flow (including existing contributions): <tags:formatCurrency value="${year.total}"/> 
+		
+			<tags:table>
+				<display:table list="${contribsByYear[yearNum]}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
+						export="false" htmlId="contributionTable">
+					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
+				
+					<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
+					<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left">
+						<c:if test="${contrib.contribType=='0'}"><spring:message code="projectContribution.contribType.govtCentral"/></c:if>
+						<c:if test="${contrib.contribType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if>
+						<c:if test="${contrib.contribType=='2'}"><spring:message code="projectContribution.contribType.ngoLocal"/></c:if>
+						<c:if test="${contrib.contribType=='3'}"><spring:message code="projectContribution.contribType.ngoIntl"/></c:if>
+						<c:if test="${contrib.contribType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if>
 					</display:column>
-					<display:column title="&nbsp;" media="html">
-						<c:if test="${contrib_rowNum ne 1}">
-							<a name="moveUp" href="../item/${contrib.projItemId}/move?up=false">
-								<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
+					<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
+					<display:column titleKey="projectContribution.unitNum" sortProperty="unitNum" sortable="true">
+						<tags:formatDecimal value="${contrib.unitNum}"/>
+					</display:column>
+					<display:column titleKey="projectContribution.unitCost" sortable="true" sortProperty="unitCost">
+						<tags:formatCurrency value="${contrib.unitCost}"/>
+					</display:column>
+					<display:column titleKey="projectContribution.totalCost" sortable="true" sortProperty="total">
+						<tags:formatCurrency value="${contrib.total}"/><c:set var="total" value="${total+contrib.total}"/>
+					</display:column>
+					<c:if test="${accessOK}">
+						<display:column title="&nbsp;" media="html">
+							<a name="copy" href="../item/${contrib.projItemId}/copy">
+								<img src="../../img/duplicate.gif" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
 							</a>
-						</c:if>
-						<c:if test="${contrib_rowNum eq 1}">
-							<img src="../../img/spacer.gif" width="16" height="16" border="0">
-						</c:if>
-					</display:column>
-					<display:column title="&nbsp;" media="html">
-						<c:if test="${contrib_rowNum ne fn:length(project.contributions)}">
-							<a name="moveDown" href="../item/${contrib.projItemId}/move?up=true">
-								<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
+						</display:column>
+						<%----%>
+						<display:column title="&nbsp;" media="html">
+							<c:if test="${contrib_rowNum ne 1}">
+								<a name="moveUp" href="../item/${contrib.projItemId}/move?up=false">
+									<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
+								</a>
+							</c:if>
+							<c:if test="${contrib_rowNum eq 1}">
+								<img src="../../img/spacer.gif" width="16" height="16" border="0">
+							</c:if>
+						</display:column>
+						<display:column title="&nbsp;" media="html">
+							<c:if test="${contrib_rowNum ne fn:length(contribsByYear[yearNum])}">
+								<a name="moveDown" href="../item/${contrib.projItemId}/move?up=true">
+									<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
+								</a>
+							</c:if>
+							<c:if test="${contrib_rowNum eq fn:length(contribsByYear[yearNum])}">
+								<img src="../../img/spacer.gif" width="16" height="16" border="0">
+							</c:if>
+						</display:column>
+						 
+						<display:column title="&nbsp;" style="margin-left:5px;" media="html">
+							<a href="../item/${contrib.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
+						</display:column>
+						<display:column title="&nbsp;" media="html">
+							<a name="delItem" href="../item/${contrib.projItemId}/delete">
+								<img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0">
 							</a>
-						</c:if>
-						<c:if test="${contrib_rowNum eq fn:length(project.contributions)}">
-							<img src="../../img/spacer.gif" width="16" height="16" border="0">
-						</c:if>
-					</display:column>
-					<display:column title="&nbsp;" style="margin-left:5px;" media="html">
-						<a href="../item/${contrib.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
-					</display:column>
-					<display:column title="&nbsp;" media="html">
-						<a name="delItem" href="../item/${contrib.projItemId}/delete">
-							<img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0">
-						</a>
-					</display:column>
+						</display:column>
+					</c:if>
+					<display:footer>
+						<tr height="1"><td height="1" colspan="12" class="Sum1"/></tr>
+						<tr><td/><td/><td/><td/><td/>
+						<td><tags:formatCurrency value="${total}" /></td>
+						<td/><td/><td/><td/><td/></tr>
+					</display:footer>
+				</display:table>
+				<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}&year=${yearNum}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+				<c:if test="${fn:length(contribsByYear[yearNum]) gt 0}">
+					<div class="addNew"><a id="copyYear${yearNum}" href="javascript:copyContrib('../step10/${project.projectId}/copyContrib/${yearNum}/');"><img border="0" src="../../img/duplicate.gif">TRANSLATE Copy all items to another year</a>&nbsp;&nbsp;</div>
 				</c:if>
-				<display:footer>
-					<tr height="1"><td height="1" colspan="11" class="Sum1"/></tr>
-					<tr><td/><td/><td/><td/><td/>
-					<td><tags:formatCurrency value="${total}" /></td>
-					<td/><td/><td/><td/><td/></tr>
-				</display:footer>
-			</display:table>
-			<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
-		</tags:table>
+			</tags:table>
+		</c:forEach>
 	</tags:tableContainer>
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step10"/></tags:submit>
 </form:form>
+<div id="copyYear" title="TRANSLATE Copy">
+	<p>
+	TRANSLATE Copy all contributions from this year to another year of the project.<br/></p>
+	<p>TRANSLATE Copy to year: <input type="text" id="targetYear" name="targetYear" size="4" />
+	</p>
+	<input id=copyUrl type="hidden" value=""/>
+</div>
 <tags:excelImport submitUrl="../../import/project/contribution/${project.projectId}"/>
 </body></html>

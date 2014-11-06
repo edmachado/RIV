@@ -32,7 +32,14 @@
 		<tags:errors />
 		<div style="display:inline-block;width:470px">
 			<fieldset>
-				<legend><spring:message code="misc.addItem"/> (<spring:message code="projectContribution"/>)</legend>
+				<legend><spring:message code="misc.addItem"/> (<spring:message code="projectContribution"/> - Year ${projectItem.year}) </legend>
+				<c:if test="${projectItem.projItemId eq 0}">
+					<div class="dataentry">
+						<tags:help text="projectContribution.contribType.help" title="projectContribution.contribType"><label>Add this item to all years</label></tags:help>
+						<input id="allYears" type="checkbox" value="false" name="allYears">	
+					</div>
+				</c:if>
+				
 				<tags:dataentry field="description" labelKey="projectContribution.description" helpText="projectContribution.description.help" inputClass="text" size="20" maxLength="30"/>
 				<div class="dataentry">
 					<tags:help text="projectContribution.contribType.help" title="projectContribution.contribType"><label><spring:message code="projectContribution.contribType"/></label></tags:help>
