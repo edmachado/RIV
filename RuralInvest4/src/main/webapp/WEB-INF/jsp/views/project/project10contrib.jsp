@@ -14,6 +14,7 @@
 					<c:if test="${contrib.contribType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if>
 					<c:if test="${contrib.contribType=='2'}"><spring:message code="projectContribution.contribType.ngoLocal"/></c:if>
 					<c:if test="${contrib.contribType=='3'}"><spring:message code="projectContribution.contribType.ngoIntl"/></c:if>
+					<c:if test="${contrib.contribType=='5'}"><spring:message code="projectContribution.contribType.beneficiary"/></c:if>
 					<c:if test="${contrib.contribType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if>
 				</display:column>
 				<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
@@ -48,6 +49,7 @@
 						<form:option value="1"><spring:message code="projectContribution.contribType.govtLocal"/></form:option>
 						<form:option value="2"><spring:message code="projectContribution.contribType.ngoLocal"/></form:option>
 						<form:option value="3"><spring:message code="projectContribution.contribType.ngoIntl"/></form:option>
+						<form:option value="5"><spring:message code="projectContribution.contribType.beneficiary"/></form:option>
 						<form:option value="4"><spring:message code="projectContribution.contribType.other"/></form:option>
 					</form:select>
 				</div>

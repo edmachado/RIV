@@ -2658,6 +2658,7 @@ public class ExcelWorksheetBuilder {
 		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
 		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal"));
 		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
+		contribTypes.put(5, translate("projectContribution.contribType.beneficiary"));
 		contribTypes.put(4, translate("projectContribution.contribType.other"));
 		return contribTypes;
 	}

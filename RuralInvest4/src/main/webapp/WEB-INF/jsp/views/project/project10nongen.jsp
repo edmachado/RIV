@@ -8,7 +8,7 @@ $(function() {
 			overlay: { backgroundColor: '#000', opacity: 0.5 },
 			buttons: {
 				Cancel: function() { $(this).dialog('close'); },
-				'TRANSLATE Copy': function() { location.href=$('#copyUrl').val()+$('#targetYear').val(); }		
+				'<spring:message code="projectContribution.copy.title"/>': function() { location.href=$('#copyUrl').val()+$('#targetYear').val(); }		
 			}
 	});
 });
@@ -28,7 +28,7 @@ $(function() {
 			<a name="year${yearNum}" id="year${yearNum}"></a>
 			<h3>Year ${yearNum}</h3> 
 			<c:set var="total" value="0"/>
-			Cash flow (including existing contributions): <tags:formatCurrency value="${year.total}"/> 
+			<spring:message code="projectContribution.yearlyFlow"/> <tags:formatCurrency value="${year.total}"/> 
 		
 			<tags:table>
 				<display:table list="${contribsByYear[yearNum]}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
@@ -41,6 +41,7 @@ $(function() {
 						<c:if test="${contrib.contribType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if>
 						<c:if test="${contrib.contribType=='2'}"><spring:message code="projectContribution.contribType.ngoLocal"/></c:if>
 						<c:if test="${contrib.contribType=='3'}"><spring:message code="projectContribution.contribType.ngoIntl"/></c:if>
+						<c:if test="${contrib.contribType=='5'}"><spring:message code="projectContribution.contribType.beneficiary"/></c:if>
 						<c:if test="${contrib.contribType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if>
 					</display:column>
 					<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
@@ -59,7 +60,6 @@ $(function() {
 								<img src="../../img/duplicate.gif" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
 							</a>
 						</display:column>
-						<%----%>
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${contrib_rowNum ne 1}">
 								<a name="moveUp" href="../item/${contrib.projItemId}/move?up=false">
@@ -99,17 +99,17 @@ $(function() {
 				</display:table>
 				<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}&year=${yearNum}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				<c:if test="${fn:length(contribsByYear[yearNum]) gt 0}">
-					<div class="addNew"><a id="copyYear${yearNum}" href="javascript:copyContrib('../step10/${project.projectId}/copyContrib/${yearNum}/');"><img border="0" src="../../img/duplicate.gif">TRANSLATE Copy all items to another year</a>&nbsp;&nbsp;</div>
+					<div class="addNew"><a id="copyYear${yearNum}" href="javascript:copyContrib('../step10/${project.projectId}/copyContrib/${yearNum}/');"><img border="0" src="../../img/duplicate.gif"><spring:message code="projectContribution.copy"/></a>&nbsp;&nbsp;</div>
 				</c:if>
 			</tags:table>
 		</c:forEach>
 	</tags:tableContainer>
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step10"/></tags:submit>
 </form:form>
-<div id="copyYear" title="TRANSLATE Copy">
+<div id="copyYear" title="<spring:message code='projectContribution.copy.title'/>">
 	<p>
-	TRANSLATE Copy all contributions from this year to another year of the project.<br/></p>
-	<p>TRANSLATE Copy to year: <input type="text" id="targetYear" name="targetYear" size="4" />
+	<spring:message code='projectContribution.copy'/><br/></p>
+	<p><spring:message code='projectContribution.copy.toYear'/> <input type="text" id="targetYear" name="targetYear" size="4" />
 	</p>
 	<input id=copyUrl type="hidden" value=""/>
 </div>
