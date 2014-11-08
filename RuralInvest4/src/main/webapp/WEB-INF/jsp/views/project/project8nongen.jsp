@@ -244,7 +244,7 @@
 		</tags:table>
 	</tags:tableContainer>
 					
-	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step9"/></tags:submit>
+	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step9.nongen"/></tags:submit>
 </form:form>
 <tags:excelImport submitUrl="../../import/project/generalNongen/${project.projectId}"/>
 </body></html>

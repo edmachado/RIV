@@ -2,6 +2,8 @@ package riv.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -193,8 +195,6 @@ public class Upgrader {
 			int orderWithout=0;
 			int orderWith=0;
 			
-			
-			
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			TreeSet myBlocks = new TreeSet(project.getBlocks());
 			for (Object o : myBlocks) {
@@ -300,6 +300,8 @@ public class Upgrader {
 			} catch (TransformerException e) {
 				LOG.error("Error transforming xsl.",e);
 			}
+			// for testing:
+			// baos.writeTo(new FileOutputStream(new File("")));
 			return baos.toByteArray();
 		
 	}
