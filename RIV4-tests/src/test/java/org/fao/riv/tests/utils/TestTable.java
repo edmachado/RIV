@@ -188,12 +188,11 @@ public class TestTable {
 	}
 	
 	void testCopyAndDeleteRow() {
-		// copy row
 		int origRows = getTable(tableId).getRowCount();
-		int totalLinks = getElementsByXPath("//a[img[@src[substring(., string-length() -12) = 'duplicate.gif']]]").size();
-		int otherTableRows = totalLinks-origRows+3;
-		assertLinkPresentWithImage("duplicate.gif", otherTableRows);
-		clickLinkWithImage("duplicate.gif", otherTableRows);
+		// copy row
+		String xpath = "(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -12) = 'duplicate.gif']]])[1]";
+		assertElementPresentByXPath(xpath);
+		clickElementByXPath(xpath);
 		assertTableRowCountEquals(tableId, origRows+1);
 		
 		// test if 1st and last rows are equal
@@ -207,8 +206,9 @@ public class TestTable {
 		}
 		
 		// delete row
-		assertLinkPresentWithImage("delete.gif", otherTableRows+origRows-3);
-		clickLinkWithImage("delete.gif", otherTableRows+origRows-3);
+		xpath = "(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -9) = 'delete.gif']]])["+(origRows-2)+"]";
+		assertElementPresentByXPath(xpath);
+		clickElementByXPath(xpath);
 		assertTableRowCountEquals(tableId, origRows);
 	}
 }

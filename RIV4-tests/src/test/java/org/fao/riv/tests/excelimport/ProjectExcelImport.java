@@ -219,7 +219,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsContributions.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
-		verifyProjectNigTablesStep10();
+		verifyProjectNigTablesStep10(1);
 		rivSubmitForm();
 		assertTitleEquals(titles[10]);
 		

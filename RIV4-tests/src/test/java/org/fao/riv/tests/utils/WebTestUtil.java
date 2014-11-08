@@ -380,8 +380,8 @@ public class WebTestUtil {
  		return titles;
     }
     
-    protected void verifyProjectNigTablesStep10() {
-    	TestTable tt = new TestTable("contributionTable", "step10.contribution", "newContrib", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
+    protected void verifyProjectNigTablesStep10(int year) {
+    	TestTable tt = new TestTable("contributionTable"+year, "step10.year"+year+".contribution", "newContrib", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description")
 		.addParam("contribType", InputParamType.SELECT, false)
 		.addParam("unitType")
@@ -510,7 +510,18 @@ public class WebTestUtil {
 		assertTitleEquals(titles[9]);
 		
 		// STEP 10
-		verifyProjectNigTablesStep10();
+		int year=1;
+		nextItem=true;
+		while (nextItem) {
+			verifyProjectNigTablesStep10(year);
+			
+			year++;
+			try {
+				getMessage("step10.year"+year+".contribution1.description");
+			} catch (Exception e) {
+				nextItem=false;
+			}
+		}
 		rivSubmitForm();
 		assertTitleEquals(titles[10]);
 		
