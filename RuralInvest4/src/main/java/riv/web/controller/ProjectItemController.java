@@ -153,7 +153,7 @@ public class ProjectItemController {
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
-	public String saveProjectItem(@RequestParam Integer linkedToId, @RequestParam(required=false) Boolean addLink, HttpServletRequest request,
+	public String saveProjectItem(@RequestParam Integer linkedToId, @RequestParam(required=false) Boolean addLink, @RequestParam(required=false) Boolean allYears, HttpServletRequest request,
 			@Valid @ModelAttribute ProjectItem projectItem, BindingResult result, Model model) {
     	if (result.hasErrors()) {
 			setupPageAttributes(projectItem, model, request);
@@ -162,6 +162,19 @@ public class ProjectItemController {
 			checkLinked(projectItem, linkedToId, addLink);
 			
 			dataService.storeProjectItem(projectItem);
+			if (allYears!=null) { // save nig project contribution to all years of project
+				Project p = projectItem.getProject();
+				for (int i=1; i<= p.getDuration();i++) {
+					if (i!=((ProjectItemContribution)projectItem).getYear()) {
+						ProjectItemContribution c2 = (ProjectItemContribution)projectItem.copy();
+						c2.setYear(i);
+						c2.setOrderBy(p.getContributionsByYear().get(i).size());
+						dataService.storeProjectItem(c2, false);
+						p.addContribution(c2);
+					}
+				}
+				dataService.storeProject(p, p.getWizardStep()==null);
+			}
 			
 			return "redirect:"+successView(projectItem);
 		}

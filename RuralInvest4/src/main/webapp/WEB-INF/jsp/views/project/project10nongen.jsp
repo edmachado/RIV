@@ -32,7 +32,7 @@ $(function() {
 		
 			<tags:table>
 				<display:table list="${contribsByYear[yearNum]}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
-						export="false" htmlId="contributionTable">
+						export="false" htmlId="contributionTable${yearNum}">
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 				
 					<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
@@ -98,7 +98,7 @@ $(function() {
 					</display:footer>
 				</display:table>
 				<c:if test="${accessOK}">
-					<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}&year=${yearNum}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+					<div class="addNew"><a id="newContrib${yearNum}" href="../item/-1?type=contrib&projectId=${project.projectId}&year=${yearNum}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 					<c:if test="${fn:length(contribsByYear[yearNum]) gt 0}">
 						<div class="addNew"><a id="copyYear${yearNum}" href="javascript:copyContrib('../step10/${project.projectId}/copyContrib/${yearNum}/');"><img border="0" src="../../img/duplicate.gif"><spring:message code="projectContribution.copy"/></a>&nbsp;&nbsp;</div>
 					</c:if>

@@ -242,6 +242,9 @@ public class DataService implements UserDetailsService {
 	public ProjectItem getProjectItem(int id) {
 		return repo.getProjectItem(id);
 	}
+	public void storeProjectItem(ProjectItem pi, boolean noResult) {
+		repo.storeProjectItem(pi, noResult);
+	}
 	public void storeProjectItem(ProjectItem pi) {
 		repo.storeProjectItem(pi);
 	}
