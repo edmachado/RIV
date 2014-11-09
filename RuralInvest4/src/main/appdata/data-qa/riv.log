@@ -1,0 +1,2 @@
+/*C2*/SET SCHEMA PUBLIC
+ALTER TABLE project ADD COLUMN per_year_contrib BOOLEAN DEFAULT false
