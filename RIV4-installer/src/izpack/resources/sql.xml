@@ -392,13 +392,15 @@ ALTER TABLE PROJECT_RESULT ADD COLUMN wc_period INT;
    	</version>
    	<version number="4.1">
    	<query>
-   	-- note field for tables
-   	ALTER TABLE profile_item ADD COLUMN note VARCHAR(2000);
-   	ALTER TABLE profile_product_item ADD COLUMN note VARCHAR(2000);
-   	ALTER TABLE project_item ADD COLUMN note VARCHAR(2000);
-   	ALTER TABLE project_block_item ADD COLUMN note VARCHAR(2000);
-   	-- no-cycle blocks
-   	ALTER TABLE project_block ADD COLUMN cycles BOOLEAN DEFAULT true;
+-- note field for tables
+ALTER TABLE profile_item ADD COLUMN note VARCHAR(2000);
+ALTER TABLE profile_product_item ADD COLUMN note VARCHAR(2000);
+ALTER TABLE project_item ADD COLUMN note VARCHAR(2000);
+ALTER TABLE project_block_item ADD COLUMN note VARCHAR(2000);
+-- no-cycle blocks
+ALTER TABLE project_block ADD COLUMN cycles BOOLEAN DEFAULT true;
+-- per-year contributions for nig projects
+ALTER TABLE project ADD COLUMN per_year_contrib BOOLEAN DEFAULT false;
    	</query>
    	</version>
 </sql>
