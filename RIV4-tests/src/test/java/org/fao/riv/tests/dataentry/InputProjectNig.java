@@ -295,6 +295,12 @@ public class InputProjectNig extends WebTestUtil {
 	}
 	
 	@Test
+	public void testCopyYearContributions() {
+		//TODO: implement this
+		org.junit.Assert.assertTrue(false);
+	}
+	
+	@Test
 	public void testAddContributionForAllYears() throws Exception {
 		deletePros(true, false);
 		// import complete project
