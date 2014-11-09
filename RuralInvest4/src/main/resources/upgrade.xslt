@@ -223,7 +223,7 @@
 	<xsl:template name="addYearToContribution">
 		<xsl:param name="year"/>
 		<xsl:param name="duration"/>
-		<!-- <xsl:if test="$year &lt;= $duration">
+		<xsl:if test="$year &lt;= $duration">
 			<void method="add">
 				<object class="riv.objects.project.ProjectItemContribution">
 					<void property="year"><int><xsl:value-of select="$year"/></int></void>
@@ -234,7 +234,7 @@
 				<xsl:with-param name="year" select="$year+1"/>
 				<xsl:with-param name="duration" select="$duration"/>
 			</xsl:call-template>
-		</xsl:if> -->
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="@*|node()">
