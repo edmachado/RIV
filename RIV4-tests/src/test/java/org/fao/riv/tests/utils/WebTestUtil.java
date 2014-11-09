@@ -411,7 +411,7 @@ public class WebTestUtil {
 		tt.testOutput();
     }
     
-    protected void verifyProjectNig(String properties, int indexResult) {
+    protected void verifyProjectNig(String properties, int indexResult, boolean simpleContributions) {
 		getTestContext().setResourceBundleName("messages/messages");
     	String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String[] titles = projectStepTitles(false);
@@ -510,16 +510,20 @@ public class WebTestUtil {
 		assertTitleEquals(titles[9]);
 		
 		// STEP 10
-		int year=1;
-		nextItem=true;
-		while (nextItem) {
-			verifyProjectNigTablesStep10(year);
-			
-			year++;
-			try {
-				getMessage("step10.year"+year+".contribution1.description");
-			} catch (Exception e) {
-				nextItem=false;
+		if (simpleContributions) {
+			verifyProjectNigTablesStep10(1);
+		} else {
+			int year=1;
+			nextItem=true;
+			while (nextItem) {
+				verifyProjectNigTablesStep10(year);
+				
+				year++;
+				try {
+					getMessage("step10.year"+year+".contribution1.description");
+				} catch (Exception e) {
+					nextItem=false;
+				}
 			}
 		}
 		rivSubmitForm();

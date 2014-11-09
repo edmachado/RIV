@@ -91,13 +91,44 @@ public class ImportProject extends WebTestUtil {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
 		verifyProject("dataentry/projectIg", 1);
 	}
-
+	
 	@Test
-	public void importProjectNig40() throws URISyntaxException, IOException {
-		importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
+	public void importProjectIg41() throws URISyntaxException, IOException {
+		importProject(ImportFile.ProjectV41, "igpj", false, false, "T3st Santa Cruz River Transport");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProjectNig("dataentry/projectNig", 1);
+		verifyProject("dataentry/projectIg", 1);
+		
+		// export to .riv file
+		getTestContext().setResourceBundleName("messages/messages");
+		assertLinkPresentWithImage("export_riv.gif");
+		String pageUrl = getTestingEngine().getPageURL().toURI().toString();
+		clickLinkWithImage("export_riv.gif");
+		clickLink("dd_local");
+		File f = folder.newFile("project.riv"); 
+		saveAs(f);
+		assertTrue(isZipFile(f));
+		
+		// delete existing profile
+		gotoPage(pageUrl);
+		assertLinkPresentWithImage("delete.gif");
+		clickLinkWithImage("delete.gif");
+		clickButtonWithText("Delete item");
+		assertLinkNotPresentWithImage("delete.gif");
+		
+		// import exported file and verify data is the same
+		importProject(f, "igpj", false, false, "T3st Santa Cruz River Transport");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+		verifyProject("dataentry/projectIg", 1);
+	}
+
+	@Test
+	public void importProjectNig41() throws URISyntaxException, IOException {
+		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+		verifyProjectNig("dataentry/projectNig", 1, false);
 		
 		// export to .riv file
 		getTestContext().setResourceBundleName("messages/messages");
@@ -120,6 +151,37 @@ public class ImportProject extends WebTestUtil {
 		importProject(f, "nigpj", false, false, "Example Case: Community Earth Dam");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProjectNig("dataentry/projectNig", 1);
+		verifyProjectNig("dataentry/projectNig", 1, false);
+	}
+	
+	@Test
+	public void importProjectNig40() throws URISyntaxException, IOException {
+		importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+		verifyProjectNig("dataentry/projectNig", 1, true);
+		
+		// export to .riv file
+		getTestContext().setResourceBundleName("messages/messages");
+		assertLinkPresentWithImage("export_riv.gif");
+		String pageUrl = getTestingEngine().getPageURL().toURI().toString();
+		clickLinkWithImage("export_riv.gif");
+		clickLink("dd_local");
+		File f = folder.newFile("project.riv"); 
+		saveAs(f);
+		assertTrue(isZipFile(f));
+		
+		// delete existing profile
+		gotoPage(pageUrl);
+		assertLinkPresentWithImage("delete.gif");
+		clickLinkWithImage("delete.gif");
+		clickButtonWithText("Delete item");
+		assertLinkNotPresentWithImage("delete.gif");
+		
+		// import exported file and verify data is the same
+		importProject(f, "nigpj", false, false, "Example Case: Community Earth Dam");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+		verifyProjectNig("dataentry/projectNig", 1, true);
 	}
 }
