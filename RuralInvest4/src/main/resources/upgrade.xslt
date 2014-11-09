@@ -213,29 +213,30 @@
 		</xsl:element>
 	</xsl:template>
 	
-	<xsl:template match="void[@method='add' and object[void[@property='contribType'] and not(void[@property='year'])]]">
-		<xsl:call-template name="addYearToContribution">
-			<xsl:with-param name="year" select="1"/>
-			<xsl:with-param name="duration" select="../../../void[@property='duration']/int/."/>
-   		</xsl:call-template>
-	</xsl:template>
+	<!-- below not necessary with project field "perYearContributions" -->
+<!-- 	<xsl:template match="void[@method='add' and object[void[@property='contribType'] and not(void[@property='year'])]]"> -->
+<!-- 		<xsl:call-template name="addYearToContribution"> -->
+<!-- 			<xsl:with-param name="year" select="1"/> -->
+<!-- 			<xsl:with-param name="duration" select="../../../void[@property='duration']/int/."/> -->
+<!--    		</xsl:call-template> -->
+<!-- 	</xsl:template> -->
 
-	<xsl:template name="addYearToContribution">
-		<xsl:param name="year"/>
-		<xsl:param name="duration"/>
-		<xsl:if test="$year &lt;= $duration">
-			<void method="add">
-				<object class="riv.objects.project.ProjectItemContribution">
-					<void property="year"><int><xsl:value-of select="$year"/></int></void>
-					<xsl:apply-templates select="child::node()/child::node()" />
-				</object>
-			</void>
-	       <xsl:call-template name="addYearToContribution">
-				<xsl:with-param name="year" select="$year+1"/>
-				<xsl:with-param name="duration" select="$duration"/>
-			</xsl:call-template>
-		</xsl:if>
-	</xsl:template>
+<!-- 	<xsl:template name="addYearToContribution"> -->
+<!-- 		<xsl:param name="year"/> -->
+<!-- 		<xsl:param name="duration"/> -->
+<!-- 		<xsl:if test="$year &lt;= $duration"> -->
+<!-- 			<void method="add"> -->
+<!-- 				<object class="riv.objects.project.ProjectItemContribution"> -->
+<!-- 					<void property="year"><int><xsl:value-of select="$year"/></int></void> -->
+<!-- 					<xsl:apply-templates select="child::node()/child::node()" /> -->
+<!-- 				</object> -->
+<!-- 			</void> -->
+<!-- 	       <xsl:call-template name="addYearToContribution"> -->
+<!-- 				<xsl:with-param name="year" select="$year+1"/> -->
+<!-- 				<xsl:with-param name="duration" select="$duration"/> -->
+<!-- 			</xsl:call-template> -->
+<!-- 		</xsl:if> -->
+<!-- 	</xsl:template> -->
 	
 	<xsl:template match="@*|node()">
 		<xsl:copy>

@@ -201,6 +201,8 @@ public class Project extends Probase implements java.io.Serializable {
 	@Size(max=10000)
 	@Column(name="RECC_DESC")
 	private String reccDesc;
+	@Column(name="PER_YEAR_CONTRIB")
+	private boolean perYearContributions;
 	
 	@Column(name="ADMIN_MISC1")
 	private String adminMisc1;
@@ -1059,6 +1061,14 @@ public double getInvestmentTotal() {
 		return reccDesc;
 	}
 	
+	public boolean isPerYearContributions() {
+		return perYearContributions;
+	}
+
+	public void setPerYearContributions(boolean perYearContributions) {
+		this.perYearContributions = perYearContributions;
+	}
+
 	public void setAppConfig1(AppConfig1 appConfig1) {
 		this.appConfig1 = appConfig1;
 	}

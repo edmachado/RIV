@@ -231,6 +231,22 @@ public class ProjectController {
 		return "redirect:../../../project/step1/"+newProj.getProjectId()+"?rename=true";
 	}
 	
+	@RequestMapping(value="step{step}/{id}/perYearContributions", method=RequestMethod.GET)
+	public String perYearContributions(@PathVariable Integer step, @PathVariable Integer id, @RequestParam(required=true) Boolean simple, 
+			@ModelAttribute Project p, HttpServletRequest request) {
+		if (simple) { // remove all contributions after year 1
+			dataService.simplifyContributions(p);
+		} else { // copy year 1 contributions to all other years
+			for (int y=2;y<=p.getDuration();y++) {
+				dataService.copyContributions(p, 1, y);
+			}
+			p.setPerYearContributions(true);
+			dataService.storeProject(p, p.getWizardStep()==null);
+		}
+		
+		return "redirect:../../../project/step10/"+p.getProjectId();
+	}
+	
 	@RequestMapping(value="step{step}/{id}/copyContrib/{sourceYear}/{targetYear}", method=RequestMethod.GET)
 	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
 			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 

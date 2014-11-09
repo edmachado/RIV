@@ -2,8 +2,6 @@ package riv.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,6 +40,7 @@ import riv.objects.project.BlockWithout;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemAssetWithout;
+import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabourWithout;
 import riv.objects.project.ProjectItemPersonnelWithout;
@@ -275,6 +274,14 @@ public class Upgrader {
 				
 		// import reference links using orderby field
 		project.importRefLinks();
+		
+		// <RIV4.1 NIG project contributions need year
+		if (! project.getIncomeGen()) {
+			for (ProjectItemContribution c : project.getContributions()) {
+				if (c.getYear()!=null) {break;}
+				c.setYear(1);
+			}
+		}
 
 	}
 	

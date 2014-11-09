@@ -2,6 +2,7 @@
 projectContribution.copy=Copy all items to another year of the project.
 projectContribution.copy.title=Copy
 projectContribution.copy.toYear=Copy to year:
+projectContribution.copy.range=You can copy to any year between 1 and {0}
 projectContribution.yearlyFlow=Cash flow (including existing contributions):
 projectContribution.contribType.beneficiary=Beneficiaries
 

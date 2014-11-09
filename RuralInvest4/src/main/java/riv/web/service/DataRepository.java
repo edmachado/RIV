@@ -19,7 +19,6 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -1121,25 +1120,17 @@ public class DataRepository {
 		}
 		
 		// RIV<4.1 convert contributions to year-by-year
-		Criteria criteria = currentSession().createCriteria(Project.class)
-				.createAlias("contributions", "contributions")
-				.add(Restrictions.isNull("contributions.year"))
-				.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-		@SuppressWarnings("unchecked")
-		List<Project> projects = criteria.list();
-		for (Project p : projects) {
-			// set all contributions to year 1
-			for (ProjectItemContribution c : p.getContributions()) {
-				c.setYear(1);
-				storeProjectItem(c, true);
-			}
-			// copy contributions to all years
-			for (int i=2; i<=p.getDuration(); i++) {
-				copyContributions(p, 1, i);
-			}
-			storeProject(p, p.getWizardStep()==null);
-		}
-		
+		String hql = "update ProjectItemContribution c set c.year=1 where c.year is null";
+		currentSession().createQuery(hql).executeUpdate();
+	}
+	
+	public void simplifyContributions(Project p) {
+		Query query=currentSession().createQuery("delete ProjectItemContribution c where c.year>1 and c.project=:p");
+		query.setParameter("p", p);
+		query.executeUpdate();
+		p = getProject(p.getProjectId(), 1);
+		p.setPerYearContributions(false);
+		storeProject(p, p.getWizardStep()==null);
 	}
 	
 	public void copyContributions(Project p, int sourceYear, int targetYear) {

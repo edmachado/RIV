@@ -115,9 +115,18 @@ public class ProjectFinanceNongen {
 			maintenance+=gen.getUnitCost()*gen.getUnitNum();
 			contributionsGeneral+=gen.getStatePublic()+gen.getOther1();
 		}
+		
 		// contributions
-		for (ProjectItemContribution cont : project.getContributions()) {
-			data.get(cont.getYear()-1).setContributions(data.get(cont.getYear()-1).getContributions()+cont.getTotal());
+		if (project.isPerYearContributions()) {
+			for (ProjectItemContribution cont : project.getContributions()) {
+				data.get(cont.getYear()-1).setContributions(data.get(cont.getYear()-1).getContributions()+cont.getTotal());
+			}
+		} else { // simplified approach 
+			for (ProjectItemContribution c : project.getContributions()) {
+				for (int i=0;i<project.getDuration();i++) {
+					data.get(i).setContributions(data.get(i).getContributions()+c.getTotal());
+				}
+			}
 		}
 				
 		// add general and maintenance (invariable per year)
