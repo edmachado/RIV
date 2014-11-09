@@ -101,6 +101,8 @@ public class Project extends Probase implements java.io.Serializable {
 	// generic: if project has been exported w/ generic settings
 	@Transient
 	private boolean generic;
+	@Transient
+	private Double rivVersion;
 	@Column(name="WIZARD_STEP")
 	private Integer wizardStep;
 	@Column(name="EXCH_RATE")
@@ -444,6 +446,14 @@ public double getInvestmentTotal() {
 	public boolean isGeneric() {
 		return generic;
 	}
+	public Double getRivVersion() {
+		return rivVersion;
+	}
+
+	public void setRivVersion(Double rivVersion) {
+		this.rivVersion = rivVersion;
+	}
+
 	public void setWizardStep(Integer wizardStep) {
 		this.wizardStep = wizardStep;
 	}
@@ -1370,8 +1380,12 @@ public double getInvestmentTotal() {
 	 * copied by value so as not to interfere with the original Project.
 	 * @return the copied Project
 	 */
-	public Project copy(boolean forExport) {
+	public Project copy(boolean forExport, Double rivVersion) {
 		Project newProj = new Project();
+		if (forExport) {
+			newProj.setRivVersion(rivVersion);
+		}
+		
 		newProj.setUniqueId(this.uniqueId);
 		newProj.setActivities(this.getActivities());
 		newProj.setAssumptions(this.getAssumptions());
@@ -1415,6 +1429,7 @@ public double getInvestmentTotal() {
 		newProj.setLocation3(this.getLocation3());
 		newProj.setMarket(this.getMarket());
 		newProj.setOrganization(this.getOrganization());
+		newProj.setPerYearContributions(perYearContributions);
 		newProj.setProjectName(this.projectName);
 		newProj.setProjCategory(this.getProjCategory());
 		newProj.setProjDesc(this.getProjDesc());

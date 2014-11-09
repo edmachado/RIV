@@ -20,18 +20,19 @@ $(function() {
 			overlay: { backgroundColor: '#000', opacity: 0.5 },
 			buttons: {
 				Cancel: function() { $(this).dialog('close'); },
-				'<spring:message code="projectContribution.copy.title"/>': function() {
-					if ($.isNumeric($('#targetYear').val())) {
-						location.href=$('#copyUrl').val()+$('#targetYear').val(); 
-					} else {
-						$('#copyYear-error').append('<div class="alert alert-error"><spring:message code="projectContribution.copy.range" arguments="${project.duration}"/></div>');
-				    	
-					}
-				}		
+				"Copy": {
+					text: '<spring:message code="projectContribution.copy.title"/>',
+					id: "copyYearButton",
+					click: function() {
+						if ($.isNumeric($('#targetYear').val())) {
+							location.href=$('#copyUrl').val()+$('#targetYear').val(); 
+						} else {
+							$('#copyYear-error').append('<div class="alert alert-error"><spring:message code="projectContribution.copy.range" arguments="${project.duration}"/></div>');
+						}
+					}		
+				}
 			}
 	});
-	
-	
 	$('#contribForm input').on('change', function() {
 		   if($('input[name=simpleApproach]:checked', '#contribForm').val()=='true') {
 			   // simple selected
@@ -54,7 +55,7 @@ $(function() {
 	<div align="left">
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectContributions.xlsx?template=true" target="_blank"><spring:message code="export.downloadTemplate"/></a><br/>
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${project.projectId}/projectContributions.xlsx" target="_blank"><spring:message code="export.download"/></a><br/>
-		<c:if test="${accessOK}">Under development...<!-- <a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a> --></c:if>
+		<c:if test="${accessOK}"><!-- --> Under development... <!-- <a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a> --></c:if>
  	</div>
 	
 	<tags:tableContainer titleKey="projectContribution">
@@ -72,7 +73,7 @@ $(function() {
 					<c:set var="total" value="0"/>
 					<spring:message code="projectContribution.yearlyFlow"/> <tags:formatCurrency value="${year.total}"/> 
 				</div>
-				<div <c:if test="${yearNum gt 1}">class="onlyPerYear"</c:if>>
+				
 				<tags:table>
 					<display:table list="${contribsByYear[yearNum]}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
 							export="false" htmlId="contributionTable${yearNum}">
@@ -147,7 +148,6 @@ $(function() {
 						</c:if>
 					</c:if>
 				</tags:table>
-				</div>
 			</c:if>
 		</c:forEach>
 
