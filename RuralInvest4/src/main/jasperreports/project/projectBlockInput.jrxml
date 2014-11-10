@@ -9,9 +9,9 @@
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="returnedSubtotals" class="java.util.Map" isForPrompting="false"/>
-	
 	<parameter name="incomeGen" class="java.lang.Boolean"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
+	<parameter name="unitsPerCycle" class="java.lang.String" isForPrompting="false"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="unitCost" class="java.math.BigDecimal"/>
 	<field name="unitNum" class="java.math.BigDecimal"/>
@@ -117,8 +117,8 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{incomeGen}
-? $R{projectBlockInput} + " (" +$R{units.perUnitperCycle}+")"
-: $R{projectBlockInput} + " (" +$R{units.perUnitActivityPerCycle}+")"]]></textFieldExpression>
+? $R{projectBlockInput}  + $P{unitsPerCycle}
+: $R{projectBlockInput}  + $P{unitsPerCycle}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="25fd6b19-1f97-4025-8961-87624499830f" key="textField-16" stretchType="RelativeToBandHeight" mode="Opaque" x="437" y="20" width="123" height="14" forecolor="#003365" backcolor="#E5E5E5"/>

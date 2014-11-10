@@ -79,7 +79,9 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
      }
      
      public abstract Profile getProfile();
-     public abstract void setProfile(Profile profile);
+     public abstract void setProfile(Profile profile);     
+     public boolean isCycles() { return true; } // no-cycle blocks only for projects
+
 	 
 	 // non-property accessors
 	/**

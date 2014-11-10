@@ -4,4 +4,5 @@ public interface ProductOrBlock {
 	public Integer getLengthUnit();
 	public Double getCycleLength();
 	public String getUnitType();
+	public boolean isCycles();
 }
