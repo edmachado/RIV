@@ -1,10 +1,18 @@
 ### NEW TEXT IN RIV4.1
+units.year=Year
+misc.confirm=Confirm
 projectContribution.copy=Copy all items to another year of the project.
 projectContribution.copy.title=Copy
 projectContribution.copy.toYear=Copy to year:
 projectContribution.copy.range=You can copy to any year between 1 and {0}
+projectContribution.addAll=Add to every year in the project
 projectContribution.yearlyFlow=Cash flow (including existing contributions):
 projectContribution.contribType.beneficiary=Beneficiaries
+projectContribution.method.simplified=Simplified
+projectContribution.method.simplified.help=With the "Simplified approach", contributions are the same for every year of the project.
+projectContribution.method.perYear=Per-year
+projectContribution.method.perYear.help=With the "Per-year approach", contributions may be different for each year of the project.
+projectContribution.method.confirm=The contributions of year 1 will be used as the basis for yearly contributions. Contributions currently in other years will be discarded. Continue?
 
 projectBlock.usesCycles=This block has cycles<br/>(INNA PLEASE CHECK/IMPROVE TEXT)
 projectBlock.usesCycles.help=INNA PLEASE CHECK TEXT (INCLUDING HELP TEXT)

@@ -1,6 +1,11 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<html><head><title><spring:message code="project.step10.nongen"/></title></head>
-<body>
+<html><head><title><spring:message code="project.step10.nongen"/></title>
+<style>
+.onlyPerYear { 
+<c:if test="${not project.perYearContributions}">display:none;</c:if> 
+}
+#flowSummary tr.odd td { font-weight:bold;}
+</style>
 <script>
 $(function() {
 	$('#yearByYear').buttonset();
@@ -10,7 +15,7 @@ $(function() {
 		overlay: { backgroundColor: '#000', opacity: 0.5 },
 		buttons: {
 			Cancel: function() { $(this).dialog('close'); },
-			'TRANSLATE Confirm': function() {
+			'<spring:message code="misc.confirm"/>': function() {
 				location.href='../step10/${project.projectId}/perYearContributions?simple=true';
 			}		
 		}
@@ -43,12 +48,11 @@ $(function() {
 		});
 });
 </script>
+</head>
+<body>
 
-<style>
-.onlyPerYear { 
-<c:if test="${not project.perYearContributions}">display:none;</c:if> 
-}
-</style>
+
+
 <form:form id="contribForm" name="form" method="post" commandName="project">
 	<tags:errors />
 	
@@ -58,43 +62,45 @@ $(function() {
 		<c:if test="${accessOK}"><!-- --> Under development... <!-- <a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a> --></c:if>
  	</div>
  	
+ 	<div id="yearByYear" style="margin:10px 5px;">
+		<input type="radio" name="simpleApproach" id="simplified" value="true" <c:if test="${not project.perYearContributions}">checked="checked"</c:if>><label for="simplified" title='<spring:message code="projectContribution.method.simplified.help"/>'><spring:message code="projectContribution.method.simplified"/></label>
+		<input type="radio" name="simpleApproach" id="perYear" value="false" <c:if test="${project.perYearContributions}">checked="checked"</c:if>><label for="perYear" title='<spring:message code="projectContribution.method.perYear.help"/>'><spring:message code="projectContribution.method.perYear"/></label>
+	</div>
+	<c:if test="${not project.perYearContributions}"><spring:message code="projectContribution.method.simplified.help"/></c:if>
+	<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
+ 	
  	<c:if test="${not project.perYearContributions}">
- 		<c:forEach begin="1" end="41" step="10" var="outer">
- 			<c:if test="${project.duration>=outer}">
- 				<tags:table>
-		 			<table cellspacing="0" cellpadding="0">
-		 				<thead>
-		 					<tr>
-		 						<th class="left">TRANSLATE year</th>
-			 					<c:forEach begin="0" end="9" var="inner" >
-			 						<c:if test="${project.duration>=outer+inner}">
-			 							<th>${outer+inner}</th>
-			 						</c:if>
-			 					</c:forEach>
-		 					</tr>
-		 				</thead>
-		 				<tbody>
-		 					<tr>
-		 						<td style="text-align:left"><spring:message code="projectContribution.yearlyFlow"/></td> 
+ 		<div align="right"><a href="#" onClick="toggle('flowSummary')"><spring:message code="misc.toggle"/></a></div>
+ 		<div id="flowSummary" style="display:block">
+ 		<h2><spring:message code="projectContribution.yearlyFlow"/></h2>
+ 		<tags:table>
+			<table cellspacing="0" cellpadding="0">
+		 		<tbody>
+		 			<c:forEach begin="1" end="41" step="10" var="outer">
+						<c:if test="${project.duration>=outer}">
+							<tr class="odd"><td style="text-align:left;"><spring:message code="units.year"/><c:forEach begin="0" end="9" var="inner" >
+	 							
+	 								<c:if test="${project.duration>=outer+inner}">
+	 									<td>${outer+inner}</td>	
+									</c:if>
+								
+		 					</c:forEach></tr>
+		 					<tr class="even"><td></td>
 		 						<c:forEach begin="0" end="9" var="inner">
 			 						<c:if test="${project.duration>=outer+inner}">
 		 								<td><tags:formatCurrency value="${years[(outer+inner-1)].total}"/></td>
 		 							</c:if>
 		 						</c:forEach>
 		 					</tr>
+		 					</c:if>
+		 					</c:forEach>
 		 				</tbody>
 		 			</table>
 		 		</tags:table>
- 			</c:if>
- 		</c:forEach>
+ 		</div>
  	</c:if>
 	
 	<tags:tableContainer titleKey="projectContribution">
-		<div id="yearByYear" style="margin:10px 5px;">
-			<input type="radio" name="simpleApproach" id="simplified" value="true" <c:if test="${not project.perYearContributions}">checked="checked"</c:if>><label for="simplified" title='TRANSLATE With the "Simplified approach", contributions are the same for every year of the project.'>Simplified</label>
-			<input type="radio" name="simpleApproach" id="perYear" value="false" <c:if test="${project.perYearContributions}">checked="checked"</c:if>><label for="perYear" title='TRANSLATE With the "Per-year approach", contributions may be different for each year of the project.'>Per-year</label>
-		</div>
-		
 		<c:forEach var="year" items="${years}">
 			<c:set var="yearNum" value="${year.year}"/>
 			<c:if test="${project.perYearContributions or yearNum eq 1}">
@@ -192,8 +198,8 @@ $(function() {
 	<div id="copyYear-error" style="margin-top:4px"></div>
 	<input id=copyUrl type="hidden" value=""/>
 </div>
-<div id="confirmSimple" title="TRANSLATE confirm">
-	TRANSLATE The contributions of year 1 will be used as the basis for yearly contributions. Contributions currently in other years will be discarded. Continue?
+<div id="confirmSimple" title='<spring:message code="misc.confirm"/>'>
+	<spring:message code="projectContribution.method.confirm"/> 
 </div>
 <tags:excelImport submitUrl="../../import/project/contribution/${project.projectId}"/>
 </body></html>
