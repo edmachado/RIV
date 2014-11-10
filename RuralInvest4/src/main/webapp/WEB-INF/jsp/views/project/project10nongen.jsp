@@ -57,6 +57,37 @@ $(function() {
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${project.projectId}/projectContributions.xlsx" target="_blank"><spring:message code="export.download"/></a><br/>
 		<c:if test="${accessOK}"><!-- --> Under development... <!-- <a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a> --></c:if>
  	</div>
+ 	
+ 	<c:if test="${not project.perYearContributions}">
+ 		<c:forEach begin="1" end="41" step="10" var="outer">
+ 			<c:if test="${project.duration>=outer}">
+ 				<tags:table>
+		 			<table cellspacing="0" cellpadding="0">
+		 				<thead>
+		 					<tr>
+		 						<th class="left">TRANSLATE year</th>
+			 					<c:forEach begin="0" end="9" var="inner" >
+			 						<c:if test="${project.duration>=outer+inner}">
+			 							<th>${outer+inner}</th>
+			 						</c:if>
+			 					</c:forEach>
+		 					</tr>
+		 				</thead>
+		 				<tbody>
+		 					<tr>
+		 						<td style="text-align:left"><spring:message code="projectContribution.yearlyFlow"/></td> 
+		 						<c:forEach begin="0" end="9" var="inner">
+			 						<c:if test="${project.duration>=outer+inner}">
+		 								<td><tags:formatCurrency value="${years[(outer+inner-1)].total}"/></td>
+		 							</c:if>
+		 						</c:forEach>
+		 					</tr>
+		 				</tbody>
+		 			</table>
+		 		</tags:table>
+ 			</c:if>
+ 		</c:forEach>
+ 	</c:if>
 	
 	<tags:tableContainer titleKey="projectContribution">
 		<div id="yearByYear" style="margin:10px 5px;">
@@ -69,7 +100,7 @@ $(function() {
 			<c:if test="${project.perYearContributions or yearNum eq 1}">
 				<div class="onlyPerYear">
 					<a name="year${yearNum}" id="year${yearNum}"></a>
-					<h3>Year ${yearNum}</h3> 
+					<h3>TRANSLATE Year ${yearNum}</h3> 
 					<c:set var="total" value="0"/>
 					<spring:message code="projectContribution.yearlyFlow"/> <tags:formatCurrency value="${year.total}"/> 
 				</div>
