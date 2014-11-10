@@ -45,9 +45,9 @@ $(function() {
 				</div>
 			</c:if>
 			<tags:dataentry field="unitType" labelKey="${blockType}.prodUnit" helpText="${blockType}.prodUnit" inputClass="text" size="20" maxLength="20" />
-			<%----%>
+			<%--
 			<tags:dataentryCheckbox field="cycles" labelKey="projectBlock.usesCycles" helpText="projectBlock.usesCycles.help" helpTitle="projectBlock.usesCycles" />
-			 
+			 --%>
 			<div id="cycledata" <c:if test="${not block.cycles}">style="display:none;"</c:if><c:if test="${block.cycles}">style="display:block;"</c:if>>
 				<div class="dataentry">
 					<label><tags:help title="${blockType}.cycleLength" text="${blockType}.cycleLength.help"><spring:message code="${blockType}.cycleLength"/></tags:help></label>
