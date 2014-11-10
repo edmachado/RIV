@@ -12,6 +12,7 @@ projectBlock.pattern.noCycles.help=INNA PLEASE CHECK TEXT (INCLUDING HELP TEXT) 
 projectBlock.pattern.noCycles.qty=Number of units of production
 projectActivity.pattern.noCycles.help=If the number of units of activity will change over time, define the number of units over the project period being analysed (e.g. if in the case of a school, the unit is the student, it may be that the number of students is expected to increase with time)
 projectActivity.pattern.noCycles.qty=Number of units of activity
+project.report.blockDetail.totalPerUnitNoCycle=Totals per unit
 
 
 

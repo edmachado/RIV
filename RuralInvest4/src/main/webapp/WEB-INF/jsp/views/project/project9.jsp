@@ -18,6 +18,7 @@ $(function() {
 				'<spring:message code="misc.deleteItem"/>': function() { location.href=$('#deleteUrl').val(); }		
 			}
 	});
+	$( document ).tooltip();
 });
 </script>
 <style>

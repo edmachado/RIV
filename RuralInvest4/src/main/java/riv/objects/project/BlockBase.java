@@ -59,8 +59,6 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	private String UnitType;
 	@Column(name="CYCLES")
 	private boolean cycles=true;
-//	@Column(name="WITH_PROJECT")
-//	private boolean withProject;
 
 	@OneToMany(mappedBy="block", targetEntity=BlockIncome.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
@@ -316,6 +314,7 @@ public Integer getLengthUnit() {
 	 */
 	public BlockBase copy() {
 		BlockBase newBlock = this.getClass()==Block.class ? new Block() : new BlockWithout();
+		newBlock.setCycles(this.isCycles());
 		newBlock.setOrderBy(this.getOrderBy());
 		newBlock.setDescription(this.getDescription());
 		newBlock.setUnitType(this.getUnitType());

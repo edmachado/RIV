@@ -435,7 +435,8 @@ public class ExcelWorksheetBuilder {
 		
 		// totals
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 6, translate("project.report.blockDetail.totalPerUnitCycle"), Style.H2);
+		String totals= block.isCycles() ? "project.report.blockDetail.totalPerUnitCycle" : "project.report.blockDetail.totalPerUnitNoCycle";
+		report.addTextCell(row, 6, translate(totals), Style.H2);
 
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 6, translate("project.report.blockDetail.incomes"), Style.LABEL);
@@ -585,6 +586,23 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectProduction(ExcelWrapper report, Project project) {
 		boolean incomeGen = project.getIncomeGen();
 		int duration = project.getDuration();
+		
+		// show cycle labels if there is at least one block that has cycles
+		boolean hasBlockWithCycles = false;
+		for (BlockBase b : project.getBlocks()) {
+			if (b.isCycles()) {
+				hasBlockWithCycles=true;
+				break;
+			}
+		}
+		if (!hasBlockWithCycles) {
+			for (BlockBase b : project.getBlocksWithout()) {
+				if (b.isCycles()) {
+					hasBlockWithCycles=true;
+					break;
+				}
+			}
+		}
 
 		String name = (incomeGen) ? "projectBlock.name" : "projectActivity.name";
 		String unit = (incomeGen) ? "projectBlock.prodUnit" : "projectActivity.prodUnit";
@@ -593,17 +611,17 @@ public class ExcelWorksheetBuilder {
 		titles[0]=translate(name);
 		titles[1]="";
 		titles[2]=translate(unit);
-		titles[3]=translate("projectBlock.cycleLength");
+		titles[3]=hasBlockWithCycles ? translate("projectBlock.cycleLength") : "";
 		titles[4]="";
-		titles[5]=translate("projectBlock.cyclePerYear");
+		titles[5]=hasBlockWithCycles ? translate("projectBlock.cyclePerYear") : "";
 		titles[6]="";
 		for (int i=1; i <= duration; i++) {
 			titles[6+i]=String.valueOf(i);
 		}
 		if (project.getIncomeGen()) {
-			titles[7+duration]=translate("projectBlock.cycleFirstYear");
+			titles[7+duration]=hasBlockWithCycles ? translate("projectBlock.cycleFirstYear") : "";
 			titles[8+duration]="";
-			titles[9+duration]=translate("projectBlock.cycleFirstYearIncome");
+			titles[9+duration]=hasBlockWithCycles ? translate("projectBlock.cycleFirstYearIncome") : "";
 			titles[10+duration]="";
 		} else {
 			titles[7+duration]="";
@@ -673,15 +691,20 @@ public class ExcelWorksheetBuilder {
 		cellNum++;
 		
 		report.addTextCell(row, cellNum++, block.getUnitType());
-		report.addNumericCell(row, cellNum++, block.getCycleLength());
-		report.addSelectCell(row, cellNum++, block.getLengthUnit(), lengthUnits(), sheet);
-		report.addNumericCell(row, cellNum++, block.getCyclePerYear());
-		report.addTextCell(row, cellNum++, translate("units.perYear"));
 		
-		ExcelBlockLink blockLink = new ExcelBlockLink();
+		if (block.isCycles()) {
+			report.addNumericCell(row, cellNum++, block.getCycleLength());
+			report.addSelectCell(row, cellNum++, block.getLengthUnit(), lengthUnits(), sheet);
+			report.addNumericCell(row, cellNum++, block.getCyclePerYear());
+			report.addTextCell(row, cellNum++, translate("units.perYear"));
+		} else {
+			cellNum=cellNum+4;
+		}
 
+		ExcelBlockLink blockLink = new ExcelBlockLink();
+		blockLink.noCycles=!block.isCycles();
 		int duration=block.getProject().getDuration();
-		blockLink.cycles = "'"+sheet.getSheetName()+"'!F"+rowNum;
+		blockLink.cyclesPerYear = "'"+sheet.getSheetName()+"'!F"+rowNum;
 		blockLink.qtyPerYear = new String[duration];
 		
 		for (int i=1; i <= duration; i++) {
@@ -692,7 +715,7 @@ public class ExcelWorksheetBuilder {
 			}
 		}
 		
-		if (block.getProject().getIncomeGen()) {
+		if (block.getProject().getIncomeGen() && block.isCycles()) {
 			report.addNumericCell(row, cellNum++, block.getCycleFirstYearIncome());
 			blockLink.cyclesFirstYearPayment=String.format("'%s'!$%s$%d",sheet.getSheetName(),getColumn(9+block.getProject().getDuration()),rowNum);
 			report.addTextCell(row, cellNum++, translate("units.perYear"));
@@ -1628,11 +1651,15 @@ public class ExcelWorksheetBuilder {
 				formulaBuild = new StringBuilder();
 				
 				for (ExcelBlockLink blockLink : report.getBlockLinks().values()) {
-					if (yearNum==1) {
-						formulaBuild.append("("+blockLink.incomeCash+"*"+blockLink.cyclesFirstYearPayment+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
-					} else {
-						formulaBuild.append("("+blockLink.incomeCash+"*"+blockLink.cycles+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
-					}
+					formulaBuild.append("("+blockLink.incomeCash+"*"+blockLink.qtyPerYear[yearNum-1]);
+					if (!blockLink.noCycles) {
+						if (yearNum==1) {
+							formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
+						} else {
+							formulaBuild.append("*"+blockLink.cyclesPerYear);
+						}
+					}	
+					formulaBuild.append(")+");
 				}
 				report.addFormulaCell(sheet.getRow(4), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 				
@@ -1779,11 +1806,15 @@ public class ExcelWorksheetBuilder {
 				// operation
 				formulaBuild = new StringBuilder();
 				for (ExcelBlockLink blockLink : report.getBlockLinks().values()) {
-					if (yearNum==1) {
-						formulaBuild.append("("+blockLink.cost+"*"+blockLink.cyclesFirstYearProduction+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
-					} else {
-						formulaBuild.append("("+blockLink.cost+"*"+blockLink.cycles+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
+					formulaBuild.append("("+blockLink.cost+"*"+blockLink.qtyPerYear[yearNum-1]);
+					if (!blockLink.noCycles) {
+						if (yearNum==1) {
+							formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
+						} else {
+							formulaBuild.append("*"+blockLink.cyclesPerYear);
+						}
 					}
+					formulaBuild.append(")+");
 				}
 				report.addFormulaCell(sheet.getRow(26), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 
@@ -2027,22 +2058,29 @@ public class ExcelWorksheetBuilder {
 				formulaBuild = new StringBuilder();
 				
 				for (ExcelBlockLink blockLink : report.getBlockLinks().values()) {
-					if (yearNum==1) {
-						formulaBuild.append("("+blockLink.income+"*"+blockLink.cyclesFirstYearPayment+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
-					} else {
-						formulaBuild.append("("+blockLink.income+"*"+blockLink.cycles+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
+					formulaBuild.append("("+blockLink.income+"*"+blockLink.qtyPerYear[yearNum-1]);
+					if (!blockLink.noCycles) {
+						if (yearNum==1) {
+							formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
+						} else {
+							formulaBuild.append("*"+blockLink.cyclesPerYear);
+						}
 					}
+					formulaBuild.append(")+");
 				}
 				formulaBuild.deleteCharAt(formulaBuild.length()-1);
 				for (ExcelBlockLink blockLink : report.getBlockLinksWithoutProject().values()) {
-					if (yearNum==1) {
-						formulaBuild.append("-("+blockLink.income+"*"+blockLink.cyclesFirstYearPayment+"*"+blockLink.qtyPerYear[yearNum-1]+")");
-					} else {
-						formulaBuild.append("-("+blockLink.income+"*"+blockLink.cycles+"*"+blockLink.qtyPerYear[yearNum-1]+")");
+					formulaBuild.append("-("+blockLink.income+"*"+blockLink.qtyPerYear[yearNum-1]);
+					if (!blockLink.noCycles) {
+						if (yearNum==1) {
+							formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
+						} else {
+							formulaBuild.append("*"+blockLink.cyclesPerYear);
+						}
 					}
+					formulaBuild.append(")");
 				}
 				report.addFormulaCell(sheet.getRow(3), yearNum, formulaBuild.toString(), Style.CURRENCY);
-				
 				
 				// salvage
 				formulaBuild = new StringBuilder();
@@ -2166,20 +2204,28 @@ public class ExcelWorksheetBuilder {
 				formulaBuild = new StringBuilder();
 				
 				for (ExcelBlockLink blockLink : report.getBlockLinks().values()) {
-					if (yearNum==1) {
-						formulaBuild.append("("+blockLink.cost+"*"+blockLink.cyclesFirstYearProduction+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
-					} else {
-						formulaBuild.append("("+blockLink.cost+"*"+blockLink.cycles+"*"+blockLink.qtyPerYear[yearNum-1]+")+");
+					formulaBuild.append("("+blockLink.cost+"*"+blockLink.qtyPerYear[yearNum-1]);
+					if (!blockLink.noCycles) {
+						if (yearNum==1) {
+							formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
+						} else {
+							formulaBuild.append("*"+blockLink.cyclesPerYear);
+						}
 					}
+					formulaBuild.append(")+");
 				}
 				formulaBuild.deleteCharAt(formulaBuild.length()-1);
 				if (project.isWithWithout()) {
 					for (ExcelBlockLink blockLink : report.getBlockLinksWithoutProject().values()) {
-						if (yearNum==1) {
-							formulaBuild.append("-("+blockLink.cost+"*"+blockLink.cyclesFirstYearProduction+"*"+blockLink.qtyPerYear[yearNum-1]+")");
-						} else {
-							formulaBuild.append("-("+blockLink.cost+"*"+blockLink.cycles+"*"+blockLink.qtyPerYear[yearNum-1]+")");
+						formulaBuild.append("-("+blockLink.cost+"*"+blockLink.qtyPerYear[yearNum-1]);
+						if (!blockLink.noCycles) {
+							if (yearNum==1) {
+								formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
+							} else {
+								formulaBuild.append("*"+blockLink.cyclesPerYear);
+							}
 						}
+						formulaBuild.append(")");
 					}
 				}
 				report.addFormulaCell(sheet.getRow(9), yearNum, formulaBuild.toString(), Style.CURRENCY);
@@ -2468,16 +2514,29 @@ public class ExcelWorksheetBuilder {
 				row = sheet.createRow(++rowNum);
 				report.addTextCell(row, 0, block.getDescription());
 				for (int month=0;month<12;month++) {
-					String formula=String.format("IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
+					String formula;
+					if (blockLink.noCycles) {
+						formula=String.format("IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
+								"*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s,0)", 
+							chronSheet, blockLink.paymentRow, blockLink.paymentRow, 
+							blockLink.incomeCash, 
+							chronSheet, blockLink.paymentRow, blockLink.paymentRow,
+							chronSheet,getColumn(month*2+1), blockLink.paymentRow,
+							getColumn(month*2+2),blockLink.paymentRow,
+							blockLink.qtyPerYear[0]
+							);
+					} else {
+						formula=String.format("IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
 								"*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s,0)", 
 							chronSheet, blockLink.paymentRow, blockLink.paymentRow, 
 							blockLink.incomeCash, 
 							chronSheet, blockLink.paymentRow, blockLink.paymentRow,
-							chronSheet,getColumn(month*2+1),blockLink.paymentRow,
+							chronSheet,getColumn(month*2+1), blockLink.paymentRow,
 							getColumn(month*2+2),blockLink.paymentRow,
 							blockLink.qtyPerYear[0],
 							blockLink.cyclesFirstYearPayment
 							);
+					}
 					report.addFormulaCell(row, month+1, formula, Style.CURRENCY);
 				}
 				report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
@@ -2502,16 +2561,27 @@ public class ExcelWorksheetBuilder {
 				ExcelBlockLink blockLink = report.getBlockLinks().get(block.getBlockId());
 				row = sheet.createRow(++rowNum);
 				report.addTextCell(row, 0, block.getDescription());
-				String formulaBase = "%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s";
+				
 				for (int month=0;month<12;month++) {
-					String formula=String.format(formulaBase,
-							blockLink.costCash,
-							chronSheet,blockLink.productionRow,blockLink.productionRow,
-							chronSheet, getColumn(month*2+1), blockLink.productionRow,
-							getColumn(month*2+2), blockLink.productionRow,
-							blockLink.qtyPerYear[0],
-							blockLink.cyclesFirstYearProduction
-						);
+					String formula;
+					if (blockLink.noCycles) {
+						formula=String.format("%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s",
+								blockLink.costCash,
+								chronSheet,blockLink.productionRow,blockLink.productionRow,
+								chronSheet, getColumn(month*2+1), blockLink.productionRow,
+								getColumn(month*2+2), blockLink.productionRow,
+								blockLink.qtyPerYear[0]
+							);
+					} else {
+						formula=String.format("%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s",
+								blockLink.costCash,
+								chronSheet,blockLink.productionRow,blockLink.productionRow,
+								chronSheet, getColumn(month*2+1), blockLink.productionRow,
+								getColumn(month*2+2), blockLink.productionRow,
+								blockLink.qtyPerYear[0],
+								blockLink.cyclesFirstYearProduction
+							);
+					}
 					report.addFormulaCell(row, month+1, formula, Style.CURRENCY);
 				}
 				report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
@@ -3398,7 +3468,7 @@ public class ExcelWorksheetBuilder {
 		
 		ExcelBlockLink blockLink = new ExcelBlockLink();
 		blockLink.qtyProfileProduct = "'"+sheet.getSheetName()+"'!$B$"+(rowNum-2);
-		blockLink.cycles = "'"+sheet.getSheetName()+"'!$B$"+rowNum;
+		blockLink.cyclesPerYear = "'"+sheet.getSheetName()+"'!$B$"+rowNum;
 		if (prod.getClass()==ProfileProduct.class) {
 			report.getBlockLinks().put(prod.getProductId(), blockLink);
 		} else {
@@ -3448,7 +3518,7 @@ public class ExcelWorksheetBuilder {
 			
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, translate("profile.report.blockDetail.incomes"));
-			report.addFormulaCell(row, 1, "("+blockLink.income+"*"+blockLink.qtyProfileProduct+"*"+blockLink.cycles+")", Style.CURRENCY);
+			report.addFormulaCell(row, 1, "("+blockLink.income+"*"+blockLink.qtyProfileProduct+"*"+blockLink.cyclesPerYear+")", Style.CURRENCY);
 			if (report.isCompleteReport()) {
 				String income= "'"+sheet.getSheetName()+"'!$B$"+rowNum;
 				if (prod.getClass()==ProfileProduct.class) {
@@ -3469,7 +3539,7 @@ public class ExcelWorksheetBuilder {
 			
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, translate("profile.report.blockDetail.costs"));
-			report.addFormulaCell(row, 1, "("+blockLink.cost+"*"+blockLink.qtyProfileProduct+"*"+blockLink.cycles+")", Style.CURRENCY);
+			report.addFormulaCell(row, 1, "("+blockLink.cost+"*"+blockLink.qtyProfileProduct+"*"+blockLink.cyclesPerYear+")", Style.CURRENCY);
 			if (report.isCompleteReport()) {
 				String cost="'"+sheet.getSheetName()+"'!$B$"+rowNum;
 				if (prod.getClass()==ProfileProduct.class) {

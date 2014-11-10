@@ -55,19 +55,19 @@
 							<c:if test="${accessOK}"><a id="upload${unique}" href="javascript:uploadBlock(${blockEntry.blockId});"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
 				  		</div>
 				  		<c:if test="${accessOK}">
-							<div class="dataentry"><a href="../block/${blockEntry.blockId}"><img src="../../img/edit.png" border="0"/> <spring:message code="${blockType}.editDesc"/></a></div>
-					  		<div class="dataentry"><a id="delete${unique}" href="javascript:confirmDelete('../block/${blockEntry.blockId}/delete');"><img src="../../img/delete.gif" border="0" alt="<spring:message code="${blockType}.delete"/>"/> <spring:message code="${blockType}.delete"/></a></div>
-				    		<div class="dataentry"><a href="../block/${blockEntry.blockId}/clone"><img src="../../img/duplicate.gif" border="0"/> <spring:message code="${blockType}.clone"/></a></div>
-				    		<c:if test="${fn:length(project.blocks)>1}">
-				    			<div class="dataentry">
+							<div class="dataentry">
+								<a href="../block/${blockEntry.blockId}"><img src="../../img/edit.png" title="<spring:message code="${blockType}.editDesc"/>" alt="<spring:message code="${blockType}.editDesc"/>" border="0"/></a>
+								<a id="delete${unique}" href="javascript:confirmDelete('../block/${blockEntry.blockId}/delete');"><img src="../../img/delete.gif" border="0" title="<spring:message code="${blockType}.delete"/>" alt="<spring:message code="${blockType}.delete"/>"/></a>
+								<a href="../block/${blockEntry.blockId}/clone"><img src="../../img/duplicate.gif" title="<spring:message code="${blockType}.clone"/>" alt="<spring:message code="${blockType}.clone"/>" border="0"/></a>
+					    		<c:if test="${fn:length(project.blocks)>1}">
 						    		<c:if test="${blockEntry.orderBy ne 0}">
-										<a name="moveUp" href="../block/${blockEntry.blockId}/move?up=false"><img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0"/></a>
+										<a name="moveUp" href="../block/${blockEntry.blockId}/move?up=false"><img src="../../img/arrow_up.png" title="<spring:message code="misc.moveUp"/>" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0"/></a>
 									</c:if>
 									<c:if test="${blockEntry.orderBy ne fn:length(project.blocks)-1}">
-										<a name="moveDown" href="../block/${blockEntry.blockId}/move?up=true"><img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0"></a>
+										<a name="moveDown" href="../block/${blockEntry.blockId}/move?up=true"><img src="../../img/arrow_down.png" title="<spring:message code="misc.moveDown"/>" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0"></a>
 									</c:if>
-								</div>
-							</c:if>
+								</c:if>
+							</div>
 				    	</c:if>
 				  	</div>
 				  	
@@ -119,13 +119,13 @@
 							<c:if test="${accessOK}">
 								<display:column title="&nbsp;" media="html">
 									<a name="copy" href="../blockItem/${inc.prodItemId}/copy">
-										<img src="../../img/duplicate.gif" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
+										<img src="../../img/duplicate.gif" title="<spring:message code="misc.copy"/>" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
 									</a>
 								</display:column>
 								<display:column title="&nbsp;" media="html">
 									<c:if test="${inc_rowNum ne 1}">
 										<a name="moveUp" href="../blockItem/${inc.prodItemId}/move?up=false">
-											<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
+											<img src="../../img/arrow_up.png" title="<spring:message code="misc.moveUp"/>" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
 										</a>
 									</c:if>
 									<c:if test="${inc_rowNum eq 1}">
@@ -135,7 +135,7 @@
 								<display:column title="&nbsp;" media="html">
 									<c:if test="${inc_rowNum ne fn:length(blockEntry.incomes)}">
 										<a name="moveDown" href="../blockItem/${inc.prodItemId}/move?up=true">
-											<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
+											<img src="../../img/arrow_down.png" title="<spring:message code="misc.moveDown"/>" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
 										</a>
 									</c:if>
 									<c:if test="${inc_rowNum eq fn:length(blockEntry.incomes)}">
@@ -143,10 +143,10 @@
 									</c:if>
 								</display:column>
 								<display:column title="&nbsp;" media="html">
-									<a href="../blockItem/${inc.prodItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
+									<a href="../blockItem/${inc.prodItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 								</display:column>
 								<display:column title="&nbsp;" media="html">
-									<a href="../blockItem/${inc.prodItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+									<a href="../blockItem/${inc.prodItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 								</display:column>
 							</c:if>
 							<display:footer>
@@ -165,7 +165,7 @@
 			<c:if test="${not project.incomeGen}">
 				<c:set var="incomeName"><spring:message code="projectActivityCharge"/>  <tags:blockExplanation block="${blockEntry}" /></c:set>
 				<tags:table title="${incomeName}">
-					<display:table list="${blockEntry.incomes}"  id="inc" requestURI="" cellspacing="0" cellpadding="0"
+					<display:table list="${blockEntry.incomes}" id="inc" requestURI="" cellspacing="0" cellpadding="0"
 							export="false" htmlId="incomeTable${unique}"> 
 							<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty> 
 							<display:column titleKey="projectActivityCharge.desc" property="description" sortable="true" style="text-align:${left};" headerClass="left"/> 
@@ -186,13 +186,13 @@
 							<c:if test="${accessOK}"> 
 								<display:column title="&nbsp;" media="html"> 
 									<a name="copy" href="../blockItem/${inc.prodItemId}/copy"> 
-										<img src="../../img/duplicate.gif" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/> 
+										<img src="../../img/duplicate.gif" title="<spring:message code="misc.copy"/>" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/> 
 								</a>
 							</display:column>
 							<display:column title="&nbsp;" media="html">
 								<c:if test="${inc_rowNum ne 1}">
 									<a name="moveUp" href="../blockItem/${inc.prodItemId}/move?up=false">
-										<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
+										<img src="../../img/arrow_up.png" title="<spring:message code="misc.moveUp"/>"  alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
 									</a>
 								</c:if>
 								<c:if test="${inc_rowNum eq 1}">
@@ -202,7 +202,7 @@
 							<display:column title="&nbsp;" media="html">
 								<c:if test="${inc_rowNum ne fn:length(blockEntry.incomes)}">
 									<a name="moveDown" href="../blockItem/${inc.prodItemId}/move?up=true">
-										<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
+										<img src="../../img/arrow_down.png" title="<spring:message code="misc.moveDown"/>" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
 									</a>
 								</c:if>
 								<c:if test="${inc_rowNum eq fn:length(blockEntry.incomes)}">
@@ -210,10 +210,10 @@
 								</c:if>
 							</display:column>
 							<display:column title="&nbsp;" style="margin-left:5px;" media="html">
-								<a href="../blockItem/${inc.prodItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
+								<a href="../blockItem/${inc.prodItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 							</display:column>
 							<display:column title="&nbsp;" media="html">
-								<a href="../blockItem/${inc.prodItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+								<a href="../blockItem/${inc.prodItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 							</display:column>
 						</c:if>
 						<display:footer>
@@ -224,7 +224,7 @@
 						</display:footer>
 					</display:table> 
 					<c:if test="${accessOK}">
-						<div class="addNew"><a id="newIncome${unique}" href="../blockItem/-1?itemType=income&blockId=${blockEntry.blockId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+						<div class="addNew"><a id="newIncome${unique}" href="../blockItem/-1?itemType=income&blockId=${blockEntry.blockId}"><img src="../../img/add.gif" title="<spring:message code="misc.addItem"/>" alt="<spring:message code="misc.addItem"/>" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 					</c:if>
 				</tags:table>
 			</c:if>
@@ -263,13 +263,13 @@
 					<c:if test="${accessOK}">
 						<display:column title="&nbsp;" media="html">
 							<a name="copy" href="../blockItem/${inp.prodItemId}/copy">
-								<img src="../../img/duplicate.gif" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
+								<img src="../../img/duplicate.gif" title="<spring:message code="misc.copy"/>" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
 							</a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${inp_rowNum ne 1}">
 								<a name="moveUp" href="../blockItem/${inp.prodItemId}/move?up=false">
-									<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
+									<img src="../../img/arrow_up.png" title="<spring:message code="misc.moveUp"/>" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
 							<c:if test="${inp_rowNum eq 1}">
@@ -279,7 +279,7 @@
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${inp_rowNum ne fn:length(blockEntry.inputs)}">
 								<a name="moveDown" href="../blockItem/${inp.prodItemId}/move?up=true">
-									<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
+									<img src="../../img/arrow_down.png" title="<spring:message code="misc.moveDown"/>" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
 							<c:if test="${inp_rowNum eq fn:length(blockEntry.inputs)}">
@@ -287,10 +287,10 @@
 							</c:if>
 						</display:column>
 						<display:column title="&nbsp;" style="margin-left:5px;" media="html">
-							<a href="../blockItem/${inp.prodItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
+							<a href="../blockItem/${inp.prodItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../blockItem/${inp.prodItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+							<a href="../blockItem/${inp.prodItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>"  alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -302,7 +302,7 @@
 					</display:footer>
 				</display:table>
 				<c:if test="${accessOK}">
-					<div class="addNew"><a id="newInput${unique}" href="../blockItem/-1?itemType=input&blockId=${blockEntry.blockId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+					<div class="addNew"><a id="newInput${unique}" href="../blockItem/-1?itemType=input&blockId=${blockEntry.blockId}"><img src="../../img/add.gif" title="<spring:message code="misc.addItem"/>" alt="<spring:message code="misc.addItem"/>" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				</c:if>
 			</tags:table>
 			
@@ -343,13 +343,13 @@
 					<c:if test="${accessOK}">
 						<display:column title="&nbsp;" media="html">
 							<a name="copy" href="../blockItem/${lab.prodItemId}/copy">
-								<img src="../../img/duplicate.gif" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
+								<img src="../../img/duplicate.gif" title="<spring:message code="misc.copy"/>" alt="<spring:message code="misc.copy"/>" width="16" height="16" border="0"/>
 							</a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${lab_rowNum ne 1}">
 								<a name="moveUp" href="../blockItem/${lab.prodItemId}/move?up=false">
-									<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
+									<img src="../../img/arrow_up.png" title="<spring:message code="misc.moveUp"/>" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
 							<c:if test="${lab_rowNum eq 1}">
@@ -359,7 +359,7 @@
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${lab_rowNum ne fn:length(blockEntry.labours)}">
 								<a name="moveDown" href="../blockItem/${lab.prodItemId}/move?up=true">
-									<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
+									<img src="../../img/arrow_down.png" title="<spring:message code="misc.moveDown"/>" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
 							<c:if test="${lab_rowNum eq fn:length(blockEntry.labours)}">
