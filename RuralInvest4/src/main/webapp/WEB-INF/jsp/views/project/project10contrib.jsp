@@ -53,6 +53,7 @@
 						<form:option value="4"><spring:message code="projectContribution.contribType.other"/></form:option>
 					</form:select>
 				</div>
+				<tags:dataentry field="contributor" labelKey="projectContribution.contributor" helpText="projectContribution.contributor.help" />
 				<tags:dataentry field="unitType" labelKey="projectContribution.unitType" helpText="projectContribution.unitType.help" />
 				<tags:dataentry field="unitNum" labelKey="projectContribution.unitNum" helpText="projectContribution.unitNum.help" onmouseout="Calculate()"/>
 				<tags:dataentry field="unitCost" labelKey="projectContribution.unitCost" helpText="projectContribution.unitCost.help" currency="true" onmouseout="Calculate()"/>

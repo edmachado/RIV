@@ -826,7 +826,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getRefLabours());
 		}
 		
-		if (!p.getIncomeGen() && (step==10 || step==-1)) {
+		if (!p.getIncomeGen() && (step==10 || step==-1 || step==13)) {
 			Hibernate.initialize(p.getContributions());
 			if (step==10) { // load all data for analysis
 				Hibernate.initialize(p.getNongenLabours());
@@ -915,6 +915,16 @@ public class DataRepository {
 		}
 	}
 	
+	public void contributionsDurationChanged(Project p, int oldDuration) {
+		if (p.getDuration()<oldDuration) {
+			Query query=currentSession().createQuery("delete ProjectItemContribution c where c.year>:d and c.project=:p");
+			query.setParameter("d", p.getDuration());
+			query.setParameter("p", p);
+			query.executeUpdate();
+			p = getProject(p.getProjectId(), 1);
+			storeProject(p, p.getWizardStep()==null);
+		}
+	}
 	public void updatePatternLength(int projectId, int duration, int oldDuration) {
 		if (duration<oldDuration) {
 			// delete pattern items for years after end of project duration

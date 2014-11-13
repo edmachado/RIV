@@ -4,7 +4,6 @@
 .onlyPerYear { 
 <c:if test="${not project.perYearContributions}">display:none;</c:if> 
 }
-#flowSummary tr.odd td { font-weight:bold;}
 </style>
 <script>
 $(function() {
@@ -66,44 +65,42 @@ $(function() {
 		<input type="radio" name="simpleApproach" id="simplified" value="true" <c:if test="${not project.perYearContributions}">checked="checked"</c:if>><label for="simplified" title='<spring:message code="projectContribution.method.simplified.help"/>'><spring:message code="projectContribution.method.simplified"/></label>
 		<input type="radio" name="simpleApproach" id="perYear" value="false" <c:if test="${project.perYearContributions}">checked="checked"</c:if>><label for="perYear" title='<spring:message code="projectContribution.method.perYear.help"/>'><spring:message code="projectContribution.method.perYear"/></label>
 	</div>
+	<b>
 	<c:if test="${not project.perYearContributions}"><spring:message code="projectContribution.method.simplified.help"/></c:if>
 	<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
+ 	</b>
  	
- 	<c:if test="${not project.perYearContributions}">
- 		<div align="right"><a href="#" onClick="toggle('flowSummary')"><spring:message code="misc.toggle"/></a></div>
- 		<div id="flowSummary" style="display:block">
+ 	<div align="right"><a href="#" onClick="toggle('contribSummary')"><spring:message code="misc.toggle"/></a></div>
+ 	<div id="contribSummary" style="display:block;">
+ 		<h2><spring:message code="project.report.contributionSummary"/></h2>
+ 		<tags:summaryContributions/>
+ 	</div>
+ 	
+ 	<div align="right"><a href="#" onClick="toggle('yearlyFlow')"><spring:message code="misc.toggle"/></a></div>
+ 	<div id="yearlyFlow" style="display:block;">
  		<h2><spring:message code="projectContribution.yearlyFlow"/></h2>
  		<tags:table>
-			<table cellspacing="0" cellpadding="0">
-		 		<tbody>
-		 			<c:forEach begin="1" end="41" step="10" var="outer">
-						<c:if test="${project.duration>=outer}">
-							<tr class="odd"><td style="text-align:left;"><spring:message code="units.year"/><c:forEach begin="0" end="9" var="inner" >
-	 								<c:if test="${project.duration>=outer+inner}">
-	 									<td>${outer+inner}</td>	
-									</c:if>
-									<c:if test="${project.duration<outer+inner}">
-	 									<td></td>	
-									</c:if>
-		 					</c:forEach></tr>
-		 					<tr class="even"><td></td>
-		 						<c:forEach begin="0" end="9" var="inner">
-			 						<c:if test="${project.duration>=outer+inner}">
-		 								<td><tags:formatCurrency value="${years[(outer+inner-1)].total}"/></td>
-		 							</c:if>
-		 							<c:if test="${project.duration<outer+inner}">
-	 									<td></td>	
-									</c:if>
-		 						</c:forEach>
-		 					</tr>
-		 					</c:if>
-		 					</c:forEach>
-		 				</tbody>
-		 			</table>
-		 		</tags:table>
- 		</div>
- 	</c:if>
-	
+ 			<table cellspacing="0" cellpadding="0">
+ 				<thead>
+ 					<tr>
+ 						<th class="left"><spring:message code="units.year"/></th>
+ 						<c:forEach begin="1" end="${project.duration}" var="i">
+ 							<th>${i}</th>
+ 						</c:forEach>
+ 					</tr>
+ 				</thead>
+ 				<tbody>
+ 					<tr class="odd">
+ 						<td></td>
+ 						<c:forEach var="year" items="${years}">
+ 							<td><tags:formatDecimal value="${year.total}" noDecimals="true"/></td>
+ 						</c:forEach>
+ 					</tr>
+ 				</tbody>
+ 			</table>
+ 		</tags:table>
+ 	</div>
+ 	
 	<tags:tableContainer titleKey="projectContribution">
 		<c:forEach var="year" items="${years}">
 			<c:set var="yearNum" value="${year.year}"/>
@@ -129,6 +126,7 @@ $(function() {
 							<c:if test="${contrib.contribType=='5'}"><spring:message code="projectContribution.contribType.beneficiary"/></c:if>
 							<c:if test="${contrib.contribType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if>
 						</display:column>
+						<display:column titleKey="projectContribution.contributor" property="contributor" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.unitNum" sortProperty="unitNum" sortable="true">
 							<tags:formatDecimal value="${contrib.unitNum}"/>
@@ -176,8 +174,8 @@ $(function() {
 							</display:column>
 						</c:if>
 						<display:footer>
-							<tr height="1"><td height="1" colspan="12" class="Sum1"/></tr>
-							<tr><td/><td/><td/><td/><td/>
+							<tr height="1"><td height="1" colspan="13" class="Sum1"/></tr>
+							<tr><td/><td/><td/><td/><td/><td/>
 							<td><tags:formatCurrency value="${total}" /></td>
 							<td/><td/><td/><td/><td/></tr>
 						</display:footer>
@@ -203,7 +201,7 @@ $(function() {
 	<input id=copyUrl type="hidden" value=""/>
 </div>
 <div id="confirmSimple" title='<spring:message code="misc.confirm"/>'>
-	<spring:message code="projectContribution.method.confirm"/> 
+	<span class="ui-icon ui-icon-alert" style="display:inline-block"></span> <spring:message code="projectContribution.method.confirm"/> 
 </div>
 <tags:excelImport submitUrl="../../import/project/contribution/${project.projectId}"/>
 </body></html>

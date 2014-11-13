@@ -30,3 +30,9 @@
 <p><span class="explain highMonth"><b><spring:message code="project.amtRequired"/>:</b></span> <spring:message code="project.amtRequired.explain"/></p> 
 <br/>
 <p><span class="explain period"><b><spring:message code="project.period"/>:</b></span> <spring:message code="project.period.help"/></p>
+<br/>
+<c:if test="${empty project.wizardStep}">
+	<spring:message code="project.report.cashFlowFirst"/> 
+	<a href="../../report/${project.projectId}/projectCashFlowFirst.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
+	<a href="../../report/${project.projectId}/projectCashFlowFirst.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0"> Excel</a>
+</c:if>

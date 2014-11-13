@@ -199,6 +199,9 @@ public class ProjectController {
 				dataService.storeProject(project, false);
 				if (durationChanged) {
 					dataService.updatePatternLength(project.getProjectId(), project.getDuration(), oldDuration);
+					if (project.isPerYearContributions()) {
+						dataService.contributionsDurationChanged(project, oldDuration);
+					}
 				}
 				if (withWithoutChanged) {
 					dataService.updateBlocksWithWithout(project.getProjectId(), project.isWithWithout());

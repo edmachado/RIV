@@ -24,6 +24,8 @@ public class ProjectItemContribution extends ProjectItem {
 	private Integer contribType;
 	@Column(name="YEAR_BEGIN")
 	private Integer year;
+	@Column
+	private String contributor;
 	
 	public Project getProject () {
 		return this.project;
@@ -48,6 +50,14 @@ public class ProjectItemContribution extends ProjectItem {
 		this.year = year;
 	}
 
+	public String getContributor() {
+		return contributor;
+	}
+
+	public void setContributor(String contributor) {
+		this.contributor = contributor;
+	}
+
 	public double getTotal() {
 		if (getUnitNum()==null || getUnitCost()==null) return 0;
 		return this.getUnitCost()*this.getUnitNum();
@@ -65,7 +75,7 @@ public class ProjectItemContribution extends ProjectItem {
 	   item.setUnitNum(unitNum);
 	   item.setUnitType(unitType);
 	   item.setContribType(contribType);
-	   
+	   item.setContributor(contributor);
 	   item.setOrderBy(getOrderBy());
 	   return item;
    }
@@ -75,6 +85,7 @@ public class ProjectItemContribution extends ProjectItem {
 		if (!super.equals(obj)) return false;
 		ProjectItemContribution x = (ProjectItemContribution)obj;
 		boolean isEqual = contribType.equals(x.contribType)
+				&& contributor.equals(x.contributor)
 		&&  ((year==null && this.getProjItemId()==x.getProjItemId()) || (year!=null && year==x.getYear()));
 		return isEqual;
 	}
@@ -85,6 +96,7 @@ public class ProjectItemContribution extends ProjectItem {
 		final int multiplier = 23;
 	    if (contribType!=null) { code = multiplier * code + contribType; }	
 	    if (year!=null) { code = multiplier * code + year.hashCode(); }
+	    if (contributor!=null) {code=multiplier * code + contributor.hashCode(); }
 	    return code;
 	}
 }

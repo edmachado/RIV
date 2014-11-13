@@ -3,9 +3,12 @@ package riv.objects.project;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -351,8 +354,8 @@ public double getInvestmentTotal() {
 	return investTotal;
 }
 
-	public HashMap<Integer, SortedSet<ProjectItemContribution>> getContributionsByYear() {
-		HashMap<Integer, SortedSet<ProjectItemContribution>> contribsByYear = new HashMap<Integer, SortedSet<ProjectItemContribution>>();
+	public Map<Integer, SortedSet<ProjectItemContribution>> getContributionsByYear() {
+		Map<Integer, SortedSet<ProjectItemContribution>> contribsByYear = new HashMap<Integer, SortedSet<ProjectItemContribution>>();
 		for (int i=1; i<=duration; i++) {
 			contribsByYear.put(i, new TreeSet<ProjectItemContribution>());
 		}
@@ -1195,6 +1198,62 @@ public double getInvestmentTotal() {
 	 }
 	 private BigDecimal round(BigDecimal d) {
 		 return d.setScale(2, BigDecimal.ROUND_HALF_UP);
+	 }
+	 
+	// gives summary data for contributions (and helper classes)
+	public List<ProjectContributor> getContributionSummary() {
+		HashMap<ProjectContributorKey, ProjectContributor> contribs = new HashMap<ProjectContributorKey, ProjectContributor>();
+		for (ProjectItemContribution c : contributions) {
+			ProjectContributorKey key = getContribKeyFromKeys(contribs.keySet(), c.getContribType(),c.getContributor()==null ? "" : c.getContributor());
+			if (!contribs.containsKey(key)) {
+				contribs.put(key, new ProjectContributor(key, new double[duration]));
+			}
+			contribs.get(key).contributions[c.getYear()-1]=contribs.get(key).contributions[c.getYear()-1]+c.getTotal();
+		}
+		List<ProjectContributor> values = new ArrayList<ProjectContributor>(contribs.values());
+		Collections.sort(values);
+		return values;
+	}
+	public ProjectContributorKey getContribKeyFromKeys(Set<ProjectContributorKey> keys, int contribType, String contributor) {
+		for(ProjectContributorKey key : keys) {
+			if (key.contributionType==contribType && key.contributor.equals(contributor)) {
+				return key;
+			}
+		}
+		return new ProjectContributorKey(contribType, contributor);
+	}
+	 public class ProjectContributor implements Comparable<ProjectContributor> {
+		private ProjectContributorKey key;
+		private double[] contributions;
+		public ProjectContributor(ProjectContributorKey key, double[] contributions) {
+			this.key=key;
+			this.contributions=contributions;
+		}
+		public ProjectContributorKey getKey() {
+			return key;
+		}
+		public double[] getContributions() {
+			return contributions;
+		}
+		@Override
+		public int compareTo(ProjectContributor other) {
+			int comparison= Integer.compare(key.contributionType, other.key.contributionType);
+			return comparison==0 ? key.contributor.compareTo(other.key.contributor) : comparison;
+		}
+	}
+	 public class ProjectContributorKey {
+		 private int contributionType;
+		 private String contributor;
+		 public ProjectContributorKey(int type, String contributor) {
+			 this.contributionType=type;
+			 this.contributor=contributor;
+		 }
+		 public int getContributionType() {
+			 return contributionType;
+		 }
+		 public String getContributor() {
+			 return contributor;
+		 }
 	 }
 	 
 	/**
