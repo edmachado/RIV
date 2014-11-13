@@ -777,7 +777,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getAppConfig1());
 			Hibernate.initialize(p.getAppConfig2());
 		}
-		if (step==7 || step==-1) {
+		if (step==7 || step==-1 || step==13) {
 			Hibernate.initialize(p.getAssets());
 			Hibernate.initialize(p.getLabours());
 			Hibernate.initialize(p.getServices());
@@ -787,7 +787,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getRefCosts());
 			Hibernate.initialize(p.getRefLabours());
 		}
-		if (step==8 || step==-1) {
+		if (step==8 || step==-1 || step==13) {
 			Hibernate.initialize(p.getRefCosts());
 			Hibernate.initialize(p.getRefLabours());
 			if (p.getIncomeGen()) {
@@ -801,7 +801,7 @@ public class DataRepository {
 				Hibernate.initialize(p.getNongenMaterials());
 			}
 		}
-		if (step==9 || (p.getIncomeGen() && step==11) || step==-1) {
+		if (step==9 || (p.getIncomeGen() && step==11) || step==-1 || step==13) {
 			for (Block b : p.getBlocks()) {
 				Hibernate.initialize(b.getChrons());
 				Hibernate.initialize(b.getPatterns());

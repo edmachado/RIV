@@ -23,12 +23,16 @@ projectActivity.pattern.noCycles.qty=Number of units of activity
 project.report.blockDetail.totalPerUnitNoCycle=Totals per unit
 
 project.workingCapital.how=How is working capital estimated?
-project.workingCapital.explain=Working capital is estimated by reviewing the cumulative monthly cash flow for the first year of the project. 
+project.workingCapital.explain=Working capital is estimated by reviewing the cumulative monthly cash flow for the first year. 
 project.amtRequired.explain=The largest negative value
+
+project.report.wcCalculation=Working Capital calculation
 
 # Changed from previous versions
 project.amtRequired.help=The amount of working capital required is the amount necessary to cover all operating costs until income is sufficient. It is automatically estimated by RuralInvest.
 project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
+profile.report.title=Reports
+
 
 ### END RIV4.1
 
@@ -498,7 +502,6 @@ profile.report.summary.employment.operation=Operation (per year)
 profile.report.summary.employment=Generated employment (Person/Equivalents year)
 profile.report.summary.general=General information
 profile.report.summary=Profile summary
-profile.report.title=Create your own report
 profile.sharingMessage=Do you want allow other users to modify this profile?
 profile.sourceFunds.help=Describe any expected sources of funds for operation of the investment once in operation (e.g. staff salaries, maintenance, supplies), including user fees, community contribution, government help and NGOs.
 profile.sourceFunds=Source of funds
@@ -834,7 +837,6 @@ project.report.cashFlowNongen.replacement=Replacement
 project.report.chronology=Chronology of production
 project.report.complete=Complete report
 project.report.contributions=Contributions
-project.report.description=Select one or more of the reports available from the RuralInvest system listed below. Should you require a full report containing all tables, select the last option: 'complete report'.
 project.report.general.benefs=Beneficiaries
 project.report.general.general=General
 project.report.general=General description of the project

@@ -1,3 +1,9 @@
+function showSummary(summary) {
+	$('#'+summary).dialog({
+		resizable: true, height:250, width:800
+	});
+};
+
 function randomPhoto(src, begin, end) {
 	var d = new Date();
 	var seconds = d.getSeconds(); 

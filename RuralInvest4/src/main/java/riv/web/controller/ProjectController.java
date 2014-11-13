@@ -299,7 +299,7 @@ public class ProjectController {
 			model.addAttribute("years",data);
 			// group contributions by year
 			model.addAttribute("contribsByYear", p.getContributionsByYear());
-		} else if (step==11 && p.getIncomeGen()) {
+		} else if ((step==11 || step==13) && p.getIncomeGen()) {
 		
 			ProjectFirstYear pfy = new ProjectFirstYear(p);
 			int period;

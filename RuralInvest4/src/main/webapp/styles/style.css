@@ -558,3 +558,9 @@ li.qq-upload-fail {
 	width:100px !important;
 	font-size:1em;
 }
+
+div.summary { display:none;}
+#wcSummary td, #wcSummary th {text-align:center;}
+td.highMonth, span.highMonth { border:1px solid red; }
+th.period, span.period { background-color: #69f; }
+span.explain { padding:3px 5px; }

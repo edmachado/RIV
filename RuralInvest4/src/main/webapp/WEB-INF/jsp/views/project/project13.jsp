@@ -1,9 +1,10 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <html><head><title><spring:message code="project.step13"/></title></head>
 <body>
+<div style="display:inline-block;width:49%;">
 <h2><spring:message code="profile.report.title"/></h2>
-	<spring:message code="project.report.description"/><br/>
-	<c:set var="space"><c:if test="${lang!='ar'}"> </c:if><c:if test="${lang=='ar'}">Ø§</c:if></c:set>
+	
+	<c:set var="space"><c:if test="${lang!='ar'}"> </c:if><c:if test="${lang=='ar'}">&nbsp;</c:if></c:set>
 	<ul>
 		<li>
 			<a href="../../report/${project.projectId}/projectSummary.pdf" target="_blank" ><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
@@ -95,11 +96,41 @@
 			<spring:message code="project.report.complete"/>
 		</li>
 	</ul>
+	</div>
+	<div style="display:inline-block;width:45%;">
+		<h2>Summary tables</h2>
+		<ul>
+			<li><a href="javascript:showSummary('summaryIndicators');"><spring:message code="mainMenu.config.columns"/></a></li>
+			<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.blockDetail"/></a></li>
+			<li><a href="javascript:showSummary('summaryWc');"><spring:message code="project.report.wcCalculation"/></a></li>
+			<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlow"/></a></li>
+			<li><a href="javascript:showSummary('summaryProfitability');"><spring:message code="project.report.profitability"/></a></li>
+		</ul>
+	</div>
 	
 	<c:set var="onsubmit">
 		<c:if test="${project.incomeGen}">javascript:search(false, 'igpj', '');</c:if>
 		<c:if test="${not project.incomeGen}">javascript:search(false, 'nigpj', '');</c:if>
 	</c:set>
 	<tags:submit onSubmit="${onsubmit}"><spring:message code="misc.finish"/></tags:submit>
+	
+	<div id="summaryIndicators" class="summary" title='<spring:message code="mainMenu.config.columns"/>'>
+	
+	</div>
+	<div id="summaryBlocks" class="summary" title='<spring:message code="project.report.blockDetail"/>'>
+	
+	</div>
+	<div id="summaryWc" class="summary" title='<spring:message code="project.report.wcCalculation"/>'>
+		<tags:wcSummary />
+	</div>
+	<div id="summaryCashFlow" class="summary" title='<spring:message code="project.report.cashFlow"/>'>
+	
+	</div>
+	<div id="summaryProfitability" class="summary" title='<spring:message code="project.report.profitability"/>'>
+	
+	</div>
+	
+	
+	
 	
 </body></html>
