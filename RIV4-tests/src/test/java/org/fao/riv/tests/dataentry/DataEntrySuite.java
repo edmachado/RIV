@@ -10,7 +10,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(value = Suite.class)
 @SuiteClasses(value = { EditAndSave.class, InputProfileIg.class, InputProfileNig.class, InputProjectIg.class, InputProjectNig.class, 
 		ProjectCompleteToInProgress.class, ProjectIgChangeDuration.class, ProjectIgRemoveWithWithout.class, RoundingProblem.class, 
-		Settings.class, SettingsChangeDecimalSeparator.class, SetToNotShared.class, User.class})
+		Settings.class, SettingsChangeDecimalSeparator.class, SetToNotShared.class, User.class, NigProjectContributions.class,
+		IgProjectNoCycles.class})
 public class DataEntrySuite {
 	
 	 @BeforeClass 
@@ -20,6 +21,6 @@ public class DataEntrySuite {
 	 
 	 @AfterClass
 	 public static void after() {      
-	        System.out.println("concluded data entry tests");
+	        System.out.println("Concluded data entry tests");
 	    }
 }
