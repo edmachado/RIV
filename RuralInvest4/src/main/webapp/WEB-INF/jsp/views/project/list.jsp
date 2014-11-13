@@ -24,8 +24,6 @@
 				 htmlId="results"><!-- decorator="rivWeb.decorators.ProjectList" -->
 				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 				<display:column style="text-align:left;" headerClass="left" titleKey="project.projectName" property="projectName" sortable="true" />
-				
-				<%--<c:if test="${user.resultUserCode}"></c:if--%>
 				<display:column style="text-align:left" headerClass="left" titleKey="project.userCode" property="userCode" sortable="true"/>
 				
 				<c:if test="${user.resultTechnician}"><c:set var="cols" value="${cols+1}"/>
@@ -34,49 +32,37 @@
 				
 				<c:if test="${user.resultFieldOffice}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" titleKey="project.fieldOffice" sortable="true">
-						<c:if test="${row.fieldOffice.configId==-4}"><spring:message code="fieldOffice.generic"/></c:if>
-						<c:if test="${row.fieldOffice.configId!=-4}">${row.fieldOffice.description}</c:if>
+						<tags:appConfigDescription ac="${row.fieldOffice}"/>
 					</display:column>
 				</c:if>
 				<c:if test="${user.resultStatus}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" titleKey="project.status" sortable="true">
-						<c:if test="${row.status.configId==-7}"><spring:message code="projectStatus.generic"/></c:if>
-						<c:if test="${row.status.configId==-20}"><spring:message code="projectStatus.proposal"/></c:if>
-						<c:if test="${row.status.configId==-21}"><spring:message code="projectStatus.approved"/></c:if>
-						<c:if test="${row.status.configId==-22}"><spring:message code="projectStatus.investment"/></c:if>
-						<c:if test="${row.status.configId==-23}"><spring:message code="projectStatus.operational"/></c:if>
-						<c:if test="${row.status.configId!=-7 && row.status.configId!=-20 && row.status.configId!=-21 && row.status.configId!=-22 && row.status.configId!=-23}">${row.status.description}</c:if>
+						<tags:appConfigDescription ac="${row.status}"/>
 					</display:column>
 				</c:if>
 				<c:if test="${user.resultProjectCategory}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" titleKey="project.category" sortable="true">
-						<c:if test="${row.projCategory.configId==-5}"><spring:message code="projectCategory.generic.ig"/></c:if>
-						<c:if test="${row.projCategory.configId==-2}"><spring:message code="projectCategory.generic.nig"/></c:if>
-						<c:if test="${row.projCategory.configId!=-5 && row.projCategory.configId!=-2}">${row.projCategory.description}</c:if>
+						<tags:appConfigDescription ac="${row.projCategory}"/>
 					</display:column>
 				</c:if>
 				<c:if test="${user.resultBenefCategory}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" titleKey="project.benefType" sortable="true">
-						<c:if test="${row.beneficiary.configId==-3}"><spring:message code="beneficiary.generic"/></c:if>
-						<c:if test="${row.beneficiary.configId!=-3}">${row.beneficiary.description}</c:if>
+						<tags:appConfigDescription ac="${row.beneficiary}"/>
 					</display:column>
 				</c:if>
 				<c:if test="${user.resultEnviron}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:center;" headerClass="centered" titleKey="project.enviroCat" sortable="true">
-						<c:if test="${row.enviroCategory.configId==-6}"><spring:message code="enviroCategory.generic"/></c:if>
-						<c:if test="${row.enviroCategory.configId!=-6}">${row.enviroCategory.description}</c:if>
+						<tags:appConfigDescription ac="${row.enviroCategory}"/>
 					</display:column>
 				</c:if>
 				<c:if test="${rivConfig.setting.admin1Enabled and user.resultAdminCategory1}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" title="${rivConfig.setting.admin1Title}" sortable="true">
-						<c:if test="${row.appConfig1.configId==-8}"><spring:message code="customFields.appConfig1.generic"/></c:if>
-						<c:if test="${row.appConfig1.configId!=-8}">${row.appConfig1.description}</c:if>
+						<tags:appConfigDescription ac="${row.appConfig1}"/>
 					</display:column>
 				</c:if>
 				<c:if test="${rivConfig.setting.admin2Enabled and user.resultAdminCategory2}"><c:set var="cols" value="${cols+1}"/>
 					<display:column style="text-align:left;" headerClass="left" title="${rivConfig.setting.admin2Title}" sortable="true">
-						<c:if test="${row.appConfig2.configId==-9}"><spring:message code="customFields.appConfig2.generic"/></c:if>
-						<c:if test="${row.appConfig2.configId!=-9}">${row.appConfig2.description}</c:if>
+						<tags:appConfigDescription ac="${row.appConfig2}"/>
 					</display:column>
 				</c:if>
 				<c:if test="${user.resultInvestTotal}"><c:set var="cols" value="${cols+1}"/>

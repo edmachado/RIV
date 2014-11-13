@@ -13,6 +13,8 @@ projectContribution.method.simplified.help=With the "Simplified approach", contr
 projectContribution.method.perYear=Per-year
 projectContribution.method.perYear.help=With the "Per-year approach", contributions may be different for each year of the project.
 projectContribution.method.confirm=You are about to apply the contributions from Year 1 to every year of the project. Details from other years will be lost. Do you want to continue?
+projectContribution.contributor=Contributor
+projectContribution.contributor.help=Help text for contributor
 
 projectBlock.usesCycles=This block has cycles
 projectBlock.usesCycles.help=INNA PLEASE CHECK TEXT (INCLUDING HELP TEXT)
@@ -28,9 +30,7 @@ project.amtRequired.explain=The largest negative value
 
 project.report.wcCalculation=Working Capital calculation
 project.report.contributionSummary=Contribution summary
-
-projectContribution.contributor=Contributor
-projectContribution.contributor.help=Help text for contributor
+project.report.summaryTables=Summary tables
 
 # Changed from previous versions
 project.amtRequired.help=The amount of working capital required is the amount necessary to cover all operating costs until income is sufficient. It is automatically estimated by RuralInvest.

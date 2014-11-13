@@ -768,7 +768,7 @@ public class DataRepository {
 
 		// only populate collections necessary for the operation performed
 		Hibernate.initialize(p.getTechnician());
-		if (step==1 || step==-1) {
+		if (step==1 || step==-1 || step==13) {
 			Hibernate.initialize(p.getFieldOffice());
 			Hibernate.initialize(p.getStatus());
 			Hibernate.initialize(p.getBeneficiary());

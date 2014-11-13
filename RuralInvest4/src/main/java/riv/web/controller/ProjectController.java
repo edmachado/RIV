@@ -66,7 +66,7 @@ public class ProjectController {
 	@Autowired
 	AttachTools attachTools;
 	
-	@InitBinder
+	@InitBinder("project")
 	protected void initBinder(WebDataBinder binder, @PathVariable Integer step, HttpServletRequest request) {
 		binder.setValidator(new ProjectValidator(step, rivConfig, messageSource));
 
@@ -312,6 +312,7 @@ public class ProjectController {
 				ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 				period = pr.getWcPeriod();
 				amount = pr.getWorkingCapital();
+				model.addAttribute("result",pr);
 			} else {
 				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
 				period = (int)pfyResults[0];
@@ -320,6 +321,11 @@ public class ProjectController {
 			model.addAttribute("firstYear", pfy.getCumulative());
 			p.setWcFinancePeriod(period);
 			p.setWcAmountRequired(new BigDecimal(amount));	
+		}
+		if (step==13) {
+//			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
+//			model.addAttribute("result",null	);//
+			
 		}
 	}
 }

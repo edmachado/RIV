@@ -267,7 +267,7 @@ text-align:left;
 padding:2px;
 }
 
-.left {
+.left, div.tableOuter table td.left {
 text-align:right;
 }
 
