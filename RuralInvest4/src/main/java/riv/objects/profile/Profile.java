@@ -92,6 +92,8 @@ public class Profile extends Probase implements java.io.Serializable {
 	private boolean incomeGen;
 	@Transient
 	private boolean generic;
+	@Transient
+	private Double rivVersion;
 	@Column(name="EXCH_RATE")
 	private Double exchRate;
 	@Column(name="PREP_DATE")
@@ -279,7 +281,15 @@ public class Profile extends Probase implements java.io.Serializable {
 	 public boolean isGeneric() {
 		 return generic;
 	 }
-	 public Double getExchRate() {
+	 public Double getRivVersion() {
+		return rivVersion;
+	}
+
+	public void setRivVersion(Double rivVersion) {
+		this.rivVersion = rivVersion;
+	}
+
+	public Double getExchRate() {
 		 return this.exchRate;
 	 }
 
@@ -800,6 +810,10 @@ public class Profile extends Probase implements java.io.Serializable {
 	  */
 	 public Profile copy(boolean forExport) {
 		 Profile newProf = new Profile();
+			if (forExport) {
+				newProf.setRivVersion(getRivVersion());
+			}
+			
 		 newProf.setUniqueId(uniqueId);
 		 newProf.setBenefDesc(benefDesc);
 		 newProf.setBenefName(benefName);

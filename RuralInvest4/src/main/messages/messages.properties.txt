@@ -32,6 +32,9 @@ project.report.wcCalculation=Working Capital calculation
 project.report.contributionSummary=Contribution summary
 project.report.summaryTables=Summary tables
 
+project.recommendation.furtherReview=Further review required
+project.recommendation.seeReports=For summaries and reports useful in evaluating and recommending, see
+
 # Changed from previous versions
 project.amtRequired.help=The amount of working capital required is the amount necessary to cover all operating costs until income is sufficient. It is automatically estimated by RuralInvest.
 project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
