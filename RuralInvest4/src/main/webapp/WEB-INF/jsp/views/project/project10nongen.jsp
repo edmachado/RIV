@@ -58,7 +58,7 @@ $(function() {
 	<div align="left">
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a href="../../report/${project.projectId}/projectContributions.xlsx?template=true" target="_blank"><spring:message code="export.downloadTemplate"/></a><br/>
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${project.projectId}/projectContributions.xlsx" target="_blank"><spring:message code="export.download"/></a><br/>
-		<c:if test="${accessOK}"><!-- --> Under development... <!-- <a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a> --></c:if>
+		<c:if test="${accessOK}"><!-- <a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a> --></c:if>
  	</div>
  	
  	<div id="yearByYear" style="margin:10px 5px;">
@@ -66,8 +66,8 @@ $(function() {
 		<input type="radio" name="simpleApproach" id="perYear" value="false" <c:if test="${project.perYearContributions}">checked="checked"</c:if>><label for="perYear" title='<spring:message code="projectContribution.method.perYear.help"/>'><spring:message code="projectContribution.method.perYear"/></label>
 	</div>
 	<b>
-	<c:if test="${not project.perYearContributions}"><spring:message code="projectContribution.method.simplified.help"/></c:if>
-	<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
+		<c:if test="${not project.perYearContributions}"><spring:message code="projectContribution.method.simplified.help"/></c:if>
+		<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
  	</b>
  	
  	<div align="right"><a href="#" onClick="toggle('contribSummary')"><spring:message code="misc.toggle"/></a></div>

@@ -106,21 +106,22 @@ $(function() {
 			<spring:message code="project.report.complete"/>
 		</li>
 	</ul>
-	
-<%-- 		<h2><spring:message code="project.report.summaryTables"/></h2> --%>
-<!-- 		<ul> -->
-<%-- <%-- 			<li><a href="javascript:showSummary('summaryIndicators');"><spring:message code="mainMenu.config.columns"/></a></li> --%> --%>
-<%-- 			<c:if test="${project.incomeGen}"> --%>
-<%-- <%-- 				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.blockDetail"/></a></li> --%> --%>
-<%-- 				<li><a href="javascript:showSummary('summaryWc');"><spring:message code="project.report.wcCalculation"/></a></li> --%>
-<%-- <%-- 				<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlow"/></a></li> --%> --%>
-<%-- <%-- 				<li><a href="javascript:showSummary('summaryProfitability');"><spring:message code="project.report.profitability"/></a></li> --%> --%>
-<%-- 			</c:if> --%>
-<%-- 			<c:if test="${not project.incomeGen}"> --%>
-<%-- <%-- 				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.activityDetail"/></a></li> --%> --%>
-<%-- 				<li><a href="javascript:showSummary('summaryContributions');"><spring:message code="project.report.contributionSummary"/></a></li> --%>
-<%-- 			</c:if> --%>
-<!-- 		</ul> -->
+	<div style="display:none;">
+		<h2><spring:message code="project.report.summaryTables"/></h2>
+		<ul>
+<%-- 			<li><a href="javascript:showSummary('summaryIndicators');"><spring:message code="mainMenu.config.columns"/></a></li> --%>
+			<c:if test="${project.incomeGen}">
+<%-- 				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.blockDetail"/></a></li> --%>
+				<li><a href="javascript:showSummary('summaryWc');"><spring:message code="project.report.wcCalculation"/></a></li>
+<%-- 				<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlow"/></a></li> --%>
+<%-- 				<li><a href="javascript:showSummary('summaryProfitability');"><spring:message code="project.report.profitability"/></a></li> --%>
+			</c:if>
+			<c:if test="${not project.incomeGen}">
+<%-- 				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.activityDetail"/></a></li> --%>
+				<li><a href="javascript:showSummary('summaryContributions');"><spring:message code="project.report.contributionSummary"/></a></li>
+			</c:if>
+		</ul>
+		</div>
 	</div>
 	<div style="display:none;width:45%;">
 		<h2><spring:message code="mainMenu.config.columns"/></h2>
@@ -297,15 +298,15 @@ $(function() {
 		<div id="summaryWc" class="summary" title='<spring:message code="project.report.wcCalculation"/>'>
 			<tags:summaryWc />
 		</div>
-		<div id="summaryCashFlow" class="summary" title='<spring:message code="project.report.cashFlow"/>'>
+<%-- 		<div id="summaryCashFlow" class="summary" title='<spring:message code="project.report.cashFlow"/>'> --%>
 		
-		</div>
-		<div id="summaryProfitability" class="summary" title='<spring:message code="project.report.profitability"/>'>
+<!-- 		</div> -->
+<%-- 		<div id="summaryProfitability" class="summary" title='<spring:message code="project.report.profitability"/>'> --%>
 		
-		</div>
+<!-- 		</div> -->
 	</c:if>
 	<c:if test="${not project.incomeGen }">
-		<div id="summaryContributions" class="summary" title='<spring:message code="project.report.contribution"/>'>
+		<div id="summaryContributions" class="summary" title='<spring:message code="project.report.contributions"/>'>
 			<tags:summaryContributions/>
 		</div>
 	</c:if>

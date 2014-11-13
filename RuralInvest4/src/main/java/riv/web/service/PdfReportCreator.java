@@ -477,6 +477,7 @@ public class PdfReportCreator {
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
 		report.getParams().put("contribTypes", this.contribTypes());
+		report.getParams().put("perYearContributions", project.isPerYearContributions());
 		String reportName = project.getIncomeGen() ? "F: "+translate("project.report.contributions") : "G: "+translate("project.report.contributions");
 		report.getParams().put("reportname", reportName);
 		
