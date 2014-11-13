@@ -301,6 +301,7 @@ public class ProjectController {
 			model.addAttribute("contribsByYear", p.getContributionsByYear());
 		} else if (step==11 && p.getIncomeGen()) {
 		
+			ProjectFirstYear pfy = new ProjectFirstYear(p);
 			int period;
 			double amount;
 			
@@ -309,11 +310,11 @@ public class ProjectController {
 				period = pr.getWcPeriod();
 				amount = pr.getWorkingCapital();
 			} else {
-				ProjectFirstYear pfy = new ProjectFirstYear(p);
 				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
 				period = (int)pfyResults[0];
 				amount=-1*pfyResults[1];
 			}
+			model.addAttribute("firstYear", pfy.getCumulative());
 			p.setWcFinancePeriod(period);
 			p.setWcAmountRequired(new BigDecimal(amount));	
 		}

@@ -1,5 +1,19 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<html><head><title><spring:message code="project.step11"/></title></head>
+<html><head><title><spring:message code="project.step11"/></title>
+<script>
+function showWcExplain() {
+	$('#wcExplain').dialog({
+		resizable: true, height:250, width:800
+	});
+};
+</script>
+<style>
+#wcExplain td, #wcExplain th {text-align:center;}
+#wcExplain td.highMonth, span.highMonth { border:1px solid red; }
+#wcExplain th.period, span.period { background-color: #69f; }
+span.explain { padding:3px 5px; }
+</style>
+</head>
 <body>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors /><form:hidden path="investmentTotal"/>
@@ -27,12 +41,16 @@
             	<legend>
             		<tags:help title="project.workingCapital" text="project.workingCapital.help"><spring:message code="project.workingCapital"/></tags:help>
             	</legend>
-              		<tags:dataentry field="wcAmountRequired" labelKey="project.amtRequired" helpText="project.amtRequired.help" calculated="true" currency="true"/>
-              		<tags:dataentry field="wcAmountFinanced" labelKey="project.amtFinanced" helpText="project.amtFinanced.help"  calculated="true" currency="true" />
-              		<tags:dataentry field="wcFinancePeriod" labelKey="project.period" helpText="project.period.help"  calculated="true" calcSignKey="units.months" />
-              		<tags:dataentry field="capitalInterest" labelKey="project.capitalInterest" helpText="project.capitalInterest.help" inputClass="num" calcSign="%"/>
-           			<tags:dataentry field="capitalDonate" labelKey="project.capitalDonate" helpText="project.capitalDonate.help" currency="true" onmouseout="CalcFinance()"/>
-           			<tags:dataentry field="capitalOwn" labelKey="project.capitalOwn" helpText="project.capitalOwn.help" currency="true" onmouseout="CalcFinance()"/>
+            	<div class="dataentry">
+            		<label><a href="javascript:showWcExplain();"><img height="11" border="0" width="11" vspace="2" src="/RuralInvest/img/help.gif"> <spring:message code="project.workingCapital.how"/></a></label>
+				</div>
+           		
+            	<tags:dataentry field="wcAmountRequired" labelKey="project.amtRequired" helpText="project.amtRequired.help" calculated="true" currency="true"/>
+           		<tags:dataentry field="wcAmountFinanced" labelKey="project.amtFinanced" helpText="project.amtFinanced.help"  calculated="true" currency="true" />
+           		<tags:dataentry field="wcFinancePeriod" labelKey="project.period" helpText="project.period.help"  calculated="true" calcSignKey="units.months" />
+           		<tags:dataentry field="capitalInterest" labelKey="project.capitalInterest" helpText="project.capitalInterest.help" inputClass="num" calcSign="%"/>
+       			<tags:dataentry field="capitalDonate" labelKey="project.capitalDonate" helpText="project.capitalDonate.help" currency="true" onmouseout="CalcFinance()"/>
+       			<tags:dataentry field="capitalOwn" labelKey="project.capitalOwn" helpText="project.capitalOwn.help" currency="true" onmouseout="CalcFinance()"/>
            	</fieldset>
 
 		</div>
@@ -53,6 +71,40 @@
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step12"/></tags:submit>
 	
 </form:form>
+
+<div id="wcExplain" title='<spring:message code="project.workingCapital.how"/>' style="display:none;">
+	<p><spring:message code="project.workingCapital.explain"/></p>
+	<tags:table>
+		<table cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<c:forEach var="i" begin="0" end="11">
+						<c:set var="monthClass"><c:if test="${i+1 eq project.wcFinancePeriod}">period</c:if></c:set>
+						<th class="${monthClass}">
+							<c:if test="${i+project.startupMonth<=12}"><spring:message code="calendar.month.${i+project.startupMonth}"/></c:if>
+							<c:if test="${i+project.startupMonth>12}"><spring:message code="calendar.month.${(i+project.startupMonth)%12}"/></c:if>
+						</th> 
+					</c:forEach>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="odd">
+					<c:forEach var="month" items="${firstYear}">
+						<c:set var="monthClass2"><c:if test="${month*-1 eq project.wcAmountRequired}">highMonth</c:if></c:set>
+						<td class="${monthClass2}">
+						<tags:formatCurrency value="${month}" noDecimals="true"/>
+						</td>
+					</c:forEach>
+				</tr>
+			</tbody>
+		</table>
+	</tags:table>
+	
+	<p><span class="explain highMonth"><b><spring:message code="project.amtRequired"/>:</b></span> <spring:message code="project.amtRequired.explain"/></p> 
+	<br/>
+	<p><span class="explain period"><b><spring:message code="project.period"/>:</b></span> <spring:message code="project.period.help"/></p> 
+</div>
+
 <tags:jscriptCalc fieldA="investmentTotal" fieldB="loan2Amt" fieldC="loan1Amt" functionName="Calculate" calc="-"/>
 <tags:jscriptCalc fieldA="wcAmountRequired" fieldB="capitalDonate" fieldC="wcAmountFinanced" fieldD="capitalOwn" functionName="CalcFinance" calc="-" calc2="-" />
 

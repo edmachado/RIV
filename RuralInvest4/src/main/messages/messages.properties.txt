@@ -6,7 +6,7 @@ projectContribution.copy.title=Copy
 projectContribution.copy.toYear=Copy to year:
 projectContribution.copy.range=You can copy to any year between 1 and {0}
 projectContribution.addAll=Add to every year in the project
-projectContribution.yearlyFlow=Net balance (including existing contributions):
+projectContribution.yearlyFlow=Cash flow (including existing contributions):
 projectContribution.contribType.beneficiary=Beneficiaries
 projectContribution.method.simplified=Simplified
 projectContribution.method.simplified.help=With the "Simplified approach", contributions are the same for every year of the project.
@@ -22,7 +22,13 @@ projectActivity.pattern.noCycles.help=If the number of units of activity will ch
 projectActivity.pattern.noCycles.qty=Number of units of activity
 project.report.blockDetail.totalPerUnitNoCycle=Totals per unit
 
+project.workingCapital.how=How is working capital estimated?
+project.workingCapital.explain=Working capital is estimated by reviewing the cumulative monthly cash flow for the first year of the project. 
+project.amtRequired.explain=The largest negative value
 
+# Changed from previous versions
+project.amtRequired.help=The amount of working capital required is the amount necessary to cover all operating costs until income is sufficient. It is automatically estimated by RuralInvest.
+project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
 
 ### END RIV4.1
 
@@ -649,11 +655,11 @@ profileProductLabour.unitNum=Units used
 profileProductLabour.unitType.help=Unit of measurement used for the item (e.g. day, week, visit)
 profileProductLabour.unitType=Unit type
 profileProductLabour=Labour/Professional Services costs
-project.activities.help=Describe the major activities or elements of the proposed project
+project.activities.help=Describe the major activities or elements of the proposed project.
 
-project.amtFinanced.help=Amount financed is equal to required working capital less any donations or grants received
+project.amtFinanced.help=Amount financed is equal to required working capital less any donations or grants received.
 project.amtFinanced=Amount financed
-project.amtRequired.help=The amount of working capital required is calculated automatically by the computer to cover all operating costs until income is sufficient
+project.amtRequired.help=The amount of working capital required is the amount necessary to cover all operating costs until income is sufficient. It is automatically estimated by RuralInvest.
 project.amtRequired=Amount required
 project.annualEmployment.help=Estimated figure for annual employment (expressed in person/years) once project operations have reached the projected scale.
 project.annualEmployment=Annual employment
@@ -769,7 +775,6 @@ project.npv.desc=NPV (all costs)
 project.npv.long=NPV
 project.organization.help=Describe how the project management and control will be structured so as to ensure project sustainability. Who will take the day-to-day decisions? How will that person be supervised? What role will the applicant group play?
 project.organization=Organisation and management
-project.period.help=The financing period for working capital (which can not exceed one year) is calculated automatically by the computer and is equal to the number of months in which costs exceed income plus two months
 project.period=Financing period
 project.projectDescription.help=Briefly describe the principal objective or purpose of the project
 project.projectDescription=Project objective

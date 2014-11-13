@@ -72,8 +72,9 @@ public class ProjectFirstYear {
 		}
 		
 		// cumulative
-		cumulative[0]=totals[0];
+		cumulative[0]=Math.round(totals[0]);
 		for (int i=1;i<12; i++) {
+			totals[i]=Math.round(totals[i]);
 			cumulative[i]=cumulative[i-1]+totals[i];
 		}
 	}
@@ -98,7 +99,7 @@ public class ProjectFirstYear {
 			}
 		}
 		results[0] = lastNegMonth==0 ? 0 : lastNegMonth>10 ? 12 : lastNegMonth+2; // month of highest negative +2, not to exceed 12 
-		results[1] = Math.round(highestNeg*100)/100;
+		results[1] = highestNeg;
 		results[2] = negMonths;
 		return results;
 	}
