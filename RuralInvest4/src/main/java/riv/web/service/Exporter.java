@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -255,9 +256,13 @@ public class Exporter {
 	}
 	
 	// for downloading
-	public String getDownloadName(String input) {
+	public String getDownloadName(String input)  {
 		// filename shouldn't contain unacceptable characters
-		return input.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+		String output = input.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+		output = output.substring(0, Math.min(output.length(), 50));
+		// get rid of cyrillic x -- for some reason this creates a problem
+		output = output.replace("х", "x");
+		return output;
 	}
 
 	

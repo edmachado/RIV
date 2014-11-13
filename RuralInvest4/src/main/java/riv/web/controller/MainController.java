@@ -89,6 +89,20 @@ public class MainController {
 		return "home";
     }
 	
+	@RequestMapping("config/reset")
+	public String reset(HttpServletRequest request) {
+		User u = (User)request.getAttribute("user");
+		if (u.isAdministrator()) {
+			dataService.deleteAll(true, true);
+			dataService.deleteAll(true, false);
+			dataService.deleteAll(false, true);
+			dataService.deleteAll(false, false);
+			dataService.deleteAllAppConfigs();
+			rivConfig.reload();
+		}
+		return "redirect:settings";
+	}
+	
 	/*
 	 * Used by testing framework
 	 */

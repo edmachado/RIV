@@ -25,7 +25,10 @@
 						<c:forEach begin="1" end="${project.duration}" var="i">
 							<c:set var="total" value="0"/>
 							<c:forEach items="${cSummary}" var="myContrib">
-								<c:set var="total">${total+myContrib.contributions[i-1]}</c:set>
+								<c:set var="total">
+									<c:if test="${project.perYearContributions}">${total+myContrib.contributions[i-1]}</c:if>
+									<c:if test="${not project.perYearContributions}">${total+myContrib.contributions[0]}</c:if>
+								</c:set>
 							</c:forEach>
 							<td>
 								<tags:formatDecimal value="${total}" noDecimals="true" />

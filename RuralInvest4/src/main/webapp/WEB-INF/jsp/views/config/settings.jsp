@@ -9,11 +9,12 @@
 		<form:hidden path="settingId"/>
 		<div style="width:600px;">
 			<c:if test="${not rivConfig.complete}">
-				<a href="import"><spring:message code="settings.firstConfigImport"/></a>
+				<a href="import"><spring:message code="settings.firstConfigImport"/></a><br/>
 			</c:if>
 			<c:if test="${rivConfig.complete}">
-				<a href="export/settings.riv" id="export"><spring:message code="settings.export"/></a>
+				<a href="export/settings.riv" id="export"><spring:message code="settings.export"/></a><br/>
 			</c:if>
+			<c:if test="${user.administrator}"><a id="reset" style="display:none;" href="reset">Reset RuralInvest</a></c:if>
 			
 			<fieldset>
 				<legend>i. <spring:message code="settings.1"/></legend>

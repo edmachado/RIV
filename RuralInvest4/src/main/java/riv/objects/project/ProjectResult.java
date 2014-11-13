@@ -1,5 +1,6 @@
 package riv.objects.project;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -92,9 +93,13 @@ public class ProjectResult implements java.io.Serializable {
 	private int wcPeriod;
 	
 	// for downloading
-	public String getDownloadName() {
+	public String getDownloadName() throws UnsupportedEncodingException {
 		// filename shouldn't contain unacceptable characters
-		return projectName.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+		String output = projectName.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+		output = output.substring(0, Math.min(output.length(), 50));
+		// get rid of cyrillic x -- for some reason this creates a problem
+		output = output.replace("х", "x");
+		return output;
 	}
 
 	
