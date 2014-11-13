@@ -248,6 +248,7 @@ public class InputProjectNig extends WebTestUtil {
 			tt = new TestTable("contributionTable"+year, "step10.year"+year+".contribution", "newContrib"+year, true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 			tt.addParam("description")
 			.addParam("contribType", InputParamType.SELECT, false)
+			.addParam("contributor")
 			.addParam("unitType")
 			.addParam("unitNum").addParam("unitCost");
 			tt.addParam("total", InputParamType.TEXT, true)

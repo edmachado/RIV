@@ -209,6 +209,12 @@ public class InputProjectIg extends WebTestUtil {
 	}
 	
 	@Test
+	public void noCycles() {
+		//TODO: implement
+		org.junit.Assert.assertTrue(false);
+	}
+	
+	@Test
 	public void createProject() throws Exception {
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
