@@ -79,17 +79,21 @@ $(function() {
 		 			<c:forEach begin="1" end="41" step="10" var="outer">
 						<c:if test="${project.duration>=outer}">
 							<tr class="odd"><td style="text-align:left;"><spring:message code="units.year"/><c:forEach begin="0" end="9" var="inner" >
-	 							
 	 								<c:if test="${project.duration>=outer+inner}">
 	 									<td>${outer+inner}</td>	
 									</c:if>
-								
+									<c:if test="${project.duration<outer+inner}">
+	 									<td></td>	
+									</c:if>
 		 					</c:forEach></tr>
 		 					<tr class="even"><td></td>
 		 						<c:forEach begin="0" end="9" var="inner">
 			 						<c:if test="${project.duration>=outer+inner}">
 		 								<td><tags:formatCurrency value="${years[(outer+inner-1)].total}"/></td>
 		 							</c:if>
+		 							<c:if test="${project.duration<outer+inner}">
+	 									<td></td>	
+									</c:if>
 		 						</c:forEach>
 		 					</tr>
 		 					</c:if>
@@ -106,7 +110,7 @@ $(function() {
 			<c:if test="${project.perYearContributions or yearNum eq 1}">
 				<div class="onlyPerYear">
 					<a name="year${yearNum}" id="year${yearNum}"></a>
-					<h3>TRANSLATE Year ${yearNum}</h3> 
+					<h3><spring:message code="units.year"/> ${yearNum}</h3> 
 					<c:set var="total" value="0"/>
 					<spring:message code="projectContribution.yearlyFlow"/> <tags:formatCurrency value="${year.total}"/> 
 				</div>
