@@ -1237,7 +1237,7 @@ public double getInvestmentTotal() {
 		}
 		@Override
 		public int compareTo(ProjectContributor other) {
-			int comparison= Integer.compare(key.contributionType, other.key.contributionType);
+			int comparison= key.contributionType > other.key.contributionType ? +1 : key.contributionType < other.key.contributionType ? -1 : 0;
 			return comparison==0 ? key.contributor.compareTo(other.key.contributor) : comparison;
 		}
 	}
