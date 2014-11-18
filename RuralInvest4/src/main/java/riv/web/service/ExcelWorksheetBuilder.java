@@ -1525,14 +1525,17 @@ public class ExcelWorksheetBuilder {
 		XlsTable table = new XlsTable(report, header)
 		.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addSelectColumnIntBased("getContribType", contribTypes())
+		.addColumn(XlsColumnType.TEXT, "getContributor", false)
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitCost", false)
-		.addColumn(XlsColumnType.FORMULA, "DX*EX", true);
+		.addColumn(XlsColumnType.FORMULA, "EX*FX", true);
 		
 		for (int i=1;i<=project.getDuration();i++) {
 			row = sheet.createRow(rowNum++);
-			report.addTextCell(row, cellNum, "TRANSLATE year"+" "+i, Style.H2);
+			if (project.isPerYearContributions()) {
+				report.addTextCell(row, cellNum, translate("units.year")+" "+i, Style.H2);
+			}
 			rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(i), true);
 			rowNum++;
 		}
