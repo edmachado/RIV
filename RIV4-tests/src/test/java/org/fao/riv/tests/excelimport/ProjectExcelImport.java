@@ -44,6 +44,8 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("logoff");
 		closeBrowser();
     }
+	
+	
 
 	@Test
 	public void IgExcelImport() throws Exception {
@@ -144,7 +146,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		
 		// import file
 		clickLink("importProjectNig");
-		importFile(ImportFile.ProjectNig16.getFile());
+		importFile(ImportFile.ProjectNig41.getFile());
 		
 		// go through all steps
 		for (int i=0; i<6; i++) {

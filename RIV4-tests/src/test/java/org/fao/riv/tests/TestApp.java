@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import org.fao.riv.tests.calculations.CalculationSuite;
 import org.fao.riv.tests.dataentry.DataEntrySuite;
 import org.fao.riv.tests.download.DownloadSuite;
 import org.fao.riv.tests.exceldownload.ExcelDownloadSuite;
@@ -22,7 +23,7 @@ import org.fao.riv.tests.excelimport.ExcelImportSuite;
 import org.fao.riv.tests.importfile.ImportSuite;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ImportSuite.class, DataEntrySuite.class, ExcelDownloadSuite.class, ExcelImportSuite.class, DownloadSuite.class }) //  ,  CalculationSuite.class })
+@SuiteClasses({ ImportSuite.class, DataEntrySuite.class, ExcelDownloadSuite.class, ExcelImportSuite.class, DownloadSuite.class, CalculationSuite.class })
 public class TestApp {
 	public static String baseUrl="http://localhost:8080/RuralInvest";//"http://apps3.fao.org/riv-qa";//"http://172.16.110.128:8085/RuralInvest";//
 	public static String username="initialUser";

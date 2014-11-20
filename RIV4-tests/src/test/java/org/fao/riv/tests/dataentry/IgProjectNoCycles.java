@@ -7,14 +7,13 @@ import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class IgProjectNoCycles extends WebTestUtil {
 	
 	 @BeforeClass 
 	 public static void start() {      
-	       System.out.println("     test InputProjectIg");
+	       System.out.println("     test IgProjectNoCycles");
 	 }
 
 	@Before
@@ -29,7 +28,6 @@ public class IgProjectNoCycles extends WebTestUtil {
 		closeBrowser();
    }
 	
-	@Ignore
 	@Test
 	public void noCycles() {
 		//TODO: implement

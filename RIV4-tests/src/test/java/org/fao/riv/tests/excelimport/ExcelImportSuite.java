@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(value = Suite.class)
-@SuiteClasses(value = {ProfileExcelImport.class })
+@SuiteClasses(value = {ProfileExcelImport.class, ProjectExcelImport.class })
 public class ExcelImportSuite {
 	
 	 @BeforeClass 
