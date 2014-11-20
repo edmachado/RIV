@@ -2,7 +2,7 @@
 <html><head><title><spring:message code="project.step12"/></title><tags:calendarJs/></head>
 <body>
 <form:form name="form" method="post" commandName="project">
-	<spring:message code="project.recommendation.seeReports"/> <a href="../step13/${project.projectId}" style="color:#efce6c;"><b><spring:message code="project.step13"/></b></a>.
+	<spring:message code="project.recommendation.seeReports"/> <a href="../step13/${project.projectId}"><b><spring:message code="project.step13"/></b></a>.
 	
 	<tags:errors />
 	<fieldset>
