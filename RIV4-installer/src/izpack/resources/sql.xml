@@ -252,6 +252,7 @@ ALTER TABLE project_result ALTER COLUMN wc_donated DECIMAL(15,4);
 ALTER TABLE project_result ALTER COLUMN wc_financed DECIMAL(15,4);
 ALTER TABLE project_result ALTER COLUMN npv_with_donation DECIMAL(15,4);
 ALTER TABLE project_result ALTER COLUMN irr_with_donation DECIMAL(15,4);
+ALTER TABLE project_result ALTER COLUMN project_name VARCHAR(100);
 
 --  precision on profile result
 delete from profile_result;
@@ -297,7 +298,8 @@ ALTER TABLE profile_product_item ALTER COLUMN unit_num Decimal(15,4);
 ALTER TABLE profile_product_item ALTER COLUMN unit_cost Decimal(15,4);
 ALTER TABLE profile_product_item ALTER COLUMN transport Decimal(15,4);
 
--- some users have added text data longer than expected, increase size to 10000
+-- some users have added text data longer than expected, increase size to 10000 (100 for project_name)
+ALTER TABLE project ALTER COLUMN project_name VARCHAR(100);
 ALTER TABLE project ALTER COLUMN benef_desc  VARCHAR(10000);
 ALTER TABLE project ALTER COLUMN proj_desc  VARCHAR(10000);
 ALTER TABLE project ALTER COLUMN justification  VARCHAR(10000);
@@ -397,17 +399,22 @@ ALTER TABLE project_block ADD COLUMN cycles BOOLEAN DEFAULT true;
 -- per-year contributions for nig projects
 ALTER TABLE project ADD COLUMN per_year_contrib BOOLEAN DEFAULT false;
 -- contributor column for nig project contributions
-ALTER TABLE project_item ADD COLUMN contributor VARCHAR(100) default '';
+ALTER TABLE project_item ADD COLUMN contributor VARCHAR(100);
 UPDATE project_item SET contributor='' WHERE class=5;
 --longer project name for backwards compatibility
 ALTER TABLE project ALTER COLUMN project_name VARCHAR(100);
 ALTER TABLE project_result ALTER COLUMN project_name VARCHAR(100);
    	</query>
    	</version>
-   	<!-- for 4.2 -->
-   	<!-- -- note field for tables
+<!-- for 4.2
+   	<version number="4.2">
+   	<query>
+- note field for tables
 ALTER TABLE profile_item ADD COLUMN note VARCHAR(2000);
 ALTER TABLE profile_product_item ADD COLUMN note VARCHAR(2000);
 ALTER TABLE project_item ADD COLUMN note VARCHAR(2000);
-ALTER TABLE project_block_item ADD COLUMN note VARCHAR(2000); -->
+ALTER TABLE project_block_item ADD COLUMN note VARCHAR(2000);
+	</query>
+	</version>
+ -->
 </sql>
