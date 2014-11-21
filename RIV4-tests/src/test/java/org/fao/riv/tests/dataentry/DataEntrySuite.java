@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses(value = { EditAndSave.class, InputProfileIg.class, InputProfileNig.class, InputProjectIg.class, InputProjectNig.class, 
 		ProjectCompleteToInProgress.class, ProjectIgChangeDuration.class, ProjectIgRemoveWithWithout.class, RoundingProblem.class, 
 		Settings.class, SettingsChangeDecimalSeparator.class, SetToNotShared.class, User.class, NigProjectContributions.class,
-		IgProjectNoCycles.class})
+		IgProjectNoCycles.class, ReferenceTableItems.class})
 public class DataEntrySuite {
 	
 	 @BeforeClass 

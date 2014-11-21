@@ -1,6 +1,7 @@
 package org.fao.riv.tests.utils;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
+import static org.junit.Assert.assertTrue;
 import org.junit.Assert;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class TestTable {
 	String addLink;
 	Callable<Void> submit;
 	boolean hasSumRow;
+	boolean hasCopy=true;
 	List<Integer> ignoreInputRows = new ArrayList<Integer>();
 	
 	public TestTable(String tableId, String propPrefix, String addLink, boolean hasSumRow, Callable<Void> submit) {
@@ -30,6 +32,10 @@ public class TestTable {
 		this.submit=submit;
 		this.hasSumRow=hasSumRow;
 		params= new ArrayList<InputParam>();
+	}
+	
+	public void setHasCopy(boolean hasCopy) {
+		this.hasCopy=hasCopy;
 	}
 	
 	public TestTable addParam(String name) {
@@ -179,12 +185,13 @@ public class TestTable {
 		testOutput();
 		
 		// test copy and delete
-		if (ignoreInputRows.size()==0) { // ignored rows breaks test
+		if (hasCopy 
+				&& ignoreInputRows.size()==0) { // ignored rows breaks test
 			testCopyAndDeleteRow();
 		}
 		
-		//TODO: test reorder row
-			
+		// TODO: test reorder row
+		//assertTrue(false);
 	}
 	
 	void testCopyAndDeleteRow() {

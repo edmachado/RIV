@@ -43,6 +43,12 @@ public class WebTestUtil {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.home"));
 	}
 	
+	public void deleteTableItems(String tableId) {
+		while (getElementsByXPath("//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -9) = 'delete.gif']]]").size()>0) {
+			clickElementByXPath("(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -9) = 'delete.gif']]])[1]");
+		}
+	}
+	
 	public void assertCheckboxSelected(String name, boolean checked) {
 		if (checked) {
 			net.sourceforge.jwebunit.junit.JWebUnit.assertCheckboxSelected(name);
