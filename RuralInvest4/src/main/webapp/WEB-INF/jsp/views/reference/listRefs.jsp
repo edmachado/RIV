@@ -21,7 +21,7 @@
 					<c:if test="${accessOK}">
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${item_rowNum ne 1}">
-								<a href="moveRefItem.htm?up=false&itemId=${item.refItemId}">
+								<a href="../refItem/${item.refItemId}/move?up=false">
 									<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
@@ -31,7 +31,7 @@
 						</display:column>
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${item_rowNum ne fn:length(probase.refIncomes)}">
-								<a href="moveRefItem.htm?up=true&itemId=${item.refItemId}">
+								<a href="../refItem/${item.refItemId}/move?up=true">
 									<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
@@ -47,10 +47,10 @@
 						</display:column>
 					</c:if>
 			 	</display:table>
-				
-				<div class="addNew"><a id="addIncome" href="../refItem/-1?type=income&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
-				<c:if test="${accessOK}"></c:if>
 			</tags:table>
+			<c:if test="${accessOK}">
+				<div class="addNew"><a id="addIncome" href="../refItem/-1?type=income&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+			</c:if>
 	
 			<tags:table titleKey="reference.costs">
 				<display:table list="${probase.refCosts}" htmlId="GoodsTable" id="cost" requestURI="" class="data-table" cellspacing="0" cellpadding="0" export="false">
@@ -92,9 +92,9 @@
 						</display:column>
 					</c:if>
 				</display:table>
-				
-				<div class="addNew"><a id="addInput" href="../refItem/-1?type=cost&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
-				<c:if test="${accessOK}"></c:if>
+				<c:if test="${accessOK}">
+					<div class="addNew"><a id="addInput" href="../refItem/-1?type=cost&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+				</c:if>
 			</tags:table>
 		<!-- c:if test="${probase.project}"-->
 			<tags:table titleKey="reference.labours">
@@ -118,7 +118,7 @@
 					<c:if test="${accessOK}">
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${item_rowNum ne 1}">
-								<a href="moveRefItem.htm?up=false&itemId=${item.refItemId}">
+								<a href="../refItem/${item.refItemId}/move?up=false">
 									<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
@@ -128,7 +128,7 @@
 						</display:column>
 						<display:column title="&nbsp;" media="html">
 							<c:if test="${item_rowNum ne fn:length(probase.refLabours)}">
-								<a href="moveRefItem.htm?up=true&itemId=${item.refItemId}">
+								<a href="../refItem/${item.refItemId}/move?up=true">
 									<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
 								</a>
 							</c:if>
@@ -144,9 +144,9 @@
 						</display:column>
 					</c:if>
 				</display:table>
-				
-				<div class="addNew"><a id="addLabour" href="../refItem/-1?type=labour&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
-				<c:if test="${accessOK}"></c:if>
+				<c:if test="${accessOK}">
+					<div class="addNew"><a id="addLabour" href="../refItem/-1?type=labour&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+				</c:if>
 			</tags:table>
 		<!--/c:if-->
 	</tags:tableContainer>
