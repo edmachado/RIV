@@ -2,23 +2,20 @@ package org.fao.riv.tests.dataentry;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getElementsByXPath;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
 
 import java.util.concurrent.Callable;
 
 import org.fao.riv.tests.utils.ImportFile;
+import org.fao.riv.tests.utils.InputParam.InputParamType;
 import org.fao.riv.tests.utils.TestTable;
 import org.fao.riv.tests.utils.WebTestUtil;
-import org.fao.riv.tests.utils.InputParam.InputParamType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ReferenceTableItems extends WebTestUtil {
@@ -37,6 +34,49 @@ public class ReferenceTableItems extends WebTestUtil {
 			clickLink("logoff");
 			closeBrowser();
 	    }
+	 
+	 private void testReferenceItems(boolean isProject, boolean incomeGen) throws Exception {
+			getTestContext().setResourceBundleName("dataentry/referenceTables");
+			
+			// income items
+			assertLinkPresent("addIncome");
+			deleteTableItems("IncomeTable");
+			assertLinkPresent("addIncome");
+			
+			TestTable tt = new TestTable("IncomeTable", "income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType").addParam("unitCost");
+			if (incomeGen) { tt.addParam("transport"); }
+			tt.addBlanks(4);
+			
+			tt.setHasCopy(false);
+			tt.testWithInput();
+			
+			// input items
+			deleteTableItems("GoodsTable");
+			assertLinkPresent("addInput");
+			
+			tt = new TestTable("GoodsTable", "cost.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
+			.addBlanks(4);
+			tt.setHasCopy(false);
+			tt.testWithInput();
+			
+			// labour items
+			deleteTableItems("LabourTable");
+			assertLinkPresent("addLabour");
+			
+			tt = new TestTable("LabourTable", "labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description");
+			if (isProject) {
+				tt.addParam("unitType", InputParamType.SELECT, false);
+			} else {
+				tt.addParam("unitType");
+			}
+			tt.addParam("unitCost")
+			.addBlanks(4);
+			tt.setHasCopy(false);
+			tt.testWithInput();
+		 }
 	 
 	 @Test
 	 public void testIGproject() throws Exception {

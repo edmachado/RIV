@@ -189,8 +189,37 @@ public class TestTable {
 			testCopyAndDeleteRow();
 		}
 		
-		// TODO: test reorder row
-		//assertTrue(false);
+		testMoveRows();
+	}
+	
+	void testMoveRows() {
+		assertTablePresent(tableId);
+		Table tOriginal = getTable(tableId);
+		if (tOriginal.getRowCount() > 1) {
+			Row r1Original = (Row)tOriginal.getRows().get(1);
+			Row r2Original = (Row)tOriginal.getRows().get(2);
+			
+			String xpathDown = "(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -13) = 'arrow_down.png']]])[1]";
+			String xpathUp = "(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -11) = 'arrow_up.png']]])[1]";
+			
+			// should contain at least one "up" and one "down" link
+			assertElementPresentByXPath(xpathDown);
+			assertElementPresentByXPath(xpathUp);
+		
+			// move first row down
+			clickElementByXPath(xpathDown);
+			assertTablePresent(tableId);
+			Table tAfter = getTable(tableId);
+			r1Original.assertMatch((Row)tAfter.getRows().get(2));
+			r2Original.assertMatch((Row)tAfter.getRows().get(1));
+			
+			// move second row back up
+			clickElementByXPath(xpathUp);
+			assertTablePresent(tableId);
+			tAfter = getTable(tableId);
+			r1Original.assertMatch((Row)tAfter.getRows().get(1));
+			r2Original.assertMatch((Row)tAfter.getRows().get(2));
+		}
 	}
 	
 	void testCopyAndDeleteRow() {
