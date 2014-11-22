@@ -48,7 +48,6 @@ public class FilterCriteria implements Serializable {
 	 */
 	public FilterCriteria() {
 		objType="igpj";
-		statuses = new ArrayList<Status>();
 		offices = new ArrayList<FieldOffice>();
 		categories = new ArrayList<ProjectCategory>();
 		enviroCategories = new ArrayList<EnviroCategory>();

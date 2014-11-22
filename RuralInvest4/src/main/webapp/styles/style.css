@@ -211,7 +211,7 @@ fieldset {padding:0 10px 10px 0;}
 div.homecontainer { width:248px; }
 div.hometitle, #homeheader div {
 	display:block; 
-	height:20px; 
+	min-height:20px; 
 	color: #666666; 
     font-family: 'Trebuchet MS','Lucida Grande',Arial,Sans-Serif; 
     font-size: 14px; 

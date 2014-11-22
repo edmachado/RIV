@@ -43,6 +43,7 @@ import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.config.Version;
 import riv.web.config.RivConfig;
+import riv.web.config.RivLocaleResolver;
 import riv.web.service.AttachTools;
 import riv.web.service.DataService;
 import riv.web.service.Exporter;
@@ -55,6 +56,8 @@ public class MainController {
     private DataService dataService;
 	@Autowired
 	private RivConfig rivConfig;
+	@Autowired 
+	private RivLocaleResolver rivLocaleResolver;
 	@Autowired
 	MessageSource messageSource;
 	@Autowired
@@ -287,113 +290,117 @@ public class MainController {
     	model.addAttribute("users", rivConfig.getUsers().values());
     	return "config/users";
     }
-
 	
 	// FIELD OFFICES
 	 @RequestMapping("/config/office")
-	 public String officeList(Model model) {
+	 public String officeList(Model model, HttpServletRequest request) {
+		Locale locale=rivLocaleResolver.resolveLocale(request);
 		model.addAttribute("type","office");
 		model.addAttribute("appConfigList",rivConfig.getFieldOffices().values());
 		model.addAttribute("usage",dataService.appConfigUsage(FieldOffice.class.getSimpleName(), "fieldOffice", true));
 		model.addAttribute("step","3");
-		model.addAttribute("pageTitle",translate("fieldOffice.fieldOffices"));
-		model.addAttribute("deleteWarn",translate("fieldOffice.delete.warn"));
-		model.addAttribute("addNew",translate("fieldOffice.addOffice"));
+		model.addAttribute("pageTitle",translate("fieldOffice.fieldOffices", locale));
+		model.addAttribute("deleteWarn",translate("fieldOffice.delete.warn", locale));
+		model.addAttribute("addNew",translate("fieldOffice.addOffice", locale));
 		model.addAttribute("addImage","office.gif");
-		model.addAttribute("description",translate("fieldOffice.description"));
+		model.addAttribute("description",translate("fieldOffice.description", locale));
 		return "config/appConfigList";
 	 }
 	 // PROJECT CATEGORIES 
 	 @RequestMapping("/config/category")
-	 public String categoryList(Model model) {
+	 public String categoryList(Model model, HttpServletRequest request) {
+		 Locale locale=rivLocaleResolver.resolveLocale(request);
 		 model.addAttribute("type","category");
 		 model.addAttribute("appConfigList",rivConfig.getCategories().values());
 		 model.addAttribute("usage",dataService.appConfigUsage(ProjectCategory.class.getSimpleName(), "projCategory", false));
 		 model.addAttribute("step","4");
-		 model.addAttribute("pageTitle",translate("projectCategory.categories"));
-		 model.addAttribute("deleteWarn",translate("projectCategory.delete.warn"));
-		 model.addAttribute("addNew",translate("projectCategory.addCat"));
+		 model.addAttribute("pageTitle",translate("projectCategory.categories", locale));
+		 model.addAttribute("deleteWarn",translate("projectCategory.delete.warn", locale));
+		 model.addAttribute("addNew",translate("projectCategory.addCat", locale));
 		 model.addAttribute("addImage","category.gif");
-		 model.addAttribute("description",translate("projectCategory.description"));
+		 model.addAttribute("description",translate("projectCategory.description", locale));
 		return "config/appConfigList";
 	 }
 	 // BENEFICIARIES
 	 @RequestMapping("/config/beneficiary")
-	 public String benefList(Model model) {
+	 public String benefList(Model model, HttpServletRequest request) {
+		 Locale locale=rivLocaleResolver.resolveLocale(request);
 		 model.addAttribute("type","beneficiary");
 		 model.addAttribute("appConfigList",rivConfig.getBeneficiaries().values());
 		 model.addAttribute("usage",dataService.appConfigUsage(Beneficiary.class.getSimpleName(), "beneficiary", false));
 		 model.addAttribute("step","5");
-		 model.addAttribute("pageTitle",translate("beneficiary.beneficiaries"));
-		 model.addAttribute("deleteWarn",translate("beneficiary.delete.warn"));
-		 model.addAttribute("addNew",translate("beneficiary.addBenef"));
+		 model.addAttribute("pageTitle",translate("beneficiary.beneficiaries", locale));
+		 model.addAttribute("deleteWarn",translate("beneficiary.delete.warn", locale));
+		 model.addAttribute("addNew",translate("beneficiary.addBenef", locale));
 		 model.addAttribute("addImage","beneficiaries.gif");
-		 model.addAttribute("description",translate("beneficiary.description"));
+		 model.addAttribute("description",translate("beneficiary.description", locale));
 		return "config/appConfigList";
 	 }
 	 // ENVIRO CATEGORY
 		@RequestMapping("/config/enviroCategory")
-		 public String enviroCatList(Model model) {
+		 public String enviroCatList(Model model, HttpServletRequest request) {
+			Locale locale=rivLocaleResolver.resolveLocale(request);
 			 model.addAttribute("type","enviroCategory");
 			 model.addAttribute("appConfigList",rivConfig.getEnviroCategories().values());
 			 model.addAttribute("usage",dataService.appConfigUsage(EnviroCategory.class.getSimpleName(), "enviroCategory", false));
 			 model.addAttribute("step","6");
-			 model.addAttribute("pageTitle",translate("enviroCategory.categories"));
-			 model.addAttribute("deleteWarn",translate("enviroCategory.delete.warn"));
-			 model.addAttribute("addNew",translate("enviroCategory.addCat"));
+			 model.addAttribute("pageTitle",translate("enviroCategory.categories", locale));
+			 model.addAttribute("deleteWarn",translate("enviroCategory.delete.warn", locale));
+			 model.addAttribute("addNew",translate("enviroCategory.addCat", locale));
 			 model.addAttribute("addImage","category.gif");
-			 model.addAttribute("description",translate("enviroCategory.description"));
+			 model.addAttribute("description",translate("enviroCategory.description", locale));
 			return "config/appConfigList";
 		 }
 
 		// PROJECT STATUSES 
 		@RequestMapping("/config/status")
-		 public String statusList(Model model) {
+		 public String statusList(Model model, HttpServletRequest request) {
+			Locale locale=rivLocaleResolver.resolveLocale(request);
 			 model.addAttribute("type","status");
 			 model.addAttribute("appConfigList",rivConfig.getStatuses().values());
 			 model.addAttribute("usage",dataService.appConfigUsage(Status.class.getSimpleName(), "status", true));
 			 model.addAttribute("step","7");
-			 model.addAttribute("pageTitle",translate("projectStatus.statuses"));
-			 model.addAttribute("deleteWarn",translate("projectStatus.delete.warn"));
-			 model.addAttribute("addNew",translate("projectStatus.addStatus"));
+			 model.addAttribute("pageTitle",translate("projectStatus.statuses", locale));
+			 model.addAttribute("deleteWarn",translate("projectStatus.delete.warn", locale));
+			 model.addAttribute("addNew",translate("projectStatus.addStatus", locale));
 			 model.addAttribute("addImage","category.gif");
-			 model.addAttribute("description",translate("status.description"));
+			 model.addAttribute("description",translate("status.description", locale));
 			return "config/appConfigList";
 		 }
 		
 		// CUSTOM APPCONFIGS 
 		@RequestMapping("/config/appConfig1")
-		 public String appConfig1List(Model model) {
+		 public String appConfig1List(Model model, HttpServletRequest request) {
+			Locale locale=rivLocaleResolver.resolveLocale(request);
 			 model.addAttribute("type","appConfig1");
 			 model.addAttribute("appConfigList",rivConfig.getAppConfig1s().values());
 			 model.addAttribute("usage",dataService.appConfigUsage(AppConfig1.class.getSimpleName(), "appConfig1", false));
 			 model.addAttribute("step","9");
 			 model.addAttribute("pageTitle",rivConfig.getSetting().getAdmin1Title());
-			 model.addAttribute("deleteWarn",translate("customFields.appConfig.delete.warnn"));
-			 model.addAttribute("addNew",translate("customFields.add"));
+			 model.addAttribute("deleteWarn",translate("customFields.appConfig.delete.warn", locale));
+			 model.addAttribute("addNew",translate("customFields.add", locale));
 			 model.addAttribute("addImage","category.gif");
-			 model.addAttribute("description",translate("customFields.description"));
+			 model.addAttribute("description",translate("customFields.description", locale));
 			return "config/appConfigList";
 		 }
 		
 		@RequestMapping("/config/appConfig2")
-		 public String appConfig2List(Model model) {
+		 public String appConfig2List(Model model, HttpServletRequest request) {
+			Locale locale=rivLocaleResolver.resolveLocale(request);
 			 model.addAttribute("type","appConfig2");
 			 model.addAttribute("appConfigList",rivConfig.getAppConfig2s().values());
 			 model.addAttribute("usage",dataService.appConfigUsage(AppConfig2.class.getSimpleName(), "appConfig2", false));
 			 int step = rivConfig.getSetting().getAdmin1Enabled() ? 10 : 9;
 			 model.addAttribute("step",step);
 			 model.addAttribute("pageTitle",rivConfig.getSetting().getAdmin2Title());
-			 model.addAttribute("deleteWarn",translate("customFields.appConfig.delete.warn"));
-			 model.addAttribute("addNew",translate("customFields.add"));
+			 model.addAttribute("deleteWarn",translate("customFields.appConfig.delete.warn", locale));
+			 model.addAttribute("addNew",translate("customFields.add", locale));
 			 model.addAttribute("addImage","category.gif");
-			 model.addAttribute("description",translate("customFields.description"));
+			 model.addAttribute("description",translate("customFields.description", locale));
 			return "config/appConfigList";
 		 }
-	
-	
     
-	private String translate(String messageCode) {
-		return messageSource.getMessage(messageCode, new Object[0], "", new Locale(rivConfig.getSetting().getLang()));
+	private String translate(String messageCode, Locale locale) {
+		return messageSource.getMessage(messageCode, new Object[0], "", locale);
 	}
 }

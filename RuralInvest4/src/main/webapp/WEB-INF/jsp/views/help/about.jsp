@@ -4,7 +4,7 @@
 <body>
 	<h2>RuralInvest</h2>
 	<div style="margin-right:100px; text-align:justify">
-		Version  ${version}<br/><br/>
+		<spring:message code="about.version"/> ${version}<br/><br/>
 		<spring:message code="about.description"/>
 	</div>
 </body>

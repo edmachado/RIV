@@ -1,4 +1,20 @@
-### NEW TEXT IN RIV4.1
+### NEW TEXT IN RIV4.1 B
+project.workingCapital.how=How is working capital estimated?
+project.workingCapital.explain=Working capital is determined by the cumulative monthly cash flow for the first year. 
+project.amtRequired.explain=The largest negative value
+
+project.report.wcCalculation=Working Capital calculation
+project.report.contributionSummary=Contribution summary
+project.report.summaryTables=Summary tables
+
+about.version=Version
+
+
+project.recommendation.furtherReview=Further review required
+### END RIV4.1 B
+
+
+### NEW TEXT IN RIV4.1 A
 units.year=Year
 misc.confirm=Confirm
 projectContribution.copy=Copy all items to another year of the project.
@@ -24,15 +40,6 @@ projectActivity.pattern.noCycles.help=If the number of units of activity will ch
 projectActivity.pattern.noCycles.qty=Number of units of activity
 project.report.blockDetail.totalPerUnitNoCycle=Totals per unit
 
-project.workingCapital.how=How is working capital estimated?
-project.workingCapital.explain=Working capital is determined by the cumulative monthly cash flow for the first year. 
-project.amtRequired.explain=The largest negative value
-
-project.report.wcCalculation=Working Capital calculation
-project.report.contributionSummary=Contribution summary
-project.report.summaryTables=Summary tables
-
-project.recommendation.furtherReview=Further review required
 project.recommendation.seeReports=For summaries and reports useful in evaluating and recommending, see
 
 # Changed from previous versions
@@ -40,8 +47,8 @@ project.amtRequired.help=The amount of working capital required is the amount ne
 project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
 profile.report.title=Reports
 
+### END RIV4.1 A
 
-### END RIV4.1
 
 project.report.profitability.totalMinusInvest.before=Total before donation minus investment in first year
 project.report.profitability.totalMinusInvest.after=Total after donation minus investment in first year
