@@ -48,7 +48,7 @@
 					</c:if>
 			 	</display:table>
 				
-				<div class="addNew"><a id="addIncome" href="../refItem/-1?type=income&proId=${probase.proId}&isProject=${probase.project}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+				<div class="addNew"><a id="addIncome" href="../refItem/-1?type=income&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				<c:if test="${accessOK}"></c:if>
 			</tags:table>
 	
@@ -93,7 +93,7 @@
 					</c:if>
 				</display:table>
 				
-				<div class="addNew"><a id="addInput" href="../refItem/-1?type=cost&proId=${probase.proId}&isProject=${probase.project}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+				<div class="addNew"><a id="addInput" href="../refItem/-1?type=cost&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				<c:if test="${accessOK}"></c:if>
 			</tags:table>
 		<!-- c:if test="${probase.project}"-->
@@ -145,7 +145,7 @@
 					</c:if>
 				</display:table>
 				
-				<div class="addNew"><a id="addLabour" href="../refItem/-1?type=labour&proId=${probase.proId}&isProject=${probase.project}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+				<div class="addNew"><a id="addLabour" href="../refItem/-1?type=labour&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 				<c:if test="${accessOK}"></c:if>
 			</tags:table>
 		<!--/c:if-->

@@ -312,8 +312,8 @@ public class DataService implements UserDetailsService {
 	public void updateReferenceLinks(ReferenceItem ref) {
 		repo.updateReferenceLinks(ref);
 	}
-	public void deleteReferenceItem(ReferenceItem ri) {
-		repo.deleteReferenceItem(ri);
+	public void deleteReferenceItem(int id) {
+		repo.deleteReferenceItem(id);
 	}
 	
 	public void deleteAppConfig(AppConfig ac) {

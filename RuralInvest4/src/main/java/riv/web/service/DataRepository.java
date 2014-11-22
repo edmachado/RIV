@@ -1181,7 +1181,12 @@ public class DataRepository {
 		Criteria criteria = currentSession()
 				.createCriteria(ReferenceItem.class)
 				.add(Restrictions.eq("refItemId", id));
-		return (ReferenceItem) criteria.uniqueResult();
+		ReferenceItem ri = (ReferenceItem) criteria.uniqueResult();
+		Hibernate.initialize(ri.getProbase().getRefIncomes());
+		Hibernate.initialize(ri.getProbase().getRefCosts());
+		Hibernate.initialize(ri.getProbase().getRefLabours());
+		
+		return ri;
 	}
 
 	public void storeReferenceItem(ReferenceItem ref) {
@@ -1418,7 +1423,8 @@ public class DataRepository {
 
 	
 	@SuppressWarnings("unchecked")
-	public void deleteReferenceItem(ReferenceItem ref) { 
+	public void deleteReferenceItem(int id) {
+		ReferenceItem ref = getReferenceItem(id);
 		  Probase p = ref.getProbase(); 
 		  Integer wizardStep = p.getWizardStep();
 		  int orderBy = ref.getOrderBy();

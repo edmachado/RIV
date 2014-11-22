@@ -1,7 +1,6 @@
 package riv.web.controller;
 
 import java.text.DecimalFormat;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -50,12 +49,12 @@ public class ReferenceItemController {
 	}
 	
 	@ModelAttribute("referenceItem")
-	public ReferenceItem getItem(@PathVariable Integer id, @RequestParam(required=false) String type, @RequestParam(required=false) Boolean isProject, @RequestParam(required=false) Integer proId)  {
+	public ReferenceItem getItem(@PathVariable Integer id, @RequestParam(required=false) String type, @RequestParam(required=false) Boolean isProject, @RequestParam(required=false) Integer proId, @RequestParam(required=false) Boolean isIg)  {
 		ReferenceItem ri;
 		if (id != -1) {
 			ri= dataService.getReferenceItem(id);
 		} else {
-			Probase p = isProject ? dataService.getProject(proId, 10) : dataService.getProfile(proId, 7);
+			Probase p = isProject ? dataService.getProject(proId, isIg ? 10 : 11) : dataService.getProfile(proId, 7);
 			if (type.equals("income")) {
 				ri = new ReferenceIncome();
 				ri.setOrderBy(p.getRefIncomes().size());
@@ -107,7 +106,7 @@ public class ReferenceItemController {
     @RequestMapping(value="/{id}/delete", method=RequestMethod.GET)
     public String delete(@PathVariable Integer id, @ModelAttribute ReferenceItem referenceItem) {
     	String view = "../"+successView(referenceItem);
-    	dataService.deleteReferenceItem(referenceItem);
+    	dataService.deleteReferenceItem(id);
 		return "redirect:"+view;
     }
     
@@ -142,6 +141,7 @@ public class ReferenceItemController {
 			menuType=menuType+"Noninc";
 		} 
 		model.addAttribute("menuType",menuType);
+		model.addAttribute("probase", pi.getProbase());
 	}
    
 }

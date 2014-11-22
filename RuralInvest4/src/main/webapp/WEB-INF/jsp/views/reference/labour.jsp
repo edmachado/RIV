@@ -5,8 +5,7 @@
 	<div align="right"><a href="#" onClick="toggle('tblRefLabours')"><spring:message code="misc.toggle"/></a></div>
 	<div id="tblRefLabours" style="display:none">
 		<tags:table titleKey="reference.labours">
-			<display:table list="${probase.refLabours}" id="row" requestURI="" cellspacing="0" cellpadding="0"
-				 export="false">
+			<display:table list="${probase.refLabours}" id="row" requestURI="" cellspacing="0" cellpadding="0" export="false"> 
 				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 				<display:column titleKey="reference.labour.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
 				<display:column titleKey="reference.labour.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
@@ -24,7 +23,7 @@
 				<tags:dataentry field="description" labelKey="reference.labour.description" helpText="reference.labour.description.help" inputClass="text" size="20" maxLength="30"/>
 				<c:if test="${probase.project}">
 					<div class="dataentry">
-						<tags:help text="reference.labour.unitType.help" title="reference.labour.unitType"><label><spring:message code="reference.labour.unitType"/></label></tags:help>
+						<label><tags:help text="reference.labour.unitType.help" title="reference.labour.unitType"><spring:message code="reference.labour.unitType"/></tags:help></label>
 						<form:select path="unitType">
 							<form:option value="0"><spring:message code="units.pyears"/></form:option>
 							<form:option value="1"><spring:message code="units.pmonths"/></form:option>
