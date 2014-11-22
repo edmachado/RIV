@@ -81,7 +81,7 @@ public class FilterCriteria implements Serializable {
 		this.unfinished=unfinished;
 	}
 	
-	public void setStatuses(ArrayList<Status> statuses) {
+	public void setStatuses(List<Status> statuses) {
 		this.statuses = statuses;
 	}
 	public List<Status> getStatuses() {

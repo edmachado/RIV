@@ -25,16 +25,10 @@ $("#confirmDelete").dialog({
 				<display:column titleKey="profile.profileName" property="profileName" sortable="true" style="text-align:left;" headerClass="left"/>
 				<display:column titleKey="profile.technician" property="technician.description" sortable="true" style="text-align:left" headerClass="left"/>
 				<display:column titleKey="profile.status" sortProperty="status.description" sortable="true" style="text-align:left" headerClass="left">
-					<c:if test="${row.status.configId==-7}"><spring:message code="projectStatus.generic"/></c:if>
-					<c:if test="${row.status.configId==-20}"><spring:message code="projectStatus.proposal"/></c:if>
-					<c:if test="${row.status.configId==-21}"><spring:message code="projectStatus.approved"/></c:if>
-					<c:if test="${row.status.configId==-22}"><spring:message code="projectStatus.investment"/></c:if>
-					<c:if test="${row.status.configId==-23}"><spring:message code="projectStatus.operational"/></c:if>
-					<c:if test="${row.status.configId!=-7 && row.status.configId!=-20 && row.status.configId!=-21 && row.status.configId!=-22 && row.status.configId!=-23}">${row.status.description}</c:if>
+					<tags:appConfigDescription ac="${row.status}"/>
 				</display:column>
 				<display:column titleKey="profile.fieldOffice" sortProperty="fieldOffice.description" sortable="true" style="text-align:left" headerClass="left">
-					<c:if test="${row.fieldOffice.configId==-4}"><spring:message code="fieldOffice.generic"/></c:if>
-					<c:if test="${row.fieldOffice.configId!=-4}">${row.fieldOffice.description}</c:if>
+					<tags:appConfigDescription ac="${row.fieldOffice}"/>
 				</display:column>
 				<display:column titleKey="profile.benefNum" sortProperty="benefNum" sortable="true">
 					<tags:formatDecimal value="${row.benefNum}"/><c:set var="totals0" value="${totals0+row.benefNum}"/>
