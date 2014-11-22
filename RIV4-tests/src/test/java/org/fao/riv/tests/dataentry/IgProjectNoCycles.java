@@ -7,6 +7,7 @@ import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class IgProjectNoCycles extends WebTestUtil {
@@ -28,7 +29,7 @@ public class IgProjectNoCycles extends WebTestUtil {
 		closeBrowser();
    }
 	
-	@Test
+	@Ignore @Test
 	public void noCycles() {
 		//TODO: implement
 		org.junit.Assert.assertTrue(false);

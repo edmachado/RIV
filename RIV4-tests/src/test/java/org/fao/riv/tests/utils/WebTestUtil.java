@@ -13,6 +13,8 @@ import java.util.concurrent.Callable;
 
 import net.sourceforge.jwebunit.html.Row;
 import net.sourceforge.jwebunit.html.Table;
+import net.sourceforge.jwebunit.junit.JWebUnit;
+import net.sourceforge.jwebunit.util.TestingEngineRegistry;
 
 import org.apache.catalina.LifecycleException;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -28,6 +30,7 @@ import org.fao.riv.tests.utils.InputParam.InputParamType;
 public class WebTestUtil {
 	@Before
     public void prepare() throws LifecycleException {
+		JWebUnit.setTestingEngineKey(TestingEngineRegistry.TESTING_ENGINE_HTMLUNIT);
 		setBaseUrl(TestApp.appURL);
 		getTestContext().setResourceBundleName("messages/messages");
     }

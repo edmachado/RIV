@@ -128,6 +128,7 @@ public class Settings extends WebTestUtil {
 		TestTable tt = new TestTable("row", "v40.office.", "addNewAppConfig", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addBlanks(2);
 		tt.setIgnoreInputRows(new int[]{3});
+		tt.setHasMoveRows(false);
 		tt.testWithInput();
 		
 		// Project categories
@@ -137,6 +138,7 @@ public class Settings extends WebTestUtil {
 		.addParam("description").addCheckboxParam("incomeGen", new String[] {"Income generating","Non income generating"})
 		.addBlanks(2);
 		tt.setIgnoreInputRows(new int[]{1,2});
+		tt.setHasMoveRows(false);
 		tt.testWithInput();
 		
 		// Beneficiaries
@@ -145,6 +147,7 @@ public class Settings extends WebTestUtil {
 		tt = new TestTable("row", "v40.beneficiary.", "addNewAppConfig", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addBlanks(2);
 		tt.setIgnoreInputRows(new int[]{4});
+		tt.setHasMoveRows(false);
 		tt.testWithInput();
 		
 		// Environmental categories
@@ -153,6 +156,7 @@ public class Settings extends WebTestUtil {
 		tt = new TestTable("row", "v40.enviroCat.", "addNewAppConfig", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addBlanks(2);
 		tt.setIgnoreInputRows(new int[]{2});
+		tt.setHasMoveRows(false);
 		tt.testWithInput();
 		
 		// Project statuses
@@ -161,6 +165,7 @@ public class Settings extends WebTestUtil {
 		tt = new TestTable("row", "v40.status.", "addNewAppConfig", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addBlanks(2);
 		tt.setIgnoreInputRows(new int[]{3});
+		tt.setHasMoveRows(false);
 		tt.testWithInput();
 		
 		getTestContext().setResourceBundleName("messages/messages");

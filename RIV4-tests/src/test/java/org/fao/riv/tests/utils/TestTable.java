@@ -1,13 +1,24 @@
 package org.fao.riv.tests.utils;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.*;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertElementPresentByXPath;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTablePresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowCountEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowsEqual;
+import static net.sourceforge.jwebunit.junit.JWebUnit.checkCheckbox;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getTable;
+import static net.sourceforge.jwebunit.junit.JWebUnit.selectOption;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+import static net.sourceforge.jwebunit.junit.JWebUnit.uncheckCheckbox;
 import static org.junit.Assert.assertTrue;
-import org.junit.Assert;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import net.sourceforge.jwebunit.html.Cell;
 import net.sourceforge.jwebunit.html.Row;
 import net.sourceforge.jwebunit.html.Table;
 
@@ -23,6 +34,7 @@ public class TestTable {
 	Callable<Void> submit;
 	boolean hasSumRow;
 	boolean hasCopy=true;
+	boolean hasMoveRows=true;
 	List<Integer> ignoreInputRows = new ArrayList<Integer>();
 	
 	public TestTable(String tableId, String propPrefix, String addLink, boolean hasSumRow, Callable<Void> submit) {
@@ -36,6 +48,9 @@ public class TestTable {
 	
 	public void setHasCopy(boolean hasCopy) {
 		this.hasCopy=hasCopy;
+	}
+	public void setHasMoveRows(boolean hasMove) {
+		this.hasMoveRows=hasMove;
 	}
 	
 	public TestTable addParam(String name) {
@@ -67,7 +82,6 @@ public class TestTable {
 		return ignoreInputRows;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void testOutput() {
 		Table compare = createCompareTable();
 		assertTablePresent(tableId);
@@ -189,15 +203,15 @@ public class TestTable {
 			testCopyAndDeleteRow();
 		}
 		
-		testMoveRows();
+		if (hasMoveRows) { testMoveRows(); }
 	}
 	
 	void testMoveRows() {
 		assertTablePresent(tableId);
 		Table tOriginal = getTable(tableId);
 		if (tOriginal.getRowCount() > 1) {
-			Row r1Original = (Row)tOriginal.getRows().get(1);
-			Row r2Original = (Row)tOriginal.getRows().get(2);
+			Row r1Original = tOriginal.getRows().get(1);
+			Row r2Original = tOriginal.getRows().get(2);
 			
 			String xpathDown = "(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -13) = 'arrow_down.png']]])[1]";
 			String xpathUp = "(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -11) = 'arrow_up.png']]])[1]";
@@ -210,15 +224,23 @@ public class TestTable {
 			clickElementByXPath(xpathDown);
 			assertTablePresent(tableId);
 			Table tAfter = getTable(tableId);
-			r1Original.assertMatch((Row)tAfter.getRows().get(2));
-			r2Original.assertMatch((Row)tAfter.getRows().get(1));
+			
+			assertRowsEqual(r1Original, tAfter.getRows().get(2));
+			assertRowsEqual(r2Original, tAfter.getRows().get(1));
 			
 			// move second row back up
+			assertElementPresentByXPath(xpathUp);
 			clickElementByXPath(xpathUp);
 			assertTablePresent(tableId);
 			tAfter = getTable(tableId);
-			r1Original.assertMatch((Row)tAfter.getRows().get(1));
-			r2Original.assertMatch((Row)tAfter.getRows().get(2));
+			assertRowsEqual(r1Original, tAfter.getRows().get(1));
+			assertRowsEqual(r2Original, tAfter.getRows().get(2));
+		}
+	}
+	
+	void assertRowsEqual(Row r1, Row r2) {
+		for (int c=0;c<r1.getCellCount();c++) {
+			assertTrue(r1.getCells().get(0).getValue().equals(r2.getCells().get(0).getValue()));
 		}
 	}
 	
@@ -231,14 +253,9 @@ public class TestTable {
 		assertTableRowCountEquals(tableId, origRows+1);
 		
 		// test if 1st and last rows are equal
-		Row firstRow = (Row)getTable(tableId).getRows().get(3);
-		Row lastRow = (Row)getTable(tableId).getRows().get(origRows);
-		Assert.assertTrue(firstRow.getCellCount()==lastRow.getCellCount());
-		for (int c=0; c<firstRow.getCellCount(); c++) {
-			Cell firstRowCell = (Cell)firstRow.getCells().get(c);
-			Cell lastRowCell = (Cell)lastRow.getCells().get(c);
-			Assert.assertTrue(firstRowCell.getValue().equals(lastRowCell.getValue()));
-		}
+		Row firstRow = getTable(tableId).getRows().get(3);
+		Row lastRow = getTable(tableId).getRows().get(origRows);
+		assertRowsEqual(firstRow, lastRow);
 		
 		// delete row
 		xpath = "(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -9) = 'delete.gif']]])["+(origRows-2)+"]";
