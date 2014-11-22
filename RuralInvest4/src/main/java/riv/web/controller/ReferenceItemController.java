@@ -137,7 +137,7 @@ public class ReferenceItemController {
 		model.addAttribute("currentId",p.getProId());
 		model.addAttribute("wizardStep",p.getWizardStep());
 		String menuType = p.isProject() ? "project" : "profile";
-		if (p.getIncomeGen()) { 
+		if (!p.getIncomeGen()) { 
 			menuType=menuType+"Noninc";
 		} 
 		model.addAttribute("menuType",menuType);

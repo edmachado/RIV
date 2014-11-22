@@ -1459,6 +1459,13 @@ public class DataRepository {
 		  }
 
 		  //delete ref item
+		  if (ref.getClass().isAssignableFrom(ReferenceIncome.class)) {
+			  p.getRefIncomes().remove(ref);
+		  } else if (ref.getClass().isAssignableFrom(ReferenceCost.class)) {
+			  p.getRefCosts().remove(ref);
+		  } else {
+			  p.getRefLabours().remove(ref);
+		  }
 		  currentSession().delete(ref);
 	  
 		  // reorder remaining ref items 
@@ -1735,11 +1742,6 @@ public class DataRepository {
 		}
 		reorder.executeUpdate();
 	}
-
-	// @Transactional
-	// public void upgradeConfig(RivConfig rc) {
-	//
-	// }
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public HomeData homeData() {
