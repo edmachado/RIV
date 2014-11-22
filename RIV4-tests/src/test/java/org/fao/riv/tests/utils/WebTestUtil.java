@@ -49,6 +49,49 @@ public class WebTestUtil {
 		}
 	}
 	
+	public void testReferenceItems(boolean isProject, boolean incomeGen) throws Exception {
+		getTestContext().setResourceBundleName("dataentry/referenceTables");
+		
+		// income items
+		assertLinkPresent("addIncome");
+		deleteTableItems("IncomeTable");
+		assertLinkPresent("addIncome");
+		
+		TestTable tt = new TestTable("IncomeTable", "income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost");
+		if (incomeGen) { tt.addParam("transport"); }
+		tt.addBlanks(4);
+		
+		tt.setHasCopy(false);
+		tt.testWithInput();
+		
+		// input items
+		deleteTableItems("GoodsTable");
+		assertLinkPresent("addInput");
+		
+		tt = new TestTable("GoodsTable", "cost.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
+		.addBlanks(4);
+		tt.setHasCopy(false);
+		tt.testWithInput();
+		
+		// labour items
+		deleteTableItems("LabourTable");
+		assertLinkPresent("addLabour");
+		
+		tt = new TestTable("LabourTable", "labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description");
+		if (isProject) {
+			tt.addParam("unitType", InputParamType.SELECT, false);
+		} else {
+			tt.addParam("unitType");
+		}
+		tt.addParam("unitCost")
+		.addBlanks(4);
+		tt.setHasCopy(false);
+		tt.testWithInput();
+	 }
+	
 	public void assertCheckboxSelected(String name, boolean checked) {
 		if (checked) {
 			net.sourceforge.jwebunit.junit.JWebUnit.assertCheckboxSelected(name);

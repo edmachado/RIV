@@ -174,7 +174,6 @@ public class TestTable {
 			// should we add another item?
 			i++;
 			try {
-				
 				getMessage(propPrefix+i+"."+params.get(0).getName());
 			} catch (Exception e) {
 				nextItem=false;

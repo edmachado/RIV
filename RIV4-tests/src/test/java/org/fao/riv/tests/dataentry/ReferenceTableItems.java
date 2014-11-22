@@ -1,8 +1,12 @@
 package org.fao.riv.tests.dataentry;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getElementsByXPath;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
 
 import java.util.concurrent.Callable;
@@ -14,6 +18,7 @@ import org.fao.riv.tests.utils.InputParam.InputParamType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ReferenceTableItems extends WebTestUtil {
@@ -33,66 +38,30 @@ public class ReferenceTableItems extends WebTestUtil {
 			closeBrowser();
 	    }
 	 
-	 private void runTest() throws Exception {
-			getTestContext().setResourceBundleName("dataentry/referenceTables");
-			
-			// income items
-			deleteTableItems("IncomeTable");
-			assertLinkPresent("addIncome");
-			
-			TestTable tt = new TestTable("IncomeTable", "income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitCost")
-			.addBlanks(4);
-			tt.setHasCopy(false);
-			tt.testWithInput();
-			
-			// input items
-			deleteTableItems("GoodsTable");
-			assertLinkPresent("addInput");
-			
-			tt = new TestTable("GoodsTable", "cost.", "addInput", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
-			.addBlanks(4);
-			tt.setHasCopy(false);
-			tt.testWithInput();
-			
-			// labour items
-			deleteTableItems("LabourTable");
-			assertLinkPresent("addLabour");
-			
-			tt = new TestTable("LabourTable", "labour.", "addLabour", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description")
-			.addParam("unitType", InputParamType.SELECT, false)
-			.addParam("unitCost")
-			.addBlanks(4);
-			tt.setHasCopy(false);
-			tt.testWithInput();
-		 }
-	 
 	 @Test
 	 public void testIGproject() throws Exception {
 		deletePros(true, true);
 		importProject(ImportFile.ProjectV41, "igpj", false, false, "T3st Santa Cruz River Transport");
 		goToPro(true, true, true);
 		
-		clickLink("step11");
-		assertLinkPresent("step12");
+		clickLink("step10");
+		assertLinkPresent("step11");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step10"));
 		
-		runTest();
+		testReferenceItems(true, true);
 	 }
 	 
 	 @Test
 	 public void testNIGproject() throws Exception {
-		 deletePros(true, false);
-		// import complete project
+		deletePros(true, false);
 		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
-		// edit project
 		goToPro(true, false, true);
 			
 		clickLink("step11");
 		assertLinkPresent("step12");
-
-		runTest();
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step11.nongen"));
+		
+		testReferenceItems(true, false);
 	 }
 	 
 	 @Test
@@ -103,8 +72,9 @@ public class ReferenceTableItems extends WebTestUtil {
 			
 		clickLink("step7");
 		assertLinkPresent("step8");
-
-		runTest();
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step7"));
+		
+		testReferenceItems(false, true);
 	 }
 	 
 	 @Test
@@ -116,8 +86,9 @@ public class ReferenceTableItems extends WebTestUtil {
 			
 		clickLink("step7");
 		assertLinkPresent("step8");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step7"));
 
-		runTest();
+		testReferenceItems(false, false);
 	 }
 
 }
