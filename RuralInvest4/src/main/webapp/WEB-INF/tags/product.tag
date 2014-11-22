@@ -10,7 +10,7 @@
 		<c:set var="labourTitle"><spring:message code="profileProductLabour"/>  <tags:blockExplanation block="${product}"/></c:set>
 				
 		<tags:tableContainer title="${product.description}">
-				<fieldset><legend><spring:message code="${prodType}.desc"/>s</legend>
+				<fieldset><legend><spring:message code="${prodType}.desc"/></legend>
 					<table id="descriptionTable" width="100%" border="0" cellspacing="2" cellpadding="2">
 					  <tr>
 							<td><tags:help title="${prodType}.name" text="${prodType}.name.help"><b><spring:message code="${prodType}.name"/></b></tags:help></td>

@@ -1,6 +1,7 @@
 package riv.web.controller;
 
 import java.text.DecimalFormat;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -39,7 +40,7 @@ public class ReferenceItemController {
 	@Autowired
 	private RivConfig rivConfig;
 	
-	@InitBinder
+	@InitBinder("referenceItem")
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(new RefItemValidator());
 		DecimalFormat df = rivConfig.getSetting().getCurrencyFormatter().getDecimalFormat(CurrencyFormat.ALL);
