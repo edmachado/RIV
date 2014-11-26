@@ -396,8 +396,10 @@ ALTER TABLE PROJECT_RESULT ADD COLUMN wc_period INT;
    	<query>
 -- no-cycle blocks
 ALTER TABLE project_block ADD COLUMN cycles BOOLEAN DEFAULT true;
+UPDATE project_block SET cycles=true;
 -- per-year contributions for nig projects
 ALTER TABLE project ADD COLUMN per_year_contrib BOOLEAN DEFAULT false;
+UPDATE project SET per_year_contrib=false;
 -- contributor column for nig project contributions
 ALTER TABLE project_item ADD COLUMN contributor VARCHAR(100);
 UPDATE project_item SET contributor='' WHERE class=5;
