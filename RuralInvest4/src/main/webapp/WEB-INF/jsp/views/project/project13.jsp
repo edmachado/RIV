@@ -1,12 +1,8 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <html><head><title><spring:message code="project.step13"/></title>
-<style>
-	#indicators td:first-child { font-weight:bold;text-align:left; }
-</style>
 <script>
 $(function() {
 	$('#indicators tbody tr:even').addClass("odd");
-	//$('#indicators tbody tr td:first-child').css("font-weight","bold");
 });
 </script>
 </head>
@@ -106,7 +102,7 @@ $(function() {
 			<spring:message code="project.report.complete"/>
 		</li>
 	</ul>
-	<div style="display:none;">
+	<div>
 		<h2><spring:message code="project.report.summaryTables"/></h2>
 		<ul>
 <%-- 			<li><a href="javascript:showSummary('summaryIndicators');"><spring:message code="mainMenu.config.columns"/></a></li> --%>
@@ -123,7 +119,7 @@ $(function() {
 		</ul>
 		</div>
 	</div>
-	<div style="display:none;width:45%;">
+	<div style="display:inline-block;width:45%;">
 		<h2><spring:message code="mainMenu.config.columns"/></h2>
 		<tags:table>
 			<table id="indicators" cellspacing="0" cellpadding="0">

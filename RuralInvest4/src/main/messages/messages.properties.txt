@@ -8,9 +8,8 @@ project.report.contributionSummary=Contribution summary
 project.report.summaryTables=Summary tables
 
 about.version=Version
-
-
 project.recommendation.furtherReview=Further review required
+
 ### END RIV4.1 B
 
 

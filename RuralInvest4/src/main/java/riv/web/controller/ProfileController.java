@@ -54,7 +54,7 @@ public class ProfileController {
 	@Autowired
 	AttachTools attachTools;
 	
-	@InitBinder
+	@InitBinder("profile")
 	protected void initBinder(WebDataBinder binder, @PathVariable Integer step, HttpServletRequest request) {
 		binder.setValidator(new ProfileValidator(step, rivConfig, messageSource));
 
@@ -140,10 +140,6 @@ public class ProfileController {
 		return "redirect:../../../search/results";
 	}
 	
-	
-	
-	
-	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.GET)
 	public String getProfile(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Profile profile, Model model, HttpServletRequest request) {
 		setupPageAttributes(profile, model, step, request);
@@ -212,6 +208,9 @@ public class ProfileController {
 			model.addAttribute("files",files);
 			model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
 			model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
+		}
+		if (step==9) {
+			model.addAttribute("result",dataService.getProfileResult(p.getProfileId()));
 		}
 		
 	}

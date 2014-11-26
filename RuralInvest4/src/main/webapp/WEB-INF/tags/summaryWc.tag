@@ -5,7 +5,7 @@
 		<thead>
 			<tr>
 				<c:forEach var="i" begin="0" end="11">
-					<c:set var="monthClass"><c:if test="${i+1 eq project.wcFinancePeriod}">period</c:if></c:set>
+					<c:set var="monthClass"><c:if test="${i+1 le project.wcFinancePeriod}">period</c:if></c:set>
 					<th class="${monthClass}">
 						<c:if test="${i+project.startupMonth<=12}"><spring:message code="calendar.month.${i+project.startupMonth}"/></c:if>
 						<c:if test="${i+project.startupMonth>12}"><spring:message code="calendar.month.${(i+project.startupMonth)%12}"/></c:if>
