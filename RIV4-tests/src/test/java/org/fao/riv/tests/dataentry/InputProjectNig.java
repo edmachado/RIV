@@ -81,7 +81,7 @@ public class InputProjectNig extends WebTestUtil {
 		setTextField("beneIndirectMen",getMessage("step2.beneIndirectMen"));
 		setTextField("beneIndirectWomen",getMessage("step2.beneIndirectWomen"));
 		setTextField("beneIndirectChild",getMessage("step2.beneIndirectChild"));
-		// TODO: test autocalc on benefDirectTotal
+		// TODO: test autocalc on benefIndirectTotal
 		setTextField("beneIndirectNum",getMessage("step2.beneIndirectNum"));
 		setTextField("benefDesc",getMessage("step2.benefDesc"));
 		rivSubmitForm();
@@ -221,8 +221,6 @@ public class InputProjectNig extends WebTestUtil {
 			.addParam("linked", InputParamType.LINKED, false)
 			.addBlanks(5);
 			tt.testWithInput();
-			
-			//TODO: Test Excel download
 			
 			i++;
 			try {

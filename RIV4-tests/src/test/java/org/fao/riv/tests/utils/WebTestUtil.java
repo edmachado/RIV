@@ -449,7 +449,7 @@ public class WebTestUtil {
 		assertTextFieldEquals("beneIndirectMen",getMessage("step2.beneIndirectMen"));
 		assertTextFieldEquals("beneIndirectWomen",getMessage("step2.beneIndirectWomen"));
 		assertTextFieldEquals("beneIndirectChild",getMessage("step2.beneIndirectChild"));
-		// TODO: test autocalc on benefDirectTotal
+		// TODO: test autocalc on benefIndirectTotal
 		assertTextFieldEquals("beneIndirectNum",getMessage("step2.beneIndirectNum"));
 		assertTextFieldEquals("benefDesc",getMessage("step2.benefDesc"));
 		rivSubmitForm();
@@ -823,7 +823,7 @@ public class WebTestUtil {
 		assertTextFieldEquals("beneIndirectMen",getMessage("step2.beneIndirectMen"));
 		assertTextFieldEquals("beneIndirectWomen",getMessage("step2.beneIndirectWomen"));
 		assertTextFieldEquals("beneIndirectChild",getMessage("step2.beneIndirectChild"));
-		// TODO: test autocalc on benefDirectTotal
+		// TODO: test autocalc on benefIndirectTotal
 		assertTextFieldEquals("beneIndirectNum",getMessage("step2.beneIndirectNum"));
 		assertTextFieldEquals("benefDesc",getMessage("step2.benefDesc"));
 		rivSubmitForm();

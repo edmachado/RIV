@@ -205,8 +205,6 @@ public class InputProfileIg extends WebTestUtil {
 			.addBlanks(5);
 			tt.testWithInput();
 			
-			//TODO: Test Excel download
-			
 			i++;
 			try {
 				getMessage("step6.product."+i+".description");
@@ -236,7 +234,6 @@ public class InputProfileIg extends WebTestUtil {
 		.addBlanks(4);
 		tt.testOutput();
 		
-		//TODO: test add, delete, copy and move reference item
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
 		

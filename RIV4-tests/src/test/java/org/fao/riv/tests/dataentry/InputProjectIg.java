@@ -256,7 +256,7 @@ public class InputProjectIg extends WebTestUtil {
 		setTextField("beneIndirectMen",getMessage("step2.beneIndirectMen"));
 		setTextField("beneIndirectWomen",getMessage("step2.beneIndirectWomen"));
 		setTextField("beneIndirectChild",getMessage("step2.beneIndirectChild"));
-		// TODO: test autocalc on benefDirectTotal
+		// TODO: test autocalc on benefIndirectTotal
 		setTextField("beneIndirectNum",getMessage("step2.beneIndirectNum"));
 		setTextField("benefDesc",getMessage("step2.benefDesc"));
 		rivSubmitForm();

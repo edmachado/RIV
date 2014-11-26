@@ -175,8 +175,6 @@ public class InputProfileNig extends WebTestUtil {
 			.addBlanks(5);
 			tt.testWithInput();
 			
-			//TODO: Test Excel download
-			
 			i++;
 			try {
 				getMessage("step6.product."+i+".description");
@@ -189,8 +187,6 @@ public class InputProfileNig extends WebTestUtil {
 		
 		// STEP 7
 		verifyProfileNigTablesStep7();
-		
-		//TODO: test add, delete, copy and move reference item
 
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
