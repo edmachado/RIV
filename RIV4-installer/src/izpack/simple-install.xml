@@ -10,7 +10,7 @@
 	<info>
 		<appname>myapp</appname>
 		<appversion>1</appversion>
-		<javaversion>1.6</javaversion>
+		<javaversion>1.7</javaversion>
 		<run-privileged />
 	</info>
 
