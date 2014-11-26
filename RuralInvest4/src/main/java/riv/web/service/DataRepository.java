@@ -1130,7 +1130,7 @@ public class DataRepository {
 		}
 		
 		// RIV<4.1 convert contributions to year-by-year
-		String hql = "update ProjectItemContribution c set c.year=1 c.contributor='' where c.year is null";
+		String hql = "update ProjectItemContribution c set c.year=1, c.contributor='' where c.year is null";
 		currentSession().createQuery(hql).executeUpdate();
 	}
 	
