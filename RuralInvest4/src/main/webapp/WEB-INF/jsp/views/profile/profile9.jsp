@@ -56,50 +56,50 @@ $(function() {
 				<tbody>
 					<tr>
 						<td><spring:message code="profile.profileName"/></td>
-						<td style="text-align:left;">${result.profileName}</td>
+						<td id="result_profileName" style="text-align:left;">${result.profileName}</td>
 					</tr>
 					<tr>
 						<td><spring:message code="profile.technician"/></td>
-						<td style="text-align:left;">${result.technician.description}</td>
+						<td id="result_technician" style="text-align:left;">${result.technician.description}</td>
 					</tr>
 					<tr>
 						<td><spring:message code="profile.status"/></td>
-						<td style="text-align:left;"><tags:appConfigDescription ac="${result.status}"/></td>
+						<td id="result_status" style="text-align:left;"><tags:appConfigDescription ac="${result.status}"/></td>
 					</tr>
 					<tr>
 						<td><spring:message code="profile.fieldOffice"/></td>
-						<td style="text-align:left;"><tags:appConfigDescription ac="${result.fieldOffice}"/></td>
+						<td id="result_office" style="text-align:left;"><tags:appConfigDescription ac="${result.fieldOffice}"/></td>
 					</tr>
 					<tr>
 						<td><spring:message code="profile.investTotal"/></td>
-						<td><tags:formatCurrency value="${result.investmentTotal}"/></td>
+						<td id="result_investTotal"><tags:formatCurrency value="${result.investmentTotal}"/></td>
 					</tr>
 					<tr>
 						<td><spring:message code="profile.investOwn"/></td>
-						<td><tags:formatCurrency value="${result.investmentOwn}"/></td>
+						<td id="result_investOwn"><tags:formatCurrency value="${result.investmentOwn}"/></td>
 					</tr>
 					<tr>
 						<td><spring:message code="profile.investExt"/></td>
-						<td><tags:formatCurrency value="${result.investmentExt}"/></td>
+						<td id="result_investDonated"><tags:formatCurrency value="${result.investmentExt}"/></td>
 					</tr>
 					<c:if test="${profile.incomeGen}">
 						<tr>
 							<td><spring:message code="profile.incomeAfterAnnual"/></td>
-							<td><tags:formatCurrency value="${result.incomeAfterAnnual}"/></td>
+							<td id="result_incomeAfterAnnual"><tags:formatCurrency value="${result.incomeAfterAnnual}"/></td>
 						</tr>
 						<tr>
 							<td><spring:message code="profile.yearsToRecover"/></td>
-							<td><tags:formatDecimal value="${result.yearsToRecover}"/></td>
+							<td id="result_yearsToRecover"><tags:formatDecimal value="${result.yearsToRecover}"/></td>
 						</tr>
 					</c:if>
 					<c:if test="${not profile.incomeGen}">
 						<tr>
 							<td><spring:message code="profile.investmentPerBenef"/></td>
-							<td><tags:formatDecimal value="${result.investPerBenef}"/></td>
+							<td id="result_investPerBenef"><tags:formatDecimal value="${result.investPerBenef}"/></td>
 						</tr>
 						<tr>
 							<td><spring:message code="profile.costPerBenef"/></td>
-							<td><tags:formatDecimal value="${result.costPerBenef}"/></td>
+							<td id="result_costPerBenef"><tags:formatDecimal value="${result.costPerBenef}"/></td>
 						</tr>
 					</c:if>
 				</tbody>

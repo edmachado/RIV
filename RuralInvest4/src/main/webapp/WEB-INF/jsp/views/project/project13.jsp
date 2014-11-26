@@ -174,7 +174,11 @@ $(function() {
 					</tr>
 					<tr>
 						<td><spring:message code="project.investOwn"/></td>
-						<td id="result_investOwn"><tags:formatCurrency value="${result.investmentDonated}"/></td>
+						<td id="result_investOwn"><tags:formatCurrency value="${result.investmentOwn}"/></td>
+					</tr>
+					<tr>
+						<td><spring:message code="project.investExt"/></td>
+						<td id="result_investDonated"><tags:formatCurrency value="${result.investmentDonated}"/></td>
 					</tr>
 					<tr>
 						<td>
@@ -245,9 +249,9 @@ $(function() {
 						<tr>
 							<td><spring:message code="project.irrWithDonation.desc"/></td>
 							<td id="result_irrWithDonation">
-								<c:if test="${row.irrWithDonation*100 gt 1000 or row.irrWithDonation*100 lt -1000}"><spring:message code="misc.undefined"/></c:if>
-								<c:if test="${row.irrWithDonation*100 le 1000 and row.irrWithDonation*100 ge -1000}">
-									<tags:formatDecimal value="${row.irrWithDonation*100}"/>
+								<c:if test="${result.irrWithDonation*100 gt 1000 or result.irrWithDonation*100 lt -1000}"><spring:message code="misc.undefined"/></c:if>
+								<c:if test="${result.irrWithDonation*100 le 1000 and result.irrWithDonation*100 ge -1000}">
+									<tags:formatDecimal value="${result.irrWithDonation*100}"/>
 								</c:if>
 							</td>
 						</tr>
@@ -255,11 +259,11 @@ $(function() {
 					<c:if test="${not result.incomeGen}">
 						<tr>
 							<td><spring:message code="project.investPerDirect"/></td>
-							<td id="result_investPerDirect"><tags:formatCurrency value="${row.investPerBenefDirect}"/></td>
+							<td id="result_investPerDirect"><tags:formatCurrency value="${result.investPerBenefDirect}"/></td>
 						</tr>
 						<tr>
 							<td><spring:message code="project.investPerIndirect"/></td>
-							<td id="result_investPerIndirect"><tags:formatCurrency value="${row.investPerBenefIndirect}"/></td>
+							<td id="result_investPerIndirect"><tags:formatCurrency value="${result.investPerBenefIndirect}"/></td>
 						</tr>
 					</c:if>
 					<tr>
