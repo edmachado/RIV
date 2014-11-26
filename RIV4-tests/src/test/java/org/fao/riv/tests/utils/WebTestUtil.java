@@ -957,11 +957,47 @@ public class WebTestUtil {
 		assertTitleEquals(titles[12]);
 		
 		
-		// STEP 13 
+		// STEP 13
+		assertTextInElement("result_projectName", getMessage("step1.projectName"));
+		assertTextInElement("result_userCode", getMessage("step1.userCode"));
+		assertTextInElement("result_technician", getMessage("step1.technician"));
+		assertTextInElement("result_fieldOffice", getMessage("step1.office"));
+		assertTextInElement("result_status", getMessage("step1.status"));
+		assertTextInElement("result_category", getMessage("step1.projCat"));
+		assertTextInElement("result_benefType", getMessage("step1.benefType"));
+		assertTextInElement("result_enviroCat", getMessage("step1.enviroCat"));
+//		assertTextInElement("result_appConfig1", getMessage(""));
+//		assertTextInElement("result_appConfig2", getMessage(""));
+		assertTextInElement("result_investTotal", getMessage("result.investTotal"));
+		assertTextInElement("result_investOwn", getMessage("result.investOwn"));
+		assertTextInElement("result_investDonated", getMessage("result.investDonate"));
+		assertTextInElement("result_investmentFinanced", getMessage("result.investFinance"));
+		assertTextInElement("result_annualEmployment", getMessage("result.employ"));
+		// ig-only
+		assertTextInElement("result_annualIncome", getMessage("result.income"));
+		assertTextInElement("result_workCapital", getMessage("result.wcTotal"));
+		assertTextInElement("result_wcOwn", getMessage("result.wcOwn"));
+		assertTextInElement("result_wcDonated", getMessage("result.wcDonate"));
+		assertTextInElement("result_wcFinanced", getMessage("result.wcFinance"));
+		assertTextInElement("result_totalCosts", getMessage("result.costTotal"));
+		assertTextInElement("result_totalCostsOwn", getMessage("result.costOwn"));
+		assertTextInElement("result_totalCostsDonated", getMessage("result.costDonate"));
+		assertTextInElement("result_totalCostsFinanced", getMessage("result.costFinance"));
+		assertTextInElement("result_npv", getMessage("result.npvAll"));
+		assertTextInElement("result_irr", getMessage("result.irrAll"));
+		assertTextInElement("result_npvWithDonation", getMessage("result.npvApplicant"));
+		assertTextInElement("result_irrWithDonation", getMessage("result.irrApplicant"));
+		
+// nig-only
+//		assertTextInElement("result_investPerDirect", getMessage("result.investDirect"));
+//		assertTextInElement("result_investPerIndirect", getMessage("result.investIndirect"));
+//		assertTextInElement("result_beneDirect", getMessage("result.benefDirect"));
+//		assertTextInElement("result_beneIndirect", getMessage("result.benefIndirect"));
+		
+		// check indicators on search results screen
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
 		
-		// check indicators
 		Table result = new Table();
 		Row testRow = new Row();
 		testRow.appendCell(getMessage("step1.projectName"));
@@ -1154,16 +1190,31 @@ public class WebTestUtil {
 		// STEP 9
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
+		assertTextInElement("result_profileName", getMessage("step1.profileName"));
+		assertTextInElement("result_technician", getMessage("step1.technician"));
+		assertTextInElement("result_status", getMessage("step1.status"));
+		assertTextInElement("result_office", getMessage("step1.office"));
+		assertTextInElement("result_investTotal", getMessage("result.investTotal"));
+		assertTextInElement("result_investOwn", getMessage("result.investOwn"));
+		assertTextInElement("result_investDonated", getMessage("result.investDonate"));
+		// ig-only
+		assertTextInElement("result_incomeAfterAnnual", getMessage("result.income"));
+		assertTextInElement("result_yearsToRecover", getMessage("result.yearsRecover"));
+		// nig-only
+//		assertTextInElement("result_investPerBenef", getMessage(""));
+//		assertTextInElement("result_costPerBenef", getMessage(""));
+		
+		
+		// check indicators
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
 		
-		// check indicators
 		Table result = new Table();
 		Row testRow = new Row();
 		testRow.appendCell(getMessage("step1.profileName"));
-		testRow.appendCell("test user");
-		testRow.appendCell("Proposal");
-		testRow.appendCell("Generic field office");
+		testRow.appendCell(getMessage("step1.technician"));
+		testRow.appendCell(getMessage("step1.status"));
+		testRow.appendCell(getMessage("step1.office"));
 		testRow.appendCell(getMessage("result.benefs"));
 		testRow.appendCell(getMessage("result.investTotal"));
 		testRow.appendCell(getMessage("result.investOwn"));
