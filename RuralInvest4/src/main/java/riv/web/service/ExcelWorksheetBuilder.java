@@ -300,10 +300,11 @@ public class ExcelWorksheetBuilder {
 		XlsTable[] xlsTables = blockXlsTables(report, incomeGen);
 		Sheet sheet = report.getWorkbook().createSheet();
 		addBlock(block, incomeGen, report, sheet, 0, xlsTables);
+		autoSizeColumns(sheet, 9);
 		return sheet;
 	}
 	
-	public Sheet blocks(ExcelWrapper report, Project project, boolean isWithout) {
+	public void blocks(ExcelWrapper report, Project project, boolean isWithout) {
 		// data
 		int rowNum=0; 
 		
@@ -325,6 +326,7 @@ public class ExcelWorksheetBuilder {
 		
 		Row row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, title, Style.TITLE);
+		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
 		
 		XlsTable[] xlsTables = blockXlsTables(report, project.getIncomeGen());
 		
@@ -336,8 +338,7 @@ public class ExcelWorksheetBuilder {
 			
 			rowNum = addBlock(block, project.getIncomeGen(), report, sheet, rowNum, xlsTables);
 		}
-		
-		return null;
+		autoSizeColumns(sheet, 9);
 	}
 	
 	private XlsTable[] blockXlsTables(ExcelWrapper report, boolean incomeGen) {
@@ -972,7 +973,7 @@ public class ExcelWorksheetBuilder {
 		int rowNum=0;
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_GENERAL));
 
-		sheet.setColumnWidth(1, 75*36);
+		//sheet.setColumnWidth(1, 75*36);
 		sheet.setSelected(true);
 		
 		Row row = sheet.createRow(rowNum++);
@@ -987,14 +988,21 @@ public class ExcelWorksheetBuilder {
 		
 		rowNum=addGeneralCosts(report, true, project, rowNum, sheet, template);
 
-		
 		if (project.isWithWithout()) {
 			rowNum=rowNum+2;
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, translate("projectGeneral.without"), Style.H2);
 			rowNum = addGeneralCosts(report, false, project, rowNum, sheet, template);
 		}
+		
+		autoSizeColumns(sheet, 7);
 		return sheet;
+	}
+	
+	private void autoSizeColumns(Sheet sheet, int cols) {
+		for (short i=0;i<cols;i++) {
+			sheet.autoSizeColumn(i);
+		}
 	}
 	
 	private int addGeneralCosts(ExcelWrapper report, boolean withProject, Project project, int rowNum, Sheet sheet, boolean template) {
@@ -1070,7 +1078,6 @@ public class ExcelWorksheetBuilder {
 				
 		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
 		
-		sheet.setColumnWidth(1, 75*36);
 		sheet.setSelected(!without);
 		
 		Row row = sheet.createRow(rowNum++);
@@ -1176,6 +1183,8 @@ public class ExcelWorksheetBuilder {
 		if (report.isCompleteReport() &! without) {
 			report.addLink(ExcelLink.PROJECT_INVEST_FINANCED, "'"+sheet.getSheetName()+"'!$H$"+rowNum);
 		}
+		
+		autoSizeColumns(sheet, 13);
 		return sheet;
 	}
 
@@ -2483,13 +2492,8 @@ public class ExcelWorksheetBuilder {
 		sheet.setSelected(true);
 		int rowNum=0;
 		int[] firstRows = new int[2];
-		sheet.setColumnWidth(0, 165*36);
 		
 		String chronSheet = "'"+translate(SheetName.PROJECT_CHRONOLOGY)+"'";
-		
-		for (int i = 1; i <= 13; i++) {
-			sheet.setColumnWidth(i, 90*36);
-		}
 		
 		Row row = sheet.createRow(rowNum);
 		report.addTextCell(row, 0, translate("project.report.cashFlowFirst"), Style.TITLE);
@@ -2650,6 +2654,8 @@ public class ExcelWorksheetBuilder {
 		if (report.isCompleteReport()) {
 			report.addLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL, "'"+sheet.getSheetName()+"'!$N$"+rowNum++);
 		}
+		
+		autoSizeColumns(sheet, 15);
 		return sheet;
 	}
 
@@ -2958,7 +2964,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet profileSummary(ExcelWrapper report, Profile profile) {
-		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_SUMMARY));//sheetName(translate("profile.report.summary")));
+		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_SUMMARY));
 
 		Setting setting = rivConfig.getSetting();
 		setColumnWidth(sheet, 0, 300);
@@ -3063,8 +3069,6 @@ public class ExcelWorksheetBuilder {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_INVEST));
 
 		sheet.setSelected(true);
-		setColumnWidth(sheet, 0, 150);
-		setColumnWidth(sheet, 4, 100);
 				
 		int rowNum = 0;
 		
@@ -3074,10 +3078,6 @@ public class ExcelWorksheetBuilder {
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("profileGoods"), Style.H2);
-		setColumnWidth(sheet, 0, 150);
-		for (short col=3; col<=9; col++) {
-			setColumnWidth(sheet, col, 80);
-		}
 		
 		// header
 		String[] colTitles = new String[] 
@@ -3135,13 +3135,13 @@ public class ExcelWorksheetBuilder {
 			report.addLink(ExcelLink.PROFILE_INVEST_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
 		}
 		
+		autoSizeColumns(sheet, 10);
 	}
 
 	public void profileGeneral(ExcelWrapper report, Profile profile, boolean template) {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_GENERAL));
 
 		sheet.setSelected(true);
-		setColumnWidth(sheet, 0, 130);
 		sheet.setDefaultColumnStyle((short)3, report.getStyles().get(Style.CURRENCY));
 		sheet.setDefaultColumnStyle((short)4, report.getStyles().get(Style.CURRENCY));
 
@@ -3180,6 +3180,7 @@ public class ExcelWorksheetBuilder {
 			}
 		}
 		
+		autoSizeColumns(sheet, 5);
 	}
 	
 	protected class XlsTable {
