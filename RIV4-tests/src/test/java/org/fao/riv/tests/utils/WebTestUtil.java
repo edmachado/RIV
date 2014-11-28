@@ -553,6 +553,10 @@ public class WebTestUtil {
 		assertTitleEquals(titles[12]);
 		
 		// STEP 13 
+		
+		//TODO: test indicators
+		
+		
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
 		
@@ -1367,6 +1371,9 @@ public class WebTestUtil {
 		// STEP 9
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
+		
+		//TODO: test indicators
+		
 		rivSubmitForm();
 		assertTitleEquals(resultsTitle);
 		
