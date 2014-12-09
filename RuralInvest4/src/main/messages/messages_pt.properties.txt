@@ -1,4 +1,38 @@
-﻿# Translator: o nome da folha de Excel não pode exceder os 31 carateres
+﻿
+# RIV4.1
+units.year=Ano
+misc.confirm=Confirmar
+projectContribution.copy=Copiar todos os itens para outro ano do projecto.
+projectContribution.copy.title=Copiar
+projectContribution.copy.toYear=Copiar para o ano:
+projectContribution.copy.range=Pode copiar para qualquer ano entre 1 e {0}
+projectContribution.addAll=Adicione em todos os anos do projeto
+projectContribution.yearlyFlow=Resultado líquido anual (incluindo as contribuições realizadas):
+projectContribution.contribType.beneficiary=Beneficiários
+projectContribution.method.simplified=Simplificado
+projectContribution.method.simplified.help=Com o modelo "simplificado" as contribuições são as mesmas para cada ano do projeto.
+projectContribution.method.perYear=Por ano
+projectContribution.method.perYear.help=Com o modelo "Por ano" as contribuições podem diferir para cada ano do projeto.
+projectContribution.method.confirm=Este procedimento copiará ascontribuições do primeiro ano para os restantes anos do projeto. A informação inserida para os restantes anos será perdida. Deseja continuar?
+projectContribution.contributor=Contribuinte
+
+projectBlock.usesCycles=Este bloco considera ciclos de produção.
+projectBlock.usesCycles.help=Este bloco considera ciclos de produção, por exemplo agricultura (toneladas/ha, litros/ano, etc.)
+projectBlock.pattern.noCycles.help=Indique o número de unidades de produção durante o periodo a ser analisado. Frequentemente, o número de unidades (hectare, paciente, comunidade,...) não é o mesmo de um ciclo para o outro
+projectBlock.pattern.noCycles.qty=Número de unidades de produção
+projectActivity.pattern.noCycles.help=Se o número de unidades de atividade muda ao longo do tempo, defina o número de unidades durante periodo do projeto que está sendo analisado (por exemplo, se no caso de uma escola a unidade é estudante, pode ser que se espere que o número de estudantes aumente ao longo do tempo).
+projectActivity.pattern.noCycles.qty=Número de unidade de atividade
+project.report.blockDetail.totalPerUnitNoCycle=Totais por unidade
+
+project.recommendation.seeReports=Para resumos e relatórios úteis durante a avaliação e formulação de recommendações, consulte
+
+# Changed from previous versions
+project.amtRequired.help=A quantidade de capital de trabalho necessária é o valor que cobrirá todos os custos operativos até que as receitas acumuladas o possam fazer. É calculado automaticamente pelo RuralInvest.
+project.period.help=Número de meses nos quais os custos excedem as receitas mais dois meses (nunca excede um ano).
+profile.report.title=Relatórios
+
+
+# Translator: o nome da folha de Excel não pode exceder os 31 carateres
 # e não pode haver duas folhas com o mesmo nome.
 # Por favor verifique que o nome contém menos de 31 caracteres e que não há nenhuma folha com o mesmo nome.
 profile.report.summary.sheetname=Resumo
@@ -567,7 +601,6 @@ profile.report.summary.employment.operation=Custos de funcionamento (por ano)
 profile.report.summary.employment=Emprego criado (equivalente a pessoas/ano)
 profile.report.summary.general=Informação geral
 profile.report.summary=Resumo do anteprojecto
-profile.report.title=Crie o seu próprio relatório
 profile.sharingMessage=Autoriza que outros utilizadores possam modificar este anteprojecto?
 profile.sourceFunds.help=Descreva qualquer fonte de fundos para financiar o funcionamento do investimento realizado (p. ex. salários do pessoal, manutenção, materiais), incluindo o pagamento do serviço pelos utilizadores, a contribuição da comunidade, ajuda do Governo e de ONG
 profile.sourceFunds=Fontes de financiamento
@@ -715,7 +748,6 @@ profileProductLabour=Custos de mão-de-obra
 project.activities.help=Descreva as principais actividades ou elementos do projecto proposto
 project.amtFinanced.help=O montante financiado é igual ao fundo de financiamento necessário, menos qualquer doação ou empréstimo recebido.
 project.amtFinanced=Montante financiado
-project.amtRequired.help=O fundo de funcionamento necessário é calculado automaticamente pelo computador, para cobrir todos os custos de funcionamento até que as receitas sejam suficientes.
 project.amtRequired=Montante necessário
 project.annualEmployment.help=Estimativa do emprego anual (expressa em pessoa/anos) uma vez que a operação do projecto atinja a escala projectada. 
 project.annualEmployment=Emprego anual
@@ -817,7 +849,6 @@ project.npv.rate=Taxa
 project.npv=VAL
 project.organization.help=Descreva como a gestão e o controlo do projecto serão estruturados de forma a assegurar a sua sustentabilidade. Quem tomará as decisões no dia-a-dia? Como é que essa pessoa será supervisionada? Que papel terá o grupo proponente?
 project.organization=Organização e gestão
-project.period.help=A duração do empréstimo para o fundo de funcionamento (que não pode exceder um ano) é calculado automaticamnete pelo computador e é igual ao número de meses nos quais as despesas excedem as receitas, mais dois meses.
 project.period=Duração do empréstimo
 project.projectDescription.help=Descreva sumariamente o objectivo e o propósito principal do projecto
 project.projectDescription=Objectivo do projecto
