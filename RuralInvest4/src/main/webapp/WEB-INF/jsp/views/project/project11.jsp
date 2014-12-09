@@ -37,7 +37,7 @@ function showWcExplain() {
             	</legend>
             	
             	<div class="dataentry">
-            		<label><a href="javascript:showWcExplain();"><img height="11" border="0" width="11" vspace="2" src="/RuralInvest/img/help.gif"> <spring:message code="project.workingCapital.how"/></a></label>
+            		<label><a href="javascript:showWcExplain();"><img height="11" border="0" width="11" vspace="2" src="<%=request.getContextPath()%>/img/help.gif"> <spring:message code="project.workingCapital.how"/></a></label>
 				</div>
            		
             	<tags:dataentry field="wcAmountRequired" labelKey="project.amtRequired" helpText="project.amtRequired.help" calculated="true" currency="true"/>
