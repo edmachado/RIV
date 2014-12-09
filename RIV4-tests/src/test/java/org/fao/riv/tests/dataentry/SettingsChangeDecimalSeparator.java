@@ -29,11 +29,7 @@ public class SettingsChangeDecimalSeparator extends WebTestUtil {
 	
 	@After
     public void close() {
-		// reset settings for other tests
-		deleteAppConfigs();
 		importSettings(ImportFile.Settings20);
-		
-		
 		clickLink("logoff");
 		closeBrowser();
     }

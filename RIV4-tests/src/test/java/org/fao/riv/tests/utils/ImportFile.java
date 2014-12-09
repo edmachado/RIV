@@ -34,6 +34,7 @@ public enum ImportFile {
 	ProjectV31Generic("project/project-ig-3.1-generic.riv"),
 	ProjectV40("project/project-ig-4.0.riv"), 
 	ProjectV41("project/project-ig-4.1.riv"), 
+	ProjectV41NoCycles("project/project-ig-4.1-no-cycles.riv"),
 	ProjectNig16("project/project-nig-1.6.riv"), 
 	ProjectNig40("project/project-nig-4.0.riv"),
 	ProjectNig41("project/project-nig-4.1.riv"),

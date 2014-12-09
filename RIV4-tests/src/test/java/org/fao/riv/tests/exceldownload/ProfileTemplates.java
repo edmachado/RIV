@@ -33,14 +33,8 @@ public class ProfileTemplates extends WebTestUtil {
 	@Before
 	public void before() {
 		login();
-		deletePros(true, true);
-		deletePros(true, false);
-		deletePros(false, true);
-		deletePros(false, false);
 
-	     // Settings20 have right setting for import profile and import project tests
-		deleteAppConfigs();
-		importSettings(ImportFile.Settings20);
+	    importSettings(ImportFile.Settings20);
 	}
 	
 	

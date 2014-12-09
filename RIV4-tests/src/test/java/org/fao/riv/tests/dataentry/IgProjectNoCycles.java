@@ -3,6 +3,7 @@ package org.fao.riv.tests.dataentry;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
 
+import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -29,10 +30,10 @@ public class IgProjectNoCycles extends WebTestUtil {
 		closeBrowser();
    }
 	
-	@Ignore @Test
+	@Test
 	public void noCycles() {
-		//TODO: implement
-		org.junit.Assert.assertTrue(false);
+		importProject(ImportFile.ProjectV41NoCycles, "igpj", false, false, "Цех по производству мелкотоварных молочных продуктов");
+		
 	}
 	
 

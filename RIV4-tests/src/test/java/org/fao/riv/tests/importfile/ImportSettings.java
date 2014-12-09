@@ -26,7 +26,6 @@ public class ImportSettings extends WebTestUtil {
 	@After
     public void close() {
 		// Settings20 have right setting for import profile and import project tests
-		deleteAppConfigs();
 		importSettings(ImportFile.Settings20);
 		clickLink("logoff");
         closeBrowser();

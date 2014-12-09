@@ -35,18 +35,13 @@ public class Settings extends WebTestUtil {
 	public void deleteExisting() {
 		login();
 		// remove existing profiles, projects and settings
-		deletePros(false, true);
-		deletePros(false, false);
-		deletePros(true, true);
-		deletePros(true, false);
-		deleteAppConfigs();
+		reset();
 	}
 	
 	@After
     public void close() {
 
 		// reset settings for other tests
-		deleteAppConfigs();
 		importSettings(ImportFile.Settings20);
 		
 		

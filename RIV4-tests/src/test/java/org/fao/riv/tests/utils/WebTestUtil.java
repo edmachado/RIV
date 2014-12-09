@@ -160,8 +160,12 @@ public class WebTestUtil {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("search.searchResults"));
 	}
 	
-	public void deleteAppConfigs() {
-		gotoPage(getTestingEngine().getPageURL().toString().replace("/home", "/help/deleteAllAppConfigs"));
+	public void reset() {
+		clickLink("gotoSettings");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config"));
+		assertLinkPresent("reset");
+		clickLink("reset");	
+//		gotoPage(getTestingEngine().getPageURL().toString().replace("/home", "/help/deleteAllAppConfigs"));
 	}
 	
 	public void deletePros(boolean project, boolean incGen) {
@@ -250,11 +254,8 @@ public class WebTestUtil {
 		System.out.println("importing "+file.toString());
 		login();
 		
-		deletePros(false, true);
-		deletePros(false, false);
-		deletePros(true, true);
-		deletePros(true, false);
-		deleteAppConfigs();
+		// remove existing profiles, projects and AppConfigs
+		reset();
 		
     	clickLink("gotoImportSettings");
     	assertTitleEquals(getMessage("ruralInvest")+" :: Import");

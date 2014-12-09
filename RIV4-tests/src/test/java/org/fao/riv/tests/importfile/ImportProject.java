@@ -62,6 +62,12 @@ public class ImportProject extends WebTestUtil {
 	}
 	
 	@Test
+	public void importProjectIg41NoCycles() {
+		importProject(ImportFile.ProjectV41NoCycles, "igpj", false, false, "Цех по производству мелкотоварных молочных продуктов");
+		
+	}
+	
+	@Test
 	public void importProjectIg40() throws URISyntaxException, IOException {
 		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
 		clickLinkWithImage("edit.png");
@@ -78,7 +84,7 @@ public class ImportProject extends WebTestUtil {
 		saveAs(f);
 		assertTrue(isZipFile(f));
 		
-		// delete existing profile
+		// delete existing project
 		gotoPage(pageUrl);
 		assertLinkPresentWithImage("delete.gif");
 		clickLinkWithImage("delete.gif");
