@@ -321,10 +321,9 @@ public class ProjectController {
 			model.addAttribute("firstYear", pfy.getCumulative());
 			p.setWcFinancePeriod(period);
 			p.setWcAmountRequired(new BigDecimal(amount));	
-		}
-		if (step==13) {
-//			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
-//			model.addAttribute("result",null	);//
+		} else if (step==13 &! p.getIncomeGen()) {
+			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
+			model.addAttribute("result",pr);
 			
 		}
 	}
