@@ -8,6 +8,7 @@ import javax.persistence.Column;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * Asset cost associated to a Project
@@ -119,11 +120,12 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	        this.replace = Replace;
 	    }
 	   
-	   public String testingProperties(CurrencyFormatter cf) {
+	   public String testingProperties(RivConfig rivConfig) {
+		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
-		   sb.append("step7.asset."+(this.getOrderBy()+1)+".unitNum="+unitNum+System.lineSeparator());
+		   sb.append("step7.asset."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+System.lineSeparator());
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(ownResources, CurrencyFormat.ALL)+System.lineSeparator());

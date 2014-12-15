@@ -22,7 +22,7 @@ import riv.objects.LinkedToable;
 import riv.objects.OrderByable;
 import riv.objects.Probase;
 import riv.objects.reference.ReferenceItem;
-import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * Superclass for Incomes and Costs associated with a project block.
@@ -62,7 +62,7 @@ public abstract class BlockItem  implements Serializable, OrderByable, LinkedToa
 	}
 	
 
-    public abstract String testingProperties(CurrencyFormatter cf);
+    public abstract String testingProperties(RivConfig rc);
 
 	// Property accessors
 

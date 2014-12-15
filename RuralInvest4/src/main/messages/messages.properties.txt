@@ -1,9 +1,10 @@
 ### NEW TEXT IN RIV4.1 B
 
 projectContribution.contributor.help=Help text for contributor
+projectContribution.yearlyFlow.help=Help text for "net yearly balance"
 
-project.workingCapital.how=How is working capital estimated?
-project.workingCapital.explain=Working capital is determined by the cumulative monthly cash flow for the first year. 
+project.workingCapital.how=How is first year working capital estimated?
+project.workingCapital.explain=Working capital for the first year is determined by the cumulative monthly cash flow for the first year. 
 project.amtRequired.explain=The largest negative value
 
 project.report.wcCalculation=Working Capital calculation

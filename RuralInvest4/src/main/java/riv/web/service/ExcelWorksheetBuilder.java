@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -1533,7 +1532,7 @@ public class ExcelWorksheetBuilder {
 		String[] header = new String[]{"projectContribution.description","projectContribution.contribType","projectContribution.unitType","projectContribution.unitNum","projectContribution.unitCost","projectContribution.totalCost"};
 		XlsTable table = new XlsTable(report, header)
 		.addColumn(XlsColumnType.TEXT, "getDescription", false)
-		.addSelectColumnIntBased("getContribType", contribTypes())
+		.addSelectColumnIntBased("getContribType", rivConfig.getContribTypes())
 		.addColumn(XlsColumnType.TEXT, "getContributor", false)
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
@@ -2715,13 +2714,8 @@ public class ExcelWorksheetBuilder {
 	}
 
 	
-	private HashMap<Integer, String> lengthUnits() {
-		HashMap<Integer, String> lengthUnits = new HashMap<Integer, String>();
-		lengthUnits.put(0, translate("units.months"));
-		lengthUnits.put(1, translate("units.weeks"));
-		lengthUnits.put(2, translate("units.days.calendar"));
-		lengthUnits.put(3, translate("units.days.week"));
-		return lengthUnits;
+	private Map<Integer, String> lengthUnits() {
+		return rivConfig.getLengthUnits();
 	}
 	
 	public ArrayList<String> months(MessageSource messages, Project project) {
@@ -2733,18 +2727,6 @@ public class ExcelWorksheetBuilder {
 			months.add(monthName);
 		}
 		return months;
-	}
-
-	
-	private HashMap<Integer, String> contribTypes() {
-		HashMap<Integer, String> contribTypes = new HashMap<Integer, String>();
-		contribTypes.put(0, translate("projectContribution.contribType.govtCentral"));
-		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
-		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal"));
-		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
-		contribTypes.put(5, translate("projectContribution.contribType.beneficiary"));
-		contribTypes.put(4, translate("projectContribution.contribType.other"));
-		return contribTypes;
 	}
 	
 	private void setColumnWidth(Sheet sheet, int col, int size) {
@@ -3725,13 +3707,8 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 
-	   private HashMap<String, String> labourTypes(){
-			HashMap<String, String>labourTypes=new HashMap<String, String>();
-			labourTypes.put("0", translate("units.pyears"));
-			labourTypes.put("1", translate("units.pmonths"));
-			labourTypes.put("2", translate("units.pweeks"));
-			labourTypes.put("3", translate("units.pdays"));
-			return labourTypes;
+	   private Map<String, String> labourTypes(){
+			return rivConfig.getLabourTypes();
 		}
 	   
 //	    private void copyRow(Sheet worksheet, int sourceRowNum, int destinationRowNum) {

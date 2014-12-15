@@ -51,6 +51,7 @@ import riv.objects.reference.ReferenceLabour;
 import riv.util.Calculator;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * A RuralInvest Project
@@ -1441,7 +1442,8 @@ public double getInvestmentTotal() {
 	 * @return the properties file
 	 */
 	@SuppressWarnings("deprecation")
-	public String testFile(CurrencyFormatter cf) {
+	public String testFile(RivConfig rivConfig) {
+		CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		StringBuilder sb = new StringBuilder();
 		sb.append("step1.projectName="+projectName+System.lineSeparator());
 		sb.append("step1.userCode="+userCode+System.lineSeparator());
@@ -1490,6 +1492,7 @@ public double getInvestmentTotal() {
 		sb.append("step4.requirements="+requirements.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append("step5.enviroImpact="+enviroImpact.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append("step5.market="+market.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step5.sustainability="+sustainability.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append("step6.organization="+organization.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append("step6.assumptions="+assumptions.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append(System.lineSeparator());
@@ -1500,7 +1503,7 @@ public double getInvestmentTotal() {
 			own+=i.getOwnResources();
 			donated+=i.getDonated();
 			financed+=i.getFinanced();
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append("step7.asset.Sum.description="+System.lineSeparator());
 		sb.append("step7.asset.Sum.unitType="+System.lineSeparator());
@@ -1522,7 +1525,7 @@ public double getInvestmentTotal() {
 			own+=i.getOwnResources();
 			donated+=i.getDonated();
 			financed+=i.getFinanced();
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append("step7.assetWo.Sum.description="+System.lineSeparator());
 		sb.append("step7.assetWo.Sum.unitType="+System.lineSeparator());
@@ -1545,7 +1548,7 @@ public double getInvestmentTotal() {
 			own+=i.getOwnResources();
 			donated+=i.getDonated();
 			financed+=i.getFinanced();
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append("step7.labour.Sum.description="+System.lineSeparator());
 		sb.append("step7.labour.Sum.unitType="+System.lineSeparator());
@@ -1564,7 +1567,7 @@ public double getInvestmentTotal() {
 			own+=i.getOwnResources();
 			donated+=i.getDonated();
 			financed+=i.getFinanced();
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append("step7.labourWo.Sum.description="+System.lineSeparator());
 		sb.append("step7.labourWo.Sum.unitType="+System.lineSeparator());
@@ -1583,7 +1586,7 @@ public double getInvestmentTotal() {
 			own+=i.getOwnResources();
 			donated+=i.getDonated();
 			financed+=i.getFinanced();
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append("step7.service.Sum.description="+System.lineSeparator());
 		sb.append("step7.service.Sum.unitType="+System.lineSeparator());
@@ -1596,12 +1599,13 @@ public double getInvestmentTotal() {
 		sb.append("step7.service.Sum.yearBegin="+System.lineSeparator());
 		sb.append(System.lineSeparator());
 		
+		total=0; own=0; donated=0; financed=0;
 		for (ProjectItemServiceWithout i : servicesWithout) {
 			total+=i.getTotal();
 			own+=i.getOwnResources();
 			donated+=i.getDonated();
 			financed+=i.getFinanced();
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append("step7.serviceWo.Sum.description="+System.lineSeparator());
 		sb.append("step7.serviceWo.Sum.unitType="+System.lineSeparator());
@@ -1620,7 +1624,7 @@ public double getInvestmentTotal() {
 				total+=i.getTotal();
 				own+=i.getOwnResources();
 				donated+=i.getExternal();
-				sb.append(i.testingProperties(cf));
+				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.supply.Sum.description="+System.lineSeparator());
 			sb.append("step8.supply.Sum.unitType="+System.lineSeparator());
@@ -1636,7 +1640,7 @@ public double getInvestmentTotal() {
 				total+=i.getTotal();
 				own+=i.getOwnResources();
 				donated+=i.getExternal();
-				sb.append(i.testingProperties(cf));
+				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.supplyWo.Sum.description="+System.lineSeparator());
 			sb.append("step8.supplyWo.Sum.unitType="+System.lineSeparator());
@@ -1652,7 +1656,7 @@ public double getInvestmentTotal() {
 				total+=i.getTotal();
 				own+=i.getOwnResources();
 				donated+=i.getExternal();
-				sb.append(i.testingProperties(cf));
+				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.personnel.Sum.description="+System.lineSeparator());
 			sb.append("step8.personnel.Sum.unitType="+System.lineSeparator());
@@ -1668,7 +1672,7 @@ public double getInvestmentTotal() {
 				total+=i.getTotal();
 				own+=i.getOwnResources();
 				donated+=i.getExternal();
-				sb.append(i.testingProperties(cf));
+				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.personnelWo.Sum.description="+System.lineSeparator());
 			sb.append("step8.personnelWo.Sum.unitType="+System.lineSeparator());
@@ -1678,72 +1682,138 @@ public double getInvestmentTotal() {
 			sb.append("step8.personnelWo.Sum.ownResources="+cf.formatCurrency(own, CurrencyFormat.ALL)+System.lineSeparator());
 			sb.append("step8.personnelWo.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+System.lineSeparator());
 			sb.append(System.lineSeparator());
-			
 		} else  {
+			double state; double other;
+			total=0;own=0;state=0;other=0;
 			for (ProjectItemNongenLabour i : nongenLabours) {
-				sb.append(i.testingProperties(cf));
+				total+=i.getTotal();
+				own+=i.getOwnResource();
+				state+=i.getStatePublic();
+				other+=i.getOther1();
+				sb.append(i.testingProperties(rivConfig));
 			}
+			sb.append("step8.labourSum.description="+System.lineSeparator());
+			sb.append("step8.labourSum.unitType="+System.lineSeparator());
+			sb.append("step8.labourSum.unitNum="+System.lineSeparator());
+			sb.append("step8.labourSum.unitCost="+System.lineSeparator());
+			sb.append("step8.labourSum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.labourSum.statePublic="+cf.formatCurrency(state, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.labourSum.other1="+cf.formatCurrency(other, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.labourSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+System.lineSeparator());
 			sb.append(System.lineSeparator());
+			
+			total=0;own=0;state=0;other=0;
 			for (ProjectItemNongenMaintenance i : nongenMaintenance) {
-				sb.append(i.testingProperties(cf));
+				total+=i.getTotal();
+				own+=i.getOwnResource();
+				state+=i.getStatePublic();
+				other+=i.getOther1();
+				sb.append(i.testingProperties(rivConfig));
 			}
+			sb.append("step8.generalSum.description="+System.lineSeparator());
+			sb.append("step8.generalSum.unitType="+System.lineSeparator());
+			sb.append("step8.generalSum.unitNum="+System.lineSeparator());
+			sb.append("step8.generalSum.unitCost="+System.lineSeparator());
+			sb.append("step8.generalSum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.generalSum.statePublic="+cf.formatCurrency(state, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.generalSum.other1="+cf.formatCurrency(other, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.generalSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+System.lineSeparator());
 			sb.append(System.lineSeparator());
+			
+			total=0;own=0;state=0;other=0;
 			for (ProjectItemNongenMaterials i : nongenMaterials) {
-				sb.append(i.testingProperties(cf));
+				total+=i.getTotal();
+				own+=i.getOwnResource();
+				state+=i.getStatePublic();
+				other+=i.getOther1();
+				sb.append(i.testingProperties(rivConfig));
 			}
+			sb.append("step8.inputSum.description="+System.lineSeparator());
+			sb.append("step8.inputSum.unitType="+System.lineSeparator());
+			sb.append("step8.inputSum.unitNum="+System.lineSeparator());
+			sb.append("step8.inputSum.unitCost="+System.lineSeparator());
+			sb.append("step8.inputSum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.inputSum.statePublic="+cf.formatCurrency(state, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.inputSum.other1="+cf.formatCurrency(other, CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("step8.inputSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+System.lineSeparator());
 			sb.append(System.lineSeparator());
 		}
 		
 		for (Block b : blocks) {
-			sb.append(b.testingProperties(cf));
+			sb.append(b.testingProperties(rivConfig));
 		}
 		for (BlockWithout b : blocksWithout) {
-			sb.append(b.testingProperties(cf));
+			sb.append(b.testingProperties(rivConfig));
 		}
 		
 		for (ReferenceIncome i : refIncomes) {
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append(System.lineSeparator());
 		
 		for (ReferenceCost i : refCosts) {
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append(System.lineSeparator());
 		
 		for (ReferenceLabour i : refLabours) {
-			sb.append(i.testingProperties(cf));
+			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append(System.lineSeparator());
 		
-		sb.append("step11.loan1amt="+this.getLoan1Amt()+System.lineSeparator());
-		sb.append("step11.loan1Interest="+loan1Interest+System.lineSeparator());
-		sb.append("step11.loan1Duration="+loan1Duration+System.lineSeparator());
-		sb.append("step11.loan1GraceCapital="+loan1GraceCapital+System.lineSeparator());
-		sb.append("step11.loan1GraceInterest="+loan1GraceInterest+System.lineSeparator());
-		sb.append("step11.loan2Amt="+loan2Amt+System.lineSeparator());
-		sb.append("step11.loan2Interest="+loan2Interest+System.lineSeparator());
-		sb.append("step11.loan2Duration="+loan2Duration+System.lineSeparator());
-		sb.append("step11.loan2GraceCapital="+loan2GraceCapital+System.lineSeparator());
-		sb.append("step11.loan2GraceInterest="+loan2GraceInterest+System.lineSeparator());
-		sb.append("step11.loan2InitPeriod="+loan2InitPeriod+System.lineSeparator());
+		if (incomeGen) {
+			sb.append("step11.loan1amt="+this.getLoan1Amt()+System.lineSeparator());
+			sb.append("step11.loan1Interest="+loan1Interest+System.lineSeparator());
+			sb.append("step11.loan1Duration="+loan1Duration+System.lineSeparator());
+			sb.append("step11.loan1GraceCapital="+loan1GraceCapital+System.lineSeparator());
+			sb.append("step11.loan1GraceInterest="+loan1GraceInterest+System.lineSeparator());
+			sb.append("step11.loan2Amt="+loan2Amt+System.lineSeparator());
+			sb.append("step11.loan2Interest="+loan2Interest+System.lineSeparator());
+			sb.append("step11.loan2Duration="+loan2Duration+System.lineSeparator());
+			sb.append("step11.loan2GraceCapital="+loan2GraceCapital+System.lineSeparator());
+			sb.append("step11.loan2GraceInterest="+loan2GraceInterest+System.lineSeparator());
+			sb.append("step11.loan2InitPeriod="+loan2InitPeriod+System.lineSeparator());
+			
+//			ProjectFirstYear pfy = new ProjectFirstYear(this);
+//			double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
+//			sb.append("step11.period="+pfyResults[0]+System.lineSeparator());
+//			sb.append("step11.amtRequired="+(-1*pfyResults[1])+System.lineSeparator());
+			sb.append("step11.period="+this.getWcFinancePeriod()+System.lineSeparator());
+			sb.append("step11.amtRequired="+this.getWcAmountRequired()+System.lineSeparator());
+			sb.append("step11.amtFinanced="+this.getWcAmountFinanced()+System.lineSeparator());
+			
+			
+			sb.append("step11.capitalInterest="+capitalInterest+System.lineSeparator());
+			sb.append("step11.capitalDonate="+capitalDonate+System.lineSeparator());
+			sb.append("step11.capitalOwn="+capitalOwn+System.lineSeparator());
+		} else {
+			boolean simple = this.perYearContributions?false:true;
+			sb.append("step10.simple="+(simple?"true":"false")+System.lineSeparator());
+			for (int y=1;y<=duration;y++) {
+				total=0;
+				for (ProjectItemContribution i : contributions) {
+					if (i.getYear()==y) {
+						total+=i.getTotal();
+						sb.append(i.testingProperties(rivConfig));
+					}
+				}
+				sb.append("step10.year."+y+".contribution.Sum.description="+System.lineSeparator());
+				sb.append("step10.year."+y+".contribution.Sum.contribType="+System.lineSeparator());
+				sb.append("step10.year."+y+".contribution.Sum.contributor="+System.lineSeparator());
+				sb.append("step10.year."+y+".contribution.Sum.unitType="+System.lineSeparator());
+				sb.append("step10.year."+y+".contribution.Sum.unitNum="+System.lineSeparator());
+				sb.append("step10.year."+y+".contribution.Sum.unitCost="+System.lineSeparator());
+				sb.append("step10.year."+y+".contribution.Sum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+System.lineSeparator());
+				sb.append(System.lineSeparator());
+				if (simple) { break; } // only year 1 in simple
+			}
+		}
 		
-//		ProjectFirstYear pfy = new ProjectFirstYear(this);
-//		double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-//		sb.append("step11.period="+pfyResults[0]+System.lineSeparator());
-//		sb.append("step11.amtRequired="+(-1*pfyResults[1])+System.lineSeparator());
-		sb.append("step11.period="+this.getWcFinancePeriod()+System.lineSeparator());
-		sb.append("step11.amtRequired="+this.getWcAmountRequired()+System.lineSeparator());
-		sb.append("step11.amtFinanced="+this.getWcAmountFinanced()+System.lineSeparator());
 		
-		
-		sb.append("step11.capitalInterest="+capitalInterest+System.lineSeparator());
-		sb.append("step11.capitalDonate="+capitalDonate+System.lineSeparator());
-		sb.append("step11.capitalOwn="+capitalOwn+System.lineSeparator());
 		
 		sb.append("step12.reccCode="+reccCode+System.lineSeparator());
 		sb.append("step12.reccDesc="+reccDesc.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
-		sb.append("step12.reccDate="+reccDate.getDate()+"/"+reccDate.getMonth()+"/"+reccDate.getYear()+"/"+System.lineSeparator());
+		sb.append("step12.reccDate="+reccDate.getDate()+"/"+(reccDate.getMonth()+1)+"/"+(reccDate.getYear()+1900)+"/"+System.lineSeparator());
 		
 		return sb.toString();
 	}

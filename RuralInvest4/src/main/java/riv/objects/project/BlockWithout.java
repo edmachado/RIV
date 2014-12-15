@@ -31,7 +31,7 @@ public class BlockWithout extends BlockBase {
 	
 	@Override
 	public String getPropertiesType() {
-		return "block";
+		return "blockWo";
 	}
 
 	@Override

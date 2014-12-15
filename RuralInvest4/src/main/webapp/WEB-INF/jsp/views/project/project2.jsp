@@ -29,7 +29,7 @@
 		<tags:dataentry field="beneIndirectNum" labelKey="project.benefFamilies"/>
 	</fieldset>	
 	
-	<tags:textbox field="benefDesc" multiline="true" helpText="project.benefDesc.help" helpTitle="project.benefDesc">i. <spring:message code="project.benefDesc"/></tags:textbox>
+	<tags:textbox field="benefDesc" multiline="true" helpText="project.benefDesc.help" helpTitle="project.benefDesc">iv. <spring:message code="project.benefDesc"/></tags:textbox>
 	
 	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step3"/></tags:submit>

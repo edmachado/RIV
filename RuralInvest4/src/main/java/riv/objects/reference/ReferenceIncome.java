@@ -10,6 +10,7 @@ import riv.objects.project.*;
 import riv.objects.profile.*;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * An input item
@@ -74,14 +75,17 @@ public class ReferenceIncome extends ReferenceItem {
     	return project == null ? profile : project;
 	}  
 	
-	public String testingProperties(CurrencyFormatter cf) {
+	public String testingProperties(RivConfig rc) {
+		CurrencyFormatter cf = rc.getSetting().getCurrencyFormatter();
 		StringBuilder sb = new StringBuilder();
-		String base="step10.income."+(this.getOrderBy()+1)+".";
+		String base="step"+(this.getProbase().getIncomeGen()?"10":"11")+".income."+(this.getOrderBy()+1)+".";
 		sb.append(base+"description="+this.getDescription()+System.lineSeparator());
 		sb.append(base+"unitType="+this.getUnitType()+System.lineSeparator());
 		sb.append(base+"unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
 		if (transport!=null) {
 			sb.append(base+"transport="+cf.formatCurrency(this.getTransport(), CurrencyFormat.ALL)+System.lineSeparator());
+		} else {
+			sb.append(base+"transport="+System.lineSeparator());
 		}
 		return sb.toString();
 	}

@@ -29,6 +29,7 @@ import riv.objects.OrderByable;
 import riv.objects.ProductOrBlock;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * A production block (income-generating) or activity (non-income-generating) of a Project.
@@ -91,27 +92,29 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     }
     
     public abstract String getPropertiesType();
-    public String testingProperties(CurrencyFormatter cf) {
+    public String testingProperties(RivConfig rc) {
+    	CurrencyFormatter cf=rc.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
-		   
-		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".description="+this.getDescription()+System.lineSeparator());
-		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".unitType="+this.getUnitType()+System.lineSeparator());
-		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cycleLength="+this.getCycleLength()+System.lineSeparator());
-		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".lengthUnit="+this.getLengthUnit()+System.lineSeparator());
-		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cyclePerYear="+this.getCyclePerYear()+System.lineSeparator());
-		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cycleFirstYear="+this.getCycleFirstYear()+System.lineSeparator());
-		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cycleFirstYearIncome="+this.getCycleFirstYearIncome()+System.lineSeparator());
+		   String base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".";
+		   sb.append(base+"description="+this.getDescription()+System.lineSeparator());
+//		   sb.append(base+"withoutProject="+(this.getClass().isAssignableFrom(BlockWithout.class)?"true":"false")+System.lineSeparator());
+		   sb.append(base+"unitType="+this.getUnitType()+System.lineSeparator());
+		   sb.append(base+"cycleLength="+rc.getSetting().getDecimalFormat().format(this.getCycleLength())+System.lineSeparator());
+		   sb.append(base+"lengthUnit="+rc.getLengthUnits().get(this.getLengthUnit())+System.lineSeparator());
+		   sb.append(base+"cyclePerYear="+this.getCyclePerYear()+System.lineSeparator());
+		   sb.append(base+"cycleFirstYear="+this.getCycleFirstYear()+System.lineSeparator());
+		   sb.append(base+"cycleFirstYearIncome="+this.getCycleFirstYearIncome()+System.lineSeparator());
 		   
 		   for (int type=0;type<3;type++) {
-			   for (int month=1;month<=12;month++) {
+			   for (int month=0;month<12;month++) {
 				   for (int half=0;half<=1;half++) {
 					   String key=type+"-"+month+"-"+half;
-					   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".ch"+key+"="+(this.getChrons().containsKey(key)?"true":"false")+System.lineSeparator());
+					   sb.append(base+"ch"+key+"="+(this.getChrons().containsKey(key)?"true":"false")+System.lineSeparator());
 				   }
 			   }
 		   }
 		   for (int i=1;i<=getProject().getDuration();i++) {
-			   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".pat"+i+"="+(this.getPatterns().containsKey(i)?"true":"false")+System.lineSeparator());
+			   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".pat"+i+"="+rc.getSetting().getDecimalFormat().format(this.getPatterns().get(i).getQty())+System.lineSeparator());
 		   }
 		   
 		   Double total=0.0;
@@ -119,9 +122,9 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   for (BlockIncome i : this.getIncomes()) {
 			   total+=i.getTotal().doubleValue();
 			   totalCash+=i.getTotalCash().doubleValue();
-			   sb.append(i.testingProperties(cf));
+			   sb.append(i.testingProperties(rc));
 		   }
-		   String base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".income.Sum.";
+		   base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".income.Sum.";
 		   sb.append(base+"description="+System.lineSeparator());
 		   sb.append(base+"unitType="+System.lineSeparator());
 		   sb.append(base+"unitNum="+System.lineSeparator());
@@ -137,9 +140,9 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   for (BlockInput i : this.getInputs()) {
 			   total+=i.getTotal().doubleValue();
 			   totalCash+=i.getTotalCash().doubleValue();
-			   sb.append(i.testingProperties(cf));
+			   sb.append(i.testingProperties(rc));
 		   }
-		   base="step9.block."+(this.getOrderBy()+1)+".input.Sum.";
+		   base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".input.Sum.";
 		   sb.append(base+"description="+System.lineSeparator());
 		   sb.append(base+"unitType="+System.lineSeparator());
 		   sb.append(base+"unitNum="+System.lineSeparator());
@@ -155,9 +158,9 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   for (BlockLabour i : this.getLabours()) {
 			   total+=i.getTotal().doubleValue();
 			   totalCash+=i.getTotalCash().doubleValue();
-			   sb.append(i.testingProperties(cf));
+			   sb.append(i.testingProperties(rc));
 		   }
-		   base="step9.block."+(this.getOrderBy()+1)+".labour.Sum.";
+		   base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".labour.Sum.";
 		   sb.append(base+"description="+System.lineSeparator());
 		   sb.append(base+"unitType="+System.lineSeparator());
 		   sb.append(base+"unitNum="+System.lineSeparator());

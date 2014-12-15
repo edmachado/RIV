@@ -10,6 +10,7 @@ import riv.objects.profile.Profile;
 import riv.objects.project.Project;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * A labour item
@@ -58,11 +59,13 @@ public class ReferenceLabour extends ReferenceItem {
 		return project == null ? profile : project;
 	}  
 	
-	public String testingProperties(CurrencyFormatter cf) {
+	public String testingProperties(RivConfig rc) {
+		CurrencyFormatter cf = rc.getSetting().getCurrencyFormatter();
 		StringBuilder sb = new StringBuilder();
-		sb.append("step10.labour."+(this.getOrderBy()+1)+".description="+this.getDescription()+System.lineSeparator());
-		sb.append("step10.labour."+(this.getOrderBy()+1)+".unitType="+this.getUnitType()+System.lineSeparator());
-		sb.append("step10.labour."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
+		String base="step"+(this.getProbase().getIncomeGen()?"10":"11")+".labour."+(this.getOrderBy()+1)+".";
+		sb.append(base+"description="+this.getDescription()+System.lineSeparator());
+		sb.append(base+"unitType="+rc.getLabourTypes().get(this.getUnitType())+System.lineSeparator());
+		sb.append(base+"unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
 		return sb.toString();
 	}
 		

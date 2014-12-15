@@ -1,5 +1,6 @@
 package riv.web.controller;
  
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.safehaus.uuid.UUIDGenerator;
@@ -36,6 +38,7 @@ import riv.objects.config.Beneficiary;
 import riv.objects.config.EnviroCategory;
 import riv.objects.config.FieldOffice;
 import riv.objects.config.ProjectCategory;
+import riv.objects.config.Setting;
 import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Project;
@@ -43,6 +46,7 @@ import riv.objects.project.ProjectFinanceNongen;
 import riv.objects.project.ProjectFirstYear;
 import riv.objects.project.ProjectResult;
 import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
 import riv.util.validators.ProjectValidator;
 import riv.web.config.RivConfig;
 import riv.web.editors.AppConfigEditor;
@@ -65,6 +69,46 @@ public class ProjectController {
 	FilterCriteria filter;
 	@Autowired
 	AttachTools attachTools;
+	
+	@RequestMapping(value="/step{step}/{id}/project.properties", method=RequestMethod.GET)
+	public void projectRivExport(@PathVariable int step, @PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Project p = dataService.getProject(id, -1);
+		response.setHeader("Content-disposition", "attachment; filename=project.properties");
+		Setting setting = ((RivConfig)request.getAttribute("rivConfig")).getSetting();
+		CurrencyFormatter cf = setting.getCurrencyFormatter();
+		byte[] output = p.testFile(rivConfig).getBytes("UTF8");
+		response.getOutputStream().write(output);
+		
+		ProjectResult pr = p.getProjectResult(setting);
+		StringBuilder sb = new StringBuilder();
+		sb.append("investTotal="+cf.formatCurrency(pr.getInvestmentTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("investOwn="+cf.formatCurrency(pr.getInvestmentOwn(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("investDonate="+cf.formatCurrency(pr.getInvestmentDonated(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("investFinance="+cf.formatCurrency(pr.getInvestmentFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("employ="+cf.formatCurrency(pr.getAnnualEmployment(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("income="+cf.formatCurrency(pr.getAnnualNetIncome(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("wcTotal="+cf.formatCurrency(pr.getWorkingCapital(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("wcOwn="+cf.formatCurrency(pr.getWcOwn(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("wcDonate="+cf.formatCurrency(pr.getWcDonated(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("wcFinance="+cf.formatCurrency(pr.getWcFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("costTotal="+cf.formatCurrency(pr.getTotalCosts(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("costOwn="+cf.formatCurrency(pr.getTotalCostsOwn(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("costDonate="+cf.formatCurrency(pr.getTotalCostsDonated(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("costFinance="+cf.formatCurrency(pr.getTotalCostsFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
+		if (p.getIncomeGen()) { 
+			sb.append("npvAll="+cf.formatCurrency(pr.getNpv(), CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("irrAll="+((pr.getIrr().doubleValue()>1000 || pr.getIrr().doubleValue()<-1000)?"Undefined":pr.getIrr())+System.lineSeparator());
+			sb.append("npvApplicant="+cf.formatCurrency(pr.getNpvWithDonation(), CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("irrApplicant="+((pr.getIrrWithDonation().doubleValue()>1000 || pr.getIrrWithDonation().doubleValue()<-1000)?"Undefined":pr.getIrrWithDonation())+System.lineSeparator());
+		} else {
+			sb.append("investDirect="+cf.formatCurrency(pr.getInvestPerBenefDirect(), CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("investIndirect="+cf.formatCurrency(pr.getInvestPerBenefIndirect(), CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append("benefDirect="+pr.getBeneDirect()+System.lineSeparator());
+			sb.append("benefIndirect="+pr.getBeneIndirect()+System.lineSeparator());
+		}
+		output = sb.toString().getBytes("UTF8");
+		response.getOutputStream().write(output);
+	}
 	
 	@InitBinder("project")
 	protected void initBinder(WebDataBinder binder, @PathVariable Integer step, HttpServletRequest request) {

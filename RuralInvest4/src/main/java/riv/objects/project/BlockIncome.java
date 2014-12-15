@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * An income or user charge associated with a project block.
@@ -53,23 +54,28 @@ public class BlockIncome extends BlockItem {
 	}
 	public BigDecimal getTotalCash() {
 		if (this.getUnitNum()==null) return new BigDecimal(0);
-		return (this.transport==null) 
-			? this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost())
-			: this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost().subtract(this.transport));
+		if (this.block.getProject().getIncomeGen()) {
+			return this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost().subtract(this.transport));
+		} else {
+			return this.getUnitNum().multiply(this.getUnitCost());
+		}
 	}
 	
-	public String testingProperties(CurrencyFormatter cf) {
+	public String testingProperties(RivConfig rc) {
+		CurrencyFormatter cf=rc.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
 		   String base="step9."+this.getBlock().getPropertiesType()+"."+(this.getBlock().getOrderBy()+1)+".income."+(this.getOrderBy()+1)+".";
 		   sb.append(base+"description="+this.getDescription()+System.lineSeparator());
 		   sb.append(base+"unitType="+this.getUnitType()+System.lineSeparator());
-		   sb.append(base+"unitNum="+cf.formatCurrency(unitNum, CurrencyFormat.INTEGER)+System.lineSeparator());
-		   sb.append(base+"qtyIntern="+cf.formatCurrency(qtyIntern, CurrencyFormat.INTEGER)+System.lineSeparator());
-		   sb.append(base+"qtyExtern="+cf.formatCurrency(this.getExtern(), CurrencyFormat.INTEGER)+System.lineSeparator());
+		   sb.append(base+"unitNum="+rc.getSetting().getDecimalFormat().format(unitNum)+System.lineSeparator());
 		   sb.append(base+"unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append(base+"transport="+cf.formatCurrency(transport, CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append(base+"total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append(base+"totalCash="+cf.formatCurrency(getTotalCash(), CurrencyFormat.ALL)+System.lineSeparator());
+		   if (block.getProject().getIncomeGen()) {
+			   sb.append(base+"qtyIntern="+rc.getSetting().getDecimalFormat().format(qtyIntern)+System.lineSeparator());
+			   sb.append(base+"qtyExtern="+rc.getSetting().getDecimalFormat().format(this.getExtern())+System.lineSeparator());
+			   sb.append(base+"transport="+cf.formatCurrency(transport, CurrencyFormat.ALL)+System.lineSeparator());
+			   sb.append(base+"totalCash="+cf.formatCurrency(getTotalCash(), CurrencyFormat.ALL)+System.lineSeparator());
+		   }
 		   return sb.toString();
 	}
 

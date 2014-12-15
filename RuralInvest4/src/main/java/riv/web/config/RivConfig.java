@@ -38,6 +38,9 @@ public class RivConfig {
 	private MessageSource messageSource;
 	private DataService dataService;
 	private double version;
+	private Map<String, String> labourTypes=new HashMap<String, String>();
+	private Map<Integer, String> lengthUnits = new HashMap<Integer, String>();
+	private Map<Integer, String> contribTypes = new HashMap<Integer, String>();
 	
 	@Value("${av}")	private String admin;
 	@Value("${buildLang}") private String buildLang;
@@ -51,6 +54,23 @@ public class RivConfig {
 		this.version=dataService.getLatestVersion().getVersion();
 		reload();
 		loadUsers();
+		
+		labourTypes.put("0", translate("units.pyears"));
+		labourTypes.put("1", translate("units.pmonths"));
+		labourTypes.put("2", translate("units.pweeks"));
+		labourTypes.put("3", translate("units.pdays"));
+		
+		lengthUnits.put(0, translate("units.months"));
+		lengthUnits.put(1, translate("units.weeks"));
+		lengthUnits.put(2, translate("units.days.calendar"));
+		lengthUnits.put(3, translate("units.days.week"));
+		
+		contribTypes.put(0, translate("projectContribution.contribType.govtCentral"));
+		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
+		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal"));
+		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
+		contribTypes.put(5, translate("projectContribution.contribType.beneficiary"));
+		contribTypes.put(4, translate("projectContribution.contribType.other"));
 	}
 	
 	public boolean isAdmin() { return admin.equals("true"); }
@@ -367,5 +387,15 @@ public Map<Integer, User> getUsers() {
 		}
 		
 		return newRc;
+	}
+	
+	public Map<String, String> getLabourTypes() {
+		return labourTypes;
+	}
+	public Map<Integer, String> getLengthUnits() {
+		return lengthUnits;
+	}
+	public Map<Integer, String> getContribTypes() {
+		return contribTypes;
 	}
 }

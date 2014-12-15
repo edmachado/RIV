@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 
 /**
  * Contribution item used by non-income-generating projects.
@@ -66,15 +67,16 @@ public class ProjectItemContribution extends ProjectItem {
 		return this.getUnitCost()*this.getUnitNum();
 	}
 	
-	public String testingProperties(CurrencyFormatter cf) {
+	public String testingProperties(RivConfig rivConfig) {
+		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
-		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
-		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
-		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".unitNum="+unitNum+System.lineSeparator());
-		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".contribType="+contribType+System.lineSeparator());
-		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".contributor="+contributor+System.lineSeparator());
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contribType="+rivConfig.getContribTypes().get(contribType)+System.lineSeparator());
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contributor="+contributor+System.lineSeparator());
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+System.lineSeparator());
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
 		   return sb.toString();
 	   }
 	
