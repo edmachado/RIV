@@ -1452,6 +1452,14 @@ public double getInvestmentTotal() {
 		sb.append("step1.location2="+location2+System.lineSeparator());
 		sb.append("step1.location3="+location3+System.lineSeparator());
 		sb.append("step1.technician="+technician.getDescription()+System.lineSeparator());
+		
+		sb.append("step1.startupMonth="+startupMonth+System.lineSeparator());
+		sb.append("step1.benefTypeId="+beneficiary.getConfigId()+System.lineSeparator());
+		sb.append("step1.enviroId="+enviroCategory.getConfigId()+System.lineSeparator());
+		sb.append("step1.projCatId="+projCategory.getConfigId()+System.lineSeparator());
+		sb.append("step1.officeId="+fieldOffice.getConfigId()+System.lineSeparator());
+		sb.append("step1.statusId="+status.getConfigId()+System.lineSeparator());
+		
 		sb.append("step1.benefType="+beneficiary.getDescription()+System.lineSeparator());
 		sb.append("step1.enviroCat="+enviroCategory.getDescription()+System.lineSeparator());
 		sb.append("step1.projCat="+projCategory.getDescription()+System.lineSeparator());

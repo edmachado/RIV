@@ -70,10 +70,13 @@ public class ReferenceCost extends ReferenceItem {
 	
 	public String testingProperties(CurrencyFormatter cf) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("step10.input."+(this.getOrderBy()+1)+".description="+this.getDescription()+System.lineSeparator());
-		sb.append("step10.input."+(this.getOrderBy()+1)+".unitType="+this.getUnitType()+System.lineSeparator());
-		sb.append("step10.input."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
-		sb.append("step10.input."+(this.getOrderBy()+1)+".transport="+cf.formatCurrency(this.getTransport(), CurrencyFormat.ALL)+System.lineSeparator());
+		String base="step10.input."+(this.getOrderBy()+1)+".";
+		sb.append(base+"description="+this.getDescription()+System.lineSeparator());
+		sb.append(base+"unitType="+this.getUnitType()+System.lineSeparator());
+		sb.append(base+"unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
+		if (transport!=null) {
+			sb.append("step10.input."+(this.getOrderBy()+1)+".transport="+cf.formatCurrency(this.getTransport(), CurrencyFormat.ALL)+System.lineSeparator());
+		}
 		return sb.toString();
 	}
 	

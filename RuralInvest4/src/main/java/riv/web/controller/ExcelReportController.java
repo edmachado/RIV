@@ -63,9 +63,9 @@ public class ExcelReportController {
 		sb.append("costDonate="+cf.formatCurrency(pr.getTotalCostsDonated(), CurrencyFormat.ALL)+System.lineSeparator());
 		sb.append("costFinance="+cf.formatCurrency(pr.getTotalCostsFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
 		sb.append("npvAll="+cf.formatCurrency(pr.getNpv(), CurrencyFormat.ALL)+System.lineSeparator());
-		sb.append("irrAll="+pr.getIrr()+System.lineSeparator());
+		sb.append("irrAll="+((pr.getIrr().doubleValue()>1000 || pr.getIrr().doubleValue()<-1000)?"Undefined":pr.getIrr())+System.lineSeparator());
 		sb.append("npvApplicant="+cf.formatCurrency(pr.getNpvWithDonation(), CurrencyFormat.ALL)+System.lineSeparator());
-		sb.append("irrApplicant="+pr.getIrrWithDonation()+System.lineSeparator());
+		sb.append("irrApplicant="+((pr.getIrrWithDonation().doubleValue()>1000 || pr.getIrrWithDonation().doubleValue()<-1000)?"Undefined":pr.getIrrWithDonation())+System.lineSeparator());
 		sb.append("investDirect="+cf.formatCurrency(pr.getInvestPerBenefDirect(), CurrencyFormat.ALL)+System.lineSeparator());
 		sb.append("investIndirect="+cf.formatCurrency(pr.getInvestPerBenefIndirect(), CurrencyFormat.ALL)+System.lineSeparator());
 		sb.append("benefDirect="+pr.getBeneDirect()+System.lineSeparator());
