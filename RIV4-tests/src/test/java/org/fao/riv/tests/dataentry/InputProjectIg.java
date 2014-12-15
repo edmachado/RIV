@@ -1,23 +1,8 @@
 package org.fao.riv.tests.dataentry;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertImagePresentPartial;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkNotPresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresentWithImage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowCountEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInTable;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickButtonWithText;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLinkWithImage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickRadioOption;
-import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
-import static net.sourceforge.jwebunit.junit.JWebUnit.selectOption;
-import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
+import java.io.File;
 import java.util.concurrent.Callable;
 
 import org.fao.riv.tests.utils.ImportFile;
@@ -27,9 +12,13 @@ import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 public class InputProjectIg extends WebTestUtil {
+	@Rule
+    public TemporaryFolder folder = new TemporaryFolder(new File(this.getClass().getResource("/dataentry").getFile()));
 	
 	 @BeforeClass 
 	 public static void start() {      
@@ -210,6 +199,34 @@ public class InputProjectIg extends WebTestUtil {
 	
 	@Test
 	public void createProject() throws Exception {
+		createProject("dataentry/projectIg", true, false);
+	}
+	
+	@Test
+	public void exportProperties() throws Exception {
+		// import project
+		importProject(ImportFile.ProjectV41, "igpj", false, false, "T3st Santa Cruz River Transport");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+		
+		// download properties file
+		assertLinkPresent("properties");
+		clickLink("properties");
+		
+		String filename="project.properties";
+		File f = folder.newFile(filename); 
+		saveAs(f);
+		
+		// import from properties file
+		createProject("dataentry/"+folder.getRoot().getName()+"/project", false, true);
+		assertLinkPresentWithImage("edit.png", 1);
+		clickLinkWithImage("edit.png", 1);
+		
+		// verify
+		verifyProject("dataentry/projectIg", 1);
+	}
+		
+	private void createProject(String resourceBundle, boolean testClone, boolean preexisting) throws Exception {
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.with")+")";
@@ -218,7 +235,7 @@ public class InputProjectIg extends WebTestUtil {
 		
 		goHome();
 		
-		getTestContext().setResourceBundleName("dataentry/projectIg");
+		getTestContext().setResourceBundleName(resourceBundle);
 		clickLink("newIgProject");
 		assertTitleEquals(titles[0]);
 		
@@ -236,8 +253,15 @@ public class InputProjectIg extends WebTestUtil {
 		setTextField("location2", getMessage("step1.location2"));
 		setTextField("location3", getMessage("step1.location3"));
 		
+		// checkbox and select values
 		clickRadioOption("withWithout", getMessage("step1.withWithout"));
-		//TODO: set non-default checkbox and select values
+		selectOptionByValue("startupMonth", getMessage("step1.startupMonth"));
+		selectOptionByValue("beneficiary", getMessage("step1.benefTypeId"));
+		selectOptionByValue("enviroCategory", getMessage("step1.enviroId"));
+		selectOptionByValue("projCategory", getMessage("step1.projCatId"));
+		selectOptionByValue("fieldOffice", getMessage("step1.officeId"));
+		selectOptionByValue("status", getMessage("step1.statusId"));
+		assertSelectedOptionValueEquals("status", getMessage("step1.statusId"));
 		rivSubmitForm();
 		assertTitleEquals(titles[1]);
 
@@ -378,95 +402,22 @@ public class InputProjectIg extends WebTestUtil {
 		
 		// STEP 9
 		// add blocks
-		int i=1; int withs=0;
-		boolean nextItem=true;
-		while (nextItem) {
-			boolean withoutProject = Boolean.parseBoolean(getMessage("step9.block."+i+".withoutProject")); 
-			if (withoutProject) {
-				clickLink("addBlockWithout");
-				assertTitleEquals(blockTitleWithout);
-			} else {
-				clickLink("addBlock");
-				assertTitleEquals(blockTitleWith);
-				withs++;
-			}
-			
-			setTextField("description", getMessage("step9.block."+i+".description"));
-			setTextField("unitType", getMessage("step9.block."+i+".unitType"));
-			setTextField("cycleLength", getMessage("step9.block."+i+".cycleLength"));
-			selectOption("lengthUnit", getMessage("step9.block."+i+".lengthUnit"));
-			setTextField("cyclePerYear", getMessage("step9.block."+i+".cyclePerYear"));
-			setTextField("cycleFirstYear", getMessage("step9.block."+i+".cycleFirstYear"));
-			setTextField("cycleFirstYearIncome", getMessage("step9.block."+i+".cycleFirstYearIncome"));
-			
-			for (int h=0; h<3; h++) {
-				for (int j=0; j<12; j++) {
-					for (int k=0; k<2; k++) {
-						if (getMessage("step9.block."+i+".ch"+h+"-"+j+"-"+k).equals("true"))
-							clickElementByXPath("//table[@id='blockChron']/tbody/tr/td[@id='"+(i-1)+"-"+h+"-"+j+"-"+k+"']");
-					}
-				}
-			}
-			
-			// production pattern
-			int x=1;
-			boolean nextPat=true;
-			while (nextPat) {
-				setTextField("pat"+x,getMessage("step9.block."+i+".pat"+x));
-				x++;
-				try {
-					getMessage("step9.block."+i+".pat"+x);
-				} catch (Exception e) {
-					nextPat=false;
-				}
-			}
-			
-			rivSubmitForm();
-			assertTitleEquals(titles[8]);
-			
-			// income
-			tt = new TestTable("incomeTable"+(i-1), "step9.block."+i+".income.", "newIncome"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-			.addParam("linked", InputParamType.LINKED, false)
-		.	addBlanks(5);
-			tt.testWithInput();
-			
-			// input
-			tt = new TestTable("inputTable"+(i-1), "step9.block."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-			.addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testWithInput();
-			
-			// labour
-			tt = new TestTable("labourTable"+(i-1), "step9.block."+i+".labour.", "newLabour"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-			.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
-			.addParam("linked", InputParamType.LINKED, false)
-			.addBlanks(5);
-			tt.testWithInput();
-			
-			i++;
-			try {
-				getMessage("step9.block."+i+".withoutProject");
-			} catch (Exception e) {
-				nextItem=false;
-			}
-		}
+		int blockNum = addBlocks(true, 0, blockTitleWithout, blockTitleWith, titles[8]);
 
 		// test clone and delete block
-		i--;
-		assertLinkNotPresent("delete"+i);
+		assertLinkNotPresent("delete"+blockNum);
 		clickLinkWithImage("duplicate.gif", 0);
 		assertTitleEquals(blockTitleWith);
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
-		assertLinkPresent("delete"+i);
-		clickLink("delete"+withs);
+		assertLinkPresent("delete"+blockNum);
+		clickLink("delete"+blockNum);
 		clickButtonWithText("Delete item");
-		assertLinkNotPresent("delete"+i);
+		assertLinkNotPresent("delete"+blockNum);
+		
+		// add without blocks
+		clickLink("ui-id-2");
+		addBlocks(false, blockNum, blockTitleWithout, blockTitleWith, titles[8]);
 		
 		// go on to next step
 		rivSubmitForm();
@@ -536,22 +487,115 @@ public class InputProjectIg extends WebTestUtil {
 		assertTitleEquals(resultsTitle);
 		
 		//Check new project exists in results table
-		assertTableRowCountEquals("results", 6);
+//		String xpath = "//table[@id='results']/tbody/tr/td[. = '"+getMessage("step1.projectName")+"']";
+//		getElementsByXPath("xpath");
+		assertTableRowCountEquals("results", preexisting ? 7 : 6);
 		assertTextInTable("results", projName);
 	
-		// CLONE PROJECT
-		assertLinkPresentWithImage("edit.png");
-		clickLinkWithImage("edit.png");
-		assertTitleEquals(titles[0]);
-		clickLinkWithImage("duplicate.gif");
-		assertTitleEquals(titles[0]);
-		assertImagePresentPartial("locked.gif", null);
-		
-		verifyProject("dataentry/projectIg",2);
-		
-		//Check new project exists in results table
-		clickLink("allIgpj");
-		assertTitleEquals(resultsTitle);
-		assertTableRowCountEquals("results", 7);
+		if (testClone) {
+			// CLONE PROJECT
+			assertLinkPresentWithImage("edit.png");
+			clickLinkWithImage("edit.png");
+			assertTitleEquals(titles[0]);
+			clickLinkWithImage("duplicate.gif");
+			assertTitleEquals(titles[0]);
+			assertImagePresentPartial("locked.gif", null);
+			
+			verifyProject(resourceBundle,2);
+			
+			//Check new project exists in results table
+			clickLink("allIgpj");
+			assertTitleEquals(resultsTitle);
+			assertTableRowCountEquals("results", 7);
+		}
+	}
+	
+	private int addBlocks(boolean with, int withs, String blockTitleWithout, String blockTitleWith, String titles8) throws Exception {
+		int i=1;
+		boolean nextItem=true;
+		while (nextItem) {
+			if (!with) {
+				clickLink("addBlockWithout");
+				assertTitleEquals(blockTitleWithout);
+			} else {
+				clickLink("addBlock");
+				assertTitleEquals(blockTitleWith);
+			}
+			
+			assertTablePresent("blockChron");
+			assertTablePresent("prodPattern"+(i-1+withs));
+			
+			String propertyBase=with?"step9.block."+i+".":"step9.blockWo."+i+".";
+			
+			setTextField("description", getMessage(propertyBase+"description"));
+			setTextField("unitType", getMessage(propertyBase+"unitType"));
+			setTextField("cycleLength", getMessage(propertyBase+"cycleLength"));
+			selectOption("lengthUnit", getMessage(propertyBase+"lengthUnit"));
+			setTextField("cyclePerYear", getMessage(propertyBase+"cyclePerYear"));
+			setTextField("cycleFirstYear", getMessage(propertyBase+"cycleFirstYear"));
+			setTextField("cycleFirstYearIncome", getMessage(propertyBase+"cycleFirstYearIncome"));
+			
+			for (int h=0; h<3; h++) {
+				for (int j=0; j<12; j++) {
+					for (int k=0; k<2; k++) {
+						if (getMessage(propertyBase+"ch"+h+"-"+j+"-"+k).equals("true"))
+							clickElementByXPath("//table[@id='blockChron']/tbody/tr/td[@id='"+(i-1+withs)+"-"+h+"-"+j+"-"+k+"']");
+					}
+				}
+			}
+			
+			// production pattern
+			int x=1;
+			boolean nextPat=true;
+			while (nextPat) {
+				setTextField("pat"+x,getMessage(propertyBase+"pat"+x));
+				x++;
+				try {
+					getMessage(propertyBase+"pat"+x);
+				} catch (Exception e) {
+					nextPat=false;
+				}
+			}
+			
+			rivSubmitForm();
+			assertTitleEquals(titles8);
+			assertTextPresent(getMessage(propertyBase+"description"));
+			assertElementPresent("prodPattern"+(i-1+withs));
+			
+			// income
+			TestTable tt = new TestTable("incomeTable"+(i-1+withs), propertyBase+"income.", "newIncome"+(i-1+withs), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
+			.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+			.addParam("linked", InputParamType.LINKED, false)
+		.	addBlanks(5);
+			tt.testWithInput();
+			
+			// input
+			tt = new TestTable("inputTable"+(i-1+withs), propertyBase+"input.", "newInput"+(i-1+withs), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
+			.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+			.addParam("linked", InputParamType.LINKED, false)
+			.addBlanks(5);
+			tt.testWithInput();
+			
+			// labour
+			tt = new TestTable("labourTable"+(i-1+withs), propertyBase+"labour.", "newLabour"+(i-1+withs), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
+			.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+			.addParam("linked", InputParamType.LINKED, false)
+			.addBlanks(5);
+			tt.testWithInput();
+			
+			i++;
+			try {
+				String check = with ? "step9.block."+i+".description" :
+					"step9.blockWo."+i+".description";						
+				getMessage(check);
+			} catch (Exception e) {
+				nextItem=false;
+			}
+		}
+
+		return i-1;
 	}
 }

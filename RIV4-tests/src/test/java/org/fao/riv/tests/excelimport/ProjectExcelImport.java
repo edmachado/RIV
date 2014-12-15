@@ -117,7 +117,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("upload0");
 		setTextField("qqfile", ImportFile.ProjectXlsBlock.getFile().getAbsolutePath());
 		gotoPage(url);
-		verifyBlockTables(1);
+		verifyBlockTables(1,"step9.block.1.");
 		
 		// export and import again
 		clickLink("downloadExcel0");
@@ -127,7 +127,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("upload0");
 		setTextField("qqfile", f3.getAbsolutePath());
 		gotoPage(url);
-		verifyBlockTables(1);
+		verifyBlockTables(1,"step9.block.1.");
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[9]);
