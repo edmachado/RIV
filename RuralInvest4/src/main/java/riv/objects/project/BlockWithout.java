@@ -6,7 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import riv.objects.OrderByable;
-import riv.util.CurrencyFormatter;
 
 /**
  * A production block (income-generating) or activity (non-income-generating) of a Project.
@@ -30,10 +29,10 @@ public class BlockWithout extends BlockBase {
 		this.project = project;
 	}
 	
-	public String testingProperties(CurrencyFormatter cf) {
-		return "";
+	@Override
+	public String getPropertiesType() {
+		return "block";
 	}
-
 
 	@Override
 	public int hashCode() {

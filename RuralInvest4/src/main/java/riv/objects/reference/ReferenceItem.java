@@ -18,6 +18,7 @@ import riv.objects.OrderByable;
 import riv.objects.Probase;
 import riv.objects.profile.Profile;
 import riv.objects.project.Project;
+import riv.util.CurrencyFormatter;
 
 
 /**
@@ -55,6 +56,8 @@ public abstract class ReferenceItem  implements Serializable, OrderByable, HasPr
     public ReferenceItem(Integer refItemId) {
         this.refItemId = refItemId;
     }
+    
+    public abstract String testingProperties(CurrencyFormatter cf);
    
    // Property accessors
 

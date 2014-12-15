@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import riv.objects.Probase;
 import riv.objects.profile.Profile;
 import riv.objects.project.Project;
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
 
 /**
  * A labour item
@@ -51,10 +53,18 @@ public class ReferenceLabour extends ReferenceItem {
 	       this.profile = profile;
 	   }
 	
-		@Override
-		public Probase getProbase() {
-	    	return project == null ? profile : project;
-		}  
+	@Override
+	public Probase getProbase() {
+		return project == null ? profile : project;
+	}  
+	
+	public String testingProperties(CurrencyFormatter cf) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("step10.labour."+(this.getOrderBy()+1)+".description="+this.getDescription()+System.lineSeparator());
+		sb.append("step10.labour."+(this.getOrderBy()+1)+".unitType="+this.getUnitType()+System.lineSeparator());
+		sb.append("step10.labour."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
+		return sb.toString();
+	}
 		
 	public ReferenceLabour copy() {
 		ReferenceLabour newRef = new ReferenceLabour();

@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import riv.objects.Probase;
 import riv.objects.project.*;
 import riv.objects.profile.*;
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
 
 /**
  * An input item
@@ -71,6 +73,15 @@ public class ReferenceIncome extends ReferenceItem {
 	public Probase getProbase() {
     	return project == null ? profile : project;
 	}  
+	
+	public String testingProperties(CurrencyFormatter cf) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("step10.income."+(this.getOrderBy()+1)+".description="+this.getDescription()+System.lineSeparator());
+		sb.append("step10.income."+(this.getOrderBy()+1)+".unitType="+this.getUnitType()+System.lineSeparator());
+		sb.append("step10.income."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append("step10.income."+(this.getOrderBy()+1)+".transport="+cf.formatCurrency(this.getTransport(), CurrencyFormat.ALL)+System.lineSeparator());
+		return sb.toString();
+	}
 	
 	public ReferenceIncome copy() {
 		ReferenceIncome newItem = new ReferenceIncome();

@@ -1440,6 +1440,7 @@ public double getInvestmentTotal() {
 	 * Creates a properties file with the project's data. For use in testing framework
 	 * @return the properties file
 	 */
+	@SuppressWarnings("deprecation")
 	public String testFile(CurrencyFormatter cf) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("step1.projectName="+projectName+System.lineSeparator());
@@ -1506,7 +1507,6 @@ public double getInvestmentTotal() {
 		sb.append("step7.asset.Sum.salvage="+System.lineSeparator());
 		sb.append("step7.asset.Sum.replace="+System.lineSeparator());
 		sb.append("step7.asset.Sum.yearBegin="+System.lineSeparator());
-		sb.append(System.lineSeparator());
 		
 		total=0; own=0; donated=0; financed=0;
 		for (ProjectItemAssetWithout i : assetsWithout) {
@@ -1692,6 +1692,50 @@ public double getInvestmentTotal() {
 		for (BlockWithout b : blocksWithout) {
 			sb.append(b.testingProperties(cf));
 		}
+		
+		for (ReferenceIncome i : refIncomes) {
+			sb.append(i.testingProperties(cf));
+		}
+		sb.append(System.lineSeparator());
+		
+		for (ReferenceCost i : refCosts) {
+			sb.append(i.testingProperties(cf));
+		}
+		sb.append(System.lineSeparator());
+		
+		for (ReferenceLabour i : refLabours) {
+			sb.append(i.testingProperties(cf));
+		}
+		sb.append(System.lineSeparator());
+		
+		sb.append("step11.loan1amt="+this.getLoan1Amt()+System.lineSeparator());
+		sb.append("step11.loan1Interest="+loan1Interest+System.lineSeparator());
+		sb.append("step11.loan1Duration="+loan1Duration+System.lineSeparator());
+		sb.append("step11.loan1GraceCapital="+loan1GraceCapital+System.lineSeparator());
+		sb.append("step11.loan1GraceInterest="+loan1GraceInterest+System.lineSeparator());
+		sb.append("step11.loan2Amt="+loan2Amt+System.lineSeparator());
+		sb.append("step11.loan2Interest="+loan2Interest+System.lineSeparator());
+		sb.append("step11.loan2Duration="+loan2Duration+System.lineSeparator());
+		sb.append("step11.loan2GraceCapital="+loan2GraceCapital+System.lineSeparator());
+		sb.append("step11.loan2GraceInterest="+loan2GraceInterest+System.lineSeparator());
+		sb.append("step11.loan2InitPeriod="+loan2InitPeriod+System.lineSeparator());
+		
+//		ProjectFirstYear pfy = new ProjectFirstYear(this);
+//		double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
+//		sb.append("step11.period="+pfyResults[0]+System.lineSeparator());
+//		sb.append("step11.amtRequired="+(-1*pfyResults[1])+System.lineSeparator());
+		sb.append("step11.period="+this.getWcFinancePeriod()+System.lineSeparator());
+		sb.append("step11.amtRequired="+this.getWcAmountRequired()+System.lineSeparator());
+		sb.append("step11.amtFinanced="+this.getWcAmountFinanced()+System.lineSeparator());
+		
+		
+		sb.append("step11.capitalInterest="+capitalInterest+System.lineSeparator());
+		sb.append("step11.capitalDonate="+capitalDonate+System.lineSeparator());
+		sb.append("step11.capitalOwn="+capitalOwn+System.lineSeparator());
+		
+		sb.append("step12.reccCode="+reccCode+System.lineSeparator());
+		sb.append("step12.reccDesc="+reccDesc.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step12.reccDate="+reccDate.getDate()+"/"+reccDate.getMonth()+"/"+reccDate.getYear()+"/"+System.lineSeparator());
 		
 		return sb.toString();
 	}

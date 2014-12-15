@@ -62,7 +62,7 @@ public abstract class BlockItem  implements Serializable, OrderByable, LinkedToa
 	}
 	
 
-//    public abstract String testingProperties(CurrencyFormatter cf);
+    public abstract String testingProperties(CurrencyFormatter cf);
 
 	// Property accessors
 

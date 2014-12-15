@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
+
 /**
  * An income or user charge associated with a project block.
  * @author Bar Zecharya
@@ -53,6 +56,21 @@ public class BlockIncome extends BlockItem {
 		return (this.transport==null) 
 			? this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost())
 			: this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost().subtract(this.transport));
+	}
+	
+	public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   String base="step9."+this.getBlock().getPropertiesType()+"."+(this.getBlock().getOrderBy()+1)+".income."+(this.getOrderBy()+1)+".";
+		   sb.append(base+"description="+this.getDescription()+System.lineSeparator());
+		   sb.append(base+"unitType="+this.getUnitType()+System.lineSeparator());
+		   sb.append(base+"unitNum="+cf.formatCurrency(unitNum, CurrencyFormat.INTEGER)+System.lineSeparator());
+		   sb.append(base+"qtyIntern="+cf.formatCurrency(qtyIntern, CurrencyFormat.INTEGER)+System.lineSeparator());
+		   sb.append(base+"qtyExtern="+cf.formatCurrency(this.getExtern(), CurrencyFormat.INTEGER)+System.lineSeparator());
+		   sb.append(base+"unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"transport="+cf.formatCurrency(transport, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"totalCash="+cf.formatCurrency(getTotalCash(), CurrencyFormat.ALL)+System.lineSeparator());
+		   return sb.toString();
 	}
 
 	@Override

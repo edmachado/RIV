@@ -27,6 +27,7 @@ import org.hibernate.annotations.Where;
 
 import riv.objects.OrderByable;
 import riv.objects.ProductOrBlock;
+import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 
 /**
@@ -89,7 +90,86 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     	this.inputs=new HashSet<BlockInput>();
     }
     
-    public abstract String testingProperties(CurrencyFormatter cf);
+    public abstract String getPropertiesType();
+    public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".description="+this.getDescription()+System.lineSeparator());
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".unitType="+this.getUnitType()+System.lineSeparator());
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cycleLength="+this.getCycleLength()+System.lineSeparator());
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".lengthUnit="+this.getLengthUnit()+System.lineSeparator());
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cyclePerYear="+this.getCyclePerYear()+System.lineSeparator());
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cycleFirstYear="+this.getCycleFirstYear()+System.lineSeparator());
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".cycleFirstYearIncome="+this.getCycleFirstYearIncome()+System.lineSeparator());
+		   
+		   for (int type=0;type<3;type++) {
+			   for (int month=1;month<=12;month++) {
+				   for (int half=0;half<=1;half++) {
+					   String key=type+"-"+month+"-"+half;
+					   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".ch"+key+"="+(this.getChrons().containsKey(key)?"true":"false")+System.lineSeparator());
+				   }
+			   }
+		   }
+		   for (int i=1;i<=getProject().getDuration();i++) {
+			   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".pat"+i+"="+(this.getPatterns().containsKey(i)?"true":"false")+System.lineSeparator());
+		   }
+		   
+		   Double total=0.0;
+		   Double totalCash=0.0;
+		   for (BlockIncome i : this.getIncomes()) {
+			   total+=i.getTotal().doubleValue();
+			   totalCash+=i.getTotalCash().doubleValue();
+			   sb.append(i.testingProperties(cf));
+		   }
+		   String base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".income.Sum.";
+		   sb.append(base+"description="+System.lineSeparator());
+		   sb.append(base+"unitType="+System.lineSeparator());
+		   sb.append(base+"unitNum="+System.lineSeparator());
+		   sb.append(base+"qtyIntern="+System.lineSeparator());
+		   sb.append(base+"qtyExtern="+System.lineSeparator());
+		   sb.append(base+"unitCost="+System.lineSeparator());
+		   sb.append(base+"transport="+System.lineSeparator());
+		   sb.append(base+"total="+cf.formatCurrency(total, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"totalCash="+cf.formatCurrency(totalCash, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(System.lineSeparator());
+
+		   total=0.0; totalCash=0.0;
+		   for (BlockInput i : this.getInputs()) {
+			   total+=i.getTotal().doubleValue();
+			   totalCash+=i.getTotalCash().doubleValue();
+			   sb.append(i.testingProperties(cf));
+		   }
+		   base="step9.block."+(this.getOrderBy()+1)+".input.Sum.";
+		   sb.append(base+"description="+System.lineSeparator());
+		   sb.append(base+"unitType="+System.lineSeparator());
+		   sb.append(base+"unitNum="+System.lineSeparator());
+		   sb.append(base+"qtyIntern="+System.lineSeparator());
+		   sb.append(base+"qtyExtern="+System.lineSeparator());
+		   sb.append(base+"unitCost="+System.lineSeparator());
+		   sb.append(base+"transport="+System.lineSeparator());
+		   sb.append(base+"total="+cf.formatCurrency(total, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"totalCash="+cf.formatCurrency(totalCash, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(System.lineSeparator());
+		   
+		   total=0.0; totalCash=0.0;
+		   for (BlockLabour i : this.getLabours()) {
+			   total+=i.getTotal().doubleValue();
+			   totalCash+=i.getTotalCash().doubleValue();
+			   sb.append(i.testingProperties(cf));
+		   }
+		   base="step9.block."+(this.getOrderBy()+1)+".labour.Sum.";
+		   sb.append(base+"description="+System.lineSeparator());
+		   sb.append(base+"unitType="+System.lineSeparator());
+		   sb.append(base+"unitNum="+System.lineSeparator());
+		   sb.append(base+"qtyIntern="+System.lineSeparator());
+		   sb.append(base+"qtyExtern="+System.lineSeparator());
+		   sb.append(base+"unitCost="+System.lineSeparator());
+		   sb.append(base+"total="+cf.formatCurrency(total, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"totalCash="+cf.formatCurrency(totalCash, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(System.lineSeparator());
+		   
+		   return sb.toString();
+	   }
 
     // non-property accessors
     /**

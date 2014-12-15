@@ -8,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
+
 /**
  * An input cost associated with a projectBlock.
  * @author Bar Zecharya
@@ -49,6 +52,21 @@ public class BlockInput extends BlockItem {
 	public BigDecimal getTotalCash() {
 		if (this.getUnitNum()==null||getQtyIntern()==null||getUnitCost()==null||this.Transport==null) return new BigDecimal(0);
 		return (this.getUnitNum().subtract(this.getQtyIntern())).multiply(this.getUnitCost().add(this.Transport));
+	}
+	
+	public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   String base="step9."+this.getBlock().getPropertiesType()+"."+(this.getBlock().getOrderBy()+1)+".input."+(this.getOrderBy()+1)+".";
+		   sb.append(base+"description="+this.getDescription()+System.lineSeparator());
+		   sb.append(base+"unitType="+this.getUnitType()+System.lineSeparator());
+		   sb.append(base+"unitNum="+cf.formatCurrency(unitNum, CurrencyFormat.INTEGER)+System.lineSeparator());
+		   sb.append(base+"qtyIntern="+cf.formatCurrency(qtyIntern, CurrencyFormat.INTEGER)+System.lineSeparator());
+		   sb.append(base+"qtyExtern="+cf.formatCurrency(this.getExtern(), CurrencyFormat.INTEGER)+System.lineSeparator());
+		   sb.append(base+"unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"transport="+cf.formatCurrency(Transport, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(base+"totalCash="+cf.formatCurrency(getTotalCash(), CurrencyFormat.ALL)+System.lineSeparator());
+		   return sb.toString();
 	}
 
 	@Override
