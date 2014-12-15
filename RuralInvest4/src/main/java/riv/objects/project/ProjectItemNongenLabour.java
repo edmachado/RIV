@@ -40,7 +40,6 @@ public class ProjectItemNongenLabour extends ProjectItemNongenBase {
 		   sb.append("step8.labour"+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(getOwnResource(), CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step8.labour"+(this.getOrderBy()+1)+".statePublic="+cf.formatCurrency(getStatePublic(), CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step8.labour"+(this.getOrderBy()+1)+".other1="+cf.formatCurrency(getOther1(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append(System.lineSeparator());
 		   return sb.toString();
 	   }
 	

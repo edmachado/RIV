@@ -133,7 +133,6 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".salvage="+cf.formatCurrency(salvage, CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".replace="+(replace?"Yes":"No")+System.lineSeparator());
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+System.lineSeparator());
-		   sb.append(System.lineSeparator());
 		   return sb.toString();
 	   }
 	   

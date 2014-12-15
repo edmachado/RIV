@@ -78,7 +78,6 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".yearBegin="+YearBegin+System.lineSeparator());
-		   sb.append(System.lineSeparator());
 		   return sb.toString();
 	   }
 	

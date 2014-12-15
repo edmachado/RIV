@@ -75,8 +75,6 @@ public class ProjectItemContribution extends ProjectItem {
 		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".contribType="+contribType+System.lineSeparator());
 		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".contributor="+contributor+System.lineSeparator());
-		   
-		   sb.append(System.lineSeparator());
 		   return sb.toString();
 	   }
 	

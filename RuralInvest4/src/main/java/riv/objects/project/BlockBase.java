@@ -27,6 +27,7 @@ import org.hibernate.annotations.Where;
 
 import riv.objects.OrderByable;
 import riv.objects.ProductOrBlock;
+import riv.util.CurrencyFormatter;
 
 /**
  * A production block (income-generating) or activity (non-income-generating) of a Project.
@@ -87,6 +88,8 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     	this.incomes=new HashSet<BlockIncome>();
     	this.inputs=new HashSet<BlockInput>();
     }
+    
+    public abstract String testingProperties(CurrencyFormatter cf);
 
     // non-property accessors
     /**

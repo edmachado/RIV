@@ -78,7 +78,6 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 		   sb.append("step7.service."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.service."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.service."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+System.lineSeparator());
-		   sb.append(System.lineSeparator());
 		   return sb.toString();
 	   }
 

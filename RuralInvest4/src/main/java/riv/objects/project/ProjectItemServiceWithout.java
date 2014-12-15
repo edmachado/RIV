@@ -78,7 +78,6 @@ public class ProjectItemServiceWithout extends ProjectItem implements ProjectInv
 		   sb.append("step7.serviceWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.serviceWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.serviceWo."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+System.lineSeparator());
-		   sb.append(System.lineSeparator());
 		   return sb.toString();
 	   }
 

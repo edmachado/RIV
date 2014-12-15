@@ -134,7 +134,6 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".salvage="+cf.formatCurrency(salvage, CurrencyFormat.ALL)+System.lineSeparator());
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".replace="+(replace?"Yes":"No")+System.lineSeparator());
 		   sb.append("step7.asset."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+System.lineSeparator());
-		   sb.append(System.lineSeparator());
 		   return sb.toString();
 	   }
 	   
