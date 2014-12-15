@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
+
 @Entity
 @DiscriminatorValue("4")
 public class ProjectItemService extends ProjectItem implements ProjectInvestment {
@@ -63,6 +66,21 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 		   if (getOwnResources()==null || donated==null) return 0.0;
 		   return (getTotal() - getOwnResources() - this.donated);
 	}
+	
+	 public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".unitNum="+unitNum+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(ownResources, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.service."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+System.lineSeparator());
+		   sb.append(System.lineSeparator());
+		   return sb.toString();
+	   }
 
 	@Override
 	 public ProjectItemService copy() {

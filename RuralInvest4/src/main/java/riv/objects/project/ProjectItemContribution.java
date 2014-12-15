@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
+
 /**
  * Contribution item used by non-income-generating projects.
  * @author Bar Zecharya
@@ -62,6 +65,20 @@ public class ProjectItemContribution extends ProjectItem {
 		if (getUnitNum()==null || getUnitCost()==null) return 0;
 		return this.getUnitCost()*this.getUnitNum();
 	}
+	
+	public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
+		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
+		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".unitNum="+unitNum+System.lineSeparator());
+		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".contribType="+contribType+System.lineSeparator());
+		   sb.append("step10.contribution."+(this.getOrderBy()+1)+".contributor="+contributor+System.lineSeparator());
+		   
+		   sb.append(System.lineSeparator());
+		   return sb.toString();
+	   }
 	
 	 @Override
 	 public ProjectItemContribution copy() {

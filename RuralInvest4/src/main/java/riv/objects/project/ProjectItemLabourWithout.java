@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
+
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
 /**
  * Labour cost associated to a project
  * @author Bar Zecharya
@@ -65,6 +68,18 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 	public Double getFinanced() {
 		   if (getOwnResources()==null || Donated==null) return 0.0;
 		   return (getTotal() - getOwnResources() - this.Donated);
+	   }
+	
+	   public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitNum="+unitNum+System.lineSeparator());
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".yearBegin="+YearBegin+System.lineSeparator());
+		   sb.append(System.lineSeparator());
+		   return sb.toString();
 	   }
 	
 	@Override

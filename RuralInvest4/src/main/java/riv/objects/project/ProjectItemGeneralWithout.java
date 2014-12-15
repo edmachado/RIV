@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
+
 /**
  * General cost associated to a project
  * @author Bar Zecharya
@@ -48,6 +51,18 @@ public class ProjectItemGeneralWithout extends ProjectItem {//implements General
 		return getTotal() - getOwnResources();
 	}
 	
+	 public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   sb.append("step8.supplyWo."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
+		   sb.append("step8.supplyWo."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
+		   sb.append("step8.supplyWo."+(this.getOrderBy()+1)+".unitNum="+unitNum+System.lineSeparator());
+		   sb.append("step8.supplyWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step8.supplyWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step8.supplyWo."+(this.getOrderBy()+1)+".external="+cf.formatCurrency(getExternal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append(System.lineSeparator());
+		   return sb.toString();
+	   }
+	 
 	@Override
 	 public ProjectItemGeneralWithout copy() {
 		 ProjectItemGeneralWithout item = new ProjectItemGeneralWithout();

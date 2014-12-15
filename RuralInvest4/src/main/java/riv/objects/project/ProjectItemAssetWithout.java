@@ -6,6 +6,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
+
 /**
  * Asset cost associated to a Project
  * @author Bar Zecharya
@@ -114,6 +117,25 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 	   public void setReplace (boolean Replace) {
 	        this.replace = Replace;
 	    }
+	   
+	   public String testingProperties(CurrencyFormatter cf) {
+		   StringBuilder sb = new StringBuilder();
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitNum="+unitNum+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(ownResources, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".econLife="+econLife+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".maintCost="+cf.formatCurrency(maintCost, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".salvage="+cf.formatCurrency(salvage, CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".replace="+(replace?"Yes":"No")+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+System.lineSeparator());
+		   sb.append(System.lineSeparator());
+		   return sb.toString();
+	   }
 	   
 	   @Override
 	   public ProjectItemAssetWithout copy() {

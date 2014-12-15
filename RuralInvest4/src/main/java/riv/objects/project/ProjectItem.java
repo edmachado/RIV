@@ -19,6 +19,7 @@ import riv.objects.LinkedToable;
 import riv.objects.OrderByable;
 import riv.objects.Probase;
 import riv.objects.reference.ReferenceItem;
+import riv.util.CurrencyFormatter;
 
 
 /**
@@ -64,6 +65,8 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 		this.projItemId = ProjItemId;
 	}
 
+	public abstract String testingProperties(CurrencyFormatter cf);
+	
 	public int getProjItemId () {
 		return this.projItemId;
 	}
