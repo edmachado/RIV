@@ -1492,7 +1492,9 @@ public double getInvestmentTotal() {
 		sb.append("step4.requirements="+requirements.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append("step5.enviroImpact="+enviroImpact.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append("step5.market="+market.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
-		sb.append("step5.sustainability="+sustainability.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		if (!incomeGen) {
+			sb.append("step5.sustainability="+sustainability.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		}
 		sb.append("step6.organization="+organization.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append("step6.assumptions="+assumptions.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
 		sb.append(System.lineSeparator());

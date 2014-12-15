@@ -54,7 +54,7 @@ public class BlockIncome extends BlockItem {
 	}
 	public BigDecimal getTotalCash() {
 		if (this.getUnitNum()==null) return new BigDecimal(0);
-		if (this.block.getProject().getIncomeGen()) {
+		if (transport!=null) { // ig 
 			return this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost().subtract(this.transport));
 		} else {
 			return this.getUnitNum().multiply(this.getUnitCost());
