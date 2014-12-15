@@ -49,6 +49,7 @@ import riv.objects.reference.ReferenceCost;
 import riv.objects.reference.ReferenceIncome;
 import riv.objects.reference.ReferenceLabour;
 import riv.util.Calculator;
+import riv.util.CurrencyFormatter;
 
 /**
  * A RuralInvest Project
@@ -1432,7 +1433,66 @@ public double getInvestmentTotal() {
 				linkedToImport(item);
 			}
 		}
-	}		
+	}	
+	
+	/**
+	 * Creates a properties file with the project's data. For use in testing framework
+	 * @return the properties file
+	 */
+	public String testFile(CurrencyFormatter cf) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("step1.projectName="+projectName+System.lineSeparator());
+		sb.append("step1.userCode="+userCode+System.lineSeparator());
+		sb.append("step1.exchRate="+ExchRate+System.lineSeparator());
+		sb.append("step1.inflationAnnual="+inflationAnnual+System.lineSeparator());
+		sb.append("step1.duration="+duration+System.lineSeparator());
+		sb.append("step1.location1="+location1+System.lineSeparator());
+		sb.append("step1.location2="+location2+System.lineSeparator());
+		sb.append("step1.location3="+location3+System.lineSeparator());
+		sb.append("step1.technician="+technician.getDescription()+System.lineSeparator());
+		sb.append("step1.benefType="+beneficiary.getDescription()+System.lineSeparator());
+		sb.append("step1.enviroCat="+enviroCategory.getDescription()+System.lineSeparator());
+		sb.append("step1.projCat="+projCategory.getDescription()+System.lineSeparator());
+		sb.append("step1.office="+fieldOffice.getDescription()+System.lineSeparator());
+		sb.append("step1.status="+status.getDescription()+System.lineSeparator());
+		sb.append("step1.withWithout="+(withWithout?"true":"false")+System.lineSeparator());
+		sb.append("step1.shared="+(shared?"true":"false")+System.lineSeparator());
+		sb.append(System.lineSeparator());
+		
+		sb.append("step2.benefName="+benefName+System.lineSeparator());
+		sb.append("step2.beneDirectMen="+beneDirectMen+System.lineSeparator());
+		sb.append("step2.beneDirectWomen="+beneDirectWomen+System.lineSeparator());
+		sb.append("step2.beneDirectChild="+beneDirectChild+System.lineSeparator());
+		sb.append("step2.benefDirectTotal="+(beneDirectMen+beneDirectWomen+beneDirectChild)+System.lineSeparator());
+		sb.append("step2.beneDirectNum="+beneDirectNum+System.lineSeparator());
+		sb.append("step2.beneIndirectMen="+beneIndirectMen+System.lineSeparator());
+		sb.append("step2.beneIndirectWomen="+beneIndirectWomen+System.lineSeparator());
+		sb.append("step2.beneIndirectChild="+beneIndirectChild+System.lineSeparator());
+		sb.append("step2.benefIndirectTotal="+(beneIndirectMen+beneIndirectWomen+beneIndirectChild)+System.lineSeparator());
+		sb.append("step2.beneIndirectNum="+beneIndirectNum+System.lineSeparator());
+		sb.append("step2.benefDesc="+benefDesc.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append(System.lineSeparator());
+		
+		sb.append("step3.justification="+justification.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step3.projDesc="+projDesc.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step3.activities="+activities.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step4.technology="+technology.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step4.requirements="+requirements.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step5.enviroImpact="+enviroImpact.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step5.market="+market.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step6.organization="+organization.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append("step6.assumptions="+assumptions.replace("\r", "\\r").replace("\n", "\\n")+System.lineSeparator());
+		sb.append(System.lineSeparator());
+		
+		for (ProjectItemAsset i : assets) {
+			sb.append(i.testingProperties(cf));
+		}
+		sb.append(System.lineSeparator());
+		
+		
+		
+		return sb.toString();
+	}
 
 	/**
 	 * Creates a copy of the Project.  The uniqueID field is retained and collections are 

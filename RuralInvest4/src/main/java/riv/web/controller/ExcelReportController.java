@@ -1,10 +1,13 @@
 package riv.web.controller;
  
 import java.io.IOException;
+import java.io.StringWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Sheet;
+import org.hsqldb.types.Charset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +23,9 @@ import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectResult;
+import riv.util.CurrencyFormatter;
 import riv.util.ExcelWrapper;
+import riv.web.config.RivConfig;
 import riv.web.service.DataService;
 import riv.web.service.ExcelWorksheetBuilder;
  
@@ -31,6 +36,15 @@ public class ExcelReportController {
 	private DataService dataService;
 	@Autowired
 	private ExcelWorksheetBuilder ewb;
+	
+	@RequestMapping(value="/{id}/project.properties", method=RequestMethod.GET)
+	public void projectRivExport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Project p = dataService.getProject(id, -1);
+		response.setHeader("Content-disposition", "attachment; filename=project.properties");
+		CurrencyFormatter cf = ((RivConfig)request.getAttribute("rivConfig")).getSetting().getCurrencyFormatter();
+		byte[] output = p.testFile(cf).getBytes("UTF8");
+		response.getOutputStream().write(output);
+	}
 	
 	@RequestMapping(value="/{id}/projectSummary.xlsx", method=RequestMethod.GET)
 	public void projectSummary(@PathVariable int id, HttpServletResponse response) throws IOException {
