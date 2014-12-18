@@ -1,12 +1,6 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <html><head><title><spring:message code="project.step11"/></title>
-<script>
-function showWcExplain() {
-	$('#wcExplain').dialog({
-		resizable: true, height:250, width:800
-	});
-};
-</script>
+
 </head>
 <body>
 <form:form name="form" method="post" commandName="project">
@@ -35,15 +29,15 @@ function showWcExplain() {
             	<legend>
             		<tags:help title="project.workingCapital" text="project.workingCapital.help"><spring:message code="project.workingCapital"/></tags:help>
             	</legend>
+            	<div class="dataentry">
+            		<label><a href="javascript:showWcExplain();"><img height="11" border="0" width="11" vspace="2" src="<%=request.getContextPath()%>/img/help.gif"> <spring:message code="project.workingCapital.how"/></a></label>
+				</div>	
             	<tags:dataentry field="wcAmountRequired" labelKey="project.amtRequired" helpText="project.amtRequired.help" calculated="true" currency="true"/>
            		<tags:dataentry field="wcAmountFinanced" labelKey="project.amtFinanced" helpText="project.amtFinanced.help"  calculated="true" currency="true" />
            		<tags:dataentry field="wcFinancePeriod" labelKey="project.period" helpText="project.period.help"  calculated="true" calcSignKey="units.months" />
            		<tags:dataentry field="capitalInterest" labelKey="project.capitalInterest" helpText="project.capitalInterest.help" inputClass="num" calcSign="%"/>
        			<tags:dataentry field="capitalDonate" labelKey="project.capitalDonate" helpText="project.capitalDonate.help" currency="true" onmouseout="CalcFinance()"/>
-       			<tags:dataentry field="capitalOwn" labelKey="project.capitalOwn" helpText="project.capitalOwn.help" currency="true" onmouseout="CalcFinance()"/>
-           		<div class="dataentry">
-            		<label><a href="javascript:showWcExplain();"><img height="11" border="0" width="11" vspace="2" src="<%=request.getContextPath()%>/img/help.gif"> <spring:message code="project.workingCapital.how"/></a></label>
-				</div>		
+       			<tags:dataentry field="capitalOwn" labelKey="project.capitalOwn" helpText="project.capitalOwn.help" currency="true" onmouseout="CalcFinance()"/>	
            	</fieldset>
 
 		</div>
@@ -65,9 +59,8 @@ function showWcExplain() {
 	
 </form:form>
 
-<div id="wcExplain" title='<spring:message code="project.workingCapital.how"/>' class="summary">
-	<tags:summaryWc />
-</div>
+<tags:summaryWc />
+
 
 <tags:jscriptCalc fieldA="investmentTotal" fieldB="loan2Amt" fieldC="loan1Amt" functionName="Calculate" calc="-"/>
 <tags:jscriptCalc fieldA="wcAmountRequired" fieldB="capitalDonate" fieldC="wcAmountFinanced" fieldD="capitalOwn" functionName="CalcFinance" calc="-" calc2="-" />

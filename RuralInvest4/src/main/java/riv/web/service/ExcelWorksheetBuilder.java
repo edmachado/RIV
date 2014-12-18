@@ -2739,7 +2739,7 @@ public class ExcelWorksheetBuilder {
 		sheet.setSelected(true);
 		int rowNum=0;
 		short cellNum = 0;
-		short step = 7;
+		//short step = 7;
 		setColumnWidth(sheet, 0, 700);
 		Row row = sheet.createRow(rowNum++);
 		report.addTextCell(row, cellNum, translate("project.report.recommendation"), Style.TITLE);	
@@ -2759,7 +2759,7 @@ public class ExcelWorksheetBuilder {
 		report.addBigTextCell(sheet, rowNum++, translate("project.justification"), project.getReccDesc());
 
 		
-		rowNum += step+1;
+		rowNum += rowNum+2;
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, cellNum, translate("project.report.recommendation.signature"), Style.LABEL);
 		row = sheet.createRow(rowNum++);

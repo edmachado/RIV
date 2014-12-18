@@ -1,6 +1,7 @@
 package riv.objects.project;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectFirstYear {
 	private Project project;
@@ -18,6 +19,41 @@ public class ProjectFirstYear {
 		totals=new double[12];
 		cumulative=new double[12];
 		Calculate();
+	}
+	
+	
+	
+	public List<double[]> getSummary() {
+		List<double[]> summaries = new ArrayList<double[]>();
+
+		double[] incomes = new double[12];
+		for (ProjectMonthFlow f : this.incomes) {
+			for (int i=0;i<12;i++) {
+				incomes[i]+=f.getFlowData()[i];
+			}
+		}
+		
+		double[] costs = new double[12];
+		for (ProjectMonthFlow f : this.costs) {
+			for (int i=0;i<12;i++) {
+				costs[i]+=f.getFlowData()[i];
+			}
+		}
+
+		double[] maint = new double[12];
+		for (int i=0;i<12;i++) { maint[i]=maintenanceCost; }
+		
+		double[] gen = new double[12];
+		for (int i=0;i<12;i++) { gen[i]=generalCost; }
+		
+		summaries.add(incomes);
+		summaries.add(costs);
+		summaries.add(maint);
+		summaries.add(gen);
+		summaries.add(totals);
+		summaries.add(cumulative);
+		
+		return summaries;
 	}
 	
 	private void Calculate() {
@@ -72,11 +108,15 @@ public class ProjectFirstYear {
 		}
 		
 		// cumulative
-		cumulative[0]=Math.round(totals[0]);
+		cumulative[0]=totals[0];
 		for (int i=1;i<12; i++) {
-			totals[i]=Math.round(totals[i]);
 			cumulative[i]=cumulative[i-1]+totals[i];
 		}
+//		cumulative[0]=Math.round(totals[0]);
+//		for (int i=1;i<12; i++) {
+//			totals[i]=Math.round(totals[i]);
+//			cumulative[i]=cumulative[i-1]+totals[i];
+//		}
 	}
 	
 	/*

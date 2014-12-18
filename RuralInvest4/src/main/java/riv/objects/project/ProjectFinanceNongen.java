@@ -1,6 +1,7 @@
 package riv.objects.project;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectFinanceNongen {
 	private int year;
@@ -22,13 +23,19 @@ public class ProjectFinanceNongen {
 		return year;
 	}
 	
-	// calculated field: total
+	// calculated fields
 	public double getTotal() {
-		return 
-				ownContribution+donated+salvage+charges+contributions+contributionsGeneral
-				-(costInvest+replacement+operation+maintenance+general);
+		return getTotalIncome()-getTotalCosts();
+	}
+	public double getTotalIncome() {
+		return ownContribution+donated+salvage+charges+contributions+contributionsGeneral;
+	}
+	public double getTotalCosts() {
+		return costInvest+replacement+operation+maintenance+general;
 	}
 	
+	
+	// property accessors
 	public void setCharges(double charges) {
 		this.charges = charges;
 	}
@@ -95,6 +102,30 @@ public class ProjectFinanceNongen {
 	public double getMaintenance() {
 		return maintenance;
 	}
+
+	public static List<double[]> getSummary(ArrayList<ProjectFinanceNongen> nongens) {
+		List<double[]> summaries = new ArrayList<double[]>();
+
+		double[] incomes = new double[nongens.size()];
+		double[] costs = new double[nongens.size()];
+		double[] totals = new double[nongens.size()];
+		double[] cumulative = new double[nongens.size()];
+		for (ProjectFinanceNongen ng : nongens) {
+			int year=ng.getYear()-1;
+			incomes[year]=ng.getTotalIncome();
+			costs[year]=ng.getTotalCosts();
+			totals[year]=ng.getTotal();
+			cumulative[year]=year==0?ng.getTotal():cumulative[year-1]+ng.getTotal();
+		}
+		
+		summaries.add(incomes);
+		summaries.add(costs);
+		summaries.add(totals);
+		summaries.add(cumulative);
+		
+		return summaries;
+	}
+	
 	public static ArrayList<ProjectFinanceNongen> analyzeProject(Project project) {
 		ArrayList<ProjectFinanceNongen> data = new ArrayList<ProjectFinanceNongen>();
 		for (int i=0;i<project.getDuration();i++)	data.add(new ProjectFinanceNongen(i+1));

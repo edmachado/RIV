@@ -2,6 +2,7 @@ package riv.web.service;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +38,7 @@ import riv.objects.project.ProjectFinanceData.AnalysisType;
 import riv.objects.project.ProjectFinanceNongen;
 import riv.objects.project.ProjectFirstYear;
 import riv.objects.project.ProjectItem;
+import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemService;
 import riv.objects.project.ProjectResult;
@@ -472,7 +474,9 @@ public class PdfReportCreator {
 	}
 	
 	public ReportWrapper projectContributions(Project project, int startPage) {
-		ReportWrapper report = new ReportWrapper("/reports/project/projectContributions.jasper", true, project.getContributions(), "projectContributions.pdf", startPage);
+		List<ProjectItemContribution> contribs = new ArrayList<ProjectItemContribution>(project.getContributions());
+		Collections.sort(contribs);
+		ReportWrapper report = new ReportWrapper("/reports/project/projectContributions.jasper", true, contribs, "projectContributions.pdf", startPage);
 		
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());

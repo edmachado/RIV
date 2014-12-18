@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
+<div id="summaryContributions" class="summary" title='<spring:message code="project.report.contributions"/>'>
 	<c:set var="cSummary" value="${project.contributionSummary}"/>
  		<tags:table>
 		 	<display:table list="${cSummary}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
@@ -38,3 +39,4 @@
 				</display:footer>
 		 	</display:table>
 		 </tags:table>
+	</div>

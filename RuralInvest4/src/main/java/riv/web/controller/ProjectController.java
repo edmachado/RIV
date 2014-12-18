@@ -363,12 +363,14 @@ public class ProjectController {
 				amount=-1*pfyResults[1];
 			}
 			model.addAttribute("firstYear", pfy.getCumulative());
+			model.addAttribute("firstYearSummary",pfy.getSummary());
 			p.setWcFinancePeriod(period);
 			p.setWcAmountRequired(new BigDecimal(amount));	
 		} else if (step==13 &! p.getIncomeGen()) {
 			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 			model.addAttribute("result",pr);
-			
+			List<double[]> cfSummary = ProjectFinanceNongen.getSummary(ProjectFinanceNongen.analyzeProject(p));
+			model.addAttribute("cashFlowSummary",cfSummary);
 		}
 	}
 }
