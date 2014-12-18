@@ -31,6 +31,7 @@
 	
 	<h2><spring:message code="project.report.summaryTables"/></h2>
 	<ul>
+		<li><a id="showIndicators" href="javascript:showSummary('summaryIndicators');"><spring:message code="mainMenu.config.columns"/></a></li>
 		<c:if test="${project.incomeGen}">
 			<li><a href="javascript:showSummary('summaryWc');"><spring:message code="project.report.wcCalculation"/></a></li>
 			<li><a href="javascript:showSummary('summaryCashFlowFirstYear');"><spring:message code="project.report.cashFlowFirst"/></a></li>
@@ -47,6 +48,9 @@
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step13"/></tags:submit>
 </form:form>
 
+<div id="summaryIndicators" class="summary" style="background-color:#f5f5f5" title='<spring:message code="mainMenu.config.columns"/>	 '>
+	<tags:projectIndicators/>
+</div>
 <c:if test="${project.incomeGen}">
 	<tags:summaryWc />
 	<tags:summaryCashFlowFirstYear />

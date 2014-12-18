@@ -342,14 +342,17 @@ public class ProjectController {
 			model.addAttribute("files",files);
 			model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
 			model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
-		} else if (step==10 &! p.getIncomeGen()) {
+		} 
+		
+		if (!p.getIncomeGen() && step==10) {
 			// get yearly cash flow total
 			ArrayList<ProjectFinanceNongen> data = ProjectFinanceNongen.analyzeProject(p);
 			model.addAttribute("years",data);
 			// group contributions by year
 			model.addAttribute("contribsByYear", p.getContributionsByYear());
-		} else if ((step==11 || step==12 || step==13) && p.getIncomeGen()) {
+		} 
 		
+		if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
 			ProjectFirstYear pfy = new ProjectFirstYear(p);
 			int period;
 			double amount;
@@ -370,14 +373,14 @@ public class ProjectController {
 			p.setWcAmountRequired(new BigDecimal(amount));	
 			
 			
-			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(p, AnalysisType.CashFlow);
-			ProjectFinanceData.AddLoanAmortization(p, data);
-			ProjectFinanceData.AddWorkingCapital(p, data);
-			ProjectFinanceData.CalculateCumulative(data);
-			List<double[]> cfSummary = ProjectFinanceData.getSummary(data);
-			model.addAttribute("cashFlowSummary",cfSummary);
+//			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(p, AnalysisType.CashFlow);
+//			ProjectFinanceData.AddLoanAmortization(p, data);
+//			ProjectFinanceData.AddWorkingCapital(p, data);
+//			ProjectFinanceData.CalculateCumulative(data);
+//			List<double[]> cfSummary = ProjectFinanceData.getSummary(data);
+//			model.addAttribute("cashFlowSummary",cfSummary);
 			
-		} else if ((step==12 || step==13) &! p.getIncomeGen()) {
+		} else if (!p.getIncomeGen() && (step==12 || step==13)) {
 			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 			model.addAttribute("result",pr);
 			List<double[]> cfSummary = ProjectFinanceNongen.getSummary(ProjectFinanceNongen.analyzeProject(p));

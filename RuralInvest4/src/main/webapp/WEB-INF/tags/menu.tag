@@ -37,7 +37,7 @@
 		<span><u>&nbsp;</u><a id="newNigProject"
 		href="${ctx}/project/step1/-1?incgen=false"><spring:message code="mainMenu.create"/></a><a id="importProjectNig"
 		href="${ctx}/project/import"><spring:message code="mainMenu.import"/></a><a
-		href="javascript:search(true, 'nigpj', '');"><spring:message code="mainMenu.search"/></a><a
+		href="javascript:search(true, 'nigpj', '');"><spring:message code="mainMenu.search"/></a><a id="allNigpj"
 		href="javascript:search(false, 'nigpj', '');"><spring:message code="mainMenu.showAll"/></a><u>&nbsp;</u></span>
 	</div>
 	<div id="menu6">
