@@ -4,7 +4,7 @@
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="613"/>
+	<property name="ireport.y" value="341"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -67,6 +67,12 @@
 	</columnHeader>
 	<detail>
 		<band height="396" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement uuid="0ee8847b-1619-4be7-9809-1ef8ab408b1f" key="rectangle-1" positionType="Float" mode="Opaque" x="-87" y="378" width="147" height="13" forecolor="#000000" backcolor="#E5E5E5"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
 			<rectangle radius="0">
 				<reportElement uuid="659992be-3e0c-4b8e-a09b-69a1efa164d3" key="rectangle-1" positionType="Float" mode="Opaque" x="-87" y="22" width="146" height="13" forecolor="#000000" backcolor="#E5E5E5"/>
 				<graphicElement fill="Solid">
@@ -309,7 +315,7 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="864c0246-3f14-473c-bf5f-c128cffe0dfd" key="textField-58" positionType="Float" mode="Opaque" x="2" y="378" width="58" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="864c0246-3f14-473c-bf5f-c128cffe0dfd" key="textField-58" positionType="Float" mode="Transparent" x="2" y="378" width="58" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -324,7 +330,7 @@ $F{costInvest}.doubleValue()+$F{replace}.doubleValue()
 ,riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="70149e0f-dcc2-4e26-80b8-7829296caa95" key="textField-59" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-87" y="378" width="84" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="70149e0f-dcc2-4e26-80b8-7829296caa95" key="textField-59" positionType="Float" isPrintRepeatedValues="false" mode="Transparent" x="-87" y="378" width="84" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
