@@ -804,7 +804,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getPersonnels());
 			Hibernate.initialize(p.getPersonnelWithouts());
 		}
-		if (!p.getIncomeGen() && (step==-1 || step==8 || step==12 || step==13)) {
+		if (!p.getIncomeGen() && (step==-1 || step==8 || step==10 || step==12 || step==13)) {
 			Hibernate.initialize(p.getNongenLabours());
 			Hibernate.initialize(p.getNongenMaintenance());
 			Hibernate.initialize(p.getNongenMaterials());
