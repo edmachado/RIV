@@ -41,34 +41,58 @@ public class InputProjectNig extends WebTestUtil {
 	 
 	 @Test
 	public void exportProperties() throws Exception {
-			// import project
-		 importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
-			clickLinkWithImage("edit.png");
-			assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-			
-			// download properties file
-			assertLinkPresent("properties");
-			clickLink("properties");
-			
-			String filename="project.properties";
-			File f = folder.newFile(filename); 
-			saveAs(f);
-			
-			// import from properties file
-			createProject("dataentry/"+folder.getRoot().getName()+"/project", false, true);
-			assertLinkPresentWithImage("edit.png", 1);
-			clickLinkWithImage("edit.png", 1);
-			
-			// verify
-			verifyProjectNig("dataentry/projectNig", 1, false);
-		}
+		// import project
+		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+		
+		// download properties file
+		assertLinkPresent("properties");
+		clickLink("properties");
+		
+		String filename="project.properties";
+		File f = folder.newFile(filename); 
+		saveAs(f);
+		
+		// import from properties file
+		createProject("dataentry/"+folder.getRoot().getName()+"/project", 1);
+		assertLinkPresentWithImage("edit.png", 1);
+		clickLinkWithImage("edit.png", 1);
+		
+		// verify
+		verifyProjectNig("dataentry/projectNig", 1, false);
+	}
 	 
 	 @Test
 	public void createProject() throws Exception {
-		 createProject("dataentry/projectNig", true, false);
+		createProject("dataentry/projectNig", 0);
+		clickLinkWithImage("edit.png",0);
+		verifyProjectNig("dataentry/projectNig", 0, false);
+	 }
+	 
+	 @Test
+	 public void cloneProject() {
+		String title0=getMessage("ruralInvest")+" :: "+getMessage("project.step1");
+		String results=getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
+			
+		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
+		
+		assertLinkPresentWithImage("edit.png");
+		clickLinkWithImage("edit.png",0);
+		assertTitleEquals(title0);
+		clickLinkWithImage("duplicate.gif");
+		assertTitleEquals(title0);
+		assertImagePresentPartial("locked.gif", null);
+		
+		verifyProjectNig("dataentry/projectNig", 1, false);
+		
+		//Check new project exists in results table
+		clickLink("allNigpj");
+		assertTitleEquals(results);
+		assertTableRowCountEquals("results", 7);
 	 }
 
-	private void createProject(String resourceBundle, boolean testClone, boolean preexisting) throws Exception {
+	private void createProject(String resourceBundle, int resultIndex) throws Exception {
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String blockTitle = getMessage("ruralInvest")+" :: "+getMessage("projectActivity.name");
@@ -318,20 +342,7 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(resultsTitle);
 		
 		//Check new project exists in results table
-		assertTableRowCountEquals("results", preexisting ? 7 : 6);
+		assertTableRowCountEquals("results", 6+resultIndex);
 		assertTextInTable("results", projName);
-	
-		if (testClone) {
-			// CLONE PROJECT
-			assertLinkPresentWithImage("edit.png");
-			clickLinkWithImage("edit.png");
-			assertTitleEquals(titles[0]);
-			clickLinkWithImage("duplicate.gif");
-			assertTitleEquals(titles[0]);
-			assertImagePresentPartial("locked.gif", null);
-			
-			// step 1
-			verifyProjectNig(resourceBundle, 2, false);
-		}
 	}
 }

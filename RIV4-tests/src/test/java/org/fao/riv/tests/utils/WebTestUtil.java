@@ -550,6 +550,9 @@ public class WebTestUtil {
 		assertRadioOptionSelected("reccCode", getMessage("step12.reccCode"));
 		assertTextFieldEquals("reccDate", getMessage("step12.reccDate"));
 		assertTextFieldEquals("reccDesc", getMessage("step12.reccDesc"));
+
+		clickLink("showIndicators");
+		verifyProjectIndicators(false);
 		rivSubmitForm();
 		assertTitleEquals(titles[12]);
 		
@@ -583,7 +586,7 @@ public class WebTestUtil {
 		testRow.appendCell("");
 		testRow.appendCell("");
 		result.appendRow(testRow);
-		assertTableRowsEqual("results", 4+indexResult, result);
+		assertTableRowsEqual("results", 5+indexResult, result);
 	}
     protected void verifyProjectNigTablesStep9(int i) {
     	// income
@@ -952,6 +955,9 @@ public class WebTestUtil {
 		assertRadioOptionSelected("reccCode", getMessage("step12.reccCode"));
 		assertTextFieldEquals("reccDate", getMessage("step12.reccDate"));
 		assertTextFieldEquals("reccDesc", getMessage("step12.reccDesc"));
+		
+		clickLink("showIndicators");
+		verifyProjectIndicators(true);
 		rivSubmitForm();
 		assertTitleEquals(titles[12]);
 		
@@ -997,7 +1003,7 @@ public class WebTestUtil {
 		testRow.appendCell("");
 		testRow.appendCell("");
 		result.appendRow(testRow);
-		assertTableRowsEqual("results", 4+indexResult, result);
+		assertTableRowsEqual("results", 5+indexResult, result);
 	}
     
     protected int verifyBlocks(boolean with, int withBlocks) {
