@@ -42,6 +42,8 @@ import riv.objects.config.Setting;
 import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Project;
+import riv.objects.project.ProjectFinanceData;
+import riv.objects.project.ProjectFinanceData.AnalysisType;
 import riv.objects.project.ProjectFinanceNongen;
 import riv.objects.project.ProjectFirstYear;
 import riv.objects.project.ProjectResult;
@@ -346,7 +348,7 @@ public class ProjectController {
 			model.addAttribute("years",data);
 			// group contributions by year
 			model.addAttribute("contribsByYear", p.getContributionsByYear());
-		} else if ((step==11 || step==13) && p.getIncomeGen()) {
+		} else if ((step==11 || step==12 || step==13) && p.getIncomeGen()) {
 		
 			ProjectFirstYear pfy = new ProjectFirstYear(p);
 			int period;
@@ -366,7 +368,16 @@ public class ProjectController {
 			model.addAttribute("firstYearSummary",pfy.getSummary());
 			p.setWcFinancePeriod(period);
 			p.setWcAmountRequired(new BigDecimal(amount));	
-		} else if (step==13 &! p.getIncomeGen()) {
+			
+			
+			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(p, AnalysisType.CashFlow);
+			ProjectFinanceData.AddLoanAmortization(p, data);
+			ProjectFinanceData.AddWorkingCapital(p, data);
+			ProjectFinanceData.CalculateCumulative(data);
+			List<double[]> cfSummary = ProjectFinanceData.getSummary(data);
+			model.addAttribute("cashFlowSummary",cfSummary);
+			
+		} else if ((step==12 || step==13) &! p.getIncomeGen()) {
 			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 			model.addAttribute("result",pr);
 			List<double[]> cfSummary = ProjectFinanceNongen.getSummary(ProjectFinanceNongen.analyzeProject(p));

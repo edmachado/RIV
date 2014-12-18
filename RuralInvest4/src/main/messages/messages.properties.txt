@@ -1,7 +1,6 @@
 ### NEW TEXT IN RIV4.1 B
-
-projectContribution.contributor.help=Help text for contributor
-projectContribution.yearlyFlow.help=Help text for "net yearly balance"
+projectContribution.contributor.help=The contributing organization (NGO, association, government agency)
+projectContribution.yearlyFlow.help=Income minus costs for each year of the project.
 
 project.workingCapital.how=How is first year working capital estimated?
 project.workingCapital.explain=Working capital for the first year is determined by the cumulative monthly cash flow for the first year. 
@@ -15,6 +14,10 @@ project.report.summary.income=Income
 project.report.summary.costs=Costs
 project.report.summary.total=Total
 project.report.summary.cumulative=Cumulative total
+project.report.summaryTables.info=For detailed information, see
+project.report.summary.block=Operational income and costs summary
+project.report.summary.block.all=All blocks
+project.report.summary.block.all.nongen=All activities
 
 about.version=Version
 project.recommendation.review=Further review required

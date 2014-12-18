@@ -29,6 +29,33 @@
 	
 	<tags:textbox field="reccDesc" multiline="true" helpTitle="project.recc.justification" helpText="project.recc.justification.help"><spring:message code="project.recc.justification"/></tags:textbox>
 	
+	<h2><spring:message code="project.report.summaryTables"/></h2>
+	<ul>
+		<c:if test="${project.incomeGen}">
+			<li><a href="javascript:showSummary('summaryWc');"><spring:message code="project.report.wcCalculation"/></a></li>
+			<li><a href="javascript:showSummary('summaryCashFlowFirstYear');"><spring:message code="project.report.cashFlowFirst"/></a></li>
+			<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.summary.block"/></a></li>			
+		</c:if>
+		<c:if test="${not project.incomeGen}">
+			<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.summary.block"/></a></li>
+			<li><a href="javascript:showSummary('summaryContributions');"><spring:message code="project.report.contributionSummary"/></a></li>
+			<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlowNongen"/></a></li>
+		</c:if>
+	</ul>
+	
+	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step13"/></tags:submit>
 </form:form>
+
+<c:if test="${project.incomeGen}">
+	<tags:summaryWc />
+	<tags:summaryCashFlowFirstYear />
+	<tags:summaryCashFlow />
+	<tags:summaryBlocks />
+</c:if>
+<c:if test="${not project.incomeGen }">
+	<tags:summaryContributions/>
+	<tags:summaryCashFlow />
+	<tags:summaryBlocks />
+</c:if>
 </body></html>

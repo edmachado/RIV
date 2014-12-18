@@ -768,7 +768,8 @@ public class DataRepository {
 
 		// only populate collections necessary for the operation performed
 		Hibernate.initialize(p.getTechnician());
-		if (step==1 || step==-1 || step==13) {
+
+		if (step==-1 || step==1 || step==13) {
 			Hibernate.initialize(p.getFieldOffice());
 			Hibernate.initialize(p.getStatus());
 			Hibernate.initialize(p.getBeneficiary());
@@ -777,31 +778,42 @@ public class DataRepository {
 			Hibernate.initialize(p.getAppConfig1());
 			Hibernate.initialize(p.getAppConfig2());
 		}
-		if (step==7 || step==-1 || step==13) {
+		if (step==-1 || step==7 || step==12 || step==13
+				|| (!p.getIncomeGen()&&step==10) || (p.getIncomeGen()&&step==11)
+				) {
 			Hibernate.initialize(p.getAssets());
 			Hibernate.initialize(p.getLabours());
 			Hibernate.initialize(p.getServices());
 			Hibernate.initialize(p.getAssetsWithout());
 			Hibernate.initialize(p.getLaboursWithout());
 			Hibernate.initialize(p.getServicesWithout());
+		}
+		
+		if (step==-1 || step==7 || step==8 || step==13 
+				|| ((p.getIncomeGen() && step==10) || (!p.getIncomeGen() && step==11))) {
 			Hibernate.initialize(p.getRefCosts());
 			Hibernate.initialize(p.getRefLabours());
 		}
-		if (step==8 || step==-1 || step==13) {
-			Hibernate.initialize(p.getRefCosts());
-			Hibernate.initialize(p.getRefLabours());
-			if (p.getIncomeGen()) {
-				Hibernate.initialize(p.getGenerals());
-				Hibernate.initialize(p.getGeneralWithouts());
-				Hibernate.initialize(p.getPersonnels());
-				Hibernate.initialize(p.getPersonnelWithouts());
-			} else {
-				Hibernate.initialize(p.getNongenLabours());
-				Hibernate.initialize(p.getNongenMaintenance());
-				Hibernate.initialize(p.getNongenMaterials());
-			}
+		if (step==-1 || (p.getIncomeGen() && step==10) || (!p.getIncomeGen() && step==11)) {
+			Hibernate.initialize(p.getRefIncomes());
 		}
-		if (step==9 || (p.getIncomeGen() && step==11) || step==-1 || step==13) {
+		
+		if (p.getIncomeGen() && (step==-1 || step==8 || step==11 || step==12 || step==13)) {
+			Hibernate.initialize(p.getGenerals());
+			Hibernate.initialize(p.getGeneralWithouts());
+			Hibernate.initialize(p.getPersonnels());
+			Hibernate.initialize(p.getPersonnelWithouts());
+		}
+		if (!p.getIncomeGen() && (step==-1 || step==8 || step==12 || step==13)) {
+			Hibernate.initialize(p.getNongenLabours());
+			Hibernate.initialize(p.getNongenMaintenance());
+			Hibernate.initialize(p.getNongenMaterials());
+		}
+	
+		if (step==-1 || step==9 || step==12 || step==13
+				|| (p.getIncomeGen() && step==11)
+				|| (!p.getIncomeGen() && step==10)
+				) {
 			for (Block b : p.getBlocks()) {
 				Hibernate.initialize(b.getChrons());
 				Hibernate.initialize(b.getPatterns());
@@ -818,52 +830,8 @@ public class DataRepository {
 			}
 		}
 		
-		if ((p.getIncomeGen() && step==10) || 
-				(!p.getIncomeGen() && step==11) ||
-				step==-1) {
-			Hibernate.initialize(p.getRefIncomes());
-			Hibernate.initialize(p.getRefCosts());
-			Hibernate.initialize(p.getRefLabours());
-		}
-		
-		if (!p.getIncomeGen() && (step==10 || step==-1 || step==13)) {
+		if (!p.getIncomeGen() && (step==-1 || step==10 || step==12 || step==13)) {
 			Hibernate.initialize(p.getContributions());
-			if (step==10) { // load all data for analysis
-				Hibernate.initialize(p.getNongenLabours());
-				Hibernate.initialize(p.getNongenMaintenance());
-				Hibernate.initialize(p.getNongenMaterials());
-				Hibernate.initialize(p.getAssets());
-				Hibernate.initialize(p.getLabours());
-				Hibernate.initialize(p.getServices());
-				Hibernate.initialize(p.getAssetsWithout());
-				Hibernate.initialize(p.getLaboursWithout());
-				Hibernate.initialize(p.getServicesWithout());
-				for (Block b : p.getBlocks()) {
-					Hibernate.initialize(b.getChrons());
-					Hibernate.initialize(b.getPatterns());
-					Hibernate.initialize(b.getIncomes());
-					Hibernate.initialize(b.getInputs());
-					Hibernate.initialize(b.getLabours());
-				}
-				for (BlockWithout b : p.getBlocksWithout()) {
-					Hibernate.initialize(b.getChrons());
-					Hibernate.initialize(b.getPatterns());
-					Hibernate.initialize(b.getIncomes());
-					Hibernate.initialize(b.getInputs());
-					Hibernate.initialize(b.getLabours());
-				}
-			}
-		}
-		
-		if (p.getIncomeGen() && step==11) {
-			Hibernate.initialize(p.getAssets());
-			Hibernate.initialize(p.getGenerals());
-			Hibernate.initialize(p.getPersonnels());
-			Hibernate.initialize(p.getLabours());
-			Hibernate.initialize(p.getServices());
-		}
-		if (step==12) {
-			Hibernate.initialize(p.getTechnician());
 		}
 		
 		return p;

@@ -1205,7 +1205,7 @@ public double getInvestmentTotal() {
 	 
 	// gives summary data for contributions (and helper classes)
 	public List<ProjectContributor> getContributionSummary() {
-		HashMap<ProjectContributorKey, ProjectContributor> contribs = new HashMap<ProjectContributorKey, ProjectContributor>();
+		Map<ProjectContributorKey, ProjectContributor> contribs = new HashMap<ProjectContributorKey, ProjectContributor>();
 		for (ProjectItemContribution c : contributions) {
 			ProjectContributorKey key = getContribKeyFromKeys(contribs.keySet(), c.getContribType(),c.getContributor()==null ? "" : c.getContributor());
 			if (!contribs.containsKey(key)) {
@@ -2131,6 +2131,30 @@ public double getInvestmentTotal() {
 		pr.setInvestmentDonated(investDonated);
 		
 		return pr;
+	}
+	
+	public List<double[]> getAllBlockSummary() {
+		List<double[]> list = new ArrayList<double[]>();
+		double[] incomes = new double[duration];
+    	double[] costs = new double[duration];
+    	double[] totals = new double[duration];
+    	double[] cumulative =  new double[duration];
+    	
+    	for (Block b : blocks) {
+    		List<double[]> rows = b.getBlockSummary();
+    		for (int year=0;year<duration;year++) {
+    			incomes[year]+=rows.get(0)[year];
+    			costs[year]+=rows.get(1)[year];
+    			totals[year]+=rows.get(2)[year];
+    			cumulative[year]+=rows.get(3)[year];
+    		}
+    	}
+    	
+    	list.add(incomes);
+    	list.add(costs);
+    	list.add(totals);
+    	list.add(cumulative);
+		return list;
 	}
 
 	@Override

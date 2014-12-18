@@ -106,14 +106,14 @@ $(function() {
 		<h2><spring:message code="project.report.summaryTables"/></h2>
 		<ul>
 			<c:if test="${project.incomeGen}">
-<%-- 				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.blockDetail"/></a></li> --%>
 				<li><a href="javascript:showSummary('summaryWc');"><spring:message code="project.report.wcCalculation"/></a></li>
 				<li><a href="javascript:showSummary('summaryCashFlowFirstYear');"><spring:message code="project.report.cashFlowFirst"/></a></li>
-				<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlow"/></a></li>
+				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.summary.block"/></a></li>			
+<%-- 				<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlow"/></a></li> --%>
 <%-- 				<li><a href="javascript:showSummary('summaryProfitability');"><spring:message code="project.report.profitability"/></a></li> --%>
 			</c:if>
 			<c:if test="${not project.incomeGen}">
-<%-- 				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.activityDetail"/></a></li> --%>
+				<li><a href="javascript:showSummary('summaryBlocks');"><spring:message code="project.report.summary.block"/></a></li>
 				<li><a href="javascript:showSummary('summaryContributions');"><spring:message code="project.report.contributionSummary"/></a></li>
 				<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlowNongen"/></a></li>
 			</c:if>
@@ -133,16 +133,17 @@ $(function() {
 	
 
 	<c:set var="blockDetailTitle"><c:if test="${project.incomeGen}"><spring:message code="project.report.blockDetail"/></c:if><c:if test="${not project.incomeGen}"><spring:message code="project.report.activityDetail"/></c:if></c:set>
-	<div id="summaryBlocks" class="summary" title='${blockDetailTitle}'>
 	
-	</div>
 	<c:if test="${project.incomeGen}">
 		<tags:summaryWc />
 		<tags:summaryCashFlowFirstYear />
+		<tags:summaryCashFlow />
+		<tags:summaryBlocks />
 	</c:if>
 	<c:if test="${not project.incomeGen }">
 		<tags:summaryContributions/>
 		<tags:summaryCashFlow />
+		<tags:summaryBlocks />
 	</c:if>
 	
 </body></html>

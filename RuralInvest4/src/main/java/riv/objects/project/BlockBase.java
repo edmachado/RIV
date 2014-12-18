@@ -2,8 +2,10 @@ package riv.objects.project;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -220,6 +222,33 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     	for (BlockLabour lab:labours)
     		cost=cost.add(lab.getTotalCash());
     	return cost;
+    }
+    
+    public List<double[]> getBlockSummary() {
+    	List<double[]> list = new ArrayList<double[]>();
+    	double[] incomes = new double[this.getProject().getDuration()];
+    	double[] costs = new double[this.getProject().getDuration()];
+    	double[] totals = new double[this.getProject().getDuration()];
+    	double[] cumulative =  new double[this.getProject().getDuration()];
+    	
+    	for (BlockPattern pat : this.getPatterns().values()) {
+    		int year = pat.getYearNum();
+    		if (year==1 && this.getProject().getIncomeGen()) {
+    			incomes[0]=getTotalIncome().doubleValue()*getCycleFirstYearIncome()*pat.getQty();
+				costs[0]=getTotalCost().doubleValue()*getCycleFirstYear()*pat.getQty();
+    		} else {
+    			incomes[year-1]=getTotalIncome().doubleValue()*getCyclePerYear()*pat.getQty();
+    			costs[year-1]=getTotalCost().doubleValue()*getCyclePerYear()*pat.getQty();
+    		}
+    		totals[year-1]=incomes[year-1]-costs[year-1];
+    		cumulative[year-1]=year==1 ? totals[0]:totals[year-1]+cumulative[year-2];
+    	}
+    	
+    	list.add(incomes);
+    	list.add(costs);
+    	list.add(totals);
+    	list.add(cumulative);
+    	return list;
     }
 
     // Property accessors

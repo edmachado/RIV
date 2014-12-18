@@ -2,6 +2,7 @@ package riv.objects.project;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import riv.util.Calculator;
 
@@ -343,6 +344,29 @@ public class ProjectFinanceData implements java.io.Serializable{
 
 	public enum AnalysisType {
 		CashFlow, Incremental// TotalCosts//, ProducerCosts
+	}
+	
+	public static List<double[]> getSummary(ArrayList<ProjectFinanceData> datas) {
+		List<double[]> summaries = new ArrayList<double[]>();
+		double[] incomes = new double[datas.size()];
+		double[] costs = new double[datas.size()];
+		double[] totals = new double[datas.size()];
+		double[] cumulative = new double[datas.size()];
+		 
+		for (ProjectFinanceData data : datas) {
+			int year=data.getYear()-1;
+			incomes[year]=data.getTotalIncome();
+			costs[year]=data.getTotalCosts();
+			totals[year]=data.getNetIncome();
+			cumulative[year]=year==0?data.getNetIncome():data.getProfitAfterFinance()+totals[year-1];
+		}
+		
+		summaries.add(incomes);
+		summaries.add(costs);
+		summaries.add(totals);
+		summaries.add(cumulative);
+		
+		return summaries;
 	}
 	
 	/**
