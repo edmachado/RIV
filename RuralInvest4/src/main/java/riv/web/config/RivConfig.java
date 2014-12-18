@@ -41,6 +41,7 @@ public class RivConfig {
 	private Map<String, String> labourTypes=new HashMap<String, String>();
 	private Map<Integer, String> lengthUnits = new HashMap<Integer, String>();
 	private Map<Integer, String> contribTypes = new HashMap<Integer, String>();
+	private Map<Integer, String> recommendationTypes = new HashMap<Integer, String>();
 	
 	@Value("${av}")	private String admin;
 	@Value("${buildLang}") private String buildLang;
@@ -71,6 +72,11 @@ public class RivConfig {
 		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
 		contribTypes.put(5, translate("projectContribution.contribType.beneficiary"));
 		contribTypes.put(4, translate("projectContribution.contribType.other"));
+		
+		recommendationTypes.put(null, "");
+		recommendationTypes.put(1, translate("project.recommendation.implement"));
+		recommendationTypes.put(2, translate("project.recommendation.reject"));
+		recommendationTypes.put(3, translate("project.recommendation.review"));
 	}
 	
 	public boolean isAdmin() { return admin.equals("true"); }
@@ -397,5 +403,8 @@ public Map<Integer, User> getUsers() {
 	}
 	public Map<Integer, String> getContribTypes() {
 		return contribTypes;
+	}
+	public Map<Integer, String> getRecommendationTypes() {
+		return recommendationTypes;
 	}
 }

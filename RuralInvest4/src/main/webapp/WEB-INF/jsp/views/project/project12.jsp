@@ -12,6 +12,7 @@
 				<div class="dataentry">
 					<form:radiobutton path="reccCode" value="1"/> <spring:message code="project.recommendation.implement"/><br/>
 					<form:radiobutton path="reccCode" value="2"/> <spring:message code="project.recommendation.reject"/><br/>
+					<form:radiobutton path="reccCode" value="3"/> <spring:message code="project.recommendation.review"/><br/>
 				</div>
 			</div>
 			<div style="padding-left:300px;">

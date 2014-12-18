@@ -2745,9 +2745,8 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, cellNum, translate("project.report.recommendation"), Style.TITLE);	
 
 		row = sheet.createRow(rowNum++);
-		if(project.getReccCode()!= null && project.getReccCode()==2) {
-			report.addTextCell(row, cellNum, translate("project.recommendation.reject"));
-		}
+		report.addTextCell(row, cellNum, rivConfig.getRecommendationTypes().get(project.getReccCode()));
+		
 		rowNum++;
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, cellNum, translate("project.recommendation.date"), Style.LABEL);
