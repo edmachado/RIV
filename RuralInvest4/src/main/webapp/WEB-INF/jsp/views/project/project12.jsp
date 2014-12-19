@@ -33,8 +33,7 @@
 	<ul>
 		<li><a id="showIndicators" href="javascript:showSummary('summaryIndicators', 400,600);"><spring:message code="mainMenu.config.columns"/></a></li>
 		<c:if test="${project.incomeGen}">
-			<li><a href="javascript:showSummary('summaryWc',250,800);"><spring:message code="project.report.wcCalculation"/></a></li>
-			<li><a href="javascript:showSummary('summaryCashFlowFirstYear',220,1000);"><spring:message code="project.report.cashFlowFirst"/></a></li>
+			<li><a href="javascript:showSummary('summaryWc',300,1000);"><spring:message code="project.report.wcCalculation"/></a></li>
 		</c:if>
 		<c:if test="${not project.incomeGen}">
 			<li><a href="javascript:showSummary('summaryContributions', 300, 1000);"><spring:message code="project.report.contributionSummary"/></a></li>
@@ -53,13 +52,12 @@
 </div>
 <c:if test="${project.incomeGen}">
 	<tags:summaryWc />
-	<tags:summaryCashFlowFirstYear />
-	<tags:summaryCashFlow />
 	<tags:summaryBlocks />
+	<tags:summaryCashFlow />
 </c:if>
 <c:if test="${not project.incomeGen }">
+	<tags:summaryBlocks />
 	<tags:summaryContributions/>
 	<tags:summaryCashFlow />
-	<tags:summaryBlocks />
 </c:if>
 </body></html>
