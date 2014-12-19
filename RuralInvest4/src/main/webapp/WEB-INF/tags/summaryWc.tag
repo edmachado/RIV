@@ -1,11 +1,4 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<script>
-function showWcExplain() {
-	$('#summaryWc').dialog({
-		resizable: true, height:250, width:800
-	});
-};
-</script>
 <div id="summaryWc" title='<spring:message code="project.workingCapital.how"/>' class="summary">
 	<p><spring:message code="project.workingCapital.explain"/>
 		<c:if test="${empty project.wizardStep}">

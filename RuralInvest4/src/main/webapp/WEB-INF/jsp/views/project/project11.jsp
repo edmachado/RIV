@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <html><head><title><spring:message code="project.step11"/></title>
-
+<tags:jscriptCalc fieldA="investmentTotal" fieldB="loan2Amt" fieldC="loan1Amt" functionName="Calculate" calc="-"/>
+<tags:jscriptCalc fieldA="wcAmountRequired" fieldB="capitalDonate" fieldC="wcAmountFinanced" fieldD="capitalOwn" functionName="CalcFinance" calc="-" calc2="-" />
 </head>
 <body>
 <form:form name="form" method="post" commandName="project">
@@ -30,7 +31,8 @@
             		<tags:help title="project.workingCapital" text="project.workingCapital.help"><spring:message code="project.workingCapital"/></tags:help>
             	</legend>
             	<div class="dataentry">
-            		<label><a href="javascript:showWcExplain();"><img height="11" border="0" width="11" vspace="2" src="<%=request.getContextPath()%>/img/help.gif"> <spring:message code="project.workingCapital.how"/></a></label>
+            		<label><a href="javascript:showSummary('summaryWc',250,800);"><img height="11" border="0" width="11" vspace="2" src="<%=request.getContextPath()%>/img/help.gif"> 
+            		<spring:message code="project.workingCapital.how"/></a></label>
 				</div>	
             	<tags:dataentry field="wcAmountRequired" labelKey="project.amtRequired" helpText="project.amtRequired.help" calculated="true" currency="true"/>
            		<tags:dataentry field="wcAmountFinanced" labelKey="project.amtFinanced" helpText="project.amtFinanced.help"  calculated="true" currency="true" />
@@ -54,15 +56,7 @@
 		   		<tags:dataentry field="loan2InitPeriod" labelKey="project.loan2InitPeriod" helpText="project.loan2InitPeriod.help" />
 		 </fieldset>
 	</div>
-	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step12"/></tags:submit>
-	
 </form:form>
-
 <tags:summaryWc />
-
-
-<tags:jscriptCalc fieldA="investmentTotal" fieldB="loan2Amt" fieldC="loan1Amt" functionName="Calculate" calc="-"/>
-<tags:jscriptCalc fieldA="wcAmountRequired" fieldB="capitalDonate" fieldC="wcAmountFinanced" fieldD="capitalOwn" functionName="CalcFinance" calc="-" calc2="-" />
-
 </body></html>

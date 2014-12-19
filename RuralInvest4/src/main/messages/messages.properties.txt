@@ -22,9 +22,6 @@ project.report.summary.block.all.nongen=All activities
 about.version=Version
 project.recommendation.review=Further review required
 
-### END RIV4.1 B
-
-
 ### NEW TEXT IN RIV4.1 A
 units.year=Year
 misc.confirm=Confirm
@@ -57,8 +54,7 @@ project.amtRequired.help=The amount of working capital required is the amount ne
 project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
 profile.report.title=Reports
 
-### END RIV4.1 A
-
+### RIV4.0
 
 project.report.profitability.totalMinusInvest.before=Total before donation minus investment in first year
 project.report.profitability.totalMinusInvest.after=Total after donation minus investment in first year
@@ -81,6 +77,7 @@ project.report.cashFlow.costs.invest=Investment costs
 project.report.cashFlow.costs.initial=Initial investment
 project.report.cashFlow.costs.recurrent=Recurrent costs
 project.report.cashFlow.wcCapital=Working capital - capital
+
 
 =
 profile.report.summary.sheetname=Summary
@@ -120,9 +117,7 @@ project.report.profitability.sheetname=Profitability
 project.report.contributions.sheetname=Contributions
 project.report.recommendation.sheetname=Recommendation
 project.report.results.sheetname=Projects
-
 project.report.cashFlowNongen.sheetname=Sustainability
-
 
 error.logo=Please add a logo for your organization.
 error.import.profile=An error occurred when saving profile.

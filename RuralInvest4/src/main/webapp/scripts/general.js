@@ -1,6 +1,6 @@
-function showSummary(summary) {
+function showSummary(summary, h, w) {
 	$('#'+summary).dialog({
-		resizable: true, height:250, width:800
+		resizable: true, height:h, width:w
 	});
 };
 

@@ -1,5 +1,9 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <div id="summaryContributions" class="summary" title='<spring:message code="project.report.contributions"/>'>
+	<spring:message code="project.report.summaryTables.info"/> <spring:message code="project.report.contributions"/>
+	<a href="../../report/${project.projectId}/projectContributions.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
+	<a href="../../report/${project.projectId}/projectContributions.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a>			
+	
 	<c:set var="cSummary" value="${project.contributionSummary}"/>
  		<tags:table>
 		 	<display:table list="${cSummary}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
