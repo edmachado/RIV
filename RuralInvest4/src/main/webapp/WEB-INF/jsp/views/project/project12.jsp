@@ -1,5 +1,12 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<html><head><title><spring:message code="project.step12"/></title><tags:calendarJs/></head>
+<html><head><title><spring:message code="project.step12"/></title><tags:calendarJs/>
+<script>
+$(function() {
+	$('#indicators > tbody > tr:even').addClass("odd");
+	$('#indicators > tbody > tr > td').css("padding","1px 4px");
+});
+</script>
+</head>
 <body>
 <form:form name="form" method="post" commandName="project">
 	<spring:message code="project.recommendation.seeReports"/> <a href="../step13/${project.projectId}"><b><spring:message code="project.step13"/></b></a>.
