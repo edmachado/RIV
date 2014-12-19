@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><div id="top">
-	<div id="user" align="right"> <a id="welcome" href="<%=request.getContextPath()%>/config/user/${user.userId}">(<spring:message code="header.welcome"/> ${user.description})</a> | <a id="logoff" href="<%=request.getContextPath()%>/j_spring_security_logout">Log off</a>&nbsp;</div>
+	<div id="user" align="right"> <a id="welcome" href="<%=request.getContextPath()%>/config/user/${user.userId}">(<spring:message code="header.welcome"/> ${user.description})</a> | <a id="logoff" href="<%=request.getContextPath()%>/j_spring_security_logout"><spring:message code="header.logOff"/></a>&nbsp;</div>
 	<div id="search">
 		<img src="<%=request.getContextPath()%>/img/logo.gif" alt="RuralInvest"/>
 		<div>
@@ -8,12 +8,12 @@
 			<input name="freeText" id="myFreeText" size="16"/>
 			<input type="hidden" name="unfinished"/>
 			<select name="objType" id="profOrProj">
-				<option value="igpj">project ($)</option>
-				<option value="nigpj">project (:)</option>
-				<option value="igpf">profile ($)</option>
-				<option value="nigpf">profile (:)</option>
+				<option value="igpj"><spring:message code="header.project"/> ($)</option>
+				<option value="nigpj"><spring:message code="header.project"/> (:)</option>
+				<option value="igpf"><spring:message code="header.profile"/> ($)</option>
+				<option value="nigpf"><spring:message code="header.profile"/> (:)</option>
 			</select>
-			<input class="button" type="submit" value="go" />
+			<input class="button" type="submit" value="<spring:message code='header.go'/>" />
 			</form>
 		</div>
 	</div>
