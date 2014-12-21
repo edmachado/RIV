@@ -43,7 +43,6 @@ public class ProjectFinanceData implements java.io.Serializable{
 	private double costInvestWithout;
 	private double costInvestOwnWithout;
 	private double costInvestDonatedWithout;
-	private double cumulative;
 	private double workingCapitalCapital;
 	private double workingCapitalInterest;
 	private double loan1interest;
@@ -71,15 +70,35 @@ public class ProjectFinanceData implements java.io.Serializable{
 	
 	public double getTotalIncome() {
 		if (analType==AnalysisType.CashFlow) {
-			return incSales-incSalesInternal+incSalvage+workingCapitalDonation;
+			return getMainIncome()+loanReceived+workingCapitalCapital+costInvestDonated+costInvestOwn+workingCapitalDonation+workingCapitalOwn;
 		} else { 
 			return incSales-incSalesWithout+incSalvage-incSalvageWithout+incResidual-incResidualWithout;
 		}
 	}
 	
-	public double getTotalCosts() {
+	public double getMainIncome() {
+		if (analType!=AnalysisType.CashFlow) {
+			throw new RuntimeException("This method should only be used for Cash Flow analysis, not profitability analysis.");
+		}
+		return incSales-incSalesInternal+incSalvage;
+	}
+	
+	public double getInvestAndRecurringCosts() {
+		if (analType!=AnalysisType.CashFlow) {
+			throw new RuntimeException("This method should only be used for Cash Flow analysis, not profitability analysis.");
+		}
+		return costInvest+costReplace+costOperation-costOperationInternal+costGeneral-costGeneralOwn+costMaintenance;
+	}
+	public double getFinancingCosts() {
+		if (analType!=AnalysisType.CashFlow) {
+			throw new RuntimeException("This method should only be used for Cash Flow analysis, not profitability analysis.");
+		}
+		return loan1capital+loan1interest+loan2capital+loan2interest+workingCapitalCapital+workingCapitalInterest;
+	}
+	
+	private double getTotalCosts() {
 		if (analType==AnalysisType.CashFlow) {
-			return costOperation-costOperationInternal+costReplace+costGeneral-costGeneralOwn+costMaintenance;
+			return getInvestAndRecurringCosts()+getFinancingCosts();
 		} else { 
 			return costOperation-costOperationWithout+costReplace-costReplaceWithout+costGeneral-costGeneralWithout+costMaintenance-costMaintenanceWithout+costInvest-costInvestWithout;
 		}
@@ -87,13 +106,6 @@ public class ProjectFinanceData implements java.io.Serializable{
 	
 	public double getNetIncome() {
 		return getTotalIncome()-getTotalCosts();
-	}
-	public double getNetIncomeAfterDonation() {
-		return getNetIncome()+workingCapitalDonation+costInvestDonated;
-	}
-	
-	public double getProfitAfterFinance() {
-		return getNetIncome()-workingCapitalInterest-loan1interest-loan1capital-loan2interest-loan2capital;
 	}
 	
 	public ProjectFinanceData(int year, AnalysisType analType) {
@@ -292,12 +304,6 @@ public class ProjectFinanceData implements java.io.Serializable{
 		this.costInvestDonatedWithout = costInvestDonatedWithout;
 	}
 
-	public void setCumulative(double cumulative) {
-		this.cumulative = cumulative;
-	}
-	public double getCumulative() {
-		return cumulative;
-	}
 	public void setWorkingCapitalCapital(double wcCapital) {
 		this.workingCapitalCapital=wcCapital;
 	}
@@ -367,7 +373,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 				donations[year]=data.getIncCapitalDonation()+data.costInvestDonated-data.costInvestDonatedWithout;
 				totals[year]=incomes[year]-costs[year]+donations[year];
 			}
-			cumulative[year]=year==0?totals[0]:totals[year]+totals[year-1];
+			cumulative[year]=year==0?totals[0]:totals[year]+cumulative[year-1];
 		}
 		
 		summaries.add(incomes);
@@ -610,10 +616,16 @@ public class ProjectFinanceData implements java.io.Serializable{
 		data.get(project.getLoan2InitPeriod()-1).setLoanReceived(project.getLoan2Amt());
 		data.get(0).setLoanReceived(data.get(0).getLoanReceived()+project.getLoan1Amt());
 		
+		if (analType==AnalysisType.CashFlow) {
+			addLoanAmortization(project, data);
+			addWorkingCapital(project, data);
+//			calculateCumulative(data);
+		}
+		
 		return data;
 	}
 	
-	public static void AddLoanAmortization(Project project, ArrayList<ProjectFinanceData> data) {
+	private static void addLoanAmortization(Project project, ArrayList<ProjectFinanceData> data) {
 		double loan1amt = project.getInvestmentTotal()-project.getLoan2Amt();
 		double loan1interest=(project.getLoan1Interest()-project.getInflationAnnual())*.01;
 		double loan2interest=(project.getLoan2Interest()-project.getInflationAnnual())*.01;
@@ -656,8 +668,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 		}
 	}
 	
-	
-	public static void AddWorkingCapital(Project project, ArrayList<ProjectFinanceData> data) {
+	private static void addWorkingCapital(Project project, ArrayList<ProjectFinanceData> data) {
 		// year 1
 		ProjectFirstYear pfy = new ProjectFirstYear(project);
 		double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
@@ -673,13 +684,6 @@ public class ProjectFinanceData implements java.io.Serializable{
 			double interestYear2 = remainingNegative * data.get(1).getTotalCosts()/data.get(0).getTotalCosts()
 				* pfyResults[0]/12 *(project.getCapitalInterest()*0.01);
 			data.get(1).setWorkingCapital(-1*interestYear2);
-		}
-	}
-	
-	public static void CalculateCumulative(ArrayList<ProjectFinanceData> data) {
-		data.get(0).setCumulative(data.get(0).getProfitAfterFinance());
-		for (int i=1; i<data.size(); i++) {
-			data.get(i).setCumulative(data.get(i-1).getCumulative()+data.get(i).getProfitAfterFinance());
 		}
 	}
 }

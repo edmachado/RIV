@@ -16,7 +16,7 @@ public class Calculator {
 		
 		cashFlows[0] = -1*(financeData.get(0).getCostInvest()-financeData.get(0).getCostInvestWithout());
 		for (ProjectFinanceData data : financeData) {
-			cashFlows[data.getYear()] = includeDonation ? round(data.getNetIncomeAfterDonation()) : round(data.getNetIncome());
+			cashFlows[data.getYear()] = includeDonation ? round(data.getNetIncome()+data.getIncCapitalDonation()+data.getCostInvestDonated()-data.getCostInvestDonatedWithout()) : round(data.getNetIncome());
 		}
 		
 		if (includeDonation) {

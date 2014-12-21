@@ -1262,14 +1262,11 @@ public class ExcelWorksheetBuilder {
 			row = sheet.createRow(rowNum++);
 			// count years with negative flow
 			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
-			ProjectFinanceData.AddLoanAmortization(project, data);
-			ProjectFinanceData.AddWorkingCapital(project, data);
-			ProjectFinanceData.CalculateCumulative(data);
 			
 			cellNum = 3;
 			int yearsNeg=0;
 			for(ProjectFinanceData pfd : data) { 
-				if (pfd.getProfitAfterFinance()<0) { 
+				if (pfd.getNetIncome()<0) { 
 					yearsNeg++;
 				}
 			}
@@ -1581,9 +1578,6 @@ public class ExcelWorksheetBuilder {
 		final int loan2InterestAfterGrace=60;
 		
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
-		ProjectFinanceData.AddLoanAmortization(project, data);
-		ProjectFinanceData.AddWorkingCapital(project, data);
-		ProjectFinanceData.CalculateCumulative(data);
 		
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CASH_FLOW));
 		sheet.setSelected(true);
@@ -1817,7 +1811,7 @@ public class ExcelWorksheetBuilder {
 				// operation
 				formulaBuild = new StringBuilder();
 				for (ExcelBlockLink blockLink : report.getBlockLinks().values()) {
-					formulaBuild.append("("+blockLink.cost+"*"+blockLink.qtyPerYear[yearNum-1]);
+					formulaBuild.append("("+blockLink.costCash+"*"+blockLink.qtyPerYear[yearNum-1]);
 					if (!blockLink.noCycles) {
 						if (yearNum==1) {
 							formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
@@ -1830,7 +1824,7 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(26), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 
 				// general
-				report.addFormulaCell(sheet.getRow(27), yearNum, report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL), Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(27), yearNum, report.getLink(ExcelLink.PROJECT_GENERAL_CASH), Style.CURRENCY);
 				
 				// maintenance
 				formulaBuild = new StringBuilder();
@@ -1990,8 +1984,8 @@ public class ExcelWorksheetBuilder {
 				report.addNumericCell(sheet.getRow(21), yearNum, pfd.getCostInvest(), Style.CURRENCY);
 				report.addNumericCell(sheet.getRow(22), yearNum, pfd.getCostReplace(), Style.CURRENCY);
 				
-				report.addNumericCell(sheet.getRow(26), yearNum, pfd.getCostOperation(), Style.CURRENCY);
-				report.addNumericCell(sheet.getRow(27), yearNum, pfd.getCostGeneral(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(26), yearNum, pfd.getCostOperation()-pfd.getCostOperationInternal(), Style.CURRENCY);
+				report.addNumericCell(sheet.getRow(27), yearNum, pfd.getCostGeneral()-pfd.getCostGeneralOwn(), Style.CURRENCY);
 				report.addNumericCell(sheet.getRow(28), yearNum, pfd.getCostMaintenance(), Style.CURRENCY);
 				
 				report.addNumericCell(sheet.getRow(32), yearNum, pfd.getWorkingCapitalCapital(), Style.CURRENCY);
@@ -2022,9 +2016,6 @@ public class ExcelWorksheetBuilder {
 	
 	public Sheet projectProfitability(ExcelWrapper report, Project project, ProjectResult result) {
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.Incremental);
-		ProjectFinanceData.AddLoanAmortization(project, data);
-		ProjectFinanceData.AddWorkingCapital(project, data);
-		ProjectFinanceData.CalculateCumulative(data);
 		
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_PROFITABILITY));
 		sheet.setSelected(true);

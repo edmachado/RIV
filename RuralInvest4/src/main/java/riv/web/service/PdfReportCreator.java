@@ -400,9 +400,6 @@ public class PdfReportCreator {
 	
 	public ReportWrapper projectCashFlow(Project project, int startPage) {
 		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
-		ProjectFinanceData.AddLoanAmortization(project, data);
-		ProjectFinanceData.AddWorkingCapital(project, data);
-		ProjectFinanceData.CalculateCumulative(data);
 		
 		ReportWrapper report = new ReportWrapper("/reports/project/projectCashFlow.jasper", true, data, "projectCashFlow.pdf", startPage);
 		
@@ -577,13 +574,10 @@ public class PdfReportCreator {
 		if (project.getIncomeGen()) {
 			// count years with negative flow
 			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
-			ProjectFinanceData.AddLoanAmortization(project, data);
-			ProjectFinanceData.AddWorkingCapital(project, data);
-			ProjectFinanceData.CalculateCumulative(data);
 			
 			int yearsNeg=0;
 			for(ProjectFinanceData pfd:data) 
-				if (pfd.getProfitAfterFinance()<0) 
+				if (pfd.getNetIncome()<0) 
 					yearsNeg++;
 			report.getParams().put("yearsNeg", yearsNeg);
 		}

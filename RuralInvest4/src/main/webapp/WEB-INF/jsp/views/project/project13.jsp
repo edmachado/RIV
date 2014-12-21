@@ -108,8 +108,8 @@ $(function() {
 			<li><a href="javascript:showSummary('summaryBlocks', 300, 1000);"><spring:message code="project.report.summary.block"/></a></li>
 			<c:if test="${project.incomeGen}">
 				<li><a href="javascript:showSummary('summaryWc', 300, 1000);"><spring:message code="project.report.wcCalculation"/></a></li>
+				<li><a href="javascript:showSummary('summaryCashFlow', 200, 1000);"><spring:message code="project.report.cashFlow"/></a></li>
 				<li><a href="javascript:showSummary('summaryProfitability', 220, 1000);"><spring:message code="project.report.profitability"/></a></li>
-<%-- 			<li><a href="javascript:showSummary('summaryCashFlow');"><spring:message code="project.report.cashFlow"/></a></li> --%>
 			</c:if>
 			<c:if test="${not project.incomeGen}">
 				<li><a href="javascript:showSummary('summaryContributions', 300, 1000);"><spring:message code="project.report.contributionSummary"/></a></li>
@@ -132,15 +132,15 @@ $(function() {
 
 	<c:set var="blockDetailTitle"><c:if test="${project.incomeGen}"><spring:message code="project.report.blockDetail"/></c:if><c:if test="${not project.incomeGen}"><spring:message code="project.report.activityDetail"/></c:if></c:set>
 	
+	
+	<tags:summaryCashFlow />
+	<tags:summaryBlocks />
 	<c:if test="${project.incomeGen}">
 		<tags:summaryWc />
-		<tags:summaryBlocks />
 		<tags:summaryProfitability/>
 	</c:if>
 	<c:if test="${not project.incomeGen }">
 		<tags:summaryContributions/>
-		<tags:summaryCashFlow />
-		<tags:summaryBlocks />
 	</c:if>
 	
 </body></html>

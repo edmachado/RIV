@@ -2087,10 +2087,6 @@ public double getInvestmentTotal() {
 			BigDecimal irrWith = Calculator.internalRateOfReturn(discount, finData, true);
 			pr.setNpvWithDonation(npvWith);
 			pr.setIrrWithDonation(irrWith);
-//					(irrWith.compareTo(new BigDecimal(-1000))!=-1
-//					&& irrWith.compareTo(new BigDecimal(1000))!=-1)
-//					? irrWith : null
-//				);
 			
 			// add working capital
 			ProjectFirstYear pfy = new ProjectFirstYear(this);
