@@ -560,8 +560,11 @@ li.qq-upload-fail {
 }
 
 div.summary { display:none;}
-#wcSummary td, #wcSummary th {text-align:center;}
+span.explain { padding:3px 5px; }
+#firstYearSummary tr:first-child  > th, #firstYearSummary tr:nth-child(5), #firstYearSummary tr:nth-child(6) { font-weight:bold; }
 td.highMonth, span.highMonth { border:1px solid red; }
 th.period, span.period { background-color: #69f; }
-span.explain { padding:3px 5px; }
+#summaryContributions tfoot tr { font-weight:bold; }
 #indicators td:first-child { font-weight:bold;text-align:right; }
+#summaryBlocks tr:nth-child(3), #summaryBlocks tr:nth-child(4)  { font-weight:bold; }
+#profitabilitySummary tbody tr:nth-child(4), #profitabilitySummary tbody tr:nth-child(5) { font-weight:bold; }

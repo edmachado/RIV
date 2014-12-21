@@ -380,6 +380,14 @@ public class ProjectController {
 //			List<double[]> cfSummary = ProjectFinanceData.getSummary(data);
 //			model.addAttribute("cashFlowSummary",cfSummary);
 			
+		}  
+		
+		if (p.getIncomeGen() && (step==12 || step==13)) {
+			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(p, AnalysisType.Incremental);
+			ProjectFinanceData.AddLoanAmortization(p, data);
+			ProjectFinanceData.AddWorkingCapital(p, data);
+			ProjectFinanceData.CalculateCumulative(data);
+			model.addAttribute("profitabilitySummary", ProjectFinanceData.getSummary(data));
 		} else if (!p.getIncomeGen() && (step==12 || step==13)) {
 			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 			model.addAttribute("result",pr);

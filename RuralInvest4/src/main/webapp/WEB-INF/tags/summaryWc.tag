@@ -39,8 +39,7 @@
 					<c:if test="${i+project.startupMonth>12}"><spring:message code="calendar.month.${(i+project.startupMonth)%12}"/></c:if>
 				</c:set>
 				<c:set var="monthClass"><c:if test="${i+1 le project.wcFinancePeriod}">period</c:if></c:set>
-				<c:set var="style"><c:if test="${row_rowNum gt 4}">font-weight:bold;</c:if></c:set>
-				<display:column title="${title}"  style="${style }" headerClass="centered ${monthClass}" >
+				<display:column title="${title}" headerClass="centered ${monthClass}" >
 					<tags:formatCurrency value="${row[i]}"/>
 				</display:column>
 			</c:forEach>

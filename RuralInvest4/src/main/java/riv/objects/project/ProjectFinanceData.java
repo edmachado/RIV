@@ -343,26 +343,38 @@ public class ProjectFinanceData implements java.io.Serializable{
 	}
 
 	public enum AnalysisType {
-		CashFlow, Incremental// TotalCosts//, ProducerCosts
+		CashFlow, Incremental
 	}
 	
 	public static List<double[]> getSummary(ArrayList<ProjectFinanceData> datas) {
+		AnalysisType anal = datas.get(0).analType;
+		
 		List<double[]> summaries = new ArrayList<double[]>();
 		double[] incomes = new double[datas.size()];
 		double[] costs = new double[datas.size()];
+		double[] donations = new double[datas.size()];
 		double[] totals = new double[datas.size()];
 		double[] cumulative = new double[datas.size()];
 		 
+		
 		for (ProjectFinanceData data : datas) {
 			int year=data.getYear()-1;
 			incomes[year]=data.getTotalIncome();
 			costs[year]=data.getTotalCosts();
-			totals[year]=data.getNetIncome();
-			cumulative[year]=year==0?data.getNetIncome():data.getProfitAfterFinance()+totals[year-1];
+			if (anal==AnalysisType.CashFlow) {
+				totals[year]=data.getNetIncome();
+			} else {
+				donations[year]=data.getIncCapitalDonation()+data.costInvestDonated-data.costInvestDonatedWithout;
+				totals[year]=incomes[year]-costs[year]+donations[year];
+			}
+			cumulative[year]=year==0?totals[0]:totals[year]+totals[year-1];
 		}
 		
 		summaries.add(incomes);
 		summaries.add(costs);
+		if (anal==AnalysisType.Incremental) {
+			summaries.add(donations);
+		}
 		summaries.add(totals);
 		summaries.add(cumulative);
 		
