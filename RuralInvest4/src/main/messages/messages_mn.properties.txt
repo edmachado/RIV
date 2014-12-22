@@ -1,3 +1,27 @@
+#RIV4.1 B
+projectContribution.contributor.help=Хувь оруулагч байгууллага (ТББ, холбоо, Засгийн газрын агентлаг)
+projectContribution.yearlyFlow.help=Төслийн жил бүрийн орлогоос зардлыг нь хасна.
+
+project.workingCapital.how=Эхний жилийн ажлын капитал хэрхэн тооцоологддог вэ? 
+project.workingCapital.explain=Эхний жилийн ажлын капитал нь эхний жилийн сар тутмын өсөн нэмэгдүүлсэн мөнгөн усгалаар тодорхойлогодоно.
+project.amtRequired.explain=Хамгийн их сөрөг утга 
+
+project.report.wcCalculation=Ажлын капиталын тооцоолол 
+project.report.contributionSummary=Хувь оролцооны товчоон 
+project.report.summaryTables=Хүснэгтүүдийн хураангуй
+project.report.summaryTables.info=Дэлгэрэнгүй мэдээллийг эндээс харна уу
+project.report.summary.income=Орлого
+project.report.summary.costs=Зардал
+project.report.summary.total=Нийт
+project.report.summary.cumulative=Өсөн нэмэгдүүлсэн нийт
+project.report.summary.block=Үйл ажиллагааны орлого, зардлын хураангуй 
+project.report.summary.block.all=Бүх блок
+project.report.summary.block.all.nongen=Бүх үйл ажиллагаа
+
+about.version=Хувилбар
+
+project.recommendation.review=Дахин нягтлах шаардлагатай
+
 #RIV4.1
 units.year=жил
 misc.confirm=баталгаажуул
