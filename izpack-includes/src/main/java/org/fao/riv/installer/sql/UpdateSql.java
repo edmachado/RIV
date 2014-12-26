@@ -33,41 +33,39 @@ public class UpdateSql  {
 		System.out.println("installPath: "+installPath);
 		System.out.println("sql path: "+sqlPath);
 		System.out.println("          isRiv3: "+args[2]);
-
-		if (isRiv3) {
-			migrateDb();
-		}
-
-		try {
-			connection = getDataSource2(false).getConnection();
-		} catch (SQLException e) {
-			e.printStackTrace(System.out);
-		}
 		
-		execute();
+		execute(isRiv3);
 		System.out.println("Finished updating database structure.");
 	}
 	
 	private void migrateDb() {
 		try {
 			// close well with hsqldb 1.8
-			Connection  con = getDataSource2(true).getConnection();
-			Statement stmt=con.createStatement();
+			System.out.println("Closing well with HSQLDB 1.8");
+//			Connection  con = getDataSource2(true).getConnection();
+//			Connection con = connection;
+			Statement stmt=connection.createStatement();
 			stmt.execute("SHUTDOWN SCRIPT");
 			stmt.close();
-			con.close();
+			connection.close();
 			
-			// open and close with hsqldb 2.3
-			con = getDataSource2(false).getConnection();
-			stmt = con.createStatement();
+			// open and close with hsqldb 3.2
+			System.out.println("Opening and closing with HSQLDB 2.3.1");
+			connection = getDataSource(false).getConnection();
+			stmt = connection.createStatement();
 			stmt.execute("SHUTDOWN");
 			stmt.close();
-			con.close();
+			connection.close();
+			
+			// make fresh connection using HSQLDB 2.3.1
+			System.out.println("Reopening new HSQLB 2.3.1 connection");
+			connection = getDataSource(false).getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace(System.out);
 		}
 	}
-	private DataSource getDataSource2(boolean useHsqldb18) {
+	
+	private DataSource getDataSource(boolean useHsqldb18) {
 		if (useHsqldb18) {
 			org.fao.riv.hsqldb18.jdbc.jdbcDataSource ds = new org.fao.riv.hsqldb18.jdbc.jdbcDataSource();
 			System.out.println(ds.getClass());
@@ -85,7 +83,7 @@ public class UpdateSql  {
 		}
 	}
 	
-	private void execute() {
+	private void execute(boolean isRiv3) {
 		try {
 			JAXBContext context = JAXBContext.newInstance(SQL.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -93,6 +91,12 @@ public class UpdateSql  {
 			JAXBElement<SQL> element = unmarshaller.unmarshal(new StreamSource(
 					sqlPath), SQL.class);
 			SQL sql = element.getValue();
+			
+			try {
+				connection = getDataSource(isRiv3).getConnection();
+			} catch (SQLException e) {
+				e.printStackTrace(System.out);
+			}
 			
 			getCurrentVersion();
 			
@@ -131,7 +135,13 @@ public class UpdateSql  {
 					stmt.getConnection().commit();
 					stmt.close();
 					System.out.println("Completed upgrade to: "+version.getVersionNumber());
+					
 					current=version.getVersionNumber();
+					
+					if (current==3.9) { // here we migrate from HSQLDB 1.8 to 3.2
+						migrateDb();
+					}
+					
 				}
 			}
 		} catch (SQLException sqle) {
