@@ -267,6 +267,8 @@ ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(15,4);
 
 -- precision on settings table
 ALTER TABLE setting ALTER COLUMN lang VARCHAR(2);
+UPDATE setting SET exch_rate=ROUND(exch_rate,4);
+UPDATE setting SET discount_rate=ROUND(discount_rate,4);
 ALTER TABLE setting ALTER COLUMN exch_rate DECIMAL(15,4);
 ALTER TABLE setting ALTER COLUMN discount_rate DECIMAL(15,4);
 ALTER TABLE setting ALTER COLUMN currency_sym VARCHAR(20);
@@ -282,18 +284,29 @@ ALTER TABLE profile drop column currency;
 ALTER TABLE profile ALTER COLUMN benef_name  VARCHAR(150); 
 
 -- project block item
+UPDATE project_block_item SET unit_num = ROUND(unit_num,4);
+UPDATE project_block_item SET unit_cost = ROUND(unit_cost,4);
+UPDATE project_block_item SET qty_intern = ROUND(qty_intern,4);
+UPDATE project_block_item SET transport = ROUND(transport,4);
 ALTER TABLE project_block_item ALTER COLUMN unit_num Decimal(15,4);
 ALTER TABLE project_block_item ALTER COLUMN unit_cost Decimal(15,4);
 ALTER TABLE project_block_item ALTER COLUMN qty_intern Decimal(15,4);
 ALTER TABLE project_block_item ALTER COLUMN transport Decimal(15,4);
 
 -- profile item
+UPDATE profile_item SET unit_num=ROUND(unit_num,4);
+UPDATE profile_item SET unit_cost=ROUND(unit_cost,4);
+UPDATE profile_item SET own_resource=ROUND(own_resource,4);
+UPDATE profile_item SET salvage=ROUND(salvage,4);
 ALTER TABLE profile_item ALTER COLUMN unit_num Decimal(15,4);
 ALTER TABLE profile_item ALTER COLUMN unit_cost Decimal(15,4);
 ALTER TABLE profile_item ALTER COLUMN own_resource Decimal(15,4);
 ALTER TABLE profile_item ALTER COLUMN salvage Decimal(15,4);
 
 -- profile product item
+UPDATE profile_product_item SET unit_num=ROUND(unit_num,4);
+UPDATE profile_product_item SET unit_cost=ROUND(unit_cost,4);
+UPDATE profile_product_item SET transport=ROUND(transport,4);
 ALTER TABLE profile_product_item ALTER COLUMN unit_num Decimal(15,4);
 ALTER TABLE profile_product_item ALTER COLUMN unit_cost Decimal(15,4);
 ALTER TABLE profile_product_item ALTER COLUMN transport Decimal(15,4);
@@ -325,12 +338,22 @@ ALTER TABLE profile ALTER COLUMN source_funds VARCHAR(10000);
 ALTER TABLE profile ALTER COLUMN proj_desc VARCHAR(10000);
 
 -- precision on project table
+UPDATE project SET capital_donate=ROUND(capital_donate,4);
+UPDATE project SET loan2_amt=ROUND(loan2_amt,4);
+UPDATE project SET capital_own=ROUND(capital_own,4);
 ALTER TABLE project ALTER COLUMN capital_donate DECIMAL(15,4);
 ALTER TABLE project ALTER COLUMN loan2_amt DECIMAL(15,4);
 ALTER TABLE project ALTER COLUMN capital_own DECIMAL(15,4);
 ALTER TABLE project drop column category_other;
 
 -- project item precision
+UPDATE project_item SET unit_num=ROUND(unit_num,4);
+UPDATE project_item SET unit_cost=ROUND(unit_cost,4);
+UPDATE project_item SET donated=ROUND(donated,4);
+UPDATE project_item SET own_resources=ROUND(own_resources,4);
+UPDATE project_item SET maint_cost=ROUND(maint_cost,4);
+UPDATE project_item SET salvage=ROUND(salvage,4);
+
 ALTER TABLE project_item ALTER COLUMN unit_num DECIMAL(15,4);
 ALTER TABLE project_item ALTER COLUMN unit_cost DECIMAL(15,4);
 ALTER TABLE project_item ALTER COLUMN donated DECIMAL(15,4);
@@ -339,6 +362,8 @@ ALTER TABLE project_item ALTER COLUMN maint_cost DECIMAL(15,4);
 ALTER TABLE project_item ALTER COLUMN salvage DECIMAL(15,4);
 
 -- reference item precision
+UPDATE ref_item SET unit_cost=ROUND(unit_cost,4);
+UPDATE ref_item SET transport=ROUND(transport,4);
 ALTER TABLE ref_item ALTER COLUMN unit_cost DECIMAL(15,4);
 ALTER TABLE ref_item ALTER COLUMN transport DECIMAL(15,4);
    	</query>

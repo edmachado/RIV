@@ -199,6 +199,5 @@
 			<description>Update existing RuralInvest database</description>
 			<file src="resources/sql.xml" targetdir="$TEMP_DIRECTORY" override="true" />
 		</pack>
-		
 	</packs>
 </installation>
