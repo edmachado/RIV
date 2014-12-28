@@ -28,7 +28,7 @@ public class ProjectItemContribution extends ProjectItem {
 	private Integer contribType;
 	@Column(name="YEAR_BEGIN")
 	private Integer year;
-	@Column
+	@Column(name="CONTRIBUTOR")
 	private String contributor;
 	
 	public Project getProject () {

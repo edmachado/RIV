@@ -46,8 +46,8 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	protected Double unitNum;
 	@Column(name="UNIT_COST")
 	protected Double unitCost;
-	@Size(max=2000)
-	private String note;
+//	@Size(max=2000)
+//	private String note;
 	@ManyToOne
 	@JoinColumn(name="LINKED_TO")
 	private ReferenceItem linkedTo;
@@ -116,13 +116,13 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 		unitCost = UnitCost;
 	}
 
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
+//	public String getNote() {
+//		return note;
+//	}
+//
+//	public void setNote(String note) {
+//		this.note = note;
+//	}
 
 	public void setLinkedTo(ReferenceItem linkedTo) {
 		this.linkedTo = linkedTo;

@@ -48,8 +48,8 @@ public abstract class BlockItem  implements Serializable, OrderByable, LinkedToa
 	protected BigDecimal unitCost;
 	@Column(name="QTY_INTERN", precision=12, scale=4)
 	protected BigDecimal qtyIntern;
-	@Size(max=2000)
-	private String note;
+//	@Size(max=2000)
+//	private String note;
 	@ManyToOne
 	@JoinColumn(name="LINKED_TO")
 	private ReferenceItem linkedTo;
@@ -123,13 +123,13 @@ public abstract class BlockItem  implements Serializable, OrderByable, LinkedToa
 		this.qtyIntern = QtyIntern;
 	}
 
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
+//	public String getNote() {
+//		return note;
+//	}
+//
+//	public void setNote(String note) {
+//		this.note = note;
+//	}
 
 	public void setLinkedTo(ReferenceItem linkedTo) {
 		this.linkedTo = linkedTo;

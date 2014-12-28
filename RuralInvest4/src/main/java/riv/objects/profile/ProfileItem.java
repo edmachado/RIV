@@ -51,8 +51,8 @@ public abstract class ProfileItem  implements Serializable, OrderByable, LinkedT
 	private Double unitNum;
 	@Column(name="UNIT_COST", precision=12, scale=4)
 	private Double unitCost;
-	@Size(max=2000)
-	private String note;
+//	@Size(max=2000)
+//	private String note;
 	@ManyToOne
 	@JoinColumn(name="LINKED_TO")
 	private ReferenceItem linkedTo;
@@ -133,13 +133,13 @@ public abstract class ProfileItem  implements Serializable, OrderByable, LinkedT
 		this.unitCost = unitCost;
 	}
 
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
+//	public String getNote() {
+//		return note;
+//	}
+//
+//	public void setNote(String note) {
+//		this.note = note;
+//	}
 
 	/**
 	 * @param linkedTo
