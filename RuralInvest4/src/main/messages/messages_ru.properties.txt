@@ -1,4 +1,31 @@
-﻿
+﻿#RIV 4.1 B
+projectContribution.contributor.help=Участвующая организация (НПО, ассоциация, государственное агентство)
+projectContribution.yearlyFlow.help=Доход за вычетом всех затрат на каждый год проекта.
+
+project.workingCapital.how=Как оценивается рабочий капитал на первый год?
+project.workingCapital.explain=Рабочий капитал первого года рассчитывается путем суммирования ежемесячных денежных потоков первого года. 
+project.amtRequired.explain=Самое большое отрицательное значение 
+
+project.report.wcCalculation=Расчет рабочего капитала 
+project.report.contributionSummary=Сводка поступлений средств 
+project.report.summaryTables=Сводные таблицы 
+project.report.summaryTables.info=Для подробной информации смотри
+project.report.summary.income=Доход
+project.report.summary.costs=Затраты
+project.report.summary.total=Итого
+project.report.summary.cumulative=Общий итого
+project.report.summary.block= Сводные данные о доходе от деятельности и затратах 
+project.report.summary.block.all=Все блоки 
+project.report.summary.block.all.nongen=Все виды деятельности 
+
+about.version=Версия
+project.recommendation.review=Требуется более детальный анализ 
+
+
+#RIV 4.1 A
+
+
+#RIV4.0
 profile.report.summary.sheetname=Общая информация
 profile.report.general.sheetname=Общие 
 profile.report.costDetail.with.sheetname=Общие (без)
