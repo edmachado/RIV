@@ -2119,35 +2119,35 @@ public class ExcelWorksheetBuilder {
 										"%s!$C$%d*"+
 										"(%s!$D$%d-%s!$K$%d)/%s!$I$%d*"+
 										
-										"IF(%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d)),0)+"+
+										"IF(%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d)),0)+"+
 										
 										"%s!$C$%d*%s!$K$%d"+
 										", 0)+", 
-										assetSheetName, i, 
-										assetSheetName, i, 
-										assetSheetName, i,
-										report.getLink(ExcelLink.PROJECT_DURATION),
+										assetSheetName, i, //IF(OR(EXACT(%s!$L$%d,\"#\"),
+										assetSheetName, i, //%s!$M$%d-1
+										assetSheetName, i, //+%s!$I$%d
+										report.getLink(ExcelLink.PROJECT_DURATION), //>%s),
 										
-										assetSheetName, i,
+										assetSheetName, i, //%s!$C$%d*
 										
-										assetSheetName, i,
-										assetSheetName, i,
-										assetSheetName, i,
+										assetSheetName, i, //(%s!$D$%d
+										assetSheetName, i, //-%s!$K$%d)
+										assetSheetName, i, ///%s!$I$%d*
 										
-										assetSheetName, i,
-										assetSheetName, i,
-										assetSheetName, i,
-										assetSheetName, i,
+										assetSheetName, i, //IF(%s!$I$%d-
+										report.getLink(ExcelLink.PROJECT_DURATION), //(MOD(%s
+										assetSheetName, i, //-%s!$M$%d-1
+										assetSheetName, i, //,%s!$I$%d))
 										
-										assetSheetName, i,
+										assetSheetName, i, //<%s!$I$%d,
 										
-										assetSheetName, i,
-										assetSheetName, i,
-										assetSheetName, i,
-										assetSheetName, i,
+										assetSheetName, i, //%s!$I$%d-
+										report.getLink(ExcelLink.PROJECT_DURATION), //(MOD(%s
+										assetSheetName, i, //-%s!$M$%d-1
+										assetSheetName, i, //,%s!$I$%d)),0)+
 										
-										assetSheetName, i,
-										assetSheetName, i
+										assetSheetName, i, //%s!$C$%d
+										assetSheetName, i //*%s!$K$%d
 									)
 						);
 					}

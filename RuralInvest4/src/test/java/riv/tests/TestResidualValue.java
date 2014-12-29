@@ -1,11 +1,12 @@
-import org.junit.Ignore;
+package riv.tests;
+
 import org.junit.Test;
 import org.junit.Assert;
 
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 
-public class ResidualValue {
+public class TestResidualValue {
 
 	@Test
 	public void ResidualValueTest1() {
@@ -23,11 +24,8 @@ public class ResidualValue {
 		a.setReplace(true);
 		p.addAsset(a);
 		Assert.assertTrue(a.getResidual()==1800.00);
-		
-		
 	}
 	
-	@Ignore
 	@Test
 	public void ResidualValueTest2() {
 		Project p = new Project();
@@ -43,8 +41,6 @@ public class ResidualValue {
 		a.setMaintCost(0.0);
 		a.setReplace(false);
 		p.addAsset(a);
-		Assert.assertTrue(a.getResidual()==0.00);
+		Assert.assertEquals(a.getResidual().doubleValue(), 5355.0, 0.01);
 	}
-	
-	
 }
