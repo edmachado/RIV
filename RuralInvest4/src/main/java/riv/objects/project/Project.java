@@ -238,7 +238,7 @@ public class Project extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemAsset.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='0'")
-	private Set<ProjectItemAsset> assets;
+	private Set<ProjectItemAsset> assets = new HashSet<ProjectItemAsset>();
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemAssetWithout.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='11'")

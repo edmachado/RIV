@@ -109,7 +109,10 @@
 
 
 	<dependencies>
-	
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
 		<!--  data persistence -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
