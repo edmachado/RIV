@@ -2160,7 +2160,7 @@ public class ExcelWorksheetBuilder {
 											"%s!$C$%d*"+
 											"(%s!$D$%d-%s!$K$%d)/%s!$I$%d*"+
 											
-											"IF(%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s!$I$%d-%s!$M$%d-1,%s!$I$%d)),0)+"+
+											"IF(%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d)),0)+"+
 											
 											"%s!$C$%d*%s!$K$%d"+
 											", 0)", 
@@ -2176,14 +2176,14 @@ public class ExcelWorksheetBuilder {
 											assetWithoutSheetName, i,
 											
 											assetWithoutSheetName, i,
-											assetWithoutSheetName, i,
+											report.getLink(ExcelLink.PROJECT_DURATION),
 											assetWithoutSheetName, i,
 											assetWithoutSheetName, i,
 											
 											assetWithoutSheetName, i,
 											
 											assetWithoutSheetName, i,
-											assetWithoutSheetName, i,
+											report.getLink(ExcelLink.PROJECT_DURATION),
 											assetWithoutSheetName, i,
 											assetWithoutSheetName, i,
 											
