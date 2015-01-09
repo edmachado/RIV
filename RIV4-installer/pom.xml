@@ -216,7 +216,7 @@
   <parent>
   	<groupId>org.fao.riv</groupId>
   	<artifactId>RIV4</artifactId>
-  	<version>4.1.1-SNAPSHOT</version>
+  	<version>4.1.1</version>
   	<relativePath>../RIV4/pom.xml</relativePath>
   </parent>
 </project>
