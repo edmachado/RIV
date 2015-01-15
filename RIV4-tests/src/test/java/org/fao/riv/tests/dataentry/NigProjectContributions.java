@@ -1,6 +1,7 @@
 package org.fao.riv.tests.dataentry;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTablePresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.checkCheckbox;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickButton;
@@ -39,8 +40,7 @@ public class NigProjectContributions extends WebTestUtil {
 	    }
 	 
 	 @Test
-		public void testCopyYearContributions() {
-		deletePros(true, false);
+	public void testCopyYearContributions() {
 		// import complete project
 		importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
 		// edit project
@@ -71,11 +71,21 @@ public class NigProjectContributions extends WebTestUtil {
 		
 		
 	}
+	 
+	 @Test
+	 public void testContributionSummary() {
+		 String title10=getMessage("ruralInvest")+" :: "+getMessage("project.step10.nongen");
+			
+		 importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
+		goToPro(true, false, true);
+		clickLink("step10");
+		assertTitleEquals(title10);
+		assertTablePresent("summaryContributionsTable");
+		
+	 }
 	
 	@Test
 	public void testAddContributionForAllYears() throws Exception {
-		deletePros(true, false);
-		// import complete project
 		importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
 		// edit project
 		goToPro(true, false, true);

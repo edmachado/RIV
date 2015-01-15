@@ -4,6 +4,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -30,6 +31,12 @@ public class ImportSettings extends WebTestUtil {
 		clickLink("logoff");
         closeBrowser();
     }
+	
+//	@AfterClass
+//	public static void tearDown() {
+//		importSettings(ImportFile.Settings20);
+//		
+//	}
 	
 	@Test
     public void import1o6() {
