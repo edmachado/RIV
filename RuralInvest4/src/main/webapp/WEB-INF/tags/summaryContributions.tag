@@ -7,7 +7,7 @@
 	<c:set var="cSummary" value="${project.contributionSummary}"/>
  		<tags:table>
 		 	<display:table list="${cSummary}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
-								export="false" htmlId="summaryContributions">
+								export="false" htmlId="summaryContributionsTable">
 		 		<display:column titleKey="projectContribution.contribType" sortable="true" sortProperty="key.contributionType" style="text-align:left;" headerClass="left">
 					<c:if test="${contrib.key.contributionType=='0'}"><spring:message code="projectContribution.contribType.govtCentral"/></c:if>
 					<c:if test="${contrib.key.contributionType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if>

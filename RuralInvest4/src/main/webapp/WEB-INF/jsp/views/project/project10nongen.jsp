@@ -4,6 +4,7 @@
 .onlyPerYear { 
 <c:if test="${not project.perYearContributions}">display:none;</c:if> 
 }
+#summaryContributions { display:block; }
 </style>
 <script>
 $(function() {
