@@ -16,7 +16,7 @@
 		<authors>
 			<author name="Food and Agriculture Organization" email="TCI-Ruralinvest@fao.org" />
 		</authors>
-		<javaversion>1.7</javaversion>
+		<javaversion>1.6</javaversion>
 		<run-privileged />
 		<tempdir/>
 		 <!--<pack200/> this works but compilation takes longer -->
