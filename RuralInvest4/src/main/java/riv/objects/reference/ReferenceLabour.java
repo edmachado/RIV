@@ -60,12 +60,13 @@ public class ReferenceLabour extends ReferenceItem {
 	}  
 	
 	public String testingProperties(RivConfig rc) {
+		String lineSeparator = System.getProperty("line.separator");
 		CurrencyFormatter cf = rc.getSetting().getCurrencyFormatter();
 		StringBuilder sb = new StringBuilder();
 		String base="step"+(this.getProbase().getIncomeGen()?"10":"11")+".labour."+(this.getOrderBy()+1)+".";
-		sb.append(base+"description="+this.getDescription()+System.lineSeparator());
-		sb.append(base+"unitType="+rc.getLabourTypes().get(this.getUnitType())+System.lineSeparator());
-		sb.append(base+"unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append(base+"description="+this.getDescription()+lineSeparator);
+		sb.append(base+"unitType="+rc.getLabourTypes().get(this.getUnitType())+lineSeparator);
+		sb.append(base+"unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+lineSeparator);
 		return sb.toString();
 	}
 		

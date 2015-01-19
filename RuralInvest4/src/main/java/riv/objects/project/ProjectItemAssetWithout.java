@@ -120,21 +120,22 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 	    }
 	   
 	   public String testingProperties(RivConfig rivConfig) {
+			String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitType="+unitType+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(ownResources, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".econLife="+econLife+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".maintCost="+cf.formatCurrency(maintCost, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".salvage="+cf.formatCurrency(salvage, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".replace="+(replace?"Yes":"No")+System.lineSeparator());
-		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+System.lineSeparator());
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(ownResources, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".econLife="+econLife+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".maintCost="+cf.formatCurrency(maintCost, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".salvage="+cf.formatCurrency(salvage, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".replace="+(replace?"Yes":"No")+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".yearBegin="+yearBegin+lineSeparator);
 		   return sb.toString();
 	   }
 	   

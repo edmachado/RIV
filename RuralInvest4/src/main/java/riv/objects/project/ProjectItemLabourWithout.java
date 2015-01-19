@@ -72,17 +72,18 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 	   }
 	
 	   public String testingProperties(RivConfig rivConfig) {
+			String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitType="+rivConfig.getLabourTypes().get(unitType)+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(OwnResources, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(Donated, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".yearBegin="+YearBegin+System.lineSeparator());
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitType="+rivConfig.getLabourTypes().get(unitType)+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(OwnResources, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(Donated, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".yearBegin="+YearBegin+lineSeparator);
 		   return sb.toString();
 	   }
 	

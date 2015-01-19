@@ -32,16 +32,17 @@ public class ProjectItemNongenLabour extends ProjectItemNongenBase {
 	}
 	
 	public String testingProperties(RivConfig rivConfig) {
+		String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".unitType="+rivConfig.getLabourTypes().get(unitType)+System.lineSeparator());
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+System.lineSeparator());
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".ownResource="+cf.formatCurrency(getOwnResource(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".statePublic="+cf.formatCurrency(getStatePublic(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".other1="+cf.formatCurrency(getOther1(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".description="+description+lineSeparator);
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".unitType="+rivConfig.getLabourTypes().get(unitType)+lineSeparator);
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+lineSeparator);
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".ownResource="+cf.formatCurrency(getOwnResource(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".statePublic="+cf.formatCurrency(getStatePublic(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.labour"+(this.getOrderBy()+1)+".other1="+cf.formatCurrency(getOther1(), CurrencyFormat.ALL)+lineSeparator);
 		   return sb.toString();
 	   }
 	

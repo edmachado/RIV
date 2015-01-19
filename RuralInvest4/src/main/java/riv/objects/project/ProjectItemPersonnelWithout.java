@@ -50,15 +50,16 @@ public class ProjectItemPersonnelWithout extends ProjectItem  {//implements Gene
 	}
 	
 	 public String testingProperties(RivConfig rivConfig) {
+			String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
-		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".description="+description+System.lineSeparator());
-		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".unitType="+rivConfig.getLabourTypes().get(unitType)+System.lineSeparator());
-		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+System.lineSeparator());
-		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(OwnResources, CurrencyFormat.ALL)+System.lineSeparator());
-		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".external="+cf.formatCurrency(getExternal(), CurrencyFormat.ALL)+System.lineSeparator());
+		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
+		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".unitType="+rivConfig.getLabourTypes().get(unitType)+lineSeparator);
+		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+lineSeparator);
+		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(OwnResources, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.personnelWo."+(this.getOrderBy()+1)+".external="+cf.formatCurrency(getExternal(), CurrencyFormat.ALL)+lineSeparator);
 		   return sb.toString();
 	   }
 	

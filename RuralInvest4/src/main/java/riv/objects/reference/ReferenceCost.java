@@ -70,16 +70,17 @@ public class ReferenceCost extends ReferenceItem {
 	}
 	
 	public String testingProperties(RivConfig rc) {
+		String lineSeparator = System.getProperty("line.separator");
 		CurrencyFormatter cf = rc.getSetting().getCurrencyFormatter();
 		StringBuilder sb = new StringBuilder();
 		String base="step"+(this.getProbase().getIncomeGen()?"10":"11")+".input."+(this.getOrderBy()+1)+".";
-		sb.append(base+"description="+this.getDescription()+System.lineSeparator());
-		sb.append(base+"unitType="+this.getUnitType()+System.lineSeparator());
-		sb.append(base+"unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+System.lineSeparator());
+		sb.append(base+"description="+this.getDescription()+lineSeparator);
+		sb.append(base+"unitType="+this.getUnitType()+lineSeparator);
+		sb.append(base+"unitCost="+cf.formatCurrency(this.getUnitCost(), CurrencyFormat.ALL)+lineSeparator);
 		if (transport!=null) {
-			sb.append(base+"transport="+cf.formatCurrency(this.getTransport(), CurrencyFormat.ALL)+System.lineSeparator());
+			sb.append(base+"transport="+cf.formatCurrency(this.getTransport(), CurrencyFormat.ALL)+lineSeparator);
 		} else {
-			sb.append(base+"transport="+System.lineSeparator());
+			sb.append(base+"transport="+lineSeparator);
 		}
 		return sb.toString();
 	}
