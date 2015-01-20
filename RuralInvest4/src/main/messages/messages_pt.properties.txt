@@ -2,7 +2,7 @@
 projectContribution.contributor.help=Organização doadora (ONG, associação, agência do governo)
 projectContribution.yearlyFlow.help=Receita menos custos totais para cada ano do projecto.
  
-project.workingCapital.how=Como é que o capital de trabalho para o primeiro ano é estimado??
+project.workingCapital.how=Como é que o capital de trabalho para o primeiro ano é estimado?
 project.workingCapital.explain=O capital de trabalho necessário durante o primeiro ano é estimado a partir do fluxo de caixa mensal acumulado para o primeiro ano.
 project.amtRequired.explain=O maior valor negativo
  
