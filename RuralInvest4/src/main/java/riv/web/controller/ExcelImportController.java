@@ -97,7 +97,7 @@ public class ExcelImportController {
 		if (error==null) {
 			return "{\"success\": \"success\"}";
 		} else {
-			return "{\"error\": \""+error+"\"}";
+			return "{\"error\": \""+error.replace("\"", "\\\"")+"\"}";
 		}
 	}
 	
@@ -263,25 +263,33 @@ public class ExcelImportController {
 		List<ProjectItemPersonnel> persWith = tablePers.readTable(sheet, messageSource);
 		rowNum = rowNum+persWith.size()+6;
 		
-		// supplies Without
-		//rowNum=rowNum+;
-		XlsImportTable<ProjectItemGeneralWithout> tableGenWithout = new XlsImportTable<ProjectItemGeneralWithout>(ProjectItemGeneralWithout.class, rowNum, 4, validator)
-				.addColumn(0, "description", false)
-				.addColumn(1, "unitType", false)
-				.addColumn(2, "unitNum", true)
-				.addColumn(3, "unitCost", true)
-				.addColumn(5, "ownResources", true);
-		List<ProjectItemGeneralWithout> gensWithout = tableGenWithout.readTable(sheet, messageSource);
-		rowNum = rowNum+gensWithout.size()+6;
+		List<ProjectItemGeneralWithout> gensWithout;
+		List<ProjectItemPersonnelWithout> persWithout;
 		
-		// personnel Without
-		XlsImportTable<ProjectItemPersonnelWithout> tablePersWithout = new XlsImportTable<ProjectItemPersonnelWithout>(ProjectItemPersonnelWithout.class, rowNum, 4, validator)
-				.addColumn(0, "description", false)
-				.addSelectColumn(1, "unitType", labourTypes())
-				.addColumn(2, "unitNum", true)
-				.addColumn(3, "unitCost", true)
-				.addColumn(5, "ownResources", true);
-		List<ProjectItemPersonnelWithout> persWithout = tablePersWithout.readTable(sheet, messageSource);	
+		if (p.isWithWithout()) {
+			// supplies Without
+			//rowNum=rowNum+;
+			XlsImportTable<ProjectItemGeneralWithout> tableGenWithout = new XlsImportTable<ProjectItemGeneralWithout>(ProjectItemGeneralWithout.class, rowNum, 4, validator)
+					.addColumn(0, "description", false)
+					.addColumn(1, "unitType", false)
+					.addColumn(2, "unitNum", true)
+					.addColumn(3, "unitCost", true)
+					.addColumn(5, "ownResources", true);
+			gensWithout = tableGenWithout.readTable(sheet, messageSource);
+			rowNum = rowNum+gensWithout.size()+6;
+			
+			// personnel Without
+			XlsImportTable<ProjectItemPersonnelWithout> tablePersWithout = new XlsImportTable<ProjectItemPersonnelWithout>(ProjectItemPersonnelWithout.class, rowNum, 4, validator)
+					.addColumn(0, "description", false)
+					.addSelectColumn(1, "unitType", labourTypes())
+					.addColumn(2, "unitNum", true)
+					.addColumn(3, "unitCost", true)
+					.addColumn(5, "ownResources", true);
+			persWithout = tablePersWithout.readTable(sheet, messageSource);	
+		} else {
+			gensWithout = new ArrayList<ProjectItemGeneralWithout>();
+			persWithout = new ArrayList<ProjectItemPersonnelWithout>();
+		}
 		
 		dataService.replaceProjectGeneral(id, gensWith, persWith, gensWithout, persWithout);
 		
@@ -346,8 +354,12 @@ public class ExcelImportController {
 		List<ProjectItemAssetWithout> assetsWithout=null;
 		List<ProjectItemLabourWithout> laboursWithout=null;
 		List<ProjectItemServiceWithout> servicesWithout=null;
-		if (p.getIncomeGen()) {
+		if (p.getIncomeGen() && p.isWithWithout()) {
 			rowNum=0;
+			
+			if (workbook.getNumberOfSheets()==1) { // without project sheet is missing
+				throw new ExcelImportException(translate("import.excel.error.noWithout"));
+			}
 			XSSFSheet sheetWithout = workbook.getSheetAt(1);
 			
 			// assets
@@ -375,7 +387,7 @@ public class ExcelImportController {
 					.addColumn(5,  "donated", true)
 					.addColumn(6, "ownResources", true)
 					.addColumn(12, "yearBegin", true);
-			laboursWithout = tableLabourWo.readTable(sheetWith, messageSource);
+			laboursWithout = tableLabourWo.readTable(sheetWithout, messageSource);
 			rowNum = rowNum+laboursWithout.size()+3;
 			
 			// services
@@ -387,7 +399,7 @@ public class ExcelImportController {
 					.addColumn(5,  "donated", true)
 					.addColumn(6, "ownResources", true)
 					.addColumn(12, "yearBegin", true);
-			servicesWithout = tableServiceWo.readTable(sheetWith, messageSource);
+			servicesWithout = tableServiceWo.readTable(sheetWithout, messageSource);
 		}
 		
 		dataService.replaceProjectInvest(id, assetsWith, laboursWith, servicesWith, assetsWithout, laboursWithout, servicesWithout);

@@ -1,3 +1,6 @@
+### NEW TEXT RIV4.1 C
+import.excel.error.noWithout=The project you are working on includes "without project" scenario, but the Excel file you are importing does not have a "without project" sheet. Please make sure you are using the correct Excel template - see the "Download Excel template" link on this page.
+
 ### NEW TEXT IN RIV4.1 B
 projectContribution.contributor.help=The contributing organization (NGO, association, government agency)
 projectContribution.yearlyFlow.help=Income minus costs for each year of the project.
