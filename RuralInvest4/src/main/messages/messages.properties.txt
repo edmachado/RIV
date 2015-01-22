@@ -758,7 +758,7 @@ project.irrWithDonation.desc=IRR (applicant)
 project.irr.desc=IRR (all costs)
 project.irr.long=IRR
 project.irr.help=Returns to the investment without regard to the source of funds (donations, subsidies, own resources, financed).  This provides an indication of the feasibility of the project as a whole and its contribution to the overall economy.
-project.irrApplicant.help==This parameter indicates the profitability of the project from the point of view of the applicant(s). Total costs are reduced by the amount of any subsidies received. If the project receives donations or subsidies, this parameter will be higher than NPV/IRR (all costs).
+project.irrApplicant.help=This parameter indicates the profitability of the project from the point of view of the applicant(s). Total costs are reduced by the amount of any subsidies received. If the project receives donations or subsidies, this parameter will be higher than NPV/IRR (all costs).
 project.justification.help=Describe the reasons for which the project is being proposed, what benefits it is expected to bring to the applicant(s) and why it is considered worth funding
 project.justification=Background and justification
 project.lastUpdate.help=This date shows when the project was last modified
@@ -1229,7 +1229,7 @@ projectInvestLabour.yearBegin=Year begin
 projectInvestLabour=Labour
 projectInvestLabourNongen.description.help=Indicate the different types of labour which will be used to establish the investments (e.g. land preparation, road construction etc.)
 projectInvestLabourNongen.description=Description
-projectInvestLabourNongen.donated.help==If any part of the labour cost will be paid from donated resources (in cash or kind), indicate the value here
+projectInvestLabourNongen.donated.help=If any part of the labour cost will be paid from donated resources (in cash or kind), indicate the value here
 projectInvestLabourNongen.donated=Other contribution
 projectInvestLabourNongen.financed.help=Equal to the total cost of the specified labour used in the investment, less the value of donated and own resources. This remaining cost will have to be met through grant financing
 projectInvestLabourNongen.financed=Financing sought
