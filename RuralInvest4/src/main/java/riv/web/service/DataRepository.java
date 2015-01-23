@@ -223,7 +223,7 @@ public class DataRepository {
 			p.addPersonnel(i);
 		}
 		
-		if (p.getIncomeGen()) {
+		if (p.isWithWithout()) {
 			for (ProjectItemGeneralWithout i : gensWo) {
 				p.addGeneralWithout(i);
 			}
@@ -264,7 +264,7 @@ public class DataRepository {
 			p.addService(i);
 		}
 		
-		if (p.getIncomeGen()) {
+		if (p.isWithWithout()) {
 			for (ProjectItemAssetWithout i : assetsWo) {
 				p.addAssetWithout(i);
 			}

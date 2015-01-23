@@ -1,4 +1,7 @@
-﻿# RIV4.1 B
+﻿#RIV 4.1 C
+import.excel.error.noWithout=O Projecto em que está a trabalhar considera uma situação “sem projecto”. No entanto, o arquivo de Excel que tentou importar não contém dados para a situação sem projecto. Por favor verifique que utilizou o formulário de Excel correcto – veja o link “ Descarregar formulário em Excel” no topo desta página.
+
+# RIV4.1 B
 projectContribution.contributor.help=Organização doadora (ONG, associação, agência do governo)
 projectContribution.yearlyFlow.help=Receita menos custos totais para cada ano do projecto.
  

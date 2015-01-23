@@ -354,7 +354,7 @@ public class ExcelImportController {
 		List<ProjectItemAssetWithout> assetsWithout=null;
 		List<ProjectItemLabourWithout> laboursWithout=null;
 		List<ProjectItemServiceWithout> servicesWithout=null;
-		if (p.getIncomeGen() && p.isWithWithout()) {
+		if (p.isWithWithout()) {
 			rowNum=0;
 			
 			if (workbook.getNumberOfSheets()==1) { // without project sheet is missing
