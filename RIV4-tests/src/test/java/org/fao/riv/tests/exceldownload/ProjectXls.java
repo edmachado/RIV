@@ -60,7 +60,7 @@ public class ProjectXls extends WebTestUtil {
 		}
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void testProjectWith40InvestmentItems() throws IOException {
 		String[] titles = projectStepTitles(true);

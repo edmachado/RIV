@@ -60,11 +60,12 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("importProjectIg");
 		importFile(ImportFile.ProjectV20.getFile());
 		
+		String hasWithout = getMessage("step1.withWithout");
 		// go through all steps
 		for (int i=0; i<6; i++) {
 			assertTitleEquals(titles[i]);
 			if (i==0) {
-				clickRadioOption("withWithout", getMessage("step1.withWithout"));
+				clickRadioOption("withWithout", hasWithout);
 			}
 			rivSubmitForm();
 		}
@@ -77,7 +78,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsInvest.getFile().getAbsolutePath());
 		gotoPage(url);
-		verifyProjectTablesStep7();
+		verifyProjectTablesStep7(hasWithout.equals("true"));
 		
 		// export and import again
 		clickLink("downloadExcel");
@@ -87,7 +88,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		setTextField("qqfile", f.getAbsolutePath());
 		gotoPage(url);
-		verifyProjectTablesStep7();
+		verifyProjectTablesStep7(hasWithout.equals("true"));
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
@@ -97,7 +98,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsGeneral.getFile().getAbsolutePath());
 		gotoPage(url);
-		verifyProjectTablesStep8();
+		verifyProjectTablesStep8(hasWithout.equals("true"));
 		
 		// export and import again
 		clickLink("downloadExcel");
@@ -107,7 +108,7 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("importExcel");
 		setTextField("qqfile", f2.getAbsolutePath());
 		gotoPage(url);
-		verifyProjectTablesStep8();
+		verifyProjectTablesStep8(hasWithout.equals("true"));
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
@@ -131,6 +132,75 @@ public class ProjectExcelImport extends WebTestUtil {
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[9]);
+		
+    	getTestContext().setResourceBundleName("messages/messages");
+	}
+	
+	@Test
+	public void IgExcelImportNoWithout() throws Exception {
+		deletePros(true, true);
+		
+		String[] titles = projectStepTitles(true);
+		getTestContext().setResourceBundleName("dataentry/projectIg");
+
+		clickLink("goHome");
+		
+		// import file
+		clickLink("importProjectIg");
+		importFile(ImportFile.ProjectV20.getFile());
+		
+		// go through all steps
+		for (int i=0; i<6; i++) {
+			assertTitleEquals(titles[i]);
+			if (i==0) {
+				clickRadioOption("withWithout", "false");
+			}
+			rivSubmitForm();
+		}
+		
+		String url;
+		
+		// STEP 7
+		// import file
+		url=getTestingEngine().getPageURL().toString();
+		clickLink("importExcel");
+		setTextField("qqfile", ImportFile.ProjectXlsInvestNoWithout.getFile().getAbsolutePath());
+		gotoPage(url);
+		verifyProjectTablesStep7(false);
+		
+		// export and import again
+		clickLink("downloadExcel");
+		File f = folder.newFile("step7.xlsx"); 
+		saveAs(f);
+		gotoPage(url);
+		clickLink("importExcel");
+		setTextField("qqfile", f.getAbsolutePath());
+		gotoPage(url);
+		verifyProjectTablesStep7(false);
+		
+		rivSubmitForm();
+		assertTitleEquals(titles[7]);
+		
+		// STEP 8
+		url=getTestingEngine().getPageURL().toString();
+		clickLink("importExcel");
+		setTextField("qqfile", ImportFile.ProjectXlsGeneralNoWithout.getFile().getAbsolutePath());
+		gotoPage(url);
+		verifyProjectTablesStep8(false);
+		
+		// export and import again
+		clickLink("downloadExcel");
+		File f2 = folder.newFile("step8.xlsx"); 
+		saveAs(f2);
+		gotoPage(url);
+		clickLink("importExcel");
+		setTextField("qqfile", f2.getAbsolutePath());
+		gotoPage(url);
+		verifyProjectTablesStep8(false);
+		
+		rivSubmitForm();
+		assertTitleEquals(titles[8]);
+		
 		
     	getTestContext().setResourceBundleName("messages/messages");
 	}

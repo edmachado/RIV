@@ -136,9 +136,7 @@ public class TestTable {
 		}
 		
 		// construct data rows
-		int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
+		for (int i=1;i<=Integer.parseInt(getMessage(propPrefix+"count"));i++) {
 			Row testRow = new Row();
 			for (InputParam ip : params) {
 				String value =
@@ -150,24 +148,12 @@ public class TestTable {
 				testRow.appendCell(value);
 			}
 			table.appendRow(testRow);
-			
-			// should we add another item?
-			i++;
-			try {
-				getMessage(propPrefix+i+"."+params.get(0).getName());
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
-		
 		return table;
 	}
 	
 	public void testWithInput() throws Exception {
-		int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
-
+		for (int i=1;i<=Integer.parseInt(getMessage(propPrefix+"count"));i++) {
 			if (!ignoreInputRows.contains(i)) {
 				clickLink(addLink);
 				for (InputParam ip : params) {
@@ -184,13 +170,6 @@ public class TestTable {
 				}
 				if (hasSumRow) { otherRows=otherRows+2; }
 				assertTableRowCountEquals(tableId, otherRows+i);
-			}
-			// should we add another item?
-			i++;
-			try {
-				getMessage(propPrefix+i+"."+params.get(0).getName());
-			} catch (Exception e) {
-				nextItem=false;
 			}
 		}
 		

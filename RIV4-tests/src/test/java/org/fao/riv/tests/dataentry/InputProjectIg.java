@@ -146,6 +146,34 @@ public class InputProjectIg extends WebTestUtil {
 	}
 	
 	@Test
+	public void testChangeStartupMonth() {
+		String[] titles = projectStepTitles(true);
+		
+		importProject(ImportFile.ProjectV41, "igpj", false, false, "T3st Santa Cruz River Transport");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(titles[0]);
+		clickLink("step9");
+		assertTitleEquals(titles[8]);
+	
+		String xpathChronTable = "//div[@id='tabs-with']/div[@class='tableContainerOuter']/div[@class='tableContainerInner']/fieldset/div/table[@id='blockChron']";
+		assertElementPresentByXPath(xpathChronTable);
+		assertElementNotPresentByXPath(xpathChronTable+"/tbody/tr/td[@id='0-0-0-0'][@style='background:#e7ae0f;']");
+		
+		clickLink("step1");
+		assertTitleEquals(titles[0]);
+		assertSelectedOptionValueEquals("startupMonth", "1");
+		selectOptionByValue("startupMonth", "4");
+		assertSelectedOptionValueEquals("startupMonth", "4");
+		rivSubmitForm();
+		
+		assertTitleEquals(titles[1]);
+		clickLink("step9");
+		assertTitleEquals(titles[8]);
+		assertElementPresentByXPath(xpathChronTable);
+		assertElementPresentByXPath(xpathChronTable+"/tbody/tr/td[@id='0-0-0-0'][@style='background:#e7ae0f;']");
+	}
+	
+	@Test
 	public void cloneWithBlockToWithoutAndViceVersa() {
 		String[] titles = projectStepTitles(true);
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.with")+")";
