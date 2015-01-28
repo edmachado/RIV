@@ -544,16 +544,16 @@ public double getInvestmentTotal() {
     }
     
    public void setDuration (Integer Duration) {
-	   Integer diff = this.duration==null ? null : Integer.compare(Duration.intValue(),this.duration);
-        this.duration = Duration;
-        if (diff!=null && diff!=0) {
+        if (this.duration!=null && this.duration!=Duration.intValue()) {
+        	boolean decreased = Duration.intValue()<this.duration;
+        	this.duration = Duration;
         	for (BlockBase b : blocks) {
         		b.projectDurationChanged();
         	}
         	for (BlockBase b : blocksWithout) {
         		b.projectDurationChanged();
         	}
-        	if (!incomeGen && diff<0) {
+        	if (!incomeGen && decreased) {
         		List<ProjectItemContribution> removes = new ArrayList<ProjectItemContribution>();
         		for (ProjectItemContribution c : contributions) {
         			if (c.getYear()>this.duration) {
@@ -562,6 +562,8 @@ public double getInvestmentTotal() {
         		}
         		contributions.removeAll(removes);
         	}
+        } else {
+        	this.duration = Duration;
         }
     }
     
