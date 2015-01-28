@@ -4,6 +4,10 @@
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
 	
+	<c:if test="${not empty quickAnalysis}">
+	<input type="hidden" name="quickAnalysis" value="true">
+	</c:if>
+	
 	<tags:textbox field="benefName" helpText="project.benefName.help" helpTitle="project.benefName">i. <spring:message code="project.benefName"/></tags:textbox>
 	
 	<fieldset style="display:inline-block;width:47%;margin-right:10px;">
@@ -32,7 +36,10 @@
 	<tags:textbox field="benefDesc" multiline="true" helpText="project.benefDesc.help" helpTitle="project.benefDesc">iv. <spring:message code="project.benefDesc"/></tags:textbox>
 	
 	
-	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step3"/></tags:submit>
+	<tags:submit><spring:message code="misc.goto"/>
+		<c:if test="${empty quickAnalysis}"><spring:message code="project.step3"/></c:if>
+		<c:if test="${not empty quickAnalysis}"><spring:message code="project.step7"/></c:if>
+	</tags:submit>
 	</form:form>
 	<SCRIPT LANGUAGE="JavaScript">
 	<!--

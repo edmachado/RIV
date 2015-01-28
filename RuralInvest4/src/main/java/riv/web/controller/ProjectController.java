@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import riv.objects.AttachedFile;
 import riv.objects.FilterCriteria;
@@ -51,6 +53,7 @@ import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 import riv.util.validators.ProjectValidator;
 import riv.web.config.RivConfig;
+import riv.web.config.RivLocaleResolver;
 import riv.web.editors.AppConfigEditor;
 import riv.web.service.AttachTools;
 import riv.web.service.DataService;
@@ -67,6 +70,8 @@ public class ProjectController {
     private RivConfig rivConfig;
 	@Autowired
 	private MessageSource messageSource;
+	@Autowired
+	private RivLocaleResolver localeResolver;
 	@Autowired
 	FilterCriteria filter;
 	@Autowired
@@ -222,12 +227,16 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.POST)
-	public String saveProject(@PathVariable Integer step, @PathVariable Integer id, HttpServletRequest request, @RequestParam(required=false) Integer oldDuration,
-			@Valid Project project, BindingResult result, Model model) {
+	public String saveProject(@PathVariable Integer step, @PathVariable Integer id, HttpServletRequest request, 
+			@RequestParam(required=false) Integer oldDuration, @RequestParam(required=false) Boolean quickAnalysis,
+			@Valid Project project, BindingResult result, Model model,
+            final RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			setupPageAttributes(project, model, step, request);
 			return "project/project"+step;
 		} else {
+			//String param="";
+			
 			updateWizardStep(project, step);
 			
 			boolean durationChanged = step==1 && oldDuration!=project.getDuration();
@@ -239,6 +248,39 @@ public class ProjectController {
 					|| (project.getIncomeGen() && step==11)
 					|| (!project.getIncomeGen() && step==10)
 				);
+			
+			// quick analysis (no qualitative analysis)
+			if(quickAnalysis!=null) {
+				if (step==1) {
+					String skip=messageSource.getMessage("project.quickAnalysis",new Object[]{},localeResolver.resolveLocale(request));
+					project.setBenefDesc(skip);
+					project.setJustification(skip);
+					project.setProjDesc(skip);
+					project.setActivities(skip);
+					if (rivConfig.getSetting().isAdminMisc1Enabled()) {
+						project.setAdminMisc1(skip);
+					}
+					if (rivConfig.getSetting().isAdminMisc2Enabled()) {
+						project.setAdminMisc2(skip);
+					}
+					if (rivConfig.getSetting().isAdminMisc2Enabled()) {
+						project.setAdminMisc2(skip);
+					}
+					project.setTechnology(skip);
+					project.setRequirements(skip);
+					project.setEnviroImpact(skip);
+					project.setMarket(skip);
+					project.setOrganization(skip);
+					project.setAssumptions(skip);
+					if (!project.getIncomeGen()) {
+						project.setSustainability(skip);
+					}
+					redirectAttributes.addFlashAttribute("quickAnalysis",true);
+				} else if (step==2) {
+					updateWizardStep(project, 6);
+					step=6;
+				}
+			}
 			
 			// special case:
 			// project duration or with/without has changed
@@ -261,6 +303,7 @@ public class ProjectController {
 				dataService.storeProject(project, calculateResult);
 			}
 			
+			 
 			return "redirect:../step"+(step+1)+"/"+project.getProjectId();
 		}
 	}

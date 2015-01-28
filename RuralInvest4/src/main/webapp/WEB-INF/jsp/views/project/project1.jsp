@@ -10,7 +10,7 @@ $( "#radioShared" ).buttonset();
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
 	
-<!-- 	<input type="checkbox" name="quickA" value="quick"> <b>Quick analysis (skip qualitative fields)</b><br/> -->
+	<input type="checkbox" name="quickAnalysis" value="true"> <b><spring:message code="project.quickAnalysis"/></b><br/>
 	
 	<div style="text-align:right;width:100%">
 		<tags:help text="project.clone.help" title="project.clone">
