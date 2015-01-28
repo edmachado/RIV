@@ -100,7 +100,7 @@ public class WebTestUtil {
 				});
 	}
 	
-	protected void testXls(File f, String title) {
+	private String cellValueFromXls(File f, int sheetNo, int row, int cell) {
 		FileInputStream in=null;
 		XSSFWorkbook workbook=null;
 		try {
@@ -116,8 +116,13 @@ public class WebTestUtil {
 			}
 		}
 		
-		Sheet sheet = workbook.getSheetAt(0);
-		assertTrue(sheet.getRow(0).getCell(0).getStringCellValue().equals(title));
+		Sheet sheet = workbook.getSheetAt(sheetNo);
+		return sheet.getRow(row).getCell(cell).getStringCellValue();
+	}
+	
+	protected void testXls(File f, String title) {
+		String value = cellValueFromXls(f, 0, 0, 0);
+		assertTrue(value.equals(title));
 	}
 	
 	public void rivSubmitForm() {

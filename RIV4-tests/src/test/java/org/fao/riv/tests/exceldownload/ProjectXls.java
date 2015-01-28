@@ -1,11 +1,6 @@
 package org.fao.riv.tests.exceldownload;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLinkWithImage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +10,7 @@ import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -64,9 +60,41 @@ public class ProjectXls extends WebTestUtil {
 		}
 	}
 	
+	@Ignore
+	@Test
+	public void testProjectWith40InvestmentItems() throws IOException {
+		String[] titles = projectStepTitles(true);
+		importProject(ImportFile.ProjectV41, "igpj", false, false, "T3st Santa Cruz River Transport");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(titles[0]);
+		assertLinkPresent("step7");
+		clickLink("step7");
+		assertTitleEquals(titles[6]);
+		
+		for (int i=0;i<40;i++) {
+			assertLinkPresentWithImage("duplicate.gif");
+			clickLinkWithImage("duplicate.gif");
+		}
+		
+		assertLinkPresent("step13");
+		clickLink("step13");
+		assertTitleEquals(titles[12]);
+		
+		assertLinkPresent("xls_complete");
+		clickLink("xls_complete");
+		File f = folder.newFile("complete_40_investments.xls"); 
+		saveAs(f);
+		
+		//String value = cellValueFromXls(f, 11, 5, 1);
+//		org.junit.Assert.assertTrue(false);  
+		
+//		f.delete();
+		
+	}
+	
 	@Test
 	public void projectIGi18n() throws IOException {
-		String[] langs = {"en","es","fr","ru","pt","mn"};//,"tr","ar"};
+		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"};
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
 			clickLink("goHome");
