@@ -58,7 +58,12 @@
 							<div class="dataentry">
 								<a href="../block/${blockEntry.blockId}"><img src="../../img/edit.png" title="<spring:message code="${blockType}.editDesc"/>" alt="<spring:message code="${blockType}.editDesc"/>" border="0"/></a>
 								<a id="delete${unique}" href="javascript:confirmDelete('../block/${blockEntry.blockId}/delete');"><img src="../../img/delete.gif" border="0" title="<spring:message code="${blockType}.delete"/>" alt="<spring:message code="${blockType}.delete"/>"/></a>
-								<a href="../block/${blockEntry.blockId}/clone"><img src="../../img/duplicate.gif" title="<spring:message code="${blockType}.clone"/>" alt="<spring:message code="${blockType}.clone"/>" border="0"/></a>
+								<a id="clone${unique}" href="../block/${blockEntry.blockId}/clone"><img src="../../img/duplicate.gif" title="<spring:message code="${blockType}.clone"/>" alt="<spring:message code="${blockType}.clone"/>" border="0"/></a>
+					    		<c:set var="swtch">
+					    			<c:if test="${blockEntry.propertiesType eq 'block'}"><spring:message code="projectBlock.cloneWithout"/></c:if>
+					    			<c:if test="${blockEntry.propertiesType eq 'blockWo'}"><spring:message code="projectBlock.cloneWith"/></c:if>
+					    		</c:set>
+					    		<a id="cloneType${unique}" href="../block/${blockEntry.blockId}/clone?changeType=true"><img src="../../img/duplicate.gif" title='${swtch}' alt='${swtch}' border="0"/></a>
 					    		<c:if test="${fn:length(project.blocks)>1}">
 						    		<c:if test="${blockEntry.orderBy ne 0}">
 										<a name="moveUp" href="../block/${blockEntry.blockId}/move?up=false"><img src="../../img/arrow_up.png" title="<spring:message code="misc.moveUp"/>" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0"/></a>

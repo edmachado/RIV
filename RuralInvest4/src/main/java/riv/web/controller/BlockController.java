@@ -103,13 +103,14 @@ public class BlockController {
     }
     
     @RequestMapping(value="/{id}/clone", method=RequestMethod.GET)
-    public String clone(@ModelAttribute("block") BlockBase block, HttpServletRequest request) {
+    public String clone(@ModelAttribute("block") BlockBase block, HttpServletRequest request, @RequestParam(required=false) Boolean changeType) {
     	String view;
     	User u = (User) request.getAttribute("user");
     	Project p = dataService.getProject(block.getProject().getProjectId(), 9);
     	if (p.isShared() || p.getTechnician().getUserId().equals(u.getUserId())) {
     		BlockBase bb = dataService.getBlock(block.getBlockId(), "all");
-    		BlockBase newBlock = bb.copy(bb.getClass());
+    		Class<? extends BlockBase> copyClass = changeType==null ? bb.getClass() : bb.getClass().isAssignableFrom(Block.class) ? BlockWithout.class : Block.class;
+    		BlockBase newBlock = bb.copy(copyClass);
     		newBlock.setOrderBy(newBlock.getClass()==Block.class ? p.getBlocks().size() : p.getBlocksWithout().size());
     		p.addBlock(newBlock);
     		dataService.storeBlock(newBlock);

@@ -475,15 +475,15 @@ public Integer getLengthUnit() {
 	public BlockBase copy(Class<? extends BlockBase> newClass) {
 		//BlockBase newBlock = this.getClass()==Block.class ? new Block() : new BlockWithout();
 		BlockBase newBlock = newClass.isAssignableFrom(Block.class) ? new Block() : new BlockWithout();
-		newBlock.setCycles(this.isCycles());
-		newBlock.setOrderBy(this.getOrderBy());
-		newBlock.setDescription(this.getDescription());
-		newBlock.setUnitType(this.getUnitType());
-		newBlock.setCycleLength(this.getCycleLength());
-		newBlock.setCyclePerYear(this.getCyclePerYear());
-		newBlock.setCycleFirstYear(this.getCycleFirstYear());
+		newBlock.setCycles(cycles);
+		newBlock.setOrderBy(OrderBy);
+		newBlock.setDescription(description);
+		newBlock.setUnitType(UnitType);
+		newBlock.setCycleLength(CycleLength);
+		newBlock.setCyclePerYear(CyclePerYear);
+		newBlock.setCycleFirstYear(cycleFirstYearCosts);
 		newBlock.setCycleFirstYearIncome(cycleFirstYearIncome);
-		newBlock.setLengthUnit(this.getLengthUnit());
+		newBlock.setLengthUnit(lengthUnit);
 		newBlock.setIncomes(new HashSet<BlockIncome>());
 		newBlock.setInputs(new HashSet<BlockInput>());
 		newBlock.setLabours(new HashSet<BlockLabour>());
