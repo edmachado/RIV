@@ -1110,9 +1110,57 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.CURRENCY, "getSalvage", false)
 		.addColumn(XlsColumnType.YESNO, "getReplace", false)
 		.addColumn(XlsColumnType.NUMERIC, "getYearBegin", false);
-		rowNum = assetsTable.writeTable(sheet, rowNum, template ? null : without ? project.getAssetsWithout() : project.getAssets(), true);
-		totalRows[0]=rowNum;
-		rowNum++;
+		
+		if (report.isCompleteReport()) {
+			String salvage = "IF(AND(@3<>MX,MOD(@3-MX,IX)=0), CX*KX, 0)";
+			for (int i=0;i<project.getDuration();i++) {
+				assetsTable.addColumn(XlsColumnType.FORMULA, salvage, true);
+			}
+			String investDonated = "IF(MX=@3,FX,0)";
+			for (int i=0;i<project.getDuration();i++) {
+				assetsTable.addColumn(XlsColumnType.FORMULA, investDonated, true);
+			}
+			String investmentOwn = "IF(MX=@3,GX,0)";
+			for (int i=0;i<project.getDuration();i++) {
+				assetsTable.addColumn(XlsColumnType.FORMULA, investmentOwn, true);
+			}
+			String investmentCost = "IF(MX=@3,EX,0)";
+			for (int i=0;i<project.getDuration();i++) {
+				assetsTable.addColumn(XlsColumnType.FORMULA, investmentCost, true);
+			}
+			String investmentReplace = "IF(AND(exact(LX,\"#\"),@3>MX,MOD(@3-MX,IX)=0), CX*DX, 0)";
+			for (int i=0;i<project.getDuration();i++) {
+				assetsTable.addColumn(XlsColumnType.FORMULA, investmentReplace, true);
+			}
+		}
+		
+		int assets = assetsTable.writeTable(sheet, rowNum, template ? null : without ? project.getAssetsWithout() : project.getAssets(), true);
+		totalRows[0]=assets;
+		
+		// add label and years for "salvage value per year", "investment donation", "invest own resources", 
+		// "investment costs" calculations
+		if (report.isCompleteReport()) {
+			Row r = sheet.getRow(rowNum-1);
+			report.addTextCell(r, 13, translate("project.report.profitability.incomes.salvage"));
+			report.addTextCell(r, project.getDuration()+13, translate("project.report.cashFlow.income.invest"));
+			report.addTextCell(r, project.getDuration()*2+13, translate("project.report.cashFlow.income.own"));
+			report.addTextCell(r, project.getDuration()*3+13, translate("project.report.cashFlow.costs.initial"));
+			report.addTextCell(r, project.getDuration()*4+13, translate("project.report.profitability.costs.replacement"));
+			r= sheet.getRow(rowNum);
+			for (int i=0;i<project.getDuration();i++) {
+				report.addNumericCell(r, i+13, i+1); // salvage year
+				sheet.setColumnHidden(i+13, true);
+				report.addNumericCell(r, i+project.getDuration()+13, i+1); // investment donation year
+				sheet.setColumnHidden(i+project.getDuration()+13, true);
+				report.addNumericCell(r, i+project.getDuration()*2+13, i+1); // investment own resources year
+				sheet.setColumnHidden(i+project.getDuration()*2+13, true);
+				report.addNumericCell(r, i+project.getDuration()*3+13, i+1); // investment costs
+				sheet.setColumnHidden(i+project.getDuration()*3+13, true);
+				report.addNumericCell(r, i+project.getDuration()*4+13, i+1); // investment replacement costs
+				sheet.setColumnHidden(i+project.getDuration()*4+13, true);
+			}
+		}
+		rowNum=assets+1;
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("projectInvestLabour"), Style.H2);
@@ -1669,27 +1717,19 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(4), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 				
 				// salvage
-				formulaBuild = new StringBuilder();
-				int firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
 				String assetSheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
-				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-					formulaBuild.append(
-						"IF(AND(" +col+"2<>"+assetSheetName+"!$M$"+i+
-						",MOD("+col+"2-"+assetSheetName+"!$M$"+i+","+assetSheetName+"!$I$"+i+")=0)" +
-						", "+assetSheetName+"!$C$"+i+"*"+assetSheetName+"!$K$"+i+", 0)+"
-					);
-				}
-				report.addFormulaCell(sheet.getRow(5), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
+				int assetSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW))+project.getAssets().size();
+				formula = String.format("%s!$%s$%d",  assetSheetName, getColumn(yearNum+12), assetSumRow);
+				report.addFormulaCell(sheet.getRow(5), yearNum, formula);
 				
 				// investment donation
 				formulaBuild = new StringBuilder();
-				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$F$%d,0)+",
-							assetSheetName, i, col,
-							assetSheetName, i
-							));
-				}
+				// sum of investment donated for assets (new method)
+				formulaBuild.append(String.format("%s!$%s$%d+",  assetSheetName, getColumn(yearNum+12+project.getDuration()), assetSumRow));
+				
+				// add individual investment donated for labour and service (old method)
+				// TODO: adopt new method for labour and service
+				int firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
 				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW));
 				for (int i=firstRow; i<firstRow+project.getLabours().size();i++) {
 					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$F$%d,0)+",
@@ -1708,13 +1748,11 @@ public class ExcelWorksheetBuilder {
 				
 				// investment own resources
 				formulaBuild = new StringBuilder();
-				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$G$%d,0)+",
-							assetSheetName, i, col,
-							assetSheetName, i
-							));
-				}
+				// sum of investment own resources for assets (new method)
+				formulaBuild.append(String.format("%s!$%s$%d+",  assetSheetName, getColumn(yearNum+12+project.getDuration()*2), assetSumRow));
+				
+				// add individual investment donated for labour and service (old method)
+				// TODO: adopt new method for labour and service
 				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW));
 				for (int i=firstRow; i<firstRow+project.getLabours().size();i++) {
 					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$G$%d,0)+",
@@ -1767,13 +1805,11 @@ public class ExcelWorksheetBuilder {
 				// COSTS
 				// investment
 				formulaBuild = new StringBuilder();
-				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$E$%d,0)+",
-							assetSheetName, i, col,
-							assetSheetName, i
-							));
-				}
+				// sum of investment costs for assets (new method)
+				formulaBuild.append(String.format("%s!$%s$%d+",  assetSheetName, getColumn(yearNum+12+project.getDuration()*3), assetSumRow));
+				
+				// add individual investment costs for labour and service (old method)
+				// TODO: adopt new method for labour and service
 				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW));
 				for (int i=firstRow; i<firstRow+project.getLabours().size();i++) {
 					formulaBuild.append(String.format("IF(%s!$M$%d=%s2,%s!$E$%d,0)+",
@@ -1791,22 +1827,9 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(21), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 				
 				// replacement
-				formulaBuild = new StringBuilder();
-				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-					formulaBuild.append(
-							String.format("IF(AND(EXACT(%s!$L$%d,\"#\"),%s2>%s!$M$%d,MOD(%s2-%s!$M$%d,%s!$I$%d)=0), %s!C%d*%s!D%d, 0)+", 
-									assetSheetName, i, 
-									col, assetSheetName, i, 
-									col,
-									assetSheetName, i,
-									assetSheetName, i,
-									assetSheetName, i,
-									assetSheetName, i
-								)
-					);
-				}
-				report.addFormulaCell(sheet.getRow(22), yearNum, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
+				// sum of replacement costs for assets (new method)
+				formula = String.format("%s!$%s$%d",  assetSheetName, getColumn(yearNum+12+project.getDuration()*4), assetSumRow);
+				report.addFormulaCell(sheet.getRow(22), yearNum, formula, Style.CURRENCY);
 
 				// operation
 				formulaBuild = new StringBuilder();
@@ -2086,29 +2109,20 @@ public class ExcelWorksheetBuilder {
 				
 				// salvage
 				formulaBuild = new StringBuilder();
-				int firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
 				String assetSheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
 				String assetWithoutSheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_SHEET);
-				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-					formulaBuild.append(
-						"IF(AND(" +col+"2<>"+assetSheetName+"!$M$"+i+
-						",MOD("+col+"2-"+assetSheetName+"!$M$"+i+","+assetSheetName+"!$I$"+i+")=0)" +
-						", "+assetSheetName+"!$C$"+i+"*"+assetSheetName+"!$K$"+i+", 0)+"
-					);
-				}
-				formulaBuild.deleteCharAt(formulaBuild.length()-1);
+
+				int assetSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW))+project.getAssets().size();
+				formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(yearNum+12), assetSumRow));
+				
+				
 				if (project.isWithWithout()) {
-					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW));
-					for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
-						formulaBuild.append(
-							"-IF(AND(" +col+"2<>"+assetWithoutSheetName+"!$M$"+i+
-							",MOD("+col+"2-"+assetWithoutSheetName+"!$M$"+i+","+assetWithoutSheetName+"!$I$"+i+")=0)" +
-							", "+assetWithoutSheetName+"!$C$"+i+"*"+assetWithoutSheetName+"!$K$"+i+", 0)"
-						);
-					}
+					int assetWithoutSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW))+(project.getAssetsWithout().size()>0?project.getAssetsWithout().size():1);
+					formulaBuild.append(String.format("-IF(ISNUMBER(%s!$%s$%d),%s!$%s$%d,0)", assetWithoutSheetName, getColumn(yearNum+12), assetWithoutSumRow, assetWithoutSheetName, getColumn(yearNum+12), assetWithoutSumRow));
 				}
 				report.addFormulaCell(sheet.getRow(4), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				
+				int firstRow;
 				// residual value
 				if (yearNum==project.getDuration()) {
 					formulaBuild = new StringBuilder();
@@ -3222,7 +3236,9 @@ public class ExcelWorksheetBuilder {
 				for (int i=0; i<columns.size(); i++) {
 					XlsColumn col = columns.get(i);
 					if (col.type==XlsColumnType.FORMULA) {
-						report.addFormulaCell(row, i, writeFormula(col.data, rowNum));
+						//replace column variable
+						String formula = col.data.replace("@", getColumn(i));
+						report.addFormulaCell(row, i, writeFormula(formula, rowNum));
 					}
 				}
 			} else {
@@ -3245,7 +3261,9 @@ public class ExcelWorksheetBuilder {
 							report.addNumericCell(row, i, Double.parseDouble(field), Style.CURRENCY);
 
 						} else if (col.type==XlsColumnType.FORMULA) {
-							report.addFormulaCell(row, i, writeFormula(col.data, rowNum), Style.CURRENCY);
+							//replace column variable
+							String formula = col.data.replace("@", getColumn(i));
+							report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
 
 						} else if (col.type==XlsColumnType.YESNO) {
 							String field = callMethod(o, col.data);
