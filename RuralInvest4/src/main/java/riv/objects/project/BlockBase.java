@@ -93,6 +93,47 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     	this.inputs=new HashSet<BlockInput>();
     }
     
+    public void shiftStartupMonth(int difference) {
+    	List<BlockChron> newChrons = new ArrayList<BlockChron>();
+		for (BlockChron chron : chrons.values()) {
+			int newMonth=(chron.getMonthNum()+difference)%12;
+			String newChronKey = String.format("%d-%d-%d", chron.getChronType(), newMonth, chron.isFirstPart()?0:1);
+			BlockChron newChron = new BlockChron();
+			newChron.setChronId(newChronKey);
+			newChrons.add(newChron);
+		}
+		chrons.clear();
+		for (BlockChron c : newChrons) {
+			addChron(c);
+		}
+    }
+    
+    public void projectDurationChanged() {
+    	if (patterns.size()==getProject().getDuration()) { 
+    		// do nothing
+    	} else if (patterns.size()>getProject().getDuration()) {
+        	// project is now shorter (need to remove extra patterns)
+    		List<Integer> removes = new ArrayList<Integer>();
+	    	for (Integer year : patterns.keySet()) {
+	    		if (year>this.getProject().getDuration()) {
+	    			removes.add(year);
+	    		}
+	    	}
+	    	for (Integer i : removes) {
+	    		patterns.remove(i);
+	    	}
+    	} else {
+	    	// project is now longer (need to add patterns)
+	    	double qty = patterns==null ? 0.0 : patterns.get(patterns.size()).getQty();
+	    	for (int i=patterns.size()+1;i<=getProject().getDuration();i++) {
+	    		BlockPattern pat = new BlockPattern();
+				pat.setQty(qty);
+				pat.setYearNum(i);
+				addPattern(pat);
+	    	}
+    	}
+    }
+    
     public abstract String getPropertiesType();
     public String testingProperties(RivConfig rc) {
     	CurrencyFormatter cf=rc.getSetting().getCurrencyFormatter();
@@ -431,8 +472,9 @@ public Integer getLengthUnit() {
 	 * so as not to interfere with the collections of the original block or activity.
 	 * @return
 	 */
-	public BlockBase copy() {
-		BlockBase newBlock = this.getClass()==Block.class ? new Block() : new BlockWithout();
+	public BlockBase copy(Class<? extends BlockBase> newClass) {
+		//BlockBase newBlock = this.getClass()==Block.class ? new Block() : new BlockWithout();
+		BlockBase newBlock = newClass.isAssignableFrom(Block.class) ? new Block() : new BlockWithout();
 		newBlock.setCycles(this.isCycles());
 		newBlock.setOrderBy(this.getOrderBy());
 		newBlock.setDescription(this.getDescription());

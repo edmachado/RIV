@@ -38,6 +38,12 @@ public class BlockChron implements Serializable {
 	@Column(name="CHRONS_KEY")
 	private Long chronsKey;
 	
+//	public BlockChron() {}
+//	public BlockChron(String key) {
+//		BlockChron c = new BlockChron();
+//		c.setChronId(key);
+//	}
+	
 	
 	public void setBlock(BlockBase block) {
 		this.block = block;
@@ -67,7 +73,7 @@ public class BlockChron implements Serializable {
 	 * @return the zero-indexed month number
 	 */
 	public int getMonthNum() {
-		String num = getChronId().substring(getChronId().indexOf('-'), getChronId().lastIndexOf('-'));
+		String num = getChronId().substring(getChronId().indexOf('-')+1, getChronId().lastIndexOf('-'));
 		return Integer.parseInt(num);
 	}
 	/**
@@ -85,7 +91,8 @@ public class BlockChron implements Serializable {
 	 * @return whether the item takes place in the first half of the month
 	 */
 	public boolean isFirstPart() {
-		return getChronId().substring(getChronId().lastIndexOf('-'), getChronId().length()).equals('1');
+		int lastSegment = Integer.parseInt(getChronId().substring(getChronId().length()-1, getChronId().length()));
+		return lastSegment==0;
 	}
 
 	@Override

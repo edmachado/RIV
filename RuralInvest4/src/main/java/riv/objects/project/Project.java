@@ -374,7 +374,7 @@ public double getInvestmentTotal() {
     }
     
     /** constructor with id */
-    public Project(java.lang.Integer ProjectId) {
+    public Project(Integer ProjectId) {
         this.projectId = ProjectId;
     }
    
@@ -387,11 +387,11 @@ public double getInvestmentTotal() {
     }
 
     // Property accessors
-    public java.lang.Integer getProjectId () {
+    public Integer getProjectId () {
         return this.projectId;
     }
     
-   public void setProjectId (java.lang.Integer ProjectId) {
+   public void setProjectId (Integer ProjectId) {
         this.projectId = ProjectId;
     }
     public void setUniqueId(byte[] uniqueId) {
@@ -417,11 +417,11 @@ public double getInvestmentTotal() {
         this.technician = Technician;
     }
     
-    public java.lang.String getProjectName () {
+    public String getProjectName () {
         return this.projectName;
     }
     
-   public void setProjectName (java.lang.String ProfileName) {
+   public void setProjectName (String ProfileName) {
         this.projectName = ProfileName;
     }
     public void setUserCode(String userCode) {
@@ -496,39 +496,39 @@ public double getInvestmentTotal() {
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
-	public java.lang.String getLocation1 () {
+	public String getLocation1 () {
         return this.location1;
     }
     
-   public void setLocation1 (java.lang.String Location1) {
+   public void setLocation1 (String Location1) {
         this.location1 = Location1;
     }
-   public java.lang.String getLocation2 () {
+   public String getLocation2 () {
         return this.location2;
     }
     
-   public void setLocation2 (java.lang.String Location2) {
+   public void setLocation2 (String Location2) {
         this.location2 = Location2;
     }
-    public java.lang.String getLocation3 () {
+    public String getLocation3 () {
         return this.location3;
     }
     
-   public void setLocation3 (java.lang.String Location3) {
+   public void setLocation3 (String Location3) {
         this.location3 = Location3;
     }
-    public java.lang.String getBenefName () {
+    public String getBenefName () {
         return this.benefName;
     }
     
-   public void setBenefName (java.lang.String BenefName) {
+   public void setBenefName (String BenefName) {
         this.benefName = BenefName;
     }
-    public java.lang.String getBenefDesc () {
+    public String getBenefDesc () {
         return this.benefDesc;
     }
     
-   public void setBenefDesc (java.lang.String BenefDesc) {
+   public void setBenefDesc (String BenefDesc) {
         this.benefDesc = BenefDesc;
     }
     
@@ -539,19 +539,37 @@ public double getInvestmentTotal() {
    public void setEnviroCategory (EnviroCategory enviroCategory) {
         this.enviroCategory = enviroCategory;
     }
-    public java.lang.Integer getDuration () {
+    public Integer getDuration () {
         return this.duration;
     }
     
-   public void setDuration (java.lang.Integer Duration) {
+   public void setDuration (Integer Duration) {
+	   Integer diff = this.duration==null ? null : Integer.compare(Duration.intValue(),this.duration);
         this.duration = Duration;
+        if (diff!=null && diff!=0) {
+        	for (BlockBase b : blocks) {
+        		b.projectDurationChanged();
+        	}
+        	for (BlockBase b : blocksWithout) {
+        		b.projectDurationChanged();
+        	}
+        	if (!incomeGen && diff<0) {
+        		List<ProjectItemContribution> removes = new ArrayList<ProjectItemContribution>();
+        		for (ProjectItemContribution c : contributions) {
+        			if (c.getYear()>this.duration) {
+        				removes.add(c);
+        			}
+        		}
+        		contributions.removeAll(removes);
+        	}
+        }
     }
     
-    public java.lang.String getProjDesc () {
+    public String getProjDesc () {
         return this.projDesc;
     }
     
-   public void setProjDesc (java.lang.String ProjDesc) {
+   public void setProjDesc (String ProjDesc) {
         this.projDesc = ProjDesc;
     }
     
@@ -563,27 +581,27 @@ public double getInvestmentTotal() {
         this.beneDirectNum = BeneDirectNum;
     }
    
-    public java.lang.Integer getBeneDirectMen () {
+    public Integer getBeneDirectMen () {
         return this.beneDirectMen;
     }
     
-   public void setBeneDirectMen (java.lang.Integer BeneDirectMen) {
+   public void setBeneDirectMen (Integer BeneDirectMen) {
         this.beneDirectMen = BeneDirectMen;
     }
     
-    public java.lang.Integer getBeneDirectWomen () {
+    public Integer getBeneDirectWomen () {
         return this.beneDirectWomen;
     }
     
-   public void setBeneDirectWomen (java.lang.Integer BeneDirectWomen) {
+   public void setBeneDirectWomen (Integer BeneDirectWomen) {
         this.beneDirectWomen = BeneDirectWomen;
     }
    
-    public java.lang.Integer getBeneDirectChild () {
+    public Integer getBeneDirectChild () {
         return this.beneDirectChild;
     }
     
-   public void setBeneDirectChild (java.lang.Integer BeneDirectChild) {
+   public void setBeneDirectChild (Integer BeneDirectChild) {
         this.beneDirectChild = BeneDirectChild;
     }
    
@@ -594,107 +612,107 @@ public double getInvestmentTotal() {
    public void setBeneIndirectNum (Integer BeneIndirectNum) {
         this.beneIndirectNum = BeneIndirectNum;
     }
-   public java.lang.Integer getBeneIndirectMen () {
+   public Integer getBeneIndirectMen () {
         return this.beneIndirectMen;
     }
     
-   public void setBeneIndirectMen (java.lang.Integer BeneIndirectMen) {
+   public void setBeneIndirectMen (Integer BeneIndirectMen) {
         this.beneIndirectMen = BeneIndirectMen;
     }
     
-    public java.lang.Integer getBeneIndirectWomen () {
+    public Integer getBeneIndirectWomen () {
         return this.beneIndirectWomen;
     }
     
-   public void setBeneIndirectWomen (java.lang.Integer BeneIndirectWomen) {
+   public void setBeneIndirectWomen (Integer BeneIndirectWomen) {
         this.beneIndirectWomen = BeneIndirectWomen;
     }
     
-    public java.lang.Integer getBeneIndirectChild () {
+    public Integer getBeneIndirectChild () {
         return this.beneIndirectChild;
     }
     
-   public void setBeneIndirectChild (java.lang.Integer BeneIndirectChild) {
+   public void setBeneIndirectChild (Integer BeneIndirectChild) {
         this.beneIndirectChild = BeneIndirectChild;
     }
     
-    public java.lang.String getJustification () {
+    public String getJustification () {
         return this.justification;
     }
     
-   public void setJustification (java.lang.String Justification) {
+   public void setJustification (String Justification) {
         this.justification = Justification;
     }
     
-    public java.lang.String getActivities () {
+    public String getActivities () {
         return this.activities;
     }
     
-   public void setActivities (java.lang.String Activities) {
+   public void setActivities (String Activities) {
         this.activities = Activities;
     }
     
-    public java.lang.String getTechnology () {
+    public String getTechnology () {
         return this.technology;
     }
     
-   public void setTechnology (java.lang.String Technology) {
+   public void setTechnology (String Technology) {
         this.technology = Technology;
     }
     
-    public java.lang.String getRequirements () {
+    public String getRequirements () {
         return this.requirements;
     }
     
-   public void setRequirements (java.lang.String Requirements) {
+   public void setRequirements (String Requirements) {
         this.requirements = Requirements;
     }
     
-    public java.lang.String getSustainability () {
+    public String getSustainability () {
         return this.sustainability;
     }
     
-   public void setSustainability (java.lang.String Sustainability) {
+   public void setSustainability (String Sustainability) {
         this.sustainability = Sustainability;
     }
     
-    public java.lang.String getMarket () {
+    public String getMarket () {
         return this.market;
     }
     
-   public void setMarket (java.lang.String Market) {
+   public void setMarket (String Market) {
         this.market = Market;
     }
     
-    public java.lang.String getEnviroImpact () {
+    public String getEnviroImpact () {
         return this.enviroImpact;
     }
     
-   public void setEnviroImpact (java.lang.String EnviroImpact) {
+   public void setEnviroImpact (String EnviroImpact) {
         this.enviroImpact = EnviroImpact;
     }
     
-    public java.lang.String getOrganization () {
+    public String getOrganization () {
         return this.organization;
     }
     
-   public void setOrganization (java.lang.String Organization) {
+   public void setOrganization (String Organization) {
         this.organization = Organization;
     }
     
-    public java.lang.String getAssumptions () {
+    public String getAssumptions () {
         return this.assumptions;
     }
     
-   public void setAssumptions (java.lang.String Assumptions) {
+   public void setAssumptions (String Assumptions) {
         this.assumptions = Assumptions;
     }
     
-//    public java.lang.String getCategoryOther () {
+//    public String getCategoryOther () {
 //        return this.categoryOther;
 //    }
 //    
-//   public void setCategoryOther (java.lang.String CategoryOther) {
+//   public void setCategoryOther (String CategoryOther) {
 //        this.categoryOther = CategoryOther;
 //    }
     public Double getLoan1Interest () {
@@ -705,27 +723,27 @@ public double getInvestmentTotal() {
         this.loan1Interest = Loan1Interest;
     }
     
-    public java.lang.Integer getLoan1Duration () {
+    public Integer getLoan1Duration () {
         return this.loan1Duration;
     }
     
-   public void setLoan1Duration (java.lang.Integer Loan1Duration) {
+   public void setLoan1Duration (Integer Loan1Duration) {
         this.loan1Duration = Loan1Duration;
     }
     
-    public java.lang.Integer getLoan1GraceCapital () {
+    public Integer getLoan1GraceCapital () {
         return this.loan1GraceCapital;
     }
     
-   public void setLoan1GraceCapital (java.lang.Integer Loan1GraceCapital) {
+   public void setLoan1GraceCapital (Integer Loan1GraceCapital) {
         this.loan1GraceCapital = Loan1GraceCapital;
     }
     
-    public java.lang.Integer getLoan1GraceInterest () {
+    public Integer getLoan1GraceInterest () {
         return this.loan1GraceInterest;
     }
     
-   public void setLoan1GraceInterest (java.lang.Integer Loan1GraceInterest) {
+   public void setLoan1GraceInterest (Integer Loan1GraceInterest) {
         this.loan1GraceInterest = Loan1GraceInterest;
     }
     
@@ -745,34 +763,34 @@ public double getInvestmentTotal() {
         this.loan2Interest = Loan2Interest;
     }
     
-    public java.lang.Integer getLoan2Duration () {
+    public Integer getLoan2Duration () {
         return this.loan2Duration;
     }
     
-   public void setLoan2Duration (java.lang.Integer Loan2Duration) {
+   public void setLoan2Duration (Integer Loan2Duration) {
         this.loan2Duration = Loan2Duration;
     }
-    public java.lang.Integer getLoan2GraceCapital () {
+    public Integer getLoan2GraceCapital () {
         return this.loan2GraceCapital;
     }
     
-   public void setLoan2GraceCapital (java.lang.Integer Loan2GraceCapital) {
+   public void setLoan2GraceCapital (Integer Loan2GraceCapital) {
         this.loan2GraceCapital = Loan2GraceCapital;
     }
     
-    public java.lang.Integer getLoan2GraceInterest () {
+    public Integer getLoan2GraceInterest () {
         return this.loan2GraceInterest;
     }
     
-   public void setLoan2GraceInterest (java.lang.Integer Loan2GraceInterest) {
+   public void setLoan2GraceInterest (Integer Loan2GraceInterest) {
         this.loan2GraceInterest = Loan2GraceInterest;
     }
     
-    public java.lang.Integer getLoan2InitPeriod () {
+    public Integer getLoan2InitPeriod () {
         return this.loan2InitPeriod;
     }
     
-   public void setLoan2InitPeriod (java.lang.Integer Loan2InitPeriod) {
+   public void setLoan2InitPeriod (Integer Loan2InitPeriod) {
         this.loan2InitPeriod = Loan2InitPeriod;
     }
     
@@ -910,8 +928,18 @@ public double getInvestmentTotal() {
 		cont.setProject(this);
 		contributions.add(cont);
 	}
-	public void setStartupMonth(Integer startupMonth) {
-		this.startupMonth = startupMonth;
+	public void setStartupMonth(Integer newMonth) {
+		if (this.startupMonth!=null && this.startupMonth!=newMonth) {
+			int diff = 12+(-1*(newMonth-this.startupMonth));
+			for (BlockBase b : blocks) {
+				 b.shiftStartupMonth(diff);
+			}
+			for (BlockBase b : blocksWithout) {
+				b.shiftStartupMonth(diff);
+			}
+		}
+		
+		this.startupMonth = newMonth;
 	}
 	
 	public Integer getStartupMonth() {
@@ -944,6 +972,13 @@ public double getInvestmentTotal() {
 	
 	public void setWithWithout(boolean withWithout) {
 		this.withWithout = withWithout;
+		if (!this.withWithout && blocksWithout!=null) { // convert without blocks to with blocks
+			for (BlockWithout bw : blocksWithout) {
+				Block newB = (Block)bw.copy(Block.class);
+				newB.setOrderBy(blocks.size());
+				addBlock(newB);
+			}
+		}
 	}
 	
 	public boolean isWithWithout() {
@@ -2031,7 +2066,7 @@ public double getInvestmentTotal() {
 		
 		
 		for (Block block : this.getBlocks()) {
-			Block newBlock = (Block)block.copy();
+			Block newBlock = (Block)block.copy(Block.class);
 			newProj.addBlock(newBlock);
 			
 			// prepare linked to for export
@@ -2046,7 +2081,7 @@ public double getInvestmentTotal() {
 			}
 		}
 		for (BlockWithout block : this.getBlocksWithout()) {
-			BlockWithout newBlock = (BlockWithout)block.copy();
+			BlockWithout newBlock = (BlockWithout)block.copy(BlockWithout.class);
 			newProj.addBlock(newBlock);
 			
 			// prepare linked to for export

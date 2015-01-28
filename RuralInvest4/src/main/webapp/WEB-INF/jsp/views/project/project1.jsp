@@ -49,6 +49,9 @@ $( "#radioShared" ).buttonset();
 					<tags:dataentry field="inflationAnnual" labelKey="project.inflationAnnual" helpTitle="project.inflationAnnual" helpText="project.inflationAnnual.help" inputClass="num" size="8" maxLength="8" calcSignKey="units.inPercent" />
 				</c:if>
 				
+<%-- 				<c:if test="${empty project.projectId}"> --%>
+<%-- 					<input type="hidden" name="oldStartupMonth" value="${project.startupMonth}"/> --%>
+<%-- 				</c:if> --%>
 				<div class="dataentry">
 					<label><tags:help text="project.startupMonth" title="project.startupMonth.help"><spring:message code="project.startupMonth"/></tags:help></label>
 					<form:select path="startupMonth">
@@ -74,7 +77,7 @@ $( "#radioShared" ).buttonset();
 					</form:select>
 				</div>
 				
-				<input type="hidden" name="oldDuration" value="${project.duration}"/>
+<%-- 				<input type="hidden" name="oldDuration" value="${project.duration}"/> --%>
 				<tags:dataentry field="duration" labelKey="project.duration" helpTitle="project.duration" helpText="project.duration.help" calcSignKey="units.years" size="8" maxLength="3" />
 				
 				<div class="dataentry">
@@ -149,7 +152,7 @@ $( "#radioShared" ).buttonset();
 				</div>	
 				<c:if test="${project.incomeGen}">
 					<div class="dataentry">
-						<input name="oldWithWithout" type="hidden" value="${project.withWithout}"/>
+<%-- 						<input name="oldWithWithout" type="hidden" value="${project.withWithout}"/> --%>
 						<tags:help text="project.withWithout.help" title="project.withWithout"></tags:help>
 						<spring:message code="project.withWithoutMessage" />
 						<div id="radioWithWithout">

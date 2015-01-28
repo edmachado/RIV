@@ -229,15 +229,7 @@ public class DataService implements UserDetailsService {
 	public void storeProjectResult(int id) {
 		repo.storeProjectResult(id);
 	}
-	public void contributionsDurationChanged(Project p, int oldDuration) {
-		repo.contributionsDurationChanged(p, oldDuration);
-	}
-	public void updatePatternLength(int projectId, int duration, int oldDuration) {
-		repo.updatePatternLength(projectId, duration, oldDuration);
-	}
-	public void updateBlocksWithWithout(int projectId, boolean withWithout) {
-		repo.updateBlocksWithWithout(projectId, withWithout);
-	}
+	
 	public void updateProductsWithWithout(int profileId, boolean withWithout) {
 		repo.updateProductsWithWithout(profileId, withWithout);
 	}

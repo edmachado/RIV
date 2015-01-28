@@ -109,7 +109,7 @@ public class BlockController {
     	Project p = dataService.getProject(block.getProject().getProjectId(), 9);
     	if (p.isShared() || p.getTechnician().getUserId().equals(u.getUserId())) {
     		BlockBase bb = dataService.getBlock(block.getBlockId(), "all");
-    		BlockBase newBlock = bb.copy();
+    		BlockBase newBlock = bb.copy(bb.getClass());
     		newBlock.setOrderBy(newBlock.getClass()==Block.class ? p.getBlocks().size() : p.getBlocksWithout().size());
     		p.addBlock(newBlock);
     		dataService.storeBlock(newBlock);

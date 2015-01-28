@@ -227,26 +227,15 @@ public class ProjectController {
 	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.POST)
 	public String saveProject(@PathVariable Integer step, @PathVariable Integer id, HttpServletRequest request, 
-			@RequestParam(required=false) Integer oldDuration, @RequestParam(required=false) Boolean quickAnalysis,
-			@Valid Project project, BindingResult result, Model model,
+//			@RequestParam(required=false) Integer oldDuration, 
+			@RequestParam(required=false) Boolean quickAnalysis, 
+			@Valid Project project, BindingResult result, Model model, //@RequestParam(required=false) Integer oldStartupMonth, 
             final RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			setupPageAttributes(project, model, step, request);
 			return "project/project"+step;
 		} else {
-			//String param="";
-			
 			updateWizardStep(project, step);
-			
-			boolean durationChanged = step==1 && oldDuration!=project.getDuration();
-			boolean withWithoutChanged = step==1 && project.getIncomeGen() && Boolean.parseBoolean(request.getParameter("oldWithWithout"))!=project.isWithWithout();
-			
-			// should project results be calculated?
-			boolean calculateResult = project.getWizardStep()==null && (
-					step==1 || step==2
-					|| (project.getIncomeGen() && step==11)
-					|| (!project.getIncomeGen() && step==10)
-				);
 			
 			// quick analysis (no qualitative analysis)
 			if(quickAnalysis!=null) {
@@ -281,27 +270,14 @@ public class ProjectController {
 				}
 			}
 			
-			// special case:
-			// project duration or with/without has changed
-			if (id!=-1 && (durationChanged || withWithoutChanged)) {
-				dataService.storeProject(project, false);
-				if (durationChanged) {
-					dataService.updatePatternLength(project.getProjectId(), project.getDuration(), oldDuration);
-					if (project.isPerYearContributions()) {
-						dataService.contributionsDurationChanged(project, oldDuration);
-					}
-				}
-				if (withWithoutChanged) {
-					dataService.updateBlocksWithWithout(project.getProjectId(), project.isWithWithout());
-				}
-				if (project.getWizardStep()==null) {
-					dataService.storeProjectResult(project.getProjectId());
-				}
-			// otherwise just save the project
-			} else {
-				dataService.storeProject(project, calculateResult);
-			}
-			
+
+			// should project results be calculated?
+			boolean calculateResult = project.getWizardStep()==null && (
+					step==1 || step==2
+					|| (project.getIncomeGen() && step==11)
+					|| (!project.getIncomeGen() && step==10)
+				);
+			dataService.storeProject(project, calculateResult);
 			 
 			return "redirect:../step"+(step+1)+"/"+project.getProjectId();
 		}
