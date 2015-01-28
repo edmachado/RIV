@@ -120,6 +120,7 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 			   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".pat"+i+"="+rc.getSetting().getDecimalFormat().format(this.getPatterns().get(i).getQty())+lineSeparator);
 		   }
 		   
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".income.count="+this.getIncomes().size()+lineSeparator);
 		   Double total=0.0;
 		   Double totalCash=0.0;
 		   for (BlockIncome i : this.getIncomes()) {
@@ -139,6 +140,7 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   sb.append(base+"totalCash="+cf.formatCurrency(totalCash, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append(lineSeparator);
 
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".input.count="+this.getInputs().size()+lineSeparator);
 		   total=0.0; totalCash=0.0;
 		   for (BlockInput i : this.getInputs()) {
 			   total+=i.getTotal().doubleValue();
@@ -157,6 +159,7 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   sb.append(base+"totalCash="+cf.formatCurrency(totalCash, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append(lineSeparator);
 		   
+		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".labour.count="+this.getLabours().size()+lineSeparator);
 		   total=0.0; totalCash=0.0;
 		   for (BlockLabour i : this.getLabours()) {
 			   total+=i.getTotal().doubleValue();

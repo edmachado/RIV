@@ -1500,6 +1500,7 @@ public double getInvestmentTotal() {
 		sb.append("step6.assumptions="+assumptions.replace("\r", "\\r").replace("\n", "\\n")+lineSeparator);
 		sb.append(lineSeparator);
 		
+		sb.append("step7.asset.count="+assets.size()+lineSeparator);
 		int total=0, own=0, donated=0, financed=0;
 		for (ProjectItemAsset i : assets) {
 			total+=i.getTotal();
@@ -1522,6 +1523,7 @@ public double getInvestmentTotal() {
 		sb.append("step7.asset.Sum.replace="+lineSeparator);
 		sb.append("step7.asset.Sum.yearBegin="+lineSeparator);
 		
+		sb.append("step7.assetWo.count="+assetsWithout.size()+lineSeparator);
 		total=0; own=0; donated=0; financed=0;
 		for (ProjectItemAssetWithout i : assetsWithout) {
 			total+=i.getTotal();
@@ -1545,6 +1547,7 @@ public double getInvestmentTotal() {
 		sb.append("step7.assetWo.Sum.yearBegin="+lineSeparator);
 		sb.append(lineSeparator);
 		
+		sb.append("step7.labour.count="+labours.size()+lineSeparator);
 		total=0; own=0; donated=0; financed=0;
 		for (ProjectItemLabour i : labours) {
 			total+=i.getTotal();
@@ -1564,6 +1567,7 @@ public double getInvestmentTotal() {
 		sb.append("step7.labour.Sum.yearBegin="+lineSeparator);
 		sb.append(lineSeparator);
 		
+		sb.append("step7.labourWo.count="+laboursWithout.size()+lineSeparator);
 		total=0; own=0; donated=0; financed=0;
 		for (ProjectItemLabourWithout i : laboursWithout) {
 			total+=i.getTotal();
@@ -1583,6 +1587,7 @@ public double getInvestmentTotal() {
 		sb.append("step7.labourWo.Sum.yearBegin="+lineSeparator);
 		sb.append(lineSeparator);
 		
+		sb.append("step7.service.count="+services.size()+lineSeparator);
 		total=0; own=0; donated=0; financed=0;
 		for (ProjectItemService i : services) {
 			total+=i.getTotal();
@@ -1602,6 +1607,7 @@ public double getInvestmentTotal() {
 		sb.append("step7.service.Sum.yearBegin="+lineSeparator);
 		sb.append(lineSeparator);
 		
+		sb.append("step7.serviceWo.count="+servicesWithout.size()+lineSeparator);
 		total=0; own=0; donated=0; financed=0;
 		for (ProjectItemServiceWithout i : servicesWithout) {
 			total+=i.getTotal();
@@ -1622,6 +1628,7 @@ public double getInvestmentTotal() {
 		sb.append(lineSeparator);
 		
 		if (incomeGen) {
+			sb.append("step8.supply.count="+generals.size()+lineSeparator);
 			total=0;own=0;donated=0;
 			for (ProjectItemGeneral i : generals) {
 				total+=i.getTotal();
@@ -1638,6 +1645,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.supply.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 			
+			sb.append("step8.supplyWo.count="+generalWithouts.size()+lineSeparator);
 			total=0;own=0;donated=0;
 			for (ProjectItemGeneralWithout i : generalWithouts) {
 				total+=i.getTotal();
@@ -1654,6 +1662,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.supplyWo.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 			
+			sb.append("step8.personnel.count="+personnels.size()+lineSeparator);
 			total=0;own=0;donated=0;
 			for (ProjectItemPersonnel i : personnels) {
 				total+=i.getTotal();
@@ -1670,6 +1679,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.personnel.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 			
+			sb.append("step8.personnelWo.count="+personnelWithouts.size()+lineSeparator);
 			total=0;own=0;donated=0;
 			for (ProjectItemPersonnelWithout i : personnelWithouts) {
 				total+=i.getTotal();
@@ -1687,6 +1697,7 @@ public double getInvestmentTotal() {
 			sb.append(lineSeparator);
 		} else  {
 			double state; double other;
+			sb.append("step8.labourcount="+nongenLabours.size()+lineSeparator);
 			total=0;own=0;state=0;other=0;
 			for (ProjectItemNongenLabour i : nongenLabours) {
 				total+=i.getTotal();
@@ -1705,6 +1716,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.labourSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 			
+			sb.append("step8.generalcount="+nongenMaintenance.size()+lineSeparator);
 			total=0;own=0;state=0;other=0;
 			for (ProjectItemNongenMaintenance i : nongenMaintenance) {
 				total+=i.getTotal();
@@ -1723,6 +1735,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.generalSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 			
+			sb.append("step8.inputcount="+nongenMaterials.size()+lineSeparator);
 			total=0;own=0;state=0;other=0;
 			for (ProjectItemNongenMaterials i : nongenMaterials) {
 				total+=i.getTotal();
@@ -1749,16 +1762,19 @@ public double getInvestmentTotal() {
 			sb.append(b.testingProperties(rivConfig));
 		}
 		
+		sb.append("step"+(incomeGen? "10":"11")+".income.count="+refIncomes.size()+lineSeparator);
 		for (ReferenceIncome i : refIncomes) {
 			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append(lineSeparator);
 		
+		sb.append("step"+(incomeGen? "10":"11")+".input.count="+refCosts.size()+lineSeparator);
 		for (ReferenceCost i : refCosts) {
 			sb.append(i.testingProperties(rivConfig));
 		}
 		sb.append(lineSeparator);
 		
+		sb.append("step"+(incomeGen? "10":"11")+".labour.count="+refLabours.size()+lineSeparator);
 		for (ReferenceLabour i : refLabours) {
 			sb.append(i.testingProperties(rivConfig));
 		}
@@ -1794,10 +1810,12 @@ public double getInvestmentTotal() {
 			sb.append("step10.simple="+(simple?"true":"false")+lineSeparator);
 			for (int y=1;y<=duration;y++) {
 				total=0;
+				int count=0;
 				for (ProjectItemContribution i : contributions) {
 					if (i.getYear()==y) {
 						total+=i.getTotal();
 						sb.append(i.testingProperties(rivConfig));
+						count++;
 					}
 				}
 				sb.append("step10.year."+y+".contribution.Sum.description="+lineSeparator);
@@ -1807,6 +1825,8 @@ public double getInvestmentTotal() {
 				sb.append("step10.year."+y+".contribution.Sum.unitNum="+lineSeparator);
 				sb.append("step10.year."+y+".contribution.Sum.unitCost="+lineSeparator);
 				sb.append("step10.year."+y+".contribution.Sum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step10.year."+y+".contribution.count="+count+lineSeparator);
+				
 				sb.append(lineSeparator);
 				if (simple) { break; } // only year 1 in simple
 			}
