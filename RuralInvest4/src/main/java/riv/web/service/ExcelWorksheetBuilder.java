@@ -1132,6 +1132,16 @@ public class ExcelWorksheetBuilder {
 			for (int i=0;i<project.getDuration();i++) {
 				assetsTable.addColumn(XlsColumnType.FORMULA, investmentReplace, true);
 			}
+			String residual = String.format("IF(OR(exact(LX,\"#\"), MX-1+IX>%s), " +
+					"CX*(DX-KX)/IX*"+
+					"IF(IX-(MOD(%s-MX-1,IX))<IX,IX-(MOD(%s-MX-1,IX)),0)+"+
+					"CX*KX, 0)", 
+					
+					report.getLink(ExcelLink.PROJECT_DURATION), 
+					report.getLink(ExcelLink.PROJECT_DURATION),
+					report.getLink(ExcelLink.PROJECT_DURATION)
+				);
+			assetsTable.addColumn(XlsColumnType.FORMULA, residual, true);
 		}
 		
 		int assets = assetsTable.writeTable(sheet, rowNum, template ? null : without ? project.getAssetsWithout() : project.getAssets(), true);
@@ -1146,6 +1156,7 @@ public class ExcelWorksheetBuilder {
 			report.addTextCell(r, project.getDuration()*2+13, translate("project.report.cashFlow.income.own"));
 			report.addTextCell(r, project.getDuration()*3+13, translate("project.report.cashFlow.costs.initial"));
 			report.addTextCell(r, project.getDuration()*4+13, translate("project.report.profitability.costs.replacement"));
+			report.addTextCell(r, project.getDuration()*5+13, translate("project.report.profitability.incomes.residual"));
 			r= sheet.getRow(rowNum);
 			for (int i=0;i<project.getDuration();i++) {
 				report.addNumericCell(r, i+13, i+1); // salvage year
@@ -1159,6 +1170,7 @@ public class ExcelWorksheetBuilder {
 				report.addNumericCell(r, i+project.getDuration()*4+13, i+1); // investment replacement costs
 				sheet.setColumnHidden(i+project.getDuration()*4+13, true);
 			}
+			sheet.setColumnHidden(project.getDuration()*5+13, true);
 		}
 		rowNum=assets+1;
 		
@@ -2113,11 +2125,10 @@ public class ExcelWorksheetBuilder {
 				String assetWithoutSheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_SHEET);
 
 				int assetSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW))+project.getAssets().size();
+				int assetWithoutSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW))+(project.getAssetsWithout().size()>0?project.getAssetsWithout().size():1);
 				formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(yearNum+12), assetSumRow));
 				
-				
 				if (project.isWithWithout()) {
-					int assetWithoutSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW))+(project.getAssetsWithout().size()>0?project.getAssetsWithout().size():1);
 					formulaBuild.append(String.format("-IF(ISNUMBER(%s!$%s$%d),%s!$%s$%d,0)", assetWithoutSheetName, getColumn(yearNum+12), assetWithoutSumRow, assetWithoutSheetName, getColumn(yearNum+12), assetWithoutSumRow));
 				}
 				report.addFormulaCell(sheet.getRow(4), yearNum, formulaBuild.toString(), Style.CURRENCY);
@@ -2126,86 +2137,9 @@ public class ExcelWorksheetBuilder {
 				// residual value
 				if (yearNum==project.getDuration()) {
 					formulaBuild = new StringBuilder();
-					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-					for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-						formulaBuild.append(
-								String.format("IF(OR(EXACT(%s!$L$%d,\"#\"), %s!$M$%d-1+%s!$I$%d>%s), " +
-										"%s!$C$%d*"+
-										"(%s!$D$%d-%s!$K$%d)/%s!$I$%d*"+
-										
-										"IF(%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d)),0)+"+
-										
-										"%s!$C$%d*%s!$K$%d"+
-										", 0)+", 
-										assetSheetName, i, //IF(OR(EXACT(%s!$L$%d,\"#\"),
-										assetSheetName, i, //%s!$M$%d-1
-										assetSheetName, i, //+%s!$I$%d
-										report.getLink(ExcelLink.PROJECT_DURATION), //>%s),
-										
-										assetSheetName, i, //%s!$C$%d*
-										
-										assetSheetName, i, //(%s!$D$%d
-										assetSheetName, i, //-%s!$K$%d)
-										assetSheetName, i, ///%s!$I$%d*
-										
-										assetSheetName, i, //IF(%s!$I$%d-
-										report.getLink(ExcelLink.PROJECT_DURATION), //(MOD(%s
-										assetSheetName, i, //-%s!$M$%d-1
-										assetSheetName, i, //,%s!$I$%d))
-										
-										assetSheetName, i, //<%s!$I$%d,
-										
-										assetSheetName, i, //%s!$I$%d-
-										report.getLink(ExcelLink.PROJECT_DURATION), //(MOD(%s
-										assetSheetName, i, //-%s!$M$%d-1
-										assetSheetName, i, //,%s!$I$%d)),0)+
-										
-										assetSheetName, i, //%s!$C$%d
-										assetSheetName, i //*%s!$K$%d
-									)
-						);
-					}
-					formulaBuild.deleteCharAt(formulaBuild.length()-1);
+					formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(yearNum+12+project.getDuration()*4+1), assetSumRow));
 					if (project.isWithWithout()) {
-						firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW));
-						for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
-							formulaBuild.append(
-									String.format("-IF(OR(EXACT(%s!$L$%d,\"#\"), %s!$M$%d-1+%s!$I$%d>%s), " +
-											"%s!$C$%d*"+
-											"(%s!$D$%d-%s!$K$%d)/%s!$I$%d*"+
-											
-											"IF(%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d))<%s!$I$%d,%s!$I$%d-(MOD(%s-%s!$M$%d-1,%s!$I$%d)),0)+"+
-											
-											"%s!$C$%d*%s!$K$%d"+
-											", 0)", 
-											assetWithoutSheetName, i, 
-											assetWithoutSheetName, i, 
-											assetWithoutSheetName, i,
-											report.getLink(ExcelLink.PROJECT_DURATION),
-											
-											assetWithoutSheetName, i,
-											
-											assetWithoutSheetName, i,
-											assetWithoutSheetName, i,
-											assetWithoutSheetName, i,
-											
-											assetWithoutSheetName, i,
-											report.getLink(ExcelLink.PROJECT_DURATION),
-											assetWithoutSheetName, i,
-											assetWithoutSheetName, i,
-											
-											assetWithoutSheetName, i,
-											
-											assetWithoutSheetName, i,
-											report.getLink(ExcelLink.PROJECT_DURATION),
-											assetWithoutSheetName, i,
-											assetWithoutSheetName, i,
-											
-											assetWithoutSheetName, i,
-											assetWithoutSheetName, i
-										)
-							);
-						}
+						formulaBuild.append(String.format("-IF(ISNUMBER(%s!$%s$%d),%s!$%s$%d,0)",  assetWithoutSheetName, getColumn(yearNum+12+project.getDuration()*4+1), assetWithoutSumRow,  assetWithoutSheetName, getColumn(yearNum+12+project.getDuration()*4+1), assetWithoutSumRow));
 					}
 					report.addFormulaCell(sheet.getRow(5), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				} else {
@@ -2248,36 +2182,10 @@ public class ExcelWorksheetBuilder {
 				
 				// replacement
 				formulaBuild = new StringBuilder();
-				firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
-				for (int i=firstRow; i<firstRow+project.getAssets().size();i++) {
-					formulaBuild.append(
-							String.format("IF(AND(EXACT(%s!$L$%d,\"#\"),%s2>%s!$M$%d,MOD(%s2-%s!$M$%d,%s!$I$%d)=0), %s!C%d*%s!D%d, 0)+", 
-									assetSheetName, i, 
-									col, assetSheetName, i, 
-									col,
-									assetSheetName, i,
-									assetSheetName, i,
-									assetSheetName, i,
-									assetSheetName, i
-								)
-					);
-				}
-				formulaBuild.deleteCharAt(formulaBuild.length()-1);
+				formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(yearNum+12+project.getDuration()*4), assetSumRow));
+				
 				if (project.isWithWithout()) {
-					firstRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW));
-					for (int i=firstRow; i<firstRow+project.getAssetsWithout().size();i++) {
-						formulaBuild.append(
-								String.format("-IF(AND(EXACT(%s!$L$%d,\"#\"),%s2>%s!$M$%d,MOD(%s2-%s!$M$%d,%s!$I$%d)=0), %s!C%d*%s!D%d, 0)", 
-										assetWithoutSheetName, i, 
-										col, assetWithoutSheetName, i, 
-										col,
-										assetWithoutSheetName, i,
-										assetWithoutSheetName, i,
-										assetWithoutSheetName, i,
-										assetWithoutSheetName, i
-									)
-						);
-					}
+					formulaBuild.append(String.format("-IF(ISNUMBER(%s!$%s$%d),%s!$%s$%d,0)", assetWithoutSheetName, getColumn(yearNum+12+project.getDuration()*4), assetWithoutSumRow, assetWithoutSheetName, getColumn(yearNum+12+project.getDuration()*4), assetWithoutSumRow));
 				}
 				report.addFormulaCell(sheet.getRow(10), yearNum, formulaBuild.toString(), Style.CURRENCY);
 
