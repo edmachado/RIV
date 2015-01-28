@@ -9,16 +9,18 @@ $( "#radioShared" ).buttonset();
 <body>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
-	
-	<input type="checkbox" name="quickAnalysis" value="true"> <b><spring:message code="project.quickAnalysis"/></b><br/>
-	
-	<div style="text-align:right;width:100%">
-		<tags:help text="project.clone.help" title="project.clone">
-			<a href="${project.projectId}/clone"><spring:message code="project.clone"/> <img src="../../img/duplicate.gif" border="0"/></a>
-		</tags:help>&nbsp;
-		<c:if test="${user.administrator and rivConfig.qa}"><div><a target="_blank" id="properties" style="display:none;" href="${project.projectId}/project.properties">Download properties file</a></div></c:if>
-	</div>
-		
+
+	<c:if test="${empty project.projectId}">
+		<input type="checkbox" name="quickAnalysis" value="true"> <b><spring:message code="project.quickAnalysis"/></b><br/>
+	</c:if>
+	<c:if test="${not empty project.projectId}">
+		<div style="text-align:right;width:100%">
+			<tags:help text="project.clone.help" title="project.clone">
+				<a href="${project.projectId}/clone"><spring:message code="project.clone"/> <img src="../../img/duplicate.gif" border="0"/></a>
+			</tags:help>&nbsp;
+			<c:if test="${user.administrator and rivConfig.qa}"><div><a target="_blank" id="properties" style="display:none;" href="${project.projectId}/project.properties">Download properties file</a></div></c:if>
+		</div>
+	</c:if>
 	<div> <!-- container div -->
 		<div style="float:left;margin-right:12px;"> <!-- left div -->
 
