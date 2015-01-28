@@ -146,6 +146,57 @@ public class InputProjectIg extends WebTestUtil {
 	}
 	
 	@Test
+	public void cloneWithBlockToWithoutAndViceVersa() {
+		String[] titles = projectStepTitles(true);
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.with")+")";
+		String blockTitleWithout = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.without")+")";
+		
+		importProject(ImportFile.ProjectV41, "igpj", false, false, "T3st Santa Cruz River Transport");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(titles[0]);
+		clickLink("step9");
+		assertTitleEquals(titles[8]);
+	
+		// delete all but one block
+		assertLinkPresent("delete3");
+		clickLink("delete3");
+		clickButtonWithText("Delete item");
+		assertLinkNotPresent("delete3");
+		assertLinkPresent("delete2");
+		clickLink("delete2");
+		clickButtonWithText("Delete item");
+		assertLinkNotPresent("delete2");
+		assertLinkPresent("delete1");
+		clickLink("delete1");
+		clickButtonWithText("Delete item");
+		assertLinkNotPresent("delete1");
+		
+		// clone with block to without
+		assertLinkPresent("cloneType0");
+		clickLink("cloneType0");
+		assertTitleEquals(blockTitleWithout);
+		rivSubmitForm();
+		assertTitleEquals(titles[8]);
+		assertElementPresentByXPath("//div[@id='tabs-without']/div[@class='tableContainerOuter']/div[@class='dataTitle']");
+		
+		// remove existing with block
+		clickLink("ui-id-1");
+		assertLinkPresent("delete0");
+		clickLink("delete0");
+		clickButtonWithText("Delete item");
+		assertElementNotPresentByXPath("//div[@id='tabs-with']/div[@class='tableContainerOuter']/div[@class='dataTitle']");
+		
+		// clone without block to with
+		clickLink("ui-id-2");
+		assertLinkPresent("cloneType0");
+		clickLink("cloneType0");
+		assertTitleEquals(blockTitleWith);
+		rivSubmitForm();
+		assertTitleEquals(titles[8]);
+		assertElementPresentByXPath("//div[@id='tabs-with']/div[@class='tableContainerOuter']/div[@class='dataTitle']");
+	}
+	
+	@Test
 	public void addBlockToCompleteProject() throws Exception {
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.with")+")";
 		String[] titles = projectStepTitles(true);
