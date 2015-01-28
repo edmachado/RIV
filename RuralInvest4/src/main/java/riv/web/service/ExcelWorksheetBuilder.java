@@ -3068,7 +3068,7 @@ public class ExcelWorksheetBuilder {
 
 						} else if (col.type==XlsColumnType.FORMULA) {
 							//replace column variable
-							String formula = col.data.replace("@", getColumn(i));
+							String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
 							report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
 
 						} else if (col.type==XlsColumnType.YESNO) {
