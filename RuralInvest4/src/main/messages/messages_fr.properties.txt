@@ -1,3 +1,6 @@
+project.with=(With project)
+
+
 #demo site login page
 demo.welcome=BIENVENUE DANS RURALINVEST
 demo.version=VERSION
