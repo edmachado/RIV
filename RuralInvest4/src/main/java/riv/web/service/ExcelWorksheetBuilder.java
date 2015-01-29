@@ -2118,12 +2118,12 @@ public class ExcelWorksheetBuilder {
 				String assetWithoutSheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_SHEET);
 
 				int assetSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW))+project.getAssets().size();
-				int assetWithoutSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW))+(project.getAssetsWithout().size()>0?project.getAssetsWithout().size():1);
 				int labourSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW))+project.getLabours().size();
-				int labourWithoutSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_WITHOUT_ROW))+project.getLaboursWithout().size();
 				int serviceSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_ROW))+project.getServices().size();
-				int serviceWithoutSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_WITHOUT_ROW))+project.getServicesWithout().size();
-				
+				Integer assetWithoutSumRow = !project.isWithWithout() ? null : Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW))+(project.getAssetsWithout().size()>0?project.getAssetsWithout().size():1);
+				Integer labourWithoutSumRow = !project.isWithWithout() ? null : Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_WITHOUT_ROW))+project.getLaboursWithout().size();
+				Integer serviceWithoutSumRow = !project.isWithWithout() ? null : Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_WITHOUT_ROW))+project.getServicesWithout().size();
+
 				formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(yearNum+12), assetSumRow));
 				
 				if (project.isWithWithout()) {
