@@ -227,9 +227,8 @@ public class ProjectController {
 	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.POST)
 	public String saveProject(@PathVariable Integer step, @PathVariable Integer id, HttpServletRequest request, 
-//			@RequestParam(required=false) Integer oldDuration, 
 			@RequestParam(required=false) Boolean quickAnalysis, 
-			@Valid Project project, BindingResult result, Model model, //@RequestParam(required=false) Integer oldStartupMonth, 
+			@Valid Project project, BindingResult result, Model model,
             final RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			setupPageAttributes(project, model, step, request);
@@ -265,10 +264,12 @@ public class ProjectController {
 					}
 					redirectAttributes.addFlashAttribute("quickAnalysis",true);
 				} else if (step==2) {
-					updateWizardStep(project, 6);
+					project.setWizardStep(7);
 					step=6;
 				}
 			}
+			
+			
 			
 
 			// should project results be calculated?
