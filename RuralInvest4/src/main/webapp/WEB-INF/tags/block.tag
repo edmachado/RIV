@@ -2,7 +2,15 @@
 <%@ attribute name="blockEntry" required="true" type="riv.objects.project.BlockBase" %>
 <%@ attribute name="blockType" required="true" %>
 <c:set var="project" value="${blockEntry.project}"/>
-<c:set var="unique"><c:if test="${blockEntry.getClass().simpleName eq 'BlockWithout'}">${fn:length(blockEntry.project.blocks) + blockEntry.orderBy}</c:if><c:if test="${blockEntry.getClass().simpleName eq 'Block'}">${blockEntry.orderBy}</c:if></c:set>
+
+<c:if test="${blockEntry.getClass().simpleName eq 'BlockWithout'}">
+	<c:set var="unique">${fn:length(blockEntry.project.blocks) + blockEntry.orderBy}</c:set>
+	<c:set var="bCollection" value="${project.blocksWithout}"/>
+</c:if>
+<c:if test="${blockEntry.getClass().simpleName eq 'Block'}">
+	<c:set var="unique">${blockEntry.orderBy}</c:set>
+	<c:set var="bCollection" value="${project.blocks}"/>
+</c:if>
 
 <c:set var="incTotal" value="0"/><c:set var="incTotalCash" value="0"/>
 		<c:set var="inpTotal" value="0"/><c:set var="inpTotalCash" value="0"/>
@@ -64,11 +72,11 @@
 					    			<c:if test="${blockEntry.propertiesType eq 'blockWo'}"><spring:message code="projectBlock.cloneWith"/></c:if>
 					    		</c:set>
 					    		<a id="cloneType${unique}" href="../block/${blockEntry.blockId}/clone?changeType=true"><img src="../../img/duplicate.gif" title='${swtch}' alt='${swtch}' border="0"/></a>
-					    		<c:if test="${fn:length(project.blocks)>1}">
+					    		<c:if test="${fn:length(bCollection)>1}">
 						    		<c:if test="${blockEntry.orderBy ne 0}">
 										<a name="moveUp" href="../block/${blockEntry.blockId}/move?up=false"><img src="../../img/arrow_up.png" title="<spring:message code="misc.moveUp"/>" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0"/></a>
 									</c:if>
-									<c:if test="${blockEntry.orderBy ne fn:length(project.blocks)-1}">
+									<c:if test="${blockEntry.orderBy ne fn:length(bCollection)-1}">
 										<a name="moveDown" href="../block/${blockEntry.blockId}/move?up=true"><img src="../../img/arrow_down.png" title="<spring:message code="misc.moveDown"/>" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0"></a>
 									</c:if>
 								</c:if>
