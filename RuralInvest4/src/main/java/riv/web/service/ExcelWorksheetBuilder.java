@@ -1568,6 +1568,8 @@ public class ExcelWorksheetBuilder {
 		
 		Row rowBalance = sheet.createRow(rowNum++);
 		report.addTextCell(rowBalance, 0, netBalance, Style.LABEL);
+		Row rowAccumulated = sheet.createRow(rowNum++);
+		report.addTextCell(rowAccumulated, 0, translate("project.report.cashFlowNongen.accumulated"), Style.LABEL);
 
 
 		cellNum = 1;
@@ -1603,7 +1605,8 @@ public class ExcelWorksheetBuilder {
 			
 			// Net Balance
 			report.addFormulaCell(rowBalance, cellNum, String.format("%1$s9-%1$s17", col), Style.CURRENCY);
-
+			// Accumulated net balance
+			report.addFormulaCell(rowAccumulated, cellNum, cellNum==1 ? "B18":String.format("%s19+%s18",getColumn(cellNum-1),col), Style.CURRENCY);
 			
 			cellNum++;
 		}

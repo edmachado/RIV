@@ -3,6 +3,9 @@ project.quickAnalysis=Quick analysis (no qualitative analysis)
 projectBlock.cloneWith=Clone as "With project" block
 projectBlock.cloneWithout=Clone as "Without project" block
 
+project.report.cashFlowNongen.accumulated=Accumulated balance
+
+
 ### NEW TEXT RIV4.1 C
 import.excel.error.noWithout=The project you are working on includes "without project" scenario, but the Excel file you are importing does not have a "without project" sheet. Please make sure you are using the correct Excel template - see the "Download Excel template" link on this page.
 
