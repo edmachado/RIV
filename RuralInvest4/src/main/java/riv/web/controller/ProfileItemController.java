@@ -154,7 +154,8 @@ public class ProfileItemController {
     private String successView(ProfileItem pi) {
     	int step= (pi.getClass().isAssignableFrom(ProfileItemGeneral.class) || pi.getClass().isAssignableFrom(ProfileItemGeneralWithout.class))?5:4;
     	int profileId = pi.getProfile().getProfileId();
-    	return "../step"+step+"/"+profileId;
+    	String wo = pi.getClass().isAssignableFrom(ProfileItemGoodWithout.class) || pi.getClass().isAssignableFrom(ProfileItemLabourWithout.class) || pi.getClass().isAssignableFrom(ProfileItemGeneralWithout.class) ? "#without" : "";
+    	return "../step"+step+"/"+profileId+wo;
     }
     
     private void checkLinked(ProfileItem item, Integer linkedToId, Boolean addLink) {

@@ -165,7 +165,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='0'")
 	private Set<ProfileItemGood> glsGoods;
-	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGood.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGoodWithout.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='4'")
 	private Set<ProfileItemGoodWithout> glsGoodsWithout;
@@ -173,7 +173,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='1'")
 	private Set<ProfileItemLabour> glsLabours;
-	@OneToMany(mappedBy="profile", targetEntity=ProfileItemLabour.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="profile", targetEntity=ProfileItemLabourWithout.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='5'")
 	private Set<ProfileItemLabourWithout> glsLaboursWithout;
@@ -456,6 +456,19 @@ public class Profile extends Probase implements java.io.Serializable {
 	 }
 
 	 public void setWithWithout(boolean withWithout) {
+		 if (!withWithout) { 
+			 // convert "without" products to "with"
+			for (ProfileProductWithout pw : productsWithout) {
+				 ProfileProduct pp = (ProfileProduct)pw.copy(ProfileProduct.class);
+				 pw.setOrderBy(products.size());
+				 addProfileProduct(pp);
+			 }
+			productsWithout.clear();
+			 // delete "without" investment and general costs
+			 glsGeneralWithout.clear();
+			 glsGoodsWithout.clear();
+			 glsLaboursWithout.clear();
+		 }
 		 this.withWithout = withWithout;
 	 }
 
@@ -897,7 +910,7 @@ public class Profile extends Probase implements java.io.Serializable {
 		 
 		// prepare linkedto of profileproductitems for export
 		for (ProfileProduct prod : products) {
-			ProfileProduct newProd = (ProfileProduct)prod.copy();
+			ProfileProduct newProd = (ProfileProduct)prod.copy(ProfileProduct.class);
 			newProf.addProfileProduct(newProd);
 			
 			for (ProfileProductIncome item : newProd.getProfileIncomes()) {
@@ -911,7 +924,7 @@ public class Profile extends Probase implements java.io.Serializable {
 			} 
 		 }
 		for (ProfileProductWithout prod : productsWithout) {
-			ProfileProductWithout newProd = (ProfileProductWithout) prod.copy();
+			ProfileProductWithout newProd = (ProfileProductWithout) prod.copy(ProfileProductWithout.class);
 			newProf.addProfileProduct(newProd);
 			
 			for (ProfileProductIncome item : newProd.getProfileIncomes()) {
@@ -1035,10 +1048,21 @@ public class Profile extends Probase implements java.io.Serializable {
 			 totalOwnResources += good.getOwnResource();
 			 annualReserve += ((good.getUnitCost()-good.getSalvage())*good.getUnitNum())/good.getEconLife();
 		 }
+		 
+		 for (ProfileItemGoodWithout good : this.glsGoodsWithout) {
+			 totalInvestment -= good.getUnitNum()*good.getUnitCost();
+			 totalOwnResources -= good.getOwnResource();
+			 annualReserve -= ((good.getUnitCost()-good.getSalvage())*good.getUnitNum())/good.getEconLife();
+		 }
 
 		 for(ProfileItemLabour lab : this.glsLabours) {
 			 totalInvestment += lab.getUnitNum()*lab.getUnitCost();
 			 totalOwnResources += lab.getOwnResource();
+		 }
+		 
+		 for(ProfileItemLabourWithout lab : this.glsLaboursWithout) {
+			 totalInvestment -= lab.getUnitNum()*lab.getUnitCost();
+			 totalOwnResources -= lab.getOwnResource();
 		 }
 
 		 for (ProfileItemGeneral gen : this.glsGeneral) {

@@ -157,7 +157,7 @@ public class ProfileController {
 			boolean calculateResult=false;
 			
 			// set wizard step and determine whether to calculate profileResult
-			if (	profile.getWizardStep()!=null  // profile still incomplete
+			if (profile.getWizardStep()!=null  // profile still incomplete
 					&& step==profile.getWizardStep()) { // on highest step reached by profile
 				if (step==6) { // after step six mark as complete
 					newWizardStep=null;
@@ -169,21 +169,8 @@ public class ProfileController {
 			} else if (profile.getWizardStep()==null && step==1) { // only step 1 affects profileResult
 				calculateResult=true;
 			}
-			
-			// if "has with/without project" has changed
-			if (step==1 && profile.getIncomeGen()
-					&& profile.getWizardStep()==null
-					&& Boolean.parseBoolean(request.getParameter("oldWithWithout"))!=profile.getWithWithout()) {
-				dataService.storeProfile(profile, false);
-				dataService.updateProductsWithWithout(profile.getProfileId(), profile.getWithWithout());
-				
-				if (calculateResult) {
-					dataService.storeProfileResult(profile.getProfileId());
-				}
-				
-			}  else {
-				dataService.storeProfile(profile, calculateResult);
-			}
+			dataService.storeProfile(profile, calculateResult);
+
 			return "redirect:../step"+(step+1)+"/"+profile.getProfileId();
 		}
 	}

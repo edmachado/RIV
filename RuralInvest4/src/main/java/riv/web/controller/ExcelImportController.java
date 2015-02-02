@@ -29,6 +29,8 @@ import riv.objects.profile.ProfileItemGeneral;
 import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
 import riv.objects.profile.ProfileItemLabour;
+import riv.objects.profile.ProfileItemGoodWithout;
+import riv.objects.profile.ProfileItemLabourWithout;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;
@@ -514,6 +516,7 @@ public class ExcelImportController {
 	
 	private void importProfileInvest(int id, InputStream file) throws ExcelImportException {
 		XSSFWorkbook workbook = getWorkbook(file);
+		Profile p = dataService.getProfile(id, 1);
 		
 		int rowNum=0;
 		XSSFSheet sheet = workbook.getSheetAt(0);
@@ -541,7 +544,36 @@ public class ExcelImportController {
 				.addColumn(5, "ownResource", true);
 		List<ProfileItemLabour> labours = labourTable.readTable(sheet, messageSource);
 		
-		dataService.replaceProfileInvest(id, goods, labours);
+		List<ProfileItemGoodWithout> goodsWo=null;
+		List<ProfileItemLabourWithout> laboursWo=null;
+		if (p.getWithWithout()) {
+			rowNum=0;
+			sheet = workbook.getSheetAt(1);
+			// goods and materials table
+			XlsImportTable<ProfileItemGoodWithout>tableGoodWo = new XlsImportTable<ProfileItemGoodWithout>(ProfileItemGoodWithout.class, rowNum, 4, validator)
+					.addColumn(0, "description", false)
+					.addColumn(1, "unitType", false)
+					.addColumn(2,"unitNum", true)
+					.addColumn(3, "unitCost", true)
+					.addColumn(5, "ownResource", true)
+					.addColumn(7, "econLife", true)
+					.addColumn(8, "salvage", true);
+			
+			goodsWo = tableGoodWo.readTable(sheet, messageSource);
+			
+			rowNum = goodsWo.size()+6;
+		
+			// labours table
+			XlsImportTable<ProfileItemLabourWithout>labourWoTable = new XlsImportTable<ProfileItemLabourWithout>(ProfileItemLabourWithout.class, rowNum,  4, validator)
+					.addColumn(0, "description", false)
+					.addColumn(1, "unitType", false)
+					.addColumn(2,"unitNum", true)
+					.addColumn(3, "unitCost", true)
+					.addColumn(5, "ownResource", true);
+			laboursWo = labourWoTable.readTable(sheet, messageSource);
+		}
+		
+		dataService.replaceProfileInvest(id, goods, labours, goodsWo, laboursWo);
 		
 		try {
 			file.close();

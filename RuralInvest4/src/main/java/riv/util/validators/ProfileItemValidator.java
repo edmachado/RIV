@@ -12,7 +12,7 @@ public class ProfileItemValidator implements Validator {
 	}
 	public void validate(Object obj, Errors errors) {
 		ProfileItem i = (ProfileItem)obj;
-		if (obj.getClass().isAssignableFrom(ProfileItemGood.class)){
+		if (obj.getClass().isAssignableFrom(ProfileItemGood.class) || obj.getClass().isAssignableFrom(ProfileItemGoodWithout.class)){
 			ValidateUtils.rejectIfEmpty(i, "description", "profileGoods.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "profileGoods.unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "profileGoods.unitNum", errors);
@@ -23,7 +23,7 @@ public class ProfileItemValidator implements Validator {
 			ValidateUtils.rejectIfNegative(i, "donated", "profileGoods.externalResources", errors);
 			ValidateUtils.rejectIfNegative(i, "reserve", "profileGoods.reserve", errors);
 			ValidateUtils.rejectIfNegative(i, "total", "profileGoods.totalCost", errors);
-		} else if (obj.getClass().isAssignableFrom(ProfileItemLabour.class)) {
+		} else if (obj.getClass().isAssignableFrom(ProfileItemLabour.class) || obj.getClass().isAssignableFrom(ProfileItemLabourWithout.class)) {
 			ValidateUtils.rejectIfEmpty(i, "description", "profileLabour.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "profileLabour.unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "profileLabour.unitNum", errors);
@@ -31,7 +31,7 @@ public class ProfileItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResource", "profileLabour.ownResource", errors);
 			ValidateUtils.rejectIfNegative(i, "donated", "profileLabour.externalResources", errors);
 			ValidateUtils.rejectIfNegative(i, "total", "profileLabour.totalCost", errors);
-		} else {// if (obj.getClass().isAssignableFrom(ProfileItemGeneral.class)) {
+		} else {// general or general without
 			ValidateUtils.rejectIfEmpty(i, "description", "profileGeneral.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "profileGeneral.unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "profileGeneral.unitNum", errors);

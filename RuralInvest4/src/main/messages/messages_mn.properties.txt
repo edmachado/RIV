@@ -97,8 +97,13 @@ project.report.generalCostsDetail.sheetname=Тогтмол зардал
 project.report.generalCostsDetail.with.sheetname=Тогтмол зардал (төсөлтэй)
 project.report.generalCostsDetail.without.sheetname=Тогтмол зардал (төсөлгүй)
 project.report.investDetail.sheetname=Хөрөнгө оруулалтын зардал
+<<<<<<< Upstream, based on master
 project.report.investDetail.with.sheetname=Хөрөнгө оруулалтынзардалтөсөлтэй)
 project.report.investDetail.without.sheetname=Хөрөнгө оруулалтынзардалтөсөлгүй)
+=======
+project.report.investDetail.with.sheetname=Хөрөнгө оруулалтынзардал(төсөлтэй)
+project.report.investDetail.without.sheetname=Хөрөнгө оруулалтынзардал(төсөлгүй)
+>>>>>>> 47010c4 'without project' profile investment items - Excel and PDF reports; basic 'clone profile product from 'with' to 'without' and vice versa;
 project.report.chronology.sheetname=Дараалал
 project.report.production.sheetname=Үйлдвэрлэлийн бүтэц
 project.report.production.nonGen.sheetname=Үйл ажиллагааны бүтэц

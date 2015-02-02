@@ -26,6 +26,9 @@ import org.hibernate.annotations.Where;
 import riv.objects.HasProbase;
 import riv.objects.OrderByable;
 import riv.objects.ProductOrBlock;
+import riv.objects.project.Block;
+import riv.objects.project.BlockBase;
+import riv.objects.project.BlockWithout;
 
 /**
  * A product (income-generating) or an activity (non-income-generating) held by a Profile.
@@ -222,8 +225,9 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 	 * which must be dealt with separately according to business logic.
 	 * @return copy of the ProfileProduct
 	 */
-	public ProfileProductBase copy() {
-		ProfileProductBase newProd = this.getClass()==ProfileProduct.class ? new ProfileProduct() : new ProfileProductWithout();
+	public ProfileProductBase copy(Class<? extends ProfileProductBase> newClass) {
+		//ProfileProductBase newProd = this.getClass()==ProfileProduct.class ? new ProfileProduct() : new ProfileProductWithout();
+		ProfileProductBase newProd = newClass.isAssignableFrom(ProfileProduct.class) ? new ProfileProduct() : new ProfileProductWithout();
 		newProd.setOrderBy(getOrderBy());
 		newProd.setCycleLength(getCycleLength());
 		newProd.setCyclePerYear(getCyclePerYear());
