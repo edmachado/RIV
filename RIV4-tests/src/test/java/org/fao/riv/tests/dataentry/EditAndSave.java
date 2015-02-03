@@ -138,7 +138,7 @@ public class EditAndSave extends WebTestUtil {
 	public void IgProfile() throws Exception {
 		deletePros(false, true);
 		
-		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		importProfile(ImportFile.ProfileIgV42, "igpf_no", false, false, "T3st Irrigation project");
 		clickLinkWithImage("edit.png");
 		
 		String[] titles = profileStepTitles(true);
@@ -149,6 +149,8 @@ public class EditAndSave extends WebTestUtil {
 		// step 4
 		testEditSaveTable("profile.step4", "profile.incomeGen", "goodsListTable");
 		testEditSaveTable("profile.step4", "profile.incomeGen", "labourListTable");
+		testEditSaveTable("profile.step4", "profile.incomeGen", "goodsListWoTable");
+		testEditSaveTable("profile.step4", "profile.incomeGen", "labourListWoTable");
 		rivSubmitForm();
 		assertTitleEquals(titles[4]);
 		

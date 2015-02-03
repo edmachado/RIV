@@ -46,6 +46,23 @@ public class InputProfileIg extends WebTestUtil {
 	}
 	
 	@Test
+	public void removeWithoutScenario() throws Exception {
+		importProfile(ImportFile.ProfileIgV42, "igpf_no", false, false, "T3st Irrigation project");
+		// edit project
+		goToPro(false, true, true);
+		String[] titles = profileStepTitles(true);
+		
+		assertRadioOptionNotSelected("withWithout", "false");
+		assertRadioOptionSelected("withWithout", "true");
+		clickRadioOption("withWithout", "false");
+		assertRadioOptionSelected("withWithout", "false");
+		assertRadioOptionNotSelected("withWithout", "true");
+		rivSubmitForm();
+
+		assertTitleEquals(titles[1]);
+	}
+	
+	@Test
 	public void addProductToCompleteProfile() throws Exception {
 		String[] titles = profileStepTitles(true);
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";
@@ -132,6 +149,23 @@ public class InputProfileIg extends WebTestUtil {
 		
 		// labour
 		tt = new TestTable("labourListTable", "step4.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testWithInput();
+		
+		// goods & services without
+		tt = new TestTable("goodsWoListTable", "step4.goodWo.", "newGoodWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
+		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
+		tt.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true);
+		tt.addParam("econLife").addParam("salvage").addParam("reserve")
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testWithInput();
+		
+		// labour without
+		tt = new TestTable("labourWoListTable", "step4.labourWo.", "newLabourWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("unitTotal", InputParamType.TEXT, true).addParam("ownResource").addParam("donated", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
