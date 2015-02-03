@@ -328,6 +328,65 @@ public class InputProjectIg extends WebTestUtil {
 		verifyProject("dataentry/projectIg", 1);
 	}
 	
+	@Test
+	public void quickAnalysis() {
+		String[] titles = projectStepTitles(true);
+		String one = "1";
+		String quick = getMessage("project.quickAnalysis");
+		goHome();
+		
+		clickLink("newIgProject");
+		assertTitleEquals(titles[0]);
+		
+		// click "quick analysis"
+		setWorkingForm("form");
+		assertCheckboxSelected("quickAnalysis", false);
+		checkCheckbox("quickAnalysis");
+		assertCheckboxSelected("quickAnalysis", true);
+		
+		// set step 1 data
+		setTextField("projectName", one);
+		setTextField("userCode", one);
+		setTextField("inflationAnnual", one);
+		setTextField("exchRate", one);
+		setTextField("duration", one);
+		setTextField("location1", one);
+		setTextField("location2", one);
+		setTextField("location3", one);
+		
+		rivSubmitForm();
+		assertTitleEquals(titles[1]);
+
+		// make sure beneficiary description is "quick analysis"
+		assertTextFieldEquals("benefDesc",quick);
+		
+		// set other step 2 data
+		setTextField("benefName",one);
+		setTextField("beneDirectMen",one);
+		setTextField("beneDirectWomen", one);
+		setTextField("beneDirectChild", one);
+		setTextField("beneDirectNum",one);
+		setTextField("beneIndirectMen",one);
+		setTextField("beneIndirectWomen",one);
+		setTextField("beneIndirectChild",one);
+		setTextField("beneIndirectNum",one);
+		
+		rivSubmitForm();
+		
+		// make sure next step is 7 and wizard step is correct
+		assertTitleEquals(titles[6]);
+		for (int x=1;x<=6;x++) {
+			assertLinkPresent("step"+x);
+		}
+		assertLinkNotPresent("step7");
+		assertLinkNotPresent("step8");
+		
+		clickLink("step6");
+		assertTitleEquals(titles[5]);
+		assertLinkPresent("step7");
+		assertLinkNotPresent("step8");
+	}
+	
 	private void createProject(String resourceBundle, int resultIndex) throws Exception {
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
