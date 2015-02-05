@@ -8,10 +8,7 @@
 	<div align="right"><a href="#" onClick="toggle('tblGoods')"><spring:message code="misc.toggle"/></a></div>
 	<div id="tblGoods" style="display:none">
 		<tags:table titleKey="profileGoods">
-			<c:if test="${profileItem.getClass().getSimpleName() eq 'ProfileItemGood'}"><c:set var="tableSource" value="${profileItem.profile.glsGoods}"/></c:if>
-			<c:if test="${profileItem.getClass().getSimpleName() eq 'ProfileItemGoodWithout'}"><c:set var="tableSource" value="${profileItem.profile.glsGoodsWithout}"/></c:if>
-			
-			<display:table htmlId="goodsListTable" list="${tableSource}" id="row" requestURI="" cellspacing="0" cellpadding="0"
+			<display:table htmlId="goodsListTable" list="${profileItem.profile.glsGoods}" id="row" requestURI="" cellspacing="0" cellpadding="0"
 					 export="false">
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					<display:column titleKey="profileGoods.description" property="description" sortable="true" style="text-align:${left};" headerClass="left"/>
@@ -39,6 +36,10 @@
 					</display:column>
 					<display:column titleKey="profileGoods.reserve" sortable="true" sortProperty="reserve">
 						<tags:formatCurrency value="${row.reserve}"/>
+					</display:column>
+					<display:column title="&nbsp;">
+						<c:if test="${not empty row.linkedTo}"><img src="img/linked.png" width="16" height="16" border="0"></c:if>
+						<c:if test="${empty row.linkedTo}"><img src="img/spacer.gif" width="16" height="16" border="0"></c:if>
 					</display:column>
 				</display:table>
 		</tags:table>

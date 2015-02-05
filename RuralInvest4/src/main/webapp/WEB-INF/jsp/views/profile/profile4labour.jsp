@@ -8,10 +8,7 @@
 	<div align="right"><a href="#" onClick="toggle('tblLabour')"><spring:message code="misc.toggle"/></a></div>
 	<div id="tblLabour" style="display:none">
 		<tags:table titleKey="profileLabour">
-			<c:if test="${profileItem.getClass().getSimpleName() eq 'ProfileItemLabour'}"><c:set var="tableSource" value="${profileItem.profile.glsLabours}"/></c:if>
-			<c:if test="${profileItem.getClass().getSimpleName() eq 'ProfileItemLabourWithout'}"><c:set var="tableSource" value="${profileItem.profile.glsLaboursWithout}"/></c:if>
-			
-			<display:table htmlId="labourListTable" list="${tableSource}" id="lab" requestURI="" cellspacing="0" cellpadding="0"
+			<display:table htmlId="labourListTable" list="${profile.glsLabours}" id="lab" requestURI="" cellspacing="0" cellpadding="0"
 					 export="false">
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					<display:column titleKey="profileLabour.description" property="description" sortable="true" style="text-align:${left};" headerClass="left"/>
@@ -30,6 +27,10 @@
 					</display:column>
 					<display:column titleKey="profileLabour.externalResources" sortable="true" sortProperty="donated">
 						<tags:formatCurrency value="${lab.donated}"/>
+					</display:column>
+					<display:column title="&nbsp;">
+						<c:if test="${not empty lab.linkedTo}"><img src="img/linked.png" width="16" height="16" border="0"></c:if>
+						<c:if test="${empty lab.linkedTo}"><img src="img/spacer.gif" width="16" height="16" border="0"></c:if>
 					</display:column>
 				</display:table>
 		</tags:table>

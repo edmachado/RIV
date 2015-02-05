@@ -5,11 +5,9 @@ projectBlock.cloneWithout=Clone as "Without project" block
 
 project.report.cashFlowNongen.accumulated=Accumulated balance
 
+
+### NEW TEXT RIV4.1 C
 import.excel.error.noWithout=The project you are working on includes "without project" scenario, but the Excel file you are importing does not have a "without project" sheet. Please make sure you are using the correct Excel template - see the "Download Excel template" link on this page.
-
-#changed from previous versions
-profile.withWithout.remove=You are choosing to not have "with" and "without project" products for this project. Any products that are currently "without project" will be changed to "with project". Any "without project" investment costs or general costs will be discarded.
-
 
 ### NEW TEXT IN RIV4.1 B
 projectContribution.contributor.help=The contributing organization (NGO, association, government agency)
@@ -185,7 +183,7 @@ reference.item.link.imperative=Link
 user.language=Language
 settings.language.help=Default language. This sets the language of the interface for users who have not set a preferred language.
 project.withWithout.remove=You are choosing to not have "with" and "without project" blocks for this project. Any blocks that are currently "without project" will be changed to "with project".
-#profile.withWithout.remove=You are choosing to not have "with" and "without project" products for this project. Any products that are currently "without project" will be changed to "with project".
+profile.withWithout.remove=You are choosing to not have "with" and "without project" products for this project. Any products that are currently "without project" will be changed to "with project".
 project.with=(With project)
 project.without=(Without project)
 attach.newProfile=You may attach an external file to this profile in this section once step 1 has been saved.

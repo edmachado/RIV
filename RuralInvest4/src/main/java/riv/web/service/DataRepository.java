@@ -280,7 +280,7 @@ public class DataRepository {
 		storeProject(p, p.getWizardStep()==null);
 	}
 	
-	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours, List<ProfileItemGoodWithout> goodsWo, List<ProfileItemLabourWithout> laboursWo) {
+	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours) {
 		deleteCollections(new String[] {"ProfileItemGood","ProfileItemLabour"}, "profile.profileId", profileId);
 		
 		Profile p = getProfile(profileId, 4);
@@ -290,16 +290,6 @@ public class DataRepository {
 		
 		for (ProfileItemLabour labour : labours) {
 			p.addGlsLabour(labour);
-		}
-		
-		if (p.getWithWithout()) {
-			for (ProfileItemGoodWithout good : goodsWo) {
-				p.addGlsGoodWithout(good);
-			}
-			
-			for (ProfileItemLabourWithout labour : laboursWo) {
-				p.addGlsLabourWithout(labour);
-			}
 		}
 		
 		storeProfile(p, p.getWizardStep()==null);
@@ -458,22 +448,6 @@ public class DataRepository {
 			if (step==1 || step==-1) {
 				Hibernate.initialize(p.getFieldOffice());
 				Hibernate.initialize(p.getStatus());
-				Hibernate.initialize(p.getGlsGoods());
-				Hibernate.initialize(p.getGlsLabours());
-				Hibernate.initialize(p.getGlsGoodsWithout());
-				Hibernate.initialize(p.getGlsLaboursWithout());
-				Hibernate.initialize(p.getGlsGeneral());
-				Hibernate.initialize(p.getGlsGeneralWithout());
-				for (ProfileProduct pp : p.getProducts()) {
-					Hibernate.initialize(pp.getProfileIncomes());
-					Hibernate.initialize(pp.getProfileInputs());
-					Hibernate.initialize(pp.getProfileLabours());
-				}
-				for (ProfileProductWithout pp : p.getProductsWithout()) {
-					Hibernate.initialize(pp.getProfileIncomes());
-					Hibernate.initialize(pp.getProfileInputs());
-					Hibernate.initialize(pp.getProfileLabours());
-				}
 			}
 			if (step==4 || step==-1) {
 				Hibernate.initialize(p.getGlsGoods());
@@ -885,6 +859,82 @@ public class DataRepository {
 		currentSession().createQuery("delete from ProjectFile where probaseId=:id").setInteger("id", p.getProjectId()).executeUpdate();
 		currentSession().delete(p);
 	}
+	public void updateProductsWithWithout(int profileId, boolean withWithout) {
+		if (!withWithout) {// yes to no: set all blocks to "with project"
+			String sql = "update profile_product set with_without=true where profile_id=:profileId";
+			SQLQuery q = currentSession().createSQLQuery(sql);
+			q.setInteger("profileId", profileId);
+			q.executeUpdate();
+		}
+	}
+	
+//	public void updateBlocksWithWithout(int projectId, boolean withWithout) {
+//		if (!withWithout) { // yes to no: set all blocks to "with project"
+//			SQLQuery q = currentSession().createSQLQuery("SELECT COUNT(block_id) FROM project_block WHERE project_id=:id AND class='0'");
+//			q.setInteger("id", projectId);
+//			int existingWithBlocks = ((java.math.BigInteger)q.uniqueResult()).intValue();
+//					
+//			String sql = "UPDATE project_block SET class='0', order_by=order_by+:orderIncr WHERE project_id=:projectId AND class='1'";
+//			q = currentSession().createSQLQuery(sql);
+//			q.setInteger("orderIncr", existingWithBlocks);
+//			q.setInteger("projectId", projectId);
+//			q.executeUpdate();
+//		}
+//	}
+	
+//	public void contributionsDurationChanged(Project p, int oldDuration) {
+//		if (p.getDuration()<oldDuration) {
+//			Query query=currentSession().createQuery("delete ProjectItemContribution c where c.year>:d and c.project=:p");
+//			query.setParameter("d", p.getDuration());
+//			query.setParameter("p", p);
+//			query.executeUpdate();
+//			p = getProject(p.getProjectId(), 1);
+//			storeProject(p, p.getWizardStep()==null);
+//		}
+//	}
+//	public void updatePatternLength(int projectId, int duration, int oldDuration) {
+//		if (duration<oldDuration) {
+//			// delete pattern items for years after end of project duration
+//			// (duration made smaller)
+//			String sqlDelete = "delete from project_block_pattern where patterns_key in (select bp.patterns_key from project_block_pattern bp left join project_block b on b.block_id=bp.block_id where b.project_id=:projectId and bp.year_num>:yearNum)";
+//			SQLQuery q =currentSession().createSQLQuery(sqlDelete);
+//			q.setInteger("projectId", projectId);
+//			q.setInteger("yearNum", duration);
+//			q.executeUpdate();
+//		} else { // project duration has become larger
+//			Project project = getProject(projectId, 9);
+//			for (Block block : project.getBlocks()) {
+//				int size; double qty;
+//				if (block.getPatterns()==null) { // shouldn't occur, but just in case...
+//					size=0;qty=0.0;
+//				} else {
+//					size = block.getPatterns().size();
+//					qty=block.getPatterns().get(size).getQty();
+//				}
+//				for (int i=size+1;i<=project.getDuration();i++) {
+//					BlockPattern pat = new BlockPattern();
+//					pat.setQty(qty);
+//					pat.setYearNum(i);
+//					block.addPattern(pat);
+//				}	
+//			}
+//			for (BlockWithout block : project.getBlocksWithout()) {
+//				int size; double qty;
+//				if (block.getPatterns()==null) { // shouldn't occur, but just in case...
+//					size=0;qty=0.0;
+//				} else {
+//					size = block.getPatterns().size();
+//					qty=block.getPatterns().get(size).getQty();
+//				}
+//				for (int i=size+1;i<=project.getDuration();i++) {
+//					BlockPattern pat = new BlockPattern();
+//					pat.setQty(qty);
+//					pat.setYearNum(i);
+//					block.addPattern(pat);
+//				}	
+//			}
+//		}
+//	}
 	
 	public BlockBase getBlock(int id, String fetchCollection) {
 		BlockBase b = (BlockBase)currentSession().createCriteria(BlockBase.class).add(Restrictions.eq("id", id)).uniqueResult();

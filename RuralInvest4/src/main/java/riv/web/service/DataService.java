@@ -30,9 +30,7 @@ import riv.objects.profile.ProfileItem;
 import riv.objects.profile.ProfileItemGeneral;
 import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
-import riv.objects.profile.ProfileItemGoodWithout;
 import riv.objects.profile.ProfileItemLabour;
-import riv.objects.profile.ProfileItemLabourWithout;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
 import riv.objects.profile.ProfileProductInput;
@@ -104,8 +102,8 @@ public class DataService implements UserDetailsService {
 		repo.replaceProjectInvest(projectId, assets, labours, services, assetsWo, laboursWo, servicesWo);
 	}
 	
-	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours, List<ProfileItemGoodWithout> goodsWo, List<ProfileItemLabourWithout> laboursWo) {
-		repo.replaceProfileInvest(profileId, goods, labours, goodsWo, laboursWo);
+	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours) {
+		repo.replaceProfileInvest(profileId, goods, labours);
 	}
 	
 	public Version getLatestVersion() {
@@ -230,6 +228,10 @@ public class DataService implements UserDetailsService {
 	}
 	public void storeProjectResult(int id) {
 		repo.storeProjectResult(id);
+	}
+	
+	public void updateProductsWithWithout(int profileId, boolean withWithout) {
+		repo.updateProductsWithWithout(profileId, withWithout);
 	}
 	
 	public ProjectItem getProjectItem(int id) {

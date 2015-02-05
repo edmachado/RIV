@@ -375,10 +375,7 @@ public class ExcelReportController {
 	   Profile p = dataService.getProfile(id, 4);
 	   ExcelWrapper report = ewb.create();
 	   try {
-		   ewb.profileInvest(report, p, false, template!=null);
-		   if (p.getWithWithout()) {
-			   ewb.profileInvest(report, p, true, template!=null);  
-		   }
+		   ewb.profileInvest(report, p, template!=null);
 		   response.setHeader("Content-disposition", "attachment; filename=profileInvest.xlsx");
 		   report.getWorkbook().write(response.getOutputStream());
 	   } catch (IOException e) {
@@ -487,10 +484,7 @@ public class ExcelReportController {
 	  try {
 		   report.setCompleteReport(true);
 		   ewb.profileSummary(report, p);
-		   ewb.profileInvest(report, p, false, false);
-		   if (p.getWithWithout()) {
-			   ewb.profileInvest(report, p, true, false);
-		   }
+		   ewb.profileInvest(report, p, false);
 		   ewb.profileGeneral(report, p, false);
 		   ewb.profileProducts(report, p, false);
 		   if (p.getWithWithout()) {

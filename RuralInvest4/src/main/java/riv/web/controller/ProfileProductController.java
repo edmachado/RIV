@@ -21,9 +21,6 @@ import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductWithout;
-import riv.objects.project.Block;
-import riv.objects.project.BlockBase;
-import riv.objects.project.BlockWithout;
 import riv.util.validators.ProfileProductValidator;
 import riv.web.config.RivConfig;
 import riv.web.service.DataService;
@@ -95,13 +92,12 @@ public class ProfileProductController {
     }
     
     @RequestMapping(value="/{id}/clone", method=RequestMethod.GET)
-    public String clone(@ModelAttribute("profileProduct") ProfileProductBase profileProduct, HttpServletRequest request, @RequestParam(required=false) Boolean changeType) {
+    public String clone(@ModelAttribute("profileProduct") ProfileProductBase profileProduct, HttpServletRequest request) {
     	String view;
     	User u = (User) request.getAttribute("user");
     	Profile p = profileProduct.getProfile();
     	if (p.isShared() || p.getTechnician().getUserId().equals(u.getUserId())) {
-    		Class<? extends ProfileProductBase> copyClass = changeType==null ? profileProduct.getClass() : profileProduct.getClass().isAssignableFrom(ProfileProduct.class) ? ProfileProductWithout.class : ProfileProduct.class;
-    		ProfileProductBase newPP = profileProduct.copy(copyClass);
+    		ProfileProductBase newPP = profileProduct.copy();
     		newPP.setOrderBy(newPP.getClass()==ProfileProduct.class ? p.getProducts().size() : p.getProductsWithout().size());
     		p.addProfileProduct(newPP);
     		dataService.storeProfileProduct(newPP);

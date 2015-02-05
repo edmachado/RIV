@@ -184,17 +184,8 @@ public class ReportController {
    @RequestMapping(value="/{id}/profileInvest.pdf", method=RequestMethod.GET)
    public void profileInvest(@PathVariable int id, HttpServletRequest request, HttpServletResponse response)  {
 	   Profile p = dataService.getProfile(id, 4);
-	   ReportWrapper reportWith = reportCreator.profileInvest(p, false, 0);
-	   
-	   if (!p.getWithWithout()) {
-			reportCreator.export(response, reportWith);
-		} else {
-			ReportWrapper reportWithout = reportCreator.profileInvest(p, true, reportWith.getJp().getPages().size());
-			ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
-			reports.add(reportWith);
-			reports.add(reportWithout);
-			concatReports(reports, response, "profileInvest.pdf");
-		}
+	   ReportWrapper report = reportCreator.profileInvest(p, 0);
+	   reportCreator.export(response, report);
    }
    
    @RequestMapping(value="/{id}/profileGeneral.pdf", method=RequestMethod.GET)

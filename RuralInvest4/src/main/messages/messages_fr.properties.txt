@@ -1,10 +1,6 @@
 project.with=(With project)
 
 
-<<<<<<< Upstream, based on master
-=======
-
->>>>>>> 47010c4 'without project' profile investment items - Excel and PDF reports; basic 'clone profile product from 'with' to 'without' and vice versa;
 #demo site login page
 demo.welcome=BIENVENUE DANS RURALINVEST
 demo.version=VERSION

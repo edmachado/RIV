@@ -51,7 +51,8 @@ $( "#radioShared" ).buttonset();
 				<tags:dataentry field="benefNum" labelKey="profile.benefNum" helpText="profile.benefNum.help" helpTitle="profile.benefNum" size="8" inputClass="text" calcSignKey="units.people" />
 				<tags:dataentry field="benefFamilies" labelKey="profile.benefFamilies" inputClass="text" size="8" />
                 <c:if test="${profile.incomeGen}">
-                	<div class="dataentry">
+                	<input name="oldWithWithout" type="hidden" value="${profile.withWithout}"/>
+					<div class="dataentry">
 						<b><spring:message code="profile.withWithoutMessage"/></b><br/>
 						<div id="radioWithWithout">
 							<form:radiobutton path="withWithout" id="yes" value="true" />
