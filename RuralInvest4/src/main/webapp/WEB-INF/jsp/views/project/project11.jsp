@@ -11,7 +11,7 @@
 				<legend>
 					<tags:help title="project.loan1" text="project.loan1.help"><spring:message code="project.loan1" /></tags:help>
 				</legend>
-				<tags:dataentry field="loan1Amt" labelKey="project.loan.amount" helpText="project.loan.amount.help" calculated="true" currency="true" />
+					<tags:dataentry field="loan1Amt" labelKey="project.loan.amount" helpText="project.loan.amount.help" calculated="true" currency="true" />
 					<tags:dataentry field="loan1Interest" 
 						labelKey="project.loan.interest"
 						helpText="project.loan.interest.help" inputClass="num" calcSign="%" />
