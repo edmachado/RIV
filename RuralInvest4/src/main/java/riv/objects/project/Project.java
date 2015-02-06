@@ -320,7 +320,7 @@ public class Project extends Probase implements java.io.Serializable {
 	
 	/* Calculated fields for working capital estimation */
 	public Double getLoan1Amt() {
-		return (loan2Amt==null) ? null : getInvestmentTotal()-loan2Amt;
+		return (loan2Amt==null) ? getInvestmentTotal() : getInvestmentTotal()-loan2Amt;
 	}
 	
 	public BigDecimal getWcAmountRequired() {

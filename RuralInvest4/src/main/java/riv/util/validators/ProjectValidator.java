@@ -170,24 +170,18 @@ public class ProjectValidator implements Validator {
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Duration", "project.loan.duration", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1GraceCapital", "project.loan.graceCapital", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1GraceInterest", "project.loan.graceInterest", errors);
+				ValidateUtils.rejectIfEmptyOrNegative(project, "loan2Amt", "project.loan.amount", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan2Interest", "project.loan.interest", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan2Duration", "project.loan.duration", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan2GraceCapital", "project.loan.graceCapital", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan2GraceInterest", "project.loan.graceInterest", errors);
-				ValidateUtils.rejectIfZeroOrNegative(project, "loan2InitPeriod", "project.loan2InitPeriod", errors);
+				ValidateUtils.rejectIfEmptyOrNegative(project, "loan2InitPeriod", "project.loan2InitPeriod", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalInterest", "project.capitalInterest", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalDonate", "project.capitalDonate", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalOwn", "project.capitalOwn", errors);
-				
-//				if (project.getLoan2Amt()!=null) {
-//					if (project.getLoan2Amt()>0) {
-//						ValidateUtils.rejectIfZeroOrNegative(project, "loan2Amt", "project.loan.amount", errors);
-//					} else {
-						ValidateUtils.rejectIfEmptyOrNegative(project, "loan2Amt", "project.loan.amount", errors);
-//					}
-//				}
+
 				// calculated values
-				ValidateUtils.rejectIfNegative(project, "loan1Amt", "project.loan.amount", errors);
+				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
 				// calculate the working capital fields and validate them
 				ProjectFirstYear pfy = new ProjectFirstYear(project);
 				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
