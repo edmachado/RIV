@@ -92,10 +92,10 @@ public class ProfileXls extends WebTestUtil {
 		}	
 	}
 	
-	private String[] reportTitles(boolean isIG, boolean withWithout) {
+	protected static String[] reportTitles(boolean isIG, boolean withWithout) {
 		String[] titles = new String[7];
 		titles[0]=getMessage("profile.report.summary");
-		titles[1]=withWithout ? getMessage("profile.report.investDetail") + " " +getMessage("project.with"): getMessage("profile.report.investDetail");
+		titles[1]=!isIG ? getMessage("profile.report.investDetail") : withWithout ? getMessage("profile.report.investDetail") + " " +getMessage("project.with"): getMessage("profile.report.investDetail");
 		titles[2]=getMessage("profile.report.costsDetail");
 		String reportCode_product = isIG ? "profile.report.productDetail" : "profile.report.productDetailNongen";
 		titles[3]=isIG? "("+getMessage("profileProduct.with.with")+") "+getMessage(reportCode_product) : getMessage(reportCode_product);

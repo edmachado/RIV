@@ -81,7 +81,7 @@ public class ImportProfile extends WebTestUtil {
 		// verify
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProfile("dataentry/profileIg-4.0", 1);
+		verifyProfile("dataentry/profileIg40", 1);
 	}
 	
 	@Test

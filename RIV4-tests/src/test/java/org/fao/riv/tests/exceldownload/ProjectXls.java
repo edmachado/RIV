@@ -10,6 +10,7 @@ import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -59,7 +60,7 @@ public class ProjectXls extends WebTestUtil {
 		}
 	}
 	
-//	@Ignore
+	@Ignore
 	@Test
 	public void testProjectWith40InvestmentItems() throws IOException {
 		String[] titles = projectStepTitles(true);
