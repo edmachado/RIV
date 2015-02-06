@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -66,15 +65,6 @@ public class ImportProject extends WebTestUtil {
 	public void importProjectIg41NoCycles() {
 		importProject(ImportFile.ProjectV41NoCycles, "igpj", false, false, "Цех по производству мелкотоварных молочных продуктов");
 		
-	}
-	
-	@Ignore
-	@Test
-	public void load400000projects() {
-		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
-		for (int i=0;i<400000;i++) {
-			importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport", true);
-		}
 	}
 	
 	@Test

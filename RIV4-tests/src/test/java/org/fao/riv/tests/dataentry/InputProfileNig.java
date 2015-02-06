@@ -206,6 +206,7 @@ public class InputProfileNig extends WebTestUtil {
 		assertTableRowCountEquals("results", 6);
 		assertTextInTable("results", profName);
 		
+		
 		// CLONE PROFILE
 		assertLinkPresentWithImage("edit.png");
 		clickLinkWithImage("edit.png");

@@ -183,13 +183,7 @@ public class WebTestUtil {
 	public void importProject(ImportFile file, String type, boolean isGeneric, boolean missingCapital, String projName) {
 		importProject( file.getFile(),  type,  isGeneric,  missingCapital,  projName);
 	}
-	public void importProject(ImportFile file, String type, boolean isGeneric, boolean missingCapital, String projName, boolean isCopy) {
-		importProject( file.getFile(),  type,  isGeneric,  missingCapital,  projName, isCopy);
-	}
 	public void importProject(File file, String type, boolean isGeneric, boolean missingCapital, String projName) {
-		importProject(file, type, isGeneric, missingCapital, projName, false);
-	}
-	private void importProject(File file, String type, boolean isGeneric, boolean missingCapital, String projName, boolean isCopy) {
 		System.out.println("importing "+file.getAbsolutePath());
 		boolean isIG = type.startsWith("ig");
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
@@ -203,10 +197,6 @@ public class WebTestUtil {
 		if (isGeneric) {
 			assertTitleEquals(getMessage("ruralInvest")+" :: Import");
 			assertFormElementPresent("genericExchange");
-			rivSubmitForm();
-		} else if (isCopy) {
-			assertTitleEquals(getMessage("ruralInvest")+" :: Import");
-			clickRadioOption("overwriteOk", "false");
 			rivSubmitForm();
 		}
 		

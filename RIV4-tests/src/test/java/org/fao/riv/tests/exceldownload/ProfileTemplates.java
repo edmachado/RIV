@@ -47,7 +47,6 @@ public class ProfileTemplates extends WebTestUtil {
 	private void testProfile(ImportFile file, String type, boolean isGeneric, boolean missingBenefFamilies, String profName) throws IOException {
 		boolean isIG = type.startsWith("ig");
 		String[] titles = profileStepTitles(isIG);
-		String[] reportTitles = ProfileXls.reportTitles(isIG, isIG);
 		
 		// import complete project
 		importProfile(file, type, isGeneric, missingBenefFamilies, profName);
@@ -61,7 +60,7 @@ public class ProfileTemplates extends WebTestUtil {
 		clickLink("downloadTemplate");
 		File f = folder.newFile("invest.xlsx");
 		saveAs(f);
-		testXls(f, reportTitles[1]); 
+		testXls(f, getMessage("profile.report.investDetail")); 
 		
 		// general template
 		assertLinkPresent("step5");

@@ -76,18 +76,9 @@ public class ImportProfile extends WebTestUtil {
 	}
 	
 	@Test
-	public void importProfileIg40() throws IOException, URISyntaxException {
-		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
-		// verify
-		clickLinkWithImage("edit.png");
-		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		verifyProfile("dataentry/profileIg40", 1);
-	}
-	
-	@Test
-	public void importProfileIg42() throws IOException, URISyntaxException {
+	public void importProfileIG40() throws IOException, URISyntaxException {
 		// import
-		importProfile(ImportFile.ProfileIgV42, "igpf_no", false, false, "T3st Irrigation project");
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
 		// verify
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
