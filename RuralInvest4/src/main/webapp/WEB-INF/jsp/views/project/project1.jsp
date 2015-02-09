@@ -10,9 +10,6 @@ $( "#radioShared" ).buttonset();
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
 
-	<c:if test="${empty project.projectId}">
-		<input type="checkbox" name="quickAnalysis" value="true"> <b><spring:message code="project.quickAnalysis"/></b><br/>
-	</c:if>
 	<c:if test="${not empty project.projectId}">
 		<div style="text-align:right;width:100%">
 			<tags:help text="project.clone.help" title="project.clone">
@@ -246,7 +243,14 @@ $( "#radioShared" ).buttonset();
 					</div>
 				</c:if>
 			</fieldset>
-		
+			<c:if test="${empty project.projectId}">
+				<fieldset>
+					<legend>vii. <spring:message code="project.quickAnalysis"/></legend>
+					<div class="dataentry">
+						<input type="checkbox" name="quickAnalysis" value="true"> <spring:message code="project.quickAnalysis"/> 
+					</div>
+				</fieldset>
+			</c:if>
 		
 		</div> <!-- end right div -->
 		<br style="clear:both;"/>
