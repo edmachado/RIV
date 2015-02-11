@@ -97,7 +97,7 @@ public class ProfileProductController {
     	User u = (User) request.getAttribute("user");
     	Profile p = profileProduct.getProfile();
     	if (p.isShared() || p.getTechnician().getUserId().equals(u.getUserId())) {
-    		ProfileProductBase newPP = profileProduct.copy();
+    		ProfileProductBase newPP = profileProduct.copy(profileProduct.getClass());
     		newPP.setOrderBy(newPP.getClass()==ProfileProduct.class ? p.getProducts().size() : p.getProductsWithout().size());
     		p.addProfileProduct(newPP);
     		dataService.storeProfileProduct(newPP);

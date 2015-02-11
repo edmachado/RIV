@@ -4,7 +4,7 @@
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="240"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -58,12 +58,13 @@
 	<field name="adminMisc3" class="java.lang.String"/>
 	<field name="enviroCategory" class="riv.objects.config.EnviroCategory"/>
 	<field name="fieldOffice" class="riv.objects.config.FieldOffice"/>
+	<field name="createdBy" class="java.lang.String"/>
 	<group name="dummy_group">
 		<groupExpression><![CDATA[$V{REPORT_COUNT}]]></groupExpression>
 		<groupHeader>
-			<band height="366" splitType="Stretch">
+			<band height="381" splitType="Stretch">
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="1e8b2982-4e2f-47b6-8c9d-87f036d7e28d" key="textField-16" style="Arial_Normal" positionType="Float" mode="Opaque" x="3" y="304" width="524" height="18" forecolor="#003365" backcolor="#E5E5E5"/>
+					<reportElement uuid="1e8b2982-4e2f-47b6-8c9d-87f036d7e28d" key="textField-16" style="Arial_Normal" positionType="Float" mode="Opaque" x="3" y="325" width="524" height="18" forecolor="#003365" backcolor="#E5E5E5"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -77,7 +78,7 @@
 					<textFieldExpression><![CDATA[$R{project.report.general.benefs}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement uuid="14402179-64cb-4282-89b2-15162d41ca84" key="textField-17" style="Arial_Normal" positionType="Float" mode="Opaque" x="26" y="325" width="159" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+					<reportElement uuid="14402179-64cb-4282-89b2-15162d41ca84" key="textField-17" style="Arial_Normal" positionType="Float" mode="Opaque" x="26" y="346" width="159" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -91,7 +92,7 @@
 					<textFieldExpression><![CDATA[$R{project.benefName}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="d41b32d5-9d2e-470a-89b8-257cb37c7fec" key="textField" style="Arial_Normal" positionType="Float" mode="Opaque" x="213" y="325" width="314" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+					<reportElement uuid="d41b32d5-9d2e-470a-89b8-257cb37c7fec" key="textField" style="Arial_Normal" positionType="Float" mode="Opaque" x="213" y="346" width="314" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -483,7 +484,7 @@
 					<textFieldExpression><![CDATA[$R{user.email}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement uuid="60ab102c-2177-419d-b62f-76b6d1fc5739" key="textField-18" style="Arial_Normal" positionType="Float" mode="Opaque" x="26" y="340" width="159" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+					<reportElement uuid="60ab102c-2177-419d-b62f-76b6d1fc5739" key="textField-18" style="Arial_Normal" positionType="Float" mode="Opaque" x="26" y="361" width="159" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -497,7 +498,7 @@
 					<textFieldExpression><![CDATA[$R{project.benefDesc}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="f3b67ca4-7e52-4c11-a8a5-5ac091066880" key="textField" style="Arial_Normal" positionType="Float" mode="Opaque" x="212" y="340" width="315" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+					<reportElement uuid="f3b67ca4-7e52-4c11-a8a5-5ac091066880" key="textField" style="Arial_Normal" positionType="Float" mode="Opaque" x="212" y="361" width="315" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -573,6 +574,34 @@
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{rivConfig}.getAppConfig2s().get($F{appConfig2}.getConfigId()).getDescription()]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement uuid="3113bfb9-5514-4d90-886d-97969b9eef04" key="textField-100" style="Arial_Normal" mode="Opaque" x="26" y="305" width="157" height="16" forecolor="#003365" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font size="10" isBold="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{project.createdBy}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+					<reportElement uuid="d2d1bdab-41d8-4d88-8d9e-ce04a4de1f1e" key="textField-96" style="Arial_Normal" positionType="Float" mode="Opaque" x="212" y="305" width="314" height="16" forecolor="#003365" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+						<font size="10"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{createdBy}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>

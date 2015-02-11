@@ -230,9 +230,9 @@ public class DataService implements UserDetailsService {
 		repo.storeProjectResult(id);
 	}
 	
-	public void updateProductsWithWithout(int profileId, boolean withWithout) {
-		repo.updateProductsWithWithout(profileId, withWithout);
-	}
+//	public void updateProductsWithWithout(int profileId, boolean withWithout) {
+//		repo.updateProductsWithWithout(profileId, withWithout);
+//	}
 	
 	public ProjectItem getProjectItem(int id) {
 		return repo.getProjectItem(id);

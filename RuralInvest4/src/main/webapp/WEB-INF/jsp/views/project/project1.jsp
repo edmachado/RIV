@@ -245,7 +245,7 @@ $( "#radioShared" ).buttonset();
 			</fieldset>
 			<c:if test="${empty project.projectId}">
 				<fieldset>
-					<legend>vii. <spring:message code="project.quickAnalysis"/></legend>
+					<legend><spring:message code="project.quickAnalysis"/></legend>
 					<div class="dataentry">
 						<input type="checkbox" name="quickAnalysis" value="true"> <spring:message code="project.quickAnalysis"/> 
 					</div>

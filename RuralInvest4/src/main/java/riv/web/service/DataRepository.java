@@ -462,8 +462,7 @@ public class DataRepository {
 				Hibernate.initialize(p.getGlsGeneralWithout());
 				Hibernate.initialize(p.getRefCosts());
 			}
-			if (step==6 || step==-1) {
-				//Hibernate.initialize(p.getProducts());
+			if (step==1 || step==6 || step==-1) {
 				Hibernate.initialize(p.getRefIncomes());
 				Hibernate.initialize(p.getRefCosts());
 				Hibernate.initialize(p.getRefLabours());
@@ -859,14 +858,14 @@ public class DataRepository {
 		currentSession().createQuery("delete from ProjectFile where probaseId=:id").setInteger("id", p.getProjectId()).executeUpdate();
 		currentSession().delete(p);
 	}
-	public void updateProductsWithWithout(int profileId, boolean withWithout) {
-		if (!withWithout) {// yes to no: set all blocks to "with project"
-			String sql = "update profile_product set with_without=true where profile_id=:profileId";
-			SQLQuery q = currentSession().createSQLQuery(sql);
-			q.setInteger("profileId", profileId);
-			q.executeUpdate();
-		}
-	}
+//	public void updateProductsWithWithout(int profileId, boolean withWithout) {
+//		if (!withWithout) {// yes to no: set all blocks to "with project"
+//			String sql = "update profile_product set with_without=true where profile_id=:profileId";
+//			SQLQuery q = currentSession().createSQLQuery(sql);
+//			q.setInteger("profileId", profileId);
+//			q.executeUpdate();
+//		}
+//	}
 	
 //	public void updateBlocksWithWithout(int projectId, boolean withWithout) {
 //		if (!withWithout) { // yes to no: set all blocks to "with project"

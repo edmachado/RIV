@@ -171,19 +171,19 @@ public class ProfileController {
 			}
 			
 			// if "has with/without project" has changed
-			if (step==1 && profile.getIncomeGen()
-					&& profile.getWizardStep()==null
-					&& Boolean.parseBoolean(request.getParameter("oldWithWithout"))!=profile.getWithWithout()) {
-				dataService.storeProfile(profile, false);
-				dataService.updateProductsWithWithout(profile.getProfileId(), profile.getWithWithout());
-				
-				if (calculateResult) {
-					dataService.storeProfileResult(profile.getProfileId());
-				}
-				
-			}  else {
+//			if (step==1 && profile.getIncomeGen()
+//					&& profile.getWizardStep()==null
+//					&& Boolean.parseBoolean(request.getParameter("oldWithWithout"))!=profile.getWithWithout()) {
+//				dataService.storeProfile(profile, false);
+//				dataService.updateProductsWithWithout(profile.getProfileId(), profile.getWithWithout());
+//				
+//				if (calculateResult) {
+//					dataService.storeProfileResult(profile.getProfileId());
+//				}
+//				
+//			}  else {
 				dataService.storeProfile(profile, calculateResult);
-			}
+//			}
 			return "redirect:../step"+(step+1)+"/"+profile.getProfileId();
 		}
 	}

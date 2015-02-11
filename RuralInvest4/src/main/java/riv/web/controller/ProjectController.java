@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -225,6 +226,33 @@ public class ProjectController {
 		}
 	}
 	
+	private void setQuickAnalysis(Project project, Locale locale) {
+		String skip=messageSource.getMessage("project.quickAnalysis",new Object[]{},locale);
+		project.setBenefName(skip);
+		project.setBenefDesc(skip);
+		project.setJustification(skip);
+		project.setProjDesc(skip);
+		project.setActivities(skip);
+		if (rivConfig.getSetting().isAdminMisc1Enabled()) {
+			project.setAdminMisc1(skip);
+		}
+		if (rivConfig.getSetting().isAdminMisc2Enabled()) {
+			project.setAdminMisc2(skip);
+		}
+		if (rivConfig.getSetting().isAdminMisc2Enabled()) {
+			project.setAdminMisc2(skip);
+		}
+		project.setTechnology(skip);
+		project.setRequirements(skip);
+		project.setEnviroImpact(skip);
+		project.setMarket(skip);
+		project.setOrganization(skip);
+		project.setAssumptions(skip);
+		if (!project.getIncomeGen()) {
+			project.setSustainability(skip);
+		}
+	}
+	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.POST)
 	public String saveProject(@PathVariable Integer step, @PathVariable Integer id, HttpServletRequest request, 
 			@RequestParam(required=false) Boolean quickAnalysis, 
@@ -239,29 +267,7 @@ public class ProjectController {
 			// quick analysis (no qualitative analysis)
 			if(quickAnalysis!=null) {
 				if (step==1) {
-					String skip=messageSource.getMessage("project.quickAnalysis",new Object[]{},localeResolver.resolveLocale(request));
-					project.setBenefDesc(skip);
-					project.setJustification(skip);
-					project.setProjDesc(skip);
-					project.setActivities(skip);
-					if (rivConfig.getSetting().isAdminMisc1Enabled()) {
-						project.setAdminMisc1(skip);
-					}
-					if (rivConfig.getSetting().isAdminMisc2Enabled()) {
-						project.setAdminMisc2(skip);
-					}
-					if (rivConfig.getSetting().isAdminMisc2Enabled()) {
-						project.setAdminMisc2(skip);
-					}
-					project.setTechnology(skip);
-					project.setRequirements(skip);
-					project.setEnviroImpact(skip);
-					project.setMarket(skip);
-					project.setOrganization(skip);
-					project.setAssumptions(skip);
-					if (!project.getIncomeGen()) {
-						project.setSustainability(skip);
-					}
+					setQuickAnalysis(project, localeResolver.resolveLocale(request));
 					redirectAttributes.addFlashAttribute("quickAnalysis",true);
 				} else if (step==2) {
 					project.setWizardStep(7);

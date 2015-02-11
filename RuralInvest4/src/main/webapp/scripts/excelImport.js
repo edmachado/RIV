@@ -52,7 +52,10 @@ function setupFileUploader() {
     	$('#uploader-button').show();
     }).on('complete', function (event, id, name, responseJSON) {
     	if (responseJSON.success) {
-			location.reload(true);
+    		if (uploadBlockId!='') {
+    			window.location.href=window.location.href.split('#')[0]+'#b'+uploadBlockId;
+    		}
+    		location.reload(true);
 		}
     }).on('showMessage', function (event, id, name, message) {
     	$('#uploader-error').append('<div class="alert alert-error">' + message + '</div>');

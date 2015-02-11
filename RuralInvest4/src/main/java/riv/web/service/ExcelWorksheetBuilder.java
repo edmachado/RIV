@@ -818,6 +818,9 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("user.email"));
 		report.addTextCell(row, 2, user.getEmail());
 
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.createdBy"));
+		report.addTextCell(row, 2, project.getCreatedBy());
 		
 		rowNum++;	row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.report.general.benefs"), Style.H2);

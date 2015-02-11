@@ -457,6 +457,13 @@ public class Profile extends Probase implements java.io.Serializable {
 
 	 public void setWithWithout(boolean withWithout) {
 		 this.withWithout = withWithout;
+		 if (!this.withWithout && productsWithout!=null) { // convert without blocks to with blocks
+				for (ProfileProductWithout pw : productsWithout) {
+					ProfileProduct newB = (ProfileProduct)pw.copy(ProfileProduct.class);
+					newB.setOrderBy(products.size());
+					addProfileProduct(newB);
+				}
+			}
 	 }
 
 	 public boolean getWithWithout() {
@@ -897,7 +904,7 @@ public class Profile extends Probase implements java.io.Serializable {
 		 
 		// prepare linkedto of profileproductitems for export
 		for (ProfileProduct prod : products) {
-			ProfileProduct newProd = (ProfileProduct)prod.copy();
+			ProfileProduct newProd = (ProfileProduct)prod.copy(ProfileProduct.class);
 			newProf.addProfileProduct(newProd);
 			
 			for (ProfileProductIncome item : newProd.getProfileIncomes()) {
@@ -911,7 +918,7 @@ public class Profile extends Probase implements java.io.Serializable {
 			} 
 		 }
 		for (ProfileProductWithout prod : productsWithout) {
-			ProfileProductWithout newProd = (ProfileProductWithout) prod.copy();
+			ProfileProductWithout newProd = (ProfileProductWithout) prod.copy(ProfileProductWithout.class);
 			newProf.addProfileProduct(newProd);
 			
 			for (ProfileProductIncome item : newProd.getProfileIncomes()) {
