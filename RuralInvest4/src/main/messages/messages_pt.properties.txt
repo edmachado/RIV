@@ -1,5 +1,9 @@
-﻿#RIV 4.1 C
-import.excel.error.noWithout=O Projecto em que está a trabalhar considera uma situação “sem projecto”. No entanto, o arquivo de Excel que tentou importar não contém dados para a situação sem projecto. Por favor verifique que utilizou o formulário de Excel correcto – veja o link “ Descarregar formulário em Excel” no topo desta página.
+﻿## RIV4.1.4
+project.quickAnalysis=Análise rápida (ignorar análise qualitativa)
+projectBlock.cloneWith=Clonar como bloco “com projecto”
+projectBlock.cloneWithout=Clonar como bloco “sem projecto”
+project.report.cashFlowNongen.accumulated=Fluxo de tesouraria cumulativo
+import.excel.error.noWithout=O Projecto no qual está a trabalhar distingue entre blocos “sem projecto” e “com projecto”. No entanto, o ficheiro de Excel que está tentando importar não contem dados para a situação “sem projecto”. Por favor assegure-se de que está importando o formulário de Excel correcto – veja “Descarregar formulário em Excel” nesta página.
 
 # RIV4.1 B
 projectContribution.contributor.help=Organização doadora (ONG, associação, agência do governo)
