@@ -46,6 +46,20 @@ public class InputProfileIg extends WebTestUtil {
 	}
 	
 	@Test
+	public void fromWithToWithWithout() {
+		// import
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		// convert to project
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step1"));
+		assertRadioOptionSelected("withWithout", "true");
+		clickRadioOption("withWithout", "false");
+		clickButtonWithText("close");
+		rivSubmitForm();
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step2"));
+	}
+	
+	@Test
 	public void addProductToCompleteProfile() throws Exception {
 		String[] titles = profileStepTitles(true);
 		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";
