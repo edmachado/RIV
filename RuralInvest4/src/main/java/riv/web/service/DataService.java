@@ -66,6 +66,10 @@ public class DataService implements UserDetailsService {
 	@Autowired
 	private DataRepository repo;
 	
+	public void upgradeFixes(Version v) {
+		repo.upgradeFixes(v);
+	}
+	
 	public void deleteAll(boolean project, boolean incomeGen) {
 		repo.deleteAll(project, incomeGen);
 	}

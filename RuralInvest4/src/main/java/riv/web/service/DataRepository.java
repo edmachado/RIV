@@ -102,6 +102,14 @@ public class DataRepository {
 		return sessionFactory.getCurrentSession();
 	}
 	
+	// for correcting exceptional bugs
+	public void upgradeFixes(Version v) {
+		if (v.getVersion()==4.2) {// missing from RIV4.1 installer 
+			SQLQuery q = currentSession().createSQLQuery("UPDATE project_item SET year_begin=1 WHERE class=5 AND year_begin IS NULL");
+			q.executeUpdate();
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void deleteAll(boolean project, boolean incomeGen) {
 		Criteria c = currentSession().createCriteria(project ? Project.class : Profile.class).add(Restrictions.eq("incomeGen", incomeGen));	

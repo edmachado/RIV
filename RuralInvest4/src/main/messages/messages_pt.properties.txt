@@ -325,7 +325,7 @@ export.download=Exportar dados
 export.downloadTemplate=Descarregar formulário em Excel
 export.generic.desc= Utilize esta opção caso o ficheiro venha a ser importado por uma instalação com uma configuração diferente. Todos os valores monetários serão convertidos para Dólares dos EUA e as categorias de projecto, beneficiários, etc. serão guardados numa categoria genérica.
 fieldOffice.delete.warn=Eliminar um escritório poderá resultar numa instalação de RuralInvest incompatível com outras em computadores de outros utilizadores. Nesse caso, não será possível importar projectos ou perfis com esse escritório seleccionado, nem exportar estes parâmetros para outros computadores com este escritório configurado. Aconselhamos a que não utilize esta função, salvo para corrigir enganos durante a primeira configuração e antes de exportar os parâmetros ou quaisquer perfis ou projectos para outros computadores. Deseja continuar?
-project.withWithout=Blocos "com projecto” e “sem projecto''
+project.withWithout=Blocos "com projecto" e "sem projecto"
 project.withWithout.help=Esta opção vai influenciar as opções no separador “blocos”. Ao alterar esta opção de “distinguir blocos Com projecto e Sem Projecto” para “não distinguir”, todos os blocos criados serão considerados “Com projecto”.
 
 beneficiary.generic=Beneficiário genérico

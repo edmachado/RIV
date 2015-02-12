@@ -71,6 +71,7 @@ public class MainController {
 	public void onAppStart() {
 		Version v = dataService.getLatestVersion();
 		if (v.isRecalculate()) {
+			dataService.upgradeFixes(v);
 			recalculate();
 			v.setRecalculate(false);
 			dataService.storeVersion(v);
