@@ -148,11 +148,11 @@ public class ValidateUtils {
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
 		} catch (Exception e) {	
-			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
+			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required.");
 			return; 
 		}
 		if (propertyValue <= 0) {
-			errors.rejectValue(fieldName, "error.positiveNumber", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
+			errors.rejectValue(fieldName, "error.positiveNumber", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be a positive number.");
 		}
 		enforceMax(bean, fieldName, fieldCode, errors);
 	}

@@ -21,7 +21,9 @@ public class ProfileItemValidator implements Validator {
 			ValidateUtils.rejectIfZeroOrNegative(i, "econLife", "profileGoods.econLife", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "salvage", "profileGoods.salvage", errors);
 			ValidateUtils.rejectIfNegative(i, "donated", "profileGoods.externalResources", errors);
-			ValidateUtils.rejectIfNegative(i, "reserve", "profileGoods.reserve", errors);
+			if (!errors.hasFieldErrors("econLife")) {
+				ValidateUtils.rejectIfNegative(i, "reserve", "profileGoods.reserve", errors);
+			}
 			ValidateUtils.rejectIfNegative(i, "total", "profileGoods.totalCost", errors);
 		} else if (obj.getClass().isAssignableFrom(ProfileItemLabour.class) || obj.getClass().isAssignableFrom(ProfileItemLabourWithout.class)) {
 			ValidateUtils.rejectIfEmpty(i, "description", "profileLabour.description", errors);
