@@ -77,6 +77,7 @@ public class ImportProfile extends WebTestUtil {
 	
 	@Test
 	public void importProfileIG40() throws IOException, URISyntaxException {
+		String resultsTitle=getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		// import
 		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
 		// verify
@@ -86,6 +87,7 @@ public class ImportProfile extends WebTestUtil {
 		
 		// export to .riv file
 		getTestContext().setResourceBundleName("messages/messages");
+		assertTitleEquals(resultsTitle);
 		assertLinkPresentWithImage("export_riv.gif");
 		String pageUrl = getTestingEngine().getPageURL().toURI().toString();
 		clickLinkWithImage("export_riv.gif");
@@ -96,9 +98,11 @@ public class ImportProfile extends WebTestUtil {
 		
 		// delete existing profile
 		gotoPage(pageUrl);
+		assertTitleEquals(resultsTitle);
 		assertLinkPresentWithImage("delete.gif");
 		clickLinkWithImage("delete.gif");
 		clickButtonWithText("Delete item");
+		assertTitleEquals(resultsTitle);
 		assertLinkNotPresentWithImage("delete.gif");
 		
 		// import exported file and verify data is the same
@@ -110,6 +114,7 @@ public class ImportProfile extends WebTestUtil {
 	
 	@Test
 	public void importProfileNig40() throws URISyntaxException, IOException {
+		String resultsTitle=getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		importProfile(ImportFile.ProfileNig40, "nigpf_no", false, false, "Community Health Centre");
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
@@ -117,6 +122,7 @@ public class ImportProfile extends WebTestUtil {
 		
 		// export to .riv file
 		getTestContext().setResourceBundleName("messages/messages");
+		assertTitleEquals(resultsTitle);
 		assertLinkPresentWithImage("export_riv.gif");
 		String pageUrl = getTestingEngine().getPageURL().toURI().toString();
 		clickLinkWithImage("export_riv.gif");
@@ -127,9 +133,11 @@ public class ImportProfile extends WebTestUtil {
 		
 		// delete existing profile
 		gotoPage(pageUrl);
+		assertTitleEquals(resultsTitle);
 		assertLinkPresentWithImage("delete.gif");
 		clickLinkWithImage("delete.gif");
 		clickButtonWithText("Delete item");
+		assertTitleEquals(resultsTitle);
 		assertLinkNotPresentWithImage("delete.gif");
 		
 		// import exported file and verify data is the same
