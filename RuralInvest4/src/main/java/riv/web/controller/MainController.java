@@ -275,7 +275,9 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/help/{page}", method=RequestMethod.GET)
-	public String getHelp(@PathVariable String page) {
+	public String getHelp(@PathVariable String page, Model model) {
+		Version v = dataService.getLatestVersion();
+		model.addAttribute("version",v.getVersion());
 		return "help/"+page;
 	}
 	
