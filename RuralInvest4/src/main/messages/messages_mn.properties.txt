@@ -1,3 +1,5 @@
+project.quickAnalysis=Шуурхай шинжилгээ
+
 #RIV4.1 B
 projectContribution.contributor.help=Хувь оруулагч байгууллага (ТББ, холбоо, Засгийн газрын агентлаг)
 projectContribution.yearlyFlow.help=Төслийн жил бүрийн орлогоос зардлыг нь хасна.
@@ -58,8 +60,8 @@ project.report.profitability.totalMinusInvest.after= Тусламжийг оро
 
 project.report.cashFlow.income.total=Нийт орлого
 project.report.cashFlow.costs.total=Нийт зардал
-project.report.cashFlow.income.wcDonation=Ажлын капитал дахь буцалтгүй тусламж
-project.report.cashFlow.income.wcOwn=Өөрийн эх үүсвэрээрх ажлын капитал 
+project.report.cashFlow.income.wcDonation=Хандивын
+project.report.cashFlow.income.wcOwn=Өөрийн хөрөнгөөр 
 
 ###
 project.report.cashFlow.income.main=Үндсэн орлого

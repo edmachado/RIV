@@ -452,28 +452,30 @@ public class DataRepository {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Profile.class).add(Restrictions.eq("profileId", id));
 		Profile p = (Profile)criteria.uniqueResult();
 		if (p!=null) {
-			//Hibernate.initialize(p.getTechnician());
 			if (step==1 || step==-1) {
 				Hibernate.initialize(p.getFieldOffice());
 				Hibernate.initialize(p.getStatus());
 			}
-			if (step==4 || step==-1) {
+			if (step==-1 || step==1 || step==4 || step==5 || step==6 || step==7) { // ref costs
+				Hibernate.initialize(p.getRefCosts());
+			}
+			if (step==-1 || step==1 || step==4 || step==6 || step==7) { // ref labours
+				Hibernate.initialize(p.getRefLabours());
+			}
+			if (step==-1 || step==1 || step==6 || step==7) { // ref income
+				Hibernate.initialize(p.getRefIncomes());
+			}
+			if (step==4 || step==-1 || step==1) {
 				Hibernate.initialize(p.getGlsGoods());
 				Hibernate.initialize(p.getGlsLabours());
 				Hibernate.initialize(p.getGlsGoodsWithout());
 				Hibernate.initialize(p.getGlsLaboursWithout());
-				Hibernate.initialize(p.getRefCosts());
-				Hibernate.initialize(p.getRefLabours());
 			}
-			if (step==5 || step==-1) {
+			if (step==5 || step==-1 || step==1) {
 				Hibernate.initialize(p.getGlsGeneral());
 				Hibernate.initialize(p.getGlsGeneralWithout());
-				Hibernate.initialize(p.getRefCosts());
 			}
 			if (step==1 || step==6 || step==-1) {
-				Hibernate.initialize(p.getRefIncomes());
-				Hibernate.initialize(p.getRefCosts());
-				Hibernate.initialize(p.getRefLabours());
 				for (ProfileProduct pp : p.getProducts()) {
 					Hibernate.initialize(pp.getProfileIncomes());
 					Hibernate.initialize(pp.getProfileInputs());
@@ -484,11 +486,6 @@ public class DataRepository {
 					Hibernate.initialize(pp.getProfileInputs());
 					Hibernate.initialize(pp.getProfileLabours());
 				}
-			}
-			if (step==7 || step==-1) {
-				Hibernate.initialize(p.getRefIncomes());
-				Hibernate.initialize(p.getRefCosts());
-				Hibernate.initialize(p.getRefLabours());
 			}
 			if (step==8) {
 				Hibernate.initialize(p.getTechnician());
