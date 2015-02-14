@@ -427,7 +427,7 @@ ALTER TABLE project ADD COLUMN per_year_contrib BOOLEAN DEFAULT false;
 UPDATE project SET per_year_contrib=false;
 -- contributor column for nig project contributions
 ALTER TABLE project_item ADD COLUMN contributor VARCHAR(100);
-UPDATE project_item SET contributor='' WHERE class=5;
+UPDATE project_item SET contributor='', year_begin=1 WHERE class=5;
 --longer project name for backwards compatibility
 ALTER TABLE project ALTER COLUMN project_name VARCHAR(100);
 ALTER TABLE project_result ALTER COLUMN project_name VARCHAR(100);
