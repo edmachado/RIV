@@ -32,7 +32,7 @@ public class UpdateSql  {
 		
 		System.out.println("installPath: "+installPath);
 		System.out.println("sql path: "+sqlPath);
-		System.out.println("          isRiv3: "+args[2]);
+		System.out.println("isRiv3: "+args[2]);
 		
 		execute(isRiv3);
 		System.out.println("Finished updating database structure.");
@@ -42,8 +42,6 @@ public class UpdateSql  {
 		try {
 			// close well with hsqldb 1.8
 			System.out.println("Closing well with HSQLDB 1.8");
-//			Connection  con = getDataSource2(true).getConnection();
-//			Connection con = connection;
 			Statement stmt=connection.createStatement();
 			stmt.execute("SHUTDOWN SCRIPT");
 			stmt.close();
@@ -88,8 +86,7 @@ public class UpdateSql  {
 			JAXBContext context = JAXBContext.newInstance(SQL.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 
-			JAXBElement<SQL> element = unmarshaller.unmarshal(new StreamSource(
-					sqlPath), SQL.class);
+			JAXBElement<SQL> element = unmarshaller.unmarshal(new StreamSource(sqlPath), SQL.class);
 			SQL sql = element.getValue();
 			
 			try {
@@ -104,13 +101,20 @@ public class UpdateSql  {
 			if (Double.compare(current, 2.2)==0) {
 				try {
 					Statement stmt = connection.createStatement();
-					stmt.execute("SELECT * FROM SETTING WHERE ADMIN1_TITLE=''");
-					stmt.execute("INSERT INTO VERSION VALUES (3.0, 'not yet used', CURRENT_TIMESTAMP, true)");
+					stmt.execute("SELECT * FROM SETTING WHERE ADMIN1_TITLE=''"); // if really 2.2 will throw exception
+					stmt.execute("INSERT INTO VERSION (version, description, install_time, recalculate) VALUES (3.0, 'not yet used', CURRENT_TIMESTAMP, true)");
 					stmt.close();
 					current=3.0;
-				} catch (Exception e) { 
-				} 
-				
+				} catch (Exception e) { } 
+			} else if (Double.compare(current, 4.0)==0) {
+				try {
+					Statement stmt = connection.createStatement();
+					stmt.execute("SELECT * FROM project_block WHERE cycles IS FALSE"); // if really 4.0 will throw exception
+					stmt.execute("UPDATE project_item SET year_begin=1 WHERE class=5 AND year_begin IS NULL"); // year_begin missing in sql command RIV4.1.1 and 4.1.2
+					stmt.execute("INSERT INTO version (version, description, install_time, recalculate) VALUES (4.1, '4.1', CURRENT_TIMESTAMP, true)");
+					stmt.close();
+					current=4.1;
+				} catch (Exception e) { } 
 			}
 			
 			for (Version version : sql.getVersions()) {
@@ -128,10 +132,10 @@ public class UpdateSql  {
 							}
 						}
 					}
-					stmt.execute(String
-							.format(
-									"INSERT INTO VERSION VALUES (%s, 'not yet used', CURRENT_TIMESTAMP, true)",
-									version.getVersionNumber()));
+					stmt.execute(String.format(
+							"INSERT INTO VERSION (version, description, install_time, recalculate) "+
+							"VALUES (%s, '%s', CURRENT_TIMESTAMP, true)",
+							version.getVersionNumber(), version.getVersionNumber()));
 					stmt.getConnection().commit();
 					stmt.close();
 					System.out.println("Completed upgrade to: "+version.getVersionNumber());
@@ -141,7 +145,6 @@ public class UpdateSql  {
 					if (current==3.9) { // here we migrate from HSQLDB 1.8 to 3.2
 						migrateDb();
 					}
-					
 				}
 			}
 		} catch (SQLException sqle) {
@@ -179,14 +182,12 @@ public class UpdateSql  {
 					current = 0;
 					stmt.close();
 				} else {
-					throw new SQLException("Unable to create VERSION table",
-							sqle);
+					System.out.println("Unable to create VERSION table");
+					throw new SQLException("Unable to create VERSION table", sqle);
 				}
 			}
 		}
 	}
-	
-	
 		
 	private void close() {
 		try {
@@ -198,7 +199,6 @@ public class UpdateSql  {
 					connection.close();
 
 				new File(String.format("%s/webapp/WEB-INF/data/riv.lck", installPath)).delete();
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
