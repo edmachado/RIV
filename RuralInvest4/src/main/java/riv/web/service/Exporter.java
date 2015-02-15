@@ -98,7 +98,7 @@ public class Exporter {
 		// for generic exports: convert currency and set generic configs
 		if (isGeneric) {
 			p.setGeneric(true);
-			p.convertCurrency(1/p.getExchRate());
+			p.convertCurrency(1/p.getExchRate(), 2); // 2 decimal places for USD
 			p.setBeneficiary(rivConfig.getBeneficiaries().get(-3));
 			p.setFieldOffice(rivConfig.getFieldOffices().get(-4));
 			p.setStatus(rivConfig.getStatuses().get(-7));

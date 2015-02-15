@@ -121,7 +121,7 @@ public class UploadController implements Serializable {
 			p.setPrepDate(new java.util.Date());
 			if (p.isGeneric()) {
 				double exchRate = Double.valueOf(request.getParameter("genericExchange"));
-				p.convertCurrency(exchRate);
+				p.convertCurrency(exchRate, rivConfig.getSetting().getDecimalLength());
 				p.setExchRate(exchRate);
 			}
 			
