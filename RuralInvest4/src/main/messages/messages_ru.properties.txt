@@ -1,4 +1,11 @@
-﻿#RIV 4.1 B
+﻿# RIV 4.1.4
+project.quickAnalysis=Быстрый арнализ (без проверки качества)
+projectBlock.cloneWith=Клонировать блок "С проектом"
+projectBlock.cloneWithout=Клонировать блок "Без проекта"
+project.report.cashFlowNongen.accumulated=Аккумулированный баланс 
+import.excel.error.noWithout=Вы выбрали для данного проекта сценарий "без проекта", а импортируемые файлы в Excel не содержат лист "без проекта". Убедитесь в правильности использования шаблона - смотри ссылку  "Скачать шаблон в Excel". 
+
+#RIV 4.1 B
 projectContribution.contributor.help=Участвующая организация (НПО, ассоциация, государственное агентство)
 projectContribution.yearlyFlow.help=Доход за вычетом всех затрат на каждый год проекта.
 
