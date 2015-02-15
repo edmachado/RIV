@@ -14,15 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
-import net.sf.jasperreports.engine.fill.JRSwapFileVirtualizer;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.util.JRSwapFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
