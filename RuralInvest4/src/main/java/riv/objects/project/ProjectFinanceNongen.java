@@ -104,7 +104,7 @@ public class ProjectFinanceNongen {
 	}
 
 	public static List<double[]> getSummary(ArrayList<ProjectFinanceNongen> nongens) {
-		List<double[]> summaries = new ArrayList<double[]>();
+		List<double[]> summaries = new ArrayList<double[]>(4);
 
 		double[] incomes = new double[nongens.size()];
 		double[] costs = new double[nongens.size()];
@@ -127,7 +127,7 @@ public class ProjectFinanceNongen {
 	}
 	
 	public static ArrayList<ProjectFinanceNongen> analyzeProject(Project project) {
-		ArrayList<ProjectFinanceNongen> data = new ArrayList<ProjectFinanceNongen>();
+		ArrayList<ProjectFinanceNongen> data = new ArrayList<ProjectFinanceNongen>(project.getDuration());
 		for (int i=0;i<project.getDuration();i++)	data.add(new ProjectFinanceNongen(i+1));
 		
 		

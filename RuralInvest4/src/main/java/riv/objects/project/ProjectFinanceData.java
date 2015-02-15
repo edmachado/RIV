@@ -361,7 +361,6 @@ public class ProjectFinanceData implements java.io.Serializable{
 		double[] donations = new double[datas.size()];
 		double[] totals = new double[datas.size()];
 		double[] cumulative = new double[datas.size()];
-		 
 		
 		for (ProjectFinanceData data : datas) {
 			int year=data.getYear()-1;
@@ -396,7 +395,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 	 * @return an array of ProjectFinanceData objects, one per year of the project
 	 */
 	public static ArrayList<ProjectFinanceData> analyzeProject(Project project, AnalysisType analType) {
-		ArrayList<ProjectFinanceData> data = new ArrayList<ProjectFinanceData>();
+		ArrayList<ProjectFinanceData> data = new ArrayList<ProjectFinanceData>(project.getDuration());
 		for (int i=0;i<project.getDuration();i++) { data.add(new ProjectFinanceData(i+1, analType)); }
 		
 		// INVESTMENT COSTS: ASSETS (WITH PROJECT)

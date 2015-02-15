@@ -406,7 +406,6 @@ public class ProjectController {
 			
 			data = ProjectFinanceData.analyzeProject(p, AnalysisType.CashFlow);
 			model.addAttribute("cashFlowSummary",ProjectFinanceData.getSummary(data));
-			
 		} else if (!p.getIncomeGen() && (step==12 || step==13)) {
 			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 			model.addAttribute("result",pr);

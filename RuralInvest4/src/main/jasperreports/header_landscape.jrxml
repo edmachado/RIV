@@ -3,7 +3,7 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="27"/>
+	<property name="ireport.x" value="4"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -96,7 +96,7 @@
 				<textFieldExpression><![CDATA[$P{proType}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b5e49477-2a28-49b1-8b1a-e0472a01f19d" key="textField-5" positionType="Float" mode="Opaque" x="6" y="66" width="547" height="20" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="b5e49477-2a28-49b1-8b1a-e0472a01f19d" key="textField-5" mode="Opaque" x="6" y="66" width="547" height="20" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[new Boolean($P{proName} != null)]]></printWhenExpression>
 				</reportElement>
 				<box>
