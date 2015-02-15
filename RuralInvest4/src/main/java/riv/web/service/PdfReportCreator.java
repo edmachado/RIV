@@ -1,6 +1,7 @@
 package riv.web.service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,11 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
+import net.sf.jasperreports.engine.fill.JRSwapFileVirtualizer;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.util.JRSwapFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,6 +61,8 @@ public class PdfReportCreator {
 	MessageSource messageSource;
 	@Autowired
 	ServletContext ctx;
+	@Autowired
+	ServletContext sc;
 	
 	public static final String MEDIA_TYPE_PDF = "application/pdf";
 	
@@ -615,6 +622,15 @@ public class PdfReportCreator {
 		report.getParams().put("REPORT_RESOURCE_BUNDLE", new MessageSourceResourceBundle(messageSource, locale));
 		report.getParams().put("rivConfig", rivConfig);
 		report.getParams().put("startPage", report.getStartPage());
+		
+//		JRSwapFile swapFile = new JRSwapFile("tmp", 1024, 1024);
+//		JRSwapFileVirtualizer virtualizer = new JRSwapFileVirtualizer(2, swapFile, true);
+//		JRFileVirtualizer virtualizer = new JRFileVirtualizer(2, System
+//                .getProperty("java.io.tmpdir"));
+//		virtualizer.setReadOnly(true);
+//		report.getParams().put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
+		
+		
 		String template = locale.getLanguage().equals("ar") 
 				? report.getReportTemplate().replace(".jasper", "_ar.jasper")
 				: report.getReportTemplate();
@@ -624,6 +640,8 @@ public class PdfReportCreator {
 			jp= JasperFillManager.fillReport(jr, report.getParams(), report.getDataSource());
 		} catch (Exception e) {
 			throw new RuntimeException("Error running report "+report.getReportTemplate()+"\n",e);
+		} finally {
+//			virtualizer.cleanup();
 		}
 		report.setJp(jp);
 	}
@@ -668,43 +686,13 @@ public class PdfReportCreator {
 		return months;
 	}
 	
-	/*
-	 * Compiled jasper report using pre-compiled .jasper if available. Otherwise compiled report at runtime.
-	 * At the moment, all reports are pre-compiled. In the future it might be desired to process the report
-	 * at runtime (for example change column widths).
-	 */
-	@SuppressWarnings("deprecation")
 	private JasperReport compileReport(String template) {
-		JasperReport jr=null;
-		
-		// load pre-compiled report
-		//if (new File(template.replace("jrxml", "jasper")).exists()) {
-			try {
-				jr = (JasperReport)JRLoader.loadObjectFromLocation(template);
-			} catch (JRException e) {
-				LOG.error("Error getting jasper report file.",e);
-			}
-		/*} else { // compile it now
-			long startTime = System.currentTimeMillis();
-			InputStream reportStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(template); 
-			if (rivConfig.getSetting().getLang().equals("ar"))
-				reportStream = RtlReportConverter.convert(reportStream);
-			try {
-				JasperDesign jd = JRXmlLoader.load(reportStream);
-				jr = JasperCompileManager.compileReport(jd);
-			} catch (Exception e) {
-				throw new RuntimeException("Error compiling report "+template+"\n",e);
-			} finally {
-				try {
-					reportStream.close();
-				} catch (IOException e) {
-					LOG.error("Could not close report stream.",e);
-				}
-			}
-			long endTime = System.currentTimeMillis();
-			Log.debug("time to compile report: "+rivConfig.getSetting().getLang()+": "+(endTime - startTime));
-		}*/
-		return jr;
+		try {
+			return (JasperReport)JRLoader.loadObject(new File(sc.getRealPath("/WEB-INF/classes"+template)));
+		} catch (JRException e) {
+			LOG.error("Error getting jasper report file.",e);
+			throw new RuntimeException("Error getting jasper report file.",e);
+		}
 	}
 	
 	public void export(HttpServletResponse response, ReportWrapper report) {
