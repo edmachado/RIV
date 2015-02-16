@@ -119,7 +119,10 @@ public class EditAndSave extends WebTestUtil {
 		assertTitleEquals(titles[8]);
 		
 		// step 9
-		//TODO: test block info
+		clickLinkWithImage("edit.png");
+		String blockTitle = getMessage("ruralInvest")+" :: "+getMessage("projectActivity.name");
+		testPage(blockTitle, titles[8]);
+		
 		testEditSaveTable("project.step9.nongen", "projectActivityCharge", "incomeTable0");
 		testEditSaveTable("project.step9.nongen", "projectBlockInput", "inputTable0");
 		testEditSaveTable("project.step9.nongen", "projectBlockLabour", "labourTable0");
@@ -164,7 +167,10 @@ public class EditAndSave extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 		
 		// step 6
-		//TODO: test product info
+		clickLinkWithImage("edit.png");
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";
+		testPage(blockTitleWith, titles[5]);
+		
 		testEditSaveTable("profile.step6", "profileProductIncome", "incomeTable0");
 		testEditSaveTable("profile.step6", "profileProductInput", "inputTable0");
 		testEditSaveTable("profile.step6", "profileProductLabour", "labourTable0");
@@ -196,7 +202,10 @@ public class EditAndSave extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 		
 		// step 6
-		//TODO: test product info
+		clickLinkWithImage("edit.png");
+		String activitiesTitle = getMessage("ruralInvest")+" :: "+getMessage("profile.step6.nongen");
+		testPage(activitiesTitle, titles[5]);
+		
 		testEditSaveTable("profile.step6.nongen", "profileActivityCharge", "incomeTable0");
 		testEditSaveTable("profile.step6.nongen", "profileProductInput", "inputTable0");
 		testEditSaveTable("profile.step6.nongen", "profileProductLabour", "labourTable0");
