@@ -62,10 +62,12 @@ $(function() {
 		<c:if test="${accessOK}"><a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
  	</div>
  	
- 	<div id="yearByYear" style="margin:10px 5px;">
-		<input type="radio" name="simpleApproach" id="simplified" value="true" <c:if test="${not project.perYearContributions}">checked="checked"</c:if>><label for="simplified" title='<spring:message code="projectContribution.method.simplified.help"/>'><spring:message code="projectContribution.method.simplified"/></label>
-		<input type="radio" name="simpleApproach" id="perYear" value="false" <c:if test="${project.perYearContributions}">checked="checked"</c:if>><label for="perYear" title='<spring:message code="projectContribution.method.perYear.help"/>'><spring:message code="projectContribution.method.perYear"/></label>
-	</div>
+ 	<c:if test="${accessOK}">
+	 	<div id="yearByYear" style="margin:10px 5px;">
+			<input type="radio" name="simpleApproach" id="simplified" value="true" <c:if test="${not project.perYearContributions}">checked="checked"</c:if>><label for="simplified" title='<spring:message code="projectContribution.method.simplified.help"/>'><spring:message code="projectContribution.method.simplified"/></label>
+			<input type="radio" name="simpleApproach" id="perYear" value="false" <c:if test="${project.perYearContributions}">checked="checked"</c:if>><label for="perYear" title='<spring:message code="projectContribution.method.perYear.help"/>'><spring:message code="projectContribution.method.perYear"/></label>
+		</div>
+	</c:if>
 	<b>
 		<c:if test="${not project.perYearContributions}"><spring:message code="projectContribution.method.simplified.help"/></c:if>
 		<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
