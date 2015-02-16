@@ -1,6 +1,7 @@
 package riv.web.service;
 
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -62,7 +63,9 @@ import riv.objects.project.ProjectResult;
 import riv.objects.reference.ReferenceItem;
 
 @Service("dataService")
-public class DataService implements UserDetailsService {
+public class DataService implements UserDetailsService, Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Autowired
 	private DataRepository repo;
 	
