@@ -95,8 +95,9 @@ public class ProfileProductController {
     public String clone(@ModelAttribute("profileProduct") ProfileProductBase profileProduct, HttpServletRequest request) {
     	String view;
     	User u = (User) request.getAttribute("user");
-    	Profile p = profileProduct.getProfile();
+    	Profile p = dataService.getProfile(profileProduct.getProfile().getProfileId(), 6);
     	if (p.isShared() || p.getTechnician().getUserId().equals(u.getUserId())) {
+    		profileProduct = dataService.getProfileProduct(profileProduct.getProductId(), "all");
     		ProfileProductBase newPP = profileProduct.copy(profileProduct.getClass());
     		newPP.setOrderBy(newPP.getClass()==ProfileProduct.class ? p.getProducts().size() : p.getProductsWithout().size());
     		p.addProfileProduct(newPP);

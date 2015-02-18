@@ -108,10 +108,6 @@ $( "#radioShared" ).buttonset();
 			    	${profile.technician.description}
 			    </div>
 			    <div class="dataentry">
-			    	<label><spring:message code="user.name"/></label>
-			    	${profile.technician.description}
-			    </div>
-			    <div class="dataentry">
 			    	<label><spring:message code="user.organization"/></label>
 			    	${profile.technician.organization}
 			    </div>

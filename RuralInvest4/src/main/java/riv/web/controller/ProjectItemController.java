@@ -70,7 +70,7 @@ public class ProjectItemController {
         binder.registerCustomEditor(Double.class, "donated", customNumberEditor);
         binder.registerCustomEditor(Double.class, "financed", customNumberEditor);
         binder.registerCustomEditor(Double.class, "external", customNumberEditor);
-        binder.registerCustomEditor(Double.class, "publicState", customNumberEditor);
+        binder.registerCustomEditor(Double.class, "statePublic", customNumberEditor);
         binder.registerCustomEditor(Double.class, "other1", customNumberEditor);
         
         CustomNumberEditor cne2 = new CustomNumberEditor(Double.class, rivConfig.getSetting().getDecimalFormat(), true);

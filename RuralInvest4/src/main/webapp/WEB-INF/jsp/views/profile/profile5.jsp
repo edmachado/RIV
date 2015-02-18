@@ -142,7 +142,10 @@
 	</tags:table>
 	</c:if>
 </tags:tableContainer>
-<tags:submit><spring:message code="misc.goto"/> <spring:message code="profile.step6"/></tags:submit>
+<tags:submit><spring:message code="misc.goto"/> 
+	<c:if test="${profile.incomeGen}"><spring:message code="profile.step6"/></c:if>
+	<c:if test="${not profile.incomeGen}"><spring:message code="profile.step6.nongen"/></c:if>
+</tags:submit>
 </form:form>
 <tags:excelImport submitUrl="../../import/profile/general/${profile.profileId}"/>
 </body>
