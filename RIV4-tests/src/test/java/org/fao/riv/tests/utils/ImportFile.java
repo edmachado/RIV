@@ -46,7 +46,8 @@ public enum ImportFile {
 	ProjectXlsGeneralNig("project/project-general-nig.xlsx"),
 	ProjectXlsBlock("project/block.xlsx"),
 	ProjectXlsBlockNig("project/block-nig.xlsx"),
-	ProjectXlsContributions("project/contributions.xlsx");
+	ProjectXlsContributions("project/contributions.xlsx"),
+	ProjectXlsContributionsSimplified("project/contributions-simplified.xlsx");
 	
 	private final String fileName;
 	private ImportFile(String fileName) {

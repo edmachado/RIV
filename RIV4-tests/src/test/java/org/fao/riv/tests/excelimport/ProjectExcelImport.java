@@ -1,18 +1,10 @@
 package org.fao.riv.tests.excelimport;
 
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickRadioOption;
-import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getTestingEngine;
-import static net.sourceforge.jwebunit.junit.JWebUnit.gotoPage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
-import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
@@ -45,7 +37,22 @@ public class ProjectExcelImport extends WebTestUtil {
 		closeBrowser();
     }
 	
-	
+	private void zeroInvest(String url, String title) throws IOException {
+		// download template
+		clickLink("downloadTemplate");
+		File fTemplate = folder.newFile();
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(title);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(title);
+		assertTableNotPresent("assetsTable");
+		assertTableNotPresent("LabourTable");
+		assertTableNotPresent("ServicesTable");
+	}
 
 	@Test
 	public void IgExcelImport() throws Exception {
@@ -73,18 +80,25 @@ public class ProjectExcelImport extends WebTestUtil {
 		String url;
 		
 		// STEP 7
-		// import file
 		url=getTestingEngine().getPageURL().toString();
+	
+		zeroInvest(url, titles[6]);
+	
+		// import file
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsInvest.getFile().getAbsolutePath());
 		gotoPage(url);
 		verifyProjectTablesStep7(hasWithout.equals("true"));
 		
-		// export and import again
+		// export
 		clickLink("downloadExcel");
 		File f = folder.newFile("step7.xlsx"); 
 		saveAs(f);
 		gotoPage(url);
+		
+		// zero
+		zeroInvest(url, titles[6]);
+		
 		clickLink("importExcel");
 		setTextField("qqfile", f.getAbsolutePath());
 		gotoPage(url);
@@ -229,6 +243,22 @@ public class ProjectExcelImport extends WebTestUtil {
 		// STEP 7
 		// import file
 		url = getTestingEngine().getPageURL().toString();
+		// download template
+		clickLink("downloadTemplate");
+		File fTemplate = folder.newFile("investTemplate.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[6]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[6]);
+		assertTableNotPresent("assetsTable");
+		assertTableNotPresent("LabourTable");
+		assertTableNotPresent("ServicesTable");
+				
+		//import data
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsInvestNig.getFile().getAbsolutePath());
 		gotoPage(url);
@@ -249,6 +279,22 @@ public class ProjectExcelImport extends WebTestUtil {
 		
 		// STEP 8
 		url=getTestingEngine().getPageURL().toString();
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("generalTemplate.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[7]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[7]);
+		assertTableNotPresent("inputTable");
+		assertTableNotPresent("labourTable");
+		assertTableNotPresent("generalTable");
+		
+		// upload data and verify
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsGeneralNig.getFile().getAbsolutePath());
 		gotoPage(url);
@@ -269,6 +315,23 @@ public class ProjectExcelImport extends WebTestUtil {
 		
 		// STEP 9
 		url=getTestingEngine().getPageURL().toString();
+		
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("blockTemplate.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[8]);
+		// re-upload template to zero tables
+		clickLink("upload0");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[8]);
+		assertTableNotPresent("incomeTable0");
+		assertTableNotPresent("inputTable0");
+		assertTableNotPresent("labourTable0");
+		
+		// upload data
 		clickLink("upload0");
 		setTextField("qqfile", ImportFile.ProjectXlsBlockNig.getFile().getAbsolutePath());
 		gotoPage(url);
@@ -288,9 +351,57 @@ public class ProjectExcelImport extends WebTestUtil {
 		assertTitleEquals(titles[9]);
 		
 		// STEP 10
+		url=getTestingEngine().getPageURL().toString();
+		
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("contributionsTemplate.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[9]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[9]);
+		for (int year=1;year<=10;year++) {
+			assertTableNotPresent("contributionTable"+year);
+		}
+		
+		// import data
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsContributions.getFile().getAbsolutePath());
 		gotoPage(getTestingEngine().getPageURL().toString());
+		verifyProjectNigTablesStep10(1);
+		
+		// test simplified export
+		clickRadioOption("simpleApproach", "true");
+		clickButtonWithText("Confirm");
+		assertTablePresent("contributionTable1");
+		assertTableNotPresent("contributionTable2");
+		
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("contributionsTemplate-simplified.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[9]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[9]);
+		assertTableNotPresent("contributionTable1");
+		
+		// import data
+		clickLink("importExcel");
+		setTextField("qqfile", ImportFile.ProjectXlsContributionsSimplified.getFile().getAbsolutePath());
+		gotoPage(getTestingEngine().getPageURL().toString());
+		assertTitleEquals(titles[9]);
+		assertTablePresent("contributionTable1");
+		
+		// back to per-year and verify
+		clickRadioOption("simpleApproach", "true");
 		verifyProjectNigTablesStep10(1);
 		rivSubmitForm();
 		assertTitleEquals(titles[10]);
