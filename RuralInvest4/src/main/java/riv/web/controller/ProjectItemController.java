@@ -72,6 +72,7 @@ public class ProjectItemController {
         binder.registerCustomEditor(Double.class, "external", customNumberEditor);
         binder.registerCustomEditor(Double.class, "statePublic", customNumberEditor);
         binder.registerCustomEditor(Double.class, "other1", customNumberEditor);
+        binder.registerCustomEditor(Double.class, "ownResource", customNumberEditor);
         
         CustomNumberEditor cne2 = new CustomNumberEditor(Double.class, rivConfig.getSetting().getDecimalFormat(), true);
         binder.registerCustomEditor(Double.class, "unitNum", cne2);
