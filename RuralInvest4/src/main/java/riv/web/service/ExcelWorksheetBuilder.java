@@ -929,7 +929,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.CURRENCY, "getStatePublic", true)
 		.addColumn(XlsColumnType.CURRENCY, "getOther1", true)
 		.addColumn(XlsColumnType.FORMULA, "EX-FX-GX", true);
-		rowNum=table.writeTable(sheet, rowNum++, project.getNongenMaterials(), true);
+		rowNum=table.writeTable(sheet, rowNum++, template ? null : project.getNongenMaterials(), true);
 		subtotalRows[0]=rowNum++;
 
 		String[] headerLabours = new String[]{"projectNongenLabour.description","projectNongenLabour.unitType","projectNongenLabour.unitNum",
@@ -947,7 +947,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.CURRENCY, "getStatePublic", true)
 		.addColumn(XlsColumnType.CURRENCY, "getOther1", true)
 		.addColumn(XlsColumnType.FORMULA, "EX-FX-GX", true);
-		rowNum=tableLabour.writeTable(sheet, rowNum++, project.getNongenLabours(), true);
+		rowNum=tableLabour.writeTable(sheet, rowNum++, template ? null : project.getNongenLabours(), true);
 		subtotalRows[1]=rowNum++;
 		
 		row = sheet.createRow(rowNum++);
@@ -957,7 +957,7 @@ public class ExcelWorksheetBuilder {
 				"projectNongenGeneral.unitCost","projectNongenGeneral.total","projectNongenGeneral.statePublic","projectNongenGeneral.other1",
 				"projectNongenGeneral.ownResource"};
 		table.titles=headerGeneral;
-		rowNum = table.writeTable(sheet, rowNum++, project.getNongenMaintenance(), true);
+		rowNum = table.writeTable(sheet, rowNum++, template ? null : project.getNongenMaintenance(), true);
 		subtotalRows[2]=rowNum++;
 		
 		rowNum++;

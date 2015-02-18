@@ -102,10 +102,13 @@ public class XlsImportTable<E extends OrderByable> {
 		try {
 			item =  (E) clazz.newInstance();
 		} catch (Exception e) {
-			throw new RuntimeException("Programming error: class passed to readTable should be same as parameterized generic!", e);
+			throw new RuntimeException("Class passed to readTable should be same as parameterized generic!", e);
 		}
+		int columnNum=0;
+		XlsImportColumn column;
 		try {
-			for (XlsImportColumn column : columns) {
+			while (columnNum<columns.size()) {
+				 column = columns.get(columnNum);
 				if (column.isBoolean) {
 					boolean yes = sheet.getRow(rowNum).getCell(column.column)!=null && sheet.getRow(rowNum).getCell(column.column).getCellType()!=Cell.CELL_TYPE_BLANK;
 					setObjectProperty(item, column.property, yes);
@@ -120,9 +123,15 @@ public class XlsImportTable<E extends OrderByable> {
 					setObjectProperty(item, column.property, value);
 				} else if (column.isNumeric) {
 					setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getNumericCellValue());
-				} else {
-					setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getStringCellValue());
+				} else { // string cell
+					Cell c = sheet.getRow(rowNum).getCell(column.column);
+					if (c.getCellType()==Cell.CELL_TYPE_NUMERIC) { // just in case
+						setObjectProperty(item, column.property, String.valueOf(c.getNumericCellValue()));
+					} else {
+						setObjectProperty(item, column.property, c.getStringCellValue());
+					}
 				}
+				columnNum++; 
 			}
 		} catch (IllegalStateException e) {
 			e.printStackTrace(System.out);
