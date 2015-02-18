@@ -4,6 +4,8 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 import java.util.concurrent.Callable;
 
+import org.junit.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -57,6 +59,28 @@ public class InputProfileIg extends WebTestUtil {
 		clickButtonWithText("close");
 		rivSubmitForm();
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step2"));
+	}
+	
+	@Test
+	public void cloneProduct() {
+		String[] titles = profileStepTitles(true);
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6")+" ("+getMessage("profileProduct.with.with")+")";
+		
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(titles[0]);
+		clickLink("step6");
+		assertTitleEquals(titles[5]);
+		
+		String xpth = "//table[@id='descriptionTable']//a/img[@src='../../img/delete.gif']";
+		int deletes = getElementsByXPath(xpth).size();
+		
+		clickLinkWithImage("duplicate.gif", 0);
+		assertTitleEquals(blockTitleWith);
+		
+		rivSubmitForm();
+		assertTitleEquals(titles[5]);
+		Assert.assertEquals(getElementsByXPath(xpth).size(),deletes+1);
 	}
 	
 	@Test

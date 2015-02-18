@@ -10,6 +10,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickLinkWithImage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickRadioOption;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getElementsByXPath;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
@@ -17,6 +18,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 import java.util.concurrent.Callable;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -55,6 +57,28 @@ public class InputProfileNig extends WebTestUtil {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step1"));
 		clickLink("upgrade");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+	}
+	
+	@Test
+	public void cloneProduct() {
+		String[] titles = profileStepTitles(false);
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("profile.step6.nongen");
+		
+		importProfile(ImportFile.ProfileNig40, "nigpf_no", false, false, "Community Health Centre");
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(titles[0]);
+		clickLink("step6");
+		assertTitleEquals(titles[5]);
+		
+		String xpth = "//table[@id='descriptionTable']//a/img[@src='../../img/delete.gif']";
+		int deletes = getElementsByXPath(xpth).size();
+		
+		clickLinkWithImage("duplicate.gif", 0);
+		assertTitleEquals(blockTitleWith);
+		
+		rivSubmitForm();
+		assertTitleEquals(titles[5]);
+		Assert.assertEquals(getElementsByXPath(xpth).size(),deletes+1);
 	}
 	
 	
