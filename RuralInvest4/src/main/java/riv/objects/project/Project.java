@@ -1795,10 +1795,11 @@ public double getInvestmentTotal() {
 			sb.append("step8.inputSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 		}
-		
+		sb.append("step9.block.count="+blocks.size()+lineSeparator);
 		for (Block b : blocks) {
 			sb.append(b.testingProperties(rivConfig));
 		}
+		sb.append("step9.blockWo.count="+blocksWithout.size()+lineSeparator);
 		for (BlockWithout b : blocksWithout) {
 			sb.append(b.testingProperties(rivConfig));
 		}
