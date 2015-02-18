@@ -1641,7 +1641,7 @@ public class ExcelWorksheetBuilder {
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, cellNum, translate("projectContribution"), Style.H2);
-		String[] header = new String[]{"projectContribution.description","projectContribution.contribType","projectContribution.unitType","projectContribution.unitNum","projectContribution.unitCost","projectContribution.totalCost"};
+		String[] header = new String[]{"projectContribution.description","projectContribution.contribType","projectContribution.contributor","projectContribution.unitType","projectContribution.unitNum","projectContribution.unitCost","projectContribution.totalCost"};
 		XlsTable table = new XlsTable(report, header)
 		.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addSelectColumnIntBased("getContribType", rivConfig.getContribTypes())
@@ -1651,15 +1651,18 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.NUMERIC, "getUnitCost", false)
 		.addColumn(XlsColumnType.FORMULA, "EX*FX", true);
 		
-		for (int i=1;i<=project.getDuration();i++) {
-			row = sheet.createRow(rowNum++);
-			if (project.isPerYearContributions()) {
+		if (project.isPerYearContributions()) {
+			for (int i=1;i<=project.getDuration();i++) {
+				row = sheet.createRow(rowNum++);
 				report.addTextCell(row, cellNum, translate("units.year")+" "+i, Style.H2);
+				rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(i), true);
+				rowNum++;
 			}
-			rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(i), true);
+		} else {
+			row = sheet.createRow(rowNum++);
+			rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(1), true);
 			rowNum++;
 		}
-		
 		return sheet;
 	}
 	
