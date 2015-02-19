@@ -96,7 +96,7 @@ $(function() {
  					<tr class="odd">
  						<td></td>
  						<c:forEach var="year" items="${years}">
- 							<td><tags:formatDecimal value="${year.total}" noDecimals="true"/></td>
+ 							<td><tags:formatDecimal value="${year.total}" /></td>
  						</c:forEach>
  					</tr>
  				</tbody>
