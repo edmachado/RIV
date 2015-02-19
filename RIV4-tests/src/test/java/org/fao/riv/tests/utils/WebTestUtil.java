@@ -1016,7 +1016,8 @@ public class WebTestUtil {
     
     protected int verifyBlocks(boolean with, int withBlocks) {
     	int num = with ? Integer.parseInt(getMessage("step9.block.count")) : Integer.parseInt(getMessage("step9.blockWo.count"));
-    	
+    	int duration = Integer.parseInt(getMessage("step1.duration"));
+		
     	for (int i=1; i<=num; i++) {
 	    	String base = with ? "step9.block."+i+"." : "step9.blockWo."+(i)+".";
 	    	assertTextPresent(getMessage(base+"description"));
@@ -1038,16 +1039,8 @@ public class WebTestUtil {
 			}
 			
 			// production pattern 
-			int x=1;
-			boolean nextPat=true;
-			while (nextPat) {
+			for (int x=1; x<=duration; x++) {
 				assertTextInElement(i-1+withBlocks+"prod"+x,getMessage(base+"pat"+x));
-				x++;
-				try {
-					getMessage(base+"pat"+x);
-				} catch (Exception e) {
-					nextPat=false;
-				}
 			}
 			
 			verifyBlockTables(i+withBlocks, base);

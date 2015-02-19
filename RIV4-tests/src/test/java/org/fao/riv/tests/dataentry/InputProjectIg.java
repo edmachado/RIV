@@ -653,8 +653,8 @@ public class InputProjectIg extends WebTestUtil {
 	}
 	
 	private int addBlocks(boolean with, int withs, String blockTitleWithout, String blockTitleWith, String titles8) throws Exception {
-		int blocks = Integer.parseInt(getMessage("step9.block.count"));
-
+		int blocks = Integer.parseInt(with?getMessage("step9.block.count"):getMessage("step9.blockWo.count"));
+		int duration = Integer.parseInt(getMessage("step1.duration"));
 		for (int i=1;i<=blocks;i++) {
 			if (!with) {
 				clickLink("addBlockWithout");
@@ -687,16 +687,8 @@ public class InputProjectIg extends WebTestUtil {
 			}
 			
 			// production pattern
-			int x=1;
-			boolean nextPat=true;
-			while (nextPat) {
+			for (int x=1; x<=duration; x++) {
 				setTextField("pat"+x,getMessage(propertyBase+"pat"+x));
-				x++;
-				try {
-					getMessage(propertyBase+"pat"+x);
-				} catch (Exception e) {
-					nextPat=false; // java.util.MissingResourceException prints regardless of our logging settings :(
-				}
 			}
 			
 			rivSubmitForm();
