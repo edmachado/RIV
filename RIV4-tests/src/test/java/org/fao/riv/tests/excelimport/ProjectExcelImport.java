@@ -4,7 +4,6 @@ package org.fao.riv.tests.excelimport;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
@@ -36,23 +35,6 @@ public class ProjectExcelImport extends WebTestUtil {
 		clickLink("logoff");
 		closeBrowser();
     }
-	
-	private void zeroInvest(String url, String title) throws IOException {
-		// download template
-		clickLink("downloadTemplate");
-		File fTemplate = folder.newFile();
-		saveAs(fTemplate);
-		gotoPage(url);
-		assertTitleEquals(title);
-		// re-upload template to zero tables
-		clickLink("importExcel");
-		setTextField("qqfile", fTemplate.getAbsolutePath());
-		gotoPage(url);
-		assertTitleEquals(title);
-		assertTableNotPresent("assetsTable");
-		assertTableNotPresent("LabourTable");
-		assertTableNotPresent("ServicesTable");
-	}
 
 	@Test
 	public void IgExcelImport() throws Exception {
@@ -82,7 +64,20 @@ public class ProjectExcelImport extends WebTestUtil {
 		// STEP 7
 		url=getTestingEngine().getPageURL().toString();
 	
-		zeroInvest(url, titles[6]);
+		// download template
+		clickLink("downloadTemplate");
+		File fTemplate = folder.newFile("invest-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[6]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[6]);
+		assertTableNotPresent("assetsTable");
+		assertTableNotPresent("LabourTable");
+		assertTableNotPresent("ServicesTable");
 	
 		// import file
 		clickLink("importExcel");
@@ -96,9 +91,16 @@ public class ProjectExcelImport extends WebTestUtil {
 		saveAs(f);
 		gotoPage(url);
 		
-		// zero
-		zeroInvest(url, titles[6]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[6]);
+		assertTableNotPresent("assetsTable");
+		assertTableNotPresent("LabourTable");
+		assertTableNotPresent("ServicesTable");
 		
+		// import
 		clickLink("importExcel");
 		setTextField("qqfile", f.getAbsolutePath());
 		gotoPage(url);

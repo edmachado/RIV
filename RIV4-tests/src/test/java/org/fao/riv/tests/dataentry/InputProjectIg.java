@@ -653,9 +653,9 @@ public class InputProjectIg extends WebTestUtil {
 	}
 	
 	private int addBlocks(boolean with, int withs, String blockTitleWithout, String blockTitleWith, String titles8) throws Exception {
-		int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
+		int blocks = Integer.parseInt(getMessage("step9.block.count"));
+
+		for (int i=1;i<=blocks;i++) {
 			if (!with) {
 				clickLink("addBlockWithout");
 				assertTitleEquals(blockTitleWithout);
@@ -695,7 +695,7 @@ public class InputProjectIg extends WebTestUtil {
 				try {
 					getMessage(propertyBase+"pat"+x);
 				} catch (Exception e) {
-					nextPat=false;
+					nextPat=false; // java.util.MissingResourceException prints regardless of our logging settings :(
 				}
 			}
 			
@@ -727,17 +727,8 @@ public class InputProjectIg extends WebTestUtil {
 			.addParam("linked", InputParamType.LINKED, false)
 			.addBlanks(5);
 			tt.testWithInput();
-			
-			i++;
-			try {
-				String check = with ? "step9.block."+i+".description" :
-					"step9.blockWo."+i+".description";						
-				getMessage(check);
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
 
-		return i-1;
+		return blocks;
 	}
 }

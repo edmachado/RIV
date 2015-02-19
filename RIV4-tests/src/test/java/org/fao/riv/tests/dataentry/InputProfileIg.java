@@ -196,14 +196,10 @@ public class InputProfileIg extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 		
 		// STEP 6
-		//TODO: test clone product
 		//TODO: test delete product
 		// add products
-		int i=1; 
-		@SuppressWarnings("unused")
-		int withs=0;
-		boolean nextItem=true;
-		while (nextItem) {
+		int products = Integer.parseInt(getMessage("step6.product.count"));
+		for (int i=1;i<=products;i++) {
 			boolean withoutProject = Boolean.parseBoolean(getMessage("step6.product."+i+".withoutProject")); 
 			if (withoutProject) {
 				clickLink("addProductWithout");
@@ -211,7 +207,6 @@ public class InputProfileIg extends WebTestUtil {
 			} else {
 				clickLink("addProduct");
 				assertTitleEquals(blockTitleWith);
-				withs++;
 			}
 			
 			setTextField("description", getMessage("step6.product."+i+".description"));
@@ -242,13 +237,6 @@ public class InputProfileIg extends WebTestUtil {
 			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
 			.addBlanks(5);
 			tt.testWithInput();
-			
-			i++;
-			try {
-				getMessage("step6.product."+i+".description");
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
 		rivSubmitForm();
 		assertTitleEquals(titles[6]);

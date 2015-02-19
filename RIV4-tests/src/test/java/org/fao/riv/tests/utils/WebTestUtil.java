@@ -499,9 +499,8 @@ public class WebTestUtil {
 		assertTitleEquals(titles[8]);
 				
 		// STEP 9
-		int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
+		int blocks = Integer.parseInt(getMessage("step9.block.count"));
+		for (int i=1; i<=blocks; i++) {
 			assertTextPresent(getMessage("step9.block."+i+".description"));
 			assertTextInElement(i-1+"unitType", getMessage("step9.block."+i+".unitType"));
 			assertTextInElement(i-1+"cycleLength", getMessage("step9.block."+i+".cycleLength"));
@@ -514,12 +513,6 @@ public class WebTestUtil {
 			}
 			
 			verifyProjectNigTablesStep9(i);
-			i++;
-			try {
-				getMessage("step9.block."+i+".withoutProject");
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
 		
 		rivSubmitForm();
@@ -530,7 +523,7 @@ public class WebTestUtil {
 			verifyProjectNigTablesStep10(1);
 		} else {
 			int year=1;
-			nextItem=true;
+			boolean nextItem=true;
 			while (nextItem) {
 				verifyProjectNigTablesStep10(year);
 				
@@ -1022,9 +1015,9 @@ public class WebTestUtil {
 	}
     
     protected int verifyBlocks(boolean with, int withBlocks) {
-    	int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
+    	int num = with ? Integer.parseInt(getMessage("step9.block.count")) : Integer.parseInt(getMessage("step9.blockWo.count"));
+    	
+    	for (int i=1; i<=num; i++) {
 	    	String base = with ? "step9.block."+i+"." : "step9.blockWo."+(i)+".";
 	    	assertTextPresent(getMessage(base+"description"));
 			assertTextInElement(i-1+withBlocks+"unitType", getMessage(base+"unitType"));
@@ -1059,15 +1052,8 @@ public class WebTestUtil {
 			
 			verifyBlockTables(i+withBlocks, base);
 			
-			i++;
-			try {
-				base = with ? "step9.block."+i+"." : "step9.blockWo."+(i)+".";
-				getMessage(base+"description");
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
-		return i-1;
+		return num;
     }
     
     protected void verifyProfileTablesStep4() {

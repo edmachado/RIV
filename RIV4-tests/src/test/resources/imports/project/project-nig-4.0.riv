@@ -2655,7 +2655,7 @@ The engineers have estimated that, if properly constructed and cared for, the da
        <double>0.0</double>
       </void>
       <void property="unitType">
-       <string>0</string>
+       <string>x</string>
       </void>
      </object>
     </void>
@@ -2753,7 +2753,7 @@ The engineers have estimated that, if properly constructed and cared for, the da
        <double>0.0</double>
       </void>
       <void property="unitType">
-       <string>0</string>
+       <string>x</string>
       </void>
      </object>
     </void>

@@ -231,12 +231,10 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(titles[8]);
 		
 		// STEP 9
-		//TODO: test clone block
 		//TODO: test delete block
 		// add blocks
-		int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
+		int blocks = Integer.parseInt(getMessage("step9.block.count"));
+		for (int i=1;i<=blocks;i++) {
 			clickLink("addBlock");
 			assertTitleEquals(blockTitle);
 			setTextField("description", getMessage("step9.block."+i+".description"));
@@ -281,13 +279,6 @@ public class InputProjectNig extends WebTestUtil {
 			.addParam("linked", InputParamType.LINKED, false)
 			.addBlanks(5);
 			tt.testWithInput();
-			
-			i++;
-			try {
-				getMessage("step9.block."+i+".withoutProject");
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
 		rivSubmitForm();
 		assertTitleEquals(titles[9]);
@@ -300,7 +291,7 @@ public class InputProjectNig extends WebTestUtil {
 		
 		// begin adding year-by-year contributions
 		int year=1;
-		nextItem=true;
+		boolean nextItem=true;
 		while (nextItem) {
 			tt = new TestTable("contributionTable"+year, "step10.year."+year+".contribution.", "newContrib"+year, true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 			tt.addParam("description")
