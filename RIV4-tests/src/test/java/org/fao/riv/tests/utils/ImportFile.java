@@ -15,6 +15,7 @@ public enum ImportFile {
 	ProfileIgV21("profile/profile-ig-2.1.riv"), 
 	ProfileIgV22("profile/profile-ig-2.2.riv"),
 	ProfileIgV40("profile/profile-ig-4.0.riv"),
+	ProfileIgV42("profile/profile-ig-4.2.riv"),
 	ProfileIgV21Generic("profile/profile-ig-2.1-generic.riv"),
 	ProfileIgV22Generic("profile/profile-ig-2.2-generic.riv"), 
 	ProfileNig16("profile/profile-nig-1.6.riv"),

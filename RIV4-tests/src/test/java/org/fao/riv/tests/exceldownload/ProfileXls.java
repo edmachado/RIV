@@ -53,7 +53,7 @@ public class ProfileXls extends WebTestUtil {
 		clickLink("step9");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("profile.step9"));
 		
-		String[] titles = reportTitles(isIG);
+		String[] titles = reportTitles(isIG, true);
 		// seven reports
 		for (int i=0;i<7;i++) {
 			clickLinkWithImage("xls.gif", i);
@@ -67,7 +67,7 @@ public class ProfileXls extends WebTestUtil {
 	@Test
 	public void profileIg() throws IOException {
 		//TODO: enable other languages when translations are complete
-		String[] langs = {"en","es","fr","ru","pt","mn"};//,"tr","ar"};
+		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
 			clickLink("goHome");
@@ -81,7 +81,7 @@ public class ProfileXls extends WebTestUtil {
 	@Test
 	public void profileNg() throws IOException {
 		//TODO: enable other languages when translations are complete
-		String[] langs = {"en","es","fr","ru","pt","mn"};//,"tr","ar"};
+		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr""};
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
 			clickLink("goHome");
@@ -92,10 +92,10 @@ public class ProfileXls extends WebTestUtil {
 		}	
 	}
 	
-	private String[] reportTitles(boolean isIG) {
+	protected static String[] reportTitles(boolean isIG, boolean withWithout) {
 		String[] titles = new String[7];
 		titles[0]=getMessage("profile.report.summary");
-		titles[1]=getMessage("profile.report.investDetail");
+		titles[1]=!isIG ? getMessage("profile.report.investDetail") : withWithout ? getMessage("profile.report.investDetail") + " " +getMessage("project.with"): getMessage("profile.report.investDetail");
 		titles[2]=getMessage("profile.report.costsDetail");
 		String reportCode_product = isIG ? "profile.report.productDetail" : "profile.report.productDetailNongen";
 		titles[3]=isIG? "("+getMessage("profileProduct.with.with")+") "+getMessage(reportCode_product) : getMessage(reportCode_product);

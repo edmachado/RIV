@@ -76,10 +76,10 @@ public class ImportProfile extends WebTestUtil {
 	}
 	
 	@Test
-	public void importProfileIG40() throws IOException, URISyntaxException {
+	public void importProfileIG42() throws IOException, URISyntaxException {
 		String resultsTitle=getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		// import
-		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		importProfile(ImportFile.ProfileIgV42, "igpf_no", false, false, "T3st Irrigation project");
 		// verify
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
@@ -110,6 +110,17 @@ public class ImportProfile extends WebTestUtil {
 		clickLinkWithImage("edit.png");
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
 		verifyProfile("dataentry/profileIg", 1);
+	}
+	
+	@Test
+	public void importProfileIG40() throws IOException, URISyntaxException {
+		// import
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		// verify
+		clickLinkWithImage("edit.png");
+		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+		verifyProfile("dataentry/profileIg40", 1);
+	
 	}
 	
 	@Test
