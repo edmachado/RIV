@@ -99,7 +99,7 @@ public class ExcelImportController {
 		if (error==null) {
 			return "{\"success\": \"success\"}";
 		} else {
-			return "{\"error\": \""+error.replace("\"", "\\\"")+"\"}";
+			return "{\"error\": \""+error+"\"}"; //.replace("\"", "\\\"")
 		}
 	}
 	
