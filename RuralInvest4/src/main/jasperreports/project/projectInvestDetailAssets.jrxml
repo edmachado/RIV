@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectInvestDetailAssets" pageWidth="788" pageHeight="593" orientation="Landscape" columnWidth="788" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6341300f-2222-4ced-8f5b-d6fcb96b1893">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectInvestDetailAssets" pageWidth="788" pageHeight="593" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="788" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6341300f-2222-4ced-8f5b-d6fcb96b1893">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="200"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -23,12 +23,15 @@
 	<field name="yearBegin" class="java.lang.Integer"/>
 	<variable name="sumTotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{unitNum}*$F{unitCost}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="sumDonated" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{donated}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="sumOwnResource" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{ownResources}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<title>
 		<band height="34" splitType="Prevent">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectInvestDetailLabour" pageWidth="788" pageHeight="593" orientation="Landscape" columnWidth="788" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="38fa1622-afff-4c11-8bef-8b53c006388f">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectInvestDetailLabour" pageWidth="788" pageHeight="593" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="788" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="38fa1622-afff-4c11-8bef-8b53c006388f">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -24,12 +24,15 @@
 	<field name="yearBegin" class="java.lang.Integer"/>
 	<variable name="sumTotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{unitNum}*$F{unitCost}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="sumDonated" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{donated}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="sumOwnResource" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{ownResources}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
