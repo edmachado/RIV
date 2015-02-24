@@ -268,7 +268,7 @@
 					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{qtyIntern}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($F{qtyIntern})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="7efa3ebf-2dbe-46d2-9e1b-d8e7ec276413" key="textField-20" mode="Opaque" x="638" y="2" width="87" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
