@@ -1,3 +1,6 @@
+error.moreDetails=More details...
+
+
 ### RIV4.1.4
 project.quickAnalysis=Quick analysis (no qualitative analysis)
 projectBlock.cloneWith=Clone as "With project" block
