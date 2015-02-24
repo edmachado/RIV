@@ -20,6 +20,7 @@
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="lengthUnits" class="java.util.HashMap" isForPrompting="false"/>
+	<parameter name="without" class="java.lang.Boolean" isForPrompting="false"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="unitType" class="java.lang.String"/>
 	<field name="cycleLength" class="java.lang.Double"/>
@@ -27,6 +28,10 @@
 	<field name="patterns" class="java.lang.Object"/>
 	<field name="withProject" class="java.lang.Boolean"/>
 	<field name="lengthUnit" class="java.lang.Integer"/>
+	<variable name="title" class="java.lang.String">
+		<variableExpression><![CDATA[]]></variableExpression>
+		<initialValueExpression><![CDATA[$P{incomeGen} ? $R{project.report.production} : $R{project.report.production.nonGen}]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -38,17 +43,19 @@
 					<subreportParameterExpression><![CDATA[$P{projectName}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="reportTitle">
-					<subreportParameterExpression><![CDATA[$P{incomeGen} ?
-$R{project.report.production}
-: $R{project.report.production.nonGen}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{withWithout}
+    ? $P{without}
+        ? $V{title} + " " + $R{project.without}
+        : $V{title} + " " + $R{project.with}
+    : $V{title}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rivConfig">
+					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[$P{incomeGen}
 ? $R{project.report.production}
 : $R{project.report.production.nonGen}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="rivConfig">
-					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>

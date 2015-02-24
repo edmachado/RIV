@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
 import riv.objects.FilterCriteria;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileResult;
-import riv.objects.project.Block;
+import riv.objects.project.BlockBase;
 import riv.objects.project.BlockChron;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectFinanceData;
@@ -267,13 +267,26 @@ public class PdfReportCreator {
 			page=page+genDetail.getJp().getPages().size();
 			reports.add(genDetail);
 		}
-		ReportWrapper production = projectProduction(project, page);
+		
+		ReportWrapper production = projectProduction(project, page, false);
 		page=page+production.getJp().getPages().size();
 		reports.add(production);
+		if (project.isWithWithout()) {
+			ReportWrapper productionWithout = projectProduction(project, page, true);
+			page=page+productionWithout.getJp().getPages().size();
+			reports.add(productionWithout);
+		}
+		
+		
 		if (project.getIncomeGen()) {
-			ReportWrapper chron = projectChronology(project, page);
+			ReportWrapper chron = projectChronology(project, page, false);
 			page=page+chron.getJp().getPages().size();
 			reports.add(chron);
+			if (project.isWithWithout()) {
+				ReportWrapper chronWithout = projectChronology(project, page, true);
+				page=page+chronWithout.getJp().getPages().size();
+				reports.add(chronWithout);
+			}
 		}
 		ReportWrapper blocks = projectBlock(project, page, false);
 		page=page+blocks.getJp().getPages().size();
@@ -467,13 +480,16 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper projectChronology(Project project, int startPage) {
-		ReportWrapper report = new ReportWrapper("/reports/project/projectChronology.jasper", true,project.getBlocks(), "projectChronology.pdf", startPage);
+	public ReportWrapper projectChronology(Project project, int startPage, boolean without) {
+		ReportWrapper report = new ReportWrapper("/reports/project/projectChronology.jasper", true, 
+				without ? project.getBlocksWithout() : project.getBlocks(), "projectChronology.pdf", startPage);
 		
 		HashMap<Integer, java.util.Map<String, BlockChron>> chrons = new HashMap<Integer, java.util.Map<String, BlockChron>>();
-		for(Block block : project.getBlocks()) 
+		for(BlockBase block : without ? project.getBlocksWithout() : project.getBlocks()) 
 			chrons.put(block.getBlockId(), block.getChrons());
 		
+		report.getParams().put("withWithout", project.isWithWithout());
+		report.getParams().put("without", without);
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
 		report.getParams().put("chrons", chrons);
@@ -500,12 +516,13 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper projectProduction(Project project, int startPage) {
-		ReportWrapper report = new ReportWrapper("/reports/project/projectProduction.jasper", true, project.getBlocks(), "projectProduction.pdf", startPage);
+	public ReportWrapper projectProduction(Project project, int startPage, boolean without) {
+		ReportWrapper report = new ReportWrapper("/reports/project/projectProduction.jasper", true, without ? project.getBlocksWithout() : project.getBlocks(), "projectProduction.pdf", startPage);
 		
 		JasperReport jrSupplies = compileReport("/reports/project/projectProductionYears.jasper");
 		report.getParams().put("yearsSubReport", jrSupplies);
 		
+		report.getParams().put("without", without);
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
 		report.getParams().put("duration", project.getDuration());

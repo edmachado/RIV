@@ -89,8 +89,16 @@ public class ReportController {
 	@RequestMapping(value="{id}/projectProduction.pdf", method=RequestMethod.GET)
 	public void projectProduction(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 9);
-		ReportWrapper report = reportCreator.projectProduction(p, 0);
-		reportCreator.export(response, report);
+		ReportWrapper reportWith = reportCreator.projectProduction(p, 0, false);
+		if (!p.isWithWithout()) {
+			reportCreator.export(response, reportWith);
+		} else {
+			ReportWrapper reportWithout = reportCreator.projectProduction(p, reportWith.getJp().getPages().size(), true);
+			ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+			reports.add(reportWith);
+			reports.add(reportWithout);
+			concatReports(reports, response, "projectProduction.pdf");
+		}
 	}
 	
 	@RequestMapping(value="{id}/projectContributions.pdf", method=RequestMethod.GET)
@@ -103,8 +111,18 @@ public class ReportController {
 	@RequestMapping(value="{id}/projectChronology.pdf", method=RequestMethod.GET)
 	public void projectChronology(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 9);
-		ReportWrapper report = reportCreator.projectChronology(p, 0);
-		reportCreator.export(response, report);
+		ReportWrapper reportWith = reportCreator.projectChronology(p, 0, false);
+		
+		if (!p.isWithWithout()) {
+			reportCreator.export(response, reportWith);
+		} else {
+			ReportWrapper reportWithout = reportCreator.projectChronology(p, reportWith.getJp().getPages().size(), true);
+			ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+			reports.add(reportWith);
+			reports.add(reportWithout);
+			concatReports(reports, response, "projectBlock.pdf");
+		}
+		
 	}
 	
 	@RequestMapping(value="{id}/projectBlock.pdf", method=RequestMethod.GET)

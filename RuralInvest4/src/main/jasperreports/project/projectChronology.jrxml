@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectChronology" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectChronology" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="eca88b6e-ca11-4f46-a8ae-4d922b666fd6">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="20"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<reportFont name="Arial_Normal" isDefault="true" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Bold" isDefault="false" fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Italic" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Arial_Normal" isDefault="true" fontName="Arial" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Arial_Bold" fontName="Arial" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Arial_Italic" fontName="Arial" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
 	<parameter name="imgPath" class="java.lang.String" isForPrompting="false"/>
-	
 	<parameter name="header" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="projectName" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="incomeGen" class="java.lang.Boolean" isForPrompting="false"/>
@@ -19,6 +21,8 @@
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="withWithout" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="without" class="java.lang.Boolean" isForPrompting="false"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="blockId" class="java.lang.Integer"/>
 	<background>
@@ -27,34 +31,35 @@
 	<title>
 		<band height="37" splitType="Stretch">
 			<subreport isUsingCache="true">
-				<reportElement key="subreport-1" mode="Opaque" x="2" y="5" width="759" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
-				<subreportParameter name="rivConfig">
-					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
-				</subreportParameter>
+				<reportElement uuid="9a2b7edb-f083-40e6-8316-aef53584c9a9" key="subreport-1" mode="Opaque" x="2" y="5" width="759" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
 				<subreportParameter name="proName">
 					<subreportParameterExpression><![CDATA[$P{projectName}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="reportTitle">
-					<subreportParameterExpression><![CDATA[$R{project.report.chronology}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{withWithout}
+    ? $P{without}
+        ? $R{project.report.chronology} + " " + $R{project.without}
+        : $R{project.report.chronology} + " " + $R{project.with}
+    : $R{project.report.chronology}]]></subreportParameterExpression>
 				</subreportParameter>
-				
-				
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[($P{incomeGen}.booleanValue()) ? $R{project.incomeGen} : $R{project.nonIncomeGen}]]></subreportParameterExpression>
 				</subreportParameter>
-				
+				<subreportParameter name="rivConfig">
+					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{header}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{header}]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="36" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-70" mode="Opaque" x="0" y="6" width="777" height="15" forecolor="#005CAB" backcolor="#E5E5E5"/>
+				<reportElement uuid="5af30554-45f9-4e0f-810b-276ad8fbe933" key="textField-70" style="Arial_Normal" mode="Opaque" x="0" y="6" width="777" height="15" forecolor="#005CAB" backcolor="#E5E5E5"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -62,12 +67,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{projectBlock.chronology}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{projectBlock.chronology}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-75" mode="Opaque" x="0" y="22" width="225" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="bf294525-2870-4663-951a-28406dc453d7" key="textField-75" style="Arial_Normal" mode="Opaque" x="0" y="22" width="225" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -75,12 +80,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{projectBlock.name}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{projectBlock.name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-76" mode="Opaque" x="225" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="e0797cce-9c7e-4232-89a6-c859d51c464f" key="textField-76" style="Arial_Normal" mode="Opaque" x="225" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -88,12 +93,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(0)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(0)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-77" mode="Opaque" x="271" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="c83de69f-495b-4db3-bf0c-f403a0e85433" key="textField-77" style="Arial_Normal" mode="Opaque" x="271" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -101,12 +106,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(1)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(1)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-78" mode="Opaque" x="317" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="816524a2-b8fc-4cd7-9a4a-f45d0d7ce6df" key="textField-78" style="Arial_Normal" mode="Opaque" x="317" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -114,12 +119,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(2)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(2)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-79" mode="Opaque" x="363" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="0536bb11-9507-4e0c-a9d6-dab91733825c" key="textField-79" style="Arial_Normal" mode="Opaque" x="363" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -127,12 +132,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(3)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(3)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-80" mode="Opaque" x="409" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="0bd34e31-e999-49ca-80c2-33c1a8adf473" key="textField-80" style="Arial_Normal" mode="Opaque" x="409" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -140,12 +145,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(4)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(4)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-81" mode="Opaque" x="455" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="321d7ff5-7c03-4cc2-b7cc-3ca1e6f03f31" key="textField-81" style="Arial_Normal" mode="Opaque" x="455" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -153,12 +158,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(5)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(5)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-82" mode="Opaque" x="501" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="89fa8954-d28f-4761-a3f0-4a7b43f6a6f9" key="textField-82" style="Arial_Normal" mode="Opaque" x="501" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -166,12 +171,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(6)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(6)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-83" mode="Opaque" x="547" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="e4733130-2a4d-4107-9123-344d60deff81" key="textField-83" style="Arial_Normal" mode="Opaque" x="547" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -179,12 +184,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(7)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(7)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-84" mode="Opaque" x="593" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="0113d6d4-6f94-49dd-93e0-4bf58f3c1feb" key="textField-84" style="Arial_Normal" mode="Opaque" x="593" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -192,12 +197,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(8)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(8)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-85" mode="Opaque" x="639" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="92db090b-aca9-41ca-889d-8a99d6ddce7f" key="textField-85" style="Arial_Normal" mode="Opaque" x="639" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -205,12 +210,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(9)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(9)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-86" mode="Opaque" x="731" y="22" width="46" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="734122bd-77c2-4f33-a69d-a25482a9d495" key="textField-86" style="Arial_Normal" mode="Opaque" x="731" y="22" width="46" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -218,12 +223,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(11)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(11)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-87" mode="Opaque" x="685" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="6bef40b9-0759-4655-a0c3-a46ab4359cbb" key="textField-87" style="Arial_Normal" mode="Opaque" x="685" y="22" width="47" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -231,9 +236,9 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{months}.get(10)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{months}.get(10)]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -243,13 +248,13 @@
 	<detail>
 		<band height="62" splitType="Stretch">
 			<line>
-				<reportElement key="line-2" mode="Opaque" x="2" y="-692" width="1" height="35" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="8c58af5f-d6c5-47aa-a5df-6dba752efc1d" key="line-2" mode="Opaque" x="2" y="-692" width="1" height="35" forecolor="#000000" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-71" mode="Opaque" x="0" y="15" width="225" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="f7ca4d9d-e289-46e5-88eb-187ef87335d2" key="textField-71" style="Arial_Normal" mode="Opaque" x="0" y="15" width="225" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -257,12 +262,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{projectBlock.chronology.production}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{projectBlock.chronology.production}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-73" mode="Opaque" x="0" y="31" width="225" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="976472af-afc8-4992-bcc9-743e64a6a6e0" key="textField-73" style="Arial_Normal" mode="Opaque" x="0" y="31" width="225" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -270,12 +275,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{projectBlock.chronology.harvest}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{projectBlock.chronology.harvest}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-74" mode="Opaque" x="0" y="47" width="225" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="49bd52bb-911b-4b71-841a-7dbb7dd3b5e1" key="textField-74" style="Arial_Normal" mode="Opaque" x="0" y="47" width="225" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -283,12 +288,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$R{projectBlock.chronology.payment}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{projectBlock.chronology.payment}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-88" mode="Opaque" x="0" y="0" width="777" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="4319b561-da8e-42ea-ba8f-70c494b77732" key="textField-88" style="Arial_Normal" mode="Opaque" x="0" y="0" width="777" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box leftPadding="5">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -296,12 +301,12 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-					<font reportFont="Arial_Normal" size="10"/>
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="0">
-				<reportElement key="rectangle-1" mode="Opaque" x="227" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="168d6343-e472-48b1-ba16-e556459ddf53" key="rectangle-1" mode="Opaque" x="227" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-0-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -309,7 +314,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-2" mode="Opaque" x="227" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="94b72e6e-05e4-46ef-b906-896cba547bc3" key="rectangle-2" mode="Opaque" x="227" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-0-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -317,7 +322,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-3" mode="Opaque" x="227" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c0b30c73-d5c6-49fa-b082-fce5723646b6" key="rectangle-3" mode="Opaque" x="227" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-0-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -325,7 +330,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-4" mode="Opaque" x="249" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="0800d13d-d2c7-447d-99e9-db8ae9723335" key="rectangle-4" mode="Opaque" x="249" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-0-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -333,7 +338,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-5" mode="Opaque" x="249" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="ff8981fe-8009-4068-9733-6bb9adc1fd03" key="rectangle-5" mode="Opaque" x="249" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-0-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -341,7 +346,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-6" mode="Opaque" x="249" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="59f7aa90-216a-4203-8200-0abb71269ae0" key="rectangle-6" mode="Opaque" x="249" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-0-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -349,7 +354,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-7" mode="Opaque" x="273" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="13f3928b-6179-4e3f-8075-75346348f43e" key="rectangle-7" mode="Opaque" x="273" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-1-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -357,7 +362,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-8" mode="Opaque" x="273" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="8184d809-cbf0-44d1-99ab-cffcd8bf6a07" key="rectangle-8" mode="Opaque" x="273" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-1-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -365,7 +370,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-9" mode="Opaque" x="273" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="1a9ab1bc-f40a-4e85-b239-75b15c53ba27" key="rectangle-9" mode="Opaque" x="273" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-1-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -373,7 +378,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-10" mode="Opaque" x="295" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="f80d0a61-098c-4053-a20c-90cfe331f3f8" key="rectangle-10" mode="Opaque" x="295" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-1-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -381,7 +386,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-11" mode="Opaque" x="295" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="dbb352d7-f482-4953-8bb9-e96f174d11bf" key="rectangle-11" mode="Opaque" x="295" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-1-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -389,7 +394,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-12" mode="Opaque" x="295" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="fd6ae0c7-2240-42a1-a1db-a5ae6d1f6adc" key="rectangle-12" mode="Opaque" x="295" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-1-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -397,7 +402,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-13" mode="Opaque" x="319" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="b51a7c8a-0d4a-4d83-a623-0629951d06ed" key="rectangle-13" mode="Opaque" x="319" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-2-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -405,7 +410,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-14" mode="Opaque" x="319" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="36ed3dcd-24f9-451c-92c6-5e2f37836fca" key="rectangle-14" mode="Opaque" x="319" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-2-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -413,7 +418,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-15" mode="Opaque" x="319" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="aa87b148-ff1f-4389-80fa-30f899a2d8e3" key="rectangle-15" mode="Opaque" x="319" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-2-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -421,7 +426,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-16" mode="Opaque" x="341" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="29ab9c45-acd1-4b61-815a-36d9420bc49e" key="rectangle-16" mode="Opaque" x="341" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-2-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -429,7 +434,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-17" mode="Opaque" x="341" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="64c2156b-0141-4f3c-a71f-d89c24fc44e2" key="rectangle-17" mode="Opaque" x="341" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-2-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -437,7 +442,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-18" mode="Opaque" x="341" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="2c4fea9d-dd6f-48b5-8b25-7b0719e8077c" key="rectangle-18" mode="Opaque" x="341" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-2-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -445,7 +450,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-19" mode="Opaque" x="365" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="603bdad3-153a-4b75-b878-2ac22f7f7795" key="rectangle-19" mode="Opaque" x="365" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-3-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -453,7 +458,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-20" mode="Opaque" x="365" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="ed208000-6d45-4a9a-9e13-6d0e646f56db" key="rectangle-20" mode="Opaque" x="365" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-3-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -461,7 +466,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-21" mode="Opaque" x="365" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="09ca49cb-4a67-4df3-8870-ebab8b6cf266" key="rectangle-21" mode="Opaque" x="365" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-3-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -469,7 +474,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-22" mode="Opaque" x="387" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="f0ace931-fd29-4e1c-9bc4-e4a5ad2d5b14" key="rectangle-22" mode="Opaque" x="387" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-3-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -477,7 +482,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-23" mode="Opaque" x="387" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="ad2194f4-c3c1-4913-bdb8-0445bba603c9" key="rectangle-23" mode="Opaque" x="387" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-3-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -485,7 +490,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-24" mode="Opaque" x="387" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="544aba31-1cf4-4c9f-8514-969af6d1bb9a" key="rectangle-24" mode="Opaque" x="387" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-3-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -493,7 +498,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-25" mode="Opaque" x="411" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="2f65eef5-b49c-4b7f-8703-186a857161d5" key="rectangle-25" mode="Opaque" x="411" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-4-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -501,7 +506,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-26" mode="Opaque" x="411" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="eea6a576-e2b4-4304-b664-02ceb29c8f97" key="rectangle-26" mode="Opaque" x="411" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-4-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -509,7 +514,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-27" mode="Opaque" x="411" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="49892cb3-4d53-4c01-b367-6a37c64a6148" key="rectangle-27" mode="Opaque" x="411" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-4-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -517,7 +522,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-28" mode="Opaque" x="433" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="545750f7-9052-4db8-8a48-c548a5bfe83a" key="rectangle-28" mode="Opaque" x="433" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-4-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -525,7 +530,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-29" mode="Opaque" x="433" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="69fe4433-ee6a-473f-b28d-6fb98a365f8c" key="rectangle-29" mode="Opaque" x="433" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-4-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -533,7 +538,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-30" mode="Opaque" x="433" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="3aea1d56-44e1-4760-ad5a-de1b5d7fa12d" key="rectangle-30" mode="Opaque" x="433" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-4-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -541,7 +546,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-31" mode="Opaque" x="457" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="dd4fc702-a130-4a02-8034-c437966c0db4" key="rectangle-31" mode="Opaque" x="457" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-5-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -549,7 +554,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-32" mode="Opaque" x="457" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="f736de9b-084c-447d-b21b-a62d8e5b660a" key="rectangle-32" mode="Opaque" x="457" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-5-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -557,7 +562,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-33" mode="Opaque" x="457" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="91eded62-afbc-4443-87cc-7ae04c6fa262" key="rectangle-33" mode="Opaque" x="457" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-5-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -565,7 +570,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-34" mode="Opaque" x="479" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="808cc19a-55d3-4008-a5ef-f5145231e839" key="rectangle-34" mode="Opaque" x="479" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-5-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -573,7 +578,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-35" mode="Opaque" x="479" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="d2e3f64a-a33d-4bcc-b417-861c5738aab6" key="rectangle-35" mode="Opaque" x="479" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-5-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -581,7 +586,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-36" mode="Opaque" x="479" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="0997549b-060e-4e7c-9cf9-57ab6ca44b2e" key="rectangle-36" mode="Opaque" x="479" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-5-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -589,7 +594,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-37" mode="Opaque" x="503" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c7f91912-c1ca-4639-a5e8-0d72d3f285aa" key="rectangle-37" mode="Opaque" x="503" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-6-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -597,7 +602,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-38" mode="Opaque" x="503" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="77223272-bd61-4ded-bbd9-907d156a6fb3" key="rectangle-38" mode="Opaque" x="503" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-6-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -605,7 +610,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-39" mode="Opaque" x="503" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c3bb7e30-e19f-4411-95ac-a2c64acc3fe9" key="rectangle-39" mode="Opaque" x="503" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-6-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -613,7 +618,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-40" mode="Opaque" x="525" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="ed5d325f-2f8f-400f-a30e-2f4d36c8d355" key="rectangle-40" mode="Opaque" x="525" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-6-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -621,7 +626,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-41" mode="Opaque" x="525" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="de5d8235-5de3-4df2-8ad3-ecd509ed11ce" key="rectangle-41" mode="Opaque" x="525" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-6-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -629,7 +634,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-42" mode="Opaque" x="525" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="f84318b2-bf73-426f-976e-759fa3adb980" key="rectangle-42" mode="Opaque" x="525" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-6-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -637,7 +642,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-43" mode="Opaque" x="549" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c1087461-ac1e-4103-b936-b4194c65b962" key="rectangle-43" mode="Opaque" x="549" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-7-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -645,7 +650,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-44" mode="Opaque" x="549" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="39c116de-f457-44df-83f9-48714eedbd77" key="rectangle-44" mode="Opaque" x="549" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-7-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -653,7 +658,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-45" mode="Opaque" x="549" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="0cc2b1c8-35a9-4c01-bbea-184606dad929" key="rectangle-45" mode="Opaque" x="549" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-7-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -661,7 +666,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-46" mode="Opaque" x="571" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="7f591459-98c7-48d6-8fed-705a75ce075e" key="rectangle-46" mode="Opaque" x="571" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-7-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -669,7 +674,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-47" mode="Opaque" x="571" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="d006bd09-b2b8-4a09-815c-0af03660bd49" key="rectangle-47" mode="Opaque" x="571" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-7-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -677,7 +682,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-48" mode="Opaque" x="571" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="001ea535-d188-494f-b6ae-b761ece38016" key="rectangle-48" mode="Opaque" x="571" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-7-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -685,7 +690,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-49" mode="Opaque" x="594" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="a2741821-42fd-43e9-b702-247044b346b3" key="rectangle-49" mode="Opaque" x="594" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-8-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -693,7 +698,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-50" mode="Opaque" x="594" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="76fe9995-1159-4304-bcb0-579f6dd756a2" key="rectangle-50" mode="Opaque" x="594" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-8-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -701,7 +706,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-51" mode="Opaque" x="594" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="e0ce24a3-73bb-4924-af4b-be46c1c0b210" key="rectangle-51" mode="Opaque" x="594" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-8-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -709,7 +714,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-52" mode="Opaque" x="616" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="9c13bec6-e059-4975-bfd0-1838340b8823" key="rectangle-52" mode="Opaque" x="616" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-8-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -717,7 +722,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-53" mode="Opaque" x="616" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="a732e76f-9777-4e7b-bf8e-c2ae92657500" key="rectangle-53" mode="Opaque" x="616" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-8-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -725,7 +730,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-54" mode="Opaque" x="616" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="367eeafd-e31e-4b2c-9544-b8441cd88344" key="rectangle-54" mode="Opaque" x="616" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-8-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -733,7 +738,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-55" mode="Opaque" x="640" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="996b080a-39c1-499f-9dbb-ed8f3dcc6bee" key="rectangle-55" mode="Opaque" x="640" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-9-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -741,7 +746,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-56" mode="Opaque" x="640" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="1cb7b32f-3deb-420f-a498-631e177a1823" key="rectangle-56" mode="Opaque" x="640" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-9-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -749,7 +754,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-57" mode="Opaque" x="640" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="959fe599-b722-4f4b-bf24-cb93802d55a3" key="rectangle-57" mode="Opaque" x="640" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-9-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -757,7 +762,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-58" mode="Opaque" x="662" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c0c9cf77-c8f5-46a7-9417-921e8085ab0c" key="rectangle-58" mode="Opaque" x="662" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-9-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -765,7 +770,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-59" mode="Opaque" x="662" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c62a4330-c390-4aad-8472-98492bb94be9" key="rectangle-59" mode="Opaque" x="662" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-9-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -773,7 +778,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-60" mode="Opaque" x="662" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="f4b3ee67-31d9-4295-b971-66d694797be8" key="rectangle-60" mode="Opaque" x="662" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-9-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -781,7 +786,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-61" mode="Opaque" x="686" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c90ba94c-ba17-4ec7-a6ed-6339a0ad727c" key="rectangle-61" mode="Opaque" x="686" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-10-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -789,7 +794,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-62" mode="Opaque" x="686" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="f87bd9f8-525d-4548-8ebf-e08ed549f2f6" key="rectangle-62" mode="Opaque" x="686" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-10-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -797,7 +802,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-63" mode="Opaque" x="686" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="fc8049ff-77dc-4413-9936-88dc43b7c3b2" key="rectangle-63" mode="Opaque" x="686" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-10-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -805,7 +810,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-64" mode="Opaque" x="708" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="c2ef4872-ac7f-4b20-8800-bdc3b8d6f1a4" key="rectangle-64" mode="Opaque" x="708" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-10-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -813,7 +818,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-65" mode="Opaque" x="708" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="e6e3b97f-0683-4bd0-a9ee-4c2fc3d14974" key="rectangle-65" mode="Opaque" x="708" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-10-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -821,7 +826,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-66" mode="Opaque" x="708" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="6d561c4d-29b0-4a1b-ab3b-914a158414e3" key="rectangle-66" mode="Opaque" x="708" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-10-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -829,7 +834,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-67" mode="Opaque" x="732" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="9fe932e3-47de-4fdd-97f1-19462c335261" key="rectangle-67" mode="Opaque" x="732" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-11-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -837,7 +842,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-68" mode="Opaque" x="732" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="a408809c-eaa2-4b3f-8f50-7edd58bada63" key="rectangle-68" mode="Opaque" x="732" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-11-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -845,7 +850,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-69" mode="Opaque" x="732" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="75f19895-cdbc-4e09-90b5-eb965233a5e8" key="rectangle-69" mode="Opaque" x="732" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-11-0")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -853,7 +858,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-70" mode="Opaque" x="754" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="766b1d96-335c-45f8-863d-619d980575da" key="rectangle-70" mode="Opaque" x="754" y="15" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("0-11-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -861,7 +866,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-71" mode="Opaque" x="754" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="d11fc641-52a0-43b2-b936-845d58cdee84" key="rectangle-71" mode="Opaque" x="754" y="31" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("1-11-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -869,7 +874,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle radius="0">
-				<reportElement key="rectangle-72" mode="Opaque" x="754" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
+				<reportElement uuid="98576f13-bfef-4803-b406-3c0ab832f4e6" key="rectangle-72" mode="Opaque" x="754" y="47" width="22" height="14" forecolor="#000000" backcolor="#E7AE0F">
 					<printWhenExpression><![CDATA[new Boolean(((java.util.Map)$P{chrons}.get($F{blockId})).get("2-11-1")!=null)]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -884,7 +889,7 @@
 	<pageFooter>
 		<band height="26" splitType="Prevent">
 			<subreport>
-				<reportElement x="3" y="0" width="785" height="26" backcolor="#FFFFFF"/>
+				<reportElement uuid="c20968a6-35f2-4754-923f-591c6712b2cd" x="3" y="0" width="785" height="26" backcolor="#FFFFFF"/>
 				<subreportParameter name="pageNo">
 					<subreportParameterExpression><![CDATA[$V{PAGE_NUMBER}+$P{startPage}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -898,7 +903,7 @@
 					<subreportParameterExpression><![CDATA[$P{reportname}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{footer}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{footer}]]></subreportExpression>
 			</subreport>
 		</band>
 	</pageFooter>
