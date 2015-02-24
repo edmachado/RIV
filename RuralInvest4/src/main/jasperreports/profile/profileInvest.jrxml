@@ -16,10 +16,14 @@
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="without" class="java.lang.Boolean" isForPrompting="false"/>
 	<field name="profileName" class="java.lang.String"/>
 	<field name="glsGoods" class="java.lang.Object"/>
 	<field name="glsLabours" class="java.lang.Object"/>
 	<field name="incomeGen" class="java.lang.Boolean"/>
+	<field name="withWithout" class="java.lang.Boolean"/>
+	<field name="glsGoodsWithout" class="java.lang.Object"/>
+	<field name="glsLaboursWithout" class="java.lang.Object"/>
 	<variable name="total" class="java.lang.Double" resetType="Page">
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
@@ -40,13 +44,17 @@
 					<subreportParameterExpression><![CDATA[$F{profileName}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="reportTitle">
-					<subreportParameterExpression><![CDATA[$R{profile.report.investDetail}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="rivConfig">
-					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$F{withWithout}
+    ? $P{without}
+        ? $R{profile.report.investDetail} + " " + $R{project.without}
+        : $R{profile.report.investDetail} + " " + $R{project.with}
+    : $R{profile.report.investDetail}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[($F{incomeGen}.booleanValue()) ? $R{profile.incomeGen} : $R{profile.nonIncomeGen}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rivConfig">
+					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{header}]]></subreportExpression>
@@ -69,7 +77,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{glsGoods}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[$P{without} ? $F{glsGoodsWithout} : $F{glsGoods}]]></dataSourceExpression>
 				<returnValue subreportVariable="sumTotal" toVariable="total" calculation="Sum"/>
 				<returnValue subreportVariable="sumOwnResource" toVariable="own" calculation="Sum"/>
 				<returnValue subreportVariable="sumReserve" toVariable="reserve" calculation="Sum"/>
@@ -83,7 +91,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{glsLabours}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[$P{without} ? $F{glsLaboursWithout} : $F{glsLabours}]]></dataSourceExpression>
 				<returnValue subreportVariable="sumTotal" toVariable="total" calculation="Sum"/>
 				<returnValue subreportVariable="sumOwnResource" toVariable="own" calculation="Sum"/>
 				<subreportExpression><![CDATA[$P{labourSubReport}]]></subreportExpression>

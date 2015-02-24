@@ -2864,18 +2864,18 @@ public class ExcelWorksheetBuilder {
 		
 	}
 	
-	public void profileInvest(ExcelWrapper report, Profile profile, boolean template) {
-
-		//	goods and materials
-		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_INVEST));
-
-		sheet.setSelected(true);
-				
-		int rowNum = 0;
+	public void profileInvest(ExcelWrapper report, Profile profile, boolean without, boolean template) {
+		String title = without ? translate("profile.report.investDetail") + " " + translate("project.without")
+				: profile.getWithWithout() ? translate("profile.report.investDetail") + " " + translate("project.with")
+				: translate("profile.report.investDetail");
+		SheetName sheetname = profile.getWithWithout() ? without ? SheetName.PROFILE_INVEST_WITHOUT : SheetName.PROFILE_INVEST_WITH : SheetName.PROFILE_INVEST;
 		
+		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
+		sheet.setSelected(!without);
+				
+		int rowNum = 0;		
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("profile.report.investDetail"), Style.TITLE);
-
+		report.addTextCell(row, 0, title, Style.TITLE);
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("profileGoods"), Style.H2);
@@ -2897,9 +2897,13 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.NUMERIC, "getEconLife", false)
 		.addColumn(XlsColumnType.CURRENCY, "getSalvage", false)
 		.addColumn(XlsColumnType.FORMULA, "((DX-IX)*CX)/HX", true);
-		rowNum = table.writeTable(sheet, rowNum++, template ? null : profile.getGlsGoods(), true);
+		rowNum = table.writeTable(sheet, rowNum++, template ? null : without ? profile.getGlsGoodsWithout() : profile.getGlsGoods(), true);
 		if (report.isCompleteReport()) {
-			report.addLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
+			if (without) {
+				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
+			} else {
+				report.addLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
+			}
 		}
 		
 		int sumGoods = rowNum;
@@ -2922,7 +2926,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.FORMULA, "CX*DX", true)
 		.addColumn(XlsColumnType.CURRENCY, "getOwnResource", true)
 		.addColumn(XlsColumnType.FORMULA, "EX-FX", true);
-		rowNum = table.writeTable(sheet, rowNum++, template ? null : profile.getGlsLabours(), true);	
+		rowNum = table.writeTable(sheet, rowNum++, template ? null : without ? profile.getGlsLaboursWithout() : profile.getGlsLabours(), true);	
 
 		
 		row = sheet.createRow(rowNum++);
@@ -2931,9 +2935,15 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 5, String.format("F%d+F%d", sumGoods, rowNum-1), Style.CURRENCY);
 		report.addFormulaCell(row, 6, String.format("G%d+G%d", sumGoods, rowNum-1), Style.CURRENCY);
 		if (report.isCompleteReport()) {
-			report.addLink(ExcelLink.PROFILE_INVEST_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
-			report.addLink(ExcelLink.PROFILE_INVEST_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
-			report.addLink(ExcelLink.PROFILE_INVEST_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
+			if (without) {
+				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
+				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
+				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
+			} else {
+				report.addLink(ExcelLink.PROFILE_INVEST_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
+				report.addLink(ExcelLink.PROFILE_INVEST_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
+				report.addLink(ExcelLink.PROFILE_INVEST_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
+			}
 		}
 		
 		autoSizeColumns(sheet, 10);

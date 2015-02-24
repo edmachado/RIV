@@ -224,7 +224,6 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 	 */
 	public ProfileProductBase copy(Class<? extends ProfileProductBase> newClass) {
 		ProfileProductBase newProd = newClass.isAssignableFrom(ProfileProduct.class) ? new ProfileProduct() : new ProfileProductWithout();
-//		ProfileProductBase newProd = this.getClass()==ProfileProduct.class ? new ProfileProduct() : new ProfileProductWithout();
 		newProd.setOrderBy(getOrderBy());
 		newProd.setCycleLength(getCycleLength());
 		newProd.setCyclePerYear(getCyclePerYear());

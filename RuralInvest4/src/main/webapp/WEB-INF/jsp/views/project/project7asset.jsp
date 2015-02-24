@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
 <html><head><title><spring:message code="projectInvestAsset"/></title></head>
 <body>
-	<div class="datatitle">
-		<c:if test="${not project.withWithout}"><spring:message code="project.invest"/></c:if>
-		<c:if test="${project.withWithout and without}"><spring:message code="project.invest"/> <spring:message code="project.without"/></c:if>
-		<c:if test="${project.withWithout and not without}"><spring:message code="project.invest"/> <spring:message code="project.with"/></c:if>
-	</div>
+<!-- 	<div class="datatitle"> -->
+<%-- 		<c:if test="${not project.withWithout}"><spring:message code="project.invest"/></c:if> --%>
+<%-- 		<c:if test="${project.withWithout and without}"><spring:message code="project.invest"/> <spring:message code="project.without"/></c:if> --%>
+<%-- 		<c:if test="${project.withWithout and not without}"><spring:message code="project.invest"/> <spring:message code="project.with"/></c:if> --%>
+<!-- 	</div> -->
 	
 	<div align="right"><a href="#" onClick="toggle('tblAssets')"><spring:message code="misc.toggle"/></a></div>
 	<div id="tblAssets" style="display:none">

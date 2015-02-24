@@ -65,16 +65,25 @@ public class PdfReportCreator {
 	public List<ReportWrapper> profileComplete(Profile profile, ProfileResult pr, HttpServletResponse response) {
 		ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
 		int page=0;
+		
 		ReportWrapper cover = profileCompleteCover(profile, page);
 		page=page+cover.getJp().getPages().size();
 		reports.add(cover);
-		ReportWrapper summary = profileSummary(profile, page);
 		
+		ReportWrapper summary = profileSummary(profile, page);
 		page=page+summary.getJp().getPages().size();
 		reports.add(summary);
-		ReportWrapper invest = profileInvest(profile,page);
+		
+		
+		ReportWrapper invest = profileInvest(profile,false, page);
 		page = page+invest.getJp().getPages().size();
 		reports.add(invest);
+		if (profile.getWithWithout()) {
+			ReportWrapper investWithout = profileInvest(profile,true, page);
+			page = page+investWithout.getJp().getPages().size();
+			reports.add(investWithout);
+		}
+
 		ReportWrapper general = profileGeneral(profile, page);
 		page = page+general.getJp().getPages().size();
 		reports.add(general);
@@ -165,7 +174,7 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper profileInvest(Profile profile, int startPage) {
+	public ReportWrapper profileInvest(Profile profile, boolean withoutProject, int startPage) {
 		ReportWrapper report = new ReportWrapper("/reports/profile/profileInvest.jasper", true, profile, "profileInvest.pdf", startPage);
 		
 		JasperReport jrGoods = compileReport("/reports/profile/profileInvestGoods.jasper");
@@ -174,6 +183,8 @@ public class PdfReportCreator {
 		report.getParams().put("labourSubReport", jrLabour);
 		
 		report.getParams().put("reportname", "B: "+translate("profile.report.investDetail"));
+		report.getParams().put("without", withoutProject);
+		
 		runReport(report);
 		return report;
 	}
