@@ -1,4 +1,8 @@
+# RIV 4.1.6
 error.moreDetails=More details...
+projectBlockIncome.unitNum.nocycle.help=Indicate the number of units of sale produced per unit of production (excluding losses and rejects).
+projectBlockInput.unitNum.nocycle.help=Indicate the number of units of the item used per unit of production or activity.
+projectBlockLabour.unitNum.nocycle.help=Indicate the number of units of this type of labour used in each unit of production or activity.
 
 
 ### RIV4.1.4

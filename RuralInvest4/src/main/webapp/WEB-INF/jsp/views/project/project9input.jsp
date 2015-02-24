@@ -44,7 +44,8 @@
 					
 					<tags:dataentry field="description" labelKey="projectBlockInput.desc" helpText="projectBlockInput.desc.help" maxLength="30" inputClass="text" size="20"/>
 					<tags:dataentry field="unitType" labelKey="projectBlockInput.unitType" helpText="projectBlockInput.unitType.help"  inputClass="text" size="20" maxLength="30" />
-					<tags:dataentry field="unitNum" labelKey="projectBlockInput.unitNum" onmouseout="CalculateTotal()" helpText="projectBlockInput.unitNum.help" />
+					<c:if test="${blockItem.block.cycles}"><c:set var="unitHelp" value="projectBlockInput.unitNum.help"/></c:if><c:if test="${not blockItem.block.cycles}"><c:set var="unitHelp" value="projectBlockInput.unitNum.nocycle.help"/></c:if>
+					<tags:dataentry field="unitNum" labelKey="projectBlockInput.unitNum" onmouseout="CalculateTotal()" helpText="${unitHelp}" />
 					<tags:dataentry field="qtyIntern" labelKey="projectBlockInput.qtyIntern" helpText="projectBlockInput.qtyIntern.help" onmouseout="CalculateTotal()" />
 					<tags:datadivider color="green"/>
 					<tags:dataentry field="extern" labelKey="projectBlockInput.qtyExtern" helpText="projectBlockInput.qtyExtern.help" calculated="true" />

@@ -52,7 +52,8 @@
 							<form:option value="3"><spring:message code="units.pdays"/></form:option>
 						</form:select>
 					</div>
-					<tags:dataentry field="unitNum" labelKey="projectBlockLabour.unitNum" onmouseout="CalculateTotal()" helpText="projectBlockLabour.unitNum.help" />
+					<c:if test="${blockItem.block.cycles}"><c:set var="unitHelp" value="projectBlockLabour.unitNum.help"/></c:if><c:if test="${not blockItem.block.cycles}"><c:set var="unitHelp" value="projectBlockLabour.unitNum.nocycle.help"/></c:if>
+					<tags:dataentry field="unitNum" labelKey="projectBlockLabour.unitNum" onmouseout="CalculateTotal()" helpText="${unitHelp}" />
 					<tags:dataentry field="qtyIntern" labelKey="projectBlockLabour.qtyIntern" helpText="projectBlockLabour.qtyIntern.help" onmouseout="CalculateTotal()" />
 					<tags:datadivider color="green"/>
 					<tags:dataentry field="extern" labelKey="projectBlockLabour.qtyExtern" helpText="projectBlockLabour.qtyExtern.help" calculated="true" />

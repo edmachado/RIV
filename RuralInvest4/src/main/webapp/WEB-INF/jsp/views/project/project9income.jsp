@@ -55,7 +55,8 @@
 				
 				<tags:dataentry field="description" labelKey="projectBlockIncome.desc" helpText="projectBlockIncome.desc.help" maxLength="30" inputClass="text" size="20"/>
 				<tags:dataentry field="unitType" labelKey="projectBlockIncome.unitType" helpText="projectBlockIncome.unitType.help"  inputClass="text" size="20" maxLength="30" />
-				<tags:dataentry field="unitNum" labelKey="projectBlockIncome.unitNum" onmouseout="CalculateTotal()" helpText="projectBlockIncome.unitNum.help" />
+				<c:if test="${blockItem.block.cycles}"><c:set var="unitHelp" value="projectBlockIncome.unitNum.help"/></c:if><c:if test="${not blockItem.block.cycles}"><c:set var="unitHelp" value="projectBlockIncome.unitNum.nocycle.help"/></c:if>
+				<tags:dataentry field="unitNum" labelKey="projectBlockIncome.unitNum" onmouseout="CalculateTotal()" helpText="${unitHelp}" />
 				<tags:dataentry field="qtyIntern" labelKey="projectBlockIncome.qtyIntern" helpText="projectBlockIncome.qtyIntern.help" onmouseout="CalculateTotal()" />
 				<tags:datadivider color="green"/>
 				<tags:dataentry field="extern" labelKey="projectBlockIncome.qtyExtern" helpText="projectBlockIncome.qtyExtern.help" calculated="true" />
