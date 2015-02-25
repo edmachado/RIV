@@ -447,10 +447,11 @@ public class ExcelReportController {
    
    @RequestMapping(value="/{id}/profilePrelimAnalysis.xlsx", method=RequestMethod.GET)
    public void profilePrelimAnalysis(@PathVariable int id, HttpServletResponse response) throws IOException  {
+	   Profile p = dataService.getProfile(id, -1);
 	   ProfileResult pr = dataService.getProfileResult(id);
 	   ExcelWrapper report = ewb.create();
 	   try {
-		   ewb.profilePrelimAnalysis(report, pr);
+		   ewb.profilePrelimAnalysis(report, p, pr);
 		   response.setHeader("Content-disposition", "attachment; filename=profilePrelimAnalysis.xlsx");
 		   report.getWorkbook().write(response.getOutputStream());
 	   } catch (IOException e) {
@@ -496,7 +497,7 @@ public class ExcelReportController {
 		   if (p.getWithWithout()) {
 			   ewb.profileProducts(report, p, true);
 		   }
-		   ewb.profilePrelimAnalysis(report, pr);
+		   ewb.profilePrelimAnalysis(report, p, pr);
 		   ewb.profileRecommendation(report, p);
 		   response.setHeader("Content-disposition", "attachment; filename=profileComplete.xlsx");
 		   report.getWorkbook().write(response.getOutputStream());

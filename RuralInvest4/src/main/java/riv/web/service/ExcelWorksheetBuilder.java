@@ -2900,7 +2900,7 @@ public class ExcelWorksheetBuilder {
 		rowNum = table.writeTable(sheet, rowNum++, template ? null : without ? profile.getGlsGoodsWithout() : profile.getGlsGoods(), true);
 		if (report.isCompleteReport()) {
 			if (without) {
-				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
+				report.addLink(ExcelLink.PROFILE_INVEST_WITHOUT_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
 			} else {
 				report.addLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE, "'"+sheet.getSheetName()+"'!J"+rowNum);
 			}
@@ -2936,9 +2936,9 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 6, String.format("G%d+G%d", sumGoods, rowNum-1), Style.CURRENCY);
 		if (report.isCompleteReport()) {
 			if (without) {
-				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
-				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
-				report.addLink(ExcelLink.PROFILE_WITHOUT_INVEST_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
+				report.addLink(ExcelLink.PROFILE_INVEST_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
+				report.addLink(ExcelLink.PROFILE_INVEST_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
+				report.addLink(ExcelLink.PROFILE_INVEST_WITHOUT_EXTERNAL, "'"+sheet.getSheetName()+"'!G"+rowNum);
 			} else {
 				report.addLink(ExcelLink.PROFILE_INVEST_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
 				report.addLink(ExcelLink.PROFILE_INVEST_OWN, "'"+sheet.getSheetName()+"'!F"+rowNum);
@@ -3384,7 +3384,7 @@ public class ExcelWorksheetBuilder {
 		return rowNum+2;
 	}
 
-	public void profilePrelimAnalysis(ExcelWrapper report, ProfileResult result) {
+	public void profilePrelimAnalysis(ExcelWrapper report, Profile profile, ProfileResult result) {
 
 		boolean incomeGen = result.isIncomeGen();
 		String[] titles = new String[5];
@@ -3422,7 +3422,12 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (A)", translate("profile.report.preliminary.investExtern")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_EXTERNAL), Style.CURRENCY);
+			if (profile.getWithWithout()) {
+				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_EXTERNAL)+
+				"-"+report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_EXTERNAL), Style.CURRENCY);
+			} else {
+				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_EXTERNAL), Style.CURRENCY);
+			}
 		} else {
 			report.addNumericCell(row, cellNum, result.getInvestmentExt(), Style.CURRENCY);
 		}
@@ -3430,7 +3435,12 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (B)", translate("profile.report.preliminary.investOwn")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_OWN), Style.CURRENCY);
+			if (profile.getWithWithout()) {
+				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_OWN)+
+				"-"+report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_OWN), Style.CURRENCY);
+			} else {
+				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_OWN), Style.CURRENCY);
+			}
 		} else {
 			report.addNumericCell(row, cellNum, result.getInvestmentOwn(), Style.CURRENCY);
 		}
@@ -3473,7 +3483,12 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (F)", translate("profile.report.preliminary.annualReserve")));		
 		if (report.isCompleteReport()) {
-			report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE), Style.CURRENCY);
+			if (profile.getWithWithout()) {
+				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE)+"-"+report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_GOODS_RESERVE), Style.CURRENCY);
+			} else {
+				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE), Style.CURRENCY);
+			}
+			
 		} else {
 			report.addNumericCell(row, cellNum, result.getAnnualReserve(), Style.CURRENCY);
 		}

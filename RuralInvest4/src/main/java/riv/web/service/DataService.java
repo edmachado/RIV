@@ -121,10 +121,7 @@ public class DataService implements UserDetailsService, Serializable {
 	public boolean isIdsUsedByOtherClasses(Class<? extends AppConfig> clazz, Set<Integer> ids) {
 		return repo.isIdsUsedByOtherClasses(clazz, ids);
 	}
-
-//	public void addOrgLogo(byte[] bytes, Setting setting) {
-//		repo.addOrgLogo(bytes, setting);
-//	}
+	
 	public List<AttachedFile> getAttachedFiles(int id, boolean isProject, boolean loadContentBytes) {
 		return repo.getAttachedFiles(id, isProject, loadContentBytes);
 	}

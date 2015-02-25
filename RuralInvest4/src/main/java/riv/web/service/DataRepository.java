@@ -281,7 +281,7 @@ public class DataRepository {
 	}
 	
 	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours, List<ProfileItemGoodWithout> goodsWo, List<ProfileItemLabourWithout> laboursWo) {
-		deleteCollections(new String[] {"ProfileItemGood","ProfileItemLabour"}, "profile.profileId", profileId);
+		deleteCollections(new String[] {"ProfileItemGood","ProfileItemLabour","ProfileItemGoodWithout","ProfileItemLabourWithout"}, "profile.profileId", profileId);
 		
 		Profile p = getProfile(profileId, 4);
 		for (ProfileItemGood good : goods) {
