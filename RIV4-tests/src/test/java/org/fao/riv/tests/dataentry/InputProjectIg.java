@@ -335,6 +335,17 @@ public class InputProjectIg extends WebTestUtil {
 		createProject("dataentry/"+folder.getRoot().getName()+"/project", 1);
 		assertLinkPresentWithImage("edit.png", 1);
 		clickLinkWithImage("edit.png", 1);
+		
+		// reset settings to normal
+		clickLink("gotoSettings");
+		assertTitleEquals(settingsTitle);
+		setTextField("decimalSeparator", ".");
+		setTextField("thousandSeparator", ",");
+		rivSubmitForm();
+		assertTitleEquals(settingsTitle);
+		assertElementNotPresent("errorbox");
+		assertTextFieldEquals("decimalSeparator", ".");
+		assertTextFieldEquals("thousandSeparator", ",");
 	}
 	
 	@Test
