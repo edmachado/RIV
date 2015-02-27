@@ -167,6 +167,7 @@
 			<parsable targetfile="$INSTALL_PATH/GuideRuralInvest.url" />
 			<file src="icons/riv.ico" targetdir="$INSTALL_PATH/icons" override="true" />
 			
+			<file src="resources/openPort.bat" targetdir="$TEMP_DIRECTORY" override="true" />
 			<file src="resources/startService.bat" targetdir="$TEMP_DIRECTORY" override="true" />
 			<!-- removes the Windows service during uninstall  -->
 			<file src="resources/removeService.bat" targetdir="$INSTALL_PATH" override="true" />

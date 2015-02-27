@@ -1,6 +1,3 @@
-
-netsh firewall set portopening protocol=TCP port=$HTTP_PORT_NO name=RuralInvest4 mode=ENABLE profile=All
-
 set SERVICE_PATH=$INSTALL_PATH\service
 cd "%SERVICE_PATH%"
 set SERVICE_NAME=RuralInvest4
