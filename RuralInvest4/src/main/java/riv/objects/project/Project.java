@@ -1,6 +1,7 @@
 package riv.objects.project;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -338,7 +339,13 @@ public class Project extends Probase implements java.io.Serializable {
 	}
 
 	public BigDecimal getWcAmountFinanced() {
-		return (wcAmountRequired==null || capitalDonate==null || capitalOwn==null) ? null : wcAmountRequired.subtract(BigDecimal.valueOf(capitalDonate+capitalOwn));
+		if (wcAmountRequired==null) {
+			return null;
+		} else if (capitalDonate==null || capitalOwn==null) {
+			return wcAmountRequired;
+		} else {
+			return  wcAmountRequired.subtract(BigDecimal.valueOf(capitalDonate+capitalOwn));
+		}
 	}
 
 /**
@@ -1486,11 +1493,16 @@ public double getInvestmentTotal() {
 	public String testFile(RivConfig rivConfig) {
 		String lineSeparator = System.getProperty("line.separator");
 		CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
+		DecimalFormat df = rivConfig.getSetting().getDecimalFormat();
 		StringBuilder sb = new StringBuilder();
 		sb.append("step1.projectName="+projectName+lineSeparator);
 		sb.append("step1.userCode="+userCode+lineSeparator);
-		sb.append("step1.exchRate="+ExchRate+lineSeparator);
-		sb.append("step1.inflationAnnual="+inflationAnnual+lineSeparator);
+		sb.append("step1.exchRate="+df.format(ExchRate)+lineSeparator);
+		
+		if (incomeGen) {
+			sb.append("step1.inflationAnnual="+df.format(inflationAnnual)+lineSeparator);
+		}
+		
 		sb.append("step1.duration="+duration+lineSeparator);
 		sb.append("step1.location1="+location1+lineSeparator);
 		sb.append("step1.location2="+location2+lineSeparator);
@@ -1823,13 +1835,13 @@ public double getInvestmentTotal() {
 		sb.append(lineSeparator);
 		
 		if (incomeGen) {
-			sb.append("step11.loan1amt="+this.getLoan1Amt()+lineSeparator);
-			sb.append("step11.loan1Interest="+loan1Interest+lineSeparator);
+			sb.append("step11.loan1amt="+cf.formatCurrency(this.getLoan1Amt(), CurrencyFormat.ALL)+lineSeparator);
+			sb.append("step11.loan1Interest="+df.format(loan1Interest)+lineSeparator);
 			sb.append("step11.loan1Duration="+loan1Duration+lineSeparator);
 			sb.append("step11.loan1GraceCapital="+loan1GraceCapital+lineSeparator);
 			sb.append("step11.loan1GraceInterest="+loan1GraceInterest+lineSeparator);
-			sb.append("step11.loan2Amt="+loan2Amt+lineSeparator);
-			sb.append("step11.loan2Interest="+loan2Interest+lineSeparator);
+			sb.append("step11.loan2Amt="+cf.formatCurrency(loan2Amt, CurrencyFormat.ALL)+lineSeparator);
+			sb.append("step11.loan2Interest="+df.format(loan2Interest)+lineSeparator);
 			sb.append("step11.loan2Duration="+loan2Duration+lineSeparator);
 			sb.append("step11.loan2GraceCapital="+loan2GraceCapital+lineSeparator);
 			sb.append("step11.loan2GraceInterest="+loan2GraceInterest+lineSeparator);
@@ -1840,13 +1852,13 @@ public double getInvestmentTotal() {
 //			sb.append("step11.period="+pfyResults[0]+lineSeparator);
 //			sb.append("step11.amtRequired="+(-1*pfyResults[1])+lineSeparator);
 			sb.append("step11.period="+this.getWcFinancePeriod()+lineSeparator);
-			sb.append("step11.amtRequired="+this.getWcAmountRequired()+lineSeparator);
-			sb.append("step11.amtFinanced="+this.getWcAmountFinanced()+lineSeparator);
+//			sb.append("step11.amtRequired="+cf.formatCurrency(this.getWcAmountRequired(), CurrencyFormat.ALL)+lineSeparator);
+//			sb.append("step11.amtFinanced="+cf.formatCurrency(this.getWcAmountFinanced(), CurrencyFormat.ALL)+lineSeparator);
 			
 			
-			sb.append("step11.capitalInterest="+capitalInterest+lineSeparator);
-			sb.append("step11.capitalDonate="+capitalDonate+lineSeparator);
-			sb.append("step11.capitalOwn="+capitalOwn+lineSeparator);
+			sb.append("step11.capitalInterest="+df.format(capitalInterest)+lineSeparator);
+			sb.append("step11.capitalDonate="+cf.formatCurrency(capitalDonate, CurrencyFormat.ALL)+lineSeparator);
+			sb.append("step11.capitalOwn="+cf.formatCurrency(capitalOwn, CurrencyFormat.ALL)+lineSeparator);
 		} else {
 			boolean simple = this.perYearContributions?false:true;
 			sb.append("step10.simple="+(simple?"true":"false")+lineSeparator);
