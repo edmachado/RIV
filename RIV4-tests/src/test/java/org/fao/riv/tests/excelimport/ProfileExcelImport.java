@@ -1,5 +1,6 @@
 package org.fao.riv.tests.excelimport;
 
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableNotPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextNotPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
@@ -109,8 +110,21 @@ public class ProfileExcelImport extends WebTestUtil {
 		String url;
 		
 		// STEP 4
-		// import file
 		url=getTestingEngine().getPageURL().toString();
+		clickLink("downloadTemplate");
+		File fTemplate = folder.newFile("invest-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[3]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[3]);
+		assertTableNotPresent("goodsListTable");
+		assertTableNotPresent("labourListTable");
+		
+		// import file
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsInvest.getFile().getAbsolutePath());
 		gotoPage(url);
@@ -132,6 +146,22 @@ public class ProfileExcelImport extends WebTestUtil {
 		// STEP 5
 		// import file
 		url = getTestingEngine().getPageURL().toString();
+
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("general-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[4]);
+		
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[4]);
+		assertTableNotPresent("generalTable");
+		assertTableNotPresent("generalTableWo");
+		
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsGeneral.getFile().getAbsolutePath());
 		gotoPage(url);
@@ -151,6 +181,24 @@ public class ProfileExcelImport extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 		
 		// STEP 6
+		url = getTestingEngine().getPageURL().toString();
+
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("block-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[5]);
+		
+		// re-upload template to zero tables
+		clickLink("upload0");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[5]);
+		assertTableNotPresent("incomeTable0");
+		assertTableNotPresent("inputTable0");
+		assertTableNotPresent("labourTable0");
+		
 		// import file
 		url = getTestingEngine().getPageURL().toString();
 		clickLink("upload0");
@@ -196,8 +244,21 @@ public class ProfileExcelImport extends WebTestUtil {
 		String url;
 		
 		// STEP 4
+		url=getTestingEngine().getPageURL().toString();
+		clickLink("downloadTemplate");
+		File fTemplate = folder.newFile("invest-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[3]);
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[3]);
+		assertTableNotPresent("goodsListTable");
+		assertTableNotPresent("labourListTable");
+		
 		// import file
-		url = getTestingEngine().getPageURL().toString();
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsInvestNig.getFile().getAbsolutePath());
 		gotoPage(url);
@@ -218,6 +279,22 @@ public class ProfileExcelImport extends WebTestUtil {
 		
 		// STEP 5
 		url = getTestingEngine().getPageURL().toString();
+
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("general-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[4]);
+		
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[4]);
+		assertTableNotPresent("generalTable");
+		assertTableNotPresent("generalTableWo");
+		
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProfileXlsGeneralNig.getFile().getAbsolutePath());
 		gotoPage(url);
@@ -237,7 +314,24 @@ public class ProfileExcelImport extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 		
 		// STEP 6
-		url=getTestingEngine().getPageURL().toString();
+		url = getTestingEngine().getPageURL().toString();
+
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("block-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[5]);
+		
+		// re-upload template to zero tables
+		clickLink("upload0");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[5]);
+		assertTableNotPresent("incomeTable0");
+		assertTableNotPresent("inputTable0");
+		assertTableNotPresent("labourTable0");
+		
 		clickLink("upload0");
 		setTextField("qqfile", ImportFile.ProfileXlsProductNig.getFile().getAbsolutePath());
 		gotoPage(url);

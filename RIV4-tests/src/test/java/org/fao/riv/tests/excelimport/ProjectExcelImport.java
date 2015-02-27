@@ -111,6 +111,24 @@ public class ProjectExcelImport extends WebTestUtil {
 		
 		// STEP 8
 		url=getTestingEngine().getPageURL().toString();
+		
+		// download template
+		clickLink("downloadTemplate");
+		fTemplate = folder.newFile("general-template.xlsx");
+		saveAs(fTemplate);
+		gotoPage(url);
+		assertTitleEquals(titles[7]);
+		
+		// re-upload template to zero tables
+		clickLink("importExcel");
+		setTextField("qqfile", fTemplate.getAbsolutePath());
+		gotoPage(url);
+		assertTitleEquals(titles[7]);
+		assertTableNotPresent("assetsTable");
+		assertTableNotPresent("LabourTable");
+		assertTableNotPresent("ServicesTable");
+		
+		
 		clickLink("importExcel");
 		setTextField("qqfile", ImportFile.ProjectXlsGeneral.getFile().getAbsolutePath());
 		gotoPage(url);
