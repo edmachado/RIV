@@ -44,7 +44,7 @@ public class ValidateUtils {
 				} catch (Exception e) {	; }
 				if (propertyValue.length()>maxLength) {
 					if (noResource) {
-						errors.rejectValue(fieldName, "error.maxLength", new Object[] {fieldCode}, "\""+fieldCode+"\" is required");
+						errors.rejectValue(fieldName, "error.maxLength", new Object[] {fieldCode,String.valueOf(maxLength)}, "\""+fieldCode+"\" is required");
 					} else {
 						errors.rejectValue(fieldName, "error.maxLength", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode}),String.valueOf(maxLength)}, "\""+fieldName+"\" is required");
 					}
@@ -98,14 +98,16 @@ public class ValidateUtils {
 	}
 	
 	public static void rejectIfEmptyNoResource(Object bean, String fieldName, String fieldDesc, Errors errors) {
-		Object propertyValue=null;
+		String propertyValue=null;
 		try {
-			propertyValue=PropertyUtils.getProperty(bean, fieldName);
-		} catch (Exception e) {	; }
-		if (propertyValue.equals("") || propertyValue == null) {
+			propertyValue = PropertyUtils.getProperty(bean, fieldName).toString();
+		} catch (Exception e) { }
+		
+		if (propertyValue == null || propertyValue.trim().isEmpty()) {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {fieldDesc}, "\""+fieldDesc+"\" is required");	
+		} else {
+			enforceLength(bean, fieldName, fieldDesc, errors, true);
 		}
-		enforceLength(bean, fieldName, fieldDesc, errors, true);
 	}
 	
 	public static void rejectIfNegative(Object bean, String fieldName, String fieldCode, Errors errors) {
