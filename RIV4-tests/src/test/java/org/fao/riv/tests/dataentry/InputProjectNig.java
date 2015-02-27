@@ -40,6 +40,39 @@ public class InputProjectNig extends WebTestUtil {
 	    }
 	 
 	 @Test
+		public void createProjectFromPropertiesWithCommaForDecimalsNIG() throws Exception {
+			// change decimal separator in settings
+			String settingsTitle = getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config");
+	    	clickLink("gotoSettings");
+			assertTitleEquals(settingsTitle);
+			setTextField("decimalSeparator", ",");
+			setTextField("thousandSeparator", ".");
+			rivSubmitForm();
+			assertTitleEquals(settingsTitle);
+			assertElementNotPresent("errorbox");
+			assertTextFieldEquals("decimalSeparator", ",");
+			assertTextFieldEquals("thousandSeparator", ".");
+			
+			// import project
+			importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
+			clickLinkWithImage("edit.png");
+			assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
+			
+			// download properties file
+			assertLinkPresent("properties");
+			clickLink("properties");
+			
+			String filename="project.properties";
+			File f = folder.newFile(filename); 
+			saveAs(f);
+			
+			// import from properties file
+			createProject("dataentry/"+folder.getRoot().getName()+"/project", 1);
+			assertLinkPresentWithImage("edit.png", 1);
+			clickLinkWithImage("edit.png", 1);
+		}
+	 
+	 @Test
 	public void exportProperties() throws Exception {
 		// import project
 		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
