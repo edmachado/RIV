@@ -167,7 +167,6 @@
 			<parsable targetfile="$INSTALL_PATH/GuideRuralInvest.url" />
 			<file src="icons/riv.ico" targetdir="$INSTALL_PATH/icons" override="true" />
 			
-			<file src="resources/openPort.bat" targetdir="$TEMP_DIRECTORY" override="true" />
 			<file src="resources/startService.bat" targetdir="$TEMP_DIRECTORY" override="true" />
 			<!-- removes the Windows service during uninstall  -->
 			<file src="resources/removeService.bat" targetdir="$INSTALL_PATH" override="true" />
@@ -181,6 +180,9 @@
 			<file src="@{izpack.staging}/lib/RIV4-service.jar" targetdir="$INSTALL_PATH/service" override="true" />
 			<!--  tool to create windows service -->
 			<file src="resources/prunsrv.exe" targetdir="$INSTALL_PATH/service" override="true" />
+			<!-- opens port during installation -->
+			<file src="resources/openPort.bat" targetdir="$TEMP_DIRECTORY" override="true" />
+			<parsable targetfile="$TEMP_DIRECTORY/openPort.bat" />
 			<!--  creates the service during installation -->
 			<file src="resources/createService.bat" targetdir="$TEMP_DIRECTORY" override="true" />
 			<parsable targetfile="$TEMP_DIRECTORY/createService.bat" />
