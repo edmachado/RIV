@@ -2,6 +2,8 @@ package org.fao.riv.tests.dataentry;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
+import net.sourceforge.jwebunit.api.IElement;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -45,6 +47,26 @@ public class RoundingProblem extends WebTestUtil {
 		rivSubmitForm();
 		assertElementNotPresent("errorbox");
 		assertTitleEquals(titles[3]);
+	}
+	
+	@Test
+	public void IgProjectWcValues() {
+		deletePros(true, true);
+		String[] titles = projectStepTitles(true);
+		// import complete project
+		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
+		// edit project
+		goToPro(true, true, true);
+		clickLink("step11");
+		assertTitleEquals(titles[10]);
+		
+		setTextField("capitalDonate", "0.0");
+		String amtRequired=getElementById("wcAmountRequired").getAttribute("value");
+		setTextField("capitalOwn",amtRequired);
+
+		rivSubmitForm();
+		assertElementNotPresent("errorbox");
+		assertTitleEquals(titles[11]);
 	}
 	
 }

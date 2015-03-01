@@ -49,4 +49,37 @@ public class ProjectIgValidateEmptyBlock extends WebTestUtil {
 		assertElementPresent("errorbox");
 		
 	}
+	
+	@Test
+	public void testNoPayment() throws Exception {
+		String[] titles = projectStepTitles(true);
+		String blockTitleWith = getMessage("ruralInvest")+" :: "+getMessage("projectBlock.name")+" ("+getMessage("projectBlock.with.with")+")";
+		
+		// import complete project
+		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
+		// edit project
+		goToPro(true, true, true);
+		clickLink("step9");
+		assertTitleEquals(titles[8]);
+		
+		clickLinkWithImage("edit.png", 0);
+		assertTitleEquals(blockTitleWith);
+		
+		// deselect all payments
+		for (int j=0; j<12; j++) {
+			for (int k=0; k<2; k++) {
+				String xpath="//table[@id='blockChron']/tbody/tr/td[@id='0-2-"+j+"-"+k+"']";
+				if (getElementsByXPath(xpath+"[@style='background:#e7ae0f;']").size()>0) {
+					clickElementByXPath(xpath);
+				}
+			}
+		}
+		
+		rivSubmitForm();
+		
+		// expected result: same form, error box present
+		assertElementPresent("errorbox");
+		assertTitleEquals(blockTitleWith);
+		
+	}
 }
