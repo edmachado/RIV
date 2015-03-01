@@ -188,7 +188,7 @@ public class ProjectValidator implements Validator {
 				project.setWcFinancePeriod((int)pfyResults[0]);
 				project.setWcAmountRequired(new BigDecimal(-1*pfyResults[1]));
 				ValidateUtils.rejectIfNegative(project, "wcAmountRequired", "project.amtRequired", errors);
-				ValidateUtils.rejectIfNegative(project, "wcAmountFinanced", "project.amtFinanced", errors);
+				ValidateUtils.rejectIfNegative(project, "wcAmountFinanced", "project.amtFinanced", errors, rivConfig.getSetting().getDecimalLength());
 				ValidateUtils.rejectIfNegative(project, "wcFinancePeriod", "project.period", errors);
 				
 				

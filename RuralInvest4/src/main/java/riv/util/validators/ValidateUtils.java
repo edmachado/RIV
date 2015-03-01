@@ -111,6 +111,9 @@ public class ValidateUtils {
 	}
 	
 	public static void rejectIfNegative(Object bean, String fieldName, String fieldCode, Errors errors) {
+		rejectIfNegative(bean, fieldName, fieldCode, errors, 4);// default scale of 4
+	}
+	public static void rejectIfNegative(Object bean, String fieldName, String fieldCode, Errors errors, int scale) {
 		double propertyValue=0;
 		boolean isMissing = false;
 		try {
@@ -120,7 +123,7 @@ public class ValidateUtils {
 		}
 		if (isMissing)  {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
-		} else if (round(propertyValue, 4) < 0 ) { 
+		} else if (round(propertyValue, scale) < 0 ) { 
 			errors.rejectValue(fieldName, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
 		}
 	}
