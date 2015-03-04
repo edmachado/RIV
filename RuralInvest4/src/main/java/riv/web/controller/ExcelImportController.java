@@ -501,7 +501,7 @@ public class ExcelImportController {
 		List<ProfileItemGeneral> generals = table.readTable(workbook.getSheetAt(0), messageSource);
 		
 		List<ProfileItemGeneralWithout> generalsWithout=null;
-		if (p.getIncomeGen()) {
+		if (p.getWithWithout()) {
 			XlsImportTable<ProfileItemGeneralWithout> tableWo = new XlsImportTable<ProfileItemGeneralWithout>(ProfileItemGeneralWithout.class, generals.size()+6, 4, new ProfileItemValidator())
 					.addColumn(0, "description", false)
 					.addColumn(1, "unitType", false)
