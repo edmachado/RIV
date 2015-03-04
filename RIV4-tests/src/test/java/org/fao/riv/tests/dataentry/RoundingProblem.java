@@ -2,8 +2,6 @@ package org.fao.riv.tests.dataentry;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
-import net.sourceforge.jwebunit.api.IElement;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
