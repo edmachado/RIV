@@ -127,44 +127,46 @@ public class DataRepository {
 	}
 
 	public void replaceProjectContribution(int projectId, List<ProjectItemContribution> items) {
-		String[] classes = new String[] {"ProjectItemContribution"};
-		deleteCollections(classes, "project.projectId", projectId);
+//		String[] classes = new String[] {"ProjectItemContribution"};
+//		deleteCollections(classes, "project.projectId", projectId);
 		
 		Project p = getProject(projectId, 10);
+		p.getContributions().clear();
 		for (ProjectItemContribution i : items) {
 			p.addContribution(i);
 		}
 	}
 	
 	public void replaceProfileProduct(int productId, List<ProfileProductIncome> incs, List<ProfileProductInput> inps, List<ProfileProductLabour> labs) {
-		String[] classes = new String[] {"ProfileProductIncome", "ProfileProductInput", "ProfileProductLabour"};
-		deleteCollections(classes, "profileProduct.productId", productId);
+//		String[] classes = new String[] {"ProfileProductIncome", "ProfileProductInput", "ProfileProductLabour"};
+//		deleteCollections(classes, "profileProduct.productId", productId);
 		
 		ProfileProductBase pp = getProfileProduct(productId, "all");
-		
+		pp.getProfileIncomes().clear();
 		for (ProfileProductIncome item : incs) {
 			pp.addProfileIncome(item);
 		}
-		
+		pp.getProfileInputs().clear();
 		for (ProfileProductInput item : inps) {
 			pp.addProfileInput(item);
 		}
-		
+		pp.getProfileLabours().clear();
 		for (ProfileProductLabour item : labs) {
 			pp.addProfileLabour(item);
 		}
 	}
 	
 	public void replaceProfileGeneral(int profileId, List<ProfileItemGeneral> gens, List<ProfileItemGeneralWithout> gensWo) {
-		deleteCollections(new String[] {"ProfileItemGeneral","ProfileItemGeneralWithout"}, "profile.profileId", profileId);
+//		deleteCollections(new String[] {"ProfileItemGeneral","ProfileItemGeneralWithout"}, "profile.profileId", profileId);
 		
 		Profile p = getProfile(profileId, 5);
-		
+		p.getGlsGeneral().clear();
 		for (ProfileItemGeneral item : gens) {
 			p.addGlsGeneral(item);
 		}
 		
 		if (gensWo != null) {
+			p.getGlsGeneralWithout().clear();
 			for (ProfileItemGeneralWithout item : gensWo) {
 				p.addGlsGeneralWithout(item);
 			}
@@ -172,17 +174,19 @@ public class DataRepository {
 	}
 	
 	public void replaceProjectGeneralNongen(int projectId, List<ProjectItemNongenMaterials> materials, List<ProjectItemNongenLabour> labours, List<ProjectItemNongenMaintenance> maints) {
-		String[] classes = new String[] {"ProjectItemNongenMaterials", "ProjectItemNongenLabour", "ProjectItemNongenMaintenance"};
-		deleteCollections(classes, "project.projectId", projectId);
+//		String[] classes = new String[] {"ProjectItemNongenMaterials", "ProjectItemNongenLabour", "ProjectItemNongenMaintenance"};
+//		deleteCollections(classes, "project.projectId", projectId);
 		
 		Project p = getProject(projectId, 8);
-		
+		p.getNongenMaterials().clear();
 		for (ProjectItemNongenMaterials i : materials) {
 			p.addNongenMaterial(i);
 		}
+		p.getNongenLabours().clear();
 		for (ProjectItemNongenLabour i : labours) {
 			p.addNongenLabour(i);
 		}
+		p.getNongenMaintenance().clear();
 		for (ProjectItemNongenMaintenance i : maints) {
 			p.addNongenMaintenance(i);
 		}
@@ -191,17 +195,19 @@ public class DataRepository {
 	}
 	
 	public void replaceBlock(int blockId, List<BlockIncome> incs, List<BlockInput> inps, List<BlockLabour> labs) {
-		String[] classes = new String[] {"BlockIncome", "BlockInput", "BlockLabour"};
-		deleteCollections(classes, "block.BlockId", blockId);
+//		String[] classes = new String[] {"BlockIncome", "BlockInput", "BlockLabour"};
+//		deleteCollections(classes, "block.BlockId", blockId);
 		
 		BlockBase b = getBlock(blockId, "all");
-		
+		b.getIncomes().clear();
 		for (BlockIncome i : incs) {
 			b.addIncome(i);
 		}
+		b.getInputs().clear();
 		for(BlockInput i : inps) {
 			b.addInput(i);
 		}
+		b.getLabours().clear();
 		for(BlockLabour i : labs) {
 			b.addLabour(i);
 		}
@@ -211,24 +217,25 @@ public class DataRepository {
 	}
 	
 	public void replaceProjectGeneral(int projectId, List<ProjectItemGeneral> gens, List<ProjectItemPersonnel> pers, List<ProjectItemGeneralWithout> gensWo, List<ProjectItemPersonnelWithout> persWo) {
-		String[] classes = new String[] {"ProjectItemGeneral", "ProjectItemPersonnel", "ProjectItemGeneralWithout", "ProjectItemPersonnelWithout"};
-		deleteCollections(classes, "project.projectId", projectId);
+//		String[] classes = new String[] {"ProjectItemGeneral", "ProjectItemPersonnel", "ProjectItemGeneralWithout", "ProjectItemPersonnelWithout"};
+//		deleteCollections(classes, "project.projectId", projectId);
 		
 		Project p = getProject(projectId, 8);
-		
+		p.getGenerals().clear();
 		for (ProjectItemGeneral i : gens) {
 			p.addGeneral(i);
 		}
-		
+		p.getPersonnels().clear();
 		for (ProjectItemPersonnel i : pers) {
 			p.addPersonnel(i);
 		}
 		
 		if (p.isWithWithout()) {
+			p.getGeneralWithouts().clear();
 			for (ProjectItemGeneralWithout i : gensWo) {
 				p.addGeneralWithout(i);
 			}
-			
+			p.getPersonnelWithouts().clear();
 			for (ProjectItemPersonnelWithout i : persWo) {
 				p.addPersonnelWithout(i);
 			}
@@ -237,43 +244,46 @@ public class DataRepository {
 		storeProject(p, p.getWizardStep()==null);
 	}
 	
-	private void deleteCollections(String[] classes, String idProperty, int id) {
-		Query q; String sql;
-		for (String s : classes) {
-			sql = String.format("delete from %s i where i.%s=:id", s, idProperty);
-			q = currentSession().createQuery(sql);
-			q.setInteger("id", id);
-			q.executeUpdate();
-		}
-	}
+//	private void deleteCollections(String[] classes, String idProperty, int id) {
+//		Query q; String sql;
+//		for (String s : classes) {
+//			sql = String.format("delete from %s i where i.%s=:id", s, idProperty);
+//			q = currentSession().createQuery(sql);
+//			q.setInteger("id", id);
+//			q.executeUpdate();
+//		}
+//	}
 	
 	public void replaceProjectInvest(int projectId, List<ProjectItemAsset> assets, List<ProjectItemLabour> labours, List<ProjectItemService> services, List<ProjectItemAssetWithout> assetsWo, List<ProjectItemLabourWithout> laboursWo, List<ProjectItemServiceWithout> servicesWo) {
-		String[] classes = new String[] {"ProjectItemAsset", "ProjectItemLabour", "ProjectItemService", "ProjectItemAssetWithout", "ProjectItemLabourWithout", "ProjectItemServiceWithout"};
-		deleteCollections(classes, "project.projectId", projectId);
+//		String[] classes = new String[] {"ProjectItemAsset", "ProjectItemLabour", "ProjectItemService", "ProjectItemAssetWithout", "ProjectItemLabourWithout", "ProjectItemServiceWithout"};
+//		deleteCollections(classes, "project.projectId", projectId);
 		
-		Project p = getProject(projectId, 7);
-		
+		Project p = getProject(projectId, 7, true);
+		p.getAssets().clear();
 		for (ProjectItemAsset i : assets) {
 			p.addAsset(i);
 		}
 		
+		p.getLabours().clear();
 		for (ProjectItemLabour i : labours) {
 			p.addLabour(i);
 		}
 		
+		p.getServices().clear();
 		for (ProjectItemService i : services) {
 			p.addService(i);
 		}
 		
 		if (p.isWithWithout()) {
+			p.getAssetsWithout().clear();
 			for (ProjectItemAssetWithout i : assetsWo) {
 				p.addAssetWithout(i);
 			}
-			
+			p.getLaboursWithout().clear();
 			for (ProjectItemLabourWithout i : laboursWo) {
 				p.addLabourWithout(i);
 			}
-			
+			p.getServicesWithout().clear();
 			for (ProjectItemServiceWithout i : servicesWo) {
 				p.addServiceWithout(i);
 			}
@@ -283,22 +293,24 @@ public class DataRepository {
 	}
 	
 	public void replaceProfileInvest(int profileId, List<ProfileItemGood> goods, List<ProfileItemLabour> labours, List<ProfileItemGoodWithout> goodsWo, List<ProfileItemLabourWithout> laboursWo) {
-		deleteCollections(new String[] {"ProfileItemGood","ProfileItemLabour","ProfileItemGoodWithout","ProfileItemLabourWithout"}, "profile.profileId", profileId);
+//		deleteCollections(new String[] {"ProfileItemGood","ProfileItemLabour","ProfileItemGoodWithout","ProfileItemLabourWithout"}, "profile.profileId", profileId);
 		
 		Profile p = getProfile(profileId, 4);
+		p.getGlsGoods().clear();
 		for (ProfileItemGood good : goods) {
 			p.addGlsGood(good);
 		}
-		
+		p.getGlsLabours().clear();
 		for (ProfileItemLabour labour : labours) {
 			p.addGlsLabour(labour);
 		}
 		
 		if (p.getWithWithout()) {
+			p.getGlsGoodsWithout().clear();
 			for (ProfileItemGoodWithout good : goodsWo) {
 				p.addGlsGoodWithout(good);
 			}
-			
+			p.getGlsLaboursWithout().clear();
 			for (ProfileItemLabourWithout labour : laboursWo) {
 				p.addGlsLabourWithout(labour);
 			}
@@ -799,7 +811,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getAppConfig1());
 			Hibernate.initialize(p.getAppConfig2());
 		}
-		if (step==-1 || step==2  || step==7 
+		if (step==-1 || step==1 || step==2  || step==7 
 				|| (!p.getIncomeGen() && (step==8 || step==10 || step==12 || step==13))
 			) {
 			Hibernate.initialize(p.getDonors());

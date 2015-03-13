@@ -1,5 +1,7 @@
 package riv.util.validators;
 
+import java.util.Set;
+
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -9,6 +11,8 @@ import riv.objects.project.*;
 public class ProjectItemValidator implements Validator {
 	private Boolean incomeGen;
 	private Integer duration;
+	private Set<Donor> donors;
+	private boolean fromExcel;
 	
 	@SuppressWarnings("rawtypes")
 	public boolean supports(Class clazz) {
@@ -19,6 +23,12 @@ public class ProjectItemValidator implements Validator {
 	}
 	public void setDuration(int duration) {
 		this.duration=duration;
+	}
+	public void setDonors(Set<Donor> donors) {
+		this.donors=donors;
+	}
+	public void setFromExcel(boolean fromExcel) {
+		this.fromExcel = fromExcel;
 	}
 	public void validate(Object obj, Errors errors) {
 		ProjectItem i = (ProjectItem)obj;
@@ -48,8 +58,13 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", type+nongen+".ownResources", errors);
 			
 			HasDonations hd = (HasDonations)i;
-			for (Donor d : i.getProject().getDonors()) {
-						ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getOrderBy(), d.getDescription(), errors);
+			if (donors==null) { donors=i.getProject().getDonors(); }
+			if (fromExcel) {
+				ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", 0,  type+nongen+".donated", errors);
+			} else {
+				for (Donor d : donors) {
+					ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getOrderBy(), d.getDescription(), errors);
+				}
 			}
 			
 			ValidateUtils.rejectIfZeroOrNegative(i, "yearBegin", type+".yearBegin", errors);

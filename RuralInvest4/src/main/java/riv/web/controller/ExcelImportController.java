@@ -111,7 +111,6 @@ public class ExcelImportController {
 		BlockBase b = dataService.getBlock(id);
 		BlockItemValidator validator = new BlockItemValidator();
 		validator.setIncomeGen(b.getProject().getIncomeGen());
-		
 		XlsImportTable<BlockIncome> tableInc = new XlsImportTable<BlockIncome>(BlockIncome.class, rowNum, 7, validator);
 		if (b.getProject().getIncomeGen()) {
 			tableInc.addColumn(0, "description", false)
@@ -318,14 +317,15 @@ public class ExcelImportController {
 		Project p = dataService.getProject(id, 1);
 		validator.setIncomeGen(p.getIncomeGen());
 		validator.setDuration(p.getDuration());
-		
+		validator.setDonors(p.getDonors());
+		validator.setFromExcel(true);
 		// assets
 		XlsImportTable<ProjectItemAsset> tableAssets = new XlsImportTable<ProjectItemAsset>(ProjectItemAsset.class, rowNum, 4, validator)
 				.addColumn(0, "description", false)
 				.addColumn(1, "unitType", false)
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "unitCost", true)
-				.addColumn(5,  "donated", true)
+				.addColumn(5,  "donations(0)", true)
 				.addColumn(6, "ownResources", true)
 				.addColumn(8, "econLife", true)
 				.addColumn(9, "maintCost", true)
@@ -341,7 +341,7 @@ public class ExcelImportController {
 				.addSelectColumn(1, "unitType", labourTypes())
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "unitCost", true)
-				.addColumn(5,  "donated", true)
+				.addColumn(5,  "donations(0)", true)
 				.addColumn(6, "ownResources", true)
 				.addColumn(12, "yearBegin", true);
 		List<ProjectItemLabour> laboursWith = tableLabour.readTable(sheetWith, messageSource);
@@ -353,7 +353,7 @@ public class ExcelImportController {
 				.addColumn(1, "unitType", false)
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "unitCost", true)
-				.addColumn(5,  "donated", true)
+				.addColumn(5,  "donations(0)", true)
 				.addColumn(6, "ownResources", true)
 				.addColumn(12, "yearBegin", true);
 		List<ProjectItemService> servicesWith = tableService.readTable(sheetWith, messageSource);
@@ -375,7 +375,7 @@ public class ExcelImportController {
 					.addColumn(1, "unitType", false)
 					.addColumn(2, "unitNum", true)
 					.addColumn(3, "unitCost", true)
-					.addColumn(5,  "donated", true)
+					.addColumn(5,  "donations(0)", true)
 					.addColumn(6, "ownResources", true)
 					.addColumn(8, "econLife", true)
 					.addColumn(9, "maintCost", true)
@@ -391,7 +391,7 @@ public class ExcelImportController {
 					.addSelectColumn(1, "unitType", labourTypes())
 					.addColumn(2, "unitNum", true)
 					.addColumn(3, "unitCost", true)
-					.addColumn(5,  "donated", true)
+					.addColumn(5,  "donations(0)", true)
 					.addColumn(6, "ownResources", true)
 					.addColumn(12, "yearBegin", true);
 			laboursWithout = tableLabourWo.readTable(sheetWithout, messageSource);
@@ -403,7 +403,7 @@ public class ExcelImportController {
 					.addColumn(1, "unitType", false)
 					.addColumn(2, "unitNum", true)
 					.addColumn(3, "unitCost", true)
-					.addColumn(5,  "donated", true)
+					.addColumn(5,  "donations(0)", true)
 					.addColumn(6, "ownResources", true)
 					.addColumn(12, "yearBegin", true);
 			servicesWithout = tableServiceWo.readTable(sheetWithout, messageSource);

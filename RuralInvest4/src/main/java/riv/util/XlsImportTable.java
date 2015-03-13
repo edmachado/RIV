@@ -122,7 +122,11 @@ public class XlsImportTable<E extends OrderByable> {
 					}
 					setObjectProperty(item, column.property, value);
 				} else if (column.isNumeric) {
-					setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getNumericCellValue());
+					if (column.property.equals("donations(0)")) {
+						((riv.objects.HasDonations)item).getDonations().put(0, sheet.getRow(rowNum).getCell(column.column).getNumericCellValue());
+					} else {
+						setObjectProperty(item, column.property, sheet.getRow(rowNum).getCell(column.column).getNumericCellValue());
+					}
 				} else { // string cell
 					Cell c = sheet.getRow(rowNum).getCell(column.column);
 					if (c.getCellType()==Cell.CELL_TYPE_NUMERIC) { // just in case
