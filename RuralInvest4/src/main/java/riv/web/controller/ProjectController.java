@@ -43,6 +43,7 @@ import riv.objects.config.ProjectCategory;
 import riv.objects.config.Setting;
 import riv.objects.config.Status;
 import riv.objects.config.User;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectFinanceData;
 import riv.objects.project.ProjectFinanceData.AnalysisType;
@@ -187,6 +188,13 @@ public class ProjectController {
 			if (rivConfig.getSetting().getAdmin2Enabled()) {
 				p.setAppConfig2(rivConfig.getAppConfig2s().get(-9));
 			}
+			p.setDonors(new java.util.HashSet<Donor>());
+			Donor d = new Donor();
+			d.setDescription("unspecified");
+			d.setContribType(4);
+			d.setNotSpecified(true);
+			d.setOrderBy(0);
+			p.addDonor(d);
 		} else { 
 			p= dataService.getProject(id, step);
 		}
@@ -345,21 +353,6 @@ public class ProjectController {
 		filter.setUnfinished(!isComplete);
 		return "redirect:../../../search/results";
 
-	}
-	
-	public class Donor {
-		private String name;
-		private int type;
-		public Donor(String name, int type) {
-			this.name=name;
-			this.type=type;
-		}
-		public String getName() {
-			return name;
-		}
-		public int getType() {
-			return type;
-		}
 	}
 	
 	private void setupPageAttributes(Project p, Model model, Integer step, HttpServletRequest request) {

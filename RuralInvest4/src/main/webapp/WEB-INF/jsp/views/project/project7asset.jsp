@@ -76,16 +76,33 @@ $(function() { CalculateDonated(); CalculateTotal(); });
 				<tags:dataentry field="ownResources" labelKey="projectInvestAsset.ownResources" helpText="projectInvestAsset.ownResources.help" currency="true" onmouseout="CalculateFinance()"/>
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="financed" labelKey="projectInvestAsset.financed" helpText="projectInvestAsset.financed.help" currency="true" calculated="true" />
+				<tags:dataentry field="econLife" labelKey="projectInvestAsset.econLife" helpText="projectInvestAsset.econLife.help" />
+				<tags:dataentry field="maintCost" labelKey="projectInvestAsset.maintCost" helpText="projectInvestAsset.maintCost.help" currency="true" />
+				<tags:dataentry field="salvage" labelKey="projectInvestAsset.salvage" helpText="projectInvestAsset.salvage.help" currency="true"/>
+				<tags:dataentryCheckbox field="replace" labelKey="projectInvestAsset.replace" helpText="projectInvestAsset.replace.help" helpTitle="projectInvestAsset.replace" />
 				<tags:dataentry field="yearBegin" labelKey="projectInvestAsset.yearBegin" helpText="projectInvestAsset.yearBegin.help" />
 			</fieldset>
 		</div>
 		<div style="display:inline-block;">
-			<tags:refItemChooser type="0" linked="${projectItem.linkedTo}" notLinked="'unitNum,donated,ownResources'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="CalculateTotal();" />
+			<tags:refItemChooser type="0" linked="${projectItem.linkedTo}" notLinked="'unitNum,donated,ownResources,financed,econLife,mainCost,salvage'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="CalculateTotal();" />
 		</div>
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 	
 <tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateFinance" />
 <tags:jscriptCalc fieldA="total" fieldB="donated" fieldC="financed" fieldD="ownResources" functionName="CalculateFinance" calc="-" calc2="-" />
+<script language="JavaScript">
+	function CalculateReserve() {
+		with (Math) {
+			var number = document.form.unitNum.value.split(',').join('');		
+			var unit = document.form.unitCost.value.split(',').join('');
+			var life = document.form.econLife.value.split(',').join('');
+			var salvage = document.form.salvage.value.split(',').join('');
+			var total = unit * number;
+			var reserve = (total - salvage*number) / life;
+		}
+		if (reserve == 'NaN') reserve=''; else reserve=round(reserve,2); document.form.reserve.value=reserve;
+	}
+</script>
 
 </body></html>

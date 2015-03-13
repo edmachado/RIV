@@ -11,10 +11,13 @@
 </c:if>
 <c:if test="${fn:length(project.donors) gt 1}">
 	<tags:dataentry field="donated" button="manage" calculated="true" labelKey="${labelKey}" helpText="${helpText}" currency="true" onmouseout="${onmouseout}"/>
-	<div id="donations" style="display:block; border:1px solid #aaa; margin-left:5px">
+	<div id="donations" style="display:none; border:1px solid #aaa; margin-left:5px">
 		<c:forEach var="donor" items="${donors}">
-			<c:if test="${donor.notSpecified}"><c:set var="desc"><spring:message code="project.donor.notSpecified"/></c:set></c:if>
-			<c:if test="${not donor.notSpecified}"><c:set var="desc" value="${donor.description}" /></c:if>
+			<c:set var="desc"><c:choose>
+				<c:when test="${donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
+				<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+				<c:otherwise>${donor.description}</c:otherwise>
+			</c:choose></c:set>
 			<tags:dataentry field="donations[${donor.orderBy}]" label="${desc}" currency="true" />
 		</c:forEach>
 	</div>

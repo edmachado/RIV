@@ -40,6 +40,13 @@ public class ProjectItemLabour extends ProjectItem implements ProjectInvestment 
 	@Formula(value="(SELECT ISNULL(SUM(d.amount),0) FROM project_item_donation d WHERE d.item_id=proj_item_id)")
 	private Double donated;
 	public Double getDonated() {
+		try {
+			donations.size();
+			donated=0.0;
+			for (double val : donations.values()) {
+				donated+=val;
+			}
+		} catch (Exception e) {}
 		return donated;
 	}
 	

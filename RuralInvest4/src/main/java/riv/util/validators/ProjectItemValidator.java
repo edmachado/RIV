@@ -47,26 +47,15 @@ public class ProjectItemValidator implements Validator {
 			}
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", type+nongen+".ownResources", errors);
 			
-			boolean donationError = false;
-			boolean thisResult; Double donations=0.0;
 			HasDonations hd = (HasDonations)i;
-			
 			for (Donor d : i.getProject().getDonors()) {
-				thisResult = ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getOrderBy(), d.getDescription(), errors);
-				if (thisResult) { 
-					donationError=true; 
-				} else {
-					donations+=hd.getDonations().get(d.getOrderBy());
-				}
-			}
-			if (!donationError) {
-				ValidateUtils.rejectIfNegativeFromValue(donations, i, "donated", type+nongen+".donated", errors);
+						ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getOrderBy(), d.getDescription(), errors);
 			}
 			
 			ValidateUtils.rejectIfZeroOrNegative(i, "yearBegin", type+".yearBegin", errors);
 			
-			if (!errors.hasFieldErrors("unitNum") &! errors.hasFieldErrors("unitCost") &!donationError &!errors.hasFieldErrors("ownResources")) {
-				ValidateUtils.rejectIfNegativeFromValue(inv.getTotal()-donations-inv.getOwnResources(), i, "financed", type+".financed", errors);
+			if (!errors.hasFieldErrors("ownResources")) {
+				ValidateUtils.rejectIfNegativeFromValue(inv.getTotal()-inv.getDonated()-inv.getOwnResources(), i, "financed", type+".financed", errors); //donations-
 			}
 		
 			if (obj instanceof ProjectItemAsset || obj instanceof ProjectItemAssetWithout) {
