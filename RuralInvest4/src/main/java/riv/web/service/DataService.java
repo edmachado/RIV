@@ -224,6 +224,10 @@ public class DataService implements UserDetailsService, Serializable {
 	public ProjectResult getProjectResult(int id) {
 		return repo.getProjectResult(id);
 	}
+	
+	public Project getProject(int id, int step, boolean withDonations) {
+		return repo.getProject(id, step, withDonations);
+	}
 	public Project getProject(int id, int step) {
 		return repo.getProject(id, step);
 	}

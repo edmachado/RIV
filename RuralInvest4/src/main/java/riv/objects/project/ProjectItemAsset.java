@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
+import org.hibernate.annotations.Formula;
+
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 import riv.web.config.RivConfig;
@@ -40,13 +42,11 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	private Integer yearBegin;
 	@Column(name="OWN_RESOURCES")
 	protected Double ownResources;
+
 	
-	
+	@Formula(value="(SELECT ISNULL(SUM(d.amount),0) FROM project_item_donation d WHERE d.item_id=proj_item_id)")
+	private Double donated;
 	public Double getDonated() {
-		double donated = 0.0;
-		for (double d : donations.values()) {
-			donated+=d;
-		}
 		return donated;
 	}
 	
@@ -54,9 +54,10 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	@MapKeyColumn(name="donor_id")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
-	Map<Integer,Double> donations = new HashMap<Integer,Double>();
+	private Map<Integer,Double> donations = new HashMap<Integer, Double>();
 	
 	public Map<Integer,Double> getDonations() { return donations; }
+	public void setDonations(Map<Integer,Double> donations) { }// required for XML Encoder, not used elsewhere
 	
 		public Project getProject () {
 			return this.project;
@@ -134,31 +135,6 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	   public void setReplace (boolean Replace) {
 	        this.replace = Replace;
 	    }
-	   
-
-//	public Map<Integer,Double> getDonations() {
-//		return donations;
-//	}
-//	public Map<String, ProjectItemDonation> getDonations2() {
-//		HashMap<String, ProjectItemDonation> foo = new HashMap<String, ProjectItemDonation>();
-//		for (Integer i : donations.keySet()) {
-//			foo.put(i.toString(), donations.get(i));
-//		}
-//		return foo;
-//	}
-	
-//	public void addDonation(Donor donor, double amount) {
-//		ProjectItemDonation d = new ProjectItemDonation();
-//		d.setDonor(donor);
-//		d.setAmount(amount);
-//		donations.put(donor.getId(), d);
-//		donated=null;
-//	}
-
-//	   @Override
-//	public void setDonations(Set<ProjectItemDonation> donations) {
-//		this.donations = donations;
-//	}
 
 	public String testingProperties(RivConfig rivConfig) {
 			String lineSeparator = System.getProperty("line.separator");
@@ -184,9 +160,7 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	   public ProjectItemAsset copy() {
 		   ProjectItemAsset item = new ProjectItemAsset();
 		   item.setDescription(description);
-//		   item.setDonated(donated);
 		   item.setEconLife(econLife);
-		   //item.setExportLinkedTo(exportLinkedTo);
 		   item.setLinkedTo(getLinkedTo());
 		   item.setMaintCost(maintCost);
 		   item.setOwnResources(ownResources);
@@ -197,6 +171,10 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 		   item.setUnitNum(unitNum);
 		   item.setUnitType(unitType);
 		   item.setYearBegin(yearBegin);
+		   
+		   for (Integer donorId : donations.keySet()) {
+			  item.getDonations().put(donorId, donations.get(donorId));
+		   }
 		   
 		   item.setOrderBy(this.getOrderBy());
 		   return item;

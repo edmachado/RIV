@@ -13,7 +13,8 @@
 <%@ attribute name="onmouseout" %>
 <%@ attribute name="currency" %>
 <%@ attribute name="calculated" %>
-<%--<%@ attribute name="value" %> --%>
+
+<%@ attribute name="button" %>
 
 <c:if test="${empty inputClass}"><c:set var="inputClass" value="num"/></c:if>
 <c:if test="${empty size}">
@@ -48,7 +49,9 @@
 	
 	<c:choose>
 		<c:when test="${not empty calcSignKey}"><span><spring:message code="${calcSignKey}"/></span></c:when>
-		<c:otherwise><span>${calcSign}</span></c:otherwise>
+		<c:when test="${not empty calcSign}"><span>${calcSign}</span></c:when>
+		<c:when test="${not empty button}"><span><a id="donation-button" href="#"><span class="ui-icon ui-icon-circle-triangle-e" style="display:inline-block"></span></a></span></c:when>
+		<c:otherwise></c:otherwise>
 	</c:choose>
 	<form:errors path="${field}" cssClass="error" element="div" />
 </div>

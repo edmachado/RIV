@@ -780,6 +780,9 @@ public class DataRepository {
 	}
 
 	public Project getProject(int id, int step) {
+		return getProject(id, step, false);
+	}
+	public Project getProject(int id, int step, boolean withDonations) {
 		Criteria criteria = currentSession()
 				.createCriteria(Project.class)
 				.add(Restrictions.eq("projectId", id));
@@ -803,9 +806,6 @@ public class DataRepository {
 		if (step==-1 || step==7 || step==12 || step==13
 				|| (!p.getIncomeGen()&&step==10) || (p.getIncomeGen()&&step==11)
 				) {
-//			for (ProjectItemAsset i : p.getAssets()) {
-//				Hibernate.initialize(i.getDonations());
-//			}
 			Hibernate.initialize(p.getAssets());
 			Hibernate.initialize(p.getLabours());
 			Hibernate.initialize(p.getServices());
@@ -857,6 +857,12 @@ public class DataRepository {
 		
 		if (!p.getIncomeGen() && (step==-1 || step==1 || step==10 || step==12 || step==13)) {
 			Hibernate.initialize(p.getContributions());
+		}
+		
+		if (withDonations) {
+			for (HasDonations i : p.getAssets()) {
+				Hibernate.initialize(i.getDonations());
+			}
 		}
 		
 		return p;

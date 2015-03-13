@@ -17,6 +17,7 @@ projectNongenGeneral.donated.help=If any part of the cost for this item is expec
 
 #changed from previous versions
 project.step2=Beneficiaries & Donors
+error.pleaseCorrect=Please correct the fields in red.
 
 # RIV 4.1.6
 error.moreDetails=More details...
@@ -334,7 +335,6 @@ error.noProjectActivity=The project must contain at least one activity.
 error.noProjectBlock=The project must contain at least one block.
 error.notFound.info=The page requested cannot be found.  Please check the link and contact the FAO RuralInvest team.
 error.notFound=Page not found.
-error.pleaseCorrect=Please correct the fields below.
 error.positiveNumber="{0}" must be greater than 0.
 error.productNoTable=Product "{0}": Table "{1}" cannot be empty.
 error.tableEmpty="{0}": This table cannot be empty.
@@ -991,7 +991,6 @@ project.step2.2=Direct beneficiaries
 project.step2.3.help=Indirect beneficiaries are those who can be expected to benefit from a project but not directly. These may include all those living in the immediate vicinity of the activity, or those within reach of the service even if they are not expected to be immediate users. For an environmental project the definition of indirect beneficiaries can be difficult (see manual)
 project.step2.3=Indirect beneficiaries
 project.step2.4=Description of beneficiaries
-project.step2=Beneficiaries
 project.step3=Description
 project.step4.nongen=Technology and training
 project.step4=Technology and training

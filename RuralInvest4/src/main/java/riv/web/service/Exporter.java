@@ -93,7 +93,8 @@ public class Exporter {
 	}
 	
 	public void exportProject(int id, boolean isGeneric, OutputStream out) {
-		Project p = dataService.getProject(id,  -1).copy(true, dataService.getLatestVersion().getVersion());
+		Project pOld = dataService.getProject(id,  -1, true);
+		Project p = pOld.copy(true, dataService.getLatestVersion().getVersion());
 		p.setTechnician(null);
 		// for generic exports: convert currency and set generic configs
 		if (isGeneric) {

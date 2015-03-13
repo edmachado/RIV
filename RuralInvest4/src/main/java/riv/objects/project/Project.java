@@ -2004,6 +2004,12 @@ public double getInvestmentTotal() {
 		newProj.setRefLabours(new HashSet<ReferenceLabour>());
 		newProj.setBlocks(new HashSet<Block>());
 		newProj.setBlocksWithout(new HashSet<BlockWithout>());
+		newProj.setDonors(new HashSet<Donor>());
+		
+		// donors
+		for (Donor d : donors) {
+			newProj.donors.add(d.copy());
+		}
 		
 		// copy reference table
 		for (ReferenceCost item : refCosts) {

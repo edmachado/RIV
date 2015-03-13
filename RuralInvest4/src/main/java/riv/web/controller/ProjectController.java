@@ -80,7 +80,7 @@ public class ProjectController {
 	@RequestMapping(value="/step{step}/{id}/project.properties", method=RequestMethod.GET)
 	public void projectRivExport(@PathVariable int step, @PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String lineSeparator = System.getProperty("line.separator");
-		Project p = dataService.getProject(id, -1);
+		Project p = dataService.getProject(id, -1, true);
 		response.setHeader("Content-disposition", "attachment; filename=project.properties");
 		Setting setting = ((RivConfig)request.getAttribute("rivConfig")).getSetting();
 		CurrencyFormatter cf = setting.getCurrencyFormatter();

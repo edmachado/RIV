@@ -2,6 +2,7 @@ package riv.objects.project;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Donor implements java.io.Serializable {
 	@Column(name="NOT_SPECIFIED")
 	private Boolean notSpecified=false;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="PROJECT_ID", nullable=false)
 	private Project project;
 	
@@ -60,5 +61,15 @@ public class Donor implements java.io.Serializable {
 	}
 	public void setProject(Project project) {
 		this.project = project;
+	}
+	
+	public Donor copy() {
+		Donor d = new Donor();
+		d.setContribType(contribType);
+		d.setDescription(description);
+		d.setDonorId(donorId);
+		d.setNotSpecified(notSpecified);
+		d.setProject(project);
+		return d;
 	}
 }
