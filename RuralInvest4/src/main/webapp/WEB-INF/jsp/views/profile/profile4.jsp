@@ -28,6 +28,7 @@ $(function() {
 			<li><a href="#tabs-without"><spring:message code="projectBlock.with.without"/></a></li>
 		</ul></c:if>
 		<div id="tabs-with">
+			<span class="error"><form:errors path="glsGoods" /></span>
 			<tags:table titleKey="profileGoods">
 				<display:table htmlId="goodsListTable" list="${profile.glsGoods}" id="row" requestURI="" cellspacing="0" cellpadding="0"
 					 export="false">
@@ -113,6 +114,8 @@ $(function() {
 				</div>
 			</c:if>
 		</tags:table>
+		
+		<span class="error"><form:errors path="glsLabours"  /></span>
 		<tags:table titleKey="profileLabour">
 			<display:table htmlId="labourListTable" list="${profile.glsLabours}" id="lab" requestURI="" cellspacing="0" cellpadding="0"
 				 export="false">

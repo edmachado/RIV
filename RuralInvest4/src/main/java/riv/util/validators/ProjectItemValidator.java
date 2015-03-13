@@ -118,11 +118,6 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmpty(i, "unitType", itemType+".unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", itemType+".unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", itemType+".unitCost", errors);
-//			ValidateUtils.rejectIfEmptyOrNegative(i, "donated", itemType+".donated", errors);
-//			HasDonations hd = (HasDonations)i;
-//			for (Donor d : i.getProject().getDonors()) {
-//				ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getOrderBy(), d.getDescription(), errors);
-//			}
 			
 			HasDonations hd = (HasDonations)i;
 			if (donors==null) { donors=i.getProject().getDonors(); }

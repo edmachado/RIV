@@ -44,7 +44,9 @@ public class ProfileProductValidator implements Validator {
 					break;
 			}
 
-			if (cycleLength>1.0) errors.reject("error.block.cyclesPerYear");
+			if (cycleLength>1.0) {
+				errors.rejectValue("cyclePerYear", "error.block.cyclesPerYear");
+			}
 		}
 	}
 }

@@ -153,7 +153,7 @@ public class BlockController {
     	for (int i=1; i<=pb.getProject().getDuration(); i++) {
 			if (request.getParameter("pat"+i).equals("")) {
 				// error if no data entered
-				result.reject("error.noProdPattern", new Object[] {i}, "Production pattern missing for year "+i);
+				result.rejectValue("patternsError","error.noProdPattern", new Object[] {i}, "error.noProdPattern");
 				
 			} else {
 				// error if not number
@@ -169,7 +169,8 @@ public class BlockController {
 						pb.addPattern(pattern);
 					}
 				} catch (Exception e) {	
-					result.reject("error.noProdPattern", new Object[] {i}, "Production pattern missing for year "+i);
+					result.rejectValue("patternsError","error.noProdPattern");
+	
 				}
 			}
 		}
@@ -202,7 +203,7 @@ public class BlockController {
 					}
 				}
 			}
-			if (productionNeeded || paymentNeeded) { result.reject("error.noChronology"); }
+			if (productionNeeded || paymentNeeded) { result.rejectValue("chronError","error.noChronology"); }
 		}
     }
 }

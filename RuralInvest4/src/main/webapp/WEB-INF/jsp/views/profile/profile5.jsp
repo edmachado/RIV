@@ -11,6 +11,7 @@
 	<tags:tableContainer titleKey="profileGeneral">
 	
 	<c:if test="${profile.withWithout}"><c:set var="tableTitle">project.with</c:set></c:if>
+	<span class="error"><form:errors path="glsGeneral" /></span>
 	<tags:table titleKey="${tableTitle}">
 		<display:table htmlId="generalTable" list="${profile.glsGeneral}" requestURI="" cellspacing="0" cellpadding="0"
 			export="false" id="general">

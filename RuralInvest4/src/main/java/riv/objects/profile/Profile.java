@@ -155,7 +155,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="profile", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='0'")
-	private Set<ProfileProduct> products;
+	private Set<ProfileProduct> products = new HashSet<ProfileProduct>();
 	@OneToMany(mappedBy="profile", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='1'")

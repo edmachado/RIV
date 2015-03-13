@@ -508,6 +508,7 @@ span.errorMsg {
 	margin-right:20px;
 }
 div.error {color:red;margin:0 20px 0 0;}
+span.error { color:red; }
 
 #searchForm .hidden {display:none;}
 div.filter-head {text-align:left;font-weight:bold;border-left:10px solid #EBAF01;padding-left:5px;}

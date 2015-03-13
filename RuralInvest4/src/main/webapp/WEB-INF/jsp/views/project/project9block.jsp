@@ -72,11 +72,13 @@ $(function() {
 			<fieldset>
 				<legend><tags:help title="projectBlock.chronology" text="projectBlock.chronology.help"><spring:message code="projectBlock.chronology"/></tags:help></legend>
 				<b><spring:message code="projectBlock.instructions"/></b><br/>
+				<div class="error"><form:errors path="chronError"/></div>
 				<tags:chronology block="${block}" edit="true"/>
 			</fieldset>
 		</c:if>
 		<fieldset>
 			<legend><tags:help title="${blockType}.pattern" text="${prodDescriptionHelp}"><spring:message code="${blockType}.pattern"/></tags:help></legend>
+			<div class="error"><form:errors path="patternsError"/></div>
 			<tags:prodPattern block="${product.block}" edit="true"/>
 		</fieldset>
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>

@@ -24,6 +24,7 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
 
@@ -83,6 +84,11 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	@OneToMany(mappedBy="block", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@MapKey(name="yearNum")
 	private Map<Integer, BlockPattern> patterns;
+	
+	@Transient 
+	private String patternsError;
+	@Transient
+	private String chronError;
 	
 	// default constructor. Initializes collections 
     public BlockBase() {
@@ -433,6 +439,22 @@ public Integer getLengthUnit() {
 	}
 	public Map<Integer, BlockPattern> getPatterns() {
 		return this.patterns;
+	}
+
+	public String getPatternsError() {
+		return patternsError;
+	}
+
+	public void setPatternsError(String patternsError) {
+		this.patternsError = patternsError;
+	}
+
+	public String getChronError() {
+		return chronError;
+	}
+
+	public void setChronError(String chronError) {
+		this.chronError = chronError;
 	}
 
 	public void setInputs(Set<BlockInput> profileInputs) {

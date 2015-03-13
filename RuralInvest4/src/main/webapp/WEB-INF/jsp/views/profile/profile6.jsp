@@ -32,6 +32,7 @@ $(function() {
 			<li><a href="#tabs-without"><spring:message code="profileProduct.with.without"/></a></li>
 		</ul></c:if>
 		<div id="tabs-with">
+			<span class="error"><form:errors field="products"/></span>
 		 	<c:if test="${accessOK}">
 				<div align="left"><a id="addProduct" href="../product/-1?profileId=${profile.profileId}"><img src="../../img/product.gif" border="0"/>&nbsp;<c:if test="${profile.incomeGen}"><spring:message code="${prodType}.addNew"/></c:if><c:if test="${!profile.incomeGen}"><spring:message code="profileActivity.addNew"/></c:if>&nbsp;&nbsp;</a></div>
 			</c:if>
