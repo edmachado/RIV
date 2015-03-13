@@ -17,11 +17,8 @@
 				<display:column titleKey="projectNongenGeneral.total" sortable="true" sortProperty="total">
 					<tags:formatCurrency value="${gen.total}"/>
 				</display:column>
-				<display:column titleKey="projectNongenGeneral.statePublic" sortable="true" sortProperty="statePublic">
-					<tags:formatCurrency value="${gen.statePublic}"/>
-				</display:column>
-				<display:column titleKey="projectNongenGeneral.other1" sortable="true" sortProperty="other1">
-					<tags:formatCurrency value="${gen.other1}"/>
+				<display:column titleKey="projectNongenGeneral.donated" sortable="true" sortProperty="donated">
+					<tags:formatCurrency value="${gen.donated}"/>
 				</display:column>
 				<display:column titleKey="projectNongenGeneral.ownResource" sortable="true" sortProperty="ownResource">
 					<tags:formatCurrency value="${gen.ownResource}"/>
@@ -41,8 +38,7 @@
 				<tags:dataentry field="unitCost" labelKey="projectNongenGeneral.unitCost" helpText="projectNongenGeneral.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
 				<tags:datadivider color="green"/>
 				<tags:dataentry field="total" labelKey="projectNongenGeneral.total" helpText="projectNongenGeneral.total.help" currency="true" calculated="true" />
-				<tags:dataentry field="statePublic" labelKey="projectNongenGeneral.statePublic" helpText="projectNongenGeneral.statePublic.help" currency="true"  onmouseout="CalculateOwn()"/>
-				<tags:dataentry field="other1" labelKey="projectNongenGeneral.other1" helpText="projectNongenGeneral.other1.help" currency="true"  onmouseout="CalculateOwn()"/>
+				<tags:donations donors="${projectItem.project.donors}" labelKey="projectNongenGeneral.donated" helpText="projectNongenGeneral.donated.help" onmouseout="CalculateFinance()" />
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="ownResource" labelKey="projectNongenGeneral.ownResource" helpText="projectNongenGeneral.ownResource.help" calculated="true" currency="true" />
 			</fieldset>

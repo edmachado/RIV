@@ -72,8 +72,8 @@ public class ProjectItemController {
         binder.registerCustomEditor(Double.class, "donated", customNumberEditor);
         binder.registerCustomEditor(Double.class, "financed", customNumberEditor);
         binder.registerCustomEditor(Double.class, "external", customNumberEditor);
-        binder.registerCustomEditor(Double.class, "publicState", customNumberEditor);
-        binder.registerCustomEditor(Double.class, "other1", customNumberEditor);
+//        binder.registerCustomEditor(Double.class, "publicState", customNumberEditor);
+//        binder.registerCustomEditor(Double.class, "other1", customNumberEditor);
         binder.registerCustomEditor(Double.class, "amount", customNumberEditor);
         binder.registerCustomEditor(Double.class, "donations", customNumberEditor);
         

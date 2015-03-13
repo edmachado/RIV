@@ -25,7 +25,7 @@
 				<display:column titleKey="projectNongenInput.total" sortable="true" sortProperty="total">
 					<tags:formatCurrency value="${row.total}"/><c:set var="inpTotal" value="${inpTotal+row.total}"/>
 				</display:column>
-				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="statePublic">
+				<display:column titleKey="projectNongenInput.donated" sortable="true" sortProperty="statePublic">
 					<tags:formatCurrency value="${row.donated}"/><c:set var="inpState" value="${inpState+row.donated}"/>
 				</display:column>
 <%-- 				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="statePublic"> --%>
@@ -109,7 +109,7 @@
 				<display:column titleKey="projectNongenLabour.total" sortable="true" sortProperty="total">
 					<tags:formatCurrency value="${lab.total}"/><c:set var="labTotal" value="${labTotal+lab.total}"/>
 				</display:column>
-				<display:column titleKey="projectNongenLabour.statePublic" sortable="true" sortProperty="statePublic">
+				<display:column titleKey="projectNongenLabour.donated" sortable="true" sortProperty="statePublic">
 					<tags:formatCurrency value="${lab.donated}"/><c:set var="labState" value="${labState+lab.donated}"/>
 				</display:column>
 <%-- 				<display:column titleKey="projectNongenLabour.statePublic" sortable="true" sortProperty="statePublic"> --%>
@@ -188,7 +188,7 @@
 				<display:column titleKey="projectNongenGeneral.total" sortable="true" sortProperty="total">
 					<tags:formatCurrency value="${gen.total}"/><c:set var="genTotal" value="${genTotal+gen.total}"/>
 				</display:column>
-				<display:column titleKey="projectNongenGeneral.statePublic" sortable="true" sortProperty="statePublic">
+				<display:column titleKey="projectNongenGeneral.donated" sortable="true" sortProperty="statePublic">
 					<tags:formatCurrency value="${gen.donated}"/><c:set var="genState" value="${genState+gen.donated}"/>
 				</display:column>
 <%-- 				<display:column titleKey="projectNongenGeneral.statePublic" sortable="true" sortProperty="statePublic"> --%>

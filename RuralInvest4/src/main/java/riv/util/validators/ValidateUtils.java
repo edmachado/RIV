@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -135,7 +134,7 @@ public class ValidateUtils {
 		    return bd.doubleValue();
 	 }
 	
-	public static void rejectIfEmptyOrNegative(Object bean, String fieldName, String fieldCode, Errors errors) {
+	public static void rejectIfEmptyOrNegativeOrOverMax(Object bean, String fieldName, String fieldCode, Double max, Errors errors) {
 		double propertyValue=0;
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
@@ -146,9 +145,16 @@ public class ValidateUtils {
 		if (propertyValue < 0) {
 			errors.rejectValue(fieldName, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
 		}
-//		enforceMax(bean, fieldName, fieldCode, errors);
+		if (max!=null) {
+			if (round(propertyValue, 4)>max) {
+				errors.rejectValue(fieldName, "error.max", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode}),String.valueOf(max)}, "\""+fieldName+"\" is required");
+			}
+		}
 	}
-	public static void rejectMapValueIfEmptyOrNegative(Map map, String mapName, Object key, String fieldName, Errors errors) {
+	public static void rejectIfEmptyOrNegative(Object bean, String fieldName, String fieldCode, Errors errors) {
+		rejectIfEmptyOrNegativeOrOverMax(bean, fieldName, fieldCode, null, errors);
+	}
+	public static void rejectMapValueIfEmptyOrNegative(@SuppressWarnings("rawtypes") Map map, String mapName, Object key, String fieldName, Errors errors) {
 		double propertyValue=0;
 		try {
 			propertyValue=Double.parseDouble(map.get(key).toString());
@@ -172,7 +178,6 @@ public class ValidateUtils {
 		if (propertyValue <= 0) {
 			errors.rejectValue(fieldName, "error.positiveNumber", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be a positive number.");
 		}
-		enforceMax(bean, fieldName, fieldCode, errors);
 	}
 	
 	// should be "rejectEmptyCollection"

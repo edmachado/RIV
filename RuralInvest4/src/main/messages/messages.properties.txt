@@ -1,4 +1,4 @@
-#RIV 4.2
+## RIV4.2
 project.donors=Donors
 project.donors.help=Donors or organizations that make contributions to this project, either generally or for specific cost or operational items.
 project.donor.notSpecified=Not specified
@@ -6,6 +6,14 @@ project.donor.description=Donor
 project.donor.description.help=An organization or body that makes donations or contributions to the project, in general or for individual cost items.
 project.donor.type=Donor type
 project.donor.type.help=The category of Donor: 
+
+projectNongenInput.donated=Donated resources
+projectNongenInput.donated.help=If any part of the cost for this item is expected to be met through donated resources (either in kind or in cash) identify here the amount in monetary terms.
+projectNongenLabour.donated=Donated resources
+projectNongenLabour.donated.help=If any part of the cost for this item is expected to be met through donated resources (either in kind or in cash) identify here the amount in monetary terms.
+projectNongenGeneral.donated=Donated resources
+projectNongenGeneral.donated.help=If any part of the cost for this item is expected to be met through donated resources (either in kind or in cash) identify here the amount in monetary terms.
+
 
 #changed from previous versions
 project.step2=Beneficiaries & Donors
@@ -26,7 +34,6 @@ import.excel.error.noWithout=The project you are working on includes "without pr
 
 #changed from previous versions
 profile.withWithout.remove=You are choosing to not have "with" and "without project" products for this project. Any products that are currently "without project" will be changed to "with project". Any "without project" investment costs or general costs will be discarded.
-
 
 ### NEW TEXT IN RIV4.1 B
 projectContribution.contributor.help=The contributing organization (NGO, association, government agency)

@@ -50,8 +50,7 @@
 				<tags:dataentry field="unitCost" labelKey="projectInvestService.unitCost" helpText="projectInvestService.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
 				<tags:datadivider color="green"/>
 				<tags:dataentry field="total" labelKey="projectInvestService.totalCost" helpText="projectInvestService.totalCost.help" currency="true" calculated="true" />
-				<!-- value="${projectInvestService.unitNum*projectInvestService.unitCost}" -->
-				<tags:dataentry field="donated" labelKey="projectInvestService.donated" helpText="projectInvestService.donated.help" currency="true" onmouseout="CalculateFinance()"/>
+				<tags:donations donors="${projectItem.project.donors}" labelKey="projectInvestService.donated" helpText="projectInvestService.donated.help" onmouseout="CalculateFinance()"/>
 				<tags:dataentry field="ownResources" labelKey="projectInvestService.ownResources" helpText="projectInvestService.ownResources.help" currency="true" onmouseout="CalculateFinance()"/>
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="financed" labelKey="projectInvestService.financed" helpText="projectInvestService.financed.help" currency="true" calculated="true" />

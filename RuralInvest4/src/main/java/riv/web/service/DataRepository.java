@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import riv.objects.AttachedFile;
 import riv.objects.FilterCriteria;
+import riv.objects.HasDonations;
 import riv.objects.HomeData;
 import riv.objects.Probase;
 import riv.objects.config.AppConfig;
@@ -1276,8 +1277,8 @@ public class DataRepository {
 		Project p = item.getProject();
 		Hibernate.initialize(p.getDonors());
 		
-		if (item.getClass().isAssignableFrom(ProjectItemAsset.class)) {
-			Hibernate.initialize(((ProjectItemAsset)item).getDonations());
+		if (item instanceof HasDonations) {
+			Hibernate.initialize(((HasDonations)item).getDonations());
 		}
 		
 		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {

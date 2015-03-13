@@ -107,8 +107,9 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmpty(i, "unitType", itemType+".unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", itemType+".unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", itemType+".unitCost", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "statePublic", itemType+".statePublic", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "other1", itemType+".other1", errors);
+			ValidateUtils.rejectIfEmptyOrNegative(i, "donated", itemType+".donated", errors);
+//			ValidateUtils.rejectIfEmptyOrNegative(i, "statePublic", itemType+".statePublic", errors);
+//			ValidateUtils.rejectIfEmptyOrNegative(i, "other1", itemType+".other1", errors);
 			ValidateUtils.rejectIfNegative(i, "total", itemType+".total", errors);
 			ValidateUtils.rejectIfNegative(i, "ownResource", itemType+".ownResource", errors);
 		}

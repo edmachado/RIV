@@ -89,7 +89,6 @@ public class Setting implements java.io.Serializable {
 	private Double discountRate;
 	@Column(name="MAX_DURATION")
 	@NotNull
-	//@Max(25)
 	private Integer maxDuration;
 	@Column(name="LOAN1_MAX")
 	@NotNull
