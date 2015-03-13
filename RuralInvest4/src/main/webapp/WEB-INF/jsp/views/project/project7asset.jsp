@@ -1,12 +1,12 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
-<html><head><title><spring:message code="projectInvestAsset"/></title></head>
+<html><head><title><spring:message code="projectInvestAsset"/></title>
+<style>
+.ui-icon {
+  background-image: url(../../styles/riv-theme/images/ui-icons_454545_256x240.png);
+}
+</style>
+</head>
 <body>
-<!-- 	<div class="datatitle"> -->
-<%-- 		<c:if test="${not project.withWithout}"><spring:message code="project.invest"/></c:if> --%>
-<%-- 		<c:if test="${project.withWithout and without}"><spring:message code="project.invest"/> <spring:message code="project.without"/></c:if> --%>
-<%-- 		<c:if test="${project.withWithout and not without}"><spring:message code="project.invest"/> <spring:message code="project.with"/></c:if> --%>
-<!-- 	</div> -->
-	
 	<div align="right"><a href="#" onClick="toggle('tblAssets')"><spring:message code="misc.toggle"/></a></div>
 	<div id="tblAssets" style="display:none">
 		<tags:table titleKey="projectInvestAsset">
@@ -70,7 +70,22 @@
 				<tags:datadivider color="green"/>
 				<tags:dataentry field="total" labelKey="projectInvestAsset.totalCost" helpText="projectInvestAsset.totalCost.help" currency="true" calculated="true" />
 				<!-- value="${projectInvestAsset.unitNum*projectInvestAsset.unitCost}" -->
-				<tags:dataentry field="donated" labelKey="projectInvestAsset.donated" helpText="projectInvestAsset.donated.help" currency="true" onmouseout="CalculateFinance()"/>
+				<tags:dataentry field="donated" button="manage" calculated="true" labelKey="projectInvestAsset.donated" helpText="projectInvestAsset.donated.help" currency="true" onmouseout="CalculateFinance()"/>
+				<div id="donations" style="display:none; border:1px solid #aaa; margin-left:5px">
+					<c:forEach var="donor" items="${project.donors}">
+						<c:set var="amount">
+							<c:forEach var="donation" items="${projectItem.donations}">
+								<c:if test="${donation.donor.id eq donor.id}"><tags:formatCurrency value="${donation.amount}"/></c:if>
+							</c:forEach>
+						</c:set>
+						<c:if test="${empty amount}"><c:set var="amount" value="0.0" /></c:if>
+						<div class="dataentry">
+							<label for="donation${donor.id}">${donor.description}</label>
+							<input class="curlabel" value="VND 000" disabled="" size="5">
+							<input id="donation${donor.id}" class="num" type="text" size="11" value="${amount}" maxlength="11" onkeyup="javascript:commasKeyup(this);" name="donation${donorid}">
+						</div>
+					</c:forEach>
+				</div>
 				<tags:dataentry field="ownResources" labelKey="projectInvestAsset.ownResources" helpText="projectInvestAsset.ownResources.help" currency="true" onmouseout="CalculateFinance()"/>
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="financed" labelKey="projectInvestAsset.financed" helpText="projectInvestAsset.financed.help" currency="true" calculated="true" />
@@ -87,20 +102,26 @@
 		</div>
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
-	
 <tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateFinance" />
 <tags:jscriptCalc fieldA="total" fieldB="donated" fieldC="financed" fieldD="ownResources" functionName="CalculateFinance" calc="-" calc2="-" />
+
 <script language="JavaScript">
-	function CalculateReserve() {
-		with (Math) {
-			var number = document.form.unitNum.value.split(',').join('');		
-			var unit = document.form.unitCost.value.split(',').join('');
-			var life = document.form.econLife.value.split(',').join('');
-			var salvage = document.form.salvage.value.split(',').join('');
-			var total = unit * number;
-			var reserve = (total - salvage*number) / life;
+	$( "#donation-button" ).click(function() {
+		if ($('#donations').is(':visible')) {
+			$("#donations").slideUp(100);
+		} else {
+			$("#donations").slideDown(100 );
 		}
-		if (reserve == 'NaN') reserve=''; else reserve=round(reserve,2); document.form.reserve.value=reserve;
-	}
+		$("#donation-button > span").toggleClass("ui-icon-circle-triangle-e ui-icon-circle-triangle-s");
+	});
+	
+	$("#donations :input:not(:disabled)").mouseleave(function(e) {
+		var donatedsum=0.0;
+		$("#donations :input:not(:disabled)").each(function(i,n) {
+			donatedsum += parseFloat(formatToNum($(n).val()));	
+		});
+		$('#donated').val(numToFormat(round(parseFloat(donatedsum), decLength)));
+		CalculateFinance();
+	});
 </script>
 </body></html>

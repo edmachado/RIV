@@ -36,13 +36,47 @@
 	<tags:textbox field="benefDesc" multiline="true" helpText="project.benefDesc.help" helpTitle="project.benefDesc">iv. <spring:message code="project.benefDesc"/></tags:textbox>
 	
 	
+	<fieldset style="display:inline-block;width:47%;padding-left:10px">
+		<legend>
+			<tags:help title="project.donors" text="project.donors.help" >v. <spring:message code="project.donors"/></tags:help>
+		 </legend>
+		 <tags:table>
+			<display:table list="${project.donors}" id="row" requestURI="" cellspacing="0" cellpadding="0">
+				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
+				<display:column titleKey="project.donor.description" headerClass="left" style="text-align:${left};">
+					<c:if test="${!row.notSpecified}">${row.description}</c:if>
+					<c:if test="${row.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:if>
+				</display:column>
+				<display:column titleKey="project.donor.type" headerClass="left" style="text-align:${left};">
+					${rivConfig.contribTypes[row.contribType]}
+				</display:column>
+				<c:if test="${accessOK}">
+					<display:column title="&nbsp;" style="margin-left:5px;" media="html">
+						<c:if test="${not row.notSpecified}">
+							<a href="../donor/${row.id}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
+						</c:if>
+					</display:column>
+					<display:column title="&nbsp;" media="html">
+						<c:if test="${not row.notSpecified}">
+							<a href="../donor/${row.id}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						</c:if>
+					</display:column>
+				</c:if>
+			</display:table>
+		</tags:table>
+		<c:if test="${accessOK}">
+			<div class="addNew"><a id="newDonor" href="../donor/-1?projectId=${project.projectId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+		</c:if>
+	</fieldset>
+	
+	
+	
 	<tags:submit><spring:message code="misc.goto"/>
 		<c:if test="${empty quickAnalysis}"><spring:message code="project.step3"/></c:if>
 		<c:if test="${not empty quickAnalysis}"><spring:message code="project.step7"/></c:if>
 	</tags:submit>
 	</form:form>
 	<SCRIPT LANGUAGE="JavaScript">
-	<!--
 	function Calculate() {
 		with (Math) {
 			var dirMen = (document.form.beneDirectMen.value);
@@ -62,6 +96,5 @@
 		document.form.beneDirectTotal.value = totalDirect;
 		document.form.beneIndirectTotal.value = totalIndirect;
 	}
-	-->
 </SCRIPT>
 </body></html>

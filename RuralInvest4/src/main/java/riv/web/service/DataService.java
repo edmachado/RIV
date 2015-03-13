@@ -45,6 +45,7 @@ import riv.objects.project.BlockIncome;
 import riv.objects.project.BlockInput;
 import riv.objects.project.BlockItem;
 import riv.objects.project.BlockLabour;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemAsset;
@@ -70,6 +71,16 @@ public class DataService implements UserDetailsService, Serializable {
 	
 	@Autowired
 	private DataRepository repo;
+	
+	public Donor getDonor(int id) {
+		return repo.getDonor(id);
+	}
+	public void storeDonor(Donor d) {
+		repo.storeDonor(d);
+	}
+	public void deleteDonor(Donor d) {
+		repo.deleteDonor(d);
+	}
 	
 	public void deleteAll(boolean project, boolean incomeGen) {
 		repo.deleteAll(project, incomeGen);

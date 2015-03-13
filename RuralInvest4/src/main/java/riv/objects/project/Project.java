@@ -228,6 +228,10 @@ public class Project extends Probase implements java.io.Serializable {
 	
 
 	@OneToMany(mappedBy="project", orphanRemoval=true, cascade = CascadeType.ALL)
+	@OrderBy("ID")
+	private Set<Donor> donors;
+
+	@OneToMany(mappedBy="project", orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='0'")
 	private Set<Block> blocks;
@@ -994,6 +998,14 @@ public double getInvestmentTotal() {
 		return withWithout;
 	}
 	
+	public Set<Donor> getDonors() {
+		return donors;
+	}
+
+	public void setDonors(Set<Donor> donors) {
+		this.donors = donors;
+	}
+
 	public void setBlocks(Set<Block> blocks) {
 		this.blocks = blocks;
 	}
@@ -1315,36 +1327,36 @@ public double getInvestmentTotal() {
 		}
 		//  step 7
 		for (ProjectItemAsset ass : assets) {
-			ass.setDonated(round(ass.getDonated()*exchange, scale));
+//			ass.setDonated(round(ass.getDonated()*exchange, scale));
 			ass.setMaintCost(round(ass.getMaintCost()*exchange, scale));
 			ass.setOwnResources(round(ass.getOwnResources()*exchange, scale));
 			ass.setSalvage(round(ass.getSalvage()*exchange, scale));
 			ass.setUnitCost(round(ass.getUnitCost()*exchange, scale));
 		}
 		for (ProjectItemLabour lab : labours) {
-			lab.setDonated(round(lab.getDonated()*exchange, scale));
+//			lab.setDonated(round(lab.getDonated()*exchange, scale));
 			lab.setOwnResources(round(lab.getOwnResources()*exchange, scale));
 			lab.setUnitCost(round(lab.getUnitCost()*exchange, scale));
 		}
 		for (ProjectItemService serv : services) {
-			serv.setDonated(round(serv.getDonated()*exchange, scale));
+//			serv.setDonated(round(serv.getDonated()*exchange, scale));
 			serv.setOwnResources(round(serv.getOwnResources()*exchange, scale));
 			serv.setUnitCost(round(serv.getUnitCost()*exchange, scale));
 		}
 		for (ProjectItemAssetWithout ass : assetsWithout) {
-			ass.setDonated(round(ass.getDonated()*exchange, scale));
+//			ass.setDonated(round(ass.getDonated()*exchange, scale));
 			ass.setMaintCost(round(ass.getMaintCost()*exchange, scale));
 			ass.setOwnResources(round(ass.getOwnResources()*exchange, scale));
 			ass.setSalvage(round(ass.getSalvage()*exchange, scale));
 			ass.setUnitCost(round(ass.getUnitCost()*exchange, scale));
 		}
 		for (ProjectItemLabourWithout lab : laboursWithout) {
-			lab.setDonated(round(lab.getDonated()*exchange, scale));
+//			lab.setDonated(round(lab.getDonated()*exchange, scale));
 			lab.setOwnResources(round(lab.getOwnResources()*exchange, scale));
 			lab.setUnitCost(round(lab.getUnitCost()*exchange, scale));
 		}
 		for (ProjectItemServiceWithout serv : servicesWithout) {
-			serv.setDonated(round(serv.getDonated()*exchange, scale));
+//			serv.setDonated(round(serv.getDonated()*exchange, scale));
 			serv.setOwnResources(round(serv.getOwnResources()*exchange, scale));
 			serv.setUnitCost(round(serv.getUnitCost()*exchange, scale));
 		}

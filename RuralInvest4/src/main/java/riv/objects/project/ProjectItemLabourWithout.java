@@ -1,10 +1,17 @@
 package riv.objects.project;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -25,9 +32,19 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 	protected Project project;
 	@Column(name="OWN_RESOURCES")
 	protected Double OwnResources;
-	private Double Donated;
 	@Column(name="YEAR_BEGIN")
 	private java.lang.Integer YearBegin;
+	
+	public Double getDonated() {
+		double donated = 0.0;
+		for (ProjectItemDonation d : donations) {
+			donated+=d.getAmount();
+		}
+		return donated;
+	}
+	@OneToMany(mappedBy="projectItem", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OrderBy("ID")
+	private Set<ProjectItemDonation> donations=new HashSet<ProjectItemDonation>();
 	
 	public Project getProject () {
 		return this.project;
@@ -50,13 +67,13 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 		return this.getUnitCost()*this.getUnitNum();
 	}
 	
-	public Double getDonated() {
-	    return this.Donated;
-	}
-
-	public void setDonated(Double Donated) {
-	    this.Donated = Donated;
-	}
+//	public Double getDonated() {
+//	    return this.Donated;
+//	}
+//
+//	public void setDonated(Double Donated) {
+//	    this.Donated = Donated;
+//	}
 
 	public java.lang.Integer getYearBegin() {
 	    return this.YearBegin;
@@ -67,9 +84,19 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 	}
 
 	public Double getFinanced() {
-		   if (getOwnResources()==null || Donated==null) return 0.0;
-		   return (getTotal() - getOwnResources() - this.Donated);
+		   if (getOwnResources()==null || getDonated()==null) return 0.0;
+		   return (getTotal() - getOwnResources() - getDonated());
 	   }
+	
+	@Override
+	public Set<ProjectItemDonation> getDonations() {
+		return donations;
+	}
+
+	   @Override
+	public void setDonations(Set<ProjectItemDonation> donations) {
+		this.donations = donations;
+	}
 	
 	   public String testingProperties(RivConfig rivConfig) {
 			String lineSeparator = System.getProperty("line.separator");
@@ -81,7 +108,7 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(OwnResources, CurrencyFormat.ALL)+lineSeparator);
-		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(Donated, CurrencyFormat.ALL)+lineSeparator);
+		  // sb.append("step7.labourWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(Donated, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step7.labourWo."+(this.getOrderBy()+1)+".yearBegin="+YearBegin+lineSeparator);
 		   return sb.toString();
@@ -98,7 +125,7 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 	   item.setUnitNum(unitNum);
 	   item.setUnitType(unitType);
 	   item.setOwnResources(OwnResources);
-	   item.setDonated(Donated);
+//	   item.setDonated(Donated);
 	   item.setYearBegin(YearBegin);
 	   
 	   item.setOrderBy(getOrderBy());
@@ -110,7 +137,7 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 		if (!super.equals(obj)) return false;
 		ProjectItemLabourWithout x = (ProjectItemLabourWithout)obj;
 		boolean isEqual = OwnResources.equals(x.OwnResources) &&
-			Donated.equals(x.Donated) &&
+//			Donated.equals(x.Donated) &&
 			YearBegin.equals(x.YearBegin);
 		return isEqual;
 	}
@@ -120,7 +147,7 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 		int code = super.hashCode();
 		final int multiplier = 23;
 	    if (OwnResources!=null) code = multiplier * code + OwnResources.intValue();	   
-	    if (Donated!=null) code = multiplier * code + Donated.intValue();	   
+//	    if (Donated!=null) code = multiplier * code + Donated.intValue();	   
 	    if (YearBegin!=null) code = multiplier * code + YearBegin;	    
 	    return code;
 	}

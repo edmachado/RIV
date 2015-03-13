@@ -19,7 +19,10 @@
 	<%-- End testing tools --%>
 	
 	<tags:toprow/>
-	<div id="title"><decorator:title default="RuralInvest"/></div>
+	<div id="title"><decorator:title default="RuralInvest"/>
+<%-- 	<c:if test="${not empty project}"> : ${project.projectName}</c:if> --%>
+<%-- 	<c:if test="${not empty profile}"> : ${profile.profileName}</c:if> --%>
+	</div>
 	<table id="main">
 		<tr>
 			<td id="side"><tags:navigation /></td>

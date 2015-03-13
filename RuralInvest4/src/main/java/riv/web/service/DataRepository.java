@@ -67,6 +67,7 @@ import riv.objects.project.BlockInput;
 import riv.objects.project.BlockItem;
 import riv.objects.project.BlockLabour;
 import riv.objects.project.BlockWithout;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectFile;
 import riv.objects.project.ProjectItem;
@@ -764,6 +765,17 @@ public class DataRepository {
 			return null;
 		}
 	}
+	
+	public Donor getDonor(int id) {
+		Criteria criteria = currentSession().createCriteria(Donor.class).add(Restrictions.eq("id", id));
+		return (Donor)criteria.uniqueResult();
+	}
+	public void storeDonor(Donor d) {
+		currentSession().saveOrUpdate(d);
+	}
+	public void deleteDonor(Donor d) {
+		currentSession().delete(d);
+	}
 
 	public Project getProject(int id, int step) {
 		Criteria criteria = currentSession()
@@ -782,6 +794,9 @@ public class DataRepository {
 			Hibernate.initialize(p.getProjCategory());
 			Hibernate.initialize(p.getAppConfig1());
 			Hibernate.initialize(p.getAppConfig2());
+		}
+		if (step==-1 || step==2) {
+			Hibernate.initialize(p.getDonors());
 		}
 		if (step==-1 || step==7 || step==12 || step==13
 				|| (!p.getIncomeGen()&&step==10) || (p.getIncomeGen()&&step==11)
@@ -1255,6 +1270,7 @@ public class DataRepository {
 	public ProjectItem getProjectItem(int id) {
 		ProjectItem item = (ProjectItem)currentSession().createCriteria(ProjectItem.class).add(Restrictions.eq("projItemId", id)).uniqueResult();
 		Project p = item.getProject();
+		Hibernate.initialize(p.getDonors());
 		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
 			Hibernate.initialize(p.getContributions());
 			Hibernate.initialize(item.getProject().getRefIncomes());

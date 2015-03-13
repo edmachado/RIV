@@ -347,6 +347,21 @@ public class ProjectController {
 
 	}
 	
+	public class Donor {
+		private String name;
+		private int type;
+		public Donor(String name, int type) {
+			this.name=name;
+			this.type=type;
+		}
+		public String getName() {
+			return name;
+		}
+		public int getType() {
+			return type;
+		}
+	}
+	
 	private void setupPageAttributes(Project p, Model model, Integer step, HttpServletRequest request) {
 		User u = (User)request.getAttribute("user");
 		model.addAttribute("accessOK", p.isShared() || p.getTechnician().getUserId().equals(u.getUserId()));
@@ -359,6 +374,18 @@ public class ProjectController {
 			model.addAttribute("menuType","projectNoninc");
 		}
 
+		// mockup for donors table
+//		if (step==2) {
+//			List<Donor> donors = new ArrayList<Donor>();
+//			donors.add(new Donor("FAO",3));
+//			donors.add(new Donor("Aga Khan",3));
+//			donors.add(new Donor("Min. Agriculture",0));
+//			donors.add(new Donor("MyNGO",2));
+//			donors.add(new Donor("Village mutual aid society",5));
+//			model.addAttribute("donors",donors);
+//		}
+		
+		
 		if (step==1 && p.getProjectId()!=null) {
 			long dirSize=0L;
 			List<AttachedFile> files = attachTools.getAttached(p.getProjectId(), true, false);

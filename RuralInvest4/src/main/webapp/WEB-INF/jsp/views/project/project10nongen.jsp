@@ -122,12 +122,7 @@ $(function() {
 					
 						<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left">
-							<c:if test="${contrib.contribType=='0'}"><spring:message code="projectContribution.contribType.govtCentral"/></c:if>
-							<c:if test="${contrib.contribType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if>
-							<c:if test="${contrib.contribType=='2'}"><spring:message code="projectContribution.contribType.ngoLocal"/></c:if>
-							<c:if test="${contrib.contribType=='3'}"><spring:message code="projectContribution.contribType.ngoIntl"/></c:if>
-							<c:if test="${contrib.contribType=='5'}"><spring:message code="projectContribution.contribType.beneficiary"/></c:if>
-							<c:if test="${contrib.contribType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if>
+							${rivConfig.contribTypes[contrib.contribType]}
 						</display:column>
 						<display:column titleKey="projectContribution.contributor" property="contributor" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>

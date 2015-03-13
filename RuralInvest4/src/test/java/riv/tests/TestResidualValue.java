@@ -18,7 +18,7 @@ public class TestResidualValue {
 		a.setUnitCost(3000.0);
 		a.setUnitNum(1.0);
 		a.setOwnResources(3.0);
-		a.setDonated(0.0);
+		//a.setDonated(0.0);
 		a.setSalvage(0.0);
 		a.setMaintCost(0.0);
 		a.setReplace(true);
@@ -36,7 +36,7 @@ public class TestResidualValue {
 		a.setUnitCost(15.0);
 		a.setUnitNum(525.0);
 		a.setOwnResources(0.0);
-		a.setDonated(0.0);
+		//a.setDonated(0.0);
 		a.setSalvage(0.0);
 		a.setMaintCost(0.0);
 		a.setReplace(false);

@@ -1,3 +1,15 @@
+#RIV 4.2
+project.donors=Donors
+project.donors.help=Donors or organizations that make contributions to this project, either generally or for specific cost or operational items.
+project.donor.notSpecified=Not specified
+project.donor.description=Donor
+project.donor.description.help=An organization or body that makes donations or contributions to the project, in general or for individual cost items.
+project.donor.type=Donor type
+project.donor.type.help=The category of Donor: 
+
+#changed from previous versions
+project.step2=Beneficiaries & Donors
+
 # RIV 4.1.6
 error.moreDetails=More details...
 projectBlockIncome.unitNum.nocycle.help=Indicate the number of units of sale produced per unit of production (excluding losses and rejects).
