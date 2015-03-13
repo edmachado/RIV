@@ -30,7 +30,7 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 	}
 	
 	@ElementCollection(fetch=FetchType.LAZY)
-	@MapKeyColumn(name="donor_id")
+	@MapKeyColumn(name="donor_order_by")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
 	Map<Integer,Double> donations = new HashMap<Integer,Double>();

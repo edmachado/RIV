@@ -134,16 +134,14 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	public abstract Project getProject();
 	public abstract void setProject(Project p);
 	public abstract ProjectItem copy(); 
-	public Probase getProbase() {
-		return this.getProject();
-	}
+	public Probase getProbase() { return this.getProject(); }
 	
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;
 		// at the moment, only ProjectItemContribution is grouped by year and order, not only by order
 		// if other classes implement this feature, they should use an interface
-		if (this.getClass().isAssignableFrom(ProjectItemContribution.class) && i.getClass().isAssignableFrom(ProjectItemContribution.class)) {
-			if (((ProjectItemContribution)this).getYear()==null) return -1;
+		if (this instanceof ProjectItemContribution && i instanceof ProjectItemContribution) {
+			if (((ProjectItemContribution)this).getYear()==null) { return -1; }
 			int compare = ((ProjectItemContribution)this).getYear() - ((ProjectItemContribution)i).getYear();
 			if (compare!=0) { return compare; }
 		}

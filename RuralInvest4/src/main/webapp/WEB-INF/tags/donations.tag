@@ -3,7 +3,9 @@
 <tags:dataentry field="donated" button="manage" calculated="true" labelKey="${labelKey}" helpText="${helpText}" currency="true" onmouseout="${onmouseout}"/>
 <div id="donations" style="display:block; border:1px solid #aaa; margin-left:5px">
 	<c:forEach var="donor" items="${donors}">
-		<tags:dataentry field="donations[${donor.donorId}]" label="${donor.description}" currency="true" />
+		<c:if test="${donor.notSpecified}"><c:set var="desc"><spring:message code="project.donor.notSpecified"/></c:set></c:if>
+		<c:if test="${not donor.notSpecified}"><c:set var="desc" value="${donor.description}" /></c:if>
+		<tags:dataentry field="donations[${donor.orderBy}]" label="${desc}" currency="true" />
 	</c:forEach>
 </div>
 

@@ -57,7 +57,7 @@ public abstract class Probase {
 	
 	protected  void linkedToImport(LinkedToable item) {
 		if (item.getExportLinkedTo()!=null) {
-			if (item.getClass()==ProfileProductIncome.class || item.getClass()==BlockIncome.class) {
+			if (item instanceof ProfileProductIncome || item instanceof BlockIncome) {
 				for (ReferenceIncome inc : item.getProbase().getRefIncomes()) {
 					if (inc.getOrderBy()==item.getExportLinkedTo()) {
 						item.setLinkedTo(inc);
@@ -65,10 +65,10 @@ public abstract class Probase {
 						break;
 					}
 				}
-			}  else if (item.getClass()==ProfileItemLabour.class || item.getClass()==ProfileProductLabour.class
-					|| item.getClass()==ProjectItemLabour.class || item.getClass()==ProjectItemLabourWithout.class
-					|| item.getClass()==ProjectItemNongenLabour.class
-					|| item.getClass()==ProjectItemPersonnel.class || item.getClass()==ProjectItemPersonnelWithout.class) {
+			}  else if (item instanceof ProfileItemLabour || item instanceof ProfileProductLabour
+					|| item instanceof ProjectItemLabour || item instanceof ProjectItemLabourWithout
+					|| item instanceof ProjectItemNongenLabour
+					|| item instanceof ProjectItemPersonnel || item instanceof ProjectItemPersonnelWithout) {
 				for (ReferenceLabour lab : item.getProbase().getRefLabours()) {
 					if (lab.getOrderBy()==item.getExportLinkedTo()) {
 						item.setLinkedTo(lab);

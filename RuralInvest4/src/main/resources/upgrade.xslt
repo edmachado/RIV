@@ -2,6 +2,89 @@
 
 	<xsl:output method="xml" indent="yes" />
 	
+	<!-- add donors to project -->
+	<xsl:template match="void[@property='projectName'][not(../void[@property='donors'])]">
+		<void property="donors">
+   			<object class="java.util.HashSet">
+    			<void method="add">
+				    <object class="riv.objects.project.Donor">
+				    	<void property="contribType">
+				    		<int>4</int>
+				      	</void>
+				      	<void property="description">
+				       		<string>not specified</string>
+				      	</void>
+				      	<void property="notSpecified">
+					       <boolean>true</boolean>
+					    </void>
+					    <void property="orderBy">
+					       <int>0</int>
+					    </void>
+				    </object>
+				</void>
+				<!-- NIG project need "state/public" -->
+				<xsl:variable name="incomeGen" select="../void[@property='incomeGen']/boolean"/>
+				<xsl:if test="$incomeGen = 'false'">
+					<void method="add">
+					    <object class="riv.objects.project.Donor">
+					    	<void property="contribType">
+					    		<int>4</int>
+					      	</void>
+					      	<void property="description">
+					       		<string>state-public</string>
+					      	</void>
+					      	<void property="notSpecified">
+						       <boolean>false</boolean>
+						    </void>
+						    <void property="orderBy">
+						       <int>1</int>
+						    </void>
+					    </object>
+					</void>
+				</xsl:if>
+			</object>
+		</void>
+		<xsl:copy>
+			<xsl:apply-templates select="@*|node()" />
+		</xsl:copy>
+	</xsl:template>
+	
+	<!-- donated field moved to own table -->
+	<xsl:template match="void[@property='donated'][double]">
+		<xsl:variable name="double" select="double" />
+		<xsl:if test="$double != '0.0'">
+			<void property="donations">
+				<void method="put">
+	       			<int>-1</int>
+	       			<double><xsl:value-of select="$double"/></double>
+	      		</void>
+	     	</void>
+     	</xsl:if>
+	</xsl:template>
+	<xsl:template match="object[void[@property='other1']]">
+		<xsl:variable name="other1" select="void[@property='other1']/double" />
+		<xsl:variable name="statePublic" select="void[@property='statePublic']/double" />
+		<xsl:if test="$other1 != '0.0' or $statePublic != '0.0'">
+			<void property="donations">
+				<xsl:if test="$other1 != '0.0'">
+					<void method="put">
+		       			<int>0</int>
+		       			<double><xsl:value-of select="$other1"/></double>
+		      		</void>
+	      		</xsl:if>
+				<xsl:if test="$statePublic != '0.0'">
+					<void method="put">
+		       			<int>1</int>
+		       			<double><xsl:value-of select="$statePublic"/></double>
+		      		</void>
+	      		</xsl:if>
+	     	</void>
+     	</xsl:if>
+	</xsl:template>
+	
+	
+	
+	
 	<!-- fields removed when refactoring BlockChron -->
 	<xsl:template match="void[@property='firstPart']"/>
 	<xsl:template match="void[@property='monthNum']"/>
