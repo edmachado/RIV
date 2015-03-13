@@ -47,9 +47,7 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	protected Double ownResources;
 	
 	
-//	private Double donated;
 	public Double getDonated() {
-//		if (donated==null) {
 		double donated = 0.0;
 		for (double d : donations.values()) {
 			donated+=d;
@@ -94,14 +92,6 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 				return 0.0;
 			}
 		}
-		
-//		public Double getDonated() {
-//		    return this.donated;
-//		}
-//
-//		public void setDonated(Double Donated) {
-//		    this.donated = Donated;
-//		}
 
 		public java.lang.Integer getYearBegin() {
 		    return this.yearBegin;

@@ -154,6 +154,16 @@ public class ProjectItemController {
     	return form(projectItem);
     }
     
+    @RequestMapping(value="/{id}/test", method=RequestMethod.GET)
+    public String test(@ModelAttribute ProjectItem projectItem, Model model, HttpServletRequest request) {
+    	ProjectItemAsset a = (ProjectItemAsset)projectItem; 
+    	double value1 = a.getDonations().get(4);
+    	a.getDonations().put(4, 10.0);
+    	dataService.storeProject(projectItem.getProject(), false);
+    	
+    	return "foo";
+    }
+    
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public String saveProjectItem(@RequestParam Integer linkedToId, @RequestParam(required=false) Boolean addLink, @RequestParam(required=false) Boolean allYears, HttpServletRequest request,
 			@Valid @ModelAttribute ProjectItem projectItem, BindingResult result, Model model) {
