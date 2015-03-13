@@ -1,3 +1,10 @@
+### RIV4.1.4
+project.quickAnalysis=Análisis rápido (no análisis cualitativo)
+projectBlock.cloneWith=Clonar como bloque “Con proyecto”
+projectBlock.cloneWithout=Clonar como bloque “Sin proyecto”
+project.report.cashFlowNongen.accumulated=Balance acumulado
+import.excel.error.noWithout=El proyecto en el cual está trabajando incluye un escenario “Sin proyecto”, pero el archivo Excel que está usted importando no tiene una hoja ´Sin proyecto”. Favor de verificar que está usando el módulo Excel correcto – ver enlace “Formato para exportar datos a Excel” en esta página.
+
 #RIV4.1 B
 projectContribution.contributor.help=La organización contribuyente (ONG, asociación, entidad de gobierno)
 projectContribution.yearlyFlow.help=Ingreso menos costo total para cada año del proyecto.
@@ -314,7 +321,7 @@ error.unknown=Error desconocido
 error=Error
 export.choice= Por favor seleccione el tipo de descarga:
 export.download=Datos Exportados
-export.downloadTemplate=Formato para exportar datos a Excel units.
+export.downloadTemplate=Formato para exportar datos a Excel.
 export.generic=Exportar usando la configuración genérica
 export.generic.title=Exportar usando la moneda default (USD) y la configuración genérica.
 export.generic.desc=Utilice esta opción cuando el archivo vaya ser importado por una instalación de RuralInvest que tenga una configuración diferente. Todos los valores en moneda local serán convertidos a USD, a la vez que las categorías de proyecto, beneficiarios, etc. serán convertidas en categorías genéricas.
