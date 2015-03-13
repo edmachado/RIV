@@ -125,7 +125,7 @@ demo.password=Visitante
 error.maxLength={0} no puede contener más de {1} caracter.
 error.max={0} no puede ser superior a {1}.
 error.requiredNonNegative={0} no puede especificar valores negativos.
-error.maxLoanLength={0}: La duración del préstamo no puede ser superior a la duración máxima del proyecto.
+error.maxLoanLength=La duración del préstamo no puede ser superior a la duración máxima del proyecto.
 error.import.incompatibleSettings=La configuración del archivo a importar no es compatible con la configuración existente.
 error.unknown.log=Por favor envíe el siguiente archivo al equipo de RuralInvest con el fin de facilitar la resolución del problema.
 # Translator: The following is "link", a verb in the imperative... It's used in the pop-up windows when you link a profile or project cost item to a existing item from the "reference items" tables.

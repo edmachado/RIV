@@ -14,16 +14,24 @@ projectNongenLabour.donated.help=If any part of the cost for this item is expect
 projectNongenGeneral.donated=Donated resources
 projectNongenGeneral.donated.help=If any part of the cost for this item is expected to be met through donated resources (either in kind or in cash) identify here the amount in monetary terms.
 
-
-#changed from previous versions
-project.step2=Beneficiaries & Donors
-error.pleaseCorrect=Please correct the fields in red.
-
-# RIV 4.1.6
 error.moreDetails=More details...
 projectBlockIncome.unitNum.nocycle.help=Indicate the number of units of sale produced per unit of production (excluding losses and rejects).
 projectBlockInput.unitNum.nocycle.help=Indicate the number of units of the item used per unit of production or activity.
 projectBlockLabour.unitNum.nocycle.help=Indicate the number of units of this type of labour used in each unit of production or activity.
+
+#changed from previous versions
+project.step2=Beneficiaries & Donors
+error.pleaseCorrect=Please correct the fields in red.
+error.unknown=Thank you for your cooperation
+error.maxLength=This field cannot be longer than {1} characters.
+error.max=This field cannot be greater than {1}.
+error.requiredNonNegative=This field cannot be negative.
+error.fieldRequired=This is a required field.
+error.positiveNumber=This field must be greater than 0.
+typeMismatch.java.lang.Double=This field is required and must be a number.
+typeMismatch.java.lang.Integer=This field is required and must be a whole number.
+typeMismatch.java.math.BigDecimal=This field is required and must be a number.
+typeMismatch.java.util.Date=This field is not a valid date format (dd/MM/yyyy).
 
 
 ### RIV4.1.4
@@ -197,10 +205,7 @@ demo.username=Visitor
 demo.password=Visitor
 
 
-error.maxLength={0} cannot be longer than {1} characters.
-error.max={0} cannot be greater than {1}.
-error.requiredNonNegative={0} cannot be negative.
-error.maxLoanLength={0}: The length of the loan cannot be greater than the maximum project duration.
+error.maxLoanLength=The length of the loan cannot be greater than the maximum project duration.
 error.import.incompatibleSettings=The settings you are importing is not compatible with your existing configuration.
 
 # Translator: The below comes after the text "an error has occurred, please contact the RIV team etc..."
@@ -323,7 +328,6 @@ error.import.notImage=The logo must be a jpeg or gif image.
 error.import.noStatus=The project or profile contains a project status that is not part of the configuration. Only projects based on the same configuration may be imported.
 error.import.notSettings=The file you are importing does not appear to be a RuralInvest settings file.
 error.import.wrongType=You may be trying to import a project as a profile or vice versa.
-error.fieldRequired="{0}" is a required field.
 error.loanTooLong=The loan cannot extend beyond the end of the project.
 error.noAccess.info=You do not have permission to access this page.
 error.noAccess=No access.
@@ -335,13 +339,11 @@ error.noProjectActivity=The project must contain at least one activity.
 error.noProjectBlock=The project must contain at least one block.
 error.notFound.info=The page requested cannot be found.  Please check the link and contact the FAO RuralInvest team.
 error.notFound=Page not found.
-error.positiveNumber="{0}" must be greater than 0.
 error.productNoTable=Product "{0}": Table "{1}" cannot be empty.
 error.tableEmpty="{0}": This table cannot be empty.
 error.tableMissingData="{0}": Required fields in this table are missing.  This may be because the data was imported from a previous version of RuralInvest.
 error.unknown.info=An unknown error has occurred.  Please contact the FAO RuralInvest team with the following information:
 error.unknown.noInfo=No information is available.
-error.unknown=Unknown error
 error.user.usernameTaken=The username entered has already been taken.  Please choose another one. 
 error=Error
 export.download=Export data
@@ -1482,10 +1484,6 @@ style.menu5=240
 style.menu6=360
 style.menu7=330
 style.menu8=125
-typeMismatch.java.lang.Double="{0}" is required and must be a number.
-typeMismatch.java.lang.Integer="{0}" is required and must be a whole number.
-typeMismatch.java.math.BigDecimal="{0}" is required and must be a number.
-typeMismatch.java.util.Date="{0}" is not a valid date format (dd/MM/yyyy).
 units.USD=US$
 units.days=day(s)
 units.days.calendar=calendar day(s)

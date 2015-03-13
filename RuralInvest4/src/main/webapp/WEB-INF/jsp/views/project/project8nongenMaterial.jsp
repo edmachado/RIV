@@ -1,5 +1,9 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
-<html><head><title><spring:message code="projectNongenInput"/></title></head>
+<html><head><title><spring:message code="projectNongenInput"/></title>
+<script>
+$(function() { CalculateDonated(); CalculateTotal(); });
+</script>
+</head>
 <body>
 	<div class="datatitle"><spring:message code="projectGeneral"/></div>
 	<div align="right"><a onClick="toggle('tblInput')"><spring:message code="misc.toggle"/></a></div>
@@ -37,8 +41,8 @@
 				<tags:dataentry field="unitNum" labelKey="projectNongenInput.unitNum" helpText="projectNongenInput.unitNum.help" onmouseout="CalculateTotal()"/>
 				<tags:dataentry field="unitCost" labelKey="projectNongenInput.unitCost" helpText="projectNongenInput.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
 				<tags:datadivider color="green"/>
-				<tags:donations donors="${projectItem.project.donors}" labelKey="projectInvestAsset.donated" helpText="projectInvestAsset.donated.help" onmouseout="CalculateFinance()" />
 				<tags:dataentry field="total" labelKey="projectNongenInput.total" helpText="projectNongenInput.total.help" currency="true" calculated="true" />
+				<tags:donations donors="${projectItem.project.donors}" labelKey="projectInvestAsset.donated" helpText="projectInvestAsset.donated.help" onmouseout="CalculateTotal()" />
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="ownResource" labelKey="projectNongenInput.ownResource" helpText="projectNongenInput.ownResource.help" calculated="true" currency="true" />
 			</fieldset>
@@ -49,5 +53,5 @@
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 <tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateOwn" />
-<tags:jscriptCalc fieldA="total" fieldB="statePublic" fieldC="ownResource" fieldD="other1" functionName="CalculateOwn" calc="-" calc2="-" />
+<tags:jscriptCalc fieldA="total" fieldB="donated" fieldC="ownResource" functionName="CalculateOwn" calc="-"  />
 </body></html>

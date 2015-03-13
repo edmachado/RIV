@@ -17,12 +17,16 @@
 		$("#donation-button > span").toggleClass("ui-icon-circle-triangle-e ui-icon-circle-triangle-s");
 	});
 	
-	$("#donations :input:not(:disabled)").mouseleave(function(e) {
+	function CalculateDonated() {
 		var donatedsum=0.0;
 		$("#donations :input:not(:disabled)").each(function(i,n) {
 			donatedsum += parseFloat(formatToNum($(n).val()));	
 		});
 		$('#donated').val(numToFormat(round(parseFloat(donatedsum), decLength)));
+	}
+	
+	$("#donations :input:not(:disabled)").mouseleave(function(e) {
+		CalculateDonated();
 		${onmouseout};
 	});
 </script>

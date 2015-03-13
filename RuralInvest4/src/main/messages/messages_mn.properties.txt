@@ -165,7 +165,7 @@ demo.password=Зочин
 error.maxLength={0} нь  {1} үүнээс олон тэмдэгттэй байж болохгүй.
 error.max={0} нь {1} үүнээс их байж болохгүй.
 error.requiredNonNegative={0} нь сөрөг байж болохгүй.
-error.maxLoanLength={0}: Зээлийн хугацаа нийт төслийн хугацаанаас урт байж болохгүй.
+error.maxLoanLength=Зээлийн хугацаа нийт төслийн хугацаанаас урт байж болохгүй.
 error.import.incompatibleSettings=Таны оруулж байгаа тохиргоо нь таны өмнөх тохиргоотой нийцэхгүй байна.
 
 # Translator: The below comes after the text "an error has occurred, please contact the RIV team etc..."

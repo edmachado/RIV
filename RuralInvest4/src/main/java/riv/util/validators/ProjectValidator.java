@@ -179,14 +179,6 @@ public class ProjectValidator implements Validator {
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalInterest", "project.capitalInterest", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalDonate", "project.capitalDonate", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalOwn", "project.capitalOwn", errors);
-				
-//				if (project.getLoan2Amt()!=null) {
-//					if (project.getLoan2Amt()>0) {
-//						ValidateUtils.rejectIfZeroOrNegative(project, "loan2Amt", "project.loan.amount", errors);
-//					} else {
-						ValidateUtils.rejectIfEmptyOrNegative(project, "loan2Amt", "project.loan.amount", errors);
-//					}
-//				}
 				// calculated values
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
 				// calculate the working capital fields and validate them

@@ -43,7 +43,7 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", type+nongen+".unitCost", errors);
 
 			if (!errors.hasFieldErrors("unitNum") &! errors.hasFieldErrors("unitCost")) {
-				ValidateUtils.rejectIfNegative(i.getUnitNum()*i.getUnitCost(), i, "total", type+".totalCost", errors);
+				ValidateUtils.rejectIfNegativeFromValue(i.getUnitNum()*i.getUnitCost(), i, "total", type+".totalCost", errors);
 			}
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", type+nongen+".ownResources", errors);
 			
@@ -53,20 +53,20 @@ public class ProjectItemValidator implements Validator {
 			
 			for (Donor d : i.getProject().getDonors()) {
 				thisResult = ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getDonorId(), d.getDescription(), errors);
-				if (!donationError && thisResult) { 
+				if (thisResult) { 
 					donationError=true; 
 				} else {
 					donations+=hd.getDonations().get(d.getDonorId());
 				}
 			}
 			if (!donationError) {
-				ValidateUtils.rejectIfNegative(donations, i, "donated", type+nongen+".donated", errors);
+				ValidateUtils.rejectIfNegativeFromValue(donations, i, "donated", type+nongen+".donated", errors);
 			}
 			
 			ValidateUtils.rejectIfZeroOrNegative(i, "yearBegin", type+".yearBegin", errors);
 			
 			if (!errors.hasFieldErrors("unitNum") &! errors.hasFieldErrors("unitCost") &!donationError &!errors.hasFieldErrors("ownResources")) {
-				ValidateUtils.rejectIfNegative(inv.getTotal()-donations-inv.getOwnResources(), i, "financed", type+".financed", errors);
+				ValidateUtils.rejectIfNegativeFromValue(inv.getTotal()-donations-inv.getOwnResources(), i, "financed", type+".financed", errors);
 			}
 		
 			if (obj instanceof ProjectItemAsset || obj instanceof ProjectItemAssetWithout) {

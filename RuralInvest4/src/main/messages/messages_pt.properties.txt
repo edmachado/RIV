@@ -208,7 +208,7 @@ demo.password=Visitante-pt
 error.maxLength={0} não pode conter mais de {1} caracteres.
 error.max={0} não pode ser superior a {1}.
 error.requiredNonNegative={0} não pode introduzir valores negativos.
-error.maxLoanLength={0}: A duração do empréstimo não pode ser superior à duração máxima do projecto.
+error.maxLoanLength=A duração do empréstimo não pode ser superior à duração máxima do projecto.
 error.import.incompatibleSettings=A configuração do arquivo a importar não é compatível com a configuração existente.
 error.unknown.log=Por favor, envie o arquivo que originou esta mensagem de modo a que seja mais fácil resolver o problema.
 # Translator: The following is "link", a verb in the imperative... It's used in the pop-up windows when you link a profile or project cost item to a existing item from the "reference items" tables.

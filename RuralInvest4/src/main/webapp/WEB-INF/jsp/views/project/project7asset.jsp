@@ -1,5 +1,9 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
-<html><head><title><spring:message code="projectInvestAsset"/></title></head>
+<html><head><title><spring:message code="projectInvestAsset"/></title>
+<script>
+$(function() { CalculateDonated(); CalculateTotal(); });
+</script>
+</head>
 <body>
 	<div class="datatitle">
 		<c:if test="${not project.withWithout}"><spring:message code="project.invest"/></c:if>

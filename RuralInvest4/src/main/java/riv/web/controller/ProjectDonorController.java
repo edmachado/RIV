@@ -42,9 +42,10 @@ public class ProjectDonorController {
 		else {
 			Project p = dataService.getProject(projectId, 2);
 			d = new Donor();
+			d.setOrderBy(p.getDonors().size());
 			d.setProject(p);
 		}
-		return d;
+		return d; 
 	}
 	
     @RequestMapping(value="/{id}", method=RequestMethod.GET)

@@ -118,20 +118,23 @@ public class ValidateUtils {
 		rejectIfNegative(bean, fieldName, fieldCode, errors, 4);// default scale of 4
 	}
 	public static void rejectIfNegative(Object bean, String fieldName, String fieldCode, Errors errors, int scale) {
-		double propertyValue=0;
-		boolean isMissing = false;
+		Double propertyValue=null;
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
-		} catch (Exception e) {	
-			isMissing=true;
-		}
-		if (isMissing)  {
+		} catch (Exception e) {}
+		rejectIfNegativeFromValue(propertyValue, bean, fieldName, fieldCode, errors, scale);
+	}
+	public static void rejectIfNegativeFromValue(Double property, Object bean, String fieldName, String fieldCode, Errors errors) {
+		rejectIfNegativeFromValue(property, bean, fieldName, fieldCode, errors, 4); // default scale of 4
+	}
+	public static void rejectIfNegativeFromValue(Double property, Object bean, String fieldName, String fieldCode, Errors errors, int scale) {
+		if (property==null)  {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
-		} else if (round(propertyValue, scale) < 0 ) { 
+		} else if (round(property, scale) < 0 ) { 
 			errors.rejectValue(fieldName, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
 		}
 	}
-	
+
 	private static double round(double d, int scale) {
 		 BigDecimal bd = new BigDecimal(Double.toString(d));
 		    bd = bd.setScale(scale,BigDecimal.ROUND_HALF_UP);

@@ -66,14 +66,13 @@ public class ProjectItemController {
 		CustomNumberEditor customNumberEditor = new CustomNumberEditor(Double.class, df, true);
         binder.registerCustomEditor(Double.class, "unitCost", customNumberEditor);
         binder.registerCustomEditor(Double.class, "ownResources", customNumberEditor);
+        binder.registerCustomEditor(Double.class, "ownResource", customNumberEditor); // NIG general costs
         binder.registerCustomEditor(Double.class, "total", customNumberEditor);
         binder.registerCustomEditor(Double.class, "maintCost", customNumberEditor);
         binder.registerCustomEditor(Double.class, "salvage", customNumberEditor);
         binder.registerCustomEditor(Double.class, "donated", customNumberEditor);
         binder.registerCustomEditor(Double.class, "financed", customNumberEditor);
         binder.registerCustomEditor(Double.class, "external", customNumberEditor);
-//        binder.registerCustomEditor(Double.class, "publicState", customNumberEditor);
-//        binder.registerCustomEditor(Double.class, "other1", customNumberEditor);
         binder.registerCustomEditor(Double.class, "amount", customNumberEditor);
         binder.registerCustomEditor(Double.class, "donations", customNumberEditor);
         
