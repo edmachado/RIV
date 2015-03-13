@@ -37,7 +37,7 @@ public class SearchResultsReports extends WebTestUtil {
     }
 	
 	@Test
-	public void profileIGResults() throws IOException {
+	public void profileIGResultsPDF() throws Exception {
 		login();
 		deletePros(false, true);
 		
@@ -53,17 +53,28 @@ public class SearchResultsReports extends WebTestUtil {
 		saveAs(f);
 		String contents = extractPdfText(f);
 		assertTrue(contents.contains(getMessage("profile.report.results.IG")));
+	}
+	
+	@Test
+	public void profileIGResultsXLS() throws Exception {
+		login();
+		deletePros(false, true);
+		
+		// import a few profiles
+		importProfile(ImportFile.ProfileIgV22, "igpf", false, false, "Artesanal Clothing Workshop");
+		importProfile(ImportFile.ProfileIgV20, "igpf_no", false, true, "Bagre Tanchachin");
+		// importProfile ends at results page
 
 		// test xls
 		assertLinkPresentWithImage("xls.gif");
 		clickLinkWithImage("xls.gif");
-		f = folder.newFile("resultsIgpf.xls"); 
+		File f = folder.newFile("resultsIgpf.xls"); 
 		saveAs(f);
 		testXls(f, getMessage("profile.report.results.IG"));
 	}
 	
 	@Test
-	public void profileNIGResults() throws IOException {
+	public void profileNIGResultsPDF() throws IOException {
 		login();
 		deletePros(false, false);
 		
@@ -78,17 +89,26 @@ public class SearchResultsReports extends WebTestUtil {
 		saveAs(f);
 		String contents = extractPdfText(f);
 		assertTrue(contents.contains(getMessage("profile.report.results.NIG")));
+	}
 
+	@Test
+	public void profileNIGResultsXLS() throws Exception {
+		login();
+		deletePros(false, false);
+		
+		// import a nig profiles
+		importProfile(ImportFile.ProfileNig16, "nigpf_no", false, true, "Community Health Centre");
+		// importProfile ends at results page
 		// test xls
 		assertLinkPresentWithImage("xls.gif");
 		clickLinkWithImage("xls.gif");
-		f = folder.newFile("resultsNigpf.xls"); 
+		File f = folder.newFile("resultsNigpf.xls"); 
 		saveAs(f);
 		testXls(f, getMessage("profile.report.results.NIG"));
 	}
 	
 	@Test
-	public void projectIGResults() throws IOException {
+	public void projectIGResultsPDF() throws IOException {
 		login();
 		deletePros(true, true);
 		
@@ -105,17 +125,29 @@ public class SearchResultsReports extends WebTestUtil {
 		saveAs(f);
 		String contents = extractPdfText(f);
 		assertTrue(contents.contains(getMessage("project.report.results.IG")));
+	}
+	
+	@Test
+	public void projectIGResultsXLS() throws IOException {
+		login();
+		deletePros(true, true);
+		
+		// import a few projects
+		importProject(ImportFile.ProjectV16, "igpj", false, true, "Test IG Project");
+		importProject(ImportFile.ProjectV20, "igpj", false, false, "Tomate Curungueo");
+		importProject(ImportFile.ProjectV31Generic, "igpj", true, false, "EXPLOTACION DE BOVINOS PARA DOBLE PROPOSITO");
+		// ends at results page
 
 		// test xls
 		assertLinkPresentWithImage("xls.gif");
 		clickLinkWithImage("xls.gif");
-		f = folder.newFile("resultsIgpj.xls"); 
+		File f = folder.newFile("resultsIgpj.xls"); 
 		saveAs(f);
 		testXls(f, getMessage("project.report.results.IG"));
 	}
 	
 	@Test
-	public void projectNIGResults() throws IOException {
+	public void projectNIGResultsPDF() throws IOException {
 		login();
 		deletePros(true, false);
 		
@@ -130,11 +162,22 @@ public class SearchResultsReports extends WebTestUtil {
 		saveAs(f);
 		String contents = extractPdfText(f);
 		assertTrue(contents.contains(getMessage("project.report.results.NIG")));
+		
+	} 
+	
+	@Test
+	public void projectNIGResultsXLS() throws IOException {
+		login();
+		deletePros(true, false);
+		
+		// import a few projects
+		importProject(ImportFile.ProjectNig16, "nigpj", false, false, "Access Road & Bridge");
+		// ends at results page
 
 		// test xls
 		assertLinkPresentWithImage("xls.gif");
 		clickLinkWithImage("xls.gif");
-		f = folder.newFile("resultsNigpj.xls"); 
+		File f = folder.newFile("resultsNigpj.xls"); 
 		saveAs(f);
 		testXls(f, getMessage("project.report.results.NIG"));
 	}
