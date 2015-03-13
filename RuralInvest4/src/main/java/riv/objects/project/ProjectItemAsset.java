@@ -50,7 +50,7 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 		return donated;
 	}
 	
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch=FetchType.LAZY)
 	@MapKeyColumn(name="donor_id")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))

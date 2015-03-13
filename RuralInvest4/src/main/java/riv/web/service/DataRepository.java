@@ -801,10 +801,10 @@ public class DataRepository {
 		if (step==-1 || step==7 || step==12 || step==13
 				|| (!p.getIncomeGen()&&step==10) || (p.getIncomeGen()&&step==11)
 				) {
-			for (ProjectItemAsset i : p.getAssets()) {
-				Hibernate.initialize(i.getDonations());
-			}
-//			Hibernate.initialize(p.getAssets());
+//			for (ProjectItemAsset i : p.getAssets()) {
+//				Hibernate.initialize(i.getDonations());
+//			}
+			Hibernate.initialize(p.getAssets());
 			Hibernate.initialize(p.getLabours());
 			Hibernate.initialize(p.getServices());
 			Hibernate.initialize(p.getAssetsWithout());
