@@ -28,6 +28,11 @@
 					<display:column titleKey="projectBlockLabour.total" sortable="true" sortProperty="total">
 						<tags:formatCurrency value="${lab.total}"/>
 					</display:column>
+					<c:if test="${not project.incomeGen}">
+						<display:column titleKey="projectBlockLabour.donated" sortable="true" sortProperty="donated">
+							<tags:formatCurrency value="${lab.donated}"/>
+						</display:column>
+					</c:if>
 					<display:column titleKey="projectBlockLabour.totalCash" sortable="true" sortProperty="totalCash">
 						<tags:formatCurrency value="${lab.totalCash}"/>
 					</display:column>
@@ -60,6 +65,9 @@
 					<tags:dataentry field="unitCost" labelKey="projectBlockLabour.unitCost" onmouseout="CalculateTotal()" helpText="projectBlockLabour.unitCost.help" currency="true"  />
 					<tags:datadivider color="orange"/>
 					<tags:dataentry field="total" labelKey="projectBlockLabour.total" helpText="projectBlockLabour.total.help" calculated="true" currency="true" />
+					<c:if test="${not project.incomeGen}">
+						<tags:donations labelKey="projectBlockLabour.donated" onmouseout="CalculateTotal()" helpText="projectBlockLabour.donated.help" donors="${project.donors}"></tags:donations>
+					</c:if>
 					<tags:dataentry field="totalCash" labelKey="projectBlockLabour.totalCash" helpText="projectBlockLabour.totalCash.help" calculated="true" currency="true" />
 				</fieldset>
 				</div>

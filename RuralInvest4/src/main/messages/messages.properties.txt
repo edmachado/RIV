@@ -22,11 +22,13 @@ projectBlockLabour.unitNum.nocycle.help=Indicate the number of units of this typ
 
 projectBlockInput.donated=Total donated resources
 projectBlockInput.donated.help=Help text goes here
+projectBlockLabour.donated=Total donated resources
+projectBlockLabour.donated.help=Help text goes here
 
 #changed from previous versions
 project.step2=Beneficiaries & Donors
 error.pleaseCorrect=Please correct the fields in red.
-error.unknown=Thank you for your cooperation
+error.unknown=Sorry for the inconvenience
 error.maxLength=This field cannot be longer than {1} characters.
 error.max=This field cannot be greater than {1}.
 error.requiredNonNegative=This field cannot be negative.

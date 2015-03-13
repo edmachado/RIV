@@ -309,7 +309,7 @@ public class Upgrader {
 						myDonor.setOrderBy(project.getDonors().size());
 						project.addDonor(myDonor);
 					} 
-					c.setDonor(myDonor);
+					c.setDonorOrderBy(myDonor.getOrderBy());
 				}
 			}
 		}

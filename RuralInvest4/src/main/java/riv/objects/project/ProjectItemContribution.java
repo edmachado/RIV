@@ -28,10 +28,12 @@ public class ProjectItemContribution extends ProjectItem {
 	
 	@Column(name="YEAR_BEGIN")
 	private Integer year;
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="DONOR_ID")
-	private Donor donor;
-
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="DONOR_ID")
+//	private Donor donor;
+	@Column(name="DONOR_ORDER_BY")
+	private int donorOrderBy;
+	
 	@Transient // only for importing from previous versions
 	private String oldDonor;
 	
@@ -51,13 +53,21 @@ public class ProjectItemContribution extends ProjectItem {
 		this.year = year;
 	}
 
-	public Donor getDonor() {
-		return donor;
+	public int getDonorOrderBy() {
+		return donorOrderBy;
 	}
 
-	public void setDonor(Donor donor) {
-		this.donor = donor;
+	public void setDonorOrderBy(int donorOrderBy) {
+		this.donorOrderBy = donorOrderBy;
 	}
+
+//	public Donor getDonor() {
+//		return donor;
+//	}
+//
+//	public void setDonor(Donor donor) {
+//		this.donor = donor;
+//	}
 
 	public String getOldDonor() {
 		return oldDonor;
@@ -97,7 +107,8 @@ public class ProjectItemContribution extends ProjectItem {
 	   item.setUnitCost(unitCost);
 	   item.setUnitNum(unitNum);
 	   item.setUnitType(unitType);
-	   item.setDonor(donor);
+	   item.setDonorOrderBy(donorOrderBy);
+//	   item.setDonor(donor);
 //	   item.setContribType(contribType);
 //	   item.setContributor(contributor);
 	   item.setOrderBy(getOrderBy());

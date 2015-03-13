@@ -1270,7 +1270,7 @@ public double getInvestmentTotal() {
 		}
 		
 		for (ProjectItemContribution c : contributions) {
-			summary.get(c.getDonor().getOrderBy())[c.getYear()-1]+=c.getTotal();
+			summary.get(c.getDonorOrderBy())[c.getYear()-1]+=c.getTotal();
 		}
 		
 		return summary;

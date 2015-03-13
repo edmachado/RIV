@@ -265,14 +265,14 @@
 					<display:column titleKey="projectBlockInput.transport" sortable="true" sortProperty="transport">
 						<tags:formatCurrency value="${inp.transport}"/>
 					</display:column>
-					<c:if test="${not project.incomeGen}">
-						<display:column titleKey="projectBlockInput.donated" sortable="true" sortProperty="donated">
-							<tags:formatCurrency value="${inp.donated}"/>
-						</display:column>
-					</c:if>	
 					<display:column titleKey="projectBlockInput.total" sortable="true" sortProperty="total">
 						<tags:formatCurrency value="${inp.total}"/><c:set var="inpTotal" value="${inpTotal+inp.total}"/>
 					</display:column>
+					<c:if test="${not project.incomeGen}">
+						<display:column titleKey="projectBlockInput.donated" sortable="true" sortProperty="donated">
+							<tags:formatCurrency value="${inp.donated}"/><c:set var="inpDonatedTotal" value="${inpDonatedTotal+inp.donated}"/>
+						</display:column>
+					</c:if>	
 					<display:column titleKey="projectBlockInput.totalCash" sortable="true" sortProperty="totalCash">
 						<tags:formatCurrency value="${inp.totalCash}"/><c:set var="inpTotalCash" value="${inpTotalCash+inp.totalCash}"/>
 					</display:column>
@@ -314,9 +314,11 @@
 						</display:column>
 					</c:if>
 					<display:footer>
-						<tr height="1"><td height="1" colspan="15" class="Sum1"/></tr>
+						<c:set var="colspan"><c:if test="${project.incomeGen}">15</c:if><c:if test="${not project.incomeGen}">16</c:if></c:set>
+						<tr height="1"><td height="1" colspan="${colspan}" class="Sum1"/></tr>
 						<tr><td/><td/><td/><td/><td/><td/><td/>
 						<td><tags:formatCurrency value="${inpTotal}" /></td>
+						<c:if test="${not project.incomeGen}"><td><tags:formatCurrency value="${inpDonatedTotal}" /></td></c:if>
 						<td><tags:formatCurrency value="${inpTotalCash}" /></td>
 						<td/><td/><td/><td/><td/><td/></tr>
 					</display:footer>
@@ -353,6 +355,11 @@
 					<display:column titleKey="projectBlockLabour.total" sortable="true" sortProperty="total">
 						<tags:formatCurrency value="${lab.total}"/><c:set var="labTotal" value="${labTotal+lab.total}"/>
 					</display:column>
+					<c:if test="${not project.incomeGen}">
+						<display:column titleKey="projectBlockLabour.donated" sortable="true" sortProperty="donated">
+							<tags:formatCurrency value="${lab.donated}"/><c:set var="labDonatedTotal" value="${labDonatedTotal+lab.donated}"/>
+						</display:column>
+					</c:if>	
 					<display:column titleKey="projectBlockLabour.totalCash" sortable="true" sortProperty="totalCash">
 						<tags:formatCurrency value="${lab.totalCash}"/><c:set var="labTotalCash" value="${labTotalCash+lab.totalCash}"/>
 					</display:column>
@@ -394,9 +401,10 @@
 						</display:column>
 					</c:if>
 					<display:footer>
-						<tr height="1"><td height="1" colspan="14" class="Sum1"/></tr>
+						<tr height="1"><td height="1" colspan="${(colspan-1)}" class="Sum1"/></tr>
 						<tr><td/><td/><td/><td/><td/><td/>
 							<td><tags:formatCurrency value="${labTotal}" /></td>
+							<c:if test="${not project.incomeGen}"><td><tags:formatCurrency value="${labDonatedTotal}" /></td></c:if>
 							<td><tags:formatCurrency value="${labTotalCash}" /></td>
 						<td/><td/><td/><td/><td/><td/></tr>
 					</display:footer>
