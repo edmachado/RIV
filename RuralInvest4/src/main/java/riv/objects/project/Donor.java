@@ -1,5 +1,7 @@
 package riv.objects.project;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import riv.objects.OrderByable;
+
 @Entity
 @Table(name="DONOR")
-public class Donor implements java.io.Serializable {
+public class Donor implements Serializable, OrderByable {
 	private static final long serialVersionUID = 1;
 	
 	@Id
@@ -27,6 +31,8 @@ public class Donor implements java.io.Serializable {
 	private Integer contribType;
 	@Column(name="NOT_SPECIFIED")
 	private Boolean notSpecified=false;
+	@Column(name="ORDER_BY")
+	private Integer orderBy;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="PROJECT_ID", nullable=false)
@@ -63,6 +69,21 @@ public class Donor implements java.io.Serializable {
 		this.project = project;
 	}
 	
+	public void setOrderBy(Integer orderBy) {
+		this.orderBy = orderBy;
+	}
+
+	public Integer getOrderBy() {
+		return orderBy;
+	}
+	
+	public int compareTo(OrderByable i) {
+		if (this==i) return 0;
+		int compare = this.getOrderBy() - i.getOrderBy();
+		if(compare == 0) return 1;
+		return compare;  
+	}
+	
 	public Donor copy() {
 		Donor d = new Donor();
 		d.setContribType(contribType);
@@ -70,6 +91,7 @@ public class Donor implements java.io.Serializable {
 		d.setDonorId(donorId);
 		d.setNotSpecified(notSpecified);
 		d.setProject(project);
+		d.setOrderBy(orderBy);
 		return d;
 	}
 }
