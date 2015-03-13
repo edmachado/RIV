@@ -181,7 +181,7 @@ public class ProjectValidator implements Validator {
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalOwn", "project.capitalOwn", errors);
 
 				// calculated values
-				ValidateUtils.rejectIfNegative(project, "loan1Amt", "project.loan.amount", errors);
+				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
 				// calculate the working capital fields and validate them
 				ProjectFirstYear pfy = new ProjectFirstYear(project);
 				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
