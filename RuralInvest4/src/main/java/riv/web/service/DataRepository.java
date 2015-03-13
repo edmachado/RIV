@@ -326,7 +326,7 @@ public class DataRepository {
 		return (Version) c.uniqueResult();
 	}
 	public void storeVersion(Version v) {
-		currentSession().save(v);
+		currentSession().saveOrUpdate(v);
 	}
 
 	/*
