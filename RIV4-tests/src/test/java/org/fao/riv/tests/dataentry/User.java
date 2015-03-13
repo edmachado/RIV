@@ -65,7 +65,6 @@ public class User extends WebTestUtil {
 		assertTextNotInTable("users", getMessage("name"));
 	}
 	
-	//@Ignore
 	@Test
 	public void changePasswordForExistingUser() {
 		String username="asdfasdf";

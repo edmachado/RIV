@@ -79,6 +79,7 @@ public class InputProfileNig extends WebTestUtil {
 		rivSubmitForm();
 		assertTitleEquals(titles[5]);
 		Assert.assertEquals(getElementsByXPath(xpth).size(),deletes+1);
+		
 	}
 	
 	
@@ -163,11 +164,8 @@ public class InputProfileNig extends WebTestUtil {
 		
 		// STEP 6
 		// add products
-		//TODO: test clone product
 		//TODO: test delete product
-		int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
+		for (int i=1; i<=Integer.parseInt(getMessage("step6.product.count")); i++) {
 			clickLink("addProduct");
 			assertTitleEquals(activitiesTitle);
 			setTextField("description", getMessage("step6.product."+i+".description"));
@@ -198,13 +196,6 @@ public class InputProfileNig extends WebTestUtil {
 			.addParam("total", InputParamType.TEXT, true).addParam("linked", InputParamType.LINKED, false)
 			.addBlanks(5);
 			tt.testWithInput();
-			
-			i++;
-			try {
-				getMessage("step6.product."+i+".description");
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
 		rivSubmitForm();
 		assertTitleEquals(titles[6]);

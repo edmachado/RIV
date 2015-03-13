@@ -94,49 +94,15 @@ public class InputProjectIg extends WebTestUtil {
 		assertTitleEquals(titles[6]);
 		
 		// STEP 7
-		// assets
-		TestTable tt = new TestTable("assetsTable", "step7.asset.", "newAsset", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin")
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		// labour
-		tt = new TestTable("LabourTable", "step7.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		// service
-		tt = new TestTable("ServicesTable", "step7.service.", "newService", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
+		inputStep7(1, false);
 
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
 		// with project items
-		tt = new TestTable("suppliesTable", "step8.supply.", "newSupply", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
+		inputStep8(1, false);
 		
-		tt = new TestTable("personnelTable", "step8.personnel.", "newPersonnel", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
 				
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
@@ -392,6 +358,7 @@ public class InputProjectIg extends WebTestUtil {
 		setTextField("location3", getMessage("step1.location3"));
 		
 		// checkbox and select values
+		boolean without = Boolean.parseBoolean(getMessage("step1.withWithout"));
 		clickRadioOption("withWithout", getMessage("step1.withWithout"));
 		selectOptionByValue("startupMonth", getMessage("step1.startupMonth"));
 		selectOptionByValue("beneficiary", getMessage("step1.benefTypeId"));
@@ -452,98 +419,14 @@ public class InputProjectIg extends WebTestUtil {
 		assertTitleEquals(titles[6]);
 		
 		// STEP 7
-		// assets
-		TestTable tt = new TestTable("assetsTable", "step7.asset.", "newAsset", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addCollectionParam("donations", "donated", donors)
-		.addParam("financed", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false)
-		.addParam("yearBegin", InputParamType.SELECT, false)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		// labour
-		tt = new TestTable("LabourTable", "step7.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
-		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true)
-		.addParam("yearBegin", InputParamType.SELECT, false).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		// service
-		tt = new TestTable("ServicesTable", "step7.service.", "newService", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
-		.addCollectionParam("donations", "donated", donors)
-		.addParam("financed", InputParamType.TEXT, true)
-		.addParam("yearBegin", InputParamType.SELECT, false).addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		
-		// assets without project
-		tt = new TestTable("assetsTableWo", "step7.assetWo.", "newAssetWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
-		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
-		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin", InputParamType.SELECT, false)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		// labour without project
-		tt = new TestTable("LabourTableWo", "step7.labourWo.", "newLabourWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
-		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		// service without project
-		tt = new TestTable("ServicesTableWo", "step7.serviceWo.", "newServiceWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
-		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
+		inputStep7(donors, without);
+
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
 		
 		// STEP 8
 		// with project items
-		tt = new TestTable("suppliesTable", "step8.supply.", "newSupply", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		tt = new TestTable("personnelTable", "step8.personnel.", "newPersonnel", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		// without project items
-		tt = new TestTable("suppliesWoTable", "step8.supplyWo.", "newSupplyWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
-		
-		tt = new TestTable("personnelWoTable", "step8.personnelWo.", "newPersonnelWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
-		.addParam("linked", InputParamType.LINKED, false)
-		.addBlanks(5);
-		tt.testWithInput();
+		inputStep8(donors, without);
 		
 		rivSubmitForm();
 		assertTitleEquals(titles[8]);
@@ -573,7 +456,7 @@ public class InputProjectIg extends WebTestUtil {
 		
 		// STEP 10
 		// reference income table
-		tt = new TestTable("IncomeTable", "step10.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		TestTable tt = new TestTable("IncomeTable", "step10.income.", "addIncome", false, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitCost").addParam("transport")
 		.addBlanks(4);
 		tt.testOutput();
@@ -637,6 +520,102 @@ public class InputProjectIg extends WebTestUtil {
 		//Check new project exists in results table
 		assertTableRowCountEquals("results", 6+resultIndex);
 		assertTextInTable("results", projName);
+	}
+	
+	private void inputStep8(int donors, boolean hasWithout) throws Exception {
+		TestTable tt = new TestTable("suppliesTable", "step8.supply.", "newSupply", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testWithInput();
+		
+		tt = new TestTable("personnelTable", "step8.personnel.", "newPersonnel", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testWithInput();
+		
+		if (hasWithout) { // without project items
+			tt = new TestTable("suppliesWoTable", "step8.supplyWo.", "newSupplyWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+			.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
+			.addParam("linked", InputParamType.LINKED, false)
+			.addBlanks(5);
+			tt.testWithInput();
+			
+			tt = new TestTable("personnelWoTable", "step8.personnelWo.", "newPersonnelWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
+			.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("external", InputParamType.TEXT, true)
+			.addParam("linked", InputParamType.LINKED, false)
+			.addBlanks(5);
+			tt.testWithInput();
+		}
+	}
+	
+	private void inputStep7(int donors, boolean hasWithout) throws Exception {
+		// STEP 7
+		// assets
+		TestTable tt = new TestTable("assetsTable", "step7.asset.", "newAsset", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
+		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
+		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addCollectionParam("donations", "donated", donors)
+		.addParam("financed", InputParamType.TEXT, true);
+		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false)
+		.addParam("yearBegin", InputParamType.SELECT, false)
+		.addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testWithInput();
+		
+		// labour
+		tt = new TestTable("LabourTable", "step7.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true)
+		.addParam("yearBegin", InputParamType.SELECT, false).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testWithInput();
+		
+		// service
+		tt = new TestTable("ServicesTable", "step7.service.", "newService", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors)
+		.addParam("financed", InputParamType.TEXT, true)
+		.addParam("yearBegin", InputParamType.SELECT, false).addParam("linked", InputParamType.LINKED, false)
+		.addBlanks(5);
+		tt.testWithInput();
+		
+		if (hasWithout) {
+			// assets without project
+			tt = new TestTable("assetsTableWo", "step7.assetWo.", "newAssetWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
+			tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
+			tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+			.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true);
+			tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin", InputParamType.SELECT, false)
+			.addParam("linked", InputParamType.LINKED, false)
+			.addBlanks(5);
+			tt.testWithInput();
+			
+			// labour without project
+			tt = new TestTable("LabourTableWo", "step7.labourWo.", "newLabourWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
+			.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+			.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
+			.addParam("linked", InputParamType.LINKED, false)
+			.addBlanks(5);
+			tt.testWithInput();
+			
+			// service without project
+			tt = new TestTable("ServicesTableWo", "step7.serviceWo.", "newServiceWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
+			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
+			.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+			.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
+			.addParam("linked", InputParamType.LINKED, false)
+			.addBlanks(5);
+			tt.testWithInput();
+		}
+		
 	}
 	
 	private int addBlocks(boolean with, int withs, String blockTitleWithout, String blockTitleWith, String titles8) throws Exception {

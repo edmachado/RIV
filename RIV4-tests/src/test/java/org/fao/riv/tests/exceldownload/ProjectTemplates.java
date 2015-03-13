@@ -38,6 +38,7 @@ public class ProjectTemplates extends WebTestUtil {
 	
 	@After
     public void after() {
+		setLanguage("en");
 		clickLink("logoff");
         closeBrowser();
     }
@@ -78,7 +79,7 @@ public class ProjectTemplates extends WebTestUtil {
 		clickLink("downloadTemplate");
 		f = folder.newFile("block.xlsx");
 		saveAs(f);
-		testXls(f, isIG ? getMessage("projectBlockIncome") : getMessage("projectActivityCharge"));
+		testXls(f, (isIG ? getMessage("projectBlockIncome") : getMessage("projectActivityCharge")) + " ("+getMessage("units.perUnitperCycle")+")");
 		
 		// contributions
 		if (!isIG) {
@@ -102,7 +103,6 @@ public class ProjectTemplates extends WebTestUtil {
 	public void projectIgInSpanish() throws IOException {
 		setLanguage("es");
 		testProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
-		setLanguage("en");
 	}
 	
 	@Test
@@ -114,6 +114,5 @@ public class ProjectTemplates extends WebTestUtil {
 	public void projectNigSpanish() throws IOException {
 		setLanguage("es");
 		testProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
-		setLanguage("en");
 	}
 }

@@ -35,6 +35,7 @@ public class ProjectXls extends WebTestUtil {
 	
 	@After
     public void close() {
+		setLanguage("en");
 		clickLink("logoff");
         closeBrowser();
     }

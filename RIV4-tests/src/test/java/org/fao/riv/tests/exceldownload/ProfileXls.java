@@ -39,6 +39,7 @@ public class ProfileXls extends WebTestUtil {
 	
 	@After
     public void close() {
+		setLanguage("en");
 		clickLink("logoff");
         closeBrowser();
     }
