@@ -22,11 +22,8 @@
 				<display:column titleKey="projectNongenLabour.total" sortable="true" sortProperty="total">
 					<tags:formatCurrency value="${lab.total}"/>
 				</display:column>
-				<display:column titleKey="projectNongenLabour.statePublic" sortable="true" sortProperty="statePublic">
-					<tags:formatCurrency value="${lab.statePublic}"/>
-				</display:column>
-				<display:column titleKey="projectNongenLabour.other1" sortable="true" sortProperty="other1">
-					<tags:formatCurrency value="${lab.other1}"/>
+				<display:column titleKey="projectNongenLabour.donated" sortable="true" sortProperty="donated">
+					<tags:formatCurrency value="${lab.donated}"/>
 				</display:column>
 				<display:column titleKey="projectNongenLabour.ownResource" sortable="true" sortProperty="ownResource">
 					<tags:formatCurrency value="${lab.ownResource}"/>
@@ -54,9 +51,7 @@
 				<tags:dataentry field="unitCost" labelKey="projectNongenLabour.unitCost" helpText="projectNongenLabour.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
 				<tags:datadivider color="green"/>
 				<tags:dataentry field="total" labelKey="projectNongenLabour.total" helpText="projectNongenLabour.total.help" currency="true" calculated="true" />
-				<!--  value="${projectNongenLabour.unitCost*projectNongenLabour.unitNum}" -->
-				<tags:dataentry field="statePublic" labelKey="projectNongenLabour.statePublic" helpText="projectNongenLabour.statePublic.help" currency="true"  onmouseout="CalculateOwn()"/>
-				<tags:dataentry field="other1" labelKey="projectNongenLabour.other1" helpText="projectNongenLabour.other1.help" currency="true"  onmouseout="CalculateOwn()"/>
+				<tags:donations donors="${projectItem.project.donors}" labelKey="projectNongenLabour.donated" helpText="projectNongenLabour.donated.help" onmouseout="CalculateFinance()" />
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="ownResource" labelKey="projectNongenLabour.ownResource" helpText="projectNongenLabour.ownResource.help" calculated="true" currency="true" />
 				<!-- value="${(projectNongenLabour.unitCost*projectNongenLabour.unitNum)-projectNongenLabour.statePublic-projectNongenLabour.other1}" -->

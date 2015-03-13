@@ -20,12 +20,6 @@
 				<display:column titleKey="projectNongenInput.donated" sortable="true" sortProperty="donated">
 					<tags:formatCurrency value="${row.donated}"/>
 				</display:column>
-<%-- 				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="statePublic"> --%>
-<%-- 					<tags:formatCurrency value="${row.statePublic}"/> --%>
-<%-- 				</display:column> --%>
-<%-- 				<display:column titleKey="projectNongenInput.other1" sortable="true" sortProperty="other1"> --%>
-<%-- 					<tags:formatCurrency value="${row.other1}"/> --%>
-<%-- 				</display:column> --%>
 				<display:column titleKey="projectNongenInput.ownResource" sortable="true" sortProperty="ownResource">
 					<tags:formatCurrency value="${row.ownResource}"/>
 				</display:column>
