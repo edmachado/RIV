@@ -169,8 +169,8 @@ public class ProfileController {
 			} else if (profile.getWizardStep()==null && step==1) { // only step 1 affects profileResult
 				calculateResult=true;
 			}
-
 			dataService.storeProfile(profile, calculateResult);
+			
 			return "redirect:../step"+(step+1)+"/"+profile.getProfileId();
 		}
 	}

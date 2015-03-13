@@ -457,22 +457,6 @@ public class DataRepository {
 			if (step==1 || step==-1) {
 				Hibernate.initialize(p.getFieldOffice());
 				Hibernate.initialize(p.getStatus());
-				Hibernate.initialize(p.getGlsGoods());
-				Hibernate.initialize(p.getGlsLabours());
-				Hibernate.initialize(p.getGlsGoodsWithout());
-				Hibernate.initialize(p.getGlsLaboursWithout());
-				Hibernate.initialize(p.getGlsGeneral());
-				Hibernate.initialize(p.getGlsGeneralWithout());
-				for (ProfileProduct pp : p.getProducts()) {
-					Hibernate.initialize(pp.getProfileIncomes());
-					Hibernate.initialize(pp.getProfileInputs());
-					Hibernate.initialize(pp.getProfileLabours());
-				}
-				for (ProfileProductWithout pp : p.getProductsWithout()) {
-					Hibernate.initialize(pp.getProfileIncomes());
-					Hibernate.initialize(pp.getProfileInputs());
-					Hibernate.initialize(pp.getProfileLabours());
-				}
 			}
 			if (step==-1 || step==1 || step==4 || step==5 || step==6 || step==7) { // ref costs
 				Hibernate.initialize(p.getRefCosts());
