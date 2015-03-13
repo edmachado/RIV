@@ -158,7 +158,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="profile", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='1'")
-	private Set<ProfileProductWithout> productsWithout;
+	private Set<ProfileProductWithout> productsWithout = new HashSet<ProfileProductWithout>();
 	
 	
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGood.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
@@ -168,7 +168,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGoodWithout.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='4'")
-	private Set<ProfileItemGoodWithout> glsGoodsWithout;
+	private Set<ProfileItemGoodWithout> glsGoodsWithout = new HashSet<ProfileItemGoodWithout>();
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemLabour.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='1'")
@@ -176,7 +176,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemLabourWithout.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='5'")
-	private Set<ProfileItemLabourWithout> glsLaboursWithout;
+	private Set<ProfileItemLabourWithout> glsLaboursWithout = new HashSet<ProfileItemLabourWithout>();
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGeneral.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='2'")
@@ -184,7 +184,7 @@ public class Profile extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="profile", targetEntity=ProfileItemGeneralWithout.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='3'")
-	private Set<ProfileItemGeneralWithout> glsGeneralWithout;
+	private Set<ProfileItemGeneralWithout> glsGeneralWithout = new HashSet<ProfileItemGeneralWithout>();
 	@OneToMany(mappedBy="profile", targetEntity=ReferenceCost.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@OrderBy("ORDER_BY") 
 	@Where(clause="class='0'")
