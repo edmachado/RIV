@@ -1,17 +1,21 @@
 package riv.objects.project;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -43,14 +47,27 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	
 	public Double getDonated() {
 		double donated = 0.0;
-		for (ProjectItemDonation d : donations) {
-			donated+=d.getAmount();
-		}
+
+//		for (ProjectItemDonation d : donations) {
+//			donated+=d.getAmount();
+//		}
+
 		return donated;
 	}
-	@OneToMany(mappedBy="projectItem", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@OrderBy("ID")
-	private Set<ProjectItemDonation> donations=new HashSet<ProjectItemDonation>();
+
+	
+	@ElementCollection
+	@MapKeyColumn(name="donor_id")
+	@Column(name="amount")
+	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
+	Map<Integer,Double> donations = new HashMap<Integer,Double>();
+	
+	public Map<Integer,Double> getDonations() { return donations; }
+	
+//	@OneToMany(mappedBy="projectItem", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//	@MapKeyColumn(name="donor_id")
+//	@MapKey(name="donorId")
+//	private Map<Integer,ProjectItemDonation> donations;
 	
 		public Project getProject () {
 			return this.project;
@@ -137,15 +154,30 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	        this.replace = Replace;
 	    }
 	   
-	@Override
-	public Set<ProjectItemDonation> getDonations() {
-		return donations;
-	}
 
-	   @Override
-	public void setDonations(Set<ProjectItemDonation> donations) {
-		this.donations = donations;
-	}
+//	public Map<Integer,Double> getDonations() {
+//		return donations;
+//	}
+//	public Map<String, ProjectItemDonation> getDonations2() {
+//		HashMap<String, ProjectItemDonation> foo = new HashMap<String, ProjectItemDonation>();
+//		for (Integer i : donations.keySet()) {
+//			foo.put(i.toString(), donations.get(i));
+//		}
+//		return foo;
+//	}
+	
+//	public void addDonation(Donor donor, double amount) {
+//		ProjectItemDonation d = new ProjectItemDonation();
+//		d.setDonor(donor);
+//		d.setAmount(amount);
+//		donations.put(donor.getId(), d);
+//		donated=null;
+//	}
+
+//	   @Override
+//	public void setDonations(Set<ProjectItemDonation> donations) {
+//		this.donations = donations;
+//	}
 
 	public String testingProperties(RivConfig rivConfig) {
 			String lineSeparator = System.getProperty("line.separator");

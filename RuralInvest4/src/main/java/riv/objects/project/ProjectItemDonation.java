@@ -16,35 +16,22 @@ public class ProjectItemDonation implements java.io.Serializable {
 	private static final long serialVersionUID = 1;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="ID", nullable = false)
-	private Integer id;
-	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="DONOR_ID")
-	private Donor donor;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ITEM_ID")
+	@JoinColumn(name="ITEM_ID", nullable=false)
 	private ProjectItem projectItem;
+	@Id
+	@Column(name="DONOR_ID")
+	private int donorId;
 	
 	@Column
 	private Double amount;
 
-	public Integer getId() {
-		return id;
+	public int getDonorId() {
+		return donorId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Donor getDonor() {
-		return donor;
-	}
-
-	public void setDonor(Donor donor) {
-		this.donor = donor;
+	public void setDonorId(int donor) {
+		this.donorId = donor;
 	}
 
 	public ProjectItem getProjectItem() {

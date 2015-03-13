@@ -46,7 +46,7 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	@Column(name="UNIT_COST")
 	protected Double unitCost;
 //	@Size(max=2000)
-//	private String note;
+//	private String note;donations
 	@ManyToOne
 	@JoinColumn(name="LINKED_TO")
 	private ReferenceItem linkedTo;

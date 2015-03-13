@@ -156,6 +156,46 @@ public class ProjectItemController {
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public String saveProjectItem(@RequestParam Integer linkedToId, @RequestParam(required=false) Boolean addLink, @RequestParam(required=false) Boolean allYears, HttpServletRequest request,
 			@Valid @ModelAttribute ProjectItem projectItem, BindingResult result, Model model) {
+    	// validate donation items
+//    	((ProjectItemAsset)projectItem).getDonations().clear();
+//    	for (Donor donor : projectItem.getProject().getDonors()) {
+//    		Double amount;
+//    		String amountText = request.getParameter("donation"+donor.getId()).replace(rivConfig.getSetting().getDecimalSeparator(), ".").replace(rivConfig.getSetting().getThousandSeparator(), "");
+//			if (amountText.isEmpty()) {
+//				result.rejectValue("donated","error.donation.empty", new Object[] {donor.getDescription()}, "Donation cannot be empty. Donor: {0}");
+//			} else {
+//	    		try {
+//					amount = Double.parseDouble(amountText);
+//					if (amount > 0) {
+//						ProjectItemDonation donation = new ProjectItemDonation();
+//						donation.setDonor(donor);
+//						donation.setAmount(amount);
+//						donation.setProjectItem(projectItem);
+//						((ProjectItemAsset)projectItem).getDonations().put(donor.getId(),donation);
+//					} else {
+//						result.rejectValue("donated","error.donation.negative", new Object[] {donor.getDescription()}, "Donation cannot be negative. Donor: {0}");
+//					}
+//				} catch (NumberFormatException e) {
+//					result.rejectValue("donated","error.donation.notNumber", new Object[] {donor.getDescription()}, "Donation must be a number. Donor: {0}");
+//				}
+//			}
+//    	}
+//    	if (((ProjectItemAsset)projectItem).getDonated()<0) {
+//    		result.rejectValue("donated","error.donation.totalNotNegative", new Object[0], "Total donation cannot be negative.");
+//    	}
+    	
+//    	for (Donor donor : projectItem.getProject().getDonors()) {
+//    		ProjectItemDonation donation = ((ProjectItemAsset)projectItem).getDonations().get(donor.getId());
+//    		donation.setDonorId(donor.getId());
+//    		donation.setProjectItem(projectItem);
+//    	}
+//    	
+//    	for (Object i : ((ProjectItemAsset)projectItem).getDonations().keySet()) {
+//    		String s = i.toString();
+//    	}
+    	
+    	
+    	
     	if (result.hasErrors()) {
 			setupPageAttributes(projectItem, model, request);
 			return form(projectItem);

@@ -71,20 +71,19 @@
 				<tags:dataentry field="total" labelKey="projectInvestAsset.totalCost" helpText="projectInvestAsset.totalCost.help" currency="true" calculated="true" />
 				<!-- value="${projectInvestAsset.unitNum*projectInvestAsset.unitCost}" -->
 				<tags:dataentry field="donated" button="manage" calculated="true" labelKey="projectInvestAsset.donated" helpText="projectInvestAsset.donated.help" currency="true" onmouseout="CalculateFinance()"/>
-				<div id="donations" style="display:none; border:1px solid #aaa; margin-left:5px">
-					<c:forEach var="donor" items="${project.donors}">
-						<c:set var="amount">
-							<c:forEach var="donation" items="${projectItem.donations}">
-								<c:if test="${donation.donor.id eq donor.id}"><tags:formatCurrency value="${donation.amount}"/></c:if>
-							</c:forEach>
-						</c:set>
-						<c:if test="${empty amount}"><c:set var="amount" value="0.0" /></c:if>
-						<div class="dataentry">
-							<label for="donation${donor.id}">${donor.description}</label>
-							<input class="curlabel" value="VND 000" disabled="" size="5">
-							<input id="donation${donor.id}" class="num" type="text" size="11" value="${amount}" maxlength="11" onkeyup="javascript:commasKeyup(this);" name="donation${donorid}">
-						</div>
+			
+				<div id="donations" style="display:block; border:1px solid #aaa; margin-left:5px">
+					<c:forEach var="donor" items="${projectItem.project.donors}">
+						<tags:dataentry field="donations[${donor.id}]" />
+						${projectItem.donations[donor.id]}
 					</c:forEach>
+<%-- 					<c:forEach var="donation" items="${projectItem.donations}"> --%>
+<!-- 						<div class="dataentry"> -->
+<%-- 							<label for="donation${donation.key}">${donation.value.donor.description}</label> --%>
+<%-- 							<input class="curlabel" value="${rivConfig.setting.currencySym}" disabled="" size="5"> --%>
+<%-- 							<input id="donations[${donation.key}]" name="donations[${donation.key}]" value="${donation.value.amount}" class="num" type="text" size="11" maxlength="11" onkeyup="javascript:commasKeyup(this);"> --%>
+<!-- 						</div> -->
+<%-- 					</c:forEach> --%>
 				</div>
 				<tags:dataentry field="ownResources" labelKey="projectInvestAsset.ownResources" helpText="projectInvestAsset.ownResources.help" currency="true" onmouseout="CalculateFinance()"/>
 				<tags:datadivider color="orange"/>

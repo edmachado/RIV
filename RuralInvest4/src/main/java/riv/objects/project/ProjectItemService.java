@@ -35,14 +35,16 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 	
 	public Double getDonated() {
 		double donated = 0.0;
-		for (ProjectItemDonation d : donations) {
-			donated+=d.getAmount();
-		}
+//		for (ProjectItemDonation d : donations.values()) {
+//			donated+=d.getAmount();
+//		}
 		return donated;
 	}
-	@OneToMany(mappedBy="projectItem", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@OrderBy("ID")
-	private Set<ProjectItemDonation> donations=new HashSet<ProjectItemDonation>();
+//	@OneToMany(mappedBy="projectItem", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//	@MapKey(name="id")
+//	@OrderBy("ID")
+//	private Map<Integer,ProjectItemDonation> donations=new HashMap<Integer,ProjectItemDonation>();
+	
 	
 	public void setOwnResources(Double ownResources) {
 		this.ownResources = ownResources;
@@ -86,15 +88,15 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 		   return (getTotal() - getOwnResources() - getDonated());
 	}
 	
-	@Override
-	public Set<ProjectItemDonation> getDonations() {
-		return donations;
-	}
+//	@Override
+//	public Map<Integer,ProjectItemDonation> getDonations() {
+//		return donations;
+//	}
 
-	   @Override
-	public void setDonations(Set<ProjectItemDonation> donations) {
-		this.donations = donations;
-	}
+//	   @Override
+//	public void setDonations(Set<ProjectItemDonation> donations) {
+//		this.donations = donations;
+//	}
 	
 	 public String testingProperties(RivConfig rivConfig) {
 			String lineSeparator = System.getProperty("line.separator");
