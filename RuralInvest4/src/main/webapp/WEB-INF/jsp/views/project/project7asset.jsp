@@ -73,7 +73,7 @@
 			
 				<div id="donations" style="display:block; border:1px solid #aaa; margin-left:5px">
 					<c:forEach var="donor" items="${projectItem.project.donors}">
-						<tags:dataentry field="donations[${donor.id}]" label="${donor.description}" currency="true" />
+						<tags:dataentry field="donations[${donor.donorId}]" label="${donor.description}" currency="true" />
 					</c:forEach>
 				</div>
 				<tags:dataentry field="ownResources" labelKey="projectInvestAsset.ownResources" helpText="projectInvestAsset.ownResources.help" currency="true" onmouseout="CalculateFinance()"/>

@@ -1323,9 +1323,6 @@ public class DataRepository {
 		storeProjectItem(pi, false);
 	}
 	public void storeProjectItem(ProjectItem pi, boolean noResult) {
-		currentSession().createSQLQuery("DELETE FROM project_item_donation where item_id=:id").setInteger("id", pi.getProjItemId()).executeUpdate();
-		
-		
 		currentSession().saveOrUpdate(pi);
 		if (!noResult && pi.getProject().getWizardStep()==null) {
 			storeProjectResult(pi.getProject().getProjectId());

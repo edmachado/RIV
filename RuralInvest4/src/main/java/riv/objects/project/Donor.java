@@ -18,7 +18,7 @@ public class Donor implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="ID", nullable = false)
-	private Integer id;
+	private Integer donorId;
 	@Size(max=150)
 	@Column(name="DESCRIPTION")
 	private String description;
@@ -31,11 +31,11 @@ public class Donor implements java.io.Serializable {
 	@JoinColumn(name="PROJECT_ID", nullable=false)
 	private Project project;
 	
-	public Integer getId() {
-		return id;
+	public Integer getDonorId() {
+		return donorId;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setDonorId(Integer id) {
+		this.donorId = id;
 	}
 	public String getDescription() {
 		return description;

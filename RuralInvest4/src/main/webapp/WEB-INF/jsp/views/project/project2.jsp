@@ -53,12 +53,12 @@
 				<c:if test="${accessOK}">
 					<display:column title="&nbsp;" style="margin-left:5px;" media="html">
 						<c:if test="${not row.notSpecified}">
-							<a href="../donor/${row.id}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
+							<a href="../donor/${row.donorId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</c:if>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
 						<c:if test="${not row.notSpecified}">
-							<a href="../donor/${row.id}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="../donor/${row.donorId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</c:if>
 					</display:column>
 				</c:if>

@@ -1,4 +1,9 @@
-project.quickAnalysis=Шуурхай шинжилгээ
+## RIV4.1.4
+project.quickAnalysis=Хурдавчилсан шинжилгээ (чанарын шинжилгээгүй)
+projectBlock.cloneWith="Төсөлтэй" блокыг хувил
+projectBlock.cloneWithout="Төсөлгүй" блокыг хувил
+project.report.cashFlowNongen.accumulated=Хуримтлагдсан тэнцэл
+import.excel.error.noWithout=Таны ажиллаж буй төсөл нь "төсөлгүй" хувилбарыг агуулсан байхад импортолж буй Эксел файл "төсөлгүй" хувилбаргүй байна. Импортолж буй файлаа зөв эсэхийг шалгаж, энэ хуудсан дахь "Эксел файлыг татах" холбоосыг орж үзнэ үү.
 
 #RIV4.1 B
 projectContribution.contributor.help=Хувь оруулагч байгууллага (ТББ, холбоо, Засгийн газрын агентлаг)

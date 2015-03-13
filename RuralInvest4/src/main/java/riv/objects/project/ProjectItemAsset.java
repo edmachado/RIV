@@ -1,11 +1,8 @@
 package riv.objects.project;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
@@ -14,9 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
-import javax.persistence.MapKey;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.OneToMany;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -62,11 +57,6 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	Map<Integer,Double> donations = new HashMap<Integer,Double>();
 	
 	public Map<Integer,Double> getDonations() { return donations; }
-	
-//	@OneToMany(mappedBy="projectItem", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//	@MapKeyColumn(name="donor_id")
-//	@MapKey(name="donorId")
-//	private Map<Integer,ProjectItemDonation> donations;
 	
 		public Project getProject () {
 			return this.project;
@@ -169,6 +159,8 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 //	public void setDonations(Set<ProjectItemDonation> donations) {
 //		this.donations = donations;
 //	}
+
+	public String testingProperties(RivConfig rivConfig) {
 
 	public String testingProperties(RivConfig rivConfig) {
 			String lineSeparator = System.getProperty("line.separator");
