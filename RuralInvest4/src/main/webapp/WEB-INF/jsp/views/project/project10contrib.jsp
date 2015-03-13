@@ -47,7 +47,14 @@
 				<div class="dataentry">
 					<tags:help text="projectContribution.contributor.help" title="projectContribution.contributor"><label><spring:message code="projectContribution.contributor"/></label></tags:help>
 					<form:select path="donor">
-						<form:options items="${project.donors}" itemValue="donorId" itemLabel="description" />
+						<c:forEach var="donor" items="${project.donors}">
+							<c:set var="label"><c:choose>
+								<c:when test="${donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
+								<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+								<c:otherwise>${donor.description}</c:otherwise>
+							</c:choose></c:set>
+							<form:option value="${donor.donorId}" label="${label}"/>
+						</c:forEach>
 					</form:select>
 				</div>
 				<tags:dataentry field="unitType" labelKey="projectContribution.unitType" helpText="projectContribution.unitType.help" />
