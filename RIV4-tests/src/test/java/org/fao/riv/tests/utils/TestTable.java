@@ -10,6 +10,7 @@ import java.util.concurrent.Callable;
 import net.sourceforge.jwebunit.html.Row;
 import net.sourceforge.jwebunit.html.Table;
 
+import org.fao.riv.tests.utils.CollectionInputParam;
 import org.fao.riv.tests.utils.InputParam.InputParamType;
 
 

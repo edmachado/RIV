@@ -259,16 +259,8 @@ public class InputProjectIg extends WebTestUtil {
 		}
 		
 		// production pattern
-		int x=1;
-		boolean nextPat=true;
-		while (nextPat) {
+		for (int x=1;x<=Integer.parseInt(getMessage("step1.duration"));x++) {
 			setTextField("pat"+x,getMessage("step9.block."+i+".pat"+x));
-			x++;
-			try {
-				getMessage("step9.block."+i+".pat"+x);
-			} catch (Exception e) {
-				nextPat=false;
-			}
 		}
 		
 		rivSubmitForm();

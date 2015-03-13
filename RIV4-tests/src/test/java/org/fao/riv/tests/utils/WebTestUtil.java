@@ -408,8 +408,8 @@ public class WebTestUtil {
     protected void verifyProjectNigTablesStep10(int year) {
     	TestTable tt = new TestTable("contributionTable"+year, "step10.year."+year+".contribution.", "newContrib", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description")
-		.addParam("donor")
-		.addParam("contribType", InputParamType.SELECT, false)
+		.addParam("donorOrderBy", InputParamType.SELECT, false)
+//		.addParam("contribType", InputParamType.SELECT, false)
 		.addParam("unitType")
 		.addParam("unitNum").addParam("unitCost");
 		tt.addParam("total", InputParamType.TEXT, true)
@@ -532,17 +532,8 @@ public class WebTestUtil {
 		if (simpleContributions) {
 			verifyProjectNigTablesStep10(1);
 		} else {
-			int year=1;
-			boolean nextItem=true;
-			while (nextItem) {
+			for (int year=1;year<=Integer.parseInt(getMessage("step1.duration"));year++) {
 				verifyProjectNigTablesStep10(year);
-				
-				year++;
-				try {
-					getMessage("step10.year"+year+".contribution1.description");
-				} catch (Exception e) {
-					nextItem=false;
-				}
 			}
 		}
 		rivSubmitForm();
@@ -609,7 +600,9 @@ public class WebTestUtil {
 		// input
 		tt = new TestTable("inputTable"+(i-1), "step9.block."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-		.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+		.addParam("transport").addParam("total", InputParamType.TEXT, true)
+		.addCollectionParam("donations", "donated", Integer.parseInt(getMessage("step2.donor.count")))
+		.addParam("totalCash", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testOutput();
@@ -619,7 +612,9 @@ public class WebTestUtil {
 		.addParam("description").addParam("unitType", InputParamType.SELECT, false)
 		.addParam("unitNum")
 		.addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-		.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+		.addParam("total", InputParamType.TEXT, true)
+		.addCollectionParam("donations", "donated", Integer.parseInt(getMessage("step2.donor.count")))
+		.addParam("totalCash", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testOutput();

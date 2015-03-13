@@ -40,7 +40,7 @@ public class InputProjectNig extends WebTestUtil {
 	    }
 	 
 	 @Test
-		public void createProjectFromPropertiesWithCommaForDecimalsNIG() throws Exception {
+		public void createProjectCommaForDecimalsNIG() throws Exception {
 			// change decimal separator in settings
 			String settingsTitle = getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config");
 	    	clickLink("gotoSettings");
@@ -193,15 +193,20 @@ public class InputProjectNig extends WebTestUtil {
 		rivSubmitForm();
 		assertTitleEquals(titles[2]);
 		
-		// add second donor
-		//TODO: get from properties file
+		// add donors
 		clickLink("step2");
-		clickLink("newDonor");
-		setTextField("description", "test donor");
-		rivSubmitForm();
-		clickLink("step3");
+		for (int i=1;i<=donors;i++) {
+			if (i>1) {
+				clickLink("newDonor");
+				String desc = getMessage("step2.donor."+i+".description");
+				setTextField("description", desc.isEmpty()?" ":desc);
+				selectOptionByValue("contribType", getMessage("step2.donor."+i+".type"));
+				rivSubmitForm();
+			}
+		}
 		
 		// STEP 3
+		clickLink("step3");
 		setTextField("justification",getMessage("step3.justification"));
 		setTextField("projDesc",getMessage("step3.projDesc"));
 		setTextField("activities",getMessage("step3.activities"));
@@ -233,7 +238,8 @@ public class InputProjectNig extends WebTestUtil {
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
 		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
 		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin", InputParamType.SELECT, false)
+		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false)
+		.addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -242,7 +248,8 @@ public class InputProjectNig extends WebTestUtil {
 		tt = new TestTable("LabourTable", "step7.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
-		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true)
+		.addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -270,7 +277,8 @@ public class InputProjectNig extends WebTestUtil {
 		tt.testWithInput();
 		
 		tt = new TestTable("labourTable", "step8.labour", "addLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
-		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
+		.addParam("description")
+		.addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
 //		.addParam("statePublic").addParam("other1")
 		.addCollectionParam("donations", "donated", donors).addParam("ownResource", InputParamType.TEXT, true)
@@ -325,7 +333,9 @@ public class InputProjectNig extends WebTestUtil {
 			// input
 			tt = new TestTable("inputTable"+(i-1), "step9.block."+i+".input.", "newInput"+(i-1), true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 			.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("transport").addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+			.addParam("transport").addParam("total", InputParamType.TEXT, true)
+			.addCollectionParam("donations", "donated", donors)
+			.addParam("totalCash", InputParamType.TEXT, true)
 			.addParam("linked", InputParamType.LINKED, false)
 			.addBlanks(5);
 			tt.testWithInput();
@@ -335,7 +345,9 @@ public class InputProjectNig extends WebTestUtil {
 			.addParam("description").addParam("unitType", InputParamType.SELECT, false)
 			.addParam("unitNum")
 			.addParam("unitCost").addParam("qtyIntern").addParam("qtyExtern", InputParamType.TEXT, true)
-			.addParam("total", InputParamType.TEXT, true).addParam("totalCash", InputParamType.TEXT, true)
+			.addParam("total", InputParamType.TEXT, true)
+			.addCollectionParam("donations", "donated", donors)
+			.addParam("totalCash", InputParamType.TEXT, true)
 			.addParam("linked", InputParamType.LINKED, false)
 			.addBlanks(5);
 			tt.testWithInput();
@@ -354,7 +366,7 @@ public class InputProjectNig extends WebTestUtil {
 		for (int year=1;year<=duration;year++) {
 			tt = new TestTable("contributionTable"+year, "step10.year."+year+".contribution.", "newContrib"+year, true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 			tt.addParam("description")
-			.addParam("donor", InputParamType.SELECT, false)
+			.addParam("donorOrderBy", InputParamType.SELECT, true)
 			.addParam("unitType")
 			.addParam("unitNum").addParam("unitCost");
 			tt.addParam("total", InputParamType.TEXT, true)
