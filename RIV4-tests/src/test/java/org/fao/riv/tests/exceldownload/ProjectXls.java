@@ -10,14 +10,11 @@ import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class ProjectXls extends WebTestUtil {
-	String igTitle;
-	
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();
 	
@@ -27,10 +24,9 @@ public class ProjectXls extends WebTestUtil {
 	 }
 	
 	@Before
-	public void deleteExisting() {
+	public void before() {
 		login();
-		deletePros(true, true);
-		deletePros(true, false);
+		goHome();
 	}
 	
 	@After
@@ -40,11 +36,8 @@ public class ProjectXls extends WebTestUtil {
         closeBrowser();
     }
 	
-	private void testProject(ImportFile file, String type, boolean isGeneric, boolean missingCapital, String projName) throws IOException {
-		// import complete project
-		importProject(file, type, isGeneric, missingCapital, projName);
-		boolean isIG = type.startsWith("ig");
-		// edit profile
+	private void testProject(boolean isIG) throws IOException {
+
 		goToPro(true, isIG, true);
 		
 		clickLink("step13");
@@ -54,61 +47,37 @@ public class ProjectXls extends WebTestUtil {
 		// reports
 		for (int i=0;i<titles.length;i++) {
 			clickLinkWithImage("xls.gif", i);
-			File f = folder.newFile(i+".xls"); 
+			File f = folder.newFile(); 
 			saveAs(f);
 			testXls(f, titles[i]);
 			f.delete();
 		}
 	}
 	
-	@Ignore
-	@Test
-	public void testProjectWith40InvestmentItems() throws IOException {
-		String[] titles = projectStepTitles(true);
-		importProject(ImportFile.ProjectV41, "igpj", false, false, "T3st Santa Cruz River Transport");
-		clickLinkWithImage("edit.png");
-		assertTitleEquals(titles[0]);
-		assertLinkPresent("step7");
-		clickLink("step7");
-		assertTitleEquals(titles[6]);
-		
-		for (int i=0;i<40;i++) {
-			assertLinkPresentWithImage("duplicate.gif");
-			clickLinkWithImage("duplicate.gif");
-		}
-		
-		assertLinkPresent("step13");
-		clickLink("step13");
-		assertTitleEquals(titles[12]);
-		
-		assertLinkPresent("xls_complete");
-		clickLink("xls_complete");
-		File f = folder.newFile("complete_40_investments.xls"); 
-		saveAs(f);
-		
-		//String value = cellValueFromXls(f, 11, 5, 1);
-//		org.junit.Assert.assertTrue(false);  
-		
-//		f.delete();
-		
-	}
-	
 	@Test
 	public void projectIGi18n() throws IOException {
+		deletePros(true, true);
+		importProject(ImportFile.ProjectV20, "igpj", false, false, "Tomate Curungueo");
+		
 		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"};
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
-			clickLink("goHome");
-			deletePros(true, true);
 			setLanguage(lang);
-			testProject(ImportFile.ProjectV20, "igpj", false, false, "Tomate Curungueo");
-			setLanguage("en");
+			testProject(true);
 		}
 	}
 	
 	@Test
-	public void projectNig() throws IOException {
-		testProject(ImportFile.ProjectNig16, "nigpj", false, false, "Access Road & Bridge");
+	public void projectNigI18n() throws IOException {
+		deletePros(true, false);
+		importProject(ImportFile.ProjectNig16, "nigpj", false, false, "Access Road & Bridge");
+		
+		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"};
+		for (String lang : langs) {
+			System.out.println("testing "+lang);
+			setLanguage(lang);
+			testProject(false);
+		}
 	}
 	
 	private String[] reportTitles(boolean isIG) {

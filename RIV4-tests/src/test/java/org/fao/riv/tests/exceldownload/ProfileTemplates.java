@@ -33,25 +33,20 @@ public class ProfileTemplates extends WebTestUtil {
 	@Before
 	public void before() {
 		login();
-
-	    importSettings(ImportFile.Settings20);
+		goHome();
 	}
-	
 	
 	@After
     public void after() {
+		setLanguage("en");
 		clickLink("logoff");
         closeBrowser();
     }
 	
-	private void testProfile(ImportFile file, String type, boolean isGeneric, boolean missingBenefFamilies, String profName) throws IOException {
-		boolean isIG = type.startsWith("ig");
+	private void testProfile(boolean isIG) throws IOException {
 		String[] titles = profileStepTitles(isIG);
 		String[] reportTitles = ProfileXls.reportTitles(isIG, isIG);
 		
-		// import complete project
-		importProfile(file, type, isGeneric, missingBenefFamilies, profName);
-		// edit profile
 		goToPro(false, isIG, true);
 		
 		// investment template
@@ -59,7 +54,7 @@ public class ProfileTemplates extends WebTestUtil {
 		assertTitleEquals(titles[3]);
 		assertLinkPresent("downloadTemplate");
 		clickLink("downloadTemplate");
-		File f = folder.newFile("invest.xlsx");
+		File f = folder.newFile();
 		saveAs(f);
 		testXls(f, reportTitles[1]); 
 		
@@ -69,7 +64,7 @@ public class ProfileTemplates extends WebTestUtil {
 		assertTitleEquals(titles[4]);
 		assertLinkPresent("downloadTemplate");
 		clickLink("downloadTemplate");
-		f = folder.newFile("general.xlsx");
+		f = folder.newFile();
 		saveAs(f);
 		testXls(f, getMessage("profile.report.costsDetail"));
 		
@@ -79,22 +74,42 @@ public class ProfileTemplates extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 		assertLinkPresent("downloadTemplate");
 		clickLink("downloadTemplate");
-		f = folder.newFile("block.xlsx");
+		f = folder.newFile();
 		saveAs(f);
 		testXls(f, isIG 
-				? getMessage("profileProductIncome") 
-				: getMessage("profileActivityCharge")
+				? getMessage("profileProductIncome") + " ("+getMessage("units.perUnitperCycle")+")"
+				: getMessage("profileActivityCharge") + " ("+getMessage("units.perUnitperCycle")+")"
 			);
 	}
 	
+	
+	
 	@Test
-	public void profileIg() throws IOException {
-		testProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+	public void profileIGi18n() throws Exception {
+		deletePros(false, true);
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		
+		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"};
+		for (String lang : langs) {
+			System.out.println("testing "+lang);
+			clickLink("goHome");
+			setLanguage(lang);
+			testProfile(true);
+		}
 	}
 	
 	@Test
-	public void profileNig() throws IOException {
-		testProfile(ImportFile.ProfileNig40, "nigpf_no", false, false, "Community Health Centre");
+	public void profileNigI18n() throws IOException {
+		deletePros(false, false);
+		importProfile(ImportFile.ProfileNig40, "nigpf_no", false, false, "Community Health Centre");
+		
+		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"};
+		for (String lang : langs) {
+			System.out.println("testing "+lang);
+			clickLink("goHome");
+			setLanguage(lang);
+			testProfile(false);
+		}
 	}
 	
 	

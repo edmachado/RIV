@@ -20,8 +20,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class ProjectTemplates extends WebTestUtil {
-	String igTitle;
-	
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();
 	
@@ -33,7 +31,7 @@ public class ProjectTemplates extends WebTestUtil {
 	@Before
 	public void before() {
 		login();
-		importSettings(ImportFile.Settings20);
+		goHome();
 	}
 	
 	@After
@@ -43,12 +41,9 @@ public class ProjectTemplates extends WebTestUtil {
         closeBrowser();
     }
 	
-	private void testProject(ImportFile file, String type, boolean isGeneric, boolean missingCapital, String projName) throws IOException {
-		boolean isIG = type.startsWith("ig");
+	private void testProject(boolean isIG) throws IOException {
 		String[] titles = projectStepTitles(isIG);
 		
-		// import complete project
-		importProject(file, type, isGeneric, missingCapital, projName);
 		// edit profile
 		goToPro(true, isIG, true);
 		
@@ -57,7 +52,8 @@ public class ProjectTemplates extends WebTestUtil {
 		assertTitleEquals(titles[6]);
 		assertLinkPresent("downloadTemplate");
 		clickLink("downloadTemplate");
-		File f = folder.newFile("invest.xlsx");
+		
+		File f = folder.newFile();
 		saveAs(f);
 		testXls(f, isIG ? getMessage("project.report.investDetail")+ " " + getMessage("project.with") : getMessage("project.report.investDetail")); 
 		
@@ -67,7 +63,7 @@ public class ProjectTemplates extends WebTestUtil {
 		assertTitleEquals(titles[7]);
 		assertLinkPresent("downloadTemplate");
 		clickLink("downloadTemplate");
-		f = folder.newFile("general.xlsx");
+		f = folder.newFile();
 		saveAs(f);
 		testXls(f, getMessage("project.report.generalCostsDetail"));
 		
@@ -77,7 +73,7 @@ public class ProjectTemplates extends WebTestUtil {
 		assertTitleEquals(titles[8]);
 		assertLinkPresent("downloadTemplate");
 		clickLink("downloadTemplate");
-		f = folder.newFile("block.xlsx");
+		f = folder.newFile();
 		saveAs(f);
 		testXls(f, (isIG ? getMessage("projectBlockIncome") : getMessage("projectActivityCharge")) + " ("+getMessage("units.perUnitperCycle")+")");
 		
@@ -88,31 +84,37 @@ public class ProjectTemplates extends WebTestUtil {
 			assertTitleEquals(titles[9]);
 			assertLinkPresent("downloadTemplate");
 			clickLink("downloadTemplate");
-			f = folder.newFile("contributions.xlsx");
+			f = folder.newFile();
 			saveAs(f);
-			testXls(f, getMessage("project.step10.nongen"));
+			testXls(f, getMessage("project.report.contributions"));
 		}
 	}	
 	
 	@Test
-	public void projectIgInEnglish() throws IOException {
-		testProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
+	public void projectIGi18n() throws Exception {
+		deletePros(true, true);
+		importProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
+		
+		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"};
+		for (String lang : langs) {
+			System.out.println("testing "+lang);
+			clickLink("goHome");
+			setLanguage(lang);
+			testProject(true);
+		}
 	}
 	
 	@Test
-	public void projectIgInSpanish() throws IOException {
-		setLanguage("es");
-		testProject(ImportFile.ProjectV40, "igpj", false, false, "T3st Santa Cruz River Transport");
-	}
-	
-	@Test
-	public void projectNig() throws IOException {
-		testProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
-	}
-	
-	@Test
-	public void projectNigSpanish() throws IOException {
-		setLanguage("es");
-		testProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
+	public void projectNigi18n() throws Exception {
+		deletePros(true, false);
+		importProject(ImportFile.ProjectNig40, "nigpj", false, false, "Example Case: Community Earth Dam");
+		
+		String[] langs = {"en","es","fr","ru","pt","mn"};//,"ar","tr"};
+		for (String lang : langs) {
+			System.out.println("testing "+lang);
+			setLanguage(lang);
+			testProject(false);
+//			setLanguage("en");
+		}
 	}
 }

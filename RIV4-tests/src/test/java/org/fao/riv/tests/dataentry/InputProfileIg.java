@@ -2,6 +2,7 @@ package org.fao.riv.tests.dataentry;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
+import java.io.File;
 import java.util.concurrent.Callable;
 
 import org.junit.Assert;
@@ -9,7 +10,9 @@ import org.junit.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import org.fao.riv.tests.utils.InputParam.InputParamType;
 import org.fao.riv.tests.utils.ImportFile;
@@ -17,7 +20,9 @@ import org.fao.riv.tests.utils.TestTable;
 import org.fao.riv.tests.utils.WebTestUtil;
 
 public class InputProfileIg extends WebTestUtil {
-	String igTitle;
+	@Rule
+    public TemporaryFolder folder = new TemporaryFolder(new File(this.getClass().getResource("/dataentry").getFile()));
+	
 	
 	 @BeforeClass 
 	 public static void setUpClass() {      
@@ -124,8 +129,9 @@ public class InputProfileIg extends WebTestUtil {
 		assertTitleEquals(titles[5]);
 	}
 	
-	@Test
-	public void createProfile() throws Exception {
+	 
+	
+	private void createProfile(String resourceBundle) throws Exception {
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 		String attachTitle = getMessage("ruralInvest")+" :: "+getMessage("attach.new");
 		String[] titles = profileStepTitles(true);
@@ -134,7 +140,7 @@ public class InputProfileIg extends WebTestUtil {
 		
 		clickLink("goHome");
 		
-		getTestContext().setResourceBundleName("dataentry/profileIg");
+		getTestContext().setResourceBundleName(resourceBundle);
 		clickLink("newIgProfile");
 		assertTitleEquals(titles[0]);
 		
@@ -311,19 +317,25 @@ public class InputProfileIg extends WebTestUtil {
 		//Check new profile exists in results table
 		assertTableRowCountEquals("results", 6);
 		assertTextInTable("results", profName);
-		
-		//TEST CLONE PROFILE
-		assertLinkPresentWithImage("edit.png");
-		clickLinkWithImage("edit.png");
-		assertTitleEquals(titles[0]);
-		clickLink("clone");
-		assertTitleEquals(titles[0]);
-		assertImagePresentPartial("locked.gif", null);
-		
-		verifyProfile("dataentry/profileIg", 2);
+	}
+	
+		@Test
+		public void createProfile() throws Exception {
+			String resource="dataentry/profileIg";
+			String[] titles = profileStepTitles(true);
+			createProfile(resource);
+			
+			//TEST CLONE PROFILE
+			assertLinkPresentWithImage("edit.png");
+			clickLinkWithImage("edit.png");
+			assertTitleEquals(titles[0]);
+			clickLink("clone");
+			assertTitleEquals(titles[0]);
+			assertImagePresentPartial("locked.gif", null);
+			
+			verifyProfile(resource, 2);
 				
 		//Check new profile exists in results table
 		assertTableRowCountEquals("results", 7);
-		assertTextInTable("results", profName);
 	}
 }

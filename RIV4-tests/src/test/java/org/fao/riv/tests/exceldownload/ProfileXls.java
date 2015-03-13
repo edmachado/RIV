@@ -33,8 +33,7 @@ public class ProfileXls extends WebTestUtil {
 	@Before
 	public void deleteExisting() {
 		login();
-		deletePros(false, true);
-		deletePros(false, false);
+		clickLink("goHome");
 	}
 	
 	@After
@@ -44,11 +43,7 @@ public class ProfileXls extends WebTestUtil {
         closeBrowser();
     }
 	
-	private void testProfile(ImportFile file, String type, boolean isGeneric, boolean missingBenefFamilies, String profName) throws IOException {
-		// import complete profile
-		importProfile(file, type, isGeneric, missingBenefFamilies, profName);
-		boolean isIG = type.startsWith("ig");
-		// edit profile
+	private void testProfile(boolean isIG) throws IOException {
 		goToPro(false, isIG, true);
 		
 		clickLink("step9");
@@ -58,38 +53,39 @@ public class ProfileXls extends WebTestUtil {
 		// seven reports
 		for (int i=0;i<7;i++) {
 			clickLinkWithImage("xls.gif", i);
-			File f = folder.newFile(i+".xls"); 
+			File f = folder.newFile(); 
 			saveAs(f);
 			testXls(f, titles[i]);
 			f.delete();
+			f=null;
 		}
 	}
 	
 	@Test
-	public void profileIg() throws IOException {
-		//TODO: enable other languages when translations are complete
+	public void profileIgI18n() throws IOException {
+		deletePros(false, true);
+		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
+		
+		//TODO: enable turkish when translations are complete
 		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
-			clickLink("goHome");
-			deletePros(false, true);
 			setLanguage(lang);
-			testProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
-			setLanguage("en");
+			testProfile(true);
 		}
 	}
 	
 	@Test
-	public void profileNg() throws IOException {
-		//TODO: enable other languages when translations are complete
+	public void profileNgI18n() throws IOException {
+		deletePros(false, false);
+		importProfile(ImportFile.ProfileNig16, "nigpf", false, true, "Community Health Centre");
+		
+		//TODO: enable turkish when translations are complete
 		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr""};
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
-			clickLink("goHome");
-			deletePros(false, false);
 			setLanguage(lang);
-			testProfile(ImportFile.ProfileNig16, "nigpf", false, true, "Community Health Centre");
-			setLanguage("en");
+			testProfile(false);
 		}	
 	}
 	

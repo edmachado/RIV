@@ -103,21 +103,25 @@ public class WebTestUtil {
 	private String cellValueFromXls(File f, int sheetNo, int row, int cell) {
 		FileInputStream in=null;
 		XSSFWorkbook workbook=null;
+		String value=null;
 		try {
 			in = new FileInputStream(f);
 			workbook  = new XSSFWorkbook(in);
+			Sheet sheet = workbook.getSheetAt(sheetNo);
+			value = sheet.getRow(row).getCell(cell).getStringCellValue();
 		} catch (Exception e) {
 			fail("Failure testing Excel file: "+e.getMessage());
 		} finally {
 			try {
 				in.close();
+				in=null;
+				workbook=null;
 			} catch (IOException e) {
 				fail("Couldn't close Excel file. "+e.getMessage());
 			}
 		}
 		
-		Sheet sheet = workbook.getSheetAt(sheetNo);
-		return sheet.getRow(row).getCell(cell).getStringCellValue();
+		return value;
 	}
 	
 	protected void testXls(File f, String title) {
@@ -1156,9 +1160,7 @@ public class WebTestUtil {
 		rivSubmitForm();
 		assertTitleEquals(titles[5]);
 		
-		int i=1;
-		boolean nextItem=true;
-		while (nextItem) {
+		for (int i=1; i<=Integer.parseInt(getMessage("step6.product.count")); i++) {
 			boolean without = Boolean.parseBoolean(getMessage("step6.product."+i+".withoutProject"));
 			if (without) {
 				clickLink("ui-id-2");
@@ -1171,13 +1173,6 @@ public class WebTestUtil {
 			assertTextInElement(i-1+"cyclePerYear", getMessage("step6.product."+i+".cyclePerYear"));
 			
 			verifyProfileTablesStep6(i);
-			
-			i++;
-			try {
-				getMessage("step6.product."+i+".withoutProject");
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
 		
 

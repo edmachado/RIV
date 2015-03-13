@@ -82,7 +82,6 @@ public class InputProfileNig extends WebTestUtil {
 		
 	}
 	
-	
 	@Test
 	public void createProfile() throws Exception {
 		String resultsTitle = getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
