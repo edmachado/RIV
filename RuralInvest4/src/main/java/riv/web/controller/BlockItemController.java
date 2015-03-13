@@ -55,6 +55,9 @@ public class BlockItemController {
         binder.registerCustomEditor(BigDecimal.class, "transport", currencyEditor);
         binder.registerCustomEditor(BigDecimal.class, "total", currencyEditor);
         binder.registerCustomEditor(BigDecimal.class, "totalCash", currencyEditor);
+		CustomNumberEditor currencyEditor2 = new CustomNumberEditor(Double.class, df, true);
+        binder.registerCustomEditor(Double.class, "donated", currencyEditor2);
+        binder.registerCustomEditor(Double.class, "donations", currencyEditor2);
 		
         CustomNumberEditor numberEditor = new CustomNumberEditor(BigDecimal.class, rivConfig.getSetting().getDecimalFormat(), true);
         binder.registerCustomEditor(BigDecimal.class, "unitNum", numberEditor);
@@ -99,7 +102,7 @@ public class BlockItemController {
 			setupPageAttributes(blockItem, model, request);
 			return form(blockItem);
 		} else {
-			if (blockItem instanceof HasDonations) {
+			if (!blockItem.getProbase().getIncomeGen() && blockItem instanceof HasDonations) {
 				HasDonations hd = (HasDonations)blockItem;
 				for (Donor donor : blockItem.getBlock().getProject().getDonors()) {
 					if (hd.getDonations().get(donor.getOrderBy())==0.0) {
@@ -215,7 +218,7 @@ public class BlockItemController {
 		if (p.getIncomeGen()) model.addAttribute("menuType","project");
 		else model.addAttribute("menuType","projectNoninc");
 		
-		if (pi instanceof HasDonations) {
+		if (!pi.getProbase().getIncomeGen() && pi instanceof HasDonations) {
 			HasDonations hd = (HasDonations)pi;
 			for (Donor donor : pi.getBlock().getProject().getDonors()) {
 				if (!hd.getDonations().containsKey(donor.getOrderBy())) {

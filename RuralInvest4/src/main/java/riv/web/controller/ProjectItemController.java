@@ -46,7 +46,6 @@ import riv.objects.reference.ReferenceLabour;
 import riv.util.CurrencyFormat;
 import riv.util.validators.ProjectItemValidator;
 import riv.web.config.RivConfig;
-import riv.web.editors.DonorEditor;
 import riv.web.service.DataService;
  
 @Controller
@@ -80,7 +79,7 @@ public class ProjectItemController {
         CustomNumberEditor cne2 = new CustomNumberEditor(Double.class, rivConfig.getSetting().getDecimalFormat(), true);
         binder.registerCustomEditor(Double.class, "unitNum", cne2);
         
-        binder.registerCustomEditor(Donor.class, "donor", new DonorEditor(dataService));
+//        binder.registerCustomEditor(Donor.class, "donor", new DonorEditor(dataService));
 	}
 	
 	@ModelAttribute("projectItem")

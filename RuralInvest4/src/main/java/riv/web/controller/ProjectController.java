@@ -301,7 +301,7 @@ public class ProjectController {
 	
 	@RequestMapping(value="step{step}/{id}/clone", method=RequestMethod.GET)
 	public String clone(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Project p, HttpServletRequest request) {
-		Project newProj = dataService.getProject(p.getProjectId(), -1).copy(false, null);
+		Project newProj = dataService.getProject(p.getProjectId(), -1, true).copy(false, null);
 		newProj.importRefLinks();
 		newProj.setUniqueId(UUIDGenerator.getInstance().generateTimeBasedUUID().toByteArray());		
 		newProj.setPrepDate(new Date());

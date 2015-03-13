@@ -125,7 +125,7 @@ public class DataRepository {
 		Query q = currentSession().createQuery("delete from AppConfig where configId not in  (-4,-3,-5,-2,-6,-7,-8,-9)");
 		q.executeUpdate();
 	}
-	
+
 	public void replaceProjectContribution(int projectId, List<ProjectItemContribution> items) {
 		String[] classes = new String[] {"ProjectItemContribution"};
 		deleteCollections(classes, "project.projectId", projectId);
@@ -888,6 +888,22 @@ public class DataRepository {
 			for (HasDonations i : p.getNongenMaintenance()) {
 				Hibernate.initialize(i.getDonations());
 			}
+			for (BlockBase b : p.getBlocks()) {
+				for (HasDonations i : b.getInputs()) {
+					Hibernate.initialize(i.getDonations());
+				}
+				for (HasDonations i : b.getLabours()) {
+					Hibernate.initialize(i.getDonations());
+				}
+			}
+			for (BlockBase b : p.getBlocksWithout()) {
+				for (HasDonations i : b.getInputs()) {
+					Hibernate.initialize(i.getDonations());
+				}
+				for (HasDonations i : b.getLabours()) {
+					Hibernate.initialize(i.getDonations());
+				}
+			}
 		}
 		
 		return p;
@@ -940,6 +956,7 @@ public class DataRepository {
 				Hibernate.initialize(b.getPatterns());
 				Hibernate.initialize(b.getChrons());
 			}
+			Hibernate.initialize(b.getProject().getDonors());
 		}
 		
 		if (b.getClass()==BlockWithout.class) {

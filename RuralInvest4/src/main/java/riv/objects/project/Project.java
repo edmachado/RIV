@@ -1511,6 +1511,10 @@ public double getInvestmentTotal() {
 		sb.append("step2.beneIndirectNum="+beneIndirectNum+lineSeparator);
 		sb.append("step2.benefDesc="+benefDesc.replace("\r", "\\r").replace("\n", "\\n")+lineSeparator);
 		sb.append("step2.donor.count="+donors.size()+lineSeparator);
+		for (Donor d : donors) {
+			sb.append("step2.donor."+(d.getOrderBy()+1)+".description="+d.getDescription()+lineSeparator);
+			sb.append("step2.donor."+(d.getOrderBy()+1)+".type="+d.getContribType()+lineSeparator);
+		}
 		sb.append(lineSeparator);
 		
 		sb.append("step3.justification="+justification.replace("\r", "\\r").replace("\n", "\\n")+lineSeparator);
@@ -1725,10 +1729,11 @@ public double getInvestmentTotal() {
 		} else  {
 			//double state; double other;
 			sb.append("step8.labourcount="+nongenLabours.size()+lineSeparator);
-			total=0;own=0;//state=0;other=0;
+			total=0;own=0;donated=0;//state=0;other=0;
 			for (ProjectItemNongenLabour i : nongenLabours) {
 				total+=i.getTotal();
 				own+=i.getOwnResource();
+				donated+=i.getDonated();
 //				state+=i.getStatePublic();
 //				other+=i.getOther1();
 				sb.append(i.testingProperties(rivConfig));
@@ -1738,16 +1743,18 @@ public double getInvestmentTotal() {
 			sb.append("step8.labourSum.unitNum="+lineSeparator);
 			sb.append("step8.labourSum.unitCost="+lineSeparator);
 			sb.append("step8.labourSum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
+			sb.append("step8.labourSum.donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 //			sb.append("step8.labourSum.statePublic="+cf.formatCurrency(state, CurrencyFormat.ALL)+lineSeparator);
 //			sb.append("step8.labourSum.other1="+cf.formatCurrency(other, CurrencyFormat.ALL)+lineSeparator);
 			sb.append("step8.labourSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 			
 			sb.append("step8.generalcount="+nongenMaintenance.size()+lineSeparator);
-			total=0;own=0;//state=0;other=0;
+			total=0;own=0;donated=0;//state=0;other=0;
 			for (ProjectItemNongenMaintenance i : nongenMaintenance) {
 				total+=i.getTotal();
 				own+=i.getOwnResource();
+				donated+=i.getDonated();
 //				state+=i.getStatePublic();
 //				other+=i.getOther1();
 				sb.append(i.testingProperties(rivConfig));
@@ -1757,16 +1764,18 @@ public double getInvestmentTotal() {
 			sb.append("step8.generalSum.unitNum="+lineSeparator);
 			sb.append("step8.generalSum.unitCost="+lineSeparator);
 			sb.append("step8.generalSum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
+			sb.append("step8.generalSum.donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 //			sb.append("step8.generalSum.statePublic="+cf.formatCurrency(state, CurrencyFormat.ALL)+lineSeparator);
 //			sb.append("step8.generalSum.other1="+cf.formatCurrency(other, CurrencyFormat.ALL)+lineSeparator);
 			sb.append("step8.generalSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
 			sb.append(lineSeparator);
 			
 			sb.append("step8.inputcount="+nongenMaterials.size()+lineSeparator);
-			total=0;own=0;//state=0;other=0;
+			total=0;own=0;donated=0;//state=0;other=0;
 			for (ProjectItemNongenMaterials i : nongenMaterials) {
 				total+=i.getTotal();
 				own+=i.getOwnResource();
+				donated+=i.getDonated();
 //				state+=i.getStatePublic();
 //				other+=i.getOther1();
 				sb.append(i.testingProperties(rivConfig));
@@ -1776,6 +1785,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.inputSum.unitNum="+lineSeparator);
 			sb.append("step8.inputSum.unitCost="+lineSeparator);
 			sb.append("step8.inputSum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
+			sb.append("step8.inputSum.donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 //			sb.append("step8.inputSum.statePublic="+cf.formatCurrency(state, CurrencyFormat.ALL)+lineSeparator);
 //			sb.append("step8.inputSum.other1="+cf.formatCurrency(other, CurrencyFormat.ALL)+lineSeparator);
 			sb.append("step8.inputSum.ownResource="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
@@ -1847,8 +1857,9 @@ public double getInvestmentTotal() {
 					}
 				}
 				sb.append("step10.year."+y+".contribution.Sum.description="+lineSeparator);
-				sb.append("step10.year."+y+".contribution.Sum.contribType="+lineSeparator);
-				sb.append("step10.year."+y+".contribution.Sum.contributor="+lineSeparator);
+				sb.append("step10.year."+y+".contribution.Sum.donorOrderBy="+lineSeparator);
+//				sb.append("step10.year."+y+".contribution.Sum.contribType="+lineSeparator);
+//				sb.append("step10.year."+y+".contribution.Sum.contributor="+lineSeparator);
 				sb.append("step10.year."+y+".contribution.Sum.unitType="+lineSeparator);
 				sb.append("step10.year."+y+".contribution.Sum.unitNum="+lineSeparator);
 				sb.append("step10.year."+y+".contribution.Sum.unitCost="+lineSeparator);

@@ -41,9 +41,9 @@ public class ProjectItemNongenMaintenance extends ProjectItemNongenBase {
 		   sb.append("step8.general"+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step8.general"+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step8.general"+(this.getOrderBy()+1)+".ownResource="+cf.formatCurrency(getOwnResource(), CurrencyFormat.ALL)+lineSeparator);
-		   sb.append("step8.general."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(getDonated(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step8.general"+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(getDonated(), CurrencyFormat.ALL)+lineSeparator);
 		   for (int i=0;i<getProject().getDonors().size();i++) {
-			   sb.append("step8.general."+(this.getOrderBy()+1)+".donations."+(i+1)+"="+cf.formatCurrency(donations.containsKey(i) ? donations.get(i) : 0.0, CurrencyFormat.ALL)+lineSeparator);
+			   sb.append("step8.general"+(this.getOrderBy()+1)+".donations."+(i+1)+"="+cf.formatCurrency(donations.containsKey(i) ? donations.get(i) : 0.0, CurrencyFormat.ALL)+lineSeparator);
 		   }
 		   
 		   //		   sb.append("step8.general"+(this.getOrderBy()+1)+".statePublic="+cf.formatCurrency(getStatePublic(), CurrencyFormat.ALL)+lineSeparator);

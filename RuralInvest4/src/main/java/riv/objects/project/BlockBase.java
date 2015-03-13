@@ -182,10 +182,11 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   sb.append(lineSeparator);
 
 		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".input.count="+this.getInputs().size()+lineSeparator);
-		   total=0.0; totalCash=0.0;
+		   total=0.0; totalCash=0.0; Double donated=0.0;
 		   for (BlockInput i : this.getInputs()) {
 			   total+=i.getTotal().doubleValue();
 			   totalCash+=i.getTotalCash().doubleValue();
+			   donated+=i.getDonated();
 			   sb.append(i.testingProperties(rc));
 		   }
 		   base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".input.Sum.";
@@ -197,14 +198,16 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   sb.append(base+"unitCost="+lineSeparator);
 		   sb.append(base+"transport="+lineSeparator);
 		   sb.append(base+"total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append(base+"donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append(base+"totalCash="+cf.formatCurrency(totalCash, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append(lineSeparator);
 		   
 		   sb.append("step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".labour.count="+this.getLabours().size()+lineSeparator);
-		   total=0.0; totalCash=0.0;
+		   total=0.0; totalCash=0.0; donated=0.0;
 		   for (BlockLabour i : this.getLabours()) {
 			   total+=i.getTotal().doubleValue();
 			   totalCash+=i.getTotalCash().doubleValue();
+			   donated+=i.getDonated();
 			   sb.append(i.testingProperties(rc));
 		   }
 		   base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".labour.Sum.";
@@ -215,6 +218,7 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   sb.append(base+"qtyExtern="+lineSeparator);
 		   sb.append(base+"unitCost="+lineSeparator);
 		   sb.append(base+"total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append(base+"donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append(base+"totalCash="+cf.formatCurrency(totalCash, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append(lineSeparator);
 		   

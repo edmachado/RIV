@@ -93,6 +93,10 @@ public class BlockLabour extends BlockItem implements HasDonations {
 		   sb.append(base+"qtyExtern="+rc.getSetting().getDecimalFormat().format(this.getExtern())+lineSeparator);
 		   sb.append(base+"unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append(base+"total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append(base+"donated="+cf.formatCurrency(getDonated(), CurrencyFormat.ALL)+lineSeparator);
+		   for (int i=0;i<getBlock().getProject().getDonors().size();i++) {
+			   sb.append(base+"donations."+(i+1)+"="+cf.formatCurrency(donations.containsKey(i) ? donations.get(i) : 0.0, CurrencyFormat.ALL)+lineSeparator);
+		   }
 		   sb.append(base+"totalCash="+cf.formatCurrency(getTotalCash(), CurrencyFormat.ALL)+lineSeparator);
 		   return sb.toString();
 	}
@@ -109,6 +113,11 @@ public class BlockLabour extends BlockItem implements HasDonations {
 		item.setUnitNum(unitNum);
 		item.setUnitType(unitType);
 		item.setOrderBy(getOrderBy());
+		if (!getProbase().getIncomeGen()) {
+			 for (Integer donorOrder : donations.keySet()) {
+			  item.getDonations().put(donorOrder, donations.get(donorOrder));
+		   }
+		}
 		return item;
 	}
 }

@@ -2,7 +2,7 @@
 
 	<xsl:output method="xml" indent="yes" />
 	
-	<xsl:template match="void[@property='contribType'][not(../void[@property='notSpecified'])]">
+	<xsl:template match="void[@property='contribType'][not(../@class='riv.objects.project.Donor')]">
 		<void property="oldDonor">
 			<string>
 				<xsl:value-of select="int"/>

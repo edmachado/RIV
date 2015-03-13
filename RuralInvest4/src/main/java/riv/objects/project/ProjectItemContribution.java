@@ -1,5 +1,8 @@
 package riv.objects.project;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -82,10 +85,16 @@ public class ProjectItemContribution extends ProjectItem {
 	}
 	
 	public String testingProperties(RivConfig rivConfig) {
+		Map<Integer, Donor> donorsByOrder = new HashMap<Integer, Donor>();
+		for (Donor d : getProject().getDonors()) {
+			donorsByOrder.put(d.getOrderBy(), d);
+		}
+		
 		String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".donorOrderBy="+donorsByOrder.get(donorOrderBy).getDescription()+lineSeparator);
 //		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contribType="+rivConfig.getContribTypes().get(contribType)+lineSeparator);
 //		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contributor="+contributor+lineSeparator);
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);
