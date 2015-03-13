@@ -781,7 +781,9 @@ public class DataRepository {
 	
 	public Donor getDonor(int id) {
 		Criteria criteria = currentSession().createCriteria(Donor.class).add(Restrictions.eq("id", id));
-		return (Donor)criteria.uniqueResult();
+		Donor d = (Donor)criteria.uniqueResult();
+		Hibernate.initialize(d.getProject());
+		return d;
 	}
 	public void storeDonor(Donor d) {
 		currentSession().saveOrUpdate(d);
