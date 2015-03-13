@@ -32,6 +32,7 @@ public class SettingsValidator implements Validator {
 		ValidateUtils.rejectIfEmptyOrNegative(s, "loan2GraceCapital", "settings.loan.graceCapital", errors);
 		ValidateUtils.rejectIfEmptyOrNegative(s, "loan2GraceInterest", "settings.loan.graceInterest", errors);
 	
+		//TODO: max for decimallength:2, exchrate:9999, discountrate:1000, 
 		if (s.getLoan1Max()!=null && s.getMaxDuration()!=null
 				&& s.getLoan1Max()>s.getMaxDuration()) {
 			errors.rejectValue("loan1Max", "error.maxLoanLength", new Object[] {new DefaultMessageSourceResolvable(new String[] {"settings.loan.maxDuration"})}, "{0}: The length of the loan cannot be greater than the maximum project duration.");

@@ -54,38 +54,38 @@ public class ValidateUtils {
 		}
 	}
 	
-	private static Long getMaxFromAnnotation(Object bean, String fieldName) {
-		Long max=null;
-		try {
-			Field field = bean.getClass().getDeclaredField(fieldName);
-			if (field.getType().equals(String.class)) {
-				Max maxAnnotation = field.getAnnotation(Max.class);
-				max = maxAnnotation.value();
-			}
-		} catch (Exception ex) {
-			try {
-				Field field = bean.getClass().getSuperclass().getDeclaredField(fieldName);
-				Max maxAnnotation = field.getAnnotation(Max.class);
-				max = maxAnnotation.value();
-			} catch (Exception ex2) {;}	
-		}
-		return max;
-	}
-	
-	private static void enforceMax(Object bean, String fieldName, String fieldCode, Errors errors) {
-		if (errors.getFieldError(fieldName)==null) { // don't enforce if field already flagged as error
-			Long max = getMaxFromAnnotation(bean, fieldName);
-			if (max!=null) {
-				Double propertyValue=null;
-				try {
-					propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
-				} catch (Exception e) {	; }
-				if (propertyValue>max) {
-					errors.rejectValue(fieldName, "error.max", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode}),String.valueOf(max)}, "\""+fieldName+"\" is required");
-				}
-			}
-		}
-	}
+//	private static Long getMaxFromAnnotation(Object bean, String fieldName) {
+//		Long max=null;
+//		try {
+//			Field field = bean.getClass().getDeclaredField(fieldName);
+//			if (field.getType().equals(String.class)) {
+//				Max maxAnnotation = field.getAnnotation(Max.class);
+//				max = maxAnnotation.value();
+//			}
+//		} catch (Exception ex) {
+//			try {
+//				Field field = bean.getClass().getSuperclass().getDeclaredField(fieldName);
+//				Max maxAnnotation = field.getAnnotation(Max.class);
+//				max = maxAnnotation.value();
+//			} catch (Exception ex2) {;}	
+//		}
+//		return max;
+//	}
+//	
+//	private static void enforceMax(Object bean, String fieldName, String fieldCode, Errors errors) {
+//		if (errors.getFieldError(fieldName)==null) { // don't enforce if field already flagged as error
+//			Long max = getMaxFromAnnotation(bean, fieldName);
+//			if (max!=null) {
+//				Double propertyValue=null;
+//				try {
+//					propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
+//				} catch (Exception e) {	; }
+//				if (propertyValue>max) {
+//					errors.rejectValue(fieldName, "error.max", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode}),String.valueOf(max)}, "\""+fieldName+"\" is required");
+//				}
+//			}
+//		}
+//	}
 	
 	public static void rejectIfEmpty(Object bean, String fieldName, String fieldCode, Errors errors) {
 		Object propertyValue=null;
@@ -146,7 +146,7 @@ public class ValidateUtils {
 		if (propertyValue < 0) {
 			errors.rejectValue(fieldName, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
 		}
-		enforceMax(bean, fieldName, fieldCode, errors);
+//		enforceMax(bean, fieldName, fieldCode, errors);
 	}
 	public static void rejectMapValueIfEmptyOrNegative(Map map, String mapName, Object key, String fieldName, Errors errors) {
 		double propertyValue=0;
