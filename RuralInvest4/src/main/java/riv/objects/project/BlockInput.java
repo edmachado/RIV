@@ -86,12 +86,12 @@ public class BlockInput extends BlockItem implements HasDonations {
 	
 	//calculated
 	public BigDecimal getTotal() {
-		if (getUnitCost()==null || this.getUnitNum()==null || this.Transport==null) return new BigDecimal(0);
-		return this.getUnitNum().multiply(this.getUnitCost().add(this.Transport));
+		if (getUnitCost()==null || this.getUnitNum()==null || this.Transport==null) { return new BigDecimal(0); }
+		return this.getUnitNum().multiply(this.getUnitCost().add(this.Transport)).subtract(new BigDecimal(getDonated()));
 	}
 	public BigDecimal getTotalCash() {
-		if (this.getUnitNum()==null||getQtyIntern()==null||getUnitCost()==null||this.Transport==null) return new BigDecimal(0);
-		return (this.getUnitNum().subtract(this.getQtyIntern())).multiply(this.getUnitCost().add(this.Transport));
+		if (this.getUnitNum()==null||getQtyIntern()==null||getUnitCost()==null||this.Transport==null) { return new BigDecimal(0); }
+		return (this.getUnitNum().subtract(this.getQtyIntern())).multiply(this.getUnitCost().add(this.Transport)).subtract(new BigDecimal(getDonated()));
 	}
 	
 	public String testingProperties(RivConfig rc) {

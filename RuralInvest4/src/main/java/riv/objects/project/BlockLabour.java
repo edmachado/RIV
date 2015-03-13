@@ -73,12 +73,12 @@ public class BlockLabour extends BlockItem implements HasDonations {
 	}
 	
 	public BigDecimal getTotal() {
-		if (getUnitCost()==null || this.getUnitNum()==null) return new BigDecimal(0);
+		if (getUnitCost()==null || this.getUnitNum()==null) { return new BigDecimal(0); }
 		return this.getUnitCost().multiply(this.getUnitNum());
 	}
 	public BigDecimal getTotalCash() {
-		if (getUnitCost()==null || this.getUnitNum()==null || getQtyIntern()==null) return new BigDecimal(0);
-		return this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost());
+		if (getUnitCost()==null || this.getUnitNum()==null || getQtyIntern()==null) { return new BigDecimal(0); }
+		return this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost()).subtract(new BigDecimal(getDonated()));
 	}
 	
 	public String testingProperties(RivConfig rc) {

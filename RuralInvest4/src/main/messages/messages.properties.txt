@@ -25,8 +25,10 @@ projectBlockInput.donated.help=Help text goes here
 projectBlockLabour.donated=Total donated resources
 projectBlockLabour.donated.help=Help text goes here
 
+profile.report.blockDetail.totals=Totals
+
 #changed from previous versions
-project.step2=Beneficiaries & Donors
+project.step2=Beneficiaries & donors
 error.pleaseCorrect=Please correct the fields in red.
 error.unknown=Sorry for the inconvenience
 error.maxLength=This field cannot be longer than {1} characters.

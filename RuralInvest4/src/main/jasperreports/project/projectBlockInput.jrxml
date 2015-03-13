@@ -3,7 +3,7 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="11"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -53,7 +53,7 @@
 				<textFieldExpression><![CDATA[$R{projectBlockInput.desc}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="73f34690-0451-4a3f-805c-5aaf631f2de6" key="textField-5" stretchType="RelativeToBandHeight" mode="Opaque" x="103" y="20" width="100" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="73f34690-0451-4a3f-805c-5aaf631f2de6" key="textField-5" stretchType="RelativeToBandHeight" mode="Opaque" x="103" y="20" width="80" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -67,7 +67,7 @@
 				<textFieldExpression><![CDATA[$R{projectBlockInput.unitType}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="679397dd-621a-490a-b4e8-e4eaa5022cef" key="textField-6" stretchType="RelativeToBandHeight" mode="Opaque" x="209" y="20" width="65" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="679397dd-621a-490a-b4e8-e4eaa5022cef" key="textField-6" stretchType="RelativeToBandHeight" mode="Opaque" x="189" y="20" width="65" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -81,7 +81,7 @@
 				<textFieldExpression><![CDATA[$R{projectBlockInput.unitNum}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9d2b89a2-149e-4e60-ab48-f56b5fa01492" key="textField-7" stretchType="RelativeToBandHeight" mode="Opaque" x="358" y="20" width="77" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="9d2b89a2-149e-4e60-ab48-f56b5fa01492" key="textField-7" stretchType="RelativeToBandHeight" mode="Opaque" x="338" y="20" width="77" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -95,7 +95,7 @@
 				<textFieldExpression><![CDATA[$R{projectBlockInput.unitCost}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5743c430-22c8-43e9-b18c-e00392bd1990" key="textField-8" stretchType="RelativeToBandHeight" mode="Opaque" x="565" y="20" width="71" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="5743c430-22c8-43e9-b18c-e00392bd1990" key="textField-8" stretchType="RelativeToBandHeight" mode="Opaque" x="500" y="20" width="90" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -125,7 +125,7 @@
 : $R{projectBlockInput}  + $P{unitsPerCycle}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="25fd6b19-1f97-4025-8961-87624499830f" key="textField-16" stretchType="RelativeToBandHeight" mode="Opaque" x="437" y="20" width="123" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="25fd6b19-1f97-4025-8961-87624499830f" key="textField-16" stretchType="RelativeToBandHeight" mode="Opaque" x="417" y="20" width="78" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -139,7 +139,7 @@
 				<textFieldExpression><![CDATA[$R{projectBlockInput.transport}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="db069982-7fe0-4cc3-84fc-50b5307d6eda" key="textField-18" mode="Opaque" x="277" y="20" width="78" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="db069982-7fe0-4cc3-84fc-50b5307d6eda" key="textField-18" mode="Opaque" x="257" y="20" width="78" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -153,7 +153,7 @@
 				<textFieldExpression><![CDATA[$R{projectBlockInput.qtyIntern}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="4a21ae54-ce1b-422d-aef4-3f578a256013" key="textField-21" mode="Opaque" x="714" y="20" width="71" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="4a21ae54-ce1b-422d-aef4-3f578a256013" key="textField-21" mode="Opaque" x="680" y="20" width="90" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -173,7 +173,9 @@
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="3f6e7003-dd02-4810-94eb-49279e690134" key="textField-8" stretchType="RelativeToBandHeight" mode="Opaque" x="636" y="19" width="71" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="3f6e7003-dd02-4810-94eb-49279e690134" key="textField-8" stretchType="RelativeToBandHeight" mode="Opaque" x="590" y="19" width="90" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[!$P{incomeGen}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -205,7 +207,7 @@
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="045b22d6-09d2-42e4-bb3a-a0808ae7683a" key="textField" mode="Opaque" x="103" y="2" width="100" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="045b22d6-09d2-42e4-bb3a-a0808ae7683a" key="textField" mode="Opaque" x="103" y="2" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -219,7 +221,7 @@
 				<textFieldExpression><![CDATA[$F{unitType}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9bfa0948-4e2e-4882-a1bb-c91f8a8a6c75" key="textField" mode="Opaque" x="208" y="2" width="65" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="9bfa0948-4e2e-4882-a1bb-c91f8a8a6c75" key="textField" mode="Opaque" x="189" y="2" width="65" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -233,7 +235,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($F{unitNum})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="77657051-9bbe-44b2-bf89-7c0866975450" key="textField" mode="Opaque" x="357" y="2" width="79" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="77657051-9bbe-44b2-bf89-7c0866975450" key="textField" mode="Opaque" x="338" y="2" width="77" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -247,7 +249,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{unitCost}, riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="959571e3-26be-4b94-94b7-56939e5852b5" key="textField" mode="Opaque" x="564" y="2" width="71" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="959571e3-26be-4b94-94b7-56939e5852b5" key="textField" mode="Opaque" x="500" y="2" width="90" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -261,7 +263,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{total}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="88547622-5615-4014-a4c8-0a4c0bcb1177" key="textField" mode="Opaque" x="436" y="2" width="94" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="88547622-5615-4014-a4c8-0a4c0bcb1177" key="textField" mode="Opaque" x="417" y="2" width="78" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -275,7 +277,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{transport}, riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9e3b8ca9-bb4e-4d9a-81c6-3e2b807a4763" key="textField-17" mode="Opaque" x="276" y="2" width="78" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="9e3b8ca9-bb4e-4d9a-81c6-3e2b807a4763" key="textField-17" mode="Opaque" x="257" y="2" width="78" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -289,7 +291,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($F{qtyIntern})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="7efa3ebf-2dbe-46d2-9e1b-d8e7ec276413" key="textField-20" mode="Opaque" x="714" y="2" width="71" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="7efa3ebf-2dbe-46d2-9e1b-d8e7ec276413" key="textField-20" mode="Opaque" x="680" y="2" width="90" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -303,7 +305,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totalCash}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f8b0d156-f647-40e3-b0bf-b9a5668b137b" key="textField" mode="Opaque" x="636" y="2" width="71" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="f8b0d156-f647-40e3-b0bf-b9a5668b137b" key="textField" mode="Opaque" x="590" y="2" width="90" height="12" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[!$P{incomeGen}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -321,7 +325,7 @@
 	<lastPageFooter>
 		<band height="16">
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="078b3504-0077-4505-83a5-a9efaeaed72b" key="textField" positionType="Float" mode="Opaque" x="563" y="3" width="71" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="078b3504-0077-4505-83a5-a9efaeaed72b" key="textField" positionType="Float" mode="Opaque" x="500" y="3" width="90" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -335,13 +339,13 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumTotal}, riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="1367cc1c-86ef-4b92-86cd-a9e62b1210d9" key="line-2" mode="Opaque" x="2" y="0" width="760" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<reportElement uuid="1367cc1c-86ef-4b92-86cd-a9e62b1210d9" key="line-2" mode="Opaque" x="1" y="0" width="785" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5124e9a6-868d-4b98-a47f-9f56b1773d6e" key="textField-19" positionType="Float" mode="Opaque" x="714" y="3" width="71" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="5124e9a6-868d-4b98-a47f-9f56b1773d6e" key="textField-19" positionType="Float" mode="Opaque" x="680" y="3" width="90" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -364,7 +368,9 @@
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="6f5ec4fe-7e76-4e90-8089-1fa78a34c968" key="textField" positionType="Float" mode="Opaque" x="636" y="3" width="71" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="6f5ec4fe-7e76-4e90-8089-1fa78a34c968" key="textField" positionType="Float" mode="Opaque" x="590" y="3" width="90" height="12" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[!$P{incomeGen}]]></printWhenExpression>
+				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
