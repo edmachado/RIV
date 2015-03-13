@@ -78,6 +78,7 @@ import riv.objects.project.ProjectItemGeneral;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
+import riv.objects.project.ProjectItemNongenBase;
 import riv.objects.project.ProjectItemNongenLabour;
 import riv.objects.project.ProjectItemNongenMaintenance;
 import riv.objects.project.ProjectItemNongenMaterials;
@@ -1295,6 +1296,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getRefLabours());
 			Hibernate.initialize(p.getPersonnelWithouts());
 		} else if (item.getClass().isAssignableFrom(ProjectItemNongenLabour.class)) {
+			Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 			Hibernate.initialize(item.getProject().getRefLabours());
 			Hibernate.initialize(p.getNongenLabours());
 		} else {
@@ -1312,8 +1314,10 @@ public class DataRepository {
 			} else if (item.getClass().isAssignableFrom(ProjectItemServiceWithout.class)) {
 				Hibernate.initialize(p.getServicesWithout());
 			} else if (item.getClass().isAssignableFrom(ProjectItemNongenMaterials.class)) {
+				Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 				Hibernate.initialize(p.getNongenMaterials());
 			} else if (item.getClass().isAssignableFrom(ProjectItemNongenMaintenance.class)) {
+				Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 				Hibernate.initialize(p.getNongenMaintenance());
 			}
 		}

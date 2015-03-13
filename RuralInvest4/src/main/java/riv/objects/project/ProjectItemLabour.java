@@ -1,17 +1,19 @@
 package riv.objects.project;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.MapKeyColumn;
+
+import org.hibernate.annotations.Formula;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -32,22 +34,22 @@ public class ProjectItemLabour extends ProjectItem implements ProjectInvestment 
 	protected Project project;
 	@Column(name="OWN_RESOURCES")
 	protected Double OwnResources;
-//	private Double Donated;
 	@Column(name="YEAR_BEGIN")
 	private java.lang.Integer YearBegin;
 	
+	@Formula(value="(SELECT ISNULL(SUM(d.amount),0) FROM project_item_donation d WHERE d.item_id=proj_item_id)")
+	private Double donated;
 	public Double getDonated() {
-		double donated = 0.0;
-//		for (ProjectItemDonation d : donations.values()) {
-//			donated+=d.getAmount();
-//		}
 		return donated;
 	}
-//	@OneToMany(mappedBy="projectItem", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-//	@MapKey(name="id")
-//	@OrderBy("ID")
-//	private Map<Integer,ProjectItemDonation> donations=new HashMap<Integer,ProjectItemDonation>();
 	
+	@ElementCollection(fetch=FetchType.LAZY)
+	@MapKeyColumn(name="donor_id")
+	@Column(name="amount")
+	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
+	Map<Integer,Double> donations = new HashMap<Integer,Double>();
+	
+	public Map<Integer,Double> getDonations() { return donations; }
 	
 	public Project getProject () {
 		return this.project;
@@ -90,16 +92,6 @@ public class ProjectItemLabour extends ProjectItem implements ProjectInvestment 
 		   if (getOwnResources()==null || getDonated()==null) return 0.0;
 		   return (getTotal() - getOwnResources() - getDonated());
 	   }
-	
-//	@Override
-//	public Map<Integer,ProjectItemDonation> getDonations() {
-//		return donations;
-//	}
-
-//	   @Override
-//	public void setDonations(Set<ProjectItemDonation> donations) {
-//		this.donations = donations;
-//	}
 	
 	   public String testingProperties(RivConfig rivConfig) {
 			String lineSeparator = System.getProperty("line.separator");

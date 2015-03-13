@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import riv.objects.HasDonations;
 import riv.objects.config.User;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemAsset;
@@ -157,18 +159,30 @@ public class ProjectItemController {
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public String saveProjectItem(@RequestParam Integer linkedToId, @RequestParam(required=false) Boolean addLink, @RequestParam(required=false) Boolean allYears, HttpServletRequest request,
 			@Valid @ModelAttribute ProjectItem projectItem, BindingResult result, Model model) {
+    	
     	if (result.hasErrors()) {
 			setupPageAttributes(projectItem, model, request);
 			return form(projectItem);
 		} else {
+			if (projectItem instanceof HasDonations) {
+				HasDonations hd = (HasDonations)projectItem;
+				for (Donor donor : projectItem.getProject().getDonors()) {
+					if (hd.getDonations().get(donor.getDonorId())==0.0) {
+						hd.getDonations().remove(donor.getDonorId());
+					}
+				}
+			}
+			
 			checkLinked(projectItem, linkedToId, addLink);
 			
 			dataService.storeProjectItem(projectItem);
+			
 			if (allYears!=null) { // save nig project contribution to all years of project
 				Project p = projectItem.getProject();
+				ProjectItemContribution c2;
 				for (int i=1; i<= p.getDuration();i++) {
 					if (i!=((ProjectItemContribution)projectItem).getYear()) {
-						ProjectItemContribution c2 = (ProjectItemContribution)projectItem.copy();
+						c2 = (ProjectItemContribution)projectItem.copy();
 						c2.setYear(i);
 						c2.setOrderBy(p.getContributionsByYear().get(i).size());
 						dataService.storeProjectItem(c2, false);
@@ -325,6 +339,14 @@ public class ProjectItemController {
 				|| pi.getClass()==ProjectItemServiceWithout.class
 			) {
 			model.addAttribute("without",true);
+		}
+		if (pi instanceof HasDonations) {
+			HasDonations hd = (HasDonations)pi;
+			for (Donor donor : pi.getProject().getDonors()) {
+				if (!hd.getDonations().containsKey(donor.getDonorId())) {
+					hd.getDonations().put(donor.getDonorId(), 0.0);
+				}
+			}
 		}
 	}
    

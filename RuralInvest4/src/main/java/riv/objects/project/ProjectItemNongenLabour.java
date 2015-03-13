@@ -41,8 +41,8 @@ public class ProjectItemNongenLabour extends ProjectItemNongenBase {
 		   sb.append("step8.labour"+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step8.labour"+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step8.labour"+(this.getOrderBy()+1)+".ownResource="+cf.formatCurrency(getOwnResource(), CurrencyFormat.ALL)+lineSeparator);
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".statePublic="+cf.formatCurrency(getStatePublic(), CurrencyFormat.ALL)+lineSeparator);
-		   sb.append("step8.labour"+(this.getOrderBy()+1)+".other1="+cf.formatCurrency(getOther1(), CurrencyFormat.ALL)+lineSeparator);
+//		   sb.append("step8.labour"+(this.getOrderBy()+1)+".statePublic="+cf.formatCurrency(getStatePublic(), CurrencyFormat.ALL)+lineSeparator);
+//		   sb.append("step8.labour"+(this.getOrderBy()+1)+".other1="+cf.formatCurrency(getOther1(), CurrencyFormat.ALL)+lineSeparator);
 		   return sb.toString();
 	   }
 	
@@ -56,8 +56,8 @@ public class ProjectItemNongenLabour extends ProjectItemNongenBase {
 	   item.setUnitCost(unitCost);
 	   item.setUnitNum(unitNum);
 	   item.setUnitType(unitType);
-	   item.setStatePublic(getStatePublic());
-	   item.setOther1(getOther1());
+//	   item.setStatePublic(getStatePublic());
+//	   item.setOther1(getOther1());
 	   item.setOrderBy(this.getOrderBy());
 	   return item;
  }

@@ -1,50 +1,69 @@
 package riv.objects.project;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
+
+import org.hibernate.annotations.Formula;
+
+import riv.objects.HasDonations;
 /**
  * Base implementation for general cost associated to an NIG project
  * @author Bar Zecharya
  *
  */
 @Entity
-public abstract class ProjectItemNongenBase extends ProjectItem {
+public abstract class ProjectItemNongenBase extends ProjectItem implements HasDonations {
 	private static final long serialVersionUID = 1L;
-
-	@Column(name="OWN_RESOURCES")
-	private Double publicState;
-	@Column(name="DONATED")
-	private Double other1;
+	
+	@Formula(value="(SELECT ISNULL(SUM(d.amount),0) FROM project_item_donation d WHERE d.item_id=proj_item_id)")
+	private Double donated;
+	public Double getDonated() {
+		return donated;
+	}
+	
+	@ElementCollection(fetch=FetchType.LAZY)
+	@MapKeyColumn(name="donor_id")
+	@Column(name="amount")
+	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
+	Map<Integer,Double> donations = new HashMap<Integer,Double>();
+	
+	public Map<Integer,Double> getDonations() { return donations; }
 	
 	public abstract Project getProject();
 	public abstract void setProject(Project project);
 	
-	public Double getStatePublic() {
-		return publicState;
-	}
-
-	public void setStatePublic(Double publicState) {
-		this.publicState = publicState;
-	}
-
-	public Double getOther1() {
-		return other1;
-	}
-
-	public void setOther1(Double other1) {
-		this.other1 = other1;
-	}
+//	public Double getStatePublic() {
+//		return publicState;
+//	}
+//
+//	public void setStatePublic(Double publicState) {
+//		this.publicState = publicState;
+//	}
+//
+//	public Double getOther1() {
+//		return 0.0;//other1;
+//	}
+//
+//	public void setOther1(Double other1) {
+//		this.other1 = other1;
+//	}
 
 	public Double getTotal() {
 		if (getUnitCost()==null || getUnitNum()==null) return 0.0;
 		return this.getUnitCost()*this.getUnitNum();
 	}
 	
-	
-	
 	public Double getOwnResource() {
-		   if (publicState==null || other1==null) return 0.0;
-		   return (getTotal() - publicState - other1);
+		   if (donated==null) return 0.0;
+		   return (getTotal() - donated);
 	   }
 	
 	public abstract ProjectItemNongenBase copy();
@@ -53,9 +72,9 @@ public abstract class ProjectItemNongenBase extends ProjectItem {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((other1 == null) ? 0 : other1.hashCode());
-		result = prime * result
-				+ ((publicState == null) ? 0 : publicState.hashCode());
+//		result = prime * result + ((other1 == null) ? 0 : other1.hashCode());
+//		result = prime * result
+//				+ ((publicState == null) ? 0 : publicState.hashCode());
 		result = prime * result + ((this.getProject() == null) ? 0 : this.getProject().hashCode());
 		return result;
 	}
@@ -69,16 +88,16 @@ public abstract class ProjectItemNongenBase extends ProjectItem {
 		if (getClass() != obj.getClass())
 			return false;
 		ProjectItemNongenBase other = (ProjectItemNongenBase) obj;
-		if (other1 == null) {
-			if (other.other1 != null)
-				return false;
-		} else if (!other1.equals(other.other1))
-			return false;
-		if (publicState == null) {
-			if (other.publicState != null)
-				return false;
-		} else if (!publicState.equals(other.publicState))
-			return false;
+//		if (other1 == null) {
+//			if (other.other1 != null)
+//				return false;
+//		} else if (!other1.equals(other.other1))
+//			return false;
+//		if (publicState == null) {
+//			if (other.publicState != null)
+//				return false;
+//		} else if (!publicState.equals(other.publicState))
+//			return false;
 		if (this.getProject() == null) {
 			if (other.getProject() != null)
 				return false;

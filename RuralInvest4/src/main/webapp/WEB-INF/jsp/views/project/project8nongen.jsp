@@ -26,11 +26,14 @@
 					<tags:formatCurrency value="${row.total}"/><c:set var="inpTotal" value="${inpTotal+row.total}"/>
 				</display:column>
 				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="statePublic">
-					<tags:formatCurrency value="${row.statePublic}"/><c:set var="inpState" value="${inpState+row.statePublic}"/>
+					<tags:formatCurrency value="${row.donated}"/><c:set var="inpState" value="${inpState+row.donated}"/>
 				</display:column>
-				<display:column titleKey="projectNongenInput.other1" sortable="true" sortProperty="other1">
-					<tags:formatCurrency value="${row.other1}"/><c:set var="inpOther" value="${inpOther+row.other1}"/>
-				</display:column>
+<%-- 				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="statePublic"> --%>
+<%-- 					<tags:formatCurrency value="${row.statePublic}"/><c:set var="inpState" value="${inpState+row.statePublic}"/> --%>
+<%-- 				</display:column> --%>
+<%-- 				<display:column titleKey="projectNongenInput.other1" sortable="true" sortProperty="other1"> --%>
+<%-- 					<tags:formatCurrency value="${row.other1}"/><c:set var="inpOther" value="${inpOther+row.other1}"/> --%>
+<%-- 				</display:column> --%>
 				<display:column titleKey="projectNongenInput.ownResource" sortable="true" sortProperty="ownResource">
 					<tags:formatCurrency value="${row.ownResource}"/>
 				</display:column>
@@ -76,8 +79,8 @@
 					<tr><td/><td/><td/><td/>
 					<td><tags:formatCurrency value="${inpTotal}" /></td>
 					<td><tags:formatCurrency value="${inpState}" /></td>
-					<td><tags:formatCurrency value="${inpOther}" /></td>
-					<td><tags:formatCurrency value="${inpTotal-inpState-inpOther}" /></td>
+<%-- 					<td><tags:formatCurrency value="${inpOther}" /></td> --%>
+					<td><tags:formatCurrency value="${inpTotal-inpState}" /></td>
 					<td/><td/><td/><td/><td/><td/></tr>
 				</display:footer>
 			</display:table>
@@ -107,11 +110,14 @@
 					<tags:formatCurrency value="${lab.total}"/><c:set var="labTotal" value="${labTotal+lab.total}"/>
 				</display:column>
 				<display:column titleKey="projectNongenLabour.statePublic" sortable="true" sortProperty="statePublic">
-					<tags:formatCurrency value="${lab.statePublic}"/><c:set var="labState" value="${labState+lab.statePublic}"/>
+					<tags:formatCurrency value="${lab.donated}"/><c:set var="labState" value="${labState+lab.donated}"/>
 				</display:column>
-				<display:column titleKey="projectNongenLabour.other1" sortable="true" sortProperty="other1">
-					<tags:formatCurrency value="${lab.other1}"/><c:set var="labOther" value="${labOther+lab.other1}"/>
-				</display:column>
+<%-- 				<display:column titleKey="projectNongenLabour.statePublic" sortable="true" sortProperty="statePublic"> --%>
+<%-- 					<tags:formatCurrency value="${lab.statePublic}"/><c:set var="labState" value="${labState+lab.statePublic}"/> --%>
+<%-- 				</display:column> --%>
+<%-- 				<display:column titleKey="projectNongenLabour.other1" sortable="true" sortProperty="other1"> --%>
+<%-- 					<tags:formatCurrency value="${lab.other1}"/><c:set var="labOther" value="${labOther+lab.other1}"/> --%>
+<%-- 				</display:column> --%>
 				<display:column titleKey="projectNongenLabour.ownResource" sortable="true" sortProperty="ownResource">
 					<tags:formatCurrency value="${lab.ownResource}"/>
 				</display:column>
@@ -157,8 +163,8 @@
 					<tr><td/><td/><td/><td/>
 					<td><tags:formatCurrency value="${labTotal}" /></td>
 					<td><tags:formatCurrency value="${labState}" /></td>
-					<td><tags:formatCurrency value="${labOther}" /></td>
-					<td><tags:formatCurrency value="${labTotal-labState-labOther}" /></td>
+<%-- 					<td><tags:formatCurrency value="${labOther}" /></td> --%>
+					<td><tags:formatCurrency value="${labTotal-labState}" /></td>
 					<td/><td/><td/><td/><td/><td/></tr>
 				</display:footer>
 			</display:table>
@@ -183,11 +189,14 @@
 					<tags:formatCurrency value="${gen.total}"/><c:set var="genTotal" value="${genTotal+gen.total}"/>
 				</display:column>
 				<display:column titleKey="projectNongenGeneral.statePublic" sortable="true" sortProperty="statePublic">
-					<tags:formatCurrency value="${gen.statePublic}"/><c:set var="genState" value="${genState+gen.statePublic}"/>
+					<tags:formatCurrency value="${gen.donated}"/><c:set var="genState" value="${genState+gen.donated}"/>
 				</display:column>
-				<display:column titleKey="projectNongenGeneral.other1" sortable="true" sortProperty="other1">
-					<tags:formatCurrency value="${gen.other1}"/><c:set var="genOther" value="${genOther+gen.other1}"/>
-				</display:column>
+<%-- 				<display:column titleKey="projectNongenGeneral.statePublic" sortable="true" sortProperty="statePublic"> --%>
+<%-- 					<tags:formatCurrency value="${gen.statePublic}"/><c:set var="genState" value="${genState+gen.statePublic}"/> --%>
+<%-- 				</display:column> --%>
+<%-- 				<display:column titleKey="projectNongenGeneral.other1" sortable="true" sortProperty="other1"> --%>
+<%-- 					<tags:formatCurrency value="${gen.other1}"/><c:set var="genOther" value="${genOther+gen.other1}"/> --%>
+<%-- 				</display:column> --%>
 				<display:column titleKey="projectNongenGeneral.ownResource" sortable="true" sortProperty="ownResource">
 					<tags:formatCurrency value="${gen.ownResource}"/>
 				</display:column>
@@ -233,8 +242,8 @@
 					<tr><td/><td/><td/><td/>
 					<td><tags:formatCurrency value="${genTotal}" /></td>
 					<td><tags:formatCurrency value="${genState}" /></td>
-					<td><tags:formatCurrency value="${genOther}" /></td>
-					<td><tags:formatCurrency value="${genTotal-genState-genOther}" /></td>
+<%-- 					<td><tags:formatCurrency value="${genOther}" /></td> --%>
+					<td><tags:formatCurrency value="${genTotal-genState}" /></td>
 					<td/><td/><td/><td/><td/><td/></tr>
 				</display:footer>
 			</display:table>

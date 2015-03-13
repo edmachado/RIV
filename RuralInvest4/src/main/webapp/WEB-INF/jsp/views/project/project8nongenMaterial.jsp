@@ -17,12 +17,15 @@
 				<display:column titleKey="projectNongenInput.total" sortable="true" sortProperty="total">
 					<tags:formatCurrency value="${row.total}"/>
 				</display:column>
-				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="statePublic">
-					<tags:formatCurrency value="${row.statePublic}"/>
+				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="donated">
+					<tags:formatCurrency value="${row.donated}"/>
 				</display:column>
-				<display:column titleKey="projectNongenInput.other1" sortable="true" sortProperty="other1">
-					<tags:formatCurrency value="${row.other1}"/>
-				</display:column>
+<%-- 				<display:column titleKey="projectNongenInput.statePublic" sortable="true" sortProperty="statePublic"> --%>
+<%-- 					<tags:formatCurrency value="${row.statePublic}"/> --%>
+<%-- 				</display:column> --%>
+<%-- 				<display:column titleKey="projectNongenInput.other1" sortable="true" sortProperty="other1"> --%>
+<%-- 					<tags:formatCurrency value="${row.other1}"/> --%>
+<%-- 				</display:column> --%>
 				<display:column titleKey="projectNongenInput.ownResource" sortable="true" sortProperty="ownResource">
 					<tags:formatCurrency value="${row.ownResource}"/>
 				</display:column>
@@ -40,9 +43,17 @@
 				<tags:dataentry field="unitNum" labelKey="projectNongenInput.unitNum" helpText="projectNongenInput.unitNum.help" onmouseout="CalculateTotal()"/>
 				<tags:dataentry field="unitCost" labelKey="projectNongenInput.unitCost" helpText="projectNongenInput.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
 				<tags:datadivider color="green"/>
+				
+				<tags:dataentry field="donated" button="manage" calculated="true" labelKey="projectInvestAsset.donated" helpText="projectInvestAsset.donated.help" currency="true" onmouseout="CalculateFinance()"/>
+				<div id="donations" style="display:block; border:1px solid #aaa; margin-left:5px">
+					<c:forEach var="donor" items="${projectItem.project.donors}">
+						<tags:dataentry field="donations[${donor.donorId}]" label="${donor.description}" currency="true" />
+					</c:forEach>
+				</div>
+				
 				<tags:dataentry field="total" labelKey="projectNongenInput.total" helpText="projectNongenInput.total.help" currency="true" calculated="true" />
-				<tags:dataentry field="statePublic" labelKey="projectNongenInput.statePublic" helpText="projectNongenInput.statePublic.help" currency="true"  onmouseout="CalculateOwn()"/>
-				<tags:dataentry field="other1" labelKey="projectNongenInput.other1" helpText="projectNongenInput.other1.help" currency="true"  onmouseout="CalculateOwn()"/>
+<%-- 				<tags:dataentry field="statePublic" labelKey="projectNongenInput.statePublic" helpText="projectNongenInput.statePublic.help" currency="true"  onmouseout="CalculateOwn()"/> --%>
+<%-- 				<tags:dataentry field="other1" labelKey="projectNongenInput.other1" helpText="projectNongenInput.other1.help" currency="true"  onmouseout="CalculateOwn()"/> --%>
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="ownResource" labelKey="projectNongenInput.ownResource" helpText="projectNongenInput.ownResource.help" calculated="true" currency="true" />
 			</fieldset>

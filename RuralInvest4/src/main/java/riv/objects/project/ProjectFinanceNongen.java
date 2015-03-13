@@ -136,15 +136,15 @@ public class ProjectFinanceNongen {
 		double contributionsGeneral=0.0;
 		for (ProjectItemNongenMaterials inp : project.getNongenMaterials()) {
 			maintenance+=inp.getUnitCost()*inp.getUnitNum();
-			contributionsGeneral+=inp.getStatePublic()+inp.getOther1();
+			contributionsGeneral+=inp.getDonated();// inp.getStatePublic()+inp.getOther1();
 		}
 		for (ProjectItemNongenLabour lab : project.getNongenLabours()) {
 			maintenance+=lab.getUnitCost()*lab.getUnitNum();
-			contributionsGeneral+=lab.getStatePublic()+lab.getOther1();
+			contributionsGeneral+=lab.getDonated();// lab.getStatePublic()+lab.getOther1();
 		}
 		for (ProjectItemNongenMaintenance gen : project.getNongenMaintenance()) {
 			maintenance+=gen.getUnitCost()*gen.getUnitNum();
-			contributionsGeneral+=gen.getStatePublic()+gen.getOther1();
+			contributionsGeneral+=gen.getDonated();// gen.getStatePublic()+gen.getOther1();
 		}
 		
 		// contributions

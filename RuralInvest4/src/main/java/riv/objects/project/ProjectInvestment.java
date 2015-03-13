@@ -1,12 +1,8 @@
 package riv.objects.project;
 
-import java.util.Set;
+import riv.objects.HasDonations;
 
-public interface ProjectInvestment {
-	public Double getDonated();
-
-//	public void setDonated(Double Donated);
-
+public interface ProjectInvestment extends HasDonations {
 	public java.lang.Integer getYearBegin();
 
 	public void setYearBegin(java.lang.Integer YearBegin);
@@ -24,8 +20,5 @@ public interface ProjectInvestment {
 	public Double getUnitNum();
 
 	public Double getUnitCost();
-	
-	public Set<ProjectItemDonation> getDonations();
-	public void setDonations(Set<ProjectItemDonation> donations);
 }
 
