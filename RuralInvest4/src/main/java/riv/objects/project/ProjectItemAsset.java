@@ -57,7 +57,10 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	private Map<Integer,Double> donations = new HashMap<Integer, Double>();
 	
 	public Map<Integer,Double> getDonations() { return donations; }
-	public void setDonations(Map<Integer,Double> donations) { }// required for XML Encoder, not used elsewhere
+	public void setDonations(Map<Integer,Double> donations)  { 
+		// required for XML Encoder, not used elsewhere
+		throw new RuntimeException("setDonations() field should not be used."); 
+	}
 	
 		public Project getProject () {
 			return this.project;
@@ -172,8 +175,8 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 		   item.setUnitType(unitType);
 		   item.setYearBegin(yearBegin);
 		   
-		   for (Integer donorId : donations.keySet()) {
-			  item.getDonations().put(donorId, donations.get(donorId));
+		   for (Integer donorOrder : donations.keySet()) {
+			  item.getDonations().put(donorOrder, donations.get(donorOrder));
 		   }
 		   
 		   item.setOrderBy(this.getOrderBy());

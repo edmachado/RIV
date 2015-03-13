@@ -166,8 +166,8 @@ public class ProjectItemController {
 			if (projectItem instanceof HasDonations) {
 				HasDonations hd = (HasDonations)projectItem;
 				for (Donor donor : projectItem.getProject().getDonors()) {
-					if (hd.getDonations().get(donor.getDonorId())==0.0) {
-						hd.getDonations().remove(donor.getDonorId());
+					if (hd.getDonations().get(donor.getOrderBy())==0.0) {
+						hd.getDonations().remove(donor.getOrderBy());
 					}
 				}
 			}
@@ -342,8 +342,8 @@ public class ProjectItemController {
 		if (pi instanceof HasDonations) {
 			HasDonations hd = (HasDonations)pi;
 			for (Donor donor : pi.getProject().getDonors()) {
-				if (!hd.getDonations().containsKey(donor.getDonorId())) {
-					hd.getDonations().put(donor.getDonorId(), 0.0);
+				if (!hd.getDonations().containsKey(donor.getOrderBy())) {
+					hd.getDonations().put(donor.getOrderBy(), 0.0);
 				}
 			}
 		}

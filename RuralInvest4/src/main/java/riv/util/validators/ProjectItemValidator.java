@@ -52,11 +52,11 @@ public class ProjectItemValidator implements Validator {
 			HasDonations hd = (HasDonations)i;
 			
 			for (Donor d : i.getProject().getDonors()) {
-				thisResult = ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getDonorId(), d.getDescription(), errors);
+				thisResult = ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getOrderBy(), d.getDescription(), errors);
 				if (thisResult) { 
 					donationError=true; 
 				} else {
-					donations+=hd.getDonations().get(d.getDonorId());
+					donations+=hd.getDonations().get(d.getOrderBy());
 				}
 			}
 			if (!donationError) {

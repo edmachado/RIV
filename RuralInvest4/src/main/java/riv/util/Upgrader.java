@@ -37,6 +37,7 @@ import riv.objects.profile.ProfileProductWithout;
 import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
 import riv.objects.project.BlockWithout;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemAssetWithout;
@@ -284,6 +285,11 @@ public class Upgrader {
 			}
 		}
 
+		for (Donor d : project.getDonors()) {
+			if (d.getProject()==null) {
+				d.setProject(project);
+			}
+		}
 	}
 	
 	/**

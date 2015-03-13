@@ -33,9 +33,13 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 	@MapKeyColumn(name="donor_order_by")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
-	Map<Integer,Double> donations = new HashMap<Integer,Double>();
+	protected Map<Integer,Double> donations = new HashMap<Integer, Double>();
 	
 	public Map<Integer,Double> getDonations() { return donations; }
+	public void setDonations(Map<Integer,Double> donations)  { 
+		// required for XML Encoder, not used elsewhere
+		throw new RuntimeException("setDonations() field should not be used."); 
+	}
 	
 	public abstract Project getProject();
 	public abstract void setProject(Project project);

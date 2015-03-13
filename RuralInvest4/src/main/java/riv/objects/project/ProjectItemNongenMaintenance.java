@@ -59,6 +59,9 @@ public class ProjectItemNongenMaintenance extends ProjectItemNongenBase {
 //	   item.setStatePublic(getStatePublic());
 //	   item.setOther1(getOther1());
 	   item.setOrderBy(this.getOrderBy());
+	   for (Integer donorOrder : donations.keySet()) {
+		  item.getDonations().put(donorOrder, donations.get(donorOrder));
+	   }
 	   return item;
  }
 }

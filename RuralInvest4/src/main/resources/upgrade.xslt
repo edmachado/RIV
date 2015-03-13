@@ -20,6 +20,9 @@
 					    <void property="orderBy">
 					       <int>0</int>
 					    </void>
+					    <void property="project">
+					    	<object idref="Project0"/>
+					    </void>
 				    </object>
 				</void>
 				<!-- NIG project need "state/public" -->

@@ -863,6 +863,30 @@ public class DataRepository {
 			for (HasDonations i : p.getAssets()) {
 				Hibernate.initialize(i.getDonations());
 			}
+			for (HasDonations i : p.getAssetsWithout()) {
+				Hibernate.initialize(i.getDonations());
+			}
+			for (HasDonations i : p.getLabours()) {
+				Hibernate.initialize(i.getDonations());
+			}
+			for (HasDonations i : p.getLaboursWithout()) {
+				Hibernate.initialize(i.getDonations());
+			}
+			for (HasDonations i : p.getServices()) {
+				Hibernate.initialize(i.getDonations());
+			}
+			for (HasDonations i : p.getServicesWithout()) {
+				Hibernate.initialize(i.getDonations());
+			}
+			for (HasDonations i : p.getNongenMaterials()) {
+				Hibernate.initialize(i.getDonations());
+			}
+			for (HasDonations i : p.getNongenLabours()) {
+				Hibernate.initialize(i.getDonations());
+			}
+			for (HasDonations i : p.getNongenMaintenance()) {
+				Hibernate.initialize(i.getDonations());
+			}
 		}
 		
 		return p;

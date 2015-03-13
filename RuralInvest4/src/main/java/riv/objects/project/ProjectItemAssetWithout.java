@@ -53,9 +53,13 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 	@MapKeyColumn(name="donor_order_by")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
-	Map<Integer,Double> donations = new HashMap<Integer,Double>();
+	private Map<Integer,Double> donations = new HashMap<Integer, Double>();
 	
 	public Map<Integer,Double> getDonations() { return donations; }
+	public void setDonations(Map<Integer,Double> donations)  { 
+		// required for XML Encoder, not used elsewhere
+		throw new RuntimeException("setDonations() field should not be used."); 
+	}
 	
 	public Project getProject () {
 			return this.project;
@@ -170,8 +174,11 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 		   item.setUnitNum(unitNum);
 		   item.setUnitType(unitType);
 		   item.setYearBegin(yearBegin);
-		   
 		   item.setOrderBy(this.getOrderBy());
+		   
+		   for (Integer donorOrder : donations.keySet()) {
+			  item.getDonations().put(donorOrder, donations.get(donorOrder));
+		   }
 		   return item;
 	   }
 

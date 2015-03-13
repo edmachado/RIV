@@ -247,7 +247,7 @@ public class Project extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemAssetWithout.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='11'")
-	private Set<ProjectItemAssetWithout> assetsWithout;
+	private Set<ProjectItemAssetWithout> assetsWithout = new HashSet<ProjectItemAssetWithout>();
 	
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemGeneral.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
@@ -257,11 +257,11 @@ public class Project extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemLabour.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='1'")
-	private Set<ProjectItemLabour> labours;
+	private Set<ProjectItemLabour> labours = new HashSet<ProjectItemLabour>();
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemLabourWithout.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='12'")
-	private Set<ProjectItemLabourWithout> laboursWithout;
+	private Set<ProjectItemLabourWithout> laboursWithout = new HashSet<ProjectItemLabourWithout>();
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemPersonnel.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
@@ -271,11 +271,11 @@ public class Project extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemService.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='4'")
-	private Set<ProjectItemService> services;
+	private Set<ProjectItemService> services = new HashSet<ProjectItemService>();
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemServiceWithout.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='13'")
-	private Set<ProjectItemServiceWithout> servicesWithout;
+	private Set<ProjectItemServiceWithout> servicesWithout = new HashSet<ProjectItemServiceWithout>();;
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemContribution.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	//@OrderBy({"YEAR_BEGIN","ORDER_BY"})
@@ -285,17 +285,17 @@ public class Project extends Probase implements java.io.Serializable {
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemNongenMaterials.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='9'")
-	private Set<ProjectItemNongenMaterials> nongenMaterials;
+	private Set<ProjectItemNongenMaterials> nongenMaterials = new HashSet<ProjectItemNongenMaterials>();
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemNongenLabour.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='8'")
-	private Set<ProjectItemNongenLabour> nongenLabours;
+	private Set<ProjectItemNongenLabour> nongenLabours = new HashSet<ProjectItemNongenLabour>();
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemNongenMaintenance.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='10'")
-	private Set<ProjectItemNongenMaintenance> nongenMaintenance;
+	private Set<ProjectItemNongenMaintenance> nongenMaintenance = new HashSet<ProjectItemNongenMaintenance>();
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemGeneralWithout.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
@@ -1083,6 +1083,10 @@ public double getInvestmentTotal() {
 	public void addPersonnelWithout(ProjectItemPersonnelWithout p) {
 		p.setProject(this);
 		personnelWithouts.add(p);
+	}
+	public void addDonor(Donor d) {
+		d.setProject(this);
+		donors.add(d);
 	}
 	public void setRefCosts(Set<ReferenceCost> refCosts) {
 		this.refCosts = refCosts;
@@ -2008,7 +2012,7 @@ public double getInvestmentTotal() {
 		
 		// donors
 		for (Donor d : donors) {
-			newProj.donors.add(d.copy());
+			newProj.addDonor(d.copy());
 		}
 		
 		// copy reference table

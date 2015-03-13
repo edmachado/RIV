@@ -43,9 +43,13 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 	@MapKeyColumn(name="donor_order_by")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
-	Map<Integer,Double> donations = new HashMap<Integer,Double>();
+	private Map<Integer,Double> donations = new HashMap<Integer, Double>();
 	
 	public Map<Integer,Double> getDonations() { return donations; }
+	public void setDonations(Map<Integer,Double> donations)  { 
+		// required for XML Encoder, not used elsewhere
+		throw new RuntimeException("setDonations() field should not be used."); 
+	}
 	
 	public void setOwnResources(Double ownResources) {
 		this.ownResources = ownResources;
@@ -108,10 +112,12 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 	   item.setUnitNum(unitNum);
 	   item.setUnitType(unitType);
 	   item.setOwnResources(ownResources);
-//	   item.setDonated(donated);
 	   item.setYearBegin(yearBegin);
-	   
 	   item.setOrderBy(getOrderBy());
+	   
+	   for (Integer donorOrder : donations.keySet()) {
+		  item.getDonations().put(donorOrder, donations.get(donorOrder));
+	   }
 	   return item;
 	}
 	

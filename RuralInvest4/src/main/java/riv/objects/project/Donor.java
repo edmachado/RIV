@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,7 +33,7 @@ public class Donor implements Serializable, OrderByable {
 	@Column(name="ORDER_BY")
 	private Integer orderBy;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="PROJECT_ID", nullable=false)
 	private Project project;
 	
@@ -88,7 +87,6 @@ public class Donor implements Serializable, OrderByable {
 		Donor d = new Donor();
 		d.setContribType(contribType);
 		d.setDescription(description);
-		d.setDonorId(donorId);
 		d.setNotSpecified(notSpecified);
 		d.setProject(project);
 		d.setOrderBy(orderBy);
