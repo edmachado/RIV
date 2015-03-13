@@ -111,6 +111,7 @@ public class ExcelImportController {
 		boolean ig=b.getProject().getIncomeGen();
 		BlockItemValidator validator = new BlockItemValidator();
 		validator.setIncomeGen(b.getProject().getIncomeGen());
+		validator.setFromExcel(true);
 		XlsImportTable<BlockIncome> tableInc = new XlsImportTable<BlockIncome>(BlockIncome.class, rowNum, 7, validator);
 		if (ig) {
 			tableInc.addColumn(0, "description", false)

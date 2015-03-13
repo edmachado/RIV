@@ -458,7 +458,7 @@ public class ExcelWorksheetBuilder {
 		
 		// totals
 		Row row = sheet.createRow(rowNum++);
-		String totals= "project.report.blockDetail.total";
+		String totals= "project.report.blockDetail.totals";
 		report.addTextCell(row, 6, translate(totals), Style.H2);
 
 		row = sheet.createRow(rowNum++);

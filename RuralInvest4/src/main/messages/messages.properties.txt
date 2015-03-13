@@ -26,6 +26,7 @@ projectBlockLabour.donated=Total donated resources
 projectBlockLabour.donated.help=Help text goes here
 
 profile.report.blockDetail.totals=Totals
+project.report.blockDetail.totals=Totals
 
 #changed from previous versions
 project.step2=Beneficiaries & donors
