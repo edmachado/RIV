@@ -47,12 +47,8 @@ $(function() {
 		   }
 		});
 });
-</script>
-</head>
+</script></head>
 <body>
-
-
-
 <form:form id="contribForm" name="form" method="post" commandName="project">
 	<tags:errors />
 	
@@ -73,13 +69,11 @@ $(function() {
 		<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
  	</b>
  	
- 	<div align="right"><a href="#" onClick="toggle('contribSummary')"><spring:message code="misc.toggle"/></a></div>
  	<div id="contribSummary" style="display:block;">
  		<h2><spring:message code="project.report.contributionSummary"/></h2>
  		<tags:summaryContributions/>
  	</div>
  	
- 	<div align="right"><a href="#" onClick="toggle('yearlyFlow')"><spring:message code="misc.toggle"/></a></div>
  	<div id="yearlyFlow" style="display:block;">
  		<h2><spring:message code="projectContribution.yearlyFlow"/></h2>
  		<tags:table>
@@ -121,10 +115,16 @@ $(function() {
 						<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					
 						<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
-						<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left">
-							${rivConfig.contribTypes[contrib.contribType]}
+						<display:column titleKey="projectContribution.contributor" style="text-align:left;" headerClass="left">
+							<c:choose>
+								<c:when test="${contrib.donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
+								<c:when test="${contrib.donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+								<c:otherwise>${contrib.donor.description}</c:otherwise>
+							</c:choose>
 						</display:column>
-						<display:column titleKey="projectContribution.contributor" property="contributor" sortable="true" style="text-align:left;" headerClass="left"/>
+						<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left">
+							<tags:contribType type="${contrib.donor.contribType}"/>
+						</display:column>
 						<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.unitNum" sortProperty="unitNum" sortable="true">
 							<tags:formatDecimal value="${contrib.unitNum}"/>
@@ -172,7 +172,7 @@ $(function() {
 							</display:column>
 						</c:if>
 						<display:footer>
-							<tr height="1"><td height="1" colspan="13" class="Sum1"/></tr>
+							<tr height="1"><td height="1" colspan="12" class="Sum1"/></tr>
 							<tr><td/><td/><td/><td/><td/><td/>
 							<td><tags:formatCurrency value="${total}" /></td>
 							<td/><td/><td/><td/><td/></tr>

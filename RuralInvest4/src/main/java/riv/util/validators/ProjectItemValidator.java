@@ -79,7 +79,7 @@ public class ProjectItemValidator implements Validator {
 				errors.rejectValue("yearBegin", "error.assetYearExceeds", "The first year of the asset exceeds the project duration.");
 			}
 			
-		} else if (obj.getClass().isAssignableFrom(ProjectItemGeneral.class)||obj.getClass().isAssignableFrom(ProjectItemGeneralWithout.class)) {
+		} else if (obj instanceof ProjectItemGeneral || obj instanceof ProjectItemGeneralWithout) {
 			ValidateUtils.rejectIfEmpty(i, "description", "projectGeneralSupplies.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "projectGeneralSupplies.unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectGeneralSupplies.unitNum", errors);
@@ -87,7 +87,7 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", "projectGeneralSupplies.ownResources", errors);
 			ValidateUtils.rejectIfNegative( i, "total", "projectGeneralSupplies.totalCost", errors);
 			ValidateUtils.rejectIfNegative(i, "external", "projectGeneralSupplies.external", errors);
-		} else if (obj.getClass().isAssignableFrom(ProjectItemPersonnel.class)||obj.getClass().isAssignableFrom(ProjectItemPersonnelWithout.class)) {
+		} else if (obj instanceof ProjectItemPersonnel || obj instanceof ProjectItemPersonnelWithout) {
 			ValidateUtils.rejectIfEmpty(i, "description", "projectGeneralPersonnel.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "projectGeneralPersonnel.unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectGeneralPersonnel.unitNum", errors);
@@ -95,7 +95,7 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", "projectGeneralPersonnel.ownResources", errors);
 			ValidateUtils.rejectIfNegative(i, "total", "projectGeneralPersonnel.totalCost", errors);
 			ValidateUtils.rejectIfNegative(i, "external", "projectGeneralPersonnel.external", errors);
-		} else if (obj.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+		} else if (obj instanceof ProjectItemContribution) {
 			ValidateUtils.rejectIfEmpty(i, "description", "projectContribution.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "projectContribution.unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectContribution.unitNum", errors);
@@ -117,7 +117,7 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "donated", itemType+".donated", errors);
 			HasDonations hd = (HasDonations)i;
 			for (Donor d : i.getProject().getDonors()) {
-				ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getDonorId(), d.getDescription(), errors);
+				ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getOrderBy(), d.getDescription(), errors);
 			}
 			ValidateUtils.rejectIfNegative(i, "total", itemType+".total", errors);
 			ValidateUtils.rejectIfNegative(i, "ownResource", itemType+".ownResource", errors);

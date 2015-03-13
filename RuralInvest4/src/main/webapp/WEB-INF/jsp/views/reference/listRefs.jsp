@@ -47,10 +47,10 @@
 						</display:column>
 					</c:if>
 			 	</display:table>
+				<c:if test="${accessOK}">
+					<div class="addNew"><a id="addIncome" href="../refItem/-1?type=income&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
+				</c:if>
 			</tags:table>
-			<c:if test="${accessOK}">
-				<div class="addNew"><a id="addIncome" href="../refItem/-1?type=income&proId=${probase.proId}&isProject=${probase.project}&isIg=${probase.incomeGen}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
-			</c:if>
 	
 			<tags:table titleKey="reference.costs">
 				<display:table list="${probase.refCosts}" htmlId="GoodsTable" id="cost" requestURI="" class="data-table" cellspacing="0" cellpadding="0" export="false">

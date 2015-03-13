@@ -44,11 +44,14 @@
 			<display:table list="${project.donors}" id="row" requestURI="" cellspacing="0" cellpadding="0">
 				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 				<display:column titleKey="project.donor.description" headerClass="left" style="text-align:${left};">
-					<c:if test="${!row.notSpecified}">${row.description}</c:if>
-					<c:if test="${row.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:if>
+					<c:choose>
+						<c:when test="${row.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
+						<c:when test="${row.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+						<c:otherwise>${donor.description}</c:otherwise>
+					</c:choose>
 				</display:column>
 				<display:column titleKey="project.donor.type" headerClass="left" style="text-align:${left};">
-					${rivConfig.contribTypes[row.contribType]}
+					<tags:contribType type="${row.contribType}"/>
 				</display:column>
 				<c:if test="${accessOK}">
 					<display:column title="&nbsp;" style="margin-left:5px;" media="html">

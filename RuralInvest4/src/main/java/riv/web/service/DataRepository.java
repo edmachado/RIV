@@ -800,7 +800,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getAppConfig1());
 			Hibernate.initialize(p.getAppConfig2());
 		}
-		if (step==-1 || step==2) {
+		if (step==-1 || step==2  || (!p.getIncomeGen() && (step==10 || step==12 || step==13))) {
 			Hibernate.initialize(p.getDonors());
 		}
 		if (step==-1 || step==7 || step==12 || step==13
@@ -1075,10 +1075,6 @@ public class DataRepository {
 			p.setCreatedBy(p.getTechnician().getDescription() + " ("+p.getTechnician().getOrganization()+")");
 			currentSession().save(p);
 		}
-		
-		// RIV<4.1 convert contributions to year-by-year
-		String hql = "update ProjectItemContribution c set c.year=1, c.contributor='' where c.year is null";
-		currentSession().createQuery(hql).executeUpdate();
 	}
 	
 	public void simplifyContributions(Project p) {

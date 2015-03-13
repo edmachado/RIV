@@ -45,17 +45,11 @@
 				
 				<tags:dataentry field="description" labelKey="projectContribution.description" helpText="projectContribution.description.help" inputClass="text" size="20" maxLength="30"/>
 				<div class="dataentry">
-					<tags:help text="projectContribution.contribType.help" title="projectContribution.contribType"><label><spring:message code="projectContribution.contribType"/></label></tags:help>
-					<form:select path="contribType">
-						<form:option value="0"><spring:message code="projectContribution.contribType.govtCentral"/></form:option>
-						<form:option value="1"><spring:message code="projectContribution.contribType.govtLocal"/></form:option>
-						<form:option value="2"><spring:message code="projectContribution.contribType.ngoLocal"/></form:option>
-						<form:option value="3"><spring:message code="projectContribution.contribType.ngoIntl"/></form:option>
-						<form:option value="5"><spring:message code="projectContribution.contribType.beneficiary"/></form:option>
-						<form:option value="4"><spring:message code="projectContribution.contribType.other"/></form:option>
+					<tags:help text="projectContribution.contributor.help" title="projectContribution.contributor"><label><spring:message code="projectContribution.contributor"/></label></tags:help>
+					<form:select path="donor">
+						<form:options items="${project.donors}" itemValue="donorId" itemLabel="description" />
 					</form:select>
 				</div>
-				<tags:dataentry field="contributor" labelKey="projectContribution.contributor" helpText="projectContribution.contributor.help" />
 				<tags:dataentry field="unitType" labelKey="projectContribution.unitType" helpText="projectContribution.unitType.help" />
 				<tags:dataentry field="unitNum" labelKey="projectContribution.unitNum" helpText="projectContribution.unitNum.help" onmouseout="Calculate()"/>
 				<tags:dataentry field="unitCost" labelKey="projectContribution.unitCost" helpText="projectContribution.unitCost.help" currency="true" onmouseout="Calculate()"/>

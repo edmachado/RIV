@@ -4,11 +4,11 @@
 		<div id="errorbox">
 			<div class="header_error">&gt; <spring:message code="error"/></div>
 			<spring:message code="error.pleaseCorrect"/>
-<!-- 			<br><ul> -->
-<%-- 				<c:forEach items="${status.errorMessages}" var="error"> --%>
-<%--   					<li><c:out value="${error}"/></li> --%>
-<%-- 				</c:forEach> --%>
-<!-- 			</ul> -->
+			<div style="display:none;"><ul>
+				<c:forEach items="${status.errorMessages}" var="error">
+  					<li><c:out value="${error}"/></li>
+				</c:forEach>
+			</div>
 		</div>
 	</c:if>
 </spring:bind>

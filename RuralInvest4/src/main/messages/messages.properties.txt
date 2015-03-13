@@ -2,6 +2,7 @@
 project.donors=Donors
 project.donors.help=Donors or organizations that make contributions to this project, either generally or for specific cost or operational items.
 project.donor.notSpecified=Not specified
+project.donor.statePublic=Public/state resources
 project.donor.description=Donor
 project.donor.description.help=An organization or body that makes donations or contributions to the project, in general or for individual cost items.
 project.donor.type=Donor type

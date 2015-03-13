@@ -4,43 +4,54 @@
 	<a href="../../report/${project.projectId}/projectContributions.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
 	<a href="../../report/${project.projectId}/projectContributions.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a>			
 	
-	<c:set var="cSummary" value="${project.contributionSummary}"/>
  		<tags:table>
-		 	<display:table list="${cSummary}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
-								export="false" htmlId="summaryContributionsTable">
-		 		<display:column titleKey="projectContribution.contribType" sortable="true" sortProperty="key.contributionType" style="text-align:left;" headerClass="left">
-					<c:if test="${contrib.key.contributionType=='0'}"><spring:message code="projectContribution.contribType.govtCentral"/></c:if>
-					<c:if test="${contrib.key.contributionType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if>
-					<c:if test="${contrib.key.contributionType=='2'}"><spring:message code="projectContribution.contribType.ngoLocal"/></c:if>
-					<c:if test="${contrib.key.contributionType=='3'}"><spring:message code="projectContribution.contribType.ngoIntl"/></c:if>
-					<c:if test="${contrib.key.contributionType=='5'}"><spring:message code="projectContribution.contribType.beneficiary"/></c:if>
-					<c:if test="${contrib.key.contributionType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if>
-				</display:column>
-				<display:column titleKey="projectContribution.contributor" property="key.contributor" sortable="true" style="text-align:left;" headerClass="left"/>
-				<c:forEach begin="1" end="${project.duration}" var="i">
-					<display:column title="${i}">
-						<c:if test="${project.perYearContributions}"><tags:formatDecimal value="${contrib.contributions[i-1]}" noDecimals="true" /></c:if>
-						<c:if test="${not project.perYearContributions}"><tags:formatDecimal value="${contrib.contributions[0]}" noDecimals="true" /></c:if>
-					</display:column>
-				</c:forEach>
-				<display:footer>
+			<table id="summaryContributionsTable" cellspacing="0" cellpadding="0">
+				<thead>
+					<tr>
+						<th class="left"><spring:message code="projectContribution.contributor" /></th>
+						<th class="left"><spring:message code="projectContribution.contribType" /></th>
+						<c:forEach begin="1" end="${project.duration}" var="i"><th>${i}</th></c:forEach>
+					</tr>
+				</thead>
+				<tbody><c:set var="num" value="1" />
+					<c:forEach var="donor" items="${project.donors}">
+						<tr>
+							<td class="left">
+								<c:choose>
+									<c:when test="${donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
+									<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+									<c:otherwise>${donor.description}</c:otherwise>
+								</c:choose>
+							</td>
+							<td class="left">
+								<tags:contribType type="${donor.contribType}"/>
+							</td>
+							<c:set var="row" value="${project.contributionSummary[donor.orderBy]}"/>
+							<c:forEach begin="1" end="${project.duration}" var="i">	
+								<td>
+									<c:if test="${project.perYearContributions}"><tags:formatDecimal value="${row[i-1]}" noDecimals="true" /></c:if>
+									<c:if test="${not project.perYearContributions}"><tags:formatDecimal value="${row[0]}" noDecimals="true" /></c:if>
+								</td>
+							</c:forEach>				
+						</tr>
+					</c:forEach>
+				</tbody>
+				<tfoot>
 					<tr height="1"><td height="1" colspan="${project.duration+2}" class="Sum1"/></tr>
 					<tr>
 						<td/><td/>
-						<c:forEach begin="1" end="${project.duration}" var="i">
+						<c:forEach begin="1" end="${project.duration}" var="i">	
 							<c:set var="total" value="0"/>
-							<c:forEach items="${cSummary}" var="myContrib">
-								<c:set var="total">
-									<c:if test="${project.perYearContributions}">${total+myContrib.contributions[i-1]}</c:if>
-									<c:if test="${not project.perYearContributions}">${total+myContrib.contributions[0]}</c:if>
-								</c:set>
-							</c:forEach>
+							<c:set var="total">
+								<c:if test="${project.perYearContributions}">${total+row[i-1]}</c:if>
+								<c:if test="${not project.perYearContributions}">${total+row[0]}</c:if>
+							</c:set>
 							<td>
 								<tags:formatDecimal value="${total}" noDecimals="true" />
 							</td>
 						</c:forEach>
 					</tr>
-				</display:footer>
-		 	</display:table>
+				</tfoot>
+				</table>
 		 </tags:table>
 	</div>

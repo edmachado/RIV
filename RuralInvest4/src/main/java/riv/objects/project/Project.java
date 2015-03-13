@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1264,60 +1263,18 @@ public double getInvestmentTotal() {
 	 }
 	 
 	// gives summary data for contributions (and helper classes)
-	public List<ProjectContributor> getContributionSummary() {
-		Map<ProjectContributorKey, ProjectContributor> contribs = new HashMap<ProjectContributorKey, ProjectContributor>();
+	public List<double[]> getContributionSummary() {
+		List<double[]> summary = new ArrayList<double[]>(donors.size());
+		for (Donor d : donors) {
+			summary.add(d.getOrderBy(),new double[duration]);
+		}
+		
 		for (ProjectItemContribution c : contributions) {
-			ProjectContributorKey key = getContribKeyFromKeys(contribs.keySet(), c.getContribType(),c.getContributor()==null ? "" : c.getContributor());
-			if (!contribs.containsKey(key)) {
-				contribs.put(key, new ProjectContributor(key, new double[duration]));
-			}
-			contribs.get(key).contributions[c.getYear()-1]=contribs.get(key).contributions[c.getYear()-1]+c.getTotal();
+			summary.get(c.getDonor().getOrderBy())[c.getYear()-1]+=c.getTotal();
 		}
-		List<ProjectContributor> values = new ArrayList<ProjectContributor>(contribs.values());
-		Collections.sort(values);
-		return values;
+		
+		return summary;
 	}
-	public ProjectContributorKey getContribKeyFromKeys(Set<ProjectContributorKey> keys, int contribType, String contributor) {
-		for(ProjectContributorKey key : keys) {
-			if (key.contributionType==contribType && key.contributor.equals(contributor)) {
-				return key;
-			}
-		}
-		return new ProjectContributorKey(contribType, contributor);
-	}
-	 public class ProjectContributor implements Comparable<ProjectContributor> {
-		private ProjectContributorKey key;
-		private double[] contributions;
-		public ProjectContributor(ProjectContributorKey key, double[] contributions) {
-			this.key=key;
-			this.contributions=contributions;
-		}
-		public ProjectContributorKey getKey() {
-			return key;
-		}
-		public double[] getContributions() {
-			return contributions;
-		}
-		@Override
-		public int compareTo(ProjectContributor other) {
-			int comparison= key.contributionType > other.key.contributionType ? +1 : key.contributionType < other.key.contributionType ? -1 : 0;
-			return comparison==0 ? key.contributor.compareTo(other.key.contributor) : comparison;
-		}
-	}
-	 public class ProjectContributorKey {
-		 private int contributionType;
-		 private String contributor;
-		 public ProjectContributorKey(int type, String contributor) {
-			 this.contributionType=type;
-			 this.contributor=contributor;
-		 }
-		 public int getContributionType() {
-			 return contributionType;
-		 }
-		 public String getContributor() {
-			 return contributor;
-		 }
-	 }
 	 
 	/**
 	 * Converts all currency values according to provided exchange rate

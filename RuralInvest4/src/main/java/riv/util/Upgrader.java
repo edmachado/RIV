@@ -281,7 +281,7 @@ public class Upgrader {
 			for (ProjectItemContribution c : project.getContributions()) {
 				if (c.getYear()!=null) {break;}
 				c.setYear(1);
-				c.setContributor("");
+//				c.setContributor("");
 			}
 		}
 
