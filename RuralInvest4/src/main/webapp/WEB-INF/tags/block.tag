@@ -265,6 +265,11 @@
 					<display:column titleKey="projectBlockInput.transport" sortable="true" sortProperty="transport">
 						<tags:formatCurrency value="${inp.transport}"/>
 					</display:column>
+					<c:if test="${not project.incomeGen}">
+						<display:column titleKey="projectBlockInput.donated" sortable="true" sortProperty="donated">
+							<tags:formatCurrency value="${inp.donated}"/>
+						</display:column>
+					</c:if>	
 					<display:column titleKey="projectBlockInput.total" sortable="true" sortProperty="total">
 						<tags:formatCurrency value="${inp.total}"/><c:set var="inpTotal" value="${inpTotal+inp.total}"/>
 					</display:column>

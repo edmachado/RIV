@@ -28,6 +28,11 @@
 						<display:column titleKey="projectBlockInput.total" sortable="true" sortProperty="total">
 							<tags:formatCurrency value="${inp.total}"/>
 						</display:column>
+						<c:if test="${not project.incomeGen}">
+							<display:column titleKey="projectBlockInput.donated" sortable="true" sortProperty="donated">
+								<tags:formatCurrency value="${inp.donated}"/>
+							</display:column>
+						</c:if>
 						<display:column titleKey="projectBlockInput.totalCash" sortable="true" sortProperty="totalCash">
 							<tags:formatCurrency value="${inp.totalCash}"/>
 						</display:column>
@@ -52,6 +57,9 @@
 					<tags:dataentry field="unitCost" labelKey="projectBlockInput.unitCost" onmouseout="CalculateTotal()" helpText="projectBlockInput.unitCost.help" currency="true"  />
 					<tags:dataentry field="transport" labelKey="projectBlockInput.transport" onmouseout="CalculateTotal()" currency="true" helpText="projectBlockInput.transport.help" />
 					<tags:datadivider color="orange"/>
+					<c:if test="${not project.incomeGen}">
+						<tags:donations labelKey="projectBlockInput.donated" onmouseout="CalculateTotal()" helpText="projectBlockInput.donated.help" donors="${project.donors}"></tags:donations>
+					</c:if>
 					<tags:dataentry field="total" labelKey="projectBlockInput.total" helpText="projectBlockInput.total.help" calculated="true" currency="true" />
 					<tags:dataentry field="totalCash" labelKey="projectBlockInput.totalCash" helpText="projectBlockInput.totalCash.help" calculated="true" currency="true" />
 				</fieldset>

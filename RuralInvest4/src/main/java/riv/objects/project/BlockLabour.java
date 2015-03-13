@@ -1,13 +1,22 @@
 package riv.objects.project;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 
+import org.hibernate.annotations.Formula;
+
+import riv.objects.HasDonations;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 import riv.web.config.RivConfig;
@@ -19,13 +28,41 @@ import riv.web.config.RivConfig;
  */
 @Entity
 @DiscriminatorValue("2")
-public class BlockLabour extends BlockItem {
+public class BlockLabour extends BlockItem implements HasDonations {
 
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="BLOCK_ID", nullable=false)
 	private BlockBase block;
+	
+	@Formula(value="(SELECT ISNULL(SUM(d.amount),0) FROM project_block_item_donation d WHERE d.block_item_id=prod_item_id)")
+	private Double donated;
+	public Double getDonated() {
+		try {
+			donations.size();
+			donated=0.0;
+			for (double val : donations.values()) {
+				donated+=val;
+			}
+			
+		} catch (Exception e) {
+			
+		}
+		return donated;
+	}
+	
+	@ElementCollection(fetch=FetchType.LAZY)
+	@MapKeyColumn(name="donor_order_by")
+	@Column(name="amount")
+	@CollectionTable(name="PROJECT_BLOCK_ITEM_DONATION", joinColumns=@JoinColumn(name="block_item_id"))
+	private Map<Integer,Double> donations = new HashMap<Integer, Double>();
+	
+	public Map<Integer,Double> getDonations() { return donations; }
+	public void setDonations(Map<Integer,Double> donations)  { 
+		// required for XML Encoder, not used elsewhere
+		throw new RuntimeException("setDonations() field should not be used."); 
+	}
 	
 	public BlockBase getBlock () {
 		return this.block;

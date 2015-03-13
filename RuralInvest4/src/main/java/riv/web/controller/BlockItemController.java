@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import riv.objects.HasDonations;
 import riv.objects.config.User;
 import riv.objects.project.BlockBase;
 import riv.objects.project.BlockIncome;
 import riv.objects.project.BlockInput;
 import riv.objects.project.BlockItem;
 import riv.objects.project.BlockLabour;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.reference.ReferenceCost;
 import riv.objects.reference.ReferenceIncome;
@@ -97,6 +99,15 @@ public class BlockItemController {
 			setupPageAttributes(blockItem, model, request);
 			return form(blockItem);
 		} else {
+			if (blockItem instanceof HasDonations) {
+				HasDonations hd = (HasDonations)blockItem;
+				for (Donor donor : blockItem.getBlock().getProject().getDonors()) {
+					if (hd.getDonations().get(donor.getOrderBy())==0.0) {
+						hd.getDonations().remove(donor.getOrderBy());
+					}
+				}
+			}
+			
 			checkLinked(blockItem, linkedToId, addLink);//, Double.parseDouble(addTransport));
 			dataService.storeBlockItem(blockItem);
 			return "redirect:"+successView(blockItem);
@@ -203,6 +214,15 @@ public class BlockItemController {
 		model.addAttribute("wizardStep",p.getWizardStep());
 		if (p.getIncomeGen()) model.addAttribute("menuType","project");
 		else model.addAttribute("menuType","projectNoninc");
+		
+		if (pi instanceof HasDonations) {
+			HasDonations hd = (HasDonations)pi;
+			for (Donor donor : pi.getBlock().getProject().getDonors()) {
+				if (!hd.getDonations().containsKey(donor.getOrderBy())) {
+					hd.getDonations().put(donor.getOrderBy(), 0.0);
+				}
+			}
+		}
 	}
    
 }

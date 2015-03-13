@@ -800,7 +800,9 @@ public class DataRepository {
 			Hibernate.initialize(p.getAppConfig1());
 			Hibernate.initialize(p.getAppConfig2());
 		}
-		if (step==-1 || step==2  || step==7 || (!p.getIncomeGen() && (step==8 || step==10 || step==12 || step==13))) {
+		if (step==-1 || step==2  || step==7 
+				|| (!p.getIncomeGen() && (step==8 || step==10 || step==12 || step==13))
+			) {
 			Hibernate.initialize(p.getDonors());
 		}
 		if (step==-1 || step==7 || step==12 || step==13
@@ -964,6 +966,11 @@ public class DataRepository {
 
 	public BlockItem getBlockItem(int id) {
 		BlockItem bi = (BlockItem)currentSession().createCriteria(BlockItem.class).add(Restrictions.eq("prodItemId", id)).uniqueResult();
+		
+		if (bi instanceof HasDonations) {
+			Hibernate.initialize(bi.getBlock().getProject().getDonors());
+			Hibernate.initialize(((HasDonations)bi).getDonations());
+		}
 		
 		if (bi.getClass().isAssignableFrom(BlockIncome.class)) {
 			Hibernate.initialize(bi.getBlock().getProject().getRefIncomes());
@@ -1301,9 +1308,9 @@ public class DataRepository {
 	public ProjectItem getProjectItem(int id) {
 		ProjectItem item = (ProjectItem)currentSession().createCriteria(ProjectItem.class).add(Restrictions.eq("projItemId", id)).uniqueResult();
 		Project p = item.getProject();
-		Hibernate.initialize(p.getDonors());
 		
 		if (item instanceof HasDonations) {
+			Hibernate.initialize(p.getDonors());
 			Hibernate.initialize(((HasDonations)item).getDonations());
 		}
 		
@@ -1323,7 +1330,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getRefLabours());
 			Hibernate.initialize(p.getPersonnelWithouts());
 		} else if (item.getClass().isAssignableFrom(ProjectItemNongenLabour.class)) {
-			Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
+//			Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 			Hibernate.initialize(item.getProject().getRefLabours());
 			Hibernate.initialize(p.getNongenLabours());
 		} else {
@@ -1341,10 +1348,10 @@ public class DataRepository {
 			} else if (item.getClass().isAssignableFrom(ProjectItemServiceWithout.class)) {
 				Hibernate.initialize(p.getServicesWithout());
 			} else if (item.getClass().isAssignableFrom(ProjectItemNongenMaterials.class)) {
-				Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
+//				Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 				Hibernate.initialize(p.getNongenMaterials());
 			} else if (item.getClass().isAssignableFrom(ProjectItemNongenMaintenance.class)) {
-				Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
+//				Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 				Hibernate.initialize(p.getNongenMaintenance());
 			}
 		}
