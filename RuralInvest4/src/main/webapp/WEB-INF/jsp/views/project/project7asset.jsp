@@ -80,7 +80,7 @@ $(function() { CalculateDonated(); CalculateTotal(); });
 				<tags:dataentry field="maintCost" labelKey="projectInvestAsset.maintCost" helpText="projectInvestAsset.maintCost.help" currency="true" />
 				<tags:dataentry field="salvage" labelKey="projectInvestAsset.salvage" helpText="projectInvestAsset.salvage.help" currency="true"/>
 				<tags:dataentryCheckbox field="replace" labelKey="projectInvestAsset.replace" helpText="projectInvestAsset.replace.help" helpTitle="projectInvestAsset.replace" />
-				<tags:dataentry field="yearBegin" labelKey="projectInvestAsset.yearBegin" helpText="projectInvestAsset.yearBegin.help" />
+				<tags:projYear field="yearBegin" labelKey="projectInvestAsset.yearBegin" helpText="projectInvestAsset.yearBegin.help" />
 			</fieldset>
 		</div>
 		<div style="display:inline-block;">

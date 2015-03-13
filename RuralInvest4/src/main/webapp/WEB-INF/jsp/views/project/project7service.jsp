@@ -59,7 +59,7 @@ $(function() { CalculateDonated(); CalculateTotal();  });
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="financed" labelKey="projectInvestService.financed" helpText="projectInvestService.financed.help" currency="true" calculated="true" />
 				<!-- value="${ (projectInvestService.unitNum*projectInvestService.unitCost)- projectInvestService.donated- projectInvestService.ownResources }" -->
-				<tags:dataentry field="yearBegin" labelKey="projectInvestService.yearBegin" helpText="projectInvestService.yearBegin.help" />
+				<tags:projYear field="yearBegin" labelKey="projectInvestService.yearBegin" helpText="projectInvestService.yearBegin.help" />
 			</fieldset>
 		</div>
 		<div style="display:inline-block;">

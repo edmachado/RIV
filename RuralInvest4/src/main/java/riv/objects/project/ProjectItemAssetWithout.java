@@ -158,7 +158,10 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".ownResources="+cf.formatCurrency(ownResources, CurrencyFormat.ALL)+lineSeparator);
-		  // sb.append("step7.assetWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".donated="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
+		   for (int i=0;i<getProject().getDonors().size();i++) {
+			   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".donations."+(i+1)+"="+cf.formatCurrency(donations.containsKey(i) ? donations.get(i) : 0.0, CurrencyFormat.ALL)+lineSeparator);
+		   }
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".financed="+cf.formatCurrency(getFinanced(), CurrencyFormat.ALL)+lineSeparator);
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".econLife="+econLife+lineSeparator);
 		   sb.append("step7.assetWo."+(this.getOrderBy()+1)+".maintCost="+cf.formatCurrency(maintCost, CurrencyFormat.ALL)+lineSeparator);

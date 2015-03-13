@@ -2,7 +2,7 @@
 
 	<xsl:output method="xml" indent="yes" />
 	
-	<xsl:template match="void[@property='contribType']">
+	<xsl:template match="void[@property='contribType'][not(../void[@property='notSpecified'])]">
 		<void property="oldDonor">
 			<string>
 				<xsl:value-of select="int"/>
@@ -36,8 +36,7 @@
 				    </object>
 				</void>
 				<!-- NIG project need "state/public" -->
-				<xsl:variable name="incomeGen" select="../void[@property='incomeGen']/boolean"/>
-				<xsl:if test="$incomeGen = 'false'">
+				<xsl:if test="not(../void[@property='incomeGen'])">
 					<void method="add">
 					    <object class="riv.objects.project.Donor">
 					    	<void property="contribType">
@@ -68,15 +67,15 @@
 		<xsl:if test="$double != '0.0'">
 			<void property="donations">
 				<void method="put">
-	       			<int>-1</int>
+	       			<int>0</int>
 	       			<double><xsl:value-of select="$double"/></double>
 	      		</void>
 	     	</void>
      	</xsl:if>
 	</xsl:template>
-	<xsl:template match="object[void[@property='other1']]">
-		<xsl:variable name="other1" select="void[@property='other1']/double" />
-		<xsl:variable name="statePublic" select="void[@property='statePublic']/double" />
+	<xsl:template match="void[@property='other1']">
+		<xsl:variable name="other1" select="double" />
+		<xsl:variable name="statePublic" select="../void[@property='statePublic']/double" />
 		<xsl:if test="$other1 != '0.0' or $statePublic != '0.0'">
 			<void property="donations">
 				<xsl:if test="$other1 != '0.0'">
@@ -94,9 +93,6 @@
 	     	</void>
      	</xsl:if>
 	</xsl:template>
-	
-	
-	
 	
 	<!-- fields removed when refactoring BlockChron -->
 	<xsl:template match="void[@property='firstPart']"/>

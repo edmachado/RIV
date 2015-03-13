@@ -800,7 +800,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getAppConfig1());
 			Hibernate.initialize(p.getAppConfig2());
 		}
-		if (step==-1 || step==2  || step==7 || (!p.getIncomeGen() && (step==10 || step==12 || step==13))) {
+		if (step==-1 || step==2  || step==7 || (!p.getIncomeGen() && (step==8 || step==10 || step==12 || step==13))) {
 			Hibernate.initialize(p.getDonors());
 		}
 		if (step==-1 || step==7 || step==12 || step==13
