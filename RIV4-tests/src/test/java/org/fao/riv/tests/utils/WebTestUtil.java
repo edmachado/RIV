@@ -408,8 +408,8 @@ public class WebTestUtil {
     protected void verifyProjectNigTablesStep10(int year) {
     	TestTable tt = new TestTable("contributionTable"+year, "step10.year."+year+".contribution.", "newContrib", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description")
+		.addParam("donor")
 		.addParam("contribType", InputParamType.SELECT, false)
-		.addParam("contributor")
 		.addParam("unitType")
 		.addParam("unitNum").addParam("unitCost");
 		tt.addParam("total", InputParamType.TEXT, true)
@@ -630,7 +630,9 @@ public class WebTestUtil {
     	TestTable tt = new TestTable("inputTable", "step8.input", "addMaterial", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-		.addParam("statePublic").addParam("other1").addParam("ownResource", InputParamType.TEXT, true)
+		.addCollectionParam("donations", "donated", Integer.parseInt(getMessage("step2.donor.count")))
+//		.addParam("statePublic").addParam("other1")
+		.addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testOutput();
@@ -638,7 +640,9 @@ public class WebTestUtil {
 		tt = new TestTable("labourTable", "step8.labour", "addLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-		.addParam("statePublic").addParam("other1").addParam("ownResource", InputParamType.TEXT, true)
+		.addCollectionParam("donations", "donated", Integer.parseInt(getMessage("step2.donor.count")))
+//		.addParam("statePublic").addParam("other1")
+		.addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testOutput();
@@ -646,7 +650,9 @@ public class WebTestUtil {
 		tt = new TestTable("generalTable", "step8.general", "addMaintenance", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-		.addParam("statePublic").addParam("other1").addParam("ownResource", InputParamType.TEXT, true)
+		.addCollectionParam("donations", "donated", Integer.parseInt(getMessage("step2.donor.count")))
+//		.addParam("statePublic").addParam("other1")
+		.addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testOutput();

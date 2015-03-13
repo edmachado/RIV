@@ -188,8 +188,18 @@ public class InputProjectNig extends WebTestUtil {
 		// TODO: test autocalc on benefIndirectTotal
 		setTextField("beneIndirectNum",getMessage("step2.beneIndirectNum"));
 		setTextField("benefDesc",getMessage("step2.benefDesc"));
+		
+		int donors = Integer.parseInt(getMessage("step2.donor.count"));
 		rivSubmitForm();
 		assertTitleEquals(titles[2]);
+		
+		// add second donor
+		//TODO: get from properties file
+		clickLink("step2");
+		clickLink("newDonor");
+		setTextField("description", "test donor");
+		rivSubmitForm();
+		clickLink("step3");
 		
 		// STEP 3
 		setTextField("justification",getMessage("step3.justification"));
@@ -221,8 +231,9 @@ public class InputProjectNig extends WebTestUtil {
 		// assets
 		TestTable tt = new TestTable("assetsTable", "step7.asset.", "newAsset", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin")
+		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true);
+		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -230,7 +241,8 @@ public class InputProjectNig extends WebTestUtil {
 		// labour
 		tt = new TestTable("LabourTable", "step7.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -238,7 +250,8 @@ public class InputProjectNig extends WebTestUtil {
 		// service
 		tt = new TestTable("ServicesTable", "step7.service.", "newService", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -250,7 +263,8 @@ public class InputProjectNig extends WebTestUtil {
 		tt = new TestTable("inputTable", "step8.input", "addMaterial", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-		.addParam("statePublic").addParam("other1").addParam("ownResource", InputParamType.TEXT, true)
+//		.addParam("statePublic").addParam("other1")
+		.addCollectionParam("donations", "donated", donors).addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -258,7 +272,8 @@ public class InputProjectNig extends WebTestUtil {
 		tt = new TestTable("labourTable", "step8.labour", "addLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-		.addParam("statePublic").addParam("other1").addParam("ownResource", InputParamType.TEXT, true)
+//		.addParam("statePublic").addParam("other1")
+		.addCollectionParam("donations", "donated", donors).addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -266,7 +281,8 @@ public class InputProjectNig extends WebTestUtil {
 		tt = new TestTable("generalTable", "step8.general", "addMaintenance", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-		.addParam("statePublic").addParam("other1").addParam("ownResource", InputParamType.TEXT, true)
+//		.addParam("statePublic").addParam("other1")
+		.addCollectionParam("donations", "donated", donors).addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -334,26 +350,17 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(titles[9]);
 		
 		// begin adding year-by-year contributions
-		int year=1;
-		boolean nextItem=true;
-		while (nextItem) {
+		int duration=Integer.parseInt(getMessage("step1.duration"));
+		for (int year=1;year<=duration;year++) {
 			tt = new TestTable("contributionTable"+year, "step10.year."+year+".contribution.", "newContrib"+year, true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 			tt.addParam("description")
-			.addParam("contribType", InputParamType.SELECT, false)
-			.addParam("contributor")
+			.addParam("donor", InputParamType.SELECT, false)
 			.addParam("unitType")
 			.addParam("unitNum").addParam("unitCost");
 			tt.addParam("total", InputParamType.TEXT, true)
 			.addBlanks(5);
 			
 			tt.testWithInput();
-			
-			year++;
-			try {
-				getMessage("step10.year."+year+".contribution.1.description");
-			} catch (Exception e) {
-				nextItem=false;
-			}
 		}
 		
 		rivSubmitForm();

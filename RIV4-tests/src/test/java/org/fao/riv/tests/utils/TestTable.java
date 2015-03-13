@@ -1,18 +1,6 @@
 package org.fao.riv.tests.utils;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertElementPresentByXPath;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTablePresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowCountEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowsEqual;
-import static net.sourceforge.jwebunit.junit.JWebUnit.checkCheckbox;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getTable;
-import static net.sourceforge.jwebunit.junit.JWebUnit.selectOption;
-import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
-import static net.sourceforge.jwebunit.junit.JWebUnit.uncheckCheckbox;
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -67,6 +55,15 @@ public class TestTable {
 		params.add(ip);
 		return this;
 	}
+	public TestTable addCollectionParam(String collectionName, String sumProperty, int elementCount) {
+		CollectionInputParam ip = new CollectionInputParam();
+		ip.setParamType(InputParamType.COLLECTION);
+		ip.setCollectionName(collectionName);
+		ip.setName(sumProperty);
+		ip.setElementCount(elementCount);
+		params.add(ip);
+		return this;
+	}
 	
 	public TestTable addBlanks(int num) {
 		for (int i=0; i<num; i++) addParam("",InputParamType.NONE, false);
@@ -98,25 +95,36 @@ public class TestTable {
 		assertTableEquals(tableId, compare);
 	}
 	
+	private void inputCollectionValue(CollectionInputParam cip, int element, String value) {
+		setTextField(cip.getCollectionName()+"["+(element-1)+"]", value);
+		assertTextFieldEquals(cip.getCollectionName()+"["+(element-1)+"]", value);
+	}
 	private void inputValue(InputParam ip, String value) {
-		if (ip.getParamType()==InputParamType.TEXT ) {
-			if (!ip.isCalculated()) { // add data
-				setTextField(ip.getName(), value);
-			} else { // check autocalculate
-				//TODO: simulate keyup or mouseover or similar
-				//assertTextFieldEquals(ip.getName(), getMessage(value));
-			}
-		} else if (ip.getParamType()==InputParamType.SELECT) {
-			selectOption(ip.getName(), value);
-		} else if (ip.getParamType()==InputParamType.CHECKBOX) {
-			if ((ip.getOptions()!=null && value.equals(ip.getOptions()[0])) ||  value.equals("Yes")) {
-				checkCheckbox(ip.getName());
-			} else {
-				uncheckCheckbox(ip.getName());
-			}
-		//} else if (ip.getParamType()==InputParamType.NONE) {
-		} else if (ip.getParamType()==InputParamType.LINKED) {
-			checkCheckbox("addLink");
+		switch (ip.getParamType()) {
+			case TEXT: 
+				if (!ip.isCalculated()) { // add data
+					setTextField(ip.getName(), value);
+				} else { // check autocalculate
+					//TODO: simulate keyup or mouseover or similar
+					//assertTextFieldEquals(ip.getName(), getMessage(value));
+				}
+				break;
+			case SELECT:
+				selectOption(ip.getName(), value);
+				break;
+			case CHECKBOX:
+				if ((ip.getOptions()!=null && value.equals(ip.getOptions()[0])) ||  value.equals("Yes")) {
+					checkCheckbox(ip.getName());
+				} else {
+					uncheckCheckbox(ip.getName());
+				}
+				break;
+			case LINKED:
+				checkCheckbox("addLink");
+				break;
+			default:
+				break;
+		
 		}
 	}
 
@@ -127,10 +135,20 @@ public class TestTable {
 		if (hasSumRow) {
 			Row sumRow = new Row();
 			for (InputParam ip : params) {
-				if (ip.getParamType()==InputParamType.TEXT || ip.getParamType()==InputParamType.SELECT)
-					sumRow.appendCell(getMessage(propPrefix+"Sum."+ip.getName()));
-				else if (ip.getParamType()==InputParamType.CHECKBOX || ip.getParamType()==InputParamType.NONE || ip.getParamType()==InputParamType.LINKED)
-					sumRow.appendCell("");
+				switch (ip.getParamType()) {
+					case TEXT:
+					case SELECT:
+					case COLLECTION:
+						sumRow.appendCell(getMessage(propPrefix+"Sum."+ip.getName()));
+						break;
+					case CHECKBOX:
+					case NONE:
+					case LINKED:
+						sumRow.appendCell("");
+						break;
+					default:
+						break;
+				}
 			}
 			table.appendRow(sumRow);
 		}
@@ -142,7 +160,8 @@ public class TestTable {
 				String value =
 					(ip.getParamType()==InputParamType.TEXT || 
 					ip.getParamType()==InputParamType.SELECT ||
-					ip.getParamType()==InputParamType.CHECKBOX)
+					ip.getParamType()==InputParamType.CHECKBOX ||
+					ip.getParamType()==InputParamType.COLLECTION)
 					? getMessage(propPrefix+i+"."+ip.getName())
 					: "";
 				testRow.appendCell(value);
@@ -157,9 +176,17 @@ public class TestTable {
 			if (!ignoreInputRows.contains(i)) {
 				clickLink(addLink);
 				for (InputParam ip : params) {
-					String value = ip.getParamType()==InputParamType.LINKED || ip.getParamType()==InputParamType.NONE
-							? "" : getMessage(propPrefix+i+"."+ip.getName());
-					inputValue(ip, value);
+					if (ip instanceof CollectionInputParam) {
+						CollectionInputParam cip = (CollectionInputParam)ip;
+						for (int e=1;e<=cip.getElementCount();e++) {
+							String value = getMessage(propPrefix+i+"."+cip.getCollectionName()+"."+e);
+							inputCollectionValue(cip, e, value);
+						}
+					} else {
+						String value = ip.getParamType()==InputParamType.LINKED || ip.getParamType()==InputParamType.NONE
+								? "" : getMessage(propPrefix+i+"."+ip.getName());
+						inputValue(ip, value);
+					}
 				}
 				
 				submit.call();

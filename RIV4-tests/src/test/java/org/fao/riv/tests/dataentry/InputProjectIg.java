@@ -305,7 +305,7 @@ public class InputProjectIg extends WebTestUtil {
 	}
 	
 	@Test
-	public void createProjectFromPropertiesWithCommaForDecimals() throws Exception {
+	public void createProjectCommaForDecimals() throws Exception {
 		// change decimal separator in settings
 		String settingsTitle = getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config");
     	clickLink("gotoSettings");
@@ -429,6 +429,8 @@ public class InputProjectIg extends WebTestUtil {
 		// TODO: test autocalc on benefIndirectTotal
 		setTextField("beneIndirectNum",getMessage("step2.beneIndirectNum"));
 		setTextField("benefDesc",getMessage("step2.benefDesc"));
+		
+		int donors = Integer.parseInt(getMessage("step2.donor.count"));
 		rivSubmitForm();
 		assertTitleEquals(titles[2]);
 		
@@ -461,8 +463,10 @@ public class InputProjectIg extends WebTestUtil {
 		// assets
 		TestTable tt = new TestTable("assetsTable", "step7.asset.", "newAsset", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin")
+		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addCollectionParam("donations", "donated", donors)
+		.addParam("financed", InputParamType.TEXT, true);
+		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false)
+		.addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -470,16 +474,19 @@ public class InputProjectIg extends WebTestUtil {
 		// labour
 		tt = new TestTable("LabourTable", "step7.labour.", "newLabour", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
-		.addParam("linked", InputParamType.LINKED, false)
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true)
+		.addParam("yearBegin", InputParamType.SELECT, false).addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
 		
 		// service
 		tt = new TestTable("ServicesTable", "step7.service.", "newService", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
-		.addParam("linked", InputParamType.LINKED, false)
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors)
+		.addParam("financed", InputParamType.TEXT, true)
+		.addParam("yearBegin", InputParamType.SELECT, false).addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
 		
@@ -487,8 +494,9 @@ public class InputProjectIg extends WebTestUtil {
 		// assets without project
 		tt = new TestTable("assetsTableWo", "step7.assetWo.", "newAssetWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}});
 		tt.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost");
-		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true);
-		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin")
+		tt.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true);
+		tt.addParam("econLife").addParam("maintCost").addParam("salvage").addParam("replace", InputParamType.CHECKBOX, false).addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -496,7 +504,8 @@ public class InputProjectIg extends WebTestUtil {
 		// labour without project
 		tt = new TestTable("LabourTableWo", "step7.labourWo.", "newLabourWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();
@@ -504,7 +513,8 @@ public class InputProjectIg extends WebTestUtil {
 		// service without project
 		tt = new TestTable("ServicesTableWo", "step7.serviceWo.", "newServiceWo", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
-		.addParam("total", InputParamType.TEXT, true).addParam("ownResources").addParam("donated").addParam("financed", InputParamType.TEXT, true).addParam("yearBegin")
+		.addParam("total", InputParamType.TEXT, true).addParam("ownResources")
+		.addCollectionParam("donations", "donated", donors).addParam("financed", InputParamType.TEXT, true).addParam("yearBegin", InputParamType.SELECT, false)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
 		tt.testWithInput();

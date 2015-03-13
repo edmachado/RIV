@@ -6,9 +6,6 @@ public class InputParam {
 	private InputParamType paramType;
 	private boolean calculated;
 	private String[] options;
-	//private String displayValue;
-//	private String[] selectOptions;
-//	private String[] selectValues;
 	
 	// constructors
 	public InputParam(String name) {
@@ -56,32 +53,6 @@ public class InputParam {
 	public boolean isCalculated() {
 		return calculated;
 	}
-	
-//	public String getDisplayValue() {
-//		String displayValue="";
-//		
-//		for (int i=0; i<selectValues.length; i++)
-//			if (selectValues[i].equals(value)) 
-//				displayValue=selectOptions[i];
-//		
-//		return displayValue;
-//	}
-
-//	public void setSelectOptions(String[] selectOptions) {
-//		this.selectOptions = selectOptions;
-//	}
-//
-//	public String[] getSelectOptions() {
-//		return selectOptions;
-//	}
-//
-//	public void setSelectValues(String[] selectValues) {
-//		this.selectValues = selectValues;
-//	}
-//
-//	public String[] getSelectValues() {
-//		return selectValues;
-//	}
 
 	public String[] getOptions() {
 		return options;
@@ -91,6 +62,6 @@ public class InputParam {
 		this.options = options;
 	}
 
-	public enum InputParamType { TEXT, SELECT, CHECKBOX, HIDDEN, FILE, NONE, LINKED }
+	public enum InputParamType { TEXT, SELECT, CHECKBOX, HIDDEN, FILE, NONE, LINKED, COLLECTION }
 	
 }
