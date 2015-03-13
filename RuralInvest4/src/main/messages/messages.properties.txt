@@ -6,7 +6,7 @@ project.donor.statePublic=Public/state resources
 project.donor.description=Donor
 project.donor.description.help=An organization or body that makes donations or contributions to the project, in general or for individual cost items.
 project.donor.type=Donor type
-project.donor.type.help=The category of Donor: 
+project.donor.type.help=Help text for donor
 
 projectNongenInput.donated=Donated resources
 projectNongenInput.donated.help=If any part of the cost for this item is expected to be met through donated resources (either in kind or in cash) identify here the amount in monetary terms.
@@ -28,7 +28,7 @@ projectBlockLabour.donated.help=Help text goes here
 profile.report.blockDetail.totals=Totals
 project.report.blockDetail.totals=Totals
 
-#changed from previous versions
+#changed from previous version
 project.step2=Beneficiaries & donors
 error.pleaseCorrect=Please correct the fields in red.
 error.unknown=Sorry for the inconvenience

@@ -6,7 +6,65 @@ projectBlock.cloneWithout=Copier comme bloc “sans projet”
 project.report.cashFlowNongen.accumulated=Cash flow cumulé
 import.excel.error.noWithout=Le projet sur lequel vous travaillez inclue un scenario “sans projet», alors que le fichier Excel que vous importez ne comprend pas de feuille de calcul «sans projet ». Vérifiez que vous utilisez le bon formulaire Excel – voir le le lien « téléchargez le formulaire Excel » sur cette page.
 
-project.with=(With project)
+project.with=(Avec projet)
+
+## RIV 4.1
+projectContribution.contributor.help=L’organisation donatrice (ONG, agence gouvernementale, projet, etc.)
+projectContribution.yearlyFlow.help=Revenus moins les coûts pour chaque annnée-projet (NB? Not sure as doesn’t where it fits)  
+ 
+project.workingCapital.how=Comment est estimé le fonds de roulement pour la première année
+project.workingCapital.explain=Le fonds de roulement pour la première année est calculé à partir cash flow mensuel cumulé de la première année  
+project.amtRequired.explain=La valeur negative la plus importante.
+ 
+project.report.wcCalculation=Calcul du besoin en fonds de roulement
+project.report.contributionSummary=Résumé des dons
+project.report.summaryTables=Tableaux résumés
+ 
+project.report.summary.income=Revenus
+#project.report.summary.costs=Costs Dépenses (if for cash flow) or Coûts (for profitability report)
+project.report.summary.costs=Dépenses
+project.report.summary.total=Total
+project.report.summary.cumulative=Total cumulé
+project.report.summaryTables.info=Pour plus d’informations, voir
+project.report.summary.block=Résumé des revenus et dépenses opérationels
+project.report.summary.block.all=Tous les blocs
+project.report.summary.block.all.nongen=Toutes les activités
+ 
+about.version=Version
+project.recommendation.review=Une plus ample analyse est nécessaire
+ 
+units.year=Année
+misc.confirm=Confirmez svp
+projectContribution.copy=Copier tous les elements dans une autre année Durant la période d’analyse (not very clear though)
+projectContribution.copy.title=Copier
+projectContribution.copy.toYear=Copier dans année:
+projectContribution.copy.range=Vous pouvez copier dans n’importe quelle année entre 1 et {0}
+projectContribution.addAll=Ajouter à chaque année Durant la période d’analyse du projet
+projectContribution.yearlyFlow=Cash flow annuel net (après les contributions et dons)
+projectContribution.contribType.beneficiary=Bénéficiaires
+projectContribution.method.simplified=Simplifié
+projectContribution.method.simplified.help=Dans l’approche “simplifié” il est considéré que les contributions (dons) sont identiques pour chaque année durant la période d’analyse du projet
+projectContribution.method.perYear=Par an
+projectContribution.method.perYear.help=Dans l’approche “par année” les contributions (dons) sont définies pour chaque année durant la période d’analyse du projet et peuvent donc varier d’une année à l’autre
+projectContribution.method.confirm=Vous allez appliquer les contributions définies pour la première année aux autres années. Les données éventuellement définies pour les autres années seront éliminés. Etes-vous certain de vouloir continuer ?
+projectContribution.contributor=Donateur
+ 
+projectBlock.usesCycles=Ce bloc a plusieurs cycles
+projectBlock.usesCycles.help=Ce bloc utilise des unites par cycle (ex tonnes/ha, litres/an, etc.)
+projectBlock.pattern.noCycles.help=Indiquez la quantité d’unités de production Durant la période d’analyse. Souvent le nombre d’unités peut varier d’un cycle à l’autre
+projectBlock.pattern.noCycles.qty=Quantité d’unités de production
+projectActivity.pattern.noCycles.help=Si le nombre d’unités de production est amené à évoluer avec le temps, définir le nombre d’unités (dans le cas d’une école pour laquelle l’unité est l’étudiant, la quantité d’unité est amenée à varier avec le temps)
+projectActivity.pattern.noCycles.qty=Nombre d’unités d’activité
+project.report.blockDetail.totalPerUnitNoCycle=Total par unité
+ 
+project.recommendation.seeReports=Pour les résumés et rapports utiles aux fins d’’evaluation et d’élaboration des recommandations, voir
+ 
+# Changed from previous versions
+project.amtRequired.help=Le besoin en fonds de roulement requis est le montant nécessaire pour couvrir tous les dépenses opérationnelles juaquá ce que les revenus soient suffisants. Il est calculé automatiquement par Rural Invest.
+project.period.help=Nombre de mois durant lesquels les dépenses excèdent les revenus, plus deux mois (avec un maximum de douze mois).
+profile.report.title=Rapports
+ 
+
 
 #demo site login page
 demo.welcome=BIENVENUE DANS RURALINVEST
@@ -342,7 +400,6 @@ profile.report.summary.employment.operation=Coûts de fonctionnement (par an)
 profile.report.summary.employment=Emplois créés (Equivalents emplois annuels)
 profile.report.summary.general=Généralités
 profile.report.summary=Résumé de l'avant-projet
-profile.report.title=Créez votre propre rapport
 profile.sharingMessage=Souhaitez-vous que d'autres utilisateurs puissent modifier cet avant-projet ?
 profile.sourceFunds.help=Préciser toutes les sources de revenus escomptées pour financer le fonctionnement de l'investissement réalisé (les salaires du personnel, l'entretien, les fournitures, etc.), ceci peut inclure le paiement du service par les usagers, la contribution de la communauté, l'aide du gouvernement et des ONG.
 profile.sourceFunds=Sources de financements
@@ -499,7 +556,6 @@ project.activities.help=Décrire les principales activités ou composantes du pr
 project.activities=Activités principales
 project.amtFinanced.help=Le montant sur prêt est égal au besoin en fonds de roulement moins les subventions ou les allocations reçues.
 project.amtFinanced=Montant sur prêt
-project.amtRequired.help=Le fonds de roulement nécessaire est calculé automatiquement par l'ordinateur pour couvrir toutes les dépenses de fonctionnement jusqu'à ce que les recettes suffisent à les financer.
 project.amtRequired=Montant requis
 project.annualEmployment.help=Données estimées sur l'emploi annuel (exprimées en nombre de personnes/année), une fois que le projet atteint l'échelle prévue.  
 project.annualEmployment=Emploi annuel
@@ -615,7 +671,6 @@ project.npv=VAN
 project.npvWithDonation.desc=VAN (promoteur)
 project.organization.help=Décrire comment l’organisation et la gestion du projet seront organisées, tant durant la phase de réalisation des investissements que d’exploitation du projet, afin d'assurer la durabilité organisationnelle du projet. Quelles nouvelles structures et/ou modes d’organisation seront mis en place par le bénéficiaire ou l’organisation promotrice ? Qui ou quelle structure (comité ?) sera responsable de la réalisation du projet (constructions, achat des biens et équipements, passation éventuelle des marchés, etc.) ? Qui prendra les décisions au quotidien ? Comment cette personne (ou cette structure) sera-t-elle contrôlée ? Quel rôle le groupe promoteur du projet jouera-t-il ?
 project.organization=Organisation et gestion
-project.period.help=La durée du prêt au fonds de roulement (qui ne peut pas dépasser une année) est automatiquement calculée par l'ordinateur et est équivalente au nombre de mois pendant lesquels les dépenses dépassent les recettes, plus deux mois
 project.period=Durée du prêt
 project.projectDescription.help=Décrire ici l’objectif ou le but principal du projet. Il est également  souhaitable de décrire les objectifs spécifiques liés aux principales activités iou composantes du projet.
 project.projectDescription=Objectif du projet
