@@ -1,3 +1,27 @@
+#RIV4.1 B
+projectContribution.contributor.help=La organización contribuyente (ONG, asociación, entidad de gobierno)
+projectContribution.yearlyFlow.help=Ingreso menos costo total para cada año del proyecto.
+ 
+project.workingCapital.how=¿Cómo se estima el capital de trabajo para el primer año?
+project.workingCapital.explain=El capital de trabajo para el primer año es determinado por el flujo de caja acumulado del primer año.
+project.amtRequired.explain=El mayor valor negativo
+ 
+project.report.wcCalculation=Cálculo de capital de trabajo
+project.report.contributionSummary=Resumen de contribuciones
+project.report.summaryTables=Tablas resumen
+project.report.summaryTables.info=Para información más detallada, ver
+project.report.summary.income=Ingreso
+project.report.summary.costs=Costos
+project.report.summary.total=Ingreso neto total
+project.report.summary.cumulative=Ingreso neto total acumulado
+project.report.summary.block=Resumen de ingresos y costos operativos con proyecto
+project.report.summary.block.all=Todos los bloques
+project.report.summary.block.all.nongen=Todas las actividades
+ 
+about.version=Versión
+project.recommendation.review=Se requiere mayor revisión
+
+
 #RIV4.1
 units.year=Año
 misc.confirm=Confirmar
@@ -28,9 +52,6 @@ project.recommendation.seeReports=Para resúmenes e informes útiles para evalua
 project.amtRequired.help=El monto de capital de trabajo requerido es el monto necesario para cubrir todos los costos operativos hasta que los ingresos sean suficientes para cubrirlos. Este monto es estimado automáticamente por RuralInvest.
 project.period.help=El número de meses durante los cuales los costos exceden a los ingresos, mas dos meses  (sin exceder un año).
 profile.report.title=Informes
- 
-
-
 
 # Translator: La longitud máxima del nombre de una hoja en Excel es de 31 caracteres,
 # y dos hojas no pueden tener el mismo nombre.

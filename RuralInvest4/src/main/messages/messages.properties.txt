@@ -56,13 +56,12 @@ project.amtRequired.explain=The largest negative value
 project.report.wcCalculation=Working Capital calculation
 project.report.contributionSummary=Contribution summary
 project.report.summaryTables=Summary tables
-
 project.report.summary.income=Income
 project.report.summary.costs=Costs
-project.report.summary.total=Total
-project.report.summary.cumulative=Cumulative total
+project.report.summary.total=Total net income
+project.report.summary.cumulative=Cumulative total net income
+project.report.summary.block=With-project operational income and costs summary
 project.report.summaryTables.info=For detailed information, see
-project.report.summary.block=Operational income and costs summary
 project.report.summary.block.all=All blocks
 project.report.summary.block.all.nongen=All activities
 
