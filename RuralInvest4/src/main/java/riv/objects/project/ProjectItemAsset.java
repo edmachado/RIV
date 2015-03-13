@@ -161,8 +161,6 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 //	}
 
 	public String testingProperties(RivConfig rivConfig) {
-
-	public String testingProperties(RivConfig rivConfig) {
 			String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
