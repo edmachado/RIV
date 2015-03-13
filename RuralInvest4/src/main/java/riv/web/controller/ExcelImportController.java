@@ -105,14 +105,14 @@ public class ExcelImportController {
 	
 	private void importBlock(int id, InputStream file) throws ExcelImportException {
 		XSSFWorkbook workbook = getWorkbook(file);
-		
 		int rowNum=0;
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		BlockBase b = dataService.getBlock(id);
+		boolean ig=b.getProject().getIncomeGen();
 		BlockItemValidator validator = new BlockItemValidator();
 		validator.setIncomeGen(b.getProject().getIncomeGen());
 		XlsImportTable<BlockIncome> tableInc = new XlsImportTable<BlockIncome>(BlockIncome.class, rowNum, 7, validator);
-		if (b.getProject().getIncomeGen()) {
+		if (ig) {
 			tableInc.addColumn(0, "description", false)
 			.addColumn(1, "unitType", false)
 			.addColumn(2, "unitNum", true)
@@ -135,6 +135,9 @@ public class ExcelImportController {
 				.addColumn(3, "qtyIntern", true)
 				.addColumn(5, "unitCost", true)
 				.addColumn(6, "transport", true);
+				if (!ig) {
+					tableInp.addColumn(8,  "donations(0)", true);
+				}
 		List<BlockInput> inps = tableInp.readTable(sheet, messageSource);
 		rowNum = rowNum+inps.size()+4;
 		
@@ -144,6 +147,9 @@ public class ExcelImportController {
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "qtyIntern", true)
 				.addColumn(5, "unitCost", true);
+			if (!ig) {
+				tableLab.addColumn(8,  "donations(0)", true);
+			}
 		List<BlockLabour> labs = tableLab.readTable(sheet, messageSource);
 		rowNum = labs.size()+3;
 		
@@ -194,39 +200,37 @@ public class ExcelImportController {
 		
 		int rowNum=0;
 		XSSFSheet sheet = workbook.getSheetAt(0);
-		ProjectItemValidator validator = new ProjectItemValidator();
-		
 		Project p = dataService.getProject(id, 1);
+		ProjectItemValidator validator = new ProjectItemValidator();
+		validator.setFromExcel(true);
+		validator.setDonors(p.getDonors());
 		validator.setIncomeGen(false);
 		validator.setDuration(p.getDuration());
 	
-		XlsImportTable<ProjectItemNongenMaterials> tableMaterials = new XlsImportTable<ProjectItemNongenMaterials>(ProjectItemNongenMaterials.class, rowNum, 7, validator)
+		XlsImportTable<ProjectItemNongenMaterials> tableMaterials = new XlsImportTable<ProjectItemNongenMaterials>(ProjectItemNongenMaterials.class, rowNum, 6, validator)
 				.addColumn(0, "description", false)
 				.addColumn(1, "unitType", false)
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "unitCost", true)
-				.addColumn(5, "statePublic", true)
-				.addColumn(6, "other1", true);
+				.addColumn(5,  "donations(0)", true);
 		List<ProjectItemNongenMaterials> materials = tableMaterials.readTable(sheet, messageSource);
 		rowNum = materials.size()+6;
 		
-		XlsImportTable<ProjectItemNongenLabour> tableLabour = new XlsImportTable<ProjectItemNongenLabour>(ProjectItemNongenLabour.class, rowNum, 7, validator)
+		XlsImportTable<ProjectItemNongenLabour> tableLabour = new XlsImportTable<ProjectItemNongenLabour>(ProjectItemNongenLabour.class, rowNum, 6, validator)
 				.addColumn(0, "description", false)
 				.addSelectColumn(1, "unitType", labourTypes())
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "unitCost", true)
-				.addColumn(5, "statePublic", true)
-				.addColumn(6, "other1", true);
+				.addColumn(5,  "donations(0)", true);
 		List<ProjectItemNongenLabour> labours = tableLabour.readTable(sheet, messageSource);
 		rowNum = rowNum+labours.size()+3;
 		
-		XlsImportTable<ProjectItemNongenMaintenance> tableMaintenance = new XlsImportTable<ProjectItemNongenMaintenance>(ProjectItemNongenMaintenance.class, rowNum, 7, validator)
+		XlsImportTable<ProjectItemNongenMaintenance> tableMaintenance = new XlsImportTable<ProjectItemNongenMaintenance>(ProjectItemNongenMaintenance.class, rowNum, 6, validator)
 				.addColumn(0, "description", false)
 				.addColumn(1, "unitType", false)
 				.addColumn(2, "unitNum", true)
 				.addColumn(3, "unitCost", true)
-				.addColumn(5, "statePublic", true)
-				.addColumn(6, "other1", true);
+				.addColumn(5,  "donations(0)", true);
 		List<ProjectItemNongenMaintenance> maints = tableMaintenance.readTable(sheet, messageSource);
 		
 		dataService.replaceProjectGeneralNongen(id, materials, labours, maints);

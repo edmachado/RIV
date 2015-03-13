@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ import riv.objects.project.BlockBase;
 import riv.objects.project.BlockChron;
 import riv.objects.project.BlockPattern;
 import riv.objects.project.BlockWithout;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectFinanceData;
 import riv.objects.project.ProjectFinanceData.AnalysisType;
@@ -71,7 +73,7 @@ public class ExcelWorksheetBuilder {
 	MessageSource messageSource;
 	
 	private String getColumn(int number){
-        String converted = "";
+		String converted = "";
         // Repeatedly divide the number by 26 and convert the
         // remainder into the appropriate letter.
         while (number >= 0) {
@@ -345,7 +347,7 @@ public class ExcelWorksheetBuilder {
 		String[] incomeTitles = new String[] 
 			    {"projectBlockIncome.desc","projectBlockIncome.unitType","projectBlockIncome.unitNum",
 					"projectBlockIncome.qtyIntern","projectBlockIncome.qtyExtern","projectBlockIncome.unitCost",
-					"projectBlockIncome.transport","projectBlockIncome.total","projectBlockIncome.totalCash"};
+					"projectBlockIncome.transport","projectBlockIncome.total","","projectBlockIncome.totalCash"};
 
 			String[] incomeTitlesNIG = new String[] 
 	   		    {"projectActivityCharge.desc","projectActivityCharge.unitType","projectActivityCharge.unitNum",
@@ -354,12 +356,14 @@ public class ExcelWorksheetBuilder {
 			String[] inputTitles = new String[] 
 			    {"projectBlockInput.desc","projectBlockInput.unitType","projectBlockInput.unitNum",
 					"projectBlockInput.qtyIntern","projectBlockInput.qtyExtern","projectBlockInput.unitCost",
-					"projectBlockInput.transport","projectBlockInput.total","projectBlockInput.totalCash"};
+					"projectBlockInput.transport","projectBlockInput.total",incomeGen ? "" : "projectBlockInput.donated", 
+							"projectBlockInput.totalCash"};
 			
 			String[] labourTitles = new String[] 
 	 		    {"projectBlockLabour.desc","projectBlockLabour.unitType","projectBlockLabour.unitNum",
 					"projectBlockLabour.qtyIntern","projectBlockLabour.qtyExtern",
-					"projectBlockLabour.unitCost","","projectBlockLabour.total","projectBlockLabour.totalCash"};
+					"projectBlockLabour.unitCost","","projectBlockLabour.total",incomeGen ? "" : "projectBlockLabour.donated",
+							"projectBlockLabour.totalCash"};
 			
 //			XlsTable incomeTable;
 			if (incomeGen) {
@@ -372,6 +376,7 @@ public class ExcelWorksheetBuilder {
 				.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
 				.addColumn(XlsColumnType.CURRENCY, "getTransport", false)
 				.addColumn(XlsColumnType.FORMULA, "CX*(FX-GX)", true)
+				.addColumn(XlsColumnType.NONE, "", false)
 				.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX-GX)", true);
 			} else {
 				tables[0] = new XlsTable(report, incomeTitlesNIG)
@@ -393,8 +398,16 @@ public class ExcelWorksheetBuilder {
 			.addColumn(XlsColumnType.FORMULA, "CX-DX", false)
 			.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
 			.addColumn(XlsColumnType.CURRENCY, "getTransport", false)
-			.addColumn(XlsColumnType.FORMULA, "CX*(FX+GX)", true)
-			.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX+GX)", true);
+			.addColumn(XlsColumnType.FORMULA, "CX*(FX+GX)", true);
+			if (incomeGen) {
+				tables[1]
+					.addColumn(XlsColumnType.NONE, "", false)
+					.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX+GX)", true);
+			} else {
+				tables[1]
+					.addColumn(XlsColumnType.CURRENCY, "getDonated", true)
+					.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX+GX)-IX", true);
+			}
 			
 			tables[2] = new XlsTable(report, labourTitles)
 
@@ -405,8 +418,16 @@ public class ExcelWorksheetBuilder {
 			.addColumn(XlsColumnType.FORMULA, "CX-DX", false)
 			.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
 			.addColumn(XlsColumnType.NONE, null, false)
-			.addColumn(XlsColumnType.FORMULA, "CX*FX", true)
-			.addColumn(XlsColumnType.FORMULA, "(CX-DX)*FX", true);
+			.addColumn(XlsColumnType.FORMULA, "CX*FX", true);
+			if (incomeGen) {
+				tables[2]
+					.addColumn(XlsColumnType.NONE, "", false)
+					.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX+GX)", true);
+			} else {
+				tables[2]
+					.addColumn(XlsColumnType.CURRENCY, "getDonated", true)
+					.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX+GX)-IX", true);
+			}
 			
 			return tables;
 	}
@@ -441,30 +462,30 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 6, translate("project.report.blockDetail.incomes"), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d",sumRows[0]), Style.CURRENCY);
-		String formula = incomeGen ? "I%d" : "H%d";
-		report.addFormulaCell(row, 8, String.format(formula,sumRows[0]), Style.CURRENCY);
+		report.addFormulaCell(row, 9, String.format("H%d",rowNum), Style.CURRENCY);
 
 
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 6, translate("project.report.blockDetail.costs"), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d+H%d",sumRows[1],sumRows[2]), Style.CURRENCY);
-		report.addFormulaCell(row, 8, String.format("I%d+I%d",sumRows[1],sumRows[2]), Style.CURRENCY);
+		report.addFormulaCell(row, 9, String.format("J%d+J%d",sumRows[1],sumRows[2]), Style.CURRENCY);
 
 
 		row = sheet.createRow(rowNum++);
 		title = incomeGen ? "project.report.blockDetail.netIncome" : "project.report.blockDetail.netIncome.nongen";
 		report.addTextCell(row, 6, translate(title), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d-H%d", rowNum-2, rowNum-1), Style.CURRENCY);
-		report.addFormulaCell(row, 8, String.format("I%d-I%d", rowNum-2, rowNum-1), Style.CURRENCY);
+		report.addFormulaCell(row, 9, String.format("J%d-J%d", rowNum-2, rowNum-1), Style.CURRENCY);
+		
 
 		if (report.isCompleteReport()) {
 			ExcelBlockLink blockLink =  block.getClass()==Block.class ? report.getBlockLinks().get(block.getBlockId()) : report.getBlockLinksWithoutProject().get(block.getBlockId());
 			blockLink.income="'"+sheet.getSheetName()+"'!$H$"+(rowNum-2);
-			blockLink.incomeCash="'"+sheet.getSheetName()+"'!$I$"+(rowNum-2);
+			blockLink.incomeCash="'"+sheet.getSheetName()+"'!$J$"+(rowNum-2);
 			blockLink.cost="'"+sheet.getSheetName()+"'!$H$"+(rowNum-1);
-			blockLink.costCash="'"+sheet.getSheetName()+"'!$I$"+(rowNum-1);
+			blockLink.costCash="'"+sheet.getSheetName()+"'!$J$"+(rowNum-1);
 			blockLink.netIncome="'"+sheet.getSheetName()+"'!$H$"+rowNum;
-			blockLink.netIncomeCash="'"+sheet.getSheetName()+"'!$I$"+rowNum;
+			blockLink.netIncomeCash="'"+sheet.getSheetName()+"'!$J$"+rowNum;
 		}
 		
 		return rowNum;
@@ -918,7 +939,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("projectNongenInput"), Style.H2);
 		
 		String[] headerInputs = new String[]{"projectNongenInput.description","projectNongenInput.unitType","projectNongenInput.unitNum",
-				"projectNongenInput.unitCost","projectNongenInput.total","projectNongenInput.statePublic","projectNongenInput.other1",
+				"projectNongenInput.unitCost","projectNongenInput.total","projectNongenInput.donated",
 				"projectNongenInput.ownResource"};
 		XlsTable table = new XlsTable(report, headerInputs)
 		.addColumn(XlsColumnType.TEXT, "getDescription", false)
@@ -926,14 +947,13 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
 		.addColumn(XlsColumnType.FORMULA, "DX*CX", true)
-		.addColumn(XlsColumnType.CURRENCY, "getStatePublic", true)
-		.addColumn(XlsColumnType.CURRENCY, "getOther1", true)
-		.addColumn(XlsColumnType.FORMULA, "EX-FX-GX", true);
+		.addColumn(XlsColumnType.CURRENCY, "getDonated", true)
+		.addColumn(XlsColumnType.FORMULA, "EX-FX", true);
 		rowNum=table.writeTable(sheet, rowNum++, template ? null : project.getNongenMaterials(), true);
 		subtotalRows[0]=rowNum++;
 
 		String[] headerLabours = new String[]{"projectNongenLabour.description","projectNongenLabour.unitType","projectNongenLabour.unitNum",
-				"projectNongenLabour.unitCost","projectNongenLabour.total","projectNongenLabour.statePublic","projectNongenLabour.other1",
+				"projectNongenLabour.unitCost","projectNongenLabour.total","projectNongenLabour.donated",
 				"projectNongenLabour.ownResource"};
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("projectNongenLabour"), Style.H2);
@@ -944,9 +964,8 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
 		.addColumn(XlsColumnType.FORMULA, "DX*CX", true)
-		.addColumn(XlsColumnType.CURRENCY, "getStatePublic", true)
-		.addColumn(XlsColumnType.CURRENCY, "getOther1", true)
-		.addColumn(XlsColumnType.FORMULA, "EX-FX-GX", true);
+		.addColumn(XlsColumnType.CURRENCY, "getDonated", true)
+		.addColumn(XlsColumnType.FORMULA, "EX-FX", true);
 		rowNum=tableLabour.writeTable(sheet, rowNum++, template ? null : project.getNongenLabours(), true);
 		subtotalRows[1]=rowNum++;
 		
@@ -954,7 +973,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("projectNongenGeneral"), Style.H2);
 
 		String[] headerGeneral = new String[]{"projectNongenGeneral.description","projectNongenGeneral.unitType","projectNongenGeneral.unitNum",
-				"projectNongenGeneral.unitCost","projectNongenGeneral.total","projectNongenGeneral.statePublic","projectNongenGeneral.other1",
+				"projectNongenGeneral.unitCost","projectNongenGeneral.total","projectNongenGeneral.donated",
 				"projectNongenGeneral.ownResource"};
 		table.titles=headerGeneral;
 		rowNum = table.writeTable(sheet, rowNum++, template ? null : project.getNongenMaintenance(), true);
@@ -966,7 +985,6 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 4, String.format("E%d+E%d+E%d",subtotalRows[0],subtotalRows[1],subtotalRows[2]));
 		report.addFormulaCell(row, 5, String.format("F%d+F%d+F%d",subtotalRows[0],subtotalRows[1],subtotalRows[2]));
 		report.addFormulaCell(row, 6, String.format("G%d+G%d+G%d",subtotalRows[0],subtotalRows[1],subtotalRows[2]));
-		report.addFormulaCell(row, 7, String.format("H%d+H%d+H%d",subtotalRows[0],subtotalRows[1],subtotalRows[2]));
 
 		return sheet;
 	}
@@ -1532,7 +1550,7 @@ public class ExcelWorksheetBuilder {
 		
 		int rowNum=0;
 		int cellNum = 0;
-
+		StringBuilder formulaBuild;
 		String netBalance = translate("project.report.cashFlowNongen.netBalance");
 
 		String[] rowHeaderIncome = new String[] {"project.report.cashFlowNongen.investDonated", 
@@ -1587,7 +1605,22 @@ public class ExcelWorksheetBuilder {
 			report.addNumericCell(rows[2], cellNum, pfn.getSalvage(), Style.CURRENCY);
 			report.addNumericCell(rows[3], cellNum, pfn.getCharges(), Style.CURRENCY);
 			report.addNumericCell(rows[4], cellNum, pfn.getContributionsGeneral(), Style.CURRENCY);
-			report.addNumericCell(rows[5], cellNum, pfn.getContributions(), Style.CURRENCY);
+			
+//			if (report.isCompleteReport()) {
+//				String assetSheetName = report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
+//				int assetSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW))+project.getAssets().size();
+//				int labourSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW))+project.getLabours().size(); 
+//				int serviceSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_ROW))+project.getServices().size(); 
+//				
+//				// investment donation
+//				formulaBuild = new StringBuilder();
+//				formulaBuild.append(String.format("%s!$%s$%d+",  assetSheetName, getColumn(pfn.getYear()+12+project.getDuration()), assetSumRow));
+//				formulaBuild.append(String.format("%s!$%s$%d+",  assetSheetName, getColumn(pfn.getYear()+12+project.getDuration()), labourSumRow));
+//				formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(pfn.getYear()+12+project.getDuration()), serviceSumRow));
+//				report.addFormulaCell(sheet.getRow(9), pfn.getYear(), formulaBuild.toString(), Style.CURRENCY);
+//			} else {
+				report.addNumericCell(rows[5], cellNum, pfn.getContributions(), Style.CURRENCY);
+//			}
 
 			
 			// Income total
@@ -1641,15 +1674,20 @@ public class ExcelWorksheetBuilder {
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, cellNum, translate("projectContribution"), Style.H2);
-		String[] header = new String[]{"projectContribution.description","projectContribution.contribType","projectContribution.contributor","projectContribution.unitType","projectContribution.unitNum","projectContribution.unitCost","projectContribution.totalCost"};
+		String[] header = new String[]{"projectContribution.description","projectContribution.contributor","projectContribution.unitType","projectContribution.unitNum","projectContribution.unitCost","projectContribution.totalCost"};
+		
+		Map<Integer, String> donorsByOrder = new HashMap<Integer,String>();
+		for (Donor d : project.getDonors()) {
+			donorsByOrder.put(d.getOrderBy(), d.getDescription());
+		}
+		
 		XlsTable table = new XlsTable(report, header)
 		.addColumn(XlsColumnType.TEXT, "getDescription", false)
-		.addSelectColumnIntBased("getContribType", rivConfig.getContribTypes())
-		.addColumn(XlsColumnType.TEXT, "getContributor", false)
+		.addSelectColumnIntBased("getDonorOrderBy", donorsByOrder)
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitCost", false)
-		.addColumn(XlsColumnType.FORMULA, "EX*FX", true);
+		.addColumn(XlsColumnType.FORMULA, "DX*EX", true);
 		
 		if (project.isPerYearContributions()) {
 			for (int i=1;i<=project.getDuration();i++) {
