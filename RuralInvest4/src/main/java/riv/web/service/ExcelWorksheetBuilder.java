@@ -436,7 +436,9 @@ public class ExcelWorksheetBuilder {
 	
 	private int addBlock(BlockBase block, boolean incomeGen, ExcelWrapper report, Sheet sheet, int rowNum, XlsTable[] tables) {
 		int[] sumRows = new int[3];
-		String perUnit = incomeGen ? " ("+translate("units.perUnitperCycle")+")" : " ("+translate("units.perUnitperCycle")+")";
+		String perUnit = incomeGen 
+				? block.isCycles() ? " ("+translate("units.perUnitperCycle")+")" : " ("+translate("units.perUnitNoCycle")+")"
+				: block.isCycles() ? " ("+translate("units.perUnitperCycle")+")" : " ("+translate("units.perUnitActivityNoCycle")+")";
 		// income
 		String title= (incomeGen ? translate("projectBlockIncome") : translate("projectActivityCharge")) + perUnit;
 		report.addTextCell(sheet.createRow(rowNum++), 0, title, Style.H2);
@@ -1765,7 +1767,7 @@ public class ExcelWorksheetBuilder {
 		int cellNum = 0;
 		
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, cellNum, translate("project.step10.nongen"), Style.TITLE);
+		report.addTextCell(row, cellNum, translate("project.report.contributions"), Style.TITLE);
 
 		
 		row = sheet.createRow(rowNum++);
@@ -1774,7 +1776,11 @@ public class ExcelWorksheetBuilder {
 		
 		Map<Integer, String> donorsByOrder = new HashMap<Integer,String>();
 		for (Donor d : project.getDonors()) {
-			donorsByOrder.put(d.getOrderBy(), d.getDescription());
+			String desc;
+			if (d.getNotSpecified()) { desc = translate("project.donor.notSpecified"); }
+			else if (d.getContribType()==4 && d.getDescription().equals("state-public")) { desc = translate("project.donor.statePublic"); }
+			else { desc = d.getDescription(); }
+			donorsByOrder.put(d.getOrderBy(), desc);
 		}
 		
 		XlsTable table = new XlsTable(report, header)
@@ -3435,9 +3441,9 @@ public class ExcelWorksheetBuilder {
 		if (showSummary) {
 			blockLink = prod.getClass()==ProfileProduct.class ? report.getBlockLinks().get(prod.getProductId()) : report.getBlockLinksWithoutProject().get(prod.getProductId());
 		}
-		
+		String perUnit = " ("+translate("units.perUnitperCycle")+")";
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, incomeTitle + " ("+translate("units.perUnitperCycle")+")", Style.H2);
+		report.addTextCell(row, 0, incomeTitle + perUnit, Style.H2);
 		rowNum=tables[0].writeTable(sheet, rowNum++, prod.getProfileIncomes(), true);
 		if (showSummary) {
 			blockLink.income = "'"+sheet.getSheetName()+"'!$F$"+rowNum;
@@ -3446,7 +3452,7 @@ public class ExcelWorksheetBuilder {
 		rowNum++;
 		
 		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("profileProductInput").replace('/',' ') + " ("+translate("units.perUnitperCycle")+")", Style.H2);
+		report.addTextCell(row, 0, translate("profileProductInput").replace('/',' ') + perUnit, Style.H2);
 		rowNum=tables[1].writeTable(sheet, rowNum++, prod.getProfileInputs(), true);
 		if (showSummary) {
 			blockLink.cost = "'"+sheet.getSheetName()+"'!$F$"+rowNum;
@@ -3455,7 +3461,7 @@ public class ExcelWorksheetBuilder {
 		rowNum++;
 		
 		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("profileProductLabour") + " ("+translate("units.perUnitperCycle")+")", Style.H2);
+		report.addTextCell(row, 0, translate("profileProductLabour") + perUnit, Style.H2);
 		rowNum=tables[2].writeTable(sheet, rowNum++, prod.getProfileLabours(), true);
 		if (showSummary) {
 			blockLink.cost = "("+blockLink.cost+"+'"+sheet.getSheetName()+"'!$F$"+rowNum+")";

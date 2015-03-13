@@ -1,3 +1,5 @@
+project.report.production.nonGen=Activity pattern
+project.with=(Avec projet)
 
 ### RIV4.1.4
 project.quickAnalysis=Analyze rapide  
@@ -6,7 +8,6 @@ projectBlock.cloneWithout=Copier comme bloc “sans projet”
 project.report.cashFlowNongen.accumulated=Cash flow cumulé
 import.excel.error.noWithout=Le projet sur lequel vous travaillez inclue un scenario “sans projet», alors que le fichier Excel que vous importez ne comprend pas de feuille de calcul «sans projet ». Vérifiez que vous utilisez le bon formulaire Excel – voir le le lien « téléchargez le formulaire Excel » sur cette page.
 
-project.with=(Avec projet)
 
 ## RIV 4.1
 projectContribution.contributor.help=L’organisation donatrice (ONG, agence gouvernementale, projet, etc.)

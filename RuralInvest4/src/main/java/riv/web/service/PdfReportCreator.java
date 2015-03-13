@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -36,6 +37,7 @@ import riv.objects.project.BlockChron;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectFinanceData;
 import riv.objects.project.ProjectFinanceData.AnalysisType;
+import riv.objects.project.Donor;
 import riv.objects.project.ProjectFinanceNongen;
 import riv.objects.project.ProjectFirstYear;
 import riv.objects.project.ProjectItem;
@@ -505,9 +507,18 @@ public class PdfReportCreator {
 		Collections.sort(contribs);
 		ReportWrapper report = new ReportWrapper("/reports/project/projectContributions.jasper", true, contribs, "projectContributions.pdf", startPage);
 		
+		Map<Integer, String> donorsByOrder = new HashMap<Integer,String>();
+		for (Donor d : project.getDonors()) {
+			String desc;
+			if (d.getNotSpecified()) { desc = translate("project.donor.notSpecified"); }
+			else if (d.getContribType()==4 && d.getDescription().equals("state-public")) { desc = translate("project.donor.statePublic"); }
+			else { desc = d.getDescription(); }
+			donorsByOrder.put(d.getOrderBy(), desc);
+		}
+		
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
-		report.getParams().put("contribTypes", this.contribTypes());
+		report.getParams().put("donors", donorsByOrder);
 		report.getParams().put("perYearContributions", project.isPerYearContributions());
 		String reportName = project.getIncomeGen() ? "F: "+translate("project.report.contributions") : "G: "+translate("project.report.contributions");
 		report.getParams().put("reportname", reportName);
@@ -686,17 +697,6 @@ public class PdfReportCreator {
 		labourTypes.put("2", translate("units.pweeks"));
 		labourTypes.put("3", translate("units.pdays"));
 		return labourTypes;
-	}
-	
-	private HashMap<Integer, String> contribTypes() {
-		HashMap<Integer, String> contribTypes = new HashMap<Integer, String>();
-		contribTypes.put(0, translate("projectContribution.contribType.govtCentral"));
-		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
-		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal"));
-		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
-		contribTypes.put(5, translate("projectContribution.contribType.beneficiary"));
-		contribTypes.put(4, translate("projectContribution.contribType.other"));
-		return contribTypes;
 	}
 	
 	private ArrayList<String> months(Project project) {

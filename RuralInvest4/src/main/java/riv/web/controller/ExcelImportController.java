@@ -39,6 +39,7 @@ import riv.objects.project.BlockBase;
 import riv.objects.project.BlockIncome;
 import riv.objects.project.BlockInput;
 import riv.objects.project.BlockLabour;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
@@ -171,22 +172,30 @@ public class ExcelImportController {
 		validator.setIncomeGen(false);
 		validator.setDuration(p.getDuration()); 
 		
+		Map<Integer, String> donorsByOrder = new HashMap<Integer,String>();
+		for (Donor d : p.getDonors()) {
+			String desc;
+			if (d.getNotSpecified()) { desc = translate("project.donor.notSpecified"); }
+			else if (d.getContribType()==4 && d.getDescription().equals("state-public")) { desc = translate("project.donor.statePublic"); }
+			else { desc = d.getDescription(); }
+			donorsByOrder.put(d.getOrderBy(), desc);
+		}
+		
 		List<ProjectItemContribution> items = new ArrayList<ProjectItemContribution>();
-		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, 6, validator)
+		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, 5, validator)
 				.addColumn(0, "description", false)
-				.addSelectColumn(1, "contribType", contribTypes())
-				.addColumn(2, "contributor", false)
-				.addColumn(3, "unitType", false)
-				.addColumn(4, "unitNum", true)
-				.addColumn(5, "unitCost", true);
+				.addSelectColumn(1, "donorOrderBy", donorsByOrder)
+				.addColumn(2, "unitType", false)
+				.addColumn(3, "unitNum", true)
+				.addColumn(4, "unitCost", true);
 		
 		
 		for (int year=1; year<=p.getDuration();year++) {
-			if (year==1 || p.isPerYearContributions()) {
+			if (p.isPerYearContributions() || year==1) {
 				table.setStartRow(2+items.size()+(year-1)*4);
 				List<ProjectItemContribution> yearItems = table.readTable(workbook.getSheetAt(0), messageSource);
 				for (ProjectItemContribution i : yearItems) {
-					i.setYear(year);
+ 					i.setYear(year);
 				}
 				items.addAll(yearItems);
 				yearItems.clear();
@@ -606,17 +615,6 @@ public class ExcelImportController {
 		labourTypes.put("2", translate("units.pweeks"));
 		labourTypes.put("3", translate("units.pdays"));
 		return labourTypes;
-	}
-	
-	private Map<Integer, String> contribTypes() {
-		HashMap<Integer, String> contribTypes = new HashMap<Integer, String>();
-		contribTypes.put(0, translate("projectContribution.contribType.govtCentral"));
-		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
-		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal"));
-		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
-		contribTypes.put(4, translate("projectContribution.contribType.beneficiary"));
-		contribTypes.put(4, translate("projectContribution.contribType.other"));
-		return contribTypes;
 	}
 	
 	private XSSFWorkbook getWorkbook(InputStream file) throws ExcelImportException {

@@ -303,13 +303,4 @@ public class ReportController {
 		copier.close();
 		document.close();
 	}
-   
-//	@RequestMapping(value="/download/progress")
-//	public @ResponseBody StatusResponse checkDownloadProgress(@RequestParam String token) {
-//		return new StatusResponse(true, tokenService.check(token));
-//	}
-//	@RequestMapping(value="/download/token")
-//	public @ResponseBody StatusResponse getDownloadToken() {
-//		return new StatusResponse(true, tokenService.generate());
-//	}
 }

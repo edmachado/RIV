@@ -28,8 +28,12 @@ projectBlockLabour.donated.help=Help text goes here
 profile.report.blockDetail.totals=Totals
 project.report.blockDetail.totals=Totals
 
+units.perUnitActivityNoCycle=per unit of activity
+units.perUnitNoCycle=per unit of production
+
 #changed from previous version
 project.step2=Beneficiaries & donors
+project.report.summary.block=With-project operational income and costs summary
 error.pleaseCorrect=Please correct the fields in red.
 error.unknown=Sorry for the inconvenience
 error.maxLength=This field cannot be longer than {1} characters.
@@ -68,7 +72,6 @@ project.report.summary.income=Income
 project.report.summary.costs=Costs
 project.report.summary.total=Total net income
 project.report.summary.cumulative=Cumulative total net income
-project.report.summary.block=With-project operational income and costs summary
 project.report.summaryTables.info=For detailed information, see
 project.report.summary.block.all=All blocks
 project.report.summary.block.all.nongen=All activities

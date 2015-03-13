@@ -38,6 +38,7 @@ import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Block;
 import riv.objects.project.BlockWithout;
+import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemContribution;
@@ -988,6 +989,15 @@ public class Profile extends Probase implements java.io.Serializable {
 		 proj.setBenefName(this.benefName);
 		 proj.setProjDesc(this.projDesc);
 		 proj.setSustainability(this.sourceFunds);
+		 
+		 Donor donor = new Donor();
+		 donor.setDescription("not specified");
+		 donor.setContribType(4);
+		 donor.setNotSpecified(true);
+		 donor.setOrderBy(0);
+		 donor.setProject(proj);
+		 proj.getDonors().add(donor);
+		 
 		 // step3
 		 proj.setMarket(this.market);
 		 proj.setEnviroImpact(this.enviroImpact);
