@@ -276,20 +276,44 @@ public class Upgrader {
 		// import reference links using orderby field
 		project.importRefLinks();
 		
-		// <RIV4.1 NIG project contributions need year
-		if (! project.getIncomeGen()) {
-			for (ProjectItemContribution c : project.getContributions()) {
-				if (c.getYear()!=null) {break;}
-				c.setYear(1);
-//				c.setContributor("");
-			}
-		}
 
 		for (Donor d : project.getDonors()) {
 			if (d.getProject()==null) {
 				d.setProject(project);
 			}
 		}
+		
+		if (! project.getIncomeGen()) {
+			for (ProjectItemContribution c : project.getContributions()) {
+				// <RIV4.1 NIG project contributions need year
+				if (c.getYear()==null) {
+					c.setYear(1);
+				}
+				// <RIV4.1 donor for old nig project contributions
+				if (c.getOldDonor()!=null) {
+					String[] split = c.getOldDonor().split("-XRIVX-");
+					split[1]=split[1].substring(1); 
+					Donor myDonor=null;
+					for (Donor d : project.getDonors()) {
+						if (d.getContribType()==Integer.valueOf(split[0]) && d.getDescription().equals(split[1])) {
+							myDonor=d;
+							break;
+						}
+					}
+					if (myDonor==null) {
+						// add new donor
+						myDonor = new Donor();
+						myDonor.setDescription(split[1]);
+						myDonor.setContribType(Integer.valueOf(split[0]));
+						myDonor.setNotSpecified(false);
+						myDonor.setOrderBy(project.getDonors().size());
+						project.addDonor(myDonor);
+					} 
+					c.setDonor(myDonor);
+				}
+			}
+		}
+
 	}
 	
 	/**

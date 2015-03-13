@@ -42,10 +42,13 @@
 						<td/><td/>
 						<c:forEach begin="1" end="${project.duration}" var="i">	
 							<c:set var="total" value="0"/>
-							<c:set var="total">
-								<c:if test="${project.perYearContributions}">${total+row[i-1]}</c:if>
-								<c:if test="${not project.perYearContributions}">${total+row[0]}</c:if>
-							</c:set>
+							<c:forEach var="donor" items="${project.donors}">
+								<c:set var="row" value="${project.contributionSummary[donor.orderBy]}"/>
+								<c:set var="total">
+									<c:if test="${project.perYearContributions}">${total+row[i-1]}</c:if>
+									<c:if test="${not project.perYearContributions}">${total+row[0]}</c:if>
+								</c:set>
+							</c:forEach>
 							<td>
 								<tags:formatDecimal value="${total}" noDecimals="true" />
 							</td>

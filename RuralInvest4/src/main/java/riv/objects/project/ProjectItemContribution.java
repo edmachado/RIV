@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -25,15 +26,14 @@ public class ProjectItemContribution extends ProjectItem {
 	@JoinColumn(name="PROJECT_ID", nullable=false)
 	protected Project project;
 	
-//	@Column(name="CONTRIB_TYPE")
-//	private Integer contribType;
 	@Column(name="YEAR_BEGIN")
 	private Integer year;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="DONOR_ID")
 	private Donor donor;
-//	@Column(name="CONTRIBUTOR")
-//	private String contributor;
+
+	@Transient // only for importing from previous versions
+	private String oldDonor;
 	
 	public Project getProject () {
 		return this.project;
@@ -57,6 +57,14 @@ public class ProjectItemContribution extends ProjectItem {
 
 	public void setDonor(Donor donor) {
 		this.donor = donor;
+	}
+
+	public String getOldDonor() {
+		return oldDonor;
+	}
+
+	public void setOldDonor(String oldDonor) {
+		this.oldDonor = oldDonor;
 	}
 
 	public double getTotal() {

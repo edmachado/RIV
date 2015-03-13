@@ -47,7 +47,7 @@
 					<c:choose>
 						<c:when test="${row.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
 						<c:when test="${row.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
-						<c:otherwise>${donor.description}</c:otherwise>
+						<c:otherwise>${row.description}</c:otherwise>
 					</c:choose>
 				</display:column>
 				<display:column titleKey="project.donor.type" headerClass="left" style="text-align:${left};">

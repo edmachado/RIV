@@ -227,7 +227,7 @@ public class Project extends Probase implements java.io.Serializable {
 	
 
 	@OneToMany(mappedBy="project", orphanRemoval=true, cascade = CascadeType.ALL)
-	@OrderBy("ID")
+	@OrderBy("ORDER_BY")
 	private Set<Donor> donors;
 
 	@OneToMany(mappedBy="project", orphanRemoval=true, cascade = CascadeType.ALL)

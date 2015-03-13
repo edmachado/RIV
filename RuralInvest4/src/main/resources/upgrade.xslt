@@ -2,6 +2,16 @@
 
 	<xsl:output method="xml" indent="yes" />
 	
+	<xsl:template match="void[@property='contribType']">
+		<void property="oldDonor">
+			<string>
+				<xsl:value-of select="int"/>
+				<xsl:text>-XRIVX--</xsl:text>
+				<xsl:value-of select="../void[@property='contributor']/string"/>
+			</string>
+		</void>
+	</xsl:template>
+	
 	<!-- add donors to project -->
 	<xsl:template match="void[@property='projectName'][not(../void[@property='donors'])]">
 		<void property="donors">
