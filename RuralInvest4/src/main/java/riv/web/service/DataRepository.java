@@ -801,7 +801,10 @@ public class DataRepository {
 		if (step==-1 || step==7 || step==12 || step==13
 				|| (!p.getIncomeGen()&&step==10) || (p.getIncomeGen()&&step==11)
 				) {
-			Hibernate.initialize(p.getAssets());
+			for (ProjectItemAsset i : p.getAssets()) {
+				Hibernate.initialize(i.getDonations());
+			}
+//			Hibernate.initialize(p.getAssets());
 			Hibernate.initialize(p.getLabours());
 			Hibernate.initialize(p.getServices());
 			Hibernate.initialize(p.getAssetsWithout());
@@ -1271,6 +1274,11 @@ public class DataRepository {
 		ProjectItem item = (ProjectItem)currentSession().createCriteria(ProjectItem.class).add(Restrictions.eq("projItemId", id)).uniqueResult();
 		Project p = item.getProject();
 		Hibernate.initialize(p.getDonors());
+		
+		if (item.getClass().isAssignableFrom(ProjectItemAsset.class)) {
+			Hibernate.initialize(((ProjectItemAsset)item).getDonations());
+		}
+		
 		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
 			Hibernate.initialize(p.getContributions());
 			Hibernate.initialize(item.getProject().getRefIncomes());
@@ -1315,6 +1323,9 @@ public class DataRepository {
 		storeProjectItem(pi, false);
 	}
 	public void storeProjectItem(ProjectItem pi, boolean noResult) {
+		currentSession().createSQLQuery("DELETE FROM project_item_donation where item_id=:id").setInteger("id", pi.getProjItemId()).executeUpdate();
+		
+		
 		currentSession().saveOrUpdate(pi);
 		if (!noResult && pi.getProject().getWizardStep()==null) {
 			storeProjectResult(pi.getProject().getProjectId());

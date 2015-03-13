@@ -3,6 +3,7 @@ package riv.util.validators;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.constraints.Max;
@@ -146,6 +147,20 @@ public class ValidateUtils {
 			errors.rejectValue(fieldName, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
 		}
 		enforceMax(bean, fieldName, fieldCode, errors);
+	}
+	public static void rejectMapValueIfEmptyOrNegative(Object bean, String mapName, Object key, String fieldName, Errors errors) {
+		double propertyValue=0;
+		try {
+			@SuppressWarnings("rawtypes")
+			Map map = (Map)PropertyUtils.getProperty(bean, mapName);
+			propertyValue=Double.parseDouble(map.get(key).toString());
+		} catch (Exception e) {
+			errors.rejectValue(mapName+"["+key.toString()+"]", "error.fieldRequired", new Object[] {fieldName}, "\""+fieldName+"\" is required");
+			return;
+		}
+		if (propertyValue < 0) {
+			errors.rejectValue(mapName+"["+key.toString()+"]", "error.requiredNonNegative", new Object[] {fieldName}, "\""+fieldName+"\" must be non-negative");
+		}
 	}
 	
 	public static void rejectIfZeroOrNegative(Object bean, String fieldName, String fieldCode, Errors errors) {

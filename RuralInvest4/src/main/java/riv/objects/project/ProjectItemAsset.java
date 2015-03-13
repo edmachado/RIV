@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Column;
+import javax.persistence.MapKey;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 
@@ -45,18 +46,18 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 	@Column(name="OWN_RESOURCES")
 	protected Double ownResources;
 	
+	
+//	private Double donated;
 	public Double getDonated() {
+//		if (donated==null) {
 		double donated = 0.0;
-
-//		for (ProjectItemDonation d : donations) {
-//			donated+=d.getAmount();
-//		}
-
+		for (double d : donations.values()) {
+			donated+=d;
+		}
 		return donated;
 	}
-
 	
-	@ElementCollection
+	@ElementCollection(fetch=FetchType.EAGER)
 	@MapKeyColumn(name="donor_id")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))

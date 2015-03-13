@@ -69,26 +69,16 @@
 				<tags:dataentry field="unitCost" labelKey="projectInvestAsset.unitCost" helpText="projectInvestAsset.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
 				<tags:datadivider color="green"/>
 				<tags:dataentry field="total" labelKey="projectInvestAsset.totalCost" helpText="projectInvestAsset.totalCost.help" currency="true" calculated="true" />
-				<!-- value="${projectInvestAsset.unitNum*projectInvestAsset.unitCost}" -->
 				<tags:dataentry field="donated" button="manage" calculated="true" labelKey="projectInvestAsset.donated" helpText="projectInvestAsset.donated.help" currency="true" onmouseout="CalculateFinance()"/>
 			
 				<div id="donations" style="display:block; border:1px solid #aaa; margin-left:5px">
 					<c:forEach var="donor" items="${projectItem.project.donors}">
-						<tags:dataentry field="donations[${donor.id}]" />
-						${projectItem.donations[donor.id]}
+						<tags:dataentry field="donations[${donor.id}]" label="${donor.description}" currency="true" />
 					</c:forEach>
-<%-- 					<c:forEach var="donation" items="${projectItem.donations}"> --%>
-<!-- 						<div class="dataentry"> -->
-<%-- 							<label for="donation${donation.key}">${donation.value.donor.description}</label> --%>
-<%-- 							<input class="curlabel" value="${rivConfig.setting.currencySym}" disabled="" size="5"> --%>
-<%-- 							<input id="donations[${donation.key}]" name="donations[${donation.key}]" value="${donation.value.amount}" class="num" type="text" size="11" maxlength="11" onkeyup="javascript:commasKeyup(this);"> --%>
-<!-- 						</div> -->
-<%-- 					</c:forEach> --%>
 				</div>
 				<tags:dataentry field="ownResources" labelKey="projectInvestAsset.ownResources" helpText="projectInvestAsset.ownResources.help" currency="true" onmouseout="CalculateFinance()"/>
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="financed" labelKey="projectInvestAsset.financed" helpText="projectInvestAsset.financed.help" currency="true" calculated="true" />
-				<!-- value="${(projectInvestAsset.unitNum*projectInvestAsset.unitCost) - projectInvestAsset.ownResources - projectInvestAsset.donated}" -->
 				<tags:dataentry field="econLife" labelKey="projectInvestAsset.econLife" helpText="projectInvestAsset.econLife.help" />
 				<tags:dataentry field="maintCost" labelKey="projectInvestAsset.maintCost" helpText="projectInvestAsset.maintCost.help" currency="true" />
 				<tags:dataentry field="salvage" labelKey="projectInvestAsset.salvage" helpText="projectInvestAsset.salvage.help" currency="true"/>

@@ -25,6 +25,10 @@ public class ProjectItemValidator implements Validator {
 		
 		String nongen = isIncomeGen ? "" : "Nongen";
 		if (obj.getClass().isAssignableFrom(ProjectItemAsset.class) || obj.getClass().isAssignableFrom(ProjectItemAssetWithout.class)){
+			for (int donor_id : ((ProjectItemAsset)i).getDonations().keySet()) {
+				ValidateUtils.rejectMapValueIfEmptyOrNegative(i, "donations", donor_id, "donated", errors);
+			}
+			
 			ValidateUtils.rejectIfEmpty(i, "description", "projectInvestAsset"+nongen+".description", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectInvestAsset"+nongen+".unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", "projectInvestAsset"+nongen+".unitCost", errors);
