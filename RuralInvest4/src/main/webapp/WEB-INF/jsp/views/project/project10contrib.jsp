@@ -46,14 +46,14 @@
 				<tags:dataentry field="description" labelKey="projectContribution.description" helpText="projectContribution.description.help" inputClass="text" size="20" maxLength="30"/>
 				<div class="dataentry">
 					<tags:help text="projectContribution.contributor.help" title="projectContribution.contributor"><label><spring:message code="projectContribution.contributor"/></label></tags:help>
-					<form:select path="donor">
+					<form:select path="donorOrderBy">
 						<c:forEach var="donor" items="${project.donors}">
 							<c:set var="label"><c:choose>
 								<c:when test="${donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
 								<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
 								<c:otherwise>${donor.description}</c:otherwise>
 							</c:choose></c:set>
-							<form:option value="${donor.donorId}" label="${label}"/>
+							<form:option value="${donor.orderBy}" label="${label}"/>
 						</c:forEach>
 					</form:select>
 				</div>

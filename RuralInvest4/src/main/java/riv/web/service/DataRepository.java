@@ -79,7 +79,6 @@ import riv.objects.project.ProjectItemGeneral;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
-import riv.objects.project.ProjectItemNongenBase;
 import riv.objects.project.ProjectItemNongenLabour;
 import riv.objects.project.ProjectItemNongenMaintenance;
 import riv.objects.project.ProjectItemNongenMaterials;
@@ -1312,6 +1311,8 @@ public class DataRepository {
 		if (item instanceof HasDonations) {
 			Hibernate.initialize(p.getDonors());
 			Hibernate.initialize(((HasDonations)item).getDonations());
+		} else if (item instanceof ProjectItemContribution) {
+			Hibernate.initialize(p.getDonors());
 		}
 		
 		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {

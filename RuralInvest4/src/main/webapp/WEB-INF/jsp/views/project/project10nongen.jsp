@@ -117,14 +117,14 @@ $(function() {
 						<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.contributor" style="text-align:left;" headerClass="left">
 							<c:choose>
-								<c:when test="${contrib.donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
-								<c:when test="${contrib.donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
-								<c:otherwise>${contrib.donor.description}</c:otherwise>
+								<c:when test="${donors[contrib.donorOrderBy].notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
+								<c:when test="${donors[contrib.donorOrderBy].description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+								<c:otherwise>${donors[contrib.donorOrderBy].description}</c:otherwise>
 							</c:choose>
 						</display:column>
-						<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left">
-							<tags:contribType type="${contrib.donor.contribType}"/>
-						</display:column>
+<%-- 						<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left"> --%>
+<%-- 							<tags:contribType type="${donors[contrib.donorOrderBy].contribType}"/> --%>
+<%-- 						</display:column> --%>
 						<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.unitNum" sortProperty="unitNum" sortable="true">
 							<tags:formatDecimal value="${contrib.unitNum}"/>
@@ -172,8 +172,8 @@ $(function() {
 							</display:column>
 						</c:if>
 						<display:footer>
-							<tr height="1"><td height="1" colspan="12" class="Sum1"/></tr>
-							<tr><td/><td/><td/><td/><td/><td/>
+							<tr height="1"><td height="1" colspan="11" class="Sum1"/></tr>
+							<tr><td/><td/><td/><td/><td/>
 							<td><tags:formatCurrency value="${total}" /></td>
 							<td/><td/><td/><td/><td/></tr>
 						</display:footer>

@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -396,6 +397,11 @@ public class ProjectController {
 			model.addAttribute("years",data);
 			// group contributions by year
 			model.addAttribute("contribsByYear", p.getContributionsByYear());
+			HashMap<Integer, Donor> donors = new HashMap<Integer, Donor>();
+			for (Donor d : p.getDonors()) {
+				donors.put(d.getOrderBy(), d);
+			}
+			model.addAttribute("donors",donors);
 		} 
 		
 		if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
