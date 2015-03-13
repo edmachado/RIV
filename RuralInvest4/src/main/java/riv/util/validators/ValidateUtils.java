@@ -12,6 +12,10 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.Errors;
 
+/**
+ * @author barzecharya
+ *
+ */
 public class ValidateUtils {
 	
 	private static Integer getLengthFromAnnotation(Object bean, String fieldName) {
@@ -154,17 +158,23 @@ public class ValidateUtils {
 	public static void rejectIfEmptyOrNegative(Object bean, String fieldName, String fieldCode, Errors errors) {
 		rejectIfEmptyOrNegativeOrOverMax(bean, fieldName, fieldCode, null, errors);
 	}
-	public static void rejectMapValueIfEmptyOrNegative(@SuppressWarnings("rawtypes") Map map, String mapName, Object key, String fieldName, Errors errors) {
+	
+	/**
+	 * @return true if error
+	 */
+	public static boolean rejectMapValueIfEmptyOrNegative(@SuppressWarnings("rawtypes") Map map, String mapName, Object key, String fieldName, Errors errors) {
 		double propertyValue=0;
 		try {
 			propertyValue=Double.parseDouble(map.get(key).toString());
 		} catch (Exception e) {
 			errors.rejectValue(mapName+"["+key.toString()+"]", "error.fieldRequired", new Object[] {fieldName}, "\""+fieldName+"\" is required");
-			return;
+			return true;
 		}
 		if (propertyValue < 0) {
 			errors.rejectValue(mapName+"["+key.toString()+"]", "error.requiredNonNegative", new Object[] {fieldName}, "\""+fieldName+"\" must be non-negative");
+			return true;
 		}
+		return false;
 	}
 	
 	public static void rejectIfZeroOrNegative(Object bean, String fieldName, String fieldCode, Errors errors) {

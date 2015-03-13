@@ -35,30 +35,46 @@ public class ProjectItemValidator implements Validator {
 			} else {
 				type="projectInvestService";
 			}
+			ProjectInvestment inv = (ProjectInvestment)i;
 			
 			ValidateUtils.rejectIfEmpty(i, "description", type+nongen+".description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", type+nongen+".unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", type+nongen+".unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", type+nongen+".unitCost", errors);
+
+			if (!errors.hasFieldErrors("unitNum") &! errors.hasFieldErrors("unitCost")) {
+				ValidateUtils.rejectIfNegative(i.getUnitNum()*i.getUnitCost(), i, "total", type+".totalCost", errors);
+			}
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", type+nongen+".ownResources", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "donated", type+nongen+".donated", errors);
 			
+			boolean donationError = false;
+			boolean thisResult; Double donations=0.0;
 			HasDonations hd = (HasDonations)i;
+			
 			for (Donor d : i.getProject().getDonors()) {
-				ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getDonorId(), d.getDescription(), errors);
+				thisResult = ValidateUtils.rejectMapValueIfEmptyOrNegative(hd.getDonations(), "donations", d.getDonorId(), d.getDescription(), errors);
+				if (!donationError && thisResult) { 
+					donationError=true; 
+				} else {
+					donations+=hd.getDonations().get(d.getDonorId());
+				}
+			}
+			if (!donationError) {
+				ValidateUtils.rejectIfNegative(donations, i, "donated", type+nongen+".donated", errors);
 			}
 			
 			ValidateUtils.rejectIfZeroOrNegative(i, "yearBegin", type+".yearBegin", errors);
-			ValidateUtils.rejectIfNegative(i, "total", type+".totalCost", errors);
-			ValidateUtils.rejectIfNegative(i, "financed", type+".financed", errors);
 			
+			if (!errors.hasFieldErrors("unitNum") &! errors.hasFieldErrors("unitCost") &!donationError &!errors.hasFieldErrors("ownResources")) {
+				ValidateUtils.rejectIfNegative(inv.getTotal()-donations-inv.getOwnResources(), i, "financed", type+".financed", errors);
+			}
+		
 			if (obj instanceof ProjectItemAsset || obj instanceof ProjectItemAssetWithout) {
 				ValidateUtils.rejectIfZeroOrNegative(i, "econLife", "projectInvestAsset.econLife", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(i, "maintCost", "projectInvestAsset.maintCost", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(i, "salvage", "projectInvestAsset.salvage", errors);
 			}	
 			
-			ProjectInvestment inv = (ProjectInvestment)i;
 			if (inv.getYearBegin()!=null && inv.getYearBegin()>duration) {
 				errors.rejectValue("yearBegin", "error.assetYearExceeds", "The first year of the asset exceeds the project duration.");
 			}
@@ -69,7 +85,7 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectGeneralSupplies.unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", "projectGeneralSupplies.unitCost", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", "projectGeneralSupplies.ownResources", errors);
-			ValidateUtils.rejectIfNegative(i, "total", "projectGeneralSupplies.totalCost", errors);
+			ValidateUtils.rejectIfNegative( i, "total", "projectGeneralSupplies.totalCost", errors);
 			ValidateUtils.rejectIfNegative(i, "external", "projectGeneralSupplies.external", errors);
 		} else if (obj.getClass().isAssignableFrom(ProjectItemPersonnel.class)||obj.getClass().isAssignableFrom(ProjectItemPersonnelWithout.class)) {
 			ValidateUtils.rejectIfEmpty(i, "description", "projectGeneralPersonnel.description", errors);
