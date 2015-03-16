@@ -219,13 +219,13 @@ function Calculate() {
 			<legend><spring:message code="misc.addItem"/> (<spring:message code="project.donor.description"/>)</legend>
 			<div class="dataentry">
 				<label for="donor-description">
-					<span title="<spring:message code='project.donor.description.help'/>"><img src="/RuralInvest/img/help.gif" width="11" height="11" border="0" vspace="2">&nbsp;<spring:message code="project.donor.description"/></span>
+					<tags:help title="project.donor.description" text="project.donor.description.help"><spring:message code="project.donor.description"/></tags:help>
 				</label>
 				<input tabindex="1" id="donor-description" name="donor-description" class="text" maxLength="150" type="text" value="" size="20"/>
 			</div>
 			<div class="dataentry">
 				<label>
-					<span title="Donor type. Help text for donor"><img src="/RuralInvest/img/help.gif" width="11" height="11" border="0" vspace="2">&nbsp;Donor type</span>
+					<tags:help title="project.donor.type" text="project.donor.type.help"><spring:message code="project.donor.type"/></tags:help>
 				</label>
 				<select name="donor-contribType" id="donor-contribType" tabindex="2">
 					<option value="0"><spring:message code="projectContribution.contribType.govtCentral"/></option>
