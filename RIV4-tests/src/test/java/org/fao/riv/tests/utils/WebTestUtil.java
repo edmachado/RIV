@@ -1,6 +1,38 @@
 package org.fao.riv.tests.utils;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.*;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertFormElementPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertFormPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertImageValid;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresentWithImage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertRadioOptionSelected;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertSelectedOptionEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableNotPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTablePresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowCountEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowsEqual;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextFieldEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInElement;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInTable;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.beginAt;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickButton;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickLinkWithImage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickRadioOption;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getElementById;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getElementsByXPath;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getTestingEngine;
+import static net.sourceforge.jwebunit.junit.JWebUnit.gotoPage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.selectOptionByValue;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setBaseUrl;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setWorkingForm;
+import static net.sourceforge.jwebunit.junit.JWebUnit.submit;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -21,11 +53,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.After;
-import org.junit.Before;
-
 import org.fao.riv.tests.TestApp;
 import org.fao.riv.tests.utils.InputParam.InputParamType;
+import org.junit.Before;
 
 public class WebTestUtil {
 	@Before
@@ -33,13 +63,13 @@ public class WebTestUtil {
 		JWebUnit.setTestingEngineKey(TestingEngineRegistry.TESTING_ENGINE_HTMLUNIT);
 		setBaseUrl(TestApp.appURL);
 		getTestContext().setResourceBundleName("messages/messages");
-    }
-	
-	@After
-	public void logout() throws LifecycleException {
+	 }
+
+//	@After
+//	public void logout() throws LifecycleException {
 		//clickLink("logoff");
 		//TestApp.tomcatStop();
-	}
+//	}
 	
 	public void goHome() {
 		clickLink("goHome");
@@ -174,7 +204,6 @@ public class WebTestUtil {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config"));
 		assertLinkPresent("reset");
 		clickLink("reset");	
-//		gotoPage(getTestingEngine().getPageURL().toString().replace("/home", "/help/deleteAllAppConfigs"));
 	}
 	
 	public void deletePros(boolean project, boolean incGen) {

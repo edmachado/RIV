@@ -1,5 +1,7 @@
 package org.fao.riv.tests.excelimport;
 
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertElementPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableNotPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextNotPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextPresent;
@@ -7,6 +9,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickRadioOption;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getElementById;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestingEngine;
@@ -15,6 +18,8 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 
 import java.io.File;
+
+import net.sourceforge.jwebunit.api.IElement;
 
 import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
@@ -48,6 +53,18 @@ public class ProfileExcelImport extends WebTestUtil {
 		closeBrowser();
     }
 	
+//	@Ignore
+//	@Test
+	public void test() throws InterruptedException {
+		gotoPage(getTestingEngine().getPageURL().toString()+"/test");
+		assertLinkPresent("run");
+		assertElementPresent("test");
+		assertTextNotPresent("hello!");
+		clickLink("run");
+		Thread.sleep(2000);
+		assertTextPresent("hello!");
+	}
+	
 	@Ignore
 	@Test
 	public void IgExcelImportDataError() throws Exception {
@@ -68,10 +85,16 @@ public class ProfileExcelImport extends WebTestUtil {
 		}
 		
 		// STEP 4
-		// import file
+		assertTitleEquals(titles[3]);
+
+		assertLinkPresent("importExcel");
 		clickLink("importExcel");
+		assertElementPresent("upload-dialog");
 		assertTextNotPresent(getMessage("import.excel.error.datatype"));
 		setTextField("qqfile", ImportFile.ProfileXlsInvestErrorData.getFile().getAbsolutePath());
+		Thread.sleep(4000);
+		@SuppressWarnings("unused")
+		IElement ie = getElementById("uploader-error-message");
 		assertTextPresent(getMessage("import.excel.error.datatype"));
 	}
 	

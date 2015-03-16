@@ -1,21 +1,40 @@
 package org.fao.riv.tests.dataentry;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.*;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertElementNotPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertImagePresentPartial;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkNotPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowCountEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextFieldEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInTable;
+import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickButton;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickLinkWithImage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.clickRadioOption;
+import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getElementByXPath;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
+import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
+import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
+import static net.sourceforge.jwebunit.junit.JWebUnit.selectOption;
+import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 
 import java.io.File;
 import java.util.concurrent.Callable;
 
+import net.sourceforge.jwebunit.api.IElement;
+
+import org.fao.riv.tests.utils.ImportFile;
+import org.fao.riv.tests.utils.InputParam.InputParamType;
+import org.fao.riv.tests.utils.TestTable;
+import org.fao.riv.tests.utils.WebTestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
-import org.fao.riv.tests.utils.InputParam.InputParamType;
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.TestTable;
-import org.fao.riv.tests.utils.WebTestUtil;
 
 public class InputProjectNig extends WebTestUtil {
 	
@@ -68,7 +87,7 @@ public class InputProjectNig extends WebTestUtil {
 			
 			// import from properties file
 			createProject("dataentry/"+folder.getRoot().getName()+"/project", 1);
-			assertLinkPresentWithImage("edit.png", 1);
+//			assertLinkPresentWithImage("edit.png", 1);
 			clickLinkWithImage("edit.png", 1);
 			
 			// reset settings to normal
@@ -91,7 +110,7 @@ public class InputProjectNig extends WebTestUtil {
 		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
 		
 		// download properties file
-		assertLinkPresent("properties");
+//		assertLinkPresent("properties");
 		clickLink("properties");
 		
 		String filename="project.properties";
@@ -100,7 +119,7 @@ public class InputProjectNig extends WebTestUtil {
 		
 		// import from properties file
 		createProject("dataentry/"+folder.getRoot().getName()+"/project", 1);
-		assertLinkPresentWithImage("edit.png", 1);
+//		assertLinkPresentWithImage("edit.png", 1);
 		clickLinkWithImage("edit.png", 1);
 		
 		// verify
@@ -121,7 +140,7 @@ public class InputProjectNig extends WebTestUtil {
 			
 		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
 		
-		assertLinkPresentWithImage("edit.png");
+//		assertLinkPresentWithImage("edit.png");
 		clickLinkWithImage("edit.png",0);
 		assertTitleEquals(title0);
 		clickLinkWithImage("duplicate.gif");
@@ -190,23 +209,23 @@ public class InputProjectNig extends WebTestUtil {
 		setTextField("benefDesc",getMessage("step2.benefDesc"));
 		
 		int donors = Integer.parseInt(getMessage("step2.donor.count"));
-		rivSubmitForm();
-		assertTitleEquals(titles[2]);
-		
-		// add donors
-		clickLink("step2");
 		for (int i=1;i<=donors;i++) {
 			if (i>1) {
 				clickLink("newDonor");
 				String desc = getMessage("step2.donor."+i+".description");
-				setTextField("description", desc.isEmpty()?" ":desc);
-				selectOptionByValue("contribType", getMessage("step2.donor."+i+".type"));
-				rivSubmitForm();
+				setTextField("donor-description", desc.isEmpty()?" ":desc);
+				String value = getMessage("step2.donor."+i+".type");
+				IElement option = getElementByXPath("//select[@id='donor-contribType']/option[@value='"+value+"']");
+				option.setAttribute("selected", "selected");
+				clickButton("saveDonor");
+				Thread.sleep(2000);
 			}
 		}
 		
+		rivSubmitForm();
+		assertTitleEquals(titles[2]);
+		
 		// STEP 3
-		clickLink("step3");
 		setTextField("justification",getMessage("step3.justification"));
 		setTextField("projDesc",getMessage("step3.projDesc"));
 		setTextField("activities",getMessage("step3.activities"));
@@ -270,7 +289,6 @@ public class InputProjectNig extends WebTestUtil {
 		tt = new TestTable("inputTable", "step8.input", "addMaterial", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-//		.addParam("statePublic").addParam("other1")
 		.addCollectionParam("donations", "donated", donors).addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
@@ -280,7 +298,6 @@ public class InputProjectNig extends WebTestUtil {
 		.addParam("description")
 		.addParam("unitType", InputParamType.SELECT, false).addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-//		.addParam("statePublic").addParam("other1")
 		.addCollectionParam("donations", "donated", donors).addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
@@ -289,7 +306,6 @@ public class InputProjectNig extends WebTestUtil {
 		tt = new TestTable("generalTable", "step8.general", "addMaintenance", true, new Callable<Void>() {public Void call() { rivSubmitForm(); return null;}})
 		.addParam("description").addParam("unitType").addParam("unitNum").addParam("unitCost")
 		.addParam("total", InputParamType.TEXT, true)
-//		.addParam("statePublic").addParam("other1")
 		.addCollectionParam("donations", "donated", donors).addParam("ownResource", InputParamType.TEXT, true)
 		.addParam("linked", InputParamType.LINKED, false)
 		.addBlanks(5);
