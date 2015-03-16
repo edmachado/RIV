@@ -1,5 +1,77 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<html><head><title><spring:message code="project.step2"/></title></head>
+<html><head><title><spring:message code="project.step2"/></title>
+ <script>
+$(function() {
+	$.getJSON("../../home/${project.projectId}/donors.json", function(data) {
+		 var items = [];
+		 var table=document.getElementById('#donorTable');
+		 $.each(data, function(key) {
+			 tr = $('<tr/>');
+			 if (data[key].orderBy % 2 == 0) {
+				 $(tr).attr('class','odd');
+			 }
+			 // description
+			 td1 = $('<td/>');
+			 $(td1).attr('class','left');
+			 if (data[key].notSpecified) {
+				 text='<spring:message code="project.donor.notSpecified"/>';
+			 } else if (data[key].contribType==4 && data[key].description=='state-public') {
+				 text='<spring:message code="project.donor.statePublic"/>';
+			 } else {
+				 text=data[key].description;
+			 }
+			 td1.text(text).html();
+			 $(tr).append(td1);
+			 
+			 
+			 // contrib type
+			 td2 = $('<td/>');
+			 $(td2).attr('class','left');
+			 ct=cType(data[key].contribType);
+			 td2.text(ct).html();
+			 $(tr).append(td2);
+			 // edit link
+			 td3 = $('<td/>');
+			 if (!data[key].notSpecified) {
+				 a = addLink('../donor/'+data[key].donorId,'../../img/edit.png','<spring:message code="misc.viewEditItem"/>');
+				 $(td3).append(a);
+			 }
+			 $(tr).append(td3);
+			 
+			 td4 = $('<td/>');
+			 if (!data[key].notSpecified) {
+				 d = addLink('#','../../img/delete.gif','<spring:message code="misc.deleteItem"/>');
+				 $(td4).append(d);
+			 }
+			 $(tr).append(td4);
+			 
+			 $('#foo').append(tr);
+			 
+		 });
+	});
+});
+function cType(type) {
+	if (type==0) return '<spring:message code="projectContribution.contribType.govtCentral"/>';
+	if (type==1) return '<spring:message code="projectContribution.contribType.govtLocal"/>';
+	if (type==2) return '<spring:message code="projectContribution.contribType.ngoLocal"/>';
+	if (type==3) return '<spring:message code="projectContribution.contribType.ngoIntl"/>';
+	if (type==4) return '<spring:message code="projectContribution.contribType.other"/>';
+	return '<spring:message code="projectContribution.contribType.beneficiary"/>';
+}
+function addLink(href,img,alt) {
+	a = $('<a/>');
+	 $(a).attr('href',href);
+	 edit = $('<img/>');
+	 $(edit).attr('src',img);
+	 $(edit).attr('alt',alt);
+	 $(edit).attr('width','16');
+	 $(edit).attr('height','16');
+	 $(edit).attr('border','0');
+	 $(a).append(edit);
+	 return a;
+}
+</script>
+</head>
 <body>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
@@ -40,39 +112,21 @@
 		<legend>
 			<tags:help title="project.donors" text="project.donors.help" >v. <spring:message code="project.donors"/></tags:help>
 		 </legend>
-		 <tags:table>
-			<display:table list="${project.donors}" id="row" requestURI="" cellspacing="0" cellpadding="0">
-				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
-				<display:column titleKey="project.donor.description" headerClass="left" style="text-align:${left};">
-					<c:choose>
-						<c:when test="${row.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
-						<c:when test="${row.contribType eq 4 and row.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
-						<c:otherwise>${row.description}</c:otherwise>
-					</c:choose>
-				</display:column>
-				<display:column titleKey="project.donor.type" headerClass="left" style="text-align:${left};">
-					<tags:contribType type="${row.contribType}"/>
-				</display:column>
-				<c:if test="${accessOK}">
-					<display:column title="&nbsp;" style="margin-left:5px;" media="html">
-						<c:if test="${not row.notSpecified}">
-							<a href="../donor/${row.donorId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
-						</c:if>
-					</display:column>
-<%-- 					<display:column title="&nbsp;" media="html"> --%>
-<%-- 						<c:if test="${not row.notSpecified}"> --%>
-<%-- 							<a href="../donor/${row.donorId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a> --%>
-<%-- 						</c:if> --%>
-<%-- 					</display:column> --%>
-				</c:if>
-			</display:table>
+
+		<tags:table>
+			<table id="donorTable" cellspacing="0" cellpadding="0">
+				<thead>
+					<th style="text-align:left"><spring:message code="project.donor.description"/></th>
+					<th style="text-align:left"><spring:message code="project.donor.type"/></th>
+					<th></th><th></th>
+				</thead>
+				<tbody id="foo"/>
+			</table>
 		</tags:table>
 		<c:if test="${accessOK}">
 			<div class="addNew"><a id="newDonor" href="../donor/-1?projectId=${project.projectId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 		</c:if>
 	</fieldset>
-	
-	
 	
 	<tags:submit><spring:message code="misc.goto"/>
 		<c:if test="${empty quickAnalysis}"><spring:message code="project.step3"/></c:if>
