@@ -77,6 +77,11 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping("/home/test")
+	public String test() {
+		return "test";
+	}
+	
     @RequestMapping("/login")
     public String login(@RequestParam(required=false) String lang, Model model, HttpServletRequest request) {
     	if (rivConfig.isDemo() && lang!=null) {

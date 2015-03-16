@@ -4,6 +4,7 @@
 $(function() {
 $( "#radioWithWithout" ).buttonset();
 $( "#radioShared" ).buttonset();
+// $('select').selectmenu();
 });
 </script></head>
 <body>
@@ -258,6 +259,6 @@ $( "#radioShared" ).buttonset();
 			<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step2"/></tags:submit>
 	</form:form>
 	<div id="dialog-noWithWithout" style="display:none;" title="<spring:message htmlEscape="true" code="project.withWithout"/>">
-	<p><spring:message htmlEscape="true" code="project.withWithout.remove"/></p>
+	<p tabindex="1"><spring:message htmlEscape="true" code="project.withWithout.remove"/></p>
 	</div>
 </body></html>

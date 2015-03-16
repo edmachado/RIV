@@ -1,12 +1,17 @@
 package riv.web.controller;
- 
+
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import riv.objects.config.User;
 import riv.objects.project.Donor;
@@ -29,6 +35,8 @@ public class ProjectDonorController {
     private DataService dataService;
 	@Autowired
 	private RivConfig rivConfig;
+	@Autowired
+	MessageSource messageSource;
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -47,47 +55,48 @@ public class ProjectDonorController {
 		}
 		return d; 
 	}
-	
-    @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public String getItem(@ModelAttribute Donor donor, Model model, HttpServletRequest request) {
-    	setupPageAttributes(donor, model, request);
-    	return "project/donor";
+    
+    @RequestMapping(value="/{id}/delete", method=RequestMethod.GET)
+    public @ResponseBody String delete(@Valid @ModelAttribute Donor donor, HttpServletRequest request) {
+    	User u = (User)request.getAttribute("user");
+    	Boolean accessOK = donor.getProject().isShared() || donor.getProject().getTechnician().getUserId().equals(u.getUserId());
+    	List<Integer> donorsUsed = dataService.donorsUsed(donor.getProject().getProjectId());
+    	if (accessOK &! donorsUsed.contains(donor.getOrderBy())) {
+	    	dataService.deleteDonor(donor);
+	    	return "{\"success\": \"success\"}";
+    	} else {
+    		return null;
+    	}
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
-	public String saveDonor(HttpServletRequest request, @Valid @ModelAttribute Donor donor, BindingResult result, Model model) {
-    	if (result.hasErrors()) {
-			setupPageAttributes(donor, model, request);
-			return "project/donor";
-		} else {
-			dataService.storeDonor(donor);
-			return "redirect:"+successView(donor);
-		}
-    }
-    
-    @RequestMapping(value="/{id}/delete", method=RequestMethod.GET)
-    public String delete(@ModelAttribute Donor donor) {
-    	String view = "../"+successView(donor);
-    	dataService.deleteDonor(donor);
-		return "redirect:"+view;
-    }
-    
-    private String successView(Donor d) {
-    	int projectId = d.getProject().getProjectId();
-    	return "../step2/"+projectId;
-    }
-    
-    private void setupPageAttributes(Donor d, Model model, HttpServletRequest request) {
-		Project p = d.getProject();
+	public @ResponseBody String saveDonor(@Valid @ModelAttribute Donor donor, BindingResult result, @RequestParam(required=false) Integer projectId,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
     	User u = (User)request.getAttribute("user");
-		model.addAttribute("accessOK", p.isShared() || p.getTechnician().getUserId().equals(u.getUserId()));
-		model.addAttribute("currentStep", 2);
-		model.addAttribute("currentId",p.getProjectId());
-		model.addAttribute("wizardStep",p.getWizardStep());
-		if (p.getIncomeGen()) {
-			model.addAttribute("menuType","project");
+    	Boolean accessOK = donor.getProject().isShared() || donor.getProject().getTechnician().getUserId().equals(u.getUserId());
+    	
+    	if (!accessOK) {
+    		return null;
+    	} else if (result.hasErrors()) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			StringBuilder sb = new StringBuilder("[");
+			for (FieldError error : result.getFieldErrors()) {
+				String message = messageSource.getMessage(error.getCode(), null, LocaleContextHolder.getLocale());
+				sb.append("{\"field\":\"donor-"+error.getField()+"\",\"message\":\""+ message +"\"},");
+			}
+			sb.deleteCharAt(sb.length()-1);
+			sb.append("]");
+			response.getWriter().write(sb.toString());
+			response.flushBuffer();
+    		return null;
 		} else {
-			model.addAttribute("menuType","projectNoninc");
+			if (donor.getDonorId()==null)  {
+				Project p = dataService.getProject(projectId, 2);
+				donor.setProject(p);
+				p.addDonor(donor);
+			}
+			dataService.storeDonor(donor);
+			return "{\"success\": \"success\"}";
 		}
-	}
+    }
 }

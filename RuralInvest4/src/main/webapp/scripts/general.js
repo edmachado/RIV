@@ -42,7 +42,7 @@ function search(unfinished, objType, freeText) {
 }
 
 function formatToNum(text) {
-	return text.split(curSepThou).join('').replace(curSepDec,'.')
+	return 1*text.split(curSepThou).join('').replace(curSepDec,'.')
 }
 function numToFormat(num) {
 	num=(num+'').replace('.',curSepDec);

@@ -47,8 +47,8 @@ function setupFileUploader() {
     	  mode:'none'
       }
     }).on('error', function (event, id, name, reason) {
-    	$('#uploader-error').empty();
-    	$('#uploader-error').append('<div class="alert alert-error"><h3><spring:message code="import.excel.fail"/></h3>' + reason + '</div>');
+    	$('#uploader-error-message').text(reason);
+    	$('#uploader-error').show();
     	$('#uploader-button').show();
     }).on('complete', function (event, id, name, responseJSON) {
     	if (responseJSON.success) {
@@ -58,10 +58,11 @@ function setupFileUploader() {
     		location.reload(true);
 		}
     }).on('showMessage', function (event, id, name, message) {
-    	$('#uploader-error').append('<div class="alert alert-error">' + message + '</div>');
+    	$('#uploader-error-message').text(message);
+    	$('#uploader-error').show();
     	$('#uploader-button').show();
     }).on('submit', function(event, id, name) {
-    	$('#uploader-error').empty();
+    	$('#uploader-error').hide();
     	$('#uploader-button').hide();
     });
 }

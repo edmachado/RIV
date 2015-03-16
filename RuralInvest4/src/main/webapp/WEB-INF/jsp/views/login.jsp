@@ -1,8 +1,16 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><%@ page pageEncoding="UTF-8"%><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
 <html><head><title>RuralInvest login</title><META http-equiv="Content-Type" content="text/html;charset=UTF-8"><link rel="SHORTCUT ICON" href="img/riv.ico"/>
-<link rel="stylesheet" href="styles/style.css" type="text/css" />
-<script language="javascript" src="scripts/jquery-1.9.1.js" type="text/javascript"></script>
-<script language="javascript" src="scripts/general.js" type="text/javascript"></script></head>
+	<script language="javascript" src="<c:url value="/scripts/general.js"/>" type="text/javascript"></script>
+	<script language="javascript" src="<c:url value="/scripts/jquery-1.9.1.js"/>" type="text/javascript"></script>
+	<script language="javascript" src="<c:url value="/scripts/jquery-ui-1.10.3.custom.min.js"/>" type="text/javascript"></script>
+	<link href="<c:url value="/styles/riv-theme/jquery-ui-1.10.3.custom.css"/>" rel="stylesheet"/>
+ 
+	<c:if test="${lang ne 'ar'}"><link rel="stylesheet" type="text/css" href="<c:url value="/styles/style.css"/>" media="screen"/></c:if>
+	<c:if test="${lang eq 'ar'}"><link rel="stylesheet" type="text/css" href="<c:url value="/styles/style_rtl.css"/>" media="screen"/></c:if>
+	<!--[if lt IE 9]>
+	<link rel="stylesheet" type="text/css" href="<c:url value="/styles/style-ie8.css"/>" />
+	<![endif]-->
+</head>
 <body  onload='document.login.j_username.focus();'>
 
 <table width="750" border="0" cellspacing="0" cellpadding="0">

@@ -5,7 +5,7 @@
 	<script>
 		function CalculateDonated() {
 			$('#donated').val($('#donations0').val());
-			CalculateFinance();
+			${onmouseout};
 		}
 	</script>
 </c:if>

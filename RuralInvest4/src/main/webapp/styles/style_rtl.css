@@ -266,7 +266,7 @@ text-align:left;
 padding:2px;
 }
 
-.left, div.tableOuter table td.left {
+.left, div.tableOuter table td.left, th.left {
 text-align:right;
 }
 
@@ -425,7 +425,7 @@ input.readonly {
 #refItemChooser {
 	margin:20px; width:340px;
 }
-#submit {
+#submit, button.submit {
 	background:#000066;
 	color:#fff;
 	border:0;
@@ -540,6 +540,9 @@ td.production-year {font-size : 11px; text-align:center; padding: 0 7px;}
     margin-bottom: 20px;
     padding: 8px 14px 8px 35px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+#upload-dialog { 
+	background-color: #fff;
 }
 #upload-dialog p {
 	margin:5px 5px 10px 20px;

@@ -59,7 +59,7 @@
 					<tags:datadivider color="orange"/>
 					<tags:dataentry field="total" labelKey="projectBlockInput.total" helpText="projectBlockInput.total.help" calculated="true" currency="true" />
 					<c:if test="${not project.incomeGen}">
-						<tags:donations labelKey="projectBlockInput.donated" onmouseout="CalculateTotal()" helpText="projectBlockInput.donated.help" donors="${project.donors}"></tags:donations>
+						<tags:donations labelKey="projectBlockInput.donated" onmouseout="CalculateTotalCash();" helpText="projectBlockInput.donated.help" donors="${project.donors}"></tags:donations>
 					</c:if>
 					<tags:dataentry field="totalCash" labelKey="projectBlockInput.totalCash" helpText="projectBlockInput.totalCash.help" calculated="true" currency="true" />
 				</fieldset>
@@ -71,6 +71,11 @@
 </form:form>
 <tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="total" fieldD="unitNum" functionName="CalculateTotal" calc="+" calc2="*" callWhenDone="CalculateExt" />
 <tags:jscriptCalc fieldA="unitNum" fieldB="qtyIntern" fieldC="extern" functionName="CalculateExt" calc="-" callWhenDone="CalculateTotalCash" nonCurrency="true"/>
-<tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="totalCash" fieldD="extern" functionName="CalculateTotalCash" calc="+" calc2="*" />
+<c:if test="${project.incomeGen}">
+	<tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="totalCash" fieldD="extern" functionName="CalculateTotalCash" calc="+" calc2="*" />
+</c:if>
+<c:if test="${not project.incomeGen}">
+	<tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="totalCash" fieldD="extern" fieldE="donated" functionName="CalculateTotalCash" calc="+" calc2="*" calc3="-" />
+</c:if>
 </body>
 </html>

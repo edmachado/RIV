@@ -789,7 +789,32 @@ public class DataRepository {
 		currentSession().saveOrUpdate(d);
 	}
 	public void deleteDonor(Donor d) {
+		int projId = d.getProject().getProjectId();
+		int orderBy = d.getOrderBy();
+		
+		String sql = "UPDATE project_item_donation pid SET pid.donor_order_by=pid.donor_order_by-1 "+
+				"WHERE pid.item_id IN (SELECT pi.proj_item_id FROM project_item pi WHERE pi.project_id=:projectId) AND pid.donor_order_by>:orderBy";
+		SQLQuery q = currentSession().createSQLQuery(sql);
+		q.setInteger("projectId", projId);
+		q.setInteger("orderBy", orderBy);
+		q.executeUpdate();
+		
+		sql = "UPDATE project_item SET donor_order_by=donor_order_by-1 WHERE project_id=:projectId AND donor_order_by>:orderBy";
+		q = currentSession().createSQLQuery(sql);
+		q.setInteger("projectId", projId);
+		q.setInteger("orderBy", orderBy);
+		q.executeUpdate();
+		
+		sql = "UPDATE project_block_item_donation bid SET bid.donor_order_by=bid.donor_order_by-1 "+
+				"WHERE bid.block_item_id IN (SELECT bi.prod_item_id FROM project_block_item bi JOIN project_block b ON b.block_id=bi.block_id WHERE b.project_id=:projectId) "+
+				"AND bid.donor_order_by>:orderBy";
+		q = currentSession().createSQLQuery(sql);
+		q.setInteger("projectId", projId);
+		q.setInteger("orderBy", orderBy);
+		q.executeUpdate();
+		
 		currentSession().delete(d);
+		genericReorder(d.getClass().getSimpleName(), "project_id", projId, orderBy);
 	}
 
 	public Project getProject(int id, int step) {
@@ -1497,6 +1522,39 @@ public class DataRepository {
 				.add(Restrictions.eqOrIsNull("id", id)).uniqueResult();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Integer> donorsUsed(int projectId) {
+		String sql = 
+				"SELECT DISTINCT pid.donor_order_by FROM project_item_donation pid "+
+				"JOIN project_item pi ON pi.proj_item_id=pid.item_id "+
+				"WHERE pi.project_id=:projectId";
+		String sql2 =
+				"SELECT DISTINCT bid.donor_order_by FROM project_block_item_donation bid "+
+				"JOIN project_block_item bi ON bi.prod_item_id=bid.block_item_id "+
+				"JOIN project_block b ON b.block_id=bi.block_id "+
+				"WHERE b.project_id=:projectId";
+		String sql3 = 
+				"SELECT DISTINCT donor_order_by FROM project_item "+
+				"WHERE project_id=:projectId AND donor_order_by IS NOT NULL";
+		SQLQuery query = currentSession().createSQLQuery(sql);
+		query.setInteger("projectId", projectId);
+		List<Integer> results = (List<Integer>)query.list();
+		
+		query = currentSession().createSQLQuery(sql2);
+		query.setInteger("projectId", projectId);
+		for (Integer i : (List<Integer>)query.list()) {
+			if (!results.contains(i)) { results.add(i); }
+		}
+		
+		query = currentSession().createSQLQuery(sql3);
+		query.setInteger("projectId", projectId);
+		for (Integer i : (List<Integer>)query.list()) {
+			if (!results.contains(i)) { results.add(i); }
+		}
+		
+		return results;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Map<Integer, Integer> appConfigUsage(String appConfigType,
 			String property, boolean andProfile) {

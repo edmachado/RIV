@@ -335,6 +335,10 @@ public class DataService implements UserDetailsService, Serializable {
 		return repo.appConfigUsage(appConfigType, property, andProfile);
 	}
 	
+	public List<Integer> donorsUsed(int projectId) {
+		return repo.donorsUsed(projectId);
+	}
+	
 	public List<User> getUsers() {
 		return repo.getUsers();
 	}

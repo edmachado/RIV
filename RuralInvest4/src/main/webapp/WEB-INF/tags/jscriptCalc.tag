@@ -10,14 +10,14 @@
 		with (Math) {
 			A = formatToNum($('#${fieldA}').val()); 
 			B = formatToNum($('#${fieldB}').val()); 
-			C = (1*A)${calc}(1*B); 
+			C = A${calc}B; 
 			<c:if test="${not empty fieldD}">
 				D = formatToNum($('#${fieldD}').val()); 
-				C = (1*C)${calc2}(1*D);
+				C = C${calc2}D;
 			</c:if>
 			<c:if test="${not empty fieldE}">
-				E = formatToNum($('#${fieldE}').val()); 
-				C = (1*C)${calc3}(1*E);
+				Ee = formatToNum($('#${fieldE}').val()); 
+				C = C${calc3}Ee;
 			</c:if>	
 		}if (C == 'NaN') { C = ''; }
 		<c:if test="${nonCurrency}">$('#${fieldC}').val((C+'').replace('.',curSepDec));</c:if>

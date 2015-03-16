@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,6 +36,9 @@ public class Donor implements Serializable, OrderByable {
 	private Boolean notSpecified=false;
 	@Column(name="ORDER_BY")
 	private Integer orderBy;
+	
+	@Transient
+	private boolean isInUse;
 	
 	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -80,6 +84,12 @@ public class Donor implements Serializable, OrderByable {
 		return orderBy;
 	}
 	
+	public boolean isInUse() {
+		return isInUse;
+	}
+	public void setInUse(boolean isInUse) {
+		this.isInUse = isInUse;
+	}
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;
 		int compare = this.getOrderBy() - i.getOrderBy();
