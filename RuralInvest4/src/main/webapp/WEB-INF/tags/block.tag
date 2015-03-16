@@ -60,7 +60,12 @@
 				  	<div style="display:inline-block;width:45%;">
 				  		<div class="dataentry">
 				  			<a id="downloadExcel${unique}" href="../../report/${blockEntry.blockId}/projectBlock.xlsx"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="export.download"/></a>
-							<c:if test="${accessOK}"><a id="upload${unique}" href="javascript:uploadBlock(${blockEntry.blockId});"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
+							<c:if test="${project.incomeGen}">
+								<c:if test="${accessOK}"><a id="upload${unique}" href="javascript:uploadBlock(${blockEntry.blockId});"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
+				  			</c:if>
+				  			<c:if test="${not project.incomeGen}">
+				  				<spring:message code="import.importExcel"/>: under development
+				  			</c:if>
 				  		</div>
 				  		<c:if test="${accessOK}">
 							<div class="dataentry">
