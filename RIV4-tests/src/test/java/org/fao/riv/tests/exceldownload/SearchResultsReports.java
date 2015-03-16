@@ -6,7 +6,6 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.clickLinkWithImage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
