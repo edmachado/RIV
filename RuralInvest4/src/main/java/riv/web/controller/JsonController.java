@@ -41,12 +41,6 @@ public class JsonController {
 		Project project = dataService.getProject(id, 2);
 		return project.getDonors();
 	}
-	
-	@RequestMapping(value="/home/test", method=RequestMethod.GET)
-	public String test() {
-		return "test";
-	}
-
 }
 	
 	
