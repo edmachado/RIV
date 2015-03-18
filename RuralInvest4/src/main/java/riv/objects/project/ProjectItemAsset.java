@@ -87,7 +87,7 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 		public Double getResidual() {
 			if (replace || yearBegin-1+econLife>this.getProject().getDuration()) {
 				double annualReserve = (unitCost-salvage)/econLife;
-				double yearsLeft = econLife-(this.getProject().getDuration()-yearBegin-1)%econLife;
+				double yearsLeft = econLife-(this.getProject().getDuration()-yearBegin+1)%econLife;
 				if (yearsLeft==econLife) {
 					yearsLeft=0;
 				}
