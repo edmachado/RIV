@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/jsp/inc/include.jsp" %><meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<%@ include file="/WEB-INF/jsp/inc/include.jsp" %><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1" />
 	<link rel="SHORTCUT ICON" href="<c:url value="/img/riv.ico"/>"/>
 	<script language="javascript" src="<c:url value="/scripts/general.js"/>" type="text/javascript"></script>
 	<script language="javascript" src="<c:url value="/scripts/jquery-1.9.1.js"/>" type="text/javascript"></script>

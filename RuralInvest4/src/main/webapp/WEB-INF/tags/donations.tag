@@ -10,16 +10,20 @@
 	</script>
 </c:if>
 <c:if test="${fn:length(project.donors) gt 1}">
+	<spring:bind path="*"><c:if test="${empty status.errorMessages}"><c:set var="boxDisplay">display:none;</c:set></c:if></spring:bind>
 	<tags:dataentry field="donated" button="manage" calculated="true" labelKey="${labelKey}" helpText="${helpText}" currency="true" onmouseout="${onmouseout}"/>
-	<div id="donations" style="display:none; border:1px solid #aaa; margin-left:5px">
+	<div id="donations" style="${boxDisplay} border:1px solid #aaa; margin-left:5px">
 		<c:forEach var="donor" items="${donors}">
-			<c:set var="desc"><c:choose>
-				<c:when test="${donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
-				<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
-				<c:otherwise>${donor.description}</c:otherwise>
-			</c:choose></c:set>
-			<tags:dataentry field="donations[${donor.orderBy}]" label="${desc}" currency="true" />
+			<c:if test="${not donor.notSpecified}">
+				<c:set var="desc"><c:choose>
+					<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+					<c:otherwise>${donor.description}</c:otherwise>
+				</c:choose></c:set>
+				<tags:dataentry field="donations[${donor.orderBy}]" label="${desc}" currency="true" />
+			</c:if>
+			<c:if test="${donor.notSpecified}"><c:set var="notSpecifiedOrder" value="${donor.orderBy}"/></c:if>
 		</c:forEach>
+		<tags:dataentry field="donations[${notSpecifiedOrder}]" labelKey="project.donor.notSpecified" currency="true" />
 	</div>
 	
 	<script language="JavaScript">

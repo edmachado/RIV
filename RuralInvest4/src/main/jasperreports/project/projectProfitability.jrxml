@@ -4,7 +4,7 @@
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="160"/>
+	<property name="ireport.y" value="214"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -23,34 +23,119 @@
 	<parameter name="indicators" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="scenario" class="riv.objects.FinanceMatrix.ProjectScenario" isForPrompting="false"/>
 	<field name="incSales" class="java.lang.Double"/>
+	<field name="incSalesWithout" class="java.lang.Double"/>
 	<field name="incSalvage" class="java.lang.Double"/>
+	<field name="incSalvageWithout" class="java.lang.Double"/>
 	<field name="incResidual" class="java.lang.Double"/>
+	<field name="incResidualWithout" class="java.lang.Double"/>
 	<field name="incCapitalDonation" class="java.lang.Double"/>
 	<field name="costOperation" class="java.lang.Double"/>
+	<field name="costOperationWithout" class="java.lang.Double"/>
 	<field name="costReplace" class="java.lang.Double"/>
+	<field name="costReplaceWithout" class="java.lang.Double"/>
 	<field name="costGeneral" class="java.lang.Double"/>
+	<field name="costGeneralWithout" class="java.lang.Double"/>
 	<field name="costMaintenance" class="java.lang.Double"/>
+	<field name="costMaintenanceWithout" class="java.lang.Double"/>
 	<field name="costInvest" class="java.lang.Double"/>
-	<field name="totalIncome" class="java.lang.Double"/>
-	<field name="netIncome" class="java.lang.Double"/>
+	<field name="costInvestWithout" class="java.lang.Double"/>
+	<field name="totalIncomeProfitabilityWith" class="java.lang.Double"/>
+	<field name="totalIncomeProfitabilityWithout" class="java.lang.Double"/>
 	<field name="year" class="java.lang.Integer"/>
 	<field name="costInvestDonated" class="java.lang.Double"/>
-	<field name="costOperationWithout" class="java.lang.Double"/>
-	<field name="costGeneralWithout" class="java.lang.Double"/>
-	<field name="incSalesWithout" class="java.lang.Double"/>
-	<field name="costReplaceWithout" class="java.lang.Double"/>
-	<field name="costInvestWithout" class="java.lang.Double"/>
-	<field name="costMaintenanceWithout" class="java.lang.Double"/>
+	<field name="costInvestDonatedWithout" class="java.lang.Double"/>
+	<variable name="incSales" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{incSales}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{incSalesWithout}
+: $F{incSales}-$F{incSalesWithout}]]></variableExpression>
+	</variable>
+	<variable name="incSalvage" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{incSalvage}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{incSalvageWithout}
+: $F{incSalvage}-$F{incSalvageWithout}]]></variableExpression>
+	</variable>
 	<variable name="showRowLabel" class="java.lang.Boolean">
 		<variableExpression><![CDATA[new java.lang.Boolean($F{year}.intValue()==1||($F{year}.intValue()-1)%9==0)]]></variableExpression>
 	</variable>
+	<variable name="incResidual" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{incResidual}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{incResidualWithout}
+: $F{incResidual}-$F{incResidualWithout}]]></variableExpression>
+	</variable>
+	<variable name="totalIncome" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{totalIncomeProfitabilityWith}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{totalIncomeProfitabilityWithout}
+: $F{totalIncomeProfitabilityWith}-$F{totalIncomeProfitabilityWithout}]]></variableExpression>
+	</variable>
+	<variable name="costOperation" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{costOperation}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{costOperationWithout}
+: $F{costOperation}-$F{costOperationWithout}]]></variableExpression>
+	</variable>
+	<variable name="costReplace" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{costReplace}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{costReplaceWithout}
+: $F{costReplace}-$F{costReplaceWithout}]]></variableExpression>
+	</variable>
+	<variable name="costGeneral" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{costGeneral}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{costGeneralWithout}
+: $F{costGeneral}-$F{costGeneralWithout}]]></variableExpression>
+	</variable>
+	<variable name="costMaintenance" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{costMaintenance}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{costMaintenanceWithout}
+: $F{costMaintenance}-$F{costMaintenanceWithout}]]></variableExpression>
+	</variable>
+	<variable name="costInvest" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{costInvest}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{costInvestWithout}
+: $F{costInvest}-$F{costInvestWithout}]]></variableExpression>
+	</variable>
+	<variable name="costInvestDonated" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+? $F{costInvestDonated}
+: $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Without
+? $F{costInvestDonatedWithout}
+: $F{costInvestDonated}-$F{costInvestDonatedWithout}]]></variableExpression>
+	</variable>
 	<variable name="totalCosts" class="java.lang.Double">
-		<variableExpression><![CDATA[$F{costOperation}-$F{costOperationWithout}
-+$F{costReplace}-$F{costReplaceWithout}
-+$F{costGeneral}-$F{costGeneralWithout}
-+$F{costMaintenance}-$F{costMaintenanceWithout}
-+$F{costInvest}-$F{costInvestWithout}]]></variableExpression>
+		<variableExpression><![CDATA[$V{costOperation}
++$V{costReplace}
++$V{costGeneral}
++$V{costMaintenance}
++$V{costInvest}]]></variableExpression>
+	</variable>
+	<variable name="netIncome" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{totalIncome}-$V{totalCosts}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="netAfterDonation" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.With
+|| $P{scenario}==riv.objects.FinanceMatrix.ProjectScenario.Incremental
+? $V{netIncome}+$F{incCapitalDonation}+$V{costInvestDonated}
+: $V{netIncome}+$V{costInvestDonated}]]></variableExpression>
 	</variable>
 	<group name="dummy">
 		<groupExpression><![CDATA[]]></groupExpression>
@@ -94,17 +179,17 @@
 		<band height="32" splitType="Stretch">
 			<subreport isUsingCache="true">
 				<reportElement uuid="2a5de092-f771-4842-8033-8a4b22a9ebea" key="subreport-1" mode="Opaque" x="-124" y="1" width="760" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
-				<subreportParameter name="rivConfig">
-					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="proName">
 					<subreportParameterExpression><![CDATA[$P{projectName}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="reportTitle">
-					<subreportParameterExpression><![CDATA[$R{project.report.profitability}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[($P{incomeGen}.booleanValue()) ? $R{project.incomeGen} : $R{project.nonIncomeGen}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rivConfig">
+					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -143,7 +228,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incSales}-$F{incSalesWithout},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incSales},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="a38fb242-54f9-4afa-a062-4946b2ff77da" key="textField" mode="Opaque" x="6" y="52" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -157,7 +242,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incSalvage},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incSalvage},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="e5b4e24a-1bba-4416-8f1c-75b5884f5029" key="textField" mode="Opaque" x="6" y="65" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -171,7 +256,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{incResidual},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incResidual},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="a52a9dd3-8602-48cf-b014-9db06287ea19" key="textField" mode="Opaque" x="6" y="110" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -185,7 +270,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costOperation}-$F{costOperationWithout},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costOperation},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="7e0da0d5-8fba-4769-a0d4-609dca7dd04f" key="textField" mode="Opaque" x="6" y="122" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -199,7 +284,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costReplace}-$F{costReplaceWithout},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costReplace},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="5e9591ca-988c-422a-ac54-b43f56e68477" key="textField" mode="Opaque" x="6" y="134" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -213,7 +298,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costGeneral}-$F{costGeneralWithout},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costGeneral},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="3d466b54-d94e-4ad9-b60e-f2f3abd5d7ef" key="textField" positionType="Float" mode="Opaque" x="6" y="146" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -227,7 +312,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costMaintenance}-$F{costMaintenanceWithout},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costMaintenance},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="1cb1f822-c602-4fe2-9769-2c15ab747840" key="textField" positionType="Float" mode="Opaque" x="6" y="158" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -241,7 +326,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvest}-$F{costInvestWithout},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costInvest},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="d9082f3c-2b42-4f71-b0b9-00dbfa2316ab" key="textField-16" mode="Opaque" x="6" y="77" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -255,7 +340,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totalIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{totalIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="cf8957b6-ca37-4933-8161-9bd992b10068" key="textField-17" positionType="Float" mode="Opaque" x="6" y="171" width="61" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -283,7 +368,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{netIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{netIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="35e9fbe2-f9b2-455e-924a-0a06499bb07b" key="textField-22" mode="Opaque" x="-160" y="25" width="158" height="13" forecolor="#003365" backcolor="#E5E5E5">
@@ -605,7 +690,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvestDonated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{costInvestDonated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement uuid="34de2c7d-dd60-4af3-9d8e-fc357d8e6600" key="line-3" positionType="Float" mode="Opaque" x="-160" y="254" width="227" height="1" forecolor="#E7AE0F" backcolor="#FFFFFF"/>
@@ -641,7 +726,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{netIncome}+$F{incCapitalDonation}+$F{costInvestDonated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{netAfterDonation},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

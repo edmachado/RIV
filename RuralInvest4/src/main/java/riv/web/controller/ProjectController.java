@@ -1,7 +1,6 @@
 package riv.web.controller;
  
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +34,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import riv.objects.AttachedFile;
 import riv.objects.FilterCriteria;
+import riv.objects.FinanceMatrix;
+import riv.objects.FinanceMatrix.ProjectScenario;
+import riv.objects.ProjectFinanceNongen;
+import riv.objects.ProjectFirstYear;
 import riv.objects.config.AppConfig1;
 import riv.objects.config.AppConfig2;
 import riv.objects.config.Beneficiary;
@@ -46,10 +49,6 @@ import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Donor;
 import riv.objects.project.Project;
-import riv.objects.project.ProjectFinanceData;
-import riv.objects.project.ProjectFinanceData.AnalysisType;
-import riv.objects.project.ProjectFinanceNongen;
-import riv.objects.project.ProjectFirstYear;
 import riv.objects.project.ProjectResult;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -60,7 +59,6 @@ import riv.web.editors.AppConfigEditor;
 import riv.web.service.AttachTools;
 import riv.web.service.DataService;
 
- 
 @Controller
 @RequestMapping({"/project"})
 public class ProjectController {
@@ -146,8 +144,8 @@ public class ProjectController {
 			binder.registerCustomEditor(Double.class, "capitalInterest", decimalEditor);
 			binder.registerCustomEditor(Double.class, "capitalDonate", currencyEditor);
 			binder.registerCustomEditor(Double.class, "capitalOwn", currencyEditor);
-			binder.registerCustomEditor(BigDecimal.class, "wcAmountRequired", currencyEditor);
-			binder.registerCustomEditor(BigDecimal.class, "wcAmountFinanced", currencyEditor);
+			binder.registerCustomEditor(Double.class, "wcAmountRequired", currencyEditor);
+			binder.registerCustomEditor(Double.class, "wcAmountFinanced", currencyEditor);
 			binder.registerCustomEditor(Double.class, "loan2Amt", currencyEditor);
 			binder.registerCustomEditor(Double.class, "loan2Interest", decimalEditor);
 			
@@ -283,9 +281,6 @@ public class ProjectController {
 					step=6;
 				}
 			}
-			
-			
-			
 
 			// should project results be calculated?
 			boolean calculateResult = project.getWizardStep()==null && (
@@ -367,18 +362,6 @@ public class ProjectController {
 		} else {
 			model.addAttribute("menuType","projectNoninc");
 		}
-
-		// mockup for donors table
-//		if (step==2) {
-//			List<Donor> donors = new ArrayList<Donor>();
-//			donors.add(new Donor("FAO",3));
-//			donors.add(new Donor("Aga Khan",3));
-//			donors.add(new Donor("Min. Agriculture",0));
-//			donors.add(new Donor("MyNGO",2));
-//			donors.add(new Donor("Village mutual aid society",5));
-//			model.addAttribute("donors",donors);
-//		}
-		
 		
 		if (step==1 && p.getProjectId()!=null) {
 			long dirSize=0L;
@@ -405,7 +388,7 @@ public class ProjectController {
 		} 
 		
 		if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
-			ProjectFirstYear pfy = new ProjectFirstYear(p);
+			ProjectFirstYear pfy = new ProjectFirstYear(p, true);
 			int period;
 			double amount;
 			
@@ -415,23 +398,21 @@ public class ProjectController {
 				amount = pr.getWorkingCapital();
 				model.addAttribute("result",pr);
 			} else {
-				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-				period = (int)pfyResults[0];
-				amount=-1*pfyResults[1];
+				FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+				period = matrix.getWcPeriod();
+				amount= matrix.getWcValue();
 			}
 			model.addAttribute("firstYear", pfy.getCumulative());
 			model.addAttribute("firstYearSummary",pfy.getSummary());
 			p.setWcFinancePeriod(period);
-			p.setWcAmountRequired(new BigDecimal(amount));	
+			p.setWcAmountRequired(amount);	
 			
 		}  
 		
 		if (p.getIncomeGen() && (step==12 || step==13)) {
-			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(p, AnalysisType.Incremental);
-			model.addAttribute("profitabilitySummary", ProjectFinanceData.getSummary(data));
-			
-			data = ProjectFinanceData.analyzeProject(p, AnalysisType.CashFlow);
-			model.addAttribute("cashFlowSummary",ProjectFinanceData.getSummary(data));
+			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+			model.addAttribute("profitabilitySummary", matrix.getSummary(false, ProjectScenario.Incremental));// ProjectFinanceData.getSummary(data, false));
+			model.addAttribute("cashFlowSummary",matrix.getSummary(true, ProjectScenario.With));//ProjectFinanceData.getSummary(data, true));
 		} else if (!p.getIncomeGen() && (step==12 || step==13)) {
 			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 			model.addAttribute("result",pr);

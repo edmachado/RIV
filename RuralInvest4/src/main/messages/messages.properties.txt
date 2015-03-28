@@ -21,20 +21,31 @@ projectBlockInput.unitNum.nocycle.help=Indicate the number of units of the item 
 projectBlockLabour.unitNum.nocycle.help=Indicate the number of units of this type of labour used in each unit of production or activity.
 
 projectBlockInput.donated=Total donated resources
-projectBlockInput.donated.help=Help text goes here
+projectBlockInput.donated.help=If any part of the cost for this item is expected to be met through donated resources (either in kind or in cash) identify here the amount in monetary terms.
 projectBlockLabour.donated=Total donated resources
-projectBlockLabour.donated.help=Help text goes here
+projectBlockLabour.donated.help=If any part of the cost for this item is expected to be met through donated resources (either in kind or in cash) identify here the amount in monetary terms.
 
 profile.report.blockDetail.totals=Totals
 project.report.blockDetail.totals=Totals
+project.report.cashFlow.profit=Profit
+project.incremental=(Incremental)
 
 units.perUnitActivityNoCycle=per unit of activity
 units.perUnitNoCycle=per unit of production
 
+#translator: the following five items cannot be more than 31 characters, and must be different from each other
+project.report.cashFlow.with.sheetname=Cash flow (with)
+project.report.cashFlow.without.sheetname=Cash flow (w.out)
+project.report.profitability.with.sheetname=Profitability (with)
+project.report.profitability.without.sheetname=Profitability (w.out)
+project.report.profitability.incremental.sheetname=Profitability (incr)
+project.report.cashFlowFirst.with.sheetname=Cash Flow 1st yr (with)
+project.report.cashFlowFirst.without.sheetname=Cash Flow 1st yr (w.out)
+
 #changed from previous version
 project.step2=Beneficiaries & donors
 project.report.summary.block=With-project operational income and costs summary
-error.pleaseCorrect=Please correct the fields in red.
+error.pleaseCorrect=Please check your data and correct the fields in red.
 error.unknown=Sorry for the inconvenience
 error.maxLength=This field cannot be longer than {1} characters.
 error.max=This field cannot be greater than {1}.

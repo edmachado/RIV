@@ -34,7 +34,9 @@ import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import riv.objects.FinanceMatrix;
 import riv.objects.Probase;
+import riv.objects.ProjectFinanceData;
 import riv.objects.config.AppConfig1;
 import riv.objects.config.AppConfig2;
 import riv.objects.config.Beneficiary;
@@ -44,11 +46,9 @@ import riv.objects.config.ProjectCategory;
 import riv.objects.config.Setting;
 import riv.objects.config.Status;
 import riv.objects.config.User;
-import riv.objects.project.ProjectFinanceData.AnalysisType;
 import riv.objects.reference.ReferenceCost;
 import riv.objects.reference.ReferenceIncome;
 import riv.objects.reference.ReferenceLabour;
-import riv.util.Calculator;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 import riv.web.config.RivConfig;
@@ -221,7 +221,7 @@ public class Project extends Probase implements java.io.Serializable {
 	
 
 	@Transient
-	private BigDecimal wcAmountRequired;
+	private Double wcAmountRequired;
 	@Transient
 	private int wcFinancePeriod;
 	
@@ -327,10 +327,10 @@ public class Project extends Probase implements java.io.Serializable {
 		return (loan2Amt==null) ? getInvestmentTotal() : getInvestmentTotal()-loan2Amt;
 	}
 	
-	public BigDecimal getWcAmountRequired() {
+	public Double getWcAmountRequired() {
 		return wcAmountRequired;
 	}
-	public void setWcAmountRequired(BigDecimal wcAmountRequired) {
+	public void setWcAmountRequired(double wcAmountRequired) {
 		this.wcAmountRequired = wcAmountRequired;
 	}
 	public int getWcFinancePeriod() {
@@ -341,13 +341,13 @@ public class Project extends Probase implements java.io.Serializable {
 		this.wcFinancePeriod = wcFinancePeriod;
 	}
 
-	public BigDecimal getWcAmountFinanced() {
+	public Double getWcAmountFinanced() {
 		if (wcAmountRequired==null) {
 			return null;
 		} else if (capitalDonate==null || capitalOwn==null) {
 			return wcAmountRequired;
 		} else {
-			return  wcAmountRequired.subtract(BigDecimal.valueOf(capitalDonate+capitalOwn));
+			return  wcAmountRequired-capitalDonate+capitalOwn;
 		}
 	}
 
@@ -815,7 +815,7 @@ public double getInvestmentTotal() {
     }
     
     public Double getCapitalInterest () {
-        return this.capitalInterest;
+        return capitalInterest==null?0.0:capitalInterest;
     }
     
    public void setCapitalInterest (Double CapitalInterest) {
@@ -823,7 +823,7 @@ public double getInvestmentTotal() {
     }
     
     public Double getCapitalDonate () {
-        return this.capitalDonate;
+        return capitalDonate==null? 0.0:capitalDonate;
     }
     
    public void setCapitalDonate (Double CapitalDonate) {
@@ -834,7 +834,7 @@ public double getInvestmentTotal() {
 		capitalOwn = capiralOwn;
 	}
 	public Double getCapitalOwn() {
-		return capitalOwn;
+		return capitalOwn==null?0.0:capitalOwn;
 	}
 	public void setAssets(Set<ProjectItemAsset> assets) {
 		this.assets = assets;
@@ -1512,7 +1512,8 @@ public double getInvestmentTotal() {
 		sb.append("step2.benefDesc="+benefDesc.replace("\r", "\\r").replace("\n", "\\n")+lineSeparator);
 		sb.append("step2.donor.count="+donors.size()+lineSeparator);
 		for (Donor d : donors) {
-			sb.append("step2.donor."+(d.getOrderBy()+1)+".description="+d.getDescription()+lineSeparator);
+			String desc = d.getNotSpecified()?"Not specified":d.getDescription();
+			sb.append("step2.donor."+(d.getOrderBy()+1)+".description="+desc+lineSeparator);
 			sb.append("step2.donor."+(d.getOrderBy()+1)+".type="+d.getContribType()+lineSeparator);
 		}
 		sb.append(lineSeparator);
@@ -2136,41 +2137,41 @@ public double getInvestmentTotal() {
 		double investDonated=0.0;
 		
 		if (this.getIncomeGen()) { // INCOME GENERATING
-			ArrayList<ProjectFinanceData> finData = ProjectFinanceData.analyzeProject(this, AnalysisType.Incremental);
-			double annualNetIncome=0.0;
-			annualNetIncome = finData.get(finData.size()-1).getNetIncome() - finData.get(finData.size()-1).getIncResidual();
+			FinanceMatrix matrix = new FinanceMatrix(this, setting.getDiscountRate());
+			ProjectFinanceData last = matrix.getYearlyData().get(duration-1);
+			// annual net income from profitability report
+			double annualNetIncome=
+					// income
+					last.getTotalIncomeProfitabilityWith()-last.getTotalIncomeProfitabilityWithout()
+					-(last.getTotalCostsProfitabilityWith()-last.getTotalCostsProfitabilityWithout())
+					-(last.getIncResidual()-last.getIncResidualWithout());
 			pr.setAnnualNetIncome(annualNetIncome);
 			
-			// !! npv and irr without donation
-			double discount = setting.getDiscountRate()/100;
-			pr.setNpv(Calculator.netPresentValue(discount, finData, false));
-			BigDecimal irrWithout = Calculator.internalRateOfReturn(discount,finData, false);
-			pr.setIrr(irrWithout);
-			
-			// npv and irr with donation
-			//ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(this, AnalysisType.Incremental);
-			double npvWith = Calculator.netPresentValue(discount, finData, true);
-			BigDecimal irrWith = Calculator.internalRateOfReturn(discount, finData, true);
-			pr.setNpvWithDonation(npvWith);
-			pr.setIrrWithDonation(irrWith);
+			pr.setNpv(matrix.getNpvWithoutDonation());
+			pr.setIrr(matrix.getIrrWithoutDonation());
+			pr.setNpvWithDonation(matrix.getNpvWithDonation());
+			pr.setIrrWithDonation(matrix.getIrrWithDonation());
 			
 			// add working capital
-			ProjectFirstYear pfy = new ProjectFirstYear(this);
-			double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-			BigDecimal amtRequired = new BigDecimal(-1*pfyResults[1]);
-			pr.setWorkingCapital(amtRequired.doubleValue());
-			pr.setWcPeriod((int)pfyResults[0]);
+			pr.setWorkingCapital(matrix.getWcValue());
+			pr.setWcPeriod(matrix.getWcPeriod());
 			pr.setWcOwn(this.getCapitalOwn());
 			pr.setWcDonated(this.getCapitalDonate());
-			pr.setWcFinanced(amtRequired.doubleValue()-this.getCapitalDonate()-this.getCapitalOwn());
+			pr.setWcFinanced(matrix.getWcValue()-this.getCapitalDonate()-this.getCapitalOwn());
 			
-			// investment costs
-			for(ProjectFinanceData pfd:finData) {
+			// investment costs & negative years
+			int yearsNeg=0;
+			for(ProjectFinanceData pfd:matrix.getYearlyData()) {
 				investTotal+=pfd.getCostInvest();
 				investOwn+=pfd.getCostInvestOwn();
 				investDonated+=pfd.getCostInvestDonated();
+				if (pfd.getTotalIncomeCashFlow()-pfd.getTotalCostsCashFlow()<0) { 
+					yearsNeg++;
+				}
 			}
-			finData.clear();
+			pr.setNegativeYears(yearsNeg);
+			
+			//finData.clear();
 		} else { // NON INCOME GENERATING
 			for (ProjectItemAsset asset : this.getAssets()) {
 				investTotal += asset.getUnitNum()*asset.getUnitCost();

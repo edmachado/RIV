@@ -1,17 +1,16 @@
 package riv.util.validators;
 
-import java.math.BigDecimal;
 import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import riv.objects.FinanceMatrix;
 import riv.objects.config.Setting;
 import riv.objects.project.Block;
 import riv.objects.project.BlockWithout;
 import riv.objects.project.Project;
-import riv.objects.project.ProjectFirstYear;
 import riv.web.config.RivConfig;
 
 public class ProjectValidator implements Validator {
@@ -182,10 +181,9 @@ public class ProjectValidator implements Validator {
 				// calculated values
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
 				// calculate the working capital fields and validate them
-				ProjectFirstYear pfy = new ProjectFirstYear(project);
-				double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
-				project.setWcFinancePeriod((int)pfyResults[0]);
-				project.setWcAmountRequired(new BigDecimal(-1*pfyResults[1]));
+				FinanceMatrix matrix = new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate());
+				project.setWcFinancePeriod(matrix.getWcPeriod());
+				project.setWcAmountRequired(matrix.getWcValue());
 				ValidateUtils.rejectIfNegative(project, "wcAmountRequired", "project.amtRequired", errors);
 				ValidateUtils.rejectIfNegative(project, "wcAmountFinanced", "project.amtFinanced", errors, rivConfig.getSetting().getDecimalLength());
 				ValidateUtils.rejectIfNegative(project, "wcFinancePeriod", "project.period", errors);

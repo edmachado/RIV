@@ -63,7 +63,7 @@ public class TestResidualValue {
 		b.setSalvage(0.0);
 		b.setMaintCost(0.0);
 		b.setReplace(false);
-		p.addAsset(a);
+		p.addAssetWithout(b);
 		Assert.assertEquals(4725.0, b.getResidual().doubleValue(), 0.01);
 	}
 }

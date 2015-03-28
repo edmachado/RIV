@@ -91,6 +91,8 @@ public class ProjectResult implements java.io.Serializable {
 	private double wcFinanced;
 	@Column(name="WC_PERIOD")
 	private int wcPeriod;
+	@Column(name="NEGATIVE_YEARS")
+	private int negativeYears;
 	
 	// for downloading
 	public String getDownloadName() throws UnsupportedEncodingException {
@@ -271,6 +273,16 @@ public class ProjectResult implements java.io.Serializable {
 	}
 
 
+	public int getNegativeYears() {
+		return negativeYears;
+	}
+
+
+	public void setNegativeYears(int negativeYears) {
+		this.negativeYears = negativeYears;
+	}
+
+
 	public void setAppConfig1(AppConfig1 adminCategory1) {
 		this.appConfig1 = adminCategory1;
 	}
@@ -344,10 +356,5 @@ public class ProjectResult implements java.io.Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
 }
 	

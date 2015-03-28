@@ -1,7 +1,20 @@
-package riv.objects.project;
+package riv.objects;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import riv.objects.project.Block;
+import riv.objects.project.BlockIncome;
+import riv.objects.project.BlockInput;
+import riv.objects.project.BlockLabour;
+import riv.objects.project.Project;
+import riv.objects.project.ProjectItemAsset;
+import riv.objects.project.ProjectItemContribution;
+import riv.objects.project.ProjectItemLabour;
+import riv.objects.project.ProjectItemNongenLabour;
+import riv.objects.project.ProjectItemNongenMaintenance;
+import riv.objects.project.ProjectItemNongenMaterials;
+import riv.objects.project.ProjectItemService;
 
 public class ProjectFinanceNongen {
 	private int year;

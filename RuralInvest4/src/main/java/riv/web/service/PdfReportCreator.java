@@ -30,16 +30,16 @@ import org.springframework.context.support.MessageSourceResourceBundle;
 import org.springframework.stereotype.Component;
 
 import riv.objects.FilterCriteria;
+import riv.objects.FinanceMatrix;
+import riv.objects.FinanceMatrix.ProjectScenario;
+import riv.objects.ProjectFinanceNongen;
+import riv.objects.ProjectFirstYear;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.BlockBase;
 import riv.objects.project.BlockChron;
 import riv.objects.project.Project;
-import riv.objects.project.ProjectFinanceData;
-import riv.objects.project.ProjectFinanceData.AnalysisType;
 import riv.objects.project.Donor;
-import riv.objects.project.ProjectFinanceNongen;
-import riv.objects.project.ProjectFirstYear;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemLabour;
@@ -234,7 +234,7 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public List<ReportWrapper> projectComplete(Project project, ProjectResult pr, HttpServletResponse response) {
+	public List<ReportWrapper> projectComplete(Project project, ProjectResult pr, FinanceMatrix matrix, HttpServletResponse response) {
 		ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
 		int page=0;
 		
@@ -304,13 +304,23 @@ public class PdfReportCreator {
 			ReportWrapper params = projectParameters(project, pr, page);
 			page=page+params.getJp().getPages().size();
 			reports.add(params);
-			ReportWrapper cff = projectCashFlowFirst(project, page);
+			ReportWrapper cff = projectCashFlowFirst(project, page, false);
 			page=page+cff.getJp().getPages().size();
 			reports.add(cff);
-			ReportWrapper cf = projectCashFlow(project, page);
+			if (project.isWithWithout()) {
+				ReportWrapper cffWithout = projectCashFlowFirst(project, page, true);
+				page+=cffWithout.getJp().getPages().size();
+				reports.add(cffWithout);
+			}
+			ReportWrapper cf = projectCashFlow(project, page, matrix, false);
 			page=page+cf.getJp().getPages().size();
 			reports.add(cf);
-			ReportWrapper profit = projectProfitability(project, pr, page);
+			if (project.isWithWithout()) {
+				ReportWrapper cfWithout = projectCashFlow(project, page, matrix, true);
+				page+=cfWithout.getJp().getPages().size();
+				reports.add(cfWithout);
+			}
+			ReportWrapper profit = projectProfitability(project, pr, page, matrix, ProjectScenario.Incremental);
 			page=page+profit.getJp().getPages().size();
 			reports.add(profit);
 		} else {
@@ -377,27 +387,42 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper projectProfitability(Project project, ProjectResult result, int startPage) {
-		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.Incremental);
-		ReportWrapper report = new ReportWrapper("/reports/project/projectProfitability.jasper", true, data, "projectProfitability.pdf", startPage);
+	public ReportWrapper projectProfitability(Project project, ProjectResult result, int startPage, FinanceMatrix matrix, ProjectScenario scenario) {
+		ReportWrapper report = new ReportWrapper("/reports/project/projectProfitability.jasper", true, matrix.getYearlyData(), "projectProfitability.pdf", startPage);
 		
 		JasperReport jrIndicators = compileReport("/reports/project/projectProfitabilityIndicators.jasper");
 		report.getParams().put("indicators", jrIndicators);
 		
-		
+		report.getParams().put("scenario",scenario);
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
-		report.getParams().put("npv", result.getNpvWithDonation());
-		report.getParams().put("irr", result.getIrrWithDonation());
-		report.getParams().put("npvNoDonation", result.getNpv());
-		report.getParams().put("irrNoDonation", result.getIrr());
+		report.getParams().put("npv", matrix.getNpv(true, scenario));
+		report.getParams().put("irr", matrix.getIrr(true, scenario));
+		report.getParams().put("npvNoDonation", matrix.getNpv(false, scenario));
+		report.getParams().put("irrNoDonation", matrix.getIrr(false, scenario));
+		
+		
+		
+		String title;
+		if (scenario==ProjectScenario.With) {
+			if (project.isWithWithout()) {
+				title=translate("project.report.profitability") + " "+translate("project.with");
+			} else {
+				title=translate("project.report.profitability");
+			}
+		} else if (scenario==ProjectScenario.Without) {
+			title=translate("project.report.profitability")+ " "+translate("project.without");
+		} else { // incremental
+			title=translate("project.report.profitability") + " "+translate("project.incremental");
+		}
 		report.getParams().put("reportname", "K: "+translate("project.report.profitability"));
+		report.getParams().put("title", title);
 		
 		runReport(report);
 		return report;
 	}
 	
-	public ReportWrapper projectCashFlowFirst(Project project, int startPage) {
+	public ReportWrapper projectCashFlowFirst(Project project, int startPage, boolean without) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectCashFlowFirst.jasper", true, project, "projectCashFlowFirst.pdf", startPage);
 		
 		JasperReport jrIncome = compileReport("/reports/project/projectCashFlowFirstOpIncomes.jasper");
@@ -407,9 +432,23 @@ public class PdfReportCreator {
 		JasperReport jrTotals = compileReport("/reports/project/projectCashFlowFirstTotals.jasper");
 		report.getParams().put("totalsSubReport", jrTotals);
 		
-		report.getParams().put("firstYearData", new ProjectFirstYear(project));
+		report.getParams().put("firstYearData", new ProjectFirstYear(project, without));
 		report.getParams().put("months", months(project));
-		report.getParams().put("reportname", "I: "+translate("project.report.cashFlowFirst"));
+		
+		String title;
+		if (!without) {
+			if (project.isWithWithout()) {
+				title=translate("project.report.cashFlowFirst") + " " + translate("project.with");
+			} else {
+				title=translate("project.report.cashFlowFirst");
+			}
+		} else {
+			title=translate("project.report.cashFlowFirst") + " " + translate("project.without");
+		}
+		
+		report.getParams().put("reportname", "I: "+title);
+		
+		
 		runReport(report);
 		return report;
 	}
@@ -427,13 +466,24 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper projectCashFlow(Project project, int startPage) {
-		ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
+	public ReportWrapper projectCashFlow(Project project, int startPage, FinanceMatrix matrix, boolean without) {
+		ReportWrapper report = new ReportWrapper(without ? "/reports/project/projectCashFlowWithout.jasper" : "/reports/project/projectCashFlow.jasper", true, matrix.getYearlyData(), "projectCashFlow.pdf", startPage);
 		
-		ReportWrapper report = new ReportWrapper("/reports/project/projectCashFlow.jasper", true, data, "projectCashFlow.pdf", startPage);
-		
+		report.getParams().put("without", without);
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
+		
+		String title;
+		if (!without) {
+			if (project.isWithWithout()) {
+				title=translate("project.report.cashFlow") + " "+translate("project.with");
+			} else {
+				title=translate("project.report.cashFlow");
+			}
+		} else { // without
+			title=translate("project.report.cashFlow") + " "+translate("project.without");
+		}
+		report.getParams().put("title", title);
 		report.getParams().put("reportname", "J: "+translate("project.report.cashFlow"));
 		
 		runReport(report);
@@ -614,14 +664,7 @@ public class PdfReportCreator {
 		report.getParams().put("reportname", "A: "+translate("project.report.summary"));
 		
 		if (project.getIncomeGen()) {
-			// count years with negative flow
-			ArrayList<ProjectFinanceData> data = ProjectFinanceData.analyzeProject(project, AnalysisType.CashFlow);
-			
-			int yearsNeg=0;
-			for(ProjectFinanceData pfd:data) 
-				if (pfd.getNetIncome()<0) 
-					yearsNeg++;
-			report.getParams().put("yearsNeg", yearsNeg);
+			report.getParams().put("yearsNeg", pr.getNegativeYears());
 		}
 			
 		double investAssets = 0.0;
@@ -715,7 +758,7 @@ public class PdfReportCreator {
 			return (JasperReport)JRLoader.loadObject(new File(sc.getRealPath("/WEB-INF/classes"+template)));
 		} catch (JRException e) {
 			LOG.error("Error getting jasper report file.",e);
-			throw new RuntimeException("Error getting jasper report file.",e);
+			throw new RuntimeException("Error getting jasper report file.",e); 
 		}
 	}
 	

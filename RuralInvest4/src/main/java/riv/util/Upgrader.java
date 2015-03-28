@@ -295,7 +295,8 @@ public class Upgrader {
 					split[1]=split[1].substring(1); 
 					Donor myDonor=null;
 					for (Donor d : project.getDonors()) {
-						if (d.getContribType()==Integer.valueOf(split[0]) && d.getDescription().equals(split[1])) {
+						if (d.getContribType()==Integer.valueOf(split[0]) && 
+								(d.getDescription().equals(split[1])) || (split[1].isEmpty()&&d.getNotSpecified())) {
 							myDonor=d;
 							break;
 						}

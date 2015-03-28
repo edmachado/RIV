@@ -48,13 +48,13 @@
 		 	<legend>
 		 		<tags:help title="project.loan2" text="project.loan2.help"><spring:message code="project.loan2"/></tags:help>
           	</legend>
-            	<tags:dataentry field="loan2Amt"  labelKey="project.loan.amount" helpText="project.loan.amount.help" currency="true" onmouseout="Calculate()"/>
-		   		<tags:dataentry field="loan2Interest" labelKey="project.loan.interest" helpText="project.loan.interest.help" inputClass="num" calcSign="%" />
-		   		<tags:dataentry field="loan2Duration" labelKey="project.loan.duration" helpText="project.loan.duration.help" calcSignKey="units.years" />
-		   		<tags:dataentry field="loan2GraceCapital" labelKey="project.loan.graceCapital" helpText="project.loan.graceCapital.help" calcSignKey="units.years" />
-		   		<tags:dataentry field="loan2GraceInterest" labelKey="project.loan.graceInterest" helpText="project.loan.graceInterest.help" calcSignKey="units.years" />
-		   		<tags:dataentry field="loan2InitPeriod" labelKey="project.loan2InitPeriod" helpText="project.loan2InitPeriod.help" />
-		 </fieldset>
+           	<tags:dataentry field="loan2Amt"  labelKey="project.loan.amount" helpText="project.loan.amount.help" currency="true" onmouseout="Calculate()"/>
+	   		<tags:dataentry field="loan2Interest" labelKey="project.loan.interest" helpText="project.loan.interest.help" inputClass="num" calcSign="%" />
+	   		<tags:dataentry field="loan2Duration" labelKey="project.loan.duration" helpText="project.loan.duration.help" calcSignKey="units.years" />
+	   		<tags:dataentry field="loan2GraceCapital" labelKey="project.loan.graceCapital" helpText="project.loan.graceCapital.help" calcSignKey="units.years" />
+	   		<tags:dataentry field="loan2GraceInterest" labelKey="project.loan.graceInterest" helpText="project.loan.graceInterest.help" calcSignKey="units.years" />
+			<tags:projYear field="loan2InitPeriod" labelKey="project.loan2InitPeriod" helpText="project.loan2InitPeriod.help" />
+		</fieldset>
 	</div>
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step12"/></tags:submit>
 </form:form>

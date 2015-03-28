@@ -1,7 +1,16 @@
-package riv.objects.project;
+package riv.objects;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import riv.objects.project.BlockBase;
+import riv.objects.project.BlockChron;
+import riv.objects.project.Project;
+import riv.objects.project.ProjectItemAsset;
+import riv.objects.project.ProjectItemAssetWithout;
+import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemPersonnel;
+import riv.objects.project.ProjectMonthFlow;
 
 public class ProjectFirstYear {
 	private Project project;
@@ -11,9 +20,11 @@ public class ProjectFirstYear {
 	private double generalCost;
 	private double[] totals;
 	private double[] cumulative;
+	private boolean without;
 	
-	public ProjectFirstYear(Project project) {
+	public ProjectFirstYear(Project project, boolean without) {
 		this.project=project;
+		this.without=without;
 		incomes = new ArrayList<ProjectMonthFlow>();
 		costs = new ArrayList<ProjectMonthFlow>();
 		totals=new double[12];
@@ -58,12 +69,20 @@ public class ProjectFirstYear {
 	
 	private void Calculate() {
 		// fixed-month costs
-		for (ProjectItemAsset ass : project.getAssets())
-			if (ass.getYearBegin()==1)  maintenanceCost += (ass.getMaintCost()*ass.getUnitNum());
+		if (!without) {
+			for (ProjectItemAsset ass : project.getAssets()) {
+				if (ass.getYearBegin()==1)  { maintenanceCost += (ass.getMaintCost()*ass.getUnitNum()); }
+			}
+		} else {
+			for (ProjectItemAssetWithout ass : project.getAssetsWithout()) {
+				if (ass.getYearBegin()==1)  { maintenanceCost += (ass.getMaintCost()*ass.getUnitNum()); }
+			}
+		}
 		maintenanceCost /= 12;
-		for (ProjectItemGeneral gen : project.getGenerals())
-			generalCost+=gen.getUnitCost()*gen.getUnitNum()-gen.getOwnResources();
 		
+		for (ProjectItemGeneral gen : project.getGenerals()) {
+			generalCost+=gen.getUnitCost()*gen.getUnitNum()-gen.getOwnResources();
+		}
 		for (ProjectItemPersonnel per : project.getPersonnels()) {
 			generalCost+=per.getUnitCost()*per.getUnitNum()-per.getOwnResources();
 		}
@@ -74,7 +93,7 @@ public class ProjectFirstYear {
 		}		
 		
 		// block-dependent costs and incomes
-		for (Block block : project.getBlocks()) {
+		for (BlockBase block : without ? project.getBlocksWithout() : project.getBlocks()) {
 			
 			// calculate income data
 			ProjectMonthFlow incFlow = new ProjectMonthFlow();
@@ -112,37 +131,9 @@ public class ProjectFirstYear {
 		for (int i=1;i<12; i++) {
 			cumulative[i]=cumulative[i-1]+totals[i];
 		}
-//		cumulative[0]=Math.round(totals[0]);
-//		for (int i=1;i<12; i++) {
-//			totals[i]=Math.round(totals[i]);
-//			cumulative[i]=cumulative[i-1]+totals[i];
-//		}
 	}
 	
-	/*
-	 * results[0] is financing period (no. months)
-	 * results[1] is largest negative value
-	 * results[2] is number of negative months
-	 */
-	public static double[] WcAnalysis(ProjectFirstYear pfy) {
-		double[] results = new double[3];
-		
-		int lastNegMonth=0; int negMonths=0;
-		Double highestNeg=0.0;		
-		for (int i=0;i<12;i++) {
-			if (pfy.getCumulative()[i]<0) {
-				negMonths++;
-				lastNegMonth=i+1; // add one because i is 0-based
-				if (pfy.getCumulative()[i]<highestNeg) {					
-					highestNeg=pfy.getCumulative()[i];
-				}
-			}
-		}
-		results[0] = lastNegMonth==0 ? 0 : lastNegMonth>10 ? 12 : lastNegMonth+2; // month of highest negative +2, not to exceed 12 
-		results[1] = highestNeg;
-		results[2] = negMonths;
-		return results;
-	}
+	
 
 	public ArrayList<ProjectMonthFlow> getIncomes() {
 		return incomes;

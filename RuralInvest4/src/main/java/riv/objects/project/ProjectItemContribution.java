@@ -92,9 +92,10 @@ public class ProjectItemContribution extends ProjectItem {
 		
 		String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
-		   StringBuilder sb = new StringBuilder();
+		   StringBuilder sb = new StringBuilder(); 
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
-		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".donorOrderBy="+donorsByOrder.get(donorOrderBy).getDescription()+lineSeparator);
+		   String desc = donorsByOrder.get(donorOrderBy).getNotSpecified()?"Not specified":donorsByOrder.get(donorOrderBy).getDescription();
+		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".donorOrderBy="+desc+lineSeparator);
 //		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contribType="+rivConfig.getContribTypes().get(contribType)+lineSeparator);
 //		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contributor="+contributor+lineSeparator);
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);

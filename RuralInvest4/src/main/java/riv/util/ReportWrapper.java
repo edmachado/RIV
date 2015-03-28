@@ -1,13 +1,14 @@
 package riv.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
-
-import org.hibernate.collection.internal.PersistentSet;
 
 public class ReportWrapper {
 	String reportTemplate;
@@ -31,12 +32,14 @@ public class ReportWrapper {
 		
 		if (dataSource==null) {
 			this.dataSource=new net.sf.jasperreports.engine.JREmptyDataSource();
-		} else if (dataSource.getClass().isAssignableFrom(java.util.ArrayList.class)) {
-			this.dataSource=new ReportSource((ArrayList)dataSource);
-		} else if (dataSource.getClass().isAssignableFrom(PersistentSet.class )) {
-			this.dataSource = new ReportSource((PersistentSet)dataSource);
+		} else if (dataSource instanceof List) {
+			this.dataSource=new ReportSource((List)dataSource);
+		} else if (dataSource instanceof Set) {
+			this.dataSource = new ReportSource((Set)dataSource);
+		} else if (dataSource instanceof Object[]) {
+			this.dataSource = new ReportSource(new ArrayList(Arrays.asList(dataSource)));
 		} else {
-			ArrayList list = new ArrayList();
+			List list = new ArrayList();
 			list.add(dataSource);
 			this.dataSource = new ReportSource(list);
 		}

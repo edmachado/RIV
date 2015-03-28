@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import riv.objects.FinanceMatrix;
+import riv.objects.FinanceMatrix.ProjectScenario;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectResult;
 import riv.util.ReportWrapper;
+import riv.web.config.RivConfig;
 import riv.web.service.DataService;
 import riv.web.service.PdfReportCreator;
 
@@ -33,6 +36,8 @@ public class ReportController {
 	private PdfReportCreator reportCreator;
 	@Autowired
 	private DataService dataService;
+	@Autowired
+	private RivConfig rivConfig;
 	
 	public static final String MEDIA_TYPE_PDF = "application/pdf";
 	
@@ -152,8 +157,17 @@ public class ReportController {
 	@RequestMapping(value="{id}/projectCashFlow.pdf", method=RequestMethod.GET)
 	public void projectCashFlow(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
-		ReportWrapper report = reportCreator.projectCashFlow(p, 0);
-		reportCreator.export(response, report);
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+		ReportWrapper with = reportCreator.projectCashFlow(p, 0, matrix, false);
+		if (!p.isWithWithout()) {
+			reportCreator.export(response, with);
+		} else {
+			ReportWrapper without = reportCreator.projectCashFlow(p, with.getJp().getPages().size(), matrix, true);
+			ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+			reports.add(with);
+			reports.add(without);
+			concatReports(reports, response, "projectCashFlow.pdf");
+		}
 	}
 	
 	@RequestMapping(value="{id}/projectCashFlowNongen.pdf", method=RequestMethod.GET)
@@ -166,15 +180,36 @@ public class ReportController {
 	@RequestMapping(value="{id}/projectCashFlowFirst.pdf", method=RequestMethod.GET)
 	public void projectCashFlowFirst(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
-		ReportWrapper report = reportCreator.projectCashFlowFirst(p, 0);
-		reportCreator.export(response, report);
+		ReportWrapper with = reportCreator.projectCashFlowFirst(p, 0, false);
+		if (!p.isWithWithout()) {
+			reportCreator.export(response, with);
+		} else {
+			ReportWrapper without = reportCreator.projectCashFlowFirst(p, 0, true);
+			ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+			reports.add(with);
+			reports.add(without);
+			concatReports(reports, response, "projectCashFlowFirst.pdf");
+		}
 	}
 	
 	@RequestMapping(value="{id}/projectProfitability.pdf", method=RequestMethod.GET)
 	public void projectProfitability(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
-		ReportWrapper report = reportCreator.projectProfitability(p, dataService.getProjectResult(id), 0);
-		reportCreator.export(response, report);
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+		ReportWrapper with = reportCreator.projectProfitability(p, dataService.getProjectResult(id), 0, matrix, ProjectScenario.With);
+		
+		if (!p.isWithWithout()) {
+			reportCreator.export(response, with);
+		} else {
+			ReportWrapper without = reportCreator.projectProfitability(p, dataService.getProjectResult(id), with.getJp().getPages().size(), matrix, ProjectScenario.Without);
+			ReportWrapper incremental = reportCreator.projectProfitability(p, dataService.getProjectResult(id), with.getJp().getPages().size()+without.getJp().getPages().size(), matrix, ProjectScenario.Incremental);
+			
+			ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+			reports.add(with);
+			reports.add(without);
+			reports.add(incremental);
+			concatReports(reports, response, "projectProfitability.pdf");
+		}
 	}
 	
 	@RequestMapping(value="/{id}/projectRecommendation.pdf", method=RequestMethod.GET)
@@ -188,7 +223,8 @@ public class ReportController {
 	   public void completeProjectReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		   Project p = dataService.getProject(id, -1);
 		   ProjectResult pr = dataService.getProjectResult(id);
-		   List<ReportWrapper> reports = reportCreator.projectComplete(p, pr, response);
+		   FinanceMatrix matrix = p.getIncomeGen() ? new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate()) : null;
+		   List<ReportWrapper> reports = reportCreator.projectComplete(p, pr, matrix, response);
 		   concatReports(reports, response, "projectComplete.pdf");
 	   }
 	

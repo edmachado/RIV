@@ -15,26 +15,41 @@
 				</thead>
 				<tbody><c:set var="num" value="1" />
 					<c:forEach var="donor" items="${project.donors}">
-						<tr>
-							<td class="left">
-								<c:choose>
-									<c:when test="${donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
-									<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
-									<c:otherwise>${donor.description}</c:otherwise>
-								</c:choose>
-							</td>
-							<td class="left">
-								<tags:contribType type="${donor.contribType}"/>
-							</td>
-							<c:set var="row" value="${project.contributionSummary[donor.orderBy]}"/>
-							<c:forEach begin="1" end="${project.duration}" var="i">	
-								<td>
-									<c:if test="${project.perYearContributions}"><tags:formatDecimal value="${row[i-1]}" noDecimals="true" /></c:if>
-									<c:if test="${not project.perYearContributions}"><tags:formatDecimal value="${row[0]}" noDecimals="true" /></c:if>
+						<c:if test="${not donor.notSpecified}">
+							<tr>
+								<td class="left">
+									<c:choose>
+										<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
+										<c:otherwise>${donor.description}</c:otherwise>
+									</c:choose>
 								</td>
-							</c:forEach>				
-						</tr>
+								<td class="left">
+									<tags:contribType type="${donor.contribType}"/>
+								</td>
+								<c:set var="row" value="${project.contributionSummary[donor.orderBy]}"/>
+								<c:forEach begin="1" end="${project.duration}" var="i">	
+									<td>
+										<c:if test="${project.perYearContributions}"><tags:formatDecimal value="${row[i-1]}" noDecimals="true" /></c:if>
+										<c:if test="${not project.perYearContributions}"><tags:formatDecimal value="${row[0]}" noDecimals="true" /></c:if>
+									</td>
+								</c:forEach>				
+							</tr>
+						</c:if>
+						<c:if test="${donor.notSpecified}"><c:set var="notSpecifiedDonor" value="${donor}"/></c:if>
 					</c:forEach>
+					<tr>
+						<td class="left"><spring:message code="project.donor.notSpecified"/></td>
+						<td class="left">
+							<tags:contribType type="${notSpecifiedDonor.contribType}"/>
+						</td>
+						<c:set var="row" value="${project.contributionSummary[notSpecifiedDonor.orderBy]}"/>
+						<c:forEach begin="1" end="${project.duration}" var="i">	
+							<td>
+								<c:if test="${project.perYearContributions}"><tags:formatDecimal value="${row[i-1]}" noDecimals="true" /></c:if>
+								<c:if test="${not project.perYearContributions}"><tags:formatDecimal value="${row[0]}" noDecimals="true" /></c:if>
+							</td>
+						</c:forEach>				
+					</tr>
 				</tbody>
 				<tfoot>
 					<tr height="1"><td height="1" colspan="${project.duration+2}" class="Sum1"/></tr>

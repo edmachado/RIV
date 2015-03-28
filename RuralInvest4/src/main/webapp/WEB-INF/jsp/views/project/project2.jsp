@@ -4,108 +4,10 @@
 $(function() {
 	loadDonors();
 });
-function deleteDonor(donorId) {
-	$.ajax({ url: '../donor/'+donorId+'/delete', type:"GET", dataType: 'json',
-		success: function( data, textStatus, jqXHR ) {
-			$('#donorTable tbody').empty();
-			loadDonors();
-		 },
-		 error: function(jqXHR, status, error) {
-			 alert('error: '+obj.message);
-		 }
-	});
-}
-function editDonor() {
-	url = '../donor/'+$('#donor-id').val();
-	if ($('#donor-id').val()==-1) { url = url+'?projectId=${project.projectId}'; } 
-	$.ajax({ url: url, type:"POST", dataType: 'json',
-		data: { description: $('#donor-description').val(), contribType:$('#donor-contribType').val() },
-		 success: function( data, textStatus, jqXHR ) {
-			$('#donorTable tbody').empty();
-			loadDonors();
-			$( "#dialog-donor" ).dialog("close");
-			$('#donor-description').val('');
-			$('#donor-contribType').val([]);
-		 },
-		 error: function(jqXHR, status, error) {
-			 $('#donorAlert').show();
-			 $.each(JSON.parse(jqXHR.responseText), function(idx, obj) {
-				label=$('label[for='+obj.field+']').text();
-				$('#donor-error-field').text(label);
-				$('#donor-error-message').text(obj.message);
-			});
-		 }
-	});
-}
-function loadDonors() {
-	$.getJSON("../../home/${project.projectId}/donors.json", function(data) {
-		 var items = [];
-		 var table=document.getElementById('#donorTable');
-		 $.each(data, function(key) {
-			 tr = $('<tr/>');
-			 $(tr).attr('id','donor'+data[key].orderBy);
-			 $(tr).attr('donorId',data[key].donorId);
-			 if (data[key].orderBy % 2 == 0) {
-				 $(tr).attr('class','odd');
-			 }
-			 // description
-			 td1 = $('<td/>');
-			 $(td1).attr('class','left');
-			 if (data[key].notSpecified) {
-				 text='<spring:message code="project.donor.notSpecified"/>';
-			 } else if (data[key].contribType==4 && data[key].description=='state-public') {
-				 text='<spring:message code="project.donor.statePublic"/>';
-			 } else {
-				 text=data[key].description;
-			 }
-			 td1.text(text).html();
-			 $(tr).append(td1);
-			 
-			 // contrib type
-			 td2 = $('<td/>');
-			 $(td2).attr('class','left');
-			 $(td2).attr('code',data[key].contribType);
-			 ct=cType(data[key].contribType);
-			 td2.text(ct).html();
-			 $(tr).append(td2);
-			 
-			 // edit link
-			 td3 = $('<td/>');
-			 if (!data[key].notSpecified) {
-				 a = addLink('javascript:showme('+data[key].orderBy+');','../../img/edit.png','<spring:message code="misc.viewEditItem"/>');
-				 $(td3).append(a);
-			 }
-			 $(tr).append(td3);
-			 
-			 td4 = $('<td/>');
-			 if (!data[key].notSpecified &! data[key].inUse) {
-				 d = addLink('javascript:deleteDonor('+data[key].donorId+')','../../img/delete.gif','<spring:message code="misc.deleteItem"/>');
-				 $(td4).append(d);
-			 }
-			 $(tr).append(td4);
-			 
-			 $('#donorTable tbody').append(tr);
-			 
-		 });
-	});
-}
-function showme(order) {
-	if (order==-1) {
-		$('#donor-id').val('-1');
-		$('#donor-description').val('');
-		$('#donor-contribType').val(0);
-	} else {
-		$('#donor-id').val($('#donor'+order).attr('donorId'));
-		$('#donor-description').val($('#donor'+order+' td:first-child').text());
-		$('#donor-contribType').val($('#donor'+order+' td:nth-child(2)').attr('code'));
-	}
-	$('#donorAlert').hide();
-	$( "#dialog-donor" ).dialog({
-		 height: 210,
-		 width:500,
-		 modal: true
-	});
-}
+var statePub='<spring:message code="project.donor.statePublic"/>';
+var viewEdit='<spring:message code="misc.viewEditItem"/>';
+var deleteItem='<spring:message code="misc.deleteItem"/>';
+var projId=${project.projectId};
 function cType(type) {
 	if (type==0) return '<spring:message code="projectContribution.contribType.govtCentral"/>';
 	if (type==1) return '<spring:message code="projectContribution.contribType.govtLocal"/>';
@@ -114,36 +16,8 @@ function cType(type) {
 	if (type==4) return '<spring:message code="projectContribution.contribType.other"/>';
 	return '<spring:message code="projectContribution.contribType.beneficiary"/>';
 }
-function addLink(href,img,alt) {
-	a = $('<a/>');
-	 $(a).attr('href',href);
-	 edit = $('<img/>');
-	 $(edit).attr('src',img);
-	 $(edit).attr('alt',alt);
-	 $(edit).attr('width','16');
-	 $(edit).attr('height','16');
-	 $(edit).attr('border','0');
-	 $(a).append(edit);
-	 return a;
-}
-function Calculate() {
-	with (Math) {
-		var dirMen = (document.form.beneDirectMen.value);
-		var dirWomen = (document.form.beneDirectWomen.value);
-		var dirChild = (document.form.beneDirectChild.value);
-		
-		var inMen = (document.form.beneIndirectMen.value);
-		var inWomen = (document.form.beneIndirectWomen.value);
-		var inChild = (document.form.beneIndirectChild.value);
-	
-		var totalDirect = round(1*dirMen + 1*dirWomen + 1*dirChild);
-		var totalIndirect =  round(1*inMen+1*inWomen+1*inChild);
-	}
-	
-	document.form.beneDirectTotal.value = totalDirect;
-	document.form.beneIndirectTotal.value = totalIndirect;
-}
 </script>
+<script language="javascript" src="<c:url value="/scripts/donors.js"/>" type="text/javascript"></script>
 </head>
 <body>
 <form:form name="form" method="post" commandName="project">
@@ -193,7 +67,7 @@ function Calculate() {
 					<th class="left"><spring:message code="project.donor.type"/></th>
 					<th></th><th></th>
 				</tr></thead>
-				<tbody></tbody>
+				<tbody id="dtbody"></tbody>
 			</table>
 		</tags:table>
 		<c:if test="${accessOK}">
