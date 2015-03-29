@@ -1,4 +1,3 @@
-
 function deleteDonor(donorId) {
 	$.ajax({ url: '../donor/'+donorId+'/delete', type:"GET", dataType: 'json',
 		success: function( data, textStatus, jqXHR ) {
@@ -32,8 +31,9 @@ function editDonor() {
 	});
 }
 function loadDonors() {
-	$.getJSON("../../home/"+projId+"/donors.json", function(data) {
-		 tbody = $('#donorTable tbody');
+	var noCache = new Date().getTime();
+	$.getJSON("../../home/"+projId+"/donors.json", { "noCache": noCache }, function(data) {
+		tbody = $('#donorTable tbody');
 		 var dtbody = document.getElementById("dtbody");
 		 while (dtbody.firstChild) {
 			 dtbody.removeChild(dtbody.firstChild);
@@ -43,7 +43,7 @@ function loadDonors() {
 				 tr = $('<tr/>', {
 					id: 'donor'+data[key].orderBy,
 					donorId: data[key].donorId,
-					class: (data[key].orderBy % 2 == 0) ? 'even' : 'odd'
+					'class': (data[key].orderBy % 2 == 0) ? 'even' : 'odd'
 				 });
 				 
 				 // description
@@ -53,13 +53,13 @@ function loadDonors() {
 					 text=data[key].description;
 				 }
 				td1 = $('<td/>', {
-					class: 'left',
+					'class': 'left',
 					text: text
 				}).appendTo(tr);
 				 
 				 // contrib type
 				 td2 = $('<td/>', {
-						 class:'left',
+						 'class':'left',
 						 code:data[key].contribType,
 						 text:cType(data[key].contribType)
 			 	}).appendTo(tr);
