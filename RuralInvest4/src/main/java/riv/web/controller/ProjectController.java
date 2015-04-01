@@ -37,7 +37,6 @@ import riv.objects.FilterCriteria;
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
 import riv.objects.ProjectFinanceNongen;
-import riv.objects.ProjectFirstYear;
 import riv.objects.config.AppConfig1;
 import riv.objects.config.AppConfig2;
 import riv.objects.config.Beneficiary;
@@ -363,6 +362,7 @@ public class ProjectController {
 			model.addAttribute("menuType","projectNoninc");
 		}
 		
+		// step-specific data for views
 		if (step==1 && p.getProjectId()!=null) {
 			long dirSize=0L;
 			List<AttachedFile> files = attachTools.getAttached(p.getProjectId(), true, false);
@@ -372,9 +372,7 @@ public class ProjectController {
 			model.addAttribute("files",files);
 			model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
 			model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
-		} 
-		
-		if (!p.getIncomeGen() && step==10) {
+		} else if (!p.getIncomeGen() && step==10) {
 			// get yearly cash flow total
 			ArrayList<ProjectFinanceNongen> data = ProjectFinanceNongen.analyzeProject(p);
 			model.addAttribute("years",data);
@@ -385,34 +383,34 @@ public class ProjectController {
 				donors.put(d.getOrderBy(), d);
 			}
 			model.addAttribute("donors",donors);
-		} 
-		
-		if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
-			ProjectFirstYear pfy = new ProjectFirstYear(p, true);
-			int period;
-			double amount;
 			
+			// new contributions summary
+			model.addAttribute("summary",p.getDonationSummary());
+			
+		} else if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
+			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+			
+			int period; double amount;
 			if (p.getWizardStep()==null) {
 				ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 				period = pr.getWcPeriod();
 				amount = pr.getWorkingCapital();
-				model.addAttribute("result",pr);
+				model.addAttribute("result",pr);	
 			} else {
-				FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
 				period = matrix.getWcPeriod();
 				amount= matrix.getWcValue();
 			}
-			model.addAttribute("firstYear", pfy.getCumulative());
-			model.addAttribute("firstYearSummary",pfy.getSummary());
 			p.setWcFinancePeriod(period);
-			p.setWcAmountRequired(amount);	
+			p.setWcAmountRequired(amount);
 			
-		}  
-		
-		if (p.getIncomeGen() && (step==12 || step==13)) {
-			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
-			model.addAttribute("profitabilitySummary", matrix.getSummary(false, ProjectScenario.Incremental));// ProjectFinanceData.getSummary(data, false));
-			model.addAttribute("cashFlowSummary",matrix.getSummary(true, ProjectScenario.With));//ProjectFinanceData.getSummary(data, true));
+			if (step==12 || step==13) {
+				model.addAttribute("profitabilitySummary", matrix.getSummary(false, ProjectScenario.Incremental));
+				model.addAttribute("cashFlowSummary",matrix.getSummary(true, ProjectScenario.With));
+			}
+			
+			model.addAttribute("firstYear", matrix.getFirstYearData().getCumulative());
+			model.addAttribute("firstYearSummary",matrix.getFirstYearData().getSummary());
+			
 		} else if (!p.getIncomeGen() && (step==12 || step==13)) {
 			ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 			model.addAttribute("result",pr);

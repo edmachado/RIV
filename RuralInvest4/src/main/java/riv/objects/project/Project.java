@@ -1458,6 +1458,103 @@ public double getInvestmentTotal() {
 		}
 	}	
 	
+	public double[][][] getDonationSummary() {
+		if (incomeGen) { throw new RuntimeException("Method only for NIG projects."); }
+		
+		int donorSize=donors.size();
+		double[][][] donations = new double[donorSize+1][5][this.getDuration()];
+		
+		// investment donations
+		for (ProjectItemAsset a : this.getAssets()) {
+			for (int d : a.getDonations().keySet()) {
+				donations[d][0][a.getYearBegin()-1] += a.getDonations().get(d);
+				if (a.getReplace()) {
+					int replace=a.getYearBegin()+a.getEconLife();
+					while (replace<=this.getDuration()) {
+						donations[d][0][replace-1] += a.getDonations().get(d);
+						replace+=a.getEconLife();
+					}
+				}
+			}
+		}
+		for (ProjectItemLabour l : this.getLabours()) {
+			for (int d : l.getDonations().keySet()) {
+				donations[d][0][l.getYearBegin()-1] += l.getDonations().get(d);
+			}
+		}
+		for (ProjectItemService s : this.getServices()) {
+			for (int d : s.getDonations().keySet()) {
+				donations[d][0][s.getYearBegin()-1] += s.getDonations().get(d);
+			}
+		}
+		
+		// general cost donations
+		for (ProjectItemNongenMaterials m : this.getNongenMaterials()) {
+			for (int d : m.getDonations().keySet()) {
+				for (int y=0;y<this.getDuration();y++) {
+					donations[d][1][y] += m.getDonations().get(d);
+				}
+			}
+		}
+		for (ProjectItemNongenMaintenance m : this.getNongenMaintenance()) {
+			for (int d : m.getDonations().keySet()) {
+				for (int y=0;y<this.getDuration();y++) {
+					donations[d][1][y] += m.getDonations().get(d);
+				}
+			}
+		}
+		for (ProjectItemNongenLabour l : this.getNongenLabours()) {
+			for (int d : l.getDonations().keySet()) {
+				for (int y=0;y<this.getDuration();y++) {
+					donations[d][1][y] += l.getDonations().get(d);
+				}
+			}
+		}
+		
+		// activity costs
+		for (Block b : this.getBlocks()) {
+			for (BlockInput i : b.getInputs()) {
+				for (int d : i.getDonations().keySet()) {
+					for (int y=0;y<this.getDuration();y++) {
+						donations[d][2][y] += i.getDonations().get(d);
+					}
+				}
+			}
+			for (BlockLabour l : b.getLabours()) {
+				for (int d : l.getDonations().keySet()) {
+					for (int y=0;y<this.getDuration();y++) {
+						donations[d][2][y] += l.getDonations().get(d);
+					}
+				}
+			}
+		}
+		
+		// contributions
+		for (ProjectItemContribution c : this.getContributions()) {
+			if (perYearContributions) {
+				donations[c.getDonorOrderBy()][3][c.getYear()-1] += c.getUnitNum()*c.getUnitCost();
+			} else {
+				for (int y=0;y<this.getDuration();y++) {
+					donations[c.getDonorOrderBy()][3][y] += c.getUnitNum()*c.getUnitCost();
+				}
+			}
+		}
+		
+		// totals
+		for (int d=0;d<donorSize;d++) {
+			for (int y=0;y<this.getDuration();y++) {
+				donations[d][4][y]+=donations[d][0][y]+donations[d][1][y]+donations[d][2][y]+donations[d][3][y];
+				donations[donorSize][4][y]+=donations[d][4][y];
+				for (int t=0;t<4;t++) {
+					donations[donorSize][t][y]+=donations[d][t][y];
+				}
+				
+			}
+		}
+		
+		return donations;
+	}
+	
 	/**
 	 * Creates a properties file with the project's data. For use in testing framework
 	 * @return the properties file

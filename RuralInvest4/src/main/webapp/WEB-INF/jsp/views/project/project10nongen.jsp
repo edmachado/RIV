@@ -8,6 +8,7 @@
 </style>
 <script>
 $(function() {
+	$('#summaryContributions > div > table > tbody > tr:even').addClass("odd");
 	$('#yearByYear').buttonset();
 	$( document ).tooltip();
 	$('#confirmSimple').dialog({
@@ -71,7 +72,7 @@ $(function() {
  	
  	<div id="contribSummary" style="display:block;">
  		<h2><spring:message code="project.report.contributionSummary"/></h2>
- 		<tags:summaryContributions/>
+<%--  		<tags:summaryContributions/> --%>
  	</div>
  	
  	<div id="yearlyFlow" style="display:block;">

@@ -83,9 +83,9 @@ public class FinanceMatrix {
 		return yearlyData;
 	}
 	
-//	public ProjectFirstYear getFirstYearData() {
-//		return firstYearData;
-//	}
+	public ProjectFirstYear getFirstYearData() {
+		return firstYearData;
+	}
 	
 	public enum ProjectScenario {
 		With, Without, Incremental

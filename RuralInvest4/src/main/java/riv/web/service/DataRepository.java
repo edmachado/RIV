@@ -826,6 +826,8 @@ public class DataRepository {
 				.add(Restrictions.eq("projectId", id));
 		Project p = (Project) criteria.uniqueResult();
 
+		if (!p.getIncomeGen()&&step==10) {withDonations=true;}
+		
 		// only populate collections necessary for the operation performed
 		Hibernate.initialize(p.getTechnician());
 
