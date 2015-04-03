@@ -12,7 +12,10 @@
 				<a href="import"><spring:message code="settings.firstConfigImport"/></a><br/>
 			</c:if>
 			<c:if test="${rivConfig.complete}">
-				<a href="export/settings.riv" id="export"><spring:message code="settings.export"/></a><br/>
+				<a href="export/settings.riv" id="export">
+					<img width="16" border="0" height="16" title="<spring:message code="settings.export"/>" alt="<spring:message code="settings.export"/>" src="../img/export_riv.gif">
+					<spring:message code="settings.export"/>
+				</a><br/>
 			</c:if>
 			<c:if test="${user.administrator}"><a id="reset" style="display:none;" href="reset">Reset RuralInvest</a></c:if>
 			
