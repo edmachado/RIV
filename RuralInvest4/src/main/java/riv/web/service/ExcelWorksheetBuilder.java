@@ -2798,7 +2798,8 @@ public class ExcelWorksheetBuilder {
 					+sheetName+"!$C$"+i+"*"+sheetName+"!$J$"+i+"/12, 0)+"
 				);
 			}
-			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", formula.deleteCharAt(formula.length()-1).toString());	
+			if (formula.length()>0) { formula.deleteCharAt(formula.length()-1); }
+			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", formula.toString());	
 		} else {
 			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", pfy.getMaintenanceCost());
 		}
