@@ -51,7 +51,7 @@
 				<div>
 					<spring:message code="project.technician"/><br/>
 					<form:select path="users" multiple="true" size="4">
-						<form:options items="${rivConfig.users.values()}" itemValue="userId" itemLabel="description"/>
+						<form:options items="${users}" itemValue="userId" itemLabel="description"/>
 					</form:select>
 				</div>
 				<div class="toggle ${hidden}">

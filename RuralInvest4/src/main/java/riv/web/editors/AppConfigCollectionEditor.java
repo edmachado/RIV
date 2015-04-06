@@ -10,7 +10,6 @@ import riv.objects.config.EnviroCategory;
 import riv.objects.config.FieldOffice;
 import riv.objects.config.ProjectCategory;
 import riv.objects.config.Status;
-import riv.objects.config.User;
 import riv.web.config.RivConfig;
 
 public class AppConfigCollectionEditor extends PropertyEditorSupport {
@@ -45,8 +44,6 @@ public class AppConfigCollectionEditor extends PropertyEditorSupport {
         		list.add(rivConfig.getAppConfig1s().get(Integer.valueOf(str)));
         	} else if (appConfigType.equals(AppConfig2.class)) {
         		list.add(rivConfig.getAppConfig2s().get(Integer.valueOf(str)));
-        	} else if (appConfigType.equals(User.class)) {
-        		list.add(rivConfig.getUsers().get(Integer.valueOf(str)));
         	}
         }
     }

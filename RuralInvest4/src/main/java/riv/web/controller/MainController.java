@@ -294,7 +294,7 @@ public class MainController {
 	// USERS
 	@RequestMapping("/config/user")
     public String users(Model model) {
-    	model.addAttribute("users", rivConfig.getUsers().values());
+    	model.addAttribute("users", dataService.getUsers());// rivConfig.getUsers().values());
     	return "config/users";
     }
 	

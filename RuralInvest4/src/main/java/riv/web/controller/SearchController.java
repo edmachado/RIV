@@ -26,13 +26,13 @@ import riv.objects.config.EnviroCategory;
 import riv.objects.config.FieldOffice;
 import riv.objects.config.ProjectCategory;
 import riv.objects.config.Status;
-import riv.objects.config.User;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.ProjectResult;
 import riv.util.ExcelWrapper;
 import riv.util.ReportWrapper;
 import riv.web.config.RivConfig;
 import riv.web.editors.AppConfigCollectionEditor;
+import riv.web.editors.UserCollectionEditor;
 import riv.web.service.DataService;
 import riv.web.service.ExcelWorksheetBuilder;
 import riv.web.service.Exporter;
@@ -61,11 +61,11 @@ public class SearchController {
     	binder.registerCustomEditor(List.class, "offices", new AppConfigCollectionEditor(rivConfig, List.class, FieldOffice.class));
         binder.registerCustomEditor(List.class, "statuses", new AppConfigCollectionEditor(rivConfig, List.class, Status.class));
         binder.registerCustomEditor(List.class, "categories", new AppConfigCollectionEditor(rivConfig, List.class, ProjectCategory.class));
-        binder.registerCustomEditor(List.class, "users", new AppConfigCollectionEditor(rivConfig, List.class, User.class));
         binder.registerCustomEditor(List.class, "enviroCategories", new AppConfigCollectionEditor(rivConfig, List.class, EnviroCategory.class));
         binder.registerCustomEditor(List.class, "beneficiaries", new AppConfigCollectionEditor(rivConfig, List.class, Beneficiary.class));
         binder.registerCustomEditor(List.class, "appConfig1s", new AppConfigCollectionEditor(rivConfig, List.class, AppConfig1.class));
         binder.registerCustomEditor(List.class, "appConfig2s", new AppConfigCollectionEditor(rivConfig, List.class, AppConfig2.class));
+        binder.registerCustomEditor(List.class, "users", new UserCollectionEditor(dataService, List.class));
     }
     
     @RequestMapping(value="/report/projectResults.xlsx", method=RequestMethod.GET)
@@ -153,6 +153,7 @@ public class SearchController {
     @RequestMapping(method=RequestMethod.GET)
     public String search(Model model, HttpServletRequest request) {
     	model.addAttribute("filterCriteria",filter);
+    	model.addAttribute("users",dataService.getUsers());
     	return "search";
     }
 

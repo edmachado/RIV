@@ -2,6 +2,7 @@ package riv.objects.config;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,8 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -44,6 +49,12 @@ public class User implements UserDetails {
 	@Size(max=255)
 	private String email;
 	private boolean administrator;
+	
+	@Column(name="LAST_LOGIN")
+	@DateTimeFormat(iso=ISO.DATE_TIME)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastLogin;
+	
 	private String lang;
      @Column(name="RESULT_USER_CODE") private boolean resultUserCode;
      @Column(name="RESULT_TECHNICIAN") private boolean resultTechnician;
@@ -196,6 +207,14 @@ public class User implements UserDetails {
 
 	public void setAdministrator(boolean administrator) {
 		this.administrator = administrator;
+	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
 	public String getLang() {

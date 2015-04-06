@@ -21,13 +21,11 @@ import riv.objects.config.FieldOffice;
 import riv.objects.config.ProjectCategory;
 import riv.objects.config.Setting;
 import riv.objects.config.Status;
-import riv.objects.config.User;
 import riv.web.service.DataService;
 
 @Component("rivConfig")
 public class RivConfig {
 	private Setting setting;
-	private Map<Integer, User> users;
 	private Map<Integer, Beneficiary> beneficiaries;
 	private Map<Integer, ProjectCategory> categories;
 	private Map<Integer, FieldOffice> fieldOffices;
@@ -54,7 +52,6 @@ public class RivConfig {
 		this.dataService=dService;
 		this.version=dataService.getLatestVersion().getVersion();
 		reload();
-		loadUsers();
 		
 		labourTypes.put("0", translate("units.pyears"));
 		labourTypes.put("1", translate("units.pmonths"));
@@ -97,17 +94,6 @@ public class RivConfig {
 		loadAppConfig1s();
 		loadAppConfig2s();
 	}
-	
-	public void loadUsers() {
-		users = new LinkedHashMap<Integer, User>();
-		for (User user : dataService.getUsers()) {
-			users.put(user.getUserId(), user);
-		}
-	}
-
-public Map<Integer, User> getUsers() {
-	return users;
-}
 	
 	public void storeAppConfig(AppConfig ac) {
 		dataService.storeAppConfig(ac);

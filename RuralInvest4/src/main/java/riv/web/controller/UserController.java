@@ -81,7 +81,7 @@ public class UserController {
 	@RequestMapping(value="indicators/{id}", method=RequestMethod.POST)
 	public String saveIndicators(@ModelAttribute User user, HttpServletRequest request) {
 		dataService.storeUser(user);
-		rivConfig.loadUsers();
+		//rivConfig.loadUsers();
 		if (isCurrentUser(user.getUserId(), request)) reloadCurrentUser(user);
 		return "redirect:../indicators/"+user.getUserId();
 	}
@@ -112,7 +112,7 @@ public class UserController {
 			}
 			
 			dataService.storeUser(user);
-			rivConfig.loadUsers();
+			//rivConfig.loadUsers();
 			if (isCurrentUser(id, request)) reloadCurrentUser(user);
 			return "redirect:../user";
 		}
@@ -130,7 +130,7 @@ public class UserController {
 	@RequestMapping(value="/user/{id}/delete", method=RequestMethod.GET)
 	public String delete(@PathVariable Integer id, @ModelAttribute User user, Model model) {
 		dataService.deleteUser(user);
-		rivConfig.loadUsers();
+		//rivConfig.loadUsers();
 		return "redirect:../../user";
 	}	
 }

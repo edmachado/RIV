@@ -72,6 +72,10 @@ public class DataService implements UserDetailsService, Serializable {
 	@Autowired
 	private DataRepository repo;
 	
+	public void updateLogin(String username) {
+		repo.updateLogin(username);
+	}
+	
 	public Donor getDonor(int id) {
 		return repo.getDonor(id);
 	}

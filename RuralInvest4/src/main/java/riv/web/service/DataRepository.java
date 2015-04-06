@@ -104,6 +104,12 @@ public class DataRepository {
 		return sessionFactory.getCurrentSession();
 	}
 	
+	public void updateLogin(String username) {
+		SQLQuery q = currentSession().createSQLQuery("UPDATE user SET last_login=NOW() WHERE username=:username");
+		q.setString("username", username);
+		q.executeUpdate();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void deleteAll(boolean project, boolean incomeGen) {
 		Criteria c = currentSession().createCriteria(project ? Project.class : Profile.class).add(Restrictions.eq("incomeGen", incomeGen));	

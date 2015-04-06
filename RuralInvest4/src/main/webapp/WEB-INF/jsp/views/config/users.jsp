@@ -17,6 +17,11 @@ $(function() { $("#confirmDelete").dialog({
 			<tags:table titleKey="user.users">
 	<display:table name="users" htmlId="users" id="row" requestURI="" cellpadding="0" cellspacing="0" defaultsort="1">
 		<display:column titleKey="user.description" property="description" sortable="true" style="text-align:left;" headerClass="left" />
+		<c:if test="${rivConfig.qa}">
+			<display:column title="Last login" headerClass="left" class="left" sortable="true" sortProperty="lastLogin">
+				<fmt:formatDate value="${row.lastLogin}" type="both" pattern="dd/MM/yy HH:mm" />
+			</display:column>
+		</c:if>
 		<display:column titleKey="user.organization" property="organization" sortable="true" style="text-align:left;" headerClass="left" />
 		<display:column titleKey="user.location" property="location" sortable="true" style="text-align:left;" headerClass="left" />
 		<display:column titleKey="user.telephone" property="telephone" sortable="true" style="text-align:left;" headerClass="left" />
