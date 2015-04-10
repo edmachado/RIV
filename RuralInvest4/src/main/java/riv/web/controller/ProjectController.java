@@ -388,7 +388,7 @@ public class ProjectController {
 			model.addAttribute("summary",p.getDonationSummary());
 			
 		} else if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
-			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 			
 			int period; double amount;
 			if (p.getWizardStep()==null) {

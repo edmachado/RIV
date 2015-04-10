@@ -2234,7 +2234,7 @@ public double getInvestmentTotal() {
 		double investDonated=0.0;
 		
 		if (this.getIncomeGen()) { // INCOME GENERATING
-			FinanceMatrix matrix = new FinanceMatrix(this, setting.getDiscountRate());
+			FinanceMatrix matrix = new FinanceMatrix(this, setting.getDiscountRate(), setting.getDecimalLength());
 			ProjectFinanceData last = matrix.getYearlyData().get(duration-1);
 			// annual net income from profitability report
 			double annualNetIncome=

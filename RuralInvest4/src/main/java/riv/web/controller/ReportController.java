@@ -157,7 +157,7 @@ public class ReportController {
 	@RequestMapping(value="{id}/projectCashFlow.pdf", method=RequestMethod.GET)
 	public void projectCashFlow(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
-		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ReportWrapper with = reportCreator.projectCashFlow(p, 0, matrix, false);
 		if (!p.isWithWithout()) {
 			reportCreator.export(response, with);
@@ -195,7 +195,7 @@ public class ReportController {
 	@RequestMapping(value="{id}/projectProfitability.pdf", method=RequestMethod.GET)
 	public void projectProfitability(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
-		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ReportWrapper with = reportCreator.projectProfitability(p, dataService.getProjectResult(id), 0, matrix, ProjectScenario.With);
 		
 		if (!p.isWithWithout()) {
@@ -223,7 +223,7 @@ public class ReportController {
 	   public void completeProjectReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		   Project p = dataService.getProject(id, -1);
 		   ProjectResult pr = dataService.getProjectResult(id);
-		   FinanceMatrix matrix = p.getIncomeGen() ? new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate()) : null;
+		   FinanceMatrix matrix = p.getIncomeGen() ? new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength()) : null;
 		   List<ReportWrapper> reports = reportCreator.projectComplete(p, pr, matrix, response);
 		   concatReports(reports, response, "projectComplete.pdf");
 	   }

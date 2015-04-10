@@ -181,7 +181,7 @@ public class ProjectValidator implements Validator {
 				// calculated values
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
 				// calculate the working capital fields and validate them
-				FinanceMatrix matrix = new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate());
+				FinanceMatrix matrix = new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 				project.setWcFinancePeriod(matrix.getWcPeriod());
 				project.setWcAmountRequired(matrix.getWcValue());
 				ValidateUtils.rejectIfNegative(project, "wcAmountRequired", "project.amtRequired", errors);

@@ -251,7 +251,7 @@ public class ExcelReportController {
 	public void projectCashFlow(@PathVariable int id,
 			HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, -1);
-		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.projectCashFlow(report, p, matrix, false);
@@ -318,7 +318,7 @@ public class ExcelReportController {
 			HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
-		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate());
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.projectProfitability(report, p, pr, matrix, ProjectScenario.With);
@@ -363,7 +363,7 @@ public class ExcelReportController {
 		Project project = dataService.getProject(id, -1);
 		ProjectResult result = dataService.getProjectResult(id);
 		 
-		FinanceMatrix matrix= project.getIncomeGen() ? new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate()) : null;
+		FinanceMatrix matrix= project.getIncomeGen() ? new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength()) : null;
 		ExcelWrapper report = ewb.create();
 		try {
 			report.setCompleteReport(true);

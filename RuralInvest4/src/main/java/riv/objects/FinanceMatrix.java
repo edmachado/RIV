@@ -32,13 +32,15 @@ public class FinanceMatrix {
 	double npvWithoutDonation;
 	double npvWithDonation;
 	double discountRate;
+	int decimals;
 	BigDecimal irrWithoutDonation;
 	BigDecimal irrWithDonation;
 	int wcPeriod;
 	double wcValue;
 	
-	public FinanceMatrix(Project project, double discountRate) {
+	public FinanceMatrix(Project project, double discountRate, int decimals) {
 		this.discountRate = discountRate;
+		this.decimals=decimals;
 		analyzeProject(project);
 		firstYearData = new ProjectFirstYear(project, false);
 		addWorkingCapital(project);
@@ -159,7 +161,7 @@ public class FinanceMatrix {
 			}
 		}
 		wcPeriod = lastNegMonth==0 ? 0 : lastNegMonth>10 ? 12 : lastNegMonth+2; // month of highest negative +2, not to exceed 12 
-		wcValue = highestNeg*-1;
+		wcValue = round(highestNeg*-1);
 		
 		// year 1
 		yearlyData.get(0).workingCapitalCapital=wcValue-project.getCapitalDonate()-project.getCapitalOwn();
@@ -498,7 +500,7 @@ public class FinanceMatrix {
 	
 	private double round(double d) {
 		 BigDecimal bd = new BigDecimal(Double.toString(d));
-		    bd = bd.setScale(2,BigDecimal.ROUND_HALF_UP);
+		    bd = bd.setScale(decimals,BigDecimal.ROUND_HALF_UP);
 		    return bd.doubleValue();
 	 }
 	
