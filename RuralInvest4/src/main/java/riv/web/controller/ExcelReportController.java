@@ -297,9 +297,9 @@ public class ExcelReportController {
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
 		try {
-			ewb.projectCashFlowFirst(report, p, pr, false);
+			ewb.projectCashFlowFirst(report, p, pr, false, rivConfig.getSetting().getDecimalLength());
 			if (p.isWithWithout()) {
-				ewb.projectCashFlowFirst(report, p, pr, true);
+				ewb.projectCashFlowFirst(report, p, pr, true, rivConfig.getSetting().getDecimalLength());
 			}
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectCashFlowFirst.xlsx");
@@ -388,9 +388,9 @@ public class ExcelReportController {
 					ewb.blocks(report, project, true);
 				}
 				ewb.projectParameters(report, project, result);
-				ewb.projectCashFlowFirst(report, project, result, false);
+				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength());
 				if (project.isWithWithout()) {
-					ewb.projectCashFlowFirst(report, project, result, true);
+					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength());
 				}
 				ewb.projectCashFlow(report, project, matrix, false);
 				if (project.isWithWithout()) {

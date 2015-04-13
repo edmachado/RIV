@@ -42,7 +42,7 @@ public class FinanceMatrix {
 		this.discountRate = discountRate;
 		this.decimals=decimals;
 		analyzeProject(project);
-		firstYearData = new ProjectFirstYear(project, false);
+		firstYearData = new ProjectFirstYear(project, false, decimals);
 		addWorkingCapital(project);
 		if ((project.getWizardStep()==null || project.getWizardStep()>11)
 				&!(project.getLoan1Interest()==null||project.getLoan1GraceInterest()==null||project.getLoan1GraceCapital()==null||project.getLoan1Duration()==null
@@ -57,7 +57,7 @@ public class FinanceMatrix {
 	}
 	
 	protected void finalize() {
-		LOG.info("FinanceMatrix finalize.");
+		LOG.debug("FinanceMatrix finalize.");
 		yearlyData.clear();
 	}
 	

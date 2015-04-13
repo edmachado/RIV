@@ -432,7 +432,7 @@ public class PdfReportCreator {
 		JasperReport jrTotals = compileReport("/reports/project/projectCashFlowFirstTotals.jasper");
 		report.getParams().put("totalsSubReport", jrTotals);
 		
-		report.getParams().put("firstYearData", new ProjectFirstYear(project, without));
+		report.getParams().put("firstYearData", new ProjectFirstYear(project, without, rivConfig.getSetting().getDecimalLength()));
 		report.getParams().put("months", months(project));
 		
 		String title;

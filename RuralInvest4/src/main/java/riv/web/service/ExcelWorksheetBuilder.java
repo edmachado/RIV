@@ -2654,9 +2654,9 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 
-	public Sheet projectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result, boolean without) {
+	public Sheet projectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result, boolean without, int decimals) {
 
-		ProjectFirstYear pfy = new ProjectFirstYear(project, without);
+		ProjectFirstYear pfy = new ProjectFirstYear(project, without, decimals);
 		String sheetname; String title;
 		if (!without) {
 			if (project.isWithWithout()) {
@@ -2794,11 +2794,14 @@ public class ExcelWorksheetBuilder {
 			StringBuilder formula = new StringBuilder();
 			for (int i=firstRow; i<firstRow+(without ? project.getAssetsWithout().size() : project.getAssets().size());i++) {
 				formula.append(
-					"IF(" + sheetName+"!$M$"+i+"=1,"
-					+sheetName+"!$C$"+i+"*"+sheetName+"!$J$"+i+"/12, 0)+"
+					String.format("IF(%s!$M$%d=1,%s!$C$%d*%s!$J$%d,0)+",sheetName, i, sheetName, i, sheetName, i)
 				);
 			}
-			if (formula.length()>0) { formula.deleteCharAt(formula.length()-1); }
+			if (formula.length()>0) { 
+				formula.deleteCharAt(formula.length()-1);
+				formula.insert(0, "ROUND((");
+				formula.append(")/12,"+decimals+")");
+			}
 			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", formula.toString());	
 		} else {
 			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", pfy.getMaintenanceCost());
@@ -2806,7 +2809,8 @@ public class ExcelWorksheetBuilder {
 
 		row = sheet.createRow(++rowNum);
 		if (report.isCompleteReport()) {
-			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", (without ? report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH) : report.getLink(ExcelLink.PROJECT_GENERAL_CASH))+"/12");
+			String formula = String.format("ROUND(%s/12,%d)", without ? report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH) : report.getLink(ExcelLink.PROJECT_GENERAL_CASH), decimals);
+			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", formula);
 		} else {
 			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", pfy.getGeneralCost());
 		}

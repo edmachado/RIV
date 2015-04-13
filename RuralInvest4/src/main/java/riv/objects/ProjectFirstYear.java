@@ -1,5 +1,6 @@
 package riv.objects;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemPersonnel;
+import riv.objects.project.ProjectItemPersonnelWithout;
 import riv.objects.project.ProjectMonthFlow;
 
 public class ProjectFirstYear {
@@ -21,10 +24,12 @@ public class ProjectFirstYear {
 	private double[] totals;
 	private double[] cumulative;
 	private boolean without;
+	private int decimals;
 	
-	public ProjectFirstYear(Project project, boolean without) {
+	public ProjectFirstYear(Project project, boolean without, int decimals) {
 		this.project=project;
 		this.without=without;
+		this.decimals=decimals;
 		incomes = new ArrayList<ProjectMonthFlow>();
 		costs = new ArrayList<ProjectMonthFlow>();
 		totals=new double[12];
@@ -71,23 +76,32 @@ public class ProjectFirstYear {
 		// fixed-month costs
 		if (!without) {
 			for (ProjectItemAsset ass : project.getAssets()) {
-				if (ass.getYearBegin()==1)  { maintenanceCost += (ass.getMaintCost()*ass.getUnitNum()); }
+				if (ass.getYearBegin()==1)  { maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); }
 			}
 		} else {
 			for (ProjectItemAssetWithout ass : project.getAssetsWithout()) {
-				if (ass.getYearBegin()==1)  { maintenanceCost += (ass.getMaintCost()*ass.getUnitNum()); }
+				if (ass.getYearBegin()==1)  { maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); }
 			}
 		}
-		maintenanceCost /= 12;
+		maintenanceCost = round(maintenanceCost/12);
 		
-		for (ProjectItemGeneral gen : project.getGenerals()) {
-			generalCost+=gen.getUnitCost()*gen.getUnitNum()-gen.getOwnResources();
-		}
-		for (ProjectItemPersonnel per : project.getPersonnels()) {
-			generalCost+=per.getUnitCost()*per.getUnitNum()-per.getOwnResources();
+		if (without) {
+			for (ProjectItemGeneralWithout gen : project.getGeneralWithouts()) {
+				generalCost+=round(gen.getUnitCost()*gen.getUnitNum())-gen.getOwnResources();
+			}
+			for (ProjectItemPersonnelWithout per : project.getPersonnelWithouts()) {
+				generalCost+=round(per.getUnitCost()*per.getUnitNum())-per.getOwnResources();
+			}
+		} else {
+			for (ProjectItemGeneral gen : project.getGenerals()) {
+				generalCost+=round(gen.getUnitCost()*gen.getUnitNum())-gen.getOwnResources();
+			}
+			for (ProjectItemPersonnel per : project.getPersonnels()) {
+				generalCost+=round(per.getUnitCost()*per.getUnitNum())-per.getOwnResources();
+			}
 		}
 		
-		generalCost /= 12;
+		generalCost = round(generalCost/12);
 		for (int i=0;i<12;i++) {
 			totals[i]=-(maintenanceCost+generalCost);
 		}		
@@ -100,12 +114,12 @@ public class ProjectFirstYear {
 			incFlow.setDescription(block.getDescription());
 			int activeChrons = 0;
 			for (BlockChron chron : block.getChrons().values()) {
-				if (chron.getChronType()==2) activeChrons++;
+				if (chron.getChronType()==2) { activeChrons++; }
 			}
 			double unitIncome = block.getTotalCashIncome().doubleValue()*block.getCycleFirstYearIncome()*block.getPatterns().get(1).getQty()/activeChrons;
 			for (int i=0;i<12;i++) {
-				if (block.getChrons().get("2-"+i+"-0")!=null) incFlow.getFlowData()[i] = unitIncome;
-				if (block.getChrons().get("2-"+i+"-1")!=null) incFlow.getFlowData()[i] = incFlow.getFlowData()[i] + unitIncome;
+				if (block.getChrons().get("2-"+i+"-0")!=null) { incFlow.getFlowData()[i] = unitIncome; }
+				if (block.getChrons().get("2-"+i+"-1")!=null) { incFlow.getFlowData()[i] = incFlow.getFlowData()[i] + unitIncome; }
 				totals[i]+=incFlow.getFlowData()[i];
 			}
 			getIncomes().add(incFlow);
@@ -158,5 +172,10 @@ public class ProjectFirstYear {
 	public double[] getCumulative() {
 		return cumulative;
 	}
-
+	
+	private double round(double d) {
+		 BigDecimal bd = new BigDecimal(Double.toString(d));
+		    bd = bd.setScale(decimals,BigDecimal.ROUND_HALF_UP);
+		    return bd.doubleValue();
+	 }
 }
