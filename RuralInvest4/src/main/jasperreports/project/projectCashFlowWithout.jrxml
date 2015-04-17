@@ -60,14 +60,13 @@
 	<field name="costInvestOwnWithout" class="java.lang.Double"/>
 	<field name="workingCapitalCapital" class="java.lang.Double"/>
 	<field name="incCapitalOwn" class="java.lang.Double"/>
+	<field name="costInvestFinanceWithout" class="java.lang.Double"/>
 	<variable name="showRowLabel" class="java.lang.Boolean">
 		<variableExpression><![CDATA[new java.lang.Boolean($F{year}.intValue()==1||($F{year}.intValue()-1)%8==0)]]></variableExpression>
 	</variable>
 	<variable name="incFinanceTotal" class="java.lang.Double">
-		<variableExpression><![CDATA[$P{without}
-? $F{costInvestDonatedWithout}+$F{costInvestOwnWithout}
-: $F{costInvestDonated}+$F{costInvestOwn}+$F{loanReceived}
-+$F{workingCapitalCapital}+$F{incCapitalDonation}+$F{incCapitalOwn}]]></variableExpression>
+		<variableExpression><![CDATA[$F{costInvestDonatedWithout}+$F{costInvestOwnWithout}+$F{costInvestFinanceWithout}
+]]></variableExpression>
 	</variable>
 	<variable name="incMainTotal" class="java.lang.Double">
 		<variableExpression><![CDATA[$P{without}
@@ -291,7 +290,7 @@
 				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="4bd7ce52-7031-4f61-ad97-93e17c9a7b8e" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="116" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="4bd7ce52-7031-4f61-ad97-93e17c9a7b8e" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="124" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -387,7 +386,7 @@
 				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="75d7dbda-8adc-46b4-8af8-cf220a4b57b4" key="line-1" positionType="Float" mode="Opaque" x="-167" y="115" width="234" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<reportElement uuid="75d7dbda-8adc-46b4-8af8-cf220a4b57b4" key="line-1" positionType="Float" mode="Opaque" x="-167" y="123" width="234" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
@@ -533,7 +532,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.own}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="e36dabf7-ec52-4ed4-bf6c-56e66c04b47c" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="127" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="e36dabf7-ec52-4ed4-bf6c-56e66c04b47c" key="textField-27" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="135" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -715,7 +714,7 @@
 : $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costGeneral},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="050c3168-aa73-40ce-aa86-fc4e9493cd1b" key="textField" positionType="Float" mode="Opaque" x="8" y="116" width="60" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="050c3168-aa73-40ce-aa86-fc4e9493cd1b" key="textField" positionType="Float" mode="Opaque" x="8" y="124" width="60" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -745,7 +744,7 @@
 : $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{incMainTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="6f08264a-4eff-45a4-8971-2d14b0137163" key="textField" positionType="Float" mode="Opaque" x="8" y="127" width="60" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="6f08264a-4eff-45a4-8971-2d14b0137163" key="textField" positionType="Float" mode="Opaque" x="8" y="135" width="60" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -817,6 +816,36 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(
     $V{cumulativeCF}
  ,riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="c1c04630-707b-40d6-a182-0fba141fcdd8" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="112" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.investWithout}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="de4bee8e-883c-4d59-b2df-1f6b52b7e939" key="textField" positionType="Float" mode="Opaque" x="8" y="112" width="60" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvestFinanceWithout},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

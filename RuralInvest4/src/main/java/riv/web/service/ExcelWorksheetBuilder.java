@@ -1878,7 +1878,7 @@ public class ExcelWorksheetBuilder {
 		// Incomes
 		rowNum = addRowTitles(new String[] { "project.report.profitability.incomes",
 				"project.report.cashFlow.income.main","project.report.profitability.incomes.sales", "project.report.profitability.incomes.salvage","misc.subtotal","","project.report.cashFlow.income.finance","project.report.cashFlow.income.invest", "project.report.cashFlow.income.own",
-				"project.report.cashFlow.income.loans","project.report.cashFlow.income.loanwc","project.report.cashFlow.income.wcDonation","project.report.cashFlow.income.wcOwn","misc.subtotal"
+				without ? "project.report.cashFlow.income.investWithout" : "project.report.cashFlow.income.loans","project.report.cashFlow.income.loanwc","project.report.cashFlow.income.wcDonation","project.report.cashFlow.income.wcOwn","misc.subtotal"
 		}, rowNum++, sheet, report);
 		
 		row = sheet.createRow(rowNum);
@@ -1999,7 +1999,15 @@ public class ExcelWorksheetBuilder {
 				}
 				report.addFormulaCell(sheet.getRow(10), yearNum, formulaBuild.toString(), Style.CURRENCY);
 				
-				if (!without) {
+				if (without) {
+					// financed investment
+					formula = String.format("%s!$%s$%d-%s!$%s$%d-%s!$%s$%d",
+							assetWithoutSheetName, getColumn(yearNum+12+project.getDuration()*3), assetWithoutSumRow,
+							assetWithoutSheetName, getColumn(yearNum+12+project.getDuration()*2), assetWithoutSumRow,
+							assetWithoutSheetName, getColumn(yearNum+12+project.getDuration()), assetWithoutSumRow
+					);
+					report.addFormulaCell(sheet.getRow(11), yearNum, formula, Style.CURRENCY);
+				} else {
 					// loan(s) received
 					formula=String.format("IF(%s2=1,%s,0)+IF(%s2=%s,%s,0)", 
 							col,report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT),
@@ -2250,7 +2258,7 @@ public class ExcelWorksheetBuilder {
 					
 					report.addNumericCell(sheet.getRow(9), yearNum, pfd.getCostInvestDonatedWithout(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(10), yearNum, pfd.getCostInvestOwnWithout(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(11), yearNum, pfd.getLoanReceived(), Style.CURRENCY);
+					report.addNumericCell(sheet.getRow(11), yearNum, pfd.getCostInvestFinanceWithout(), Style.CURRENCY);
 //					report.addNumericCell(sheet.getRow(12), yearNum, pfd.getWorkingCapitalCapital(), Style.CURRENCY);
 //					report.addNumericCell(sheet.getRow(13), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
 //					report.addNumericCell(sheet.getRow(14), yearNum, pfd.getIncCapitalOwn(), Style.CURRENCY);
@@ -2288,7 +2296,7 @@ public class ExcelWorksheetBuilder {
 
 			// some rows hidden for "without project" scenario
 			if (without) {
-				for (int i=11;i<=14;i++) {
+				for (int i=12;i<=14;i++) {
 					sheet.getRow(i).setZeroHeight(true);
 				}
 				for (int i=31;i<=38;i++) {
