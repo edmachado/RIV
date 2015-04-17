@@ -435,19 +435,20 @@ public class PdfReportCreator {
 		report.getParams().put("firstYearData", new ProjectFirstYear(project, without, rivConfig.getSetting().getDecimalLength()));
 		report.getParams().put("months", months(project));
 		
+		
+		
 		String title;
 		if (!without) {
 			if (project.isWithWithout()) {
-				title=translate("project.report.cashFlowFirst") + " " + translate("project.with");
+				title=translate("project.report.cashFlowFirst") + " "+translate("project.with");
 			} else {
 				title=translate("project.report.cashFlowFirst");
 			}
-		} else {
-			title=translate("project.report.cashFlowFirst") + " " + translate("project.without");
+		} else { // without
+			title=translate("project.report.cashFlowFirst") + " "+translate("project.without");
 		}
-		
-		report.getParams().put("reportname", "I: "+title);
-		
+		report.getParams().put("title", title);
+		report.getParams().put("reportname", "I: "+translate("project.report.cashFlowFirst"));
 		
 		runReport(report);
 		return report;

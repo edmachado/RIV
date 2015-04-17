@@ -1913,7 +1913,7 @@ public class ExcelWorksheetBuilder {
 		
 		// hidden rows for loan amortization calculations
 		rowNum=loan1Total-1;
-		if (report.isCompleteReport()) {
+		if (report.isCompleteReport() && !without) {
 			for (String s : new String[] {"project.report.cashFlow.loan1.total","project.report.cashFlow.priCapital", "project.report.cashFlow.priInterest","project.report.cashFlow.loan1.capitalDuringGrace","project.report.cashFlow.loan1.interestDuringGrace","project.report.cashFlow.loan1.interestDuringGraceCapital",
 							"","project.report.cashFlow.loan2.total","project.report.cashFlow.secCapital", "project.report.cashFlow.secInterest","project.report.cashFlow.loan2.capitalDuringGrace","project.report.cashFlow.loan2.interestDuringGrace","project.report.cashFlow.loan2.interestDuringGraceCapital",}) {
 				row = sheet.createRow(rowNum++);
