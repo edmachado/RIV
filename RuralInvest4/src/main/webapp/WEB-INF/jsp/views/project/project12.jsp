@@ -42,12 +42,12 @@ $(function() {
 		<li><a href="javascript:showSummary('summaryBlocks', 300, 1000);"><spring:message code="project.report.summary.block"/></a></li>			
 		<c:if test="${project.incomeGen}">
 			<li><a href="javascript:showSummary('summaryWc',300,1000);"><spring:message code="project.report.wcCalculation"/></a></li>
-			<li><a href="javascript:showSummary('summaryCashFlow', 200, 1000);"><spring:message code="project.report.cashFlow"/></a></li>
-			<li><a href="javascript:showSummary('summaryProfitability', 220, 1000);"><spring:message code="project.report.profitability"/></a></li>
+			<li><a href="javascript:showSummary('summaryCashFlow', 400, 1000);"><spring:message code="project.report.cashFlow"/></a></li>
+			<li><a href="javascript:showSummary('summaryProfitability', 400, 1000);"><spring:message code="project.report.profitability"/></a></li>
 		</c:if>
 		<c:if test="${not project.incomeGen}">
 			<li><a href="javascript:showSummary('summaryContributions', 300, 1000);"><spring:message code="project.report.contributionSummary"/></a></li>
-			<li><a href="javascript:showSummary('summaryCashFlow', 200, 1000);"><spring:message code="project.report.cashFlowNongen"/></a></li>
+			<li><a href="javascript:showSummary('summaryCashFlow', 400, 1000);"><spring:message code="project.report.cashFlowNongen"/></a></li>
 		</c:if>	
 		
 	</ul>

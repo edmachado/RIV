@@ -405,7 +405,10 @@ public class ProjectController {
 			
 			if (step==12 || step==13) {
 				model.addAttribute("profitabilitySummary", matrix.getSummary(false, ProjectScenario.Incremental));
+				model.addAttribute("profitabilitySummaryWith", matrix.getSummary(false, ProjectScenario.With));
+				model.addAttribute("profitabilitySummaryWithout", matrix.getSummary(false, ProjectScenario.Without));
 				model.addAttribute("cashFlowSummary",matrix.getSummary(true, ProjectScenario.With));
+				model.addAttribute("cashFlowSummaryWithout",matrix.getSummary(true, ProjectScenario.Without));
 			}
 			
 			model.addAttribute("firstYear", matrix.getFirstYearData().getCumulative());

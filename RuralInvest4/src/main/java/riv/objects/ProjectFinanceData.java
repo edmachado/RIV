@@ -69,7 +69,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 		return incSales-incSalesInternal+incSalvage+loanReceived+workingCapitalCapital+costInvestDonated+costInvestOwn+workingCapitalDonation+workingCapitalOwn;
 	}
 	public double getTotalIncomeCashFlowWithout() {
-		return incSalesWithout-incSalesInternalWithout+incSalvageWithout+costInvestDonatedWithout+costInvestOwnWithout;
+		return incSalesWithout-incSalesInternalWithout+incSalvageWithout+costInvestDonatedWithout+costInvestOwnWithout+getCostInvestFinanceWithout();
 	}
 //	public double getTotalIncomeProfitabilityx() {
 //		return incSales-incSalesWithout+incSalvage-incSalvageWithout+incResidual-incResidualWithout;
