@@ -72,6 +72,7 @@ $(function() {
  	
  	<div id="contribSummary" style="display:block;">
  		<h2><spring:message code="project.report.contributionSummary"/></h2>
+ 		<i>... waiting for RIV team input ...</i>
 <%--  		<tags:summaryContributions/> --%>
  	</div>
  	
