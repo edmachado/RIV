@@ -132,7 +132,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="346" splitType="Stretch">
+		<band height="337" splitType="Stretch">
 			<rectangle radius="0">
 				<reportElement uuid="d79eb56a-345f-4395-a2c0-4b3912d8302b" key="rectangle-1" positionType="Float" mode="Opaque" x="-134" y="14" width="202" height="12" forecolor="#000000" backcolor="#E5E5E5"/>
 				<graphicElement fill="Solid">
