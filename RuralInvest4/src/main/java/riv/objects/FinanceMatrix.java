@@ -214,9 +214,11 @@ public class FinanceMatrix {
 		// calculate interest and capital payments from first year after capital grace period ends
 		for (int i=0;i<project.getLoan2Duration()-project.getLoan2GraceCapital();i++) {
 			int year = project.getLoan2GraceCapital()+i-1+project.getLoan2InitPeriod();
-			double[] payments = payments(loan2interest, (double)i+1, (double)project.getLoan2Duration()-project.getLoan2GraceCapital(), loan2amt, 0.0);
-			yearlyData.get(year).loan2capital=payments[0];
-			yearlyData.get(year).loan2interest=payments[1];
+			if (yearlyData.size()<year) { //
+				double[] payments = payments(loan2interest, (double)i+1, (double)project.getLoan2Duration()-project.getLoan2GraceCapital(), loan2amt, 0.0);
+				yearlyData.get(year).loan2capital=payments[0];
+				yearlyData.get(year).loan2interest=payments[1];
+			}
 		}
 	}
 	
