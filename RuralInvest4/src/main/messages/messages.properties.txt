@@ -57,7 +57,7 @@ typeMismatch.java.lang.Double=This field is required and must be a number.
 typeMismatch.java.lang.Integer=This field is required and must be a whole number.
 typeMismatch.java.math.BigDecimal=This field is required and must be a number.
 typeMismatch.java.util.Date=This field is not a valid date format (dd/MM/yyyy).
-
+settings.export=Export the current RuralInvest configuration
 
 ### RIV4.1.4
 project.quickAnalysis=Quick analysis (no qualitative analysis)
@@ -1470,7 +1470,6 @@ settings.discountRate.help=The rate at which future returns are discounted to cu
 settings.discountRate=Discount rate
 settings.exchRate.help=Insert the current exchange rate to the dollar (Number of local currency units for 1 US $). Users will be able to modify this rate when preparing profiles or projects if it has changed.
 settings.exchRate=Exchange rate
-settings.export=Export
 settings.firstConfigImport=Import
 settings.link1.text=Link 1 text
 settings.link1.url=Link 1 URL
