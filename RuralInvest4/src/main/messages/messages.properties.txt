@@ -44,6 +44,7 @@ project.report.cashFlowFirst.with.sheetname=Cash Flow 1st yr (with)
 project.report.cashFlowFirst.without.sheetname=Cash Flow 1st yr (w.out)
 
 #changed from previous version
+project.report.contributionSummary=Donation summary
 project.step2=Beneficiaries & donors
 project.report.summary.block=With-project operational income and costs summary
 error.pleaseCorrect=Please check your data and correct the fields in red.
@@ -78,7 +79,6 @@ project.workingCapital.explain=Working capital for the first year is determined 
 project.amtRequired.explain=The largest negative value
 
 project.report.wcCalculation=Working Capital calculation
-project.report.contributionSummary=Contribution summary
 project.report.summaryTables=Summary tables
 project.report.summary.income=Income
 project.report.summary.costs=Costs

@@ -21,12 +21,14 @@
 						<td><tags:formatDecimal value="${summary[donorOrder][2][y]}" noDecimals="true" />
 					</c:forEach>
 				</tr>
-				<tr>
-					<td class="left" style="width:100px;">CONTRIBUTIONS</td>
-					<c:forEach begin="0" end="${project.duration-1}" var="y">
-						<td><tags:formatDecimal value="${summary[donorOrder][3][y]}" noDecimals="true" />
-					</c:forEach>
-				</tr>
+				<c:if test="${not project.incomeGen}">
+					<tr>
+						<td class="left" style="width:100px;">CONTRIBUTIONS</td>
+						<c:forEach begin="0" end="${project.duration-1}" var="y">
+							<td><tags:formatDecimal value="${summary[donorOrder][3][y]}" noDecimals="true" />
+						</c:forEach>
+					</tr>
+				</c:if>
 			</tbody>
 			<tfoot>
 			<tr height="1">

@@ -107,6 +107,7 @@ $(function() {
 		<ul>
 			<li><a href="javascript:showSummary('summaryBlocks', 300, 1000);"><spring:message code="project.report.summary.block"/></a></li>
 			<c:if test="${project.incomeGen}">
+				<li><a href="javascript:showSummary('summaryContributions', 300, 1000);"><spring:message code="project.report.contributionSummary"/></a></li>
 				<li><a href="javascript:showSummary('summaryWc', 300, 1000);"><spring:message code="project.report.wcCalculation"/></a></li>
 				<li><a href="javascript:showSummary('summaryCashFlow', 400, 1000);"><spring:message code="project.report.cashFlow"/></a></li>
 				<li><a href="javascript:showSummary('summaryProfitability', 400, 1000);"><spring:message code="project.report.profitability"/></a></li>
@@ -135,12 +136,10 @@ $(function() {
 	
 	<tags:summaryCashFlow />
 	<tags:summaryBlocks />
+	<tags:summaryContributions/>
 	<c:if test="${project.incomeGen}">
 		<tags:summaryWc />
 		<tags:summaryProfitability/>
-	</c:if>
-	<c:if test="${not project.incomeGen }">
-		<tags:summaryContributions/>
 	</c:if>
 	
 </body></html>
