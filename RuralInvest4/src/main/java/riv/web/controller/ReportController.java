@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
+import riv.objects.ProfileMatrix;
 import riv.objects.profile.Profile;
-import riv.objects.profile.ProfileResult;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectResult;
 import riv.util.ReportWrapper;
@@ -276,9 +276,22 @@ public class ReportController {
    
    @RequestMapping(value="/{id}/profilePrelimAnalysis.pdf", method=RequestMethod.GET)
    public void profilePrelimAnalysis(@PathVariable int id, HttpServletRequest request, HttpServletResponse response)  {
-	   ProfileResult pr = dataService.getProfileResult(id);
-	   ReportWrapper report = reportCreator.profilePrelimAnalysis(pr, 0);
-	   reportCreator.export(response, report);
+	   Profile p = dataService.getProfile(id, -1);
+	   ProfileMatrix matrix = new ProfileMatrix(p);
+	   ReportWrapper report = reportCreator.profilePrelimAnalysis(p, matrix, ProjectScenario.With, 0);
+	   if (!p.getWithWithout()) {
+		   reportCreator.export(response, report);
+	   } else {
+		   int page  = report.getJp().getPages().size();
+		   ReportWrapper reportWithout = reportCreator.profilePrelimAnalysis(p, matrix, ProjectScenario.Without, page);
+		   page += reportWithout.getJp().getPages().size();
+		   ReportWrapper reportIncr = reportCreator.profilePrelimAnalysis(p, matrix, ProjectScenario.Incremental, page);
+		   ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+			reports.add(report);
+			reports.add(reportWithout);
+			reports.add(reportIncr);
+			concatReports(reports, response, "profilePrelimAnalysis.pdf");
+	   }
    }
    
    @RequestMapping(value="/{id}/profileRecommendation.pdf", method=RequestMethod.GET)
@@ -291,8 +304,7 @@ public class ReportController {
    @RequestMapping(value="/{id}/profileComplete.pdf", method=RequestMethod.GET)
    public void completeReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
 	   Profile p = dataService.getProfile(id, -1);
-	   ProfileResult pr = dataService.getProfileResult(id);
-	   List<ReportWrapper> reports = reportCreator.profileComplete(p, pr, response);
+	   List<ReportWrapper> reports = reportCreator.profileComplete(p, response);
 	   concatReports(reports, response, "profileComplete.pdf");
    }
    

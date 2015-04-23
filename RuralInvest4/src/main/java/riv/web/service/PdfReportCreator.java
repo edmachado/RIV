@@ -32,6 +32,7 @@ import org.springframework.stereotype.Component;
 import riv.objects.FilterCriteria;
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
+import riv.objects.ProfileMatrix;
 import riv.objects.ProjectFinanceNongen;
 import riv.objects.ProjectFirstYear;
 import riv.objects.profile.Profile;
@@ -64,7 +65,8 @@ public class PdfReportCreator {
 	
 	public static final String MEDIA_TYPE_PDF = "application/pdf";
 	
-	public List<ReportWrapper> profileComplete(Profile profile, ProfileResult pr, HttpServletResponse response) {
+	public List<ReportWrapper> profileComplete(Profile profile, HttpServletResponse response) {
+		ProfileMatrix matrix = new ProfileMatrix(profile);
 		ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
 		int page=0;
 		
@@ -97,9 +99,17 @@ public class PdfReportCreator {
 			page = page+productWithout.getJp().getPages().size();
 			reports.add(productWithout);
 		}
-		ReportWrapper anal = profilePrelimAnalysis(pr, page);
+		ReportWrapper anal = profilePrelimAnalysis(profile, matrix, ProjectScenario.With, page);
 		page = page+anal.getJp().getPages().size();
 		reports.add(anal);
+		if (profile.getWithWithout()) {
+			ReportWrapper analWithout = profilePrelimAnalysis(profile, matrix, ProjectScenario.Without, page);
+			page = page+analWithout.getJp().getPages().size();
+			reports.add(analWithout);
+			ReportWrapper analIncr = profilePrelimAnalysis(profile, matrix, ProjectScenario.Incremental, page);
+			page = page+analIncr.getJp().getPages().size();
+			reports.add(analIncr);
+		}
 		ReportWrapper rec = profileRecommendation(profile, page);
 		page = page+rec.getJp().getPages().size();
 		reports.add(rec);
@@ -167,11 +177,45 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper profilePrelimAnalysis(ProfileResult pr, int startPage) {
-		ReportWrapper report = new ReportWrapper("/reports/profile/profilePrelimAnalysis.jasper", false, pr, "profilePrelimAnalysis.pdf", startPage);
+	public ReportWrapper profilePrelimAnalysis(Profile p, ProfileMatrix matrix, ProjectScenario scenario, int startPage) {
+		ReportWrapper report = new ReportWrapper("/reports/profile/profilePrelimAnalysis.jasper", false, p, "profilePrelimAnalysis.pdf", startPage);
 		
-		String reportCode = pr.isIncomeGen() ? "profile.report.preliminary" : "profile.report.benefits";
+		
+		String title = p.getIncomeGen() ? translate("profile.report.preliminary") : translate("profile.report.benefits");
+		if (scenario==ProjectScenario.With) {
+			if (p.getWithWithout()) { title+= " "+translate("project.with"); }
+		} else if (scenario==ProjectScenario.Without) {
+			title += " "+translate("project.without");
+		} else { // incremental
+			title += " "+translate("project.incremental");
+		}
+		report.getParams().put("title", title);
+		
+		String reportCode = p.getIncomeGen() ? "profile.report.preliminary" : "profile.report.benefits";
 		report.getParams().put("reportname", "E: "+translate(reportCode));
+		
+		if (scenario==ProjectScenario.With) {
+			report.getParams().put("investTotal", matrix.totalInvestmentWith);
+			report.getParams().put("investOwn", matrix.totalOwnResourcesWith);
+			report.getParams().put("totalIncome", matrix.totalIncomeWith);
+			report.getParams().put("costOper", matrix.operationCostWith);
+			report.getParams().put("costGeneral", matrix.generalCostWith);
+			report.getParams().put("annualReserve", matrix.annualReserveWith);
+		} else if (scenario==ProjectScenario.Without) {
+			report.getParams().put("investTotal", matrix.totalInvestmentWithout);
+			report.getParams().put("investOwn", matrix.totalOwnResourcesWithout);
+			report.getParams().put("totalIncome", matrix.totalIncomeWithout);
+			report.getParams().put("costOper", matrix.operationCostWithout);
+			report.getParams().put("costGeneral", matrix.generalCostWithout);
+			report.getParams().put("annualReserve", matrix.annualReserveWithout);
+		} else { // incremental
+			report.getParams().put("investTotal", matrix.totalInvestmentWith-matrix.totalInvestmentWithout);
+			report.getParams().put("investOwn", matrix.totalOwnResourcesWith-matrix.totalOwnResourcesWithout);
+			report.getParams().put("totalIncome", matrix.totalIncomeWith-matrix.totalIncomeWithout);
+			report.getParams().put("costOper", matrix.operationCostWith-matrix.operationCostWithout);
+			report.getParams().put("costGeneral", matrix.generalCostWith-matrix.generalCostWithout);
+			report.getParams().put("annualReserve", matrix.annualReserveWith-matrix.annualReserveWithout);
+		}
 		runReport(report);
 		return report;
 	}

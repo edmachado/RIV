@@ -11,21 +11,22 @@
 	<style name="Arial_Normal" isDefault="true" fontName="Arial" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Bold" fontName="Arial" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Italic" fontName="Arial" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="header" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="imgPath" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="investTotal" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="investOwn" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="totalIncome" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="costOper" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="costGeneral" class="java.lang.Double"/>
+	<parameter name="annualReserve" class="java.lang.Double" isForPrompting="false"/>
 	<field name="profileName" class="java.lang.String"/>
-	<field name="investmentTotal" class="java.lang.Double"/>
-	<field name="investmentOwn" class="java.lang.Double"/>
-	<field name="totIncome" class="java.lang.Double"/>
-	<field name="operCost" class="java.lang.Double"/>
-	<field name="generalCost" class="java.lang.Double"/>
-	<field name="annualReserve" class="java.lang.Double"/>
-	<field name="incomeGen" class="java.lang.Boolean"/>
 	<field name="benefNum" class="java.lang.Integer"/>
+	<field name="incomeGen" class="java.lang.Boolean"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -37,9 +38,7 @@
 					<subreportParameterExpression><![CDATA[$F{profileName}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="reportTitle">
-					<subreportParameterExpression><![CDATA[($F{incomeGen}.booleanValue()) ?
-$R{profile.report.preliminary} :
-$R{profile.report.benefits}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="rivConfig">
 					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
@@ -220,7 +219,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{investmentTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{investTotal},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="b42f750f-a2ea-4d1a-a524-500cd6edb8c3" key="textField" style="Arial_Normal" mode="Opaque" x="392" y="64" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -234,7 +233,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{investmentOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{investOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="78c5dda3-8316-46e1-aee1-5d9340da5087" key="textField" style="Arial_Normal" mode="Opaque" x="392" y="82" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -248,7 +247,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{totalIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="e42c27ec-5400-4aa2-8975-c6b0f8ee5eb3" key="textField" style="Arial_Normal" mode="Opaque" x="392" y="100" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -262,7 +261,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{operCost},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{costOper},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="92ebfc41-9c6e-433f-b46d-ccbab4965a6d" key="textField" style="Arial_Normal" mode="Opaque" x="392" y="121" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -276,7 +275,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{generalCost},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{costGeneral},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="578bbe4d-1757-44b9-8932-10462eb9ab97" key="textField" style="Arial_Normal" mode="Opaque" x="392" y="161" width="108" height="16" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -290,7 +289,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{annualReserve},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{annualReserve},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="bd095569-58ad-42ae-a3ba-bff8f14d2625" key="textField-34" style="Arial_Normal" mode="Opaque" x="392" y="44" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -304,7 +303,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{investmentTotal}.doubleValue()-$F{investmentOwn}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{investTotal}.doubleValue()-$P{investOwn}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="4bb2b919-19c7-4876-ab3e-90ef8b995b50" key="textField-35" style="Arial_Normal" mode="Opaque" x="392" y="142" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -318,7 +317,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totIncome}.doubleValue()-$F{operCost}.doubleValue()-$F{generalCost}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{totalIncome}.doubleValue()-$P{costOper}.doubleValue()-$P{costGeneral}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="1b2031a0-5fd8-4281-9ff4-ff76668f18ba" key="textField-36" style="Arial_Normal" mode="Opaque" x="392" y="178" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -332,7 +331,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totIncome}.doubleValue()-$F{operCost}.doubleValue()-$F{generalCost}.doubleValue()-$F{annualReserve}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{totalIncome}.doubleValue()-$P{costOper}.doubleValue()-$P{costGeneral}.doubleValue()-$P{annualReserve}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="f077e3ba-aea3-49d6-93a4-ef2707841364" key="textField-37" style="Arial_Normal" mode="Opaque" x="392" y="201" width="108" height="18" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -347,7 +346,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{incomeGen}.booleanValue()
-? $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{investmentTotal}.doubleValue()/($F{totIncome}.doubleValue()-$F{operCost}.doubleValue()-$F{generalCost}.doubleValue()),riv.util.CurrencyFormat.NODECIMALS)
+? $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{investTotal}.doubleValue()/($P{totalIncome}.doubleValue()-$P{costOper}.doubleValue()-$P{costGeneral}.doubleValue()),riv.util.CurrencyFormat.NODECIMALS)
 : $F{benefNum}.toString()]]></textFieldExpression>
 			</textField>
 			<line>
@@ -386,7 +385,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(($F{operCost}.doubleValue()+$F{generalCost}.doubleValue())/$F{benefNum}.intValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(($P{costOper}.doubleValue()+$P{costGeneral}.doubleValue())/$F{benefNum}.intValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement uuid="94d799f6-1a61-4a03-81c1-416e44cb09dc" key="line-2" mode="Opaque" x="10" y="195" width="489" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
@@ -424,7 +423,7 @@ $R{profile.report.benefits}]]></subreportParameterExpression>
 					<font size="10" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{investmentTotal}.doubleValue()/$F{benefNum}.intValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{investTotal}.doubleValue()/$F{benefNum}.intValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
