@@ -36,6 +36,7 @@ import org.springframework.stereotype.Component;
 import riv.objects.FilterCriteria;
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
+import riv.objects.ProfileMatrix;
 import riv.objects.ProjectFinanceData;
 import riv.objects.ProjectFinanceNongen;
 import riv.objects.ProjectFirstYear;
@@ -3748,8 +3749,26 @@ public class ExcelWorksheetBuilder {
 		return rowNum+2;
 	}
 
-	public void profilePrelimAnalysis(ExcelWrapper report, Profile profile, ProfileResult result) {
-		boolean incomeGen = result.isIncomeGen();
+	public void profilePrelimAnalysis(ExcelWrapper report, Profile profile, ProjectScenario scenario, ProfileMatrix matrix) {
+		boolean incomeGen = profile.getIncomeGen();
+		
+		String sheetname;
+		String title = incomeGen ? translate("profile.report.preliminary") : translate("profile.report.benefits");
+		if (scenario==ProjectScenario.With) {
+			if (profile.getWithWithout()) {
+				sheetname=translate(SheetName.PROFILE_PRELIM_WITH);
+				title+= " "+translate("project.with");
+			} else {
+				sheetname=translate(SheetName.PROFILE_PRELIM);
+			}
+		} else if (scenario==ProjectScenario.Without) {
+			sheetname=translate(SheetName.PROFILE_PRELIM_WITHOUT);
+			title += " "+translate("project.without");
+		} else { // incremental
+			sheetname=translate(SheetName.PROFILE_PRELIM_INCREMENTAL);
+			title += " "+translate("project.incremental");
+		}
+		
 		String[] titles = new String[5];
 		
 		if (incomeGen) {
@@ -3766,7 +3785,7 @@ public class ExcelWorksheetBuilder {
 			titles[4] = String.format("%s (G)", translate("profile.benefNum"));
 		}
 		
-		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_PRELIM));
+		Sheet sheet = report.getWorkbook().createSheet(sheetname);
 
 		int rowNum=0;
 		short rowHeader = 0;
@@ -3775,7 +3794,7 @@ public class ExcelWorksheetBuilder {
 		setColumnWidth(sheet, cellNum, 100);
 		sheet.setDefaultColumnStyle(cellNum, report.getStyles().get(Style.CURRENCY));
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, rowHeader, titles[0], Style.TITLE);
+		report.addTextCell(row, rowHeader, title, Style.TITLE);
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (A+B)", translate("profile.report.preliminary.investTotal")));
@@ -3785,59 +3804,130 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (A)", translate("profile.report.preliminary.investExtern")));		
 		if (report.isCompleteReport()) {
-			if (profile.getWithWithout()) {
-				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_EXTERNAL)+
-				"-"+report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_EXTERNAL), Style.CURRENCY);
-			} else {
-				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_EXTERNAL), Style.CURRENCY);
+			String formula="";
+			if (scenario==ProjectScenario.With || scenario==ProjectScenario.Incremental) {
+				formula = report.getLink(ExcelLink.PROFILE_INVEST_EXTERNAL);
 			}
+			if (scenario==ProjectScenario.Incremental) {
+				formula += " - ";
+			}
+			if (scenario==ProjectScenario.Without || scenario==ProjectScenario.Incremental) {
+				formula += report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_EXTERNAL);
+			}
+			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
-			report.addNumericCell(row, cellNum, result.getInvestmentExt(), Style.CURRENCY);
+			double value;
+			if (scenario==ProjectScenario.With) {
+				value=matrix.totalInvestmentWith-matrix.totalOwnResourcesWith;
+			} else if (scenario==ProjectScenario.Without) {
+				value=matrix.totalInvestmentWithout-matrix.totalOwnResourcesWithout;
+			} else { // incremental
+				value=matrix.totalInvestmentWith-matrix.totalOwnResourcesWith-(matrix.totalInvestmentWithout-matrix.totalOwnResourcesWithout);
+			}
+			report.addNumericCell(row, cellNum, value, Style.CURRENCY);
 		}
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (B)", translate("profile.report.preliminary.investOwn")));		
 		if (report.isCompleteReport()) {
-			if (profile.getWithWithout()) {
-				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_OWN)+
-				"-"+report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_OWN), Style.CURRENCY);
-			} else {
-				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_OWN), Style.CURRENCY);
+			String formula="";
+			if (scenario==ProjectScenario.With || scenario==ProjectScenario.Incremental) {
+				formula = report.getLink(ExcelLink.PROFILE_INVEST_OWN);
 			}
+			if (scenario==ProjectScenario.Incremental) {
+				formula += " - ";
+			}
+			if (scenario==ProjectScenario.Without || scenario==ProjectScenario.Incremental) {
+				formula += report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_OWN);
+			}
+			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
-			report.addNumericCell(row, cellNum, result.getInvestmentOwn(), Style.CURRENCY);
+			double value;
+			if (scenario==ProjectScenario.With) {
+				value=matrix.totalOwnResourcesWith;
+			} else if (scenario==ProjectScenario.Without) {
+				value=matrix.totalOwnResourcesWithout;
+			} else { // incremental
+				value=matrix.totalOwnResourcesWith-matrix.totalOwnResourcesWithout;
+			}
+			report.addNumericCell(row, cellNum, value, Style.CURRENCY);
 		}
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (C)", titles[1]));		
 		if (report.isCompleteReport()) {
-			String formula = report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT)==null
-					? report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME)
-					: report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME) + "-"+report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT);
+			String formula="";
+			if (scenario==ProjectScenario.With || scenario==ProjectScenario.Incremental) {
+				formula = report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME);
+			}
+			if (scenario==ProjectScenario.Incremental && report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT)!=null) {
+				formula += " - ";
+			}
+			if ((scenario==ProjectScenario.Without || scenario==ProjectScenario.Incremental) && report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT)!=null) {
+				formula += report.getLink(ExcelLink.PROFILE_PRODUCT_INCOME_WITHOUT);
+			}
 			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
-			report.addNumericCell(row, cellNum, result.getTotIncome(), Style.CURRENCY);
+			double value;
+			if (scenario==ProjectScenario.With) {
+				value=matrix.totalIncomeWith;
+			} else if (scenario==ProjectScenario.Without) {
+				value=matrix.totalIncomeWithout;
+			} else { // incremental
+				value=matrix.totalIncomeWith-matrix.totalIncomeWithout;
+			}
+			report.addNumericCell(row, cellNum, value, Style.CURRENCY);
 		}
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (D)", translate("profile.report.preliminary.annualCost")));		
 		if (report.isCompleteReport()) {
-			String formula = report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT)==null
-					? report.getLink(ExcelLink.PROFILE_PRODUCT_COST)
-					: report.getLink(ExcelLink.PROFILE_PRODUCT_COST) + "-"+report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT);
+			String formula="";
+			if (scenario==ProjectScenario.With || scenario==ProjectScenario.Incremental) {
+				formula = report.getLink(ExcelLink.PROFILE_PRODUCT_COST);
+			}
+			if (scenario==ProjectScenario.Incremental && report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT)!=null) {
+				formula += " - ";
+			}
+			if ((scenario==ProjectScenario.Without || scenario==ProjectScenario.Incremental) && report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT)!=null) {
+				formula += report.getLink(ExcelLink.PROFILE_PRODUCT_COST_WITHOUT);
+			}
 			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
-			report.addNumericCell(row, cellNum, result.getOperCost(), Style.CURRENCY);
+			double value;
+			if (scenario==ProjectScenario.With) {
+				value=matrix.operationCostWith;
+			} else if (scenario==ProjectScenario.Without) {
+				value=matrix.operationCostWithout;
+			} else { // incremental
+				value=matrix.operationCostWith-matrix.operationCostWithout;
+			}
+			report.addNumericCell(row, cellNum, value, Style.CURRENCY);
 		}
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (E)", translate("profile.report.preliminary.annualGeneral")));		
 		if (report.isCompleteReport()) {
-			String formula = report.getLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL)==null 
-					? report.getLink(ExcelLink.PROFILE_GENERAL_TOTAL)
-					: report.getLink(ExcelLink.PROFILE_GENERAL_TOTAL) + "-" + report.getLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL);
+			String formula="";
+			if (scenario==ProjectScenario.With || scenario==ProjectScenario.Incremental) {
+				formula = report.getLink(ExcelLink.PROFILE_GENERAL_TOTAL);
+			}
+			if (scenario==ProjectScenario.Incremental && report.getLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL)!=null) {
+				formula += " - ";
+			}
+			if ((scenario==ProjectScenario.Without || scenario==ProjectScenario.Incremental) && report.getLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL)!=null) {
+				formula += report.getLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL);
+			}
 			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);
 		} else {
-			report.addNumericCell(row, cellNum, result.getGeneralCost(), Style.CURRENCY);
+			double value;
+			if (scenario==ProjectScenario.With) {
+				value=matrix.generalCostWith;
+			} else if (scenario==ProjectScenario.Without) {
+				value=matrix.generalCostWithout;
+			} else { // incremental
+				value=matrix.generalCostWith-matrix.generalCostWithout;
+			}
+			report.addNumericCell(row, cellNum, value, Style.CURRENCY);
 		}
 		row = sheet.createRow(rowNum++);
 		row = sheet.createRow(rowNum++);
@@ -3846,14 +3936,27 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (F)", translate("profile.report.preliminary.annualReserve")));		
 		if (report.isCompleteReport()) {
-			if (profile.getWithWithout()) {
-				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE)+"-"+report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_GOODS_RESERVE), Style.CURRENCY);
-			} else {
-				report.addFormulaCell(row, cellNum, report.getLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE), Style.CURRENCY);
+			String formula="";
+			if (scenario==ProjectScenario.With || scenario==ProjectScenario.Incremental) {
+				formula = report.getLink(ExcelLink.PROFILE_INVEST_GOODS_RESERVE);
 			}
-			
+			if (scenario==ProjectScenario.Incremental) {
+				formula += " - ";
+			}
+			if (scenario==ProjectScenario.Without || scenario==ProjectScenario.Incremental) {
+				formula += report.getLink(ExcelLink.PROFILE_INVEST_WITHOUT_GOODS_RESERVE);
+			}
+			report.addFormulaCell(row, cellNum, formula, Style.CURRENCY);	
 		} else {
-			report.addNumericCell(row, cellNum, result.getAnnualReserve(), Style.CURRENCY);
+			double value;
+			if (scenario==ProjectScenario.With) {
+				value=matrix.annualReserveWith;
+			} else if (scenario==ProjectScenario.Without) {
+				value=matrix.annualReserveWithout;
+			} else { // incremental
+				value=matrix.annualReserveWith-matrix.annualReserveWithout;
+			}
+			report.addNumericCell(row, cellNum, value, Style.CURRENCY);
 		}
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, rowHeader, String.format("%s (C-D-E-F)", titles[3]));
@@ -3865,7 +3968,7 @@ public class ExcelWorksheetBuilder {
 		if(incomeGen) {
 			report.addFormulaCell(row, cellNum, "B2 / B9");
 		} else {
-			report.addNumericCell(row, cellNum, result.getBenefNum());
+			report.addNumericCell(row, cellNum, profile.getBenefNum());
 		}
 		if (!incomeGen) {
 			row = sheet.createRow(rowNum++);
@@ -3935,6 +4038,9 @@ enum SheetName {
 	PROFILE_PRODUCTS_WITH("profile.report.productDetail.with.sheetname"),
 	PROFILE_PRODUCTS_WITHOUT("profile.report.productDetail.without.sheetname"),
 	PROFILE_PRELIM("profile.report.preliminary.sheetname"),
+	PROFILE_PRELIM_WITH("profile.report.preliminary.with.sheetname"),
+	PROFILE_PRELIM_WITHOUT("profile.report.preliminary.without.sheetname"),
+	PROFILE_PRELIM_INCREMENTAL("profile.report.preliminary.incremental.sheetname"),
 	PROFILE_BENEFITS("profile.report.benefits.sheetname"),
 	PROFILE_RECCOMENDATION("project.report.recommendation.sheetname"),
 	PROFILE_RESULTS("profile.report.results.sheetname"),

@@ -320,9 +320,17 @@ public class PdfReportCreator {
 				page+=cfWithout.getJp().getPages().size();
 				reports.add(cfWithout);
 			}
-			ReportWrapper profit = projectProfitability(project, pr, page, matrix, ProjectScenario.Incremental);
-			page=page+profit.getJp().getPages().size();
-			reports.add(profit);
+			ReportWrapper profitWith = projectProfitability(project, pr, page, matrix, ProjectScenario.With);
+			page=page+profitWith.getJp().getPages().size();
+			reports.add(profitWith);
+			if (project.isWithWithout()) {
+				ReportWrapper profitWithout = projectProfitability(project, pr, page, matrix, ProjectScenario.Without);
+				page=page+profitWithout.getJp().getPages().size();
+				reports.add(profitWithout);
+				ReportWrapper profit = projectProfitability(project, pr, page, matrix, ProjectScenario.Incremental);
+				page=page+profit.getJp().getPages().size();
+				reports.add(profit);
+			}
 		} else {
 			ReportWrapper cont = projectContributions(project, page);
 			page=page+cont.getJp().getPages().size();

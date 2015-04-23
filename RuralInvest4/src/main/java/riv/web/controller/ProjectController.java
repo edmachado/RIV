@@ -347,7 +347,6 @@ public class ProjectController {
 		filter.setObjType(objType);
 		filter.setUnfinished(!isComplete);
 		return "redirect:../../../search/results";
-
 	}
 	
 	private void setupPageAttributes(Project p, Model model, Integer step, HttpServletRequest request) {
@@ -363,6 +362,15 @@ public class ProjectController {
 		}
 		
 		// step-specific data for views
+		if (step==12 || step==13 || (!p.getIncomeGen() && step==10)) {
+			HashMap<Integer, Donor> donors = new HashMap<Integer, Donor>();
+			for (Donor d : p.getDonors()) {
+				donors.put(d.getOrderBy(), d);
+			}
+			model.addAttribute("donors",donors);
+			model.addAttribute("summary",p.getDonationSummary());
+		}
+		
 		if (step==1 && p.getProjectId()!=null) {
 			long dirSize=0L;
 			List<AttachedFile> files = attachTools.getAttached(p.getProjectId(), true, false);
@@ -378,15 +386,6 @@ public class ProjectController {
 			model.addAttribute("years",data);
 			// group contributions by year
 			model.addAttribute("contribsByYear", p.getContributionsByYear());
-			HashMap<Integer, Donor> donors = new HashMap<Integer, Donor>();
-			for (Donor d : p.getDonors()) {
-				donors.put(d.getOrderBy(), d);
-			}
-			model.addAttribute("donors",donors);
-			
-			// new contributions summary
-			model.addAttribute("summary",p.getDonationSummary());
-			
 		} else if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
 			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 			

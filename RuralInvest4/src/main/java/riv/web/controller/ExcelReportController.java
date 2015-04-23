@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
+import riv.objects.ProfileMatrix;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileProduct;
 import riv.objects.profile.ProfileProductBase;
-import riv.objects.profile.ProfileResult;
 import riv.objects.project.Block;
 import riv.objects.project.BlockBase;
 import riv.objects.project.Project;
@@ -533,10 +533,14 @@ public class ExcelReportController {
 	public void profilePrelimAnalysis(@PathVariable int id,
 			HttpServletResponse response) throws IOException {
 		Profile p = dataService.getProfile(id, -1);
-		ProfileResult pr = dataService.getProfileResult(id);
+		ProfileMatrix matrix = new ProfileMatrix(p);
 		ExcelWrapper report = ewb.create();
 		try {
-			ewb.profilePrelimAnalysis(report, p, pr);
+			ewb.profilePrelimAnalysis(report, p, ProjectScenario.With, matrix);
+			if (p.getWithWithout()) {
+				ewb.profilePrelimAnalysis(report, p, ProjectScenario.Without, matrix);
+				ewb.profilePrelimAnalysis(report, p, ProjectScenario.Incremental, matrix);
+			}
 			response.setHeader("Content-disposition",
 					"attachment; filename=profilePrelimAnalysis.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
@@ -572,7 +576,7 @@ public class ExcelReportController {
 	public void completeReport(@PathVariable int id,
 			HttpServletResponse response) throws Exception {
 		Profile p = dataService.getProfile(id, -1);
-		ProfileResult pr = dataService.getProfileResult(id);
+		ProfileMatrix matrix = new ProfileMatrix(p);
 		ExcelWrapper report = ewb.create();
 		try {
 			report.setCompleteReport(true);
@@ -586,7 +590,11 @@ public class ExcelReportController {
 			if (p.getWithWithout()) {
 				ewb.profileProducts(report, p, true);
 			}
-			ewb.profilePrelimAnalysis(report, p, pr);
+			ewb.profilePrelimAnalysis(report, p, ProjectScenario.With, matrix);
+			if (p.getWithWithout()) {
+				ewb.profilePrelimAnalysis(report, p, ProjectScenario.Without, matrix);
+				ewb.profilePrelimAnalysis(report, p, ProjectScenario.Incremental, matrix);
+			}
 			ewb.profileRecommendation(report, p);
 			response.setHeader("Content-disposition",
 					"attachment; filename=profileComplete.xlsx");

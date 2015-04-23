@@ -33,6 +33,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import riv.objects.Probase;
+import riv.objects.ProfileMatrix;
 import riv.objects.config.FieldOffice;
 import riv.objects.config.Status;
 import riv.objects.config.User;
@@ -1041,7 +1042,7 @@ public class Profile extends Probase implements java.io.Serializable {
 
 		 return proj;
 	 }
-
+	 
 	 public ProfileResult getProfileResult() {
 		 ProfileResult pr = new ProfileResult();
 		 pr.setProfileId(this.profileId);
@@ -1052,60 +1053,14 @@ public class Profile extends Probase implements java.io.Serializable {
 		 pr.setFieldOffice(this.fieldOffice);
 		 pr.setStatus(this.status);
 		 pr.setBenefNum(this.benefNum);
-
-		 double totalInvestment=0;
-		 double totalOwnResources=0;
-		 double totalIncome=0;
-		 double operationCost=0;
-		 double generalCost=0;
-		 double annualReserve=0;
-
-		 for (ProfileItemGood good : this.glsGoods) {
-			 totalInvestment += good.getUnitNum()*good.getUnitCost();
-			 totalOwnResources += good.getOwnResource();
-			 annualReserve += ((good.getUnitCost()-good.getSalvage())*good.getUnitNum())/good.getEconLife();
-		 }
 		 
-		 for (ProfileItemGoodWithout good : this.glsGoodsWithout) {
-			 totalInvestment -= good.getUnitNum()*good.getUnitCost();
-			 totalOwnResources -= good.getOwnResource();
-			 annualReserve -= ((good.getUnitCost()-good.getSalvage())*good.getUnitNum())/good.getEconLife();
-		 }
-
-		 for(ProfileItemLabour lab : this.glsLabours) {
-			 totalInvestment += lab.getUnitNum()*lab.getUnitCost();
-			 totalOwnResources += lab.getOwnResource();
-		 }
-		 
-		 for(ProfileItemLabourWithout lab : this.glsLaboursWithout) {
-			 totalInvestment -= lab.getUnitNum()*lab.getUnitCost();
-			 totalOwnResources -= lab.getOwnResource();
-		 }
-
-		 for (ProfileItemGeneral gen : this.glsGeneral) {
-			 generalCost += gen.getUnitCost()*gen.getUnitNum();
-		 }
-		 for (ProfileItemGeneralWithout gen : this.glsGeneralWithout) {
-			 generalCost -= gen.getUnitCost()*gen.getUnitNum();
-		 }
-
-		 for (ProfileProduct prod : this.products) {
-			 totalIncome+=prod.getTotalIncome().doubleValue();
-			 operationCost+=prod.getTotalCost().doubleValue();			
-		 }
-		 if (this.withWithout) {
-			 for (ProfileProductWithout prod : this.productsWithout) {
-				 totalIncome-=prod.getTotalIncome().doubleValue();
-				 operationCost-=prod.getTotalCost().doubleValue();			
-			 }
-		 }
-
-		 pr.setInvestmentTotal(totalInvestment);
-		 pr.setInvestmentOwn(totalOwnResources);
-		 pr.setTotIncome(totalIncome);
-		 pr.setOperCost(operationCost);
-		 pr.setGeneralCost(generalCost);
-		 pr.setAnnualReserve(round(annualReserve));
+		 ProfileMatrix matrix = new ProfileMatrix(this);
+		 pr.setInvestmentTotal(matrix.totalInvestmentWith-matrix.totalInvestmentWithout);
+		 pr.setInvestmentOwn(matrix.totalOwnResourcesWith-matrix.totalOwnResourcesWithout);
+		 pr.setTotIncome(matrix.totalIncomeWith-matrix.totalIncomeWithout);
+		 pr.setOperCost(matrix.operationCostWith-matrix.operationCostWithout);
+		 pr.setGeneralCost(matrix.generalCostWith-matrix.generalCostWithout);
+		 pr.setAnnualReserve(round(matrix.annualReserveWith-matrix.annualReserveWithout));
 		 return pr;
 	 }
 	 

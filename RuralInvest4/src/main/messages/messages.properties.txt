@@ -34,7 +34,7 @@ project.incremental=(Incremental)
 units.perUnitActivityNoCycle=per unit of activity
 units.perUnitNoCycle=per unit of production
 
-#translator: the following five items cannot be more than 31 characters, and must be different from each other
+#translator: the following items cannot be more than 31 characters, and must be different from each other
 project.report.cashFlow.with.sheetname=Cash flow (with)
 project.report.cashFlow.without.sheetname=Cash flow (w.out)
 project.report.profitability.with.sheetname=Profitability (with)
@@ -42,6 +42,9 @@ project.report.profitability.without.sheetname=Profitability (w.out)
 project.report.profitability.incremental.sheetname=Profitability (incr)
 project.report.cashFlowFirst.with.sheetname=Cash Flow 1st yr (with)
 project.report.cashFlowFirst.without.sheetname=Cash Flow 1st yr (w.out)
+profile.report.preliminary.with.sheetname=Analysis (with)
+profile.report.preliminary.without.sheetname=Analysis (w.out)
+profile.report.preliminary.incremental.sheetname=Analysis (incr)
 
 #changed from previous version
 project.report.contributionSummary=Donation summary
