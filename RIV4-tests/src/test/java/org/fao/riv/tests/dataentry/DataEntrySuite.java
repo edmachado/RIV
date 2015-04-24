@@ -9,8 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(value = Suite.class)
 @SuiteClasses(value = { EditAndSave.class, InputProfileIg.class, InputProfileNig.class, InputProjectIg.class, InputProjectNig.class, 
-		ProjectCompleteToInProgress.class, ProjectIgChangeDuration.class, ProjectNigChangeDuration.class, ProjectIgRemoveWithWithout.class, RoundingProblem.class, 
-		Settings.class, SettingsChangeDecimalSeparator.class, SetToNotShared.class, User.class, NigProjectContributions.class,
+		Settings.class, SetToNotShared.class, User.class,
 		IgProjectNoCycles.class, ReferenceTableItems.class})
 public class DataEntrySuite {
 	

@@ -322,20 +322,6 @@ public class InputProfileIg extends WebTest {
 		@Test
 		public void createProfile() throws Exception {
 			String resource="dataentry/profileIg";
-			String[] titles = profileStepTitles(true);
 			createProfile(resource);
-			
-			//TEST CLONE PROFILE
-			assertLinkPresentWithImage("edit.png");
-			clickLinkWithImage("edit.png");
-			assertTitleEquals(titles[0]);
-			clickLink("clone");
-			assertTitleEquals(titles[0]);
-			assertImagePresentPartial("locked.gif", null);
-			
-			verifyProfile(resource, 2);
-				
-		//Check new profile exists in results table
-		assertTableRowCountEquals("results", 7);
 	}
 }

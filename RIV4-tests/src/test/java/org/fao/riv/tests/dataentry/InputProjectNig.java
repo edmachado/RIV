@@ -1,9 +1,7 @@
 package org.fao.riv.tests.dataentry;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertElementNotPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertImagePresentPartial;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkNotPresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTableRowCountEquals;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextFieldEquals;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInTable;
@@ -16,7 +14,6 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getElementByXPath;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
-import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
 import static net.sourceforge.jwebunit.junit.JWebUnit.selectOption;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 
@@ -27,8 +24,8 @@ import net.sourceforge.jwebunit.api.IElement;
 
 import org.fao.riv.tests.WebTest;
 import org.fao.riv.utils.ImportFile;
-import org.fao.riv.utils.TestTable;
 import org.fao.riv.utils.InputParam.InputParamType;
+import org.fao.riv.utils.TestTable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -59,84 +56,13 @@ public class InputProjectNig extends WebTest {
 	    }
 	 
 	 @Test
-		public void createProjectCommaForDecimalsNIG() throws Exception {
-			// change decimal separator in settings
-			String settingsTitle = getMessage("ruralInvest")+" :: "+getMessage("mainMenu.config");
-	    	clickLink("gotoSettings");
-			assertTitleEquals(settingsTitle);
-			setTextField("decimalSeparator", ",");
-			setTextField("thousandSeparator", ".");
-			rivSubmitForm();
-			assertTitleEquals(settingsTitle);
-			assertElementNotPresent("errorbox");
-			assertTextFieldEquals("decimalSeparator", ",");
-			assertTextFieldEquals("thousandSeparator", ".");
-			
-			// import project
-			importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
-			clickLinkWithImage("edit.png");
-			assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-			
-			// download properties file
-			assertLinkPresent("properties");
-			clickLink("properties");
-			
-			String filename="project.properties";
-			File f = folder.newFile(filename); 
-			saveAs(f);
-			
-			// import from properties file
-			createProject("dataentry/"+folder.getRoot().getName()+"/project", 1);
-//			assertLinkPresentWithImage("edit.png", 1);
-			clickLinkWithImage("edit.png", 1);
-			
-			// reset settings to normal
-			clickLink("gotoSettings");
-			assertTitleEquals(settingsTitle);
-			setTextField("decimalSeparator", ".");
-			setTextField("thousandSeparator", ",");
-			rivSubmitForm();
-			assertTitleEquals(settingsTitle);
-			assertElementNotPresent("errorbox");
-			assertTextFieldEquals("decimalSeparator", ".");
-			assertTextFieldEquals("thousandSeparator", ",");
-		}
-	 
-	 @Test
-	public void exportProperties() throws Exception {
-		// import project
-		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
-		clickLinkWithImage("edit.png");
-		assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("project.step1"));
-		
-		// download properties file
-//		assertLinkPresent("properties");
-		clickLink("properties");
-		
-		String filename="project.properties";
-		File f = folder.newFile(filename); 
-		saveAs(f);
-		
-		// import from properties file
-		createProject("dataentry/"+folder.getRoot().getName()+"/project", 1);
-//		assertLinkPresentWithImage("edit.png", 1);
-		clickLinkWithImage("edit.png", 1);
-		
-		// verify
-		verifyProjectNig("dataentry/projectNig", 1, false);
-	}
-	 
-	 @Test
 	public void createProject() throws Exception {
 		createProject("dataentry/projectNig", 0);
-		clickLinkWithImage("edit.png",0);
-		verifyProjectNig("dataentry/projectNig", 0, false);
 	 }
 	 
 	 @Test
 	 public void cloneProject() {
 		String title0=getMessage("ruralInvest")+" :: "+getMessage("project.step1");
-		String results=getMessage("ruralInvest")+" :: "+getMessage("search.searchResults");
 			
 		importProject(ImportFile.ProjectNig41, "nigpj", false, false, "Example Case: Community Earth Dam");
 		
@@ -146,13 +72,6 @@ public class InputProjectNig extends WebTest {
 		clickLinkWithImage("duplicate.gif");
 		assertTitleEquals(title0);
 		assertImagePresentPartial("locked.gif", null);
-		
-		verifyProjectNig("dataentry/projectNig", 1, false);
-		
-		//Check new project exists in results table
-		clickLink("allNigpj");
-		assertTitleEquals(results);
-		assertTableRowCountEquals("results", 7);
 	 }
 
 	private void createProject(String resourceBundle, int resultIndex) throws Exception {
@@ -396,7 +315,6 @@ public class InputProjectNig extends WebTest {
 		
 		// STEP 11
 		// reference income
-		verifyProjectNigTablesStep11();
 		rivSubmitForm();
 		assertTitleEquals(titles[11]);
 		

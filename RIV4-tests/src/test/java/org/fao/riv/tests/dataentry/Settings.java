@@ -164,10 +164,6 @@ public class Settings extends WebTest {
 		tt.testWithInput();
 		
 		getTestContext().setResourceBundleName("messages/messages");
-		
-		// validate that settings have been entered correctly
-		validateSettings("v40");
-		
 	}
 	
 	@Test

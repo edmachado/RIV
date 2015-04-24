@@ -25,39 +25,28 @@ public class ImportSettings extends WebTest {
 	
 	@After
     public void close() {
-		// Settings20 have right setting for import profile and import project tests
 		importSettings(ImportFile.Settings20);
 		clickLink("logoff");
         closeBrowser();
     }
 	
-//	@AfterClass
-//	public static void tearDown() {
-//		importSettings(ImportFile.Settings20);
-//		
-//	}
-	
 	@Test
     public void import1o6() {
 		importSettings(ImportFile.Settings16);
-		//TODO: test data fields
     }
     
     @Test
     public void import2o0() {
 		importSettings(ImportFile.Settings20);
-    	//TODO: test data fields
     }
     
     @Test
     public void import3o2() throws Exception {
 		importSettings(ImportFile.Settings32);
-		validateSettings("v32");
     }
     
     @Test
     public void import4o0() throws Exception {
 		importSettings(ImportFile.Settings40);
-		validateSettings("v40");
     }
 }

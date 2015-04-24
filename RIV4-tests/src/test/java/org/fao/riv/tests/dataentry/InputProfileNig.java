@@ -198,7 +198,6 @@ public class InputProfileNig extends WebTest {
 		assertTitleEquals(titles[6]);
 		
 		// STEP 7
-		verifyProfileNigTablesStep7();
 
 		rivSubmitForm();
 		assertTitleEquals(titles[7]);
@@ -225,7 +224,5 @@ public class InputProfileNig extends WebTest {
 		clickLink("clone");
 		assertTitleEquals(titles[0]);
 		assertImagePresentPartial("locked.gif", null);
-		
-		verifyProfileNig("dataentry/profileNig", 2);
 	}
 }

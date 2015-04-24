@@ -53,6 +53,7 @@ public class ProfileXls extends WebTest {
 			clickLinkWithImage("xls.gif", i);
 			File f = folder.newFile(); 
 			saveAs(f);
+//			System.out.println("testing "+titles[i]);
 			testXls(f, titles[i]);
 			f.delete();
 			f=null;
@@ -94,8 +95,9 @@ public class ProfileXls extends WebTest {
 		titles[2]=getMessage("profile.report.costsDetail");
 		String reportCode_product = isIG ? "profile.report.productDetail" : "profile.report.productDetailNongen";
 		titles[3]=isIG? "("+getMessage("profileProduct.with.with")+") "+getMessage(reportCode_product) : getMessage(reportCode_product);
-		String reportCode_preliminary = isIG ? "profile.report.preliminary" : "profile.report.benefits";
-		titles[4]=getMessage(reportCode_preliminary);
+		String reportCode_preliminary = isIG ? getMessage("profile.report.preliminary") : getMessage("profile.report.benefits");
+		if (isIG && withWithout) { reportCode_preliminary += " "+getMessage("project.with"); }
+		titles[4]=reportCode_preliminary;
 		titles[5]=getMessage("profile.report.recommendation");
 		titles[6]=getMessage("profile.report.summary");
 		
