@@ -14,8 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class EditAndSave extends WebTestUtil {
-	String igTitle;
-	
 	 @BeforeClass 
 	 public static void setUpClass() {      
 	       System.out.println("     test EditAndSave");

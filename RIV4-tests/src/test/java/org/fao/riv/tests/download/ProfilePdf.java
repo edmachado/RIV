@@ -21,8 +21,6 @@ import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
 
 public class ProfilePdf extends WebTestUtil {
-	String igTitle;
-	
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();
 	

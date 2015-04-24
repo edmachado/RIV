@@ -29,8 +29,6 @@ import org.fao.riv.tests.utils.TestTable;
 import org.fao.riv.tests.utils.WebTestUtil;
 
 public class InputProfileNig extends WebTestUtil {
-	String pageTitle;
-	
 	 @BeforeClass 
 	 public static void setUpClass() {      
 	       System.out.println("     test InputProfileNig");

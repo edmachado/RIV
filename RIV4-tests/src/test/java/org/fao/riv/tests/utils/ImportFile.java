@@ -48,7 +48,12 @@ public enum ImportFile {
 	ProjectXlsBlock("project/block.xlsx"),
 	ProjectXlsBlockNig("project/block-nig.xlsx"),
 	ProjectXlsContributions("project/contributions.xlsx"),
-	ProjectXlsContributionsSimplified("project/contributions-simplified.xlsx");
+	ProjectXlsContributionsSimplified("project/contributions-simplified.xlsx"),
+	
+	ProjectTanzaniaRiv("project/Tanzania/Tanzania_case.riv"),
+	ProjectTanzaniaCashFlowFirst("project/Tanzania/projectCashFlowFirst.xlsx"),
+	ProjectTanzaniaCashFlow("project/Tanzania/projectCashFlow.xlsx"),
+	ProjectTanzaniaProfitability("project/Tanzania/projectProfitability.xlsx");
 	
 	private final String fileName;
 	private ImportFile(String fileName) {

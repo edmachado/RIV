@@ -19,7 +19,7 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 
 import java.io.File;
 
-import net.sourceforge.jwebunit.api.IElement;
+import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
 
 import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
@@ -31,9 +31,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
+
 public class ProfileExcelImport extends WebTestUtil {
-	String igTitle;
-	
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();
 	
@@ -85,17 +85,33 @@ public class ProfileExcelImport extends WebTestUtil {
 		}
 		
 		// STEP 4
+		HtmlUnitTestingEngineImpl te = (HtmlUnitTestingEngineImpl)getTestingEngine();
+		te.getWebClient().setAjaxController(new NicelyResynchronizingAjaxController());
+		te.getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
+		
 		assertTitleEquals(titles[3]);
-
 		assertLinkPresent("importExcel");
 		clickLink("importExcel");
 		assertElementPresent("upload-dialog");
 		assertTextNotPresent(getMessage("import.excel.error.datatype"));
 		setTextField("qqfile", ImportFile.ProfileXlsInvestErrorData.getFile().getAbsolutePath());
-		Thread.sleep(4000);
-		@SuppressWarnings("unused")
-		IElement ie = getElementById("uploader-error-message");
-		assertTextPresent(getMessage("import.excel.error.datatype"));
+		te.getWebClient().waitForBackgroundJavaScript(10000);
+//		Thread.sleep(10000);
+		
+		 boolean found = false;
+	      for (int i = 0; i < 20; i++) {
+	          if (getElementById("uploader-error-message").getTextContent().contains(getMessage("import.excel.error.datatype"))) {
+	            found = true;
+	            break;
+	          }
+	          synchronized (te.getCurrentWindow().getEnclosedPage()) {
+	              try {
+	            	  te.getCurrentWindow().getEnclosedPage().wait(1000);
+	              } catch (InterruptedException e) {
+	              }
+	          }
+	      }
+	      org.junit.Assert.assertTrue("error message not found",found);
 	}
 	
 	@Test
@@ -219,6 +235,7 @@ public class ProfileExcelImport extends WebTestUtil {
 		String url;
 		
 		// STEP 4
+		
 		url=getTestingEngine().getPageURL().toString();
 		clickLink("downloadTemplate");
 		File fTemplate = folder.newFile("invest-template.xlsx");

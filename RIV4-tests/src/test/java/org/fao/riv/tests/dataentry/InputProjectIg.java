@@ -487,7 +487,7 @@ public class InputProjectIg extends WebTestUtil {
 		setTextField("loan2Duration", getMessage("step11.loan2Duration"));
 		setTextField("loan2GraceCapital", getMessage("step11.loan2GraceCapital"));
 		setTextField("loan2GraceInterest", getMessage("step11.loan2GraceInterest"));
-		setTextField("loan2InitPeriod", getMessage("step11.loan2InitPeriod"));
+		selectOption("loan2InitPeriod", getMessage("step11.loan2InitPeriod"));
 		
 		setTextField("capitalInterest", getMessage("step11.capitalInterest"));
 		setTextField("capitalDonate", getMessage("step11.capitalDonate"));

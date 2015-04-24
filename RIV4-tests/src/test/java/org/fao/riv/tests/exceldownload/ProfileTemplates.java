@@ -20,8 +20,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class ProfileTemplates extends WebTestUtil {
-	String igTitle;
-	
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();
 	

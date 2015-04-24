@@ -61,6 +61,7 @@ public class WebTestUtil {
 	@Before
     public void prepare() throws LifecycleException {
 		JWebUnit.setTestingEngineKey(TestingEngineRegistry.TESTING_ENGINE_HTMLUNIT);
+		
 		setBaseUrl(TestApp.appURL);
 		getTestContext().setResourceBundleName("messages/messages");
 	 }
@@ -92,13 +93,6 @@ public class WebTestUtil {
 	
 	public void login() {
 		beginAt("/");
-		
-		// This will make the ajax call synchronous - no more Thread.sleep() !
-		// from http://nesbot.com/2011/10/16/play-framework-sample-app-JWebUnit-synchronous-ajax
-//		if (getTestingEngine() instanceof HtmlUnitTestingEngineImpl) {
-//			((HtmlUnitTestingEngineImpl)getTestingEngine()).getWebClient().setAjaxController(new NicelyResynchronizingAjaxController());
-//		}
-		
 		assertFormPresent("login");
 		assertFormElementPresent("j_username");
 	    assertFormElementPresent("j_password");
@@ -995,7 +989,7 @@ public class WebTestUtil {
 		assertTextFieldEquals("loan2Duration", getMessage("step11.loan2Duration"));
 		assertTextFieldEquals("loan2GraceCapital", getMessage("step11.loan2GraceCapital"));
 		assertTextFieldEquals("loan2GraceInterest", getMessage("step11.loan2GraceInterest"));
-		assertTextFieldEquals("loan2InitPeriod", getMessage("step11.loan2InitPeriod"));
+		assertSelectedOptionEquals("loan2InitPeriod", getMessage("step11.loan2InitPeriod"));
 		assertTextFieldEquals("capitalInterest", getMessage("step11.capitalInterest"));
 		assertTextFieldEquals("capitalDonate", getMessage("step11.capitalDonate"));
 		assertTextFieldEquals("capitalOwn", getMessage("step11.capitalOwn"));
