@@ -192,7 +192,7 @@
 		<relativePath>../RIV4/pom.xml</relativePath>
 	</parent>
 	<build>
-		<finalName>riv-test</finalName>
+		<finalName>riv-tests</finalName>
 		<defaultGoal>install</defaultGoal>
 	<plugins>
 		<plugin>
