@@ -1,4 +1,7 @@
-﻿# RIV 4.1.4
+﻿# RIV4.2
+project.donor.statePublic=Общественные/государственные ресурсы
+
+# RIV 4.1.4
 project.quickAnalysis=Быстрый арнализ (без проверки качества)
 projectBlock.cloneWith=Клонировать блок "С проектом"
 projectBlock.cloneWithout=Клонировать блок "Без проекта"

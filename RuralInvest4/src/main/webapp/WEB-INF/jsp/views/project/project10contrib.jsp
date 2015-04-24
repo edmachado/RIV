@@ -2,33 +2,6 @@
 <html><head><title><spring:message code="project.step10.nongen"/></title></head>
 <body>
 	<div class="datatitle"><spring:message code="projectContribution"/></div>
-<%-- 	<div align="right"><a href="#" onClick="toggle('tblContrib')"><spring:message code="misc.toggle"/></a></div> --%>
-<!-- 	<div id="tblContrib" style="display:none"> -->
-<%-- 		<tags:table titleKey="projectContribution">						 --%>
-<%-- 			<display:table list="${project.contributions}" id="contrib" requestURI="" class="data-table" cellspacing="0" cellpadding="0" --%>
-<%-- 					export="false"> --%>
-<%-- 				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty> --%>
-<%-- 				<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/> --%>
-<%-- 				<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left"> --%>
-<%-- 					<c:if test="${contrib.contribType=='0'}"><spring:message code="projectContribution.contribType.govtCentral"/></c:if> --%>
-<%-- 					<c:if test="${contrib.contribType=='1'}"><spring:message code="projectContribution.contribType.govtLocal"/></c:if> --%>
-<%-- 					<c:if test="${contrib.contribType=='2'}"><spring:message code="projectContribution.contribType.ngoLocal"/></c:if> --%>
-<%-- 					<c:if test="${contrib.contribType=='3'}"><spring:message code="projectContribution.contribType.ngoIntl"/></c:if> --%>
-<%-- 					<c:if test="${contrib.contribType=='5'}"><spring:message code="projectContribution.contribType.beneficiary"/></c:if> --%>
-<%-- 					<c:if test="${contrib.contribType=='4'}"><spring:message code="projectContribution.contribType.other"/></c:if> --%>
-<%-- 				</display:column> --%>
-<%-- 				<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/> --%>
-<%-- 				<display:column titleKey="projectContribution.unitNum" property="unitNum" sortable="true"/> --%>
-<%-- 				<display:column titleKey="projectContribution.unitCost" sortable="true" sortProperty="unitCost"> --%>
-<%-- 					<tags:formatCurrency value="${contrib.unitCost}"/> --%>
-<%-- 				</display:column> --%>
-<%-- 				<display:column titleKey="projectContribution.totalCost" sortable="true" sortProperty="total"> --%>
-<%-- 					<tags:formatCurrency value="${contrib.total}"/> --%>
-<%-- 				</display:column> --%>
-<%-- 			</display:table> --%>
-<%-- 		</tags:table> --%>
-<!-- 	</div> -->
-	
 	<form:form name="form" method="post" commandName="projectItem">
 		<tags:errors />
 		<div style="display:inline-block;width:470px">
@@ -48,13 +21,17 @@
 					<tags:help text="projectContribution.contributor.help" title="projectContribution.contributor"><label><spring:message code="projectContribution.contributor"/></label></tags:help>
 					<form:select path="donorOrderBy">
 						<c:forEach var="donor" items="${project.donors}">
-							<c:set var="label"><c:choose>
-								<c:when test="${donor.notSpecified}"><spring:message code="project.donor.notSpecified"/></c:when>
-								<c:when test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:when>
-								<c:otherwise>${donor.description}</c:otherwise>
-							</c:choose></c:set>
-							<form:option value="${donor.orderBy}" label="${label}"/>
+							<c:if test="${not donor.notSpecified}">
+								<c:set var="label">
+									<c:if test="${donor.description eq 'state-public'}"><spring:message code="project.donor.statePublic"/></c:if>
+									<c:if test="${donor.description ne 'state-public'}">${donor.description}</c:if>
+								</c:set>
+								<form:option value="${donor.orderBy}" label="${label}"/>
+							</c:if>
+							<c:if test="${donor.notSpecified}"><c:set var="notSpecifiedOrder" value="${donor.orderBy}"/></c:if>
 						</c:forEach>
+						<c:set var="notSpecifiedLabel"><spring:message code="project.donor.notSpecified"/></c:set>
+						<form:option value="${notSpecifiedOrder}" label="${notSpecifiedLabel}"/>
 					</form:select>
 				</div>
 				<tags:dataentry field="unitType" labelKey="projectContribution.unitType" helpText="projectContribution.unitType.help" />

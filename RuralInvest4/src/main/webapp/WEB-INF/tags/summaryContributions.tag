@@ -1,6 +1,7 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <div id="summaryContributions" class="summary" title='<spring:message code="project.report.contributionSummary"/>'>
-	<h3>TOTALS</h3>
+	<i>... waiting for RIV team input ...</i><br/><br/>
+	<h3><spring:message code="project.report.blockDetail.totals"/></h3>
 	<tags:summaryContributionsTable donorOrder="${fn:length(project.donors)}"/>
 	<c:forEach var="donor" items="${project.donors}">
 		<c:if test="${not donor.notSpecified}">

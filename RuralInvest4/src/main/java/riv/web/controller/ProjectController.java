@@ -368,7 +368,7 @@ public class ProjectController {
 				donors.put(d.getOrderBy(), d);
 			}
 			model.addAttribute("donors",donors);
-			model.addAttribute("summary",p.getDonationSummary());
+//			model.addAttribute("summary",p.getDonationSummary());
 		}
 		
 		if (step==1 && p.getProjectId()!=null) {

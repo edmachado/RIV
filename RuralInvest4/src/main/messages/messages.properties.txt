@@ -34,6 +34,12 @@ project.incremental=(Incremental)
 units.perUnitActivityNoCycle=per unit of activity
 units.perUnitNoCycle=per unit of production
 
+project.report.contributionSummary.investments=Investments
+project.report.contributionSummary.general=General costs
+project.report.contributionSummary.operation=Operation costs
+project.report.contributionSummary.contributions=Contributions
+project.report.contributionSummary.total=Total
+
 #translator: the following items cannot be more than 31 characters, and must be different from each other
 project.report.cashFlow.with.sheetname=Cash flow (with)
 project.report.cashFlow.without.sheetname=Cash flow (w.out)

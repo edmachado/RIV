@@ -4,7 +4,7 @@
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="53"/>
-	<property name="ireport.y" value="43"/>
+	<property name="ireport.y" value="40"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -264,7 +264,7 @@
 					<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{profile.report.productDetail.totals}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{profile.report.blockDetail.totals}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="ffb4d762-167e-4792-ae20-c10616fabec5" key="textField-16" positionType="Float" mode="Opaque" x="139" y="274" width="65" height="14" forecolor="#003365" backcolor="#FFFFFF"/>

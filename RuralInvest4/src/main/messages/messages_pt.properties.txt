@@ -1,4 +1,75 @@
-﻿## RIV4.1.4
+﻿# RIV4.2
+project.donor.statePublic=Recursos públicos ou do Estado
+project.donors=Doador
+project.donors.help=Doador ou organização que contribui para o projecto, tanto de forma geral, como para um ou mais custos em específico.
+project.donor.notSpecified=Não especificado
+project.donor.description=Doador
+project.donor.description.help=Organização ou agente que efectua doações ou contribuições para o projecto, tanto de forma geral, como para um ou mais custos em específico.
+project.donor.type=Tipo de doador
+project.donor.type.help=Tipo de organização ou agente que efectua doações ou contribuições para o projeto.
+projectNongenInput.donated=Recursos doados
+projectNongenInput.donated.help=Se se prevê que alguma parcela do custo seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
+projectNongenLabour.donated.help=Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
+projectNongenGeneral.donated=Recursos doados
+projectNongenGeneral.donated.help= Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
+ 
+error.moreDetails=Detalhes adicionais...
+projectBlockIncome.unitNum.nocycle.help=Indique o número de unidades de venda produzidos por unidade de análise (excluindo perdas e desperdícios).
+projectBlockInput.unitNum.nocycle.help= Indique o número de unidades deste item usadas por unidade de análise (excluindo perdas e desperdícios).
+projectBlockLabour.unitNum.nocycle.help= Indique o número de unidades deste tipo trabalho usadas por unidade de análise.
+ 
+projectBlockInput.donated=Total de recursos doados
+projectBlockInput.donated.help= Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
+projectBlockLabour.donated=Total de recursos doados.
+projectBlockLabour.donated.help= Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
+ 
+profile.report.blockDetail.totals=Totais
+project.report.blockDetail.totals=Totais
+project.report.cashFlow.income.investWithout=Investimentos financiados
+project.report.cashFlow.profit=Lucro
+project.incremental=(Incremental)
+ 
+units.perUnitActivityNoCycle=por unidade de análise (actividade)
+units.perUnitNoCycle=por unidade de análise
+ 
+project.report.contributionSummary.investments=Investimento
+project.report.contributionSummary.general=Custos Gerais
+project.report.contributionSummary.operation=Custos operacionais
+project.report.contributionSummary.contributions=Contribuições
+project.report.contributionSummary.total=Total
+ 
+#translator: as descrições dos seguintes itens não podem conter mais de 31 caracteres e devem ser diferentes entre si.
+project.report.cashFlow.with.sheetname=Fluxo de tesouraria (com)
+project.report.cashFlow.without.sheetname=Fluxo de tesouraria (sem)
+project.report.profitability.with.sheetname=Rentabilidade financeira (com)
+project.report.profitability.without.sheetname=Rentabilidade financeira (sem)
+project.report.profitability.incremental.sheetname=Rentabilidade financeira (incr)
+project.report.cashFlowFirst.with.sheetname=Fluxo de tesouraria ano 1 (com)
+project.report.cashFlowFirst.without.sheetname=Fluxo de tesouraria ano 1 (sem)
+profile.report.preliminary.with.sheetname=Análise (com)
+profile.report.preliminary.without.sheetname=Análise (sem)
+profile.report.preliminary.incremental.sheetname=Análise (incr)
+ 
+#changed from previous versions
+project.report.contributionSummary=Resumo de doações
+project.step2=Beneficiários e doadores
+project.report.summary.block=Receitas e despesas operacionais com projecto
+error.pleaseCorrect=Por favor verifique os dados e corrija a informação assinalada a vermelho.
+error.unknown=Desculpe pelo inconveniente
+error.maxLength=Este campo não pode ter mais de {1} caracteres.
+error.max=O valor neste campo não pode ser superior a {1}.
+error.requiredNonNegative=Este campo não pode ser negativo.
+error.fieldRequired=Este dado é de preenchimento obrigatório.
+error.positiveNumber=O valor neste campo tem de ser superior a 0.
+typeMismatch.java.lang.Double=Este campo é de preenchimento obrigatório e requer um número.
+typeMismatch.java.lang.Integer= Este campo é de preenchimento obrigatório e requer um número inteiro.
+typeMismatch.java.math.BigDecimal= Este campo é de preenchimento obrigatório e requer um número.
+typeMismatch.java.util.Date=O texto inserido não corresponde a um formato de data válido. (dd/MM/aaaa).
+ 
+settings.export=Exportar a configuração actual do Rural Invest
+ 
+ 
+## RIV4.1.4
 project.quickAnalysis=Análise rápida (ignorar análise qualitativa)
 projectBlock.cloneWith=Clonar como bloco “com projecto”
 projectBlock.cloneWithout=Clonar como bloco “sem projecto”

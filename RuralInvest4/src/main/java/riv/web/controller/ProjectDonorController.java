@@ -57,7 +57,7 @@ public class ProjectDonorController {
 	}
     
     @RequestMapping(value="/{id}/delete", method=RequestMethod.GET)
-    public @ResponseBody String delete(@Valid @ModelAttribute Donor donor, HttpServletRequest request) {
+    public @ResponseBody String delete(@ModelAttribute Donor donor, HttpServletRequest request) {
     	User u = (User)request.getAttribute("user");
     	Boolean accessOK = donor.getProject().isShared() || donor.getProject().getTechnician().getUserId().equals(u.getUserId());
     	List<Integer> donorsUsed = dataService.donorsUsed(donor.getProject().getProjectId());

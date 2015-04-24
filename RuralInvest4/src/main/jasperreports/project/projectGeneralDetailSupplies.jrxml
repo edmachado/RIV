@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectGeneralDetailSupplies" pageWidth="776" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="776" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b59195f9-da48-4ea3-8e8f-3590a62a9694">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
@@ -258,7 +258,7 @@
 	<summary>
 		<band height="15" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9c7aa75f-44b0-42f9-9846-85a3fd2ef61d" key="textField-16" mode="Opaque" x="415" y="2" width="54" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="9c7aa75f-44b0-42f9-9846-85a3fd2ef61d" key="textField-16" mode="Opaque" x="417" y="2" width="54" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -272,7 +272,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumTotal}, riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="32c25f6a-a2da-4e54-be11-5e40d2d0c472" key="textField-17" mode="Opaque" x="471" y="2" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="32c25f6a-a2da-4e54-be11-5e40d2d0c472" key="textField-17" mode="Opaque" x="473" y="2" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -286,7 +286,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumOwnResource}, riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="d0b0607a-4028-4941-95a7-df67a44fe709" key="textField-18" mode="Opaque" x="532" y="2" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="d0b0607a-4028-4941-95a7-df67a44fe709" key="textField-18" mode="Opaque" x="534" y="2" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>

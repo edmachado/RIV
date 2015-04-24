@@ -1,3 +1,6 @@
+# RIV4.2
+project.donor.statePublic=Recursos públicos  o del estado
+
 ### RIV4.1.4
 project.quickAnalysis=Análisis rápido (no análisis cualitativo)
 projectBlock.cloneWith=Clonar como bloque “Con proyecto”

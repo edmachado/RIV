@@ -1,3 +1,6 @@
+# RIV4.2
+project.donor.statePublic=Улс/орон нутгийн төсөв
+
 ## RIV4.1.4
 project.quickAnalysis=Шуурхай шинжилгээ (чанарын шинжилгээгүй)
 projectBlock.cloneWith="Төсөлтэй" блокыг хувил

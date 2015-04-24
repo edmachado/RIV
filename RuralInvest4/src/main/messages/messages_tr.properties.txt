@@ -1,3 +1,7 @@
+# RIV4.2
+project.donor.statePublic=Kamu/devlet kaynakları
+
+
 #demo site login page
 demo.welcome=RURALINVEST’E HOŞGELDİNİZ
 demo.version=SÜRÜM

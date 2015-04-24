@@ -1,3 +1,6 @@
+# RIV4.2
+project.donor.statePublic=Montant sur fonds publics/d'Etat
+
 project.report.production.nonGen=Activity pattern
 project.with=(Avec projet)
 
