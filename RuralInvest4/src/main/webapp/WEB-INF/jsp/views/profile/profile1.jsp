@@ -40,8 +40,14 @@ $( "#radioShared" ).buttonset();
 				
 				<c:set var="exchRateCalcSign">${rivConfig.setting.currencyName}&nbsp;<spring:message code="units.perUSD"/></c:set>   
 				<tags:dataentry field="exchRate" labelKey="profile.exchRate" size="8" inputClass="text" calcSign="${exchRateCalcSign}"	helpText="profile.exchRate.help" />				
+				
+				
 				<div class="dataentry">
-					<label><tags:help text="profile.createdBy.help"><spring:message code="profile.creationDate"/></tags:help></label>
+					<label><tags:help text="project.createdBy.help"><spring:message code="project.createdBy"/></tags:help></label>
+				 	${profile.createdBy}
+				</div>
+				<div class="dataentry">
+					<label><tags:help text="project.creationDate.help" title="profile.creationDate"><spring:message code="profile.creationDate"/></tags:help></label>
 				 	<fmt:formatDate value="${profile.prepDate}" type="both" pattern="dd/MM/yy HH:mm" />
 				</div>
 				<div class="dataentry">

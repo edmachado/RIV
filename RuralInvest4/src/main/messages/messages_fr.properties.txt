@@ -5,7 +5,7 @@ project.report.production.nonGen=Activity pattern
 project.with=(Avec projet)
 
 ### RIV4.1.4
-project.quickAnalysis=Analyze rapide  
+project.quickAnalysis=Analyse rapide  
 projectBlock.cloneWith=Copier comme bloc “avec projet”
 projectBlock.cloneWithout=Copier comme bloc “sans projet”
 project.report.cashFlowNongen.accumulated=Cash flow cumulé
@@ -14,18 +14,18 @@ import.excel.error.noWithout=Le projet sur lequel vous travaillez inclue un scen
 
 ## RIV 4.1
 projectContribution.contributor.help=L’organisation donatrice (ONG, agence gouvernementale, projet, etc.)
-projectContribution.yearlyFlow.help=Revenus moins les coûts pour chaque annnée-projet (NB? Not sure as doesn’t where it fits)  
- 
+projectContribution.yearlyFlow.help=Revenus moins les coûts pour chaque annnée-projet  
+
 project.workingCapital.how=Comment est estimé le fonds de roulement pour la première année
 project.workingCapital.explain=Le fonds de roulement pour la première année est calculé à partir cash flow mensuel cumulé de la première année  
-project.amtRequired.explain=La valeur negative la plus importante.
+project.amtRequired.explain=La valeur négative la plus importante.
  
 project.report.wcCalculation=Calcul du besoin en fonds de roulement
 project.report.contributionSummary=Résumé des dons
 project.report.summaryTables=Tableaux résumés
  
 project.report.summary.income=Revenus
-#project.report.summary.costs=Costs Dépenses (if for cash flow) or Coûts (for profitability report)
+#project.report.summary.costs=Dépenses (if for cash flow) or Coûts (for profitability report)
 project.report.summary.costs=Dépenses
 project.report.summary.total=Total
 project.report.summary.cumulative=Total cumulé
@@ -39,32 +39,32 @@ project.recommendation.review=Une plus ample analyse est nécessaire
  
 units.year=Année
 misc.confirm=Confirmez svp
-projectContribution.copy=Copier tous les elements dans une autre année Durant la période d’analyse (not very clear though)
+projectContribution.copy=Copier tous les éléments dans une autre année durant la période d’analyse (not very clear though)
 projectContribution.copy.title=Copier
-projectContribution.copy.toYear=Copier dans année:
+projectContribution.copy.toYear=Copier dans l’année:
 projectContribution.copy.range=Vous pouvez copier dans n’importe quelle année entre 1 et {0}
-projectContribution.addAll=Ajouter à chaque année Durant la période d’analyse du projet
-projectContribution.yearlyFlow=Cash flow annuel net (après les contributions et dons)
+projectContribution.addAll=Ajouter à chaque année durant la période d’analyse du projet
+projectContribution.yearlyFlow=Cash flow annuel net (inclus les contributions et dons)
 projectContribution.contribType.beneficiary=Bénéficiaires
 projectContribution.method.simplified=Simplifié
-projectContribution.method.simplified.help=Dans l’approche “simplifié” il est considéré que les contributions (dons) sont identiques pour chaque année durant la période d’analyse du projet
+projectContribution.method.simplified.help=Dans l’approche “simplifiée” il est considéré que les contributions (dons) sont identiques pour chaque année durant la période d’analyse du projet
 projectContribution.method.perYear=Par an
 projectContribution.method.perYear.help=Dans l’approche “par année” les contributions (dons) sont définies pour chaque année durant la période d’analyse du projet et peuvent donc varier d’une année à l’autre
 projectContribution.method.confirm=Vous allez appliquer les contributions définies pour la première année aux autres années. Les données éventuellement définies pour les autres années seront éliminés. Etes-vous certain de vouloir continuer ?
 projectContribution.contributor=Donateur
  
 projectBlock.usesCycles=Ce bloc a plusieurs cycles
-projectBlock.usesCycles.help=Ce bloc utilise des unites par cycle (ex tonnes/ha, litres/an, etc.)
-projectBlock.pattern.noCycles.help=Indiquez la quantité d’unités de production Durant la période d’analyse. Souvent le nombre d’unités peut varier d’un cycle à l’autre
+projectBlock.usesCycles.help=Ce bloc utilise des unités par cycle (par exemple tonnes/ha, litres/an, etc.)
+projectBlock.pattern.noCycles.help=Indiquez la quantité d’unités de production durant la période d’analyse. Souvent le nombre d’unités peut varier d’un cycle à l’autre
 projectBlock.pattern.noCycles.qty=Quantité d’unités de production
 projectActivity.pattern.noCycles.help=Si le nombre d’unités de production est amené à évoluer avec le temps, définir le nombre d’unités (dans le cas d’une école pour laquelle l’unité est l’étudiant, la quantité d’unité est amenée à varier avec le temps)
 projectActivity.pattern.noCycles.qty=Nombre d’unités d’activité
 project.report.blockDetail.totalPerUnitNoCycle=Total par unité
  
-project.recommendation.seeReports=Pour les résumés et rapports utiles aux fins d’’evaluation et d’élaboration des recommandations, voir
+project.recommendation.seeReports=Pour les résumés et rapports utiles aux fins d’évaluation et d’élaboration des recommandations, voir
  
 # Changed from previous versions
-project.amtRequired.help=Le besoin en fonds de roulement requis est le montant nécessaire pour couvrir tous les dépenses opérationnelles juaquá ce que les revenus soient suffisants. Il est calculé automatiquement par Rural Invest.
+project.amtRequired.help=Le besoin en fonds de roulement requis est le montant nécessaire pour couvrir tous les dépenses opérationnelles jusqu’à ce que les revenus soient suffisants. Il est calculé automatiquement par Rural Invest.
 project.period.help=Nombre de mois durant lesquels les dépenses excèdent les revenus, plus deux mois (avec un maximum de douze mois).
 profile.report.title=Rapports
  
@@ -93,11 +93,9 @@ misc.copy=Copier l'élement
 project.report.blockDetail.netIncome.nongen=Revenu net
  
 profileProductLabour.desc.nongen.help=Décrire la main d'oeuvre et les services utilisés pour conduire l'activité considérée.
-profileProductInput.unitNum.nongen.help=Nombre d'unités utilisées par cycle et par unité de production. Remark: please also change it in same place for the IG profile, spelling error is underlined above 
-profileProductInput.desc.nongen.help=Décrire tous les travaux et services utilisés pour conduire l'activité considérée   Remark: please also change it in same place for the IG profile 
-profileProductLabour.unitNum.nongen.help=Nombre d'unités utilisées par unité de production et par cycle.   
-
-
+profileProductInput.unitNum.nongen.help=Nombre d'unités utilisées par cycle et par unité de production.
+profileProductInput.desc.nongen.help=Décrire tous les travaux et services utilisés pour conduire l'activité considérée
+profileProductLabour.unitNum.nongen.help=Nombre d'unités utilisées par unité de production et par cycle.
 
 customFields.appConfig1.generic=Catégorie additionnelle 1 (général) 
 customFields.appConfig2.generic=Catégorie additionnelle 2 (général)

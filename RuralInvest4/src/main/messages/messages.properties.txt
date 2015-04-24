@@ -69,7 +69,7 @@ typeMismatch.java.math.BigDecimal=This field is required and must be a number.
 typeMismatch.java.util.Date=This field is not a valid date format (dd/MM/yyyy).
 settings.export=Export the current RuralInvest configuration
 
-### RIV4.1.4
+### RIV4.1
 project.quickAnalysis=Quick analysis (no qualitative analysis)
 projectBlock.cloneWith=Clone as "With project" block
 projectBlock.cloneWithout=Clone as "Without project" block
@@ -79,7 +79,6 @@ import.excel.error.noWithout=The project you are working on includes "without pr
 #changed from previous versions
 profile.withWithout.remove=You are choosing to not have "with" and "without project" products for this project. Any products that are currently "without project" will be changed to "with project". Any "without project" investment costs or general costs will be discarded.
 
-### NEW TEXT IN RIV4.1 B
 projectContribution.contributor.help=The contributing organization (NGO, association, government agency)
 projectContribution.yearlyFlow.help=Income minus costs for each year of the project.
 
@@ -100,7 +99,6 @@ project.report.summary.block.all.nongen=All activities
 about.version=Version
 project.recommendation.review=Further review required
 
-### NEW TEXT IN RIV4.1 A
 units.year=Year
 misc.confirm=Confirm
 projectContribution.copy=Copy all items to another year within the project duration.
@@ -503,7 +501,7 @@ misc.total=Total
 misc.undefined=Undefined
 misc.viewEditItem=View/Edit item
 misc.yes=Yes
-profile.benefDesc.help=For groups, describe the length of time the beneficiaries have worked together, whether they have undertaken any previous projects or shared efforts, whether they have a formal structure (e.g. President, Treasuerer, Secretary etc.) and whether they have legal status. For all applicants, give information on their principal activities, income level and wealth.
+profile.benefDesc.help=For groups, describe the length of time the beneficiaries have worked together, whether they have undertaken any previous projects or shared efforts, whether they have a formal structure (e.g. President, Treasurer, Secretary etc.) and whether they have legal status. For all applicants, give information on their principal activities, income level and wealth.
 profile.benefDesc=Description of beneficiaries
 profile.benefFamilies=Households
 profile.benefName.help=Enter name of the beneficiary community, group, family or individual, as appropriate. If a group has no name ask them to choose one. 
@@ -769,7 +767,7 @@ project.beneIndirectMen=Men
 project.beneIndirectNum=Households
 project.beneIndirectWomen=Women
 project.benefChild=Children
-project.benefDesc.help=For groups, describe the length of time the beneficiaries have worked together, whether they have undertaken any previous projects or shared efforts, whether they have a formal structure (e.g. President, Treasuerer, Secretary etc.) and whether they have legal status. For all applicants, give information on their principal activities, income level and wealth.
+project.benefDesc.help=For groups, describe the length of time the beneficiaries have worked together, whether they have undertaken any previous projects or shared efforts, whether they have a formal structure (e.g. President, Treasurer, Secretary etc.) and whether they have legal status. For all applicants, give information on their principal activities, income level and wealth.
 project.benefDesc=Description of beneficiaries
 project.benefFamilies=Households
 project.benefMen=Men

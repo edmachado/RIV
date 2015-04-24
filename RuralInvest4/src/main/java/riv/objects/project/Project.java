@@ -1459,7 +1459,7 @@ public double getInvestmentTotal() {
 	}	
 	
 	public double[][][] getDonationSummary() {
-		if (incomeGen) { throw new RuntimeException("Method only for NIG projects."); }
+//		if (incomeGen) { throw new RuntimeException("Method only for NIG projects."); }
 		
 		int donorSize=donors.size();
 		double[][][] donations = new double[donorSize+1][5][this.getDuration()];
@@ -1530,12 +1530,14 @@ public double getInvestmentTotal() {
 		}
 		
 		// contributions
-		for (ProjectItemContribution c : this.getContributions()) {
-			if (perYearContributions) {
-				donations[c.getDonorOrderBy()][3][c.getYear()-1] += c.getUnitNum()*c.getUnitCost();
-			} else {
-				for (int y=0;y<this.getDuration();y++) {
-					donations[c.getDonorOrderBy()][3][y] += c.getUnitNum()*c.getUnitCost();
+		if (!incomeGen) {
+			for (ProjectItemContribution c : this.getContributions()) {
+				if (perYearContributions) {
+					donations[c.getDonorOrderBy()][3][c.getYear()-1] += c.getUnitNum()*c.getUnitCost();
+				} else {
+					for (int y=0;y<this.getDuration();y++) {
+						donations[c.getDonorOrderBy()][3][y] += c.getUnitNum()*c.getUnitCost();
+					}
 				}
 			}
 		}

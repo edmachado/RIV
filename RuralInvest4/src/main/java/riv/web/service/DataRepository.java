@@ -907,7 +907,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getContributions());
 		}
 		
-		if (withDonations) {
+		if (withDonations || step==12 || step==13) {
 			for (HasDonations i : p.getAssets()) {
 				Hibernate.initialize(i.getDonations());
 			}
