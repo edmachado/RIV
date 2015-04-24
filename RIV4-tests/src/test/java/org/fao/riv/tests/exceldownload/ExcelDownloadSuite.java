@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(value = Suite.class)
-@SuiteClasses(value = { ProfileXls.class, ProjectXls.class, SearchResultsReports.class, ProjectTemplates.class, ProfileTemplates.class })
+@SuiteClasses(value = { ProfileXls.class, ProjectXls.class, SearchResultsReports.class, ProjectTemplates.class, ProfileTemplates.class, ProjectReportValues.class })
 public class ExcelDownloadSuite {
 	
 	 @BeforeClass 
