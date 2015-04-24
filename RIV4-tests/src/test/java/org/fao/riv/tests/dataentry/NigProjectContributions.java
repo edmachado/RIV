@@ -1,18 +1,7 @@
 package org.fao.riv.tests.dataentry;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertTablePresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.checkCheckbox;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickButton;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickRadioOption;
-import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getElementsByXPath;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
-import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
-import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
+import static org.junit.Assert.assertEquals;
 
 import org.fao.riv.tests.utils.ImportFile;
 import org.fao.riv.tests.utils.WebTestUtil;
@@ -80,8 +69,9 @@ public class NigProjectContributions extends WebTestUtil {
 		goToPro(true, false, true);
 		clickLink("step10");
 		assertTitleEquals(title10);
-		assertTablePresent("summaryContributionsTable");
-		
+
+		getTestContext().setResourceBundleName("dataentry/projectNig");
+		assertEquals(Integer.parseInt(getMessage("step2.donor.count"))+1, getElementsByXPath("//div[@id='summaryContributions']/div/table").size());
 	 }
 	
 	@Test
