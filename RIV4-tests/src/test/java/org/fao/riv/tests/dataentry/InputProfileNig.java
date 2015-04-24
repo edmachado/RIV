@@ -23,12 +23,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.fao.riv.tests.utils.InputParam.InputParamType;
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.TestTable;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
+import org.fao.riv.utils.TestTable;
+import org.fao.riv.utils.InputParam.InputParamType;
 
-public class InputProfileNig extends WebTestUtil {
+public class InputProfileNig extends WebTest {
 	 @BeforeClass 
 	 public static void setUpClass() {      
 	       System.out.println("     test InputProfileNig");

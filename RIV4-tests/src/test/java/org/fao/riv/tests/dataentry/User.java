@@ -8,9 +8,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.fao.riv.tests.TestApp;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
 
-public class User extends WebTestUtil {
+public class User extends WebTest {
 	
 	 @BeforeClass 
 	 public static void setUpClass() {      

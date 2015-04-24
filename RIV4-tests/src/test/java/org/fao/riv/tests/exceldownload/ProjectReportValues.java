@@ -6,9 +6,9 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import java.io.File;
 import java.io.IOException;
 
-import org.fao.riv.tests.utils.CompareExcel;
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.CompareExcel;
+import org.fao.riv.utils.ImportFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class ProjectReportValues extends WebTestUtil {
+public class ProjectReportValues extends WebTest {
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();
 	

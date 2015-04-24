@@ -1,4 +1,4 @@
-package org.fao.riv.tests.utils;
+package org.fao.riv.utils;
 
 public class InputParam {
 	private String name;

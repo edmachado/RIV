@@ -1,4 +1,4 @@
-package org.fao.riv.tests.utils;
+package org.fao.riv.utils;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import static org.junit.Assert.assertTrue;
@@ -10,8 +10,8 @@ import java.util.concurrent.Callable;
 import net.sourceforge.jwebunit.html.Row;
 import net.sourceforge.jwebunit.html.Table;
 
-import org.fao.riv.tests.utils.CollectionInputParam;
-import org.fao.riv.tests.utils.InputParam.InputParamType;
+import org.fao.riv.utils.CollectionInputParam;
+import org.fao.riv.utils.InputParam.InputParamType;
 
 
 

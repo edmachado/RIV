@@ -3,14 +3,14 @@ package org.fao.riv.tests.dataentry;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import static org.junit.Assert.assertEquals;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class NigProjectContributions extends WebTestUtil {
+public class NigProjectContributions extends WebTest {
 	 @BeforeClass 
 	 public static void start() {      
 	       System.out.println("     test NigProjectContributions");

@@ -8,14 +8,14 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getMessage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class SettingsChangeDecimalSeparator extends WebTestUtil {
+public class SettingsChangeDecimalSeparator extends WebTest {
 	
 	 @BeforeClass 
 	 public static void setUpClass() {      

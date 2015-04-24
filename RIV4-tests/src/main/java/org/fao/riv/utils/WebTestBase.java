@@ -1,7 +1,6 @@
-package org.fao.riv.tests.utils;
+package org.fao.riv.utils;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertFormElementPresent;
-import static net.sourceforge.jwebunit.junit.JWebUnit.assertFormPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertImageValid;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertLinkPresentWithImage;
@@ -16,7 +15,6 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInElement;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextInTable;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTextPresent;
 import static net.sourceforge.jwebunit.junit.JWebUnit.assertTitleEquals;
-import static net.sourceforge.jwebunit.junit.JWebUnit.beginAt;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickButton;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickElementByXPath;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
@@ -29,10 +27,8 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
 import static net.sourceforge.jwebunit.junit.JWebUnit.getTestingEngine;
 import static net.sourceforge.jwebunit.junit.JWebUnit.gotoPage;
 import static net.sourceforge.jwebunit.junit.JWebUnit.selectOptionByValue;
-import static net.sourceforge.jwebunit.junit.JWebUnit.setBaseUrl;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setTextField;
 import static net.sourceforge.jwebunit.junit.JWebUnit.setWorkingForm;
-import static net.sourceforge.jwebunit.junit.JWebUnit.submit;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -45,32 +41,21 @@ import java.util.concurrent.Callable;
 
 import net.sourceforge.jwebunit.html.Row;
 import net.sourceforge.jwebunit.html.Table;
-import net.sourceforge.jwebunit.junit.JWebUnit;
-import net.sourceforge.jwebunit.util.TestingEngineRegistry;
 
-import org.apache.catalina.LifecycleException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.fao.riv.tests.TestApp;
-import org.fao.riv.tests.utils.InputParam.InputParamType;
-import org.junit.Before;
+import org.fao.riv.utils.InputParam.InputParamType;
 
-public class WebTestUtil {
-	@Before
-    public void prepare() throws LifecycleException {
-		JWebUnit.setTestingEngineKey(TestingEngineRegistry.TESTING_ENGINE_HTMLUNIT);
-		
-		setBaseUrl(TestApp.appURL);
-		getTestContext().setResourceBundleName("messages/messages");
-	 }
-
-//	@After
-//	public void logout() throws LifecycleException {
-		//clickLink("logoff");
-		//TestApp.tomcatStop();
-//	}
+public class WebTestBase {
+	public void assertCheckboxSelected(String name, boolean checked) {
+		if (checked) {
+			net.sourceforge.jwebunit.junit.JWebUnit.assertCheckboxSelected(name);
+		} else {
+			net.sourceforge.jwebunit.junit.JWebUnit.assertCheckboxNotSelected(name);
+		}
+	}
 	
 	public void goHome() {
 		clickLink("goHome");
@@ -81,26 +66,6 @@ public class WebTestUtil {
 		while (getElementsByXPath("//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -9) = 'delete.gif']]]").size()>0) {
 			clickElementByXPath("(//table[@id='"+tableId+"']//a[img[@src[substring(., string-length() -9) = 'delete.gif']]])[1]");
 		}
-	}
-	
-	public void assertCheckboxSelected(String name, boolean checked) {
-		if (checked) {
-			net.sourceforge.jwebunit.junit.JWebUnit.assertCheckboxSelected(name);
-		} else {
-			net.sourceforge.jwebunit.junit.JWebUnit.assertCheckboxNotSelected(name);
-		}
-	}
-	
-	public void login() {
-		beginAt("/");
-		assertFormPresent("login");
-		assertFormElementPresent("j_username");
-	    assertFormElementPresent("j_password");
-	    setTextField("j_username", TestApp.username);
-	    setTextField("j_password", TestApp.password);
-	    assertTextFieldEquals("j_username", TestApp.username);
-	    submit();
-	    assertTitleEquals(getMessage("ruralInvest")+" :: "+getMessage("mainMenu.home"));
 	}
 	
 	public void importFile(File file) {
@@ -294,7 +259,7 @@ public class WebTestUtil {
 	
 	protected void importSettings(ImportFile file) {
 		System.out.println("importing "+file.toString());
-		login();
+		//login();
 		
 		// remove existing profiles, projects and AppConfigs
 		reset();
@@ -1475,4 +1440,4 @@ public class WebTestUtil {
 	  }
 	  return isZip;
 	 }
-	}
+}

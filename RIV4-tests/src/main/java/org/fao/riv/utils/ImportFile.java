@@ -1,4 +1,4 @@
-package org.fao.riv.tests.utils;
+package org.fao.riv.utils;
 
 import java.io.File;
 

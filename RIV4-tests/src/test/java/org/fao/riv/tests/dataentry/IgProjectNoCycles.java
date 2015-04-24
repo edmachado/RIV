@@ -3,14 +3,14 @@ package org.fao.riv.tests.dataentry;
 import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
 import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class IgProjectNoCycles extends WebTestUtil {
+public class IgProjectNoCycles extends WebTest {
 	
 	 @BeforeClass 
 	 public static void start() {      

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,7 +19,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class Error extends WebTestUtil {
+public class Error extends WebTest {
 
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();

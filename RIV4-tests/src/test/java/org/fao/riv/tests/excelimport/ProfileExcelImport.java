@@ -21,8 +21,8 @@ import java.io.File;
 
 import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -33,7 +33,7 @@ import org.junit.rules.TemporaryFolder;
 
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 
-public class ProfileExcelImport extends WebTestUtil {
+public class ProfileExcelImport extends WebTest {
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();
 	

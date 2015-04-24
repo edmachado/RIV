@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
 
-public class ProjectIgChangeDuration extends WebTestUtil {
+public class ProjectIgChangeDuration extends WebTest {
 	
 	 @BeforeClass 
 	 public static void start() {      

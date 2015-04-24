@@ -9,16 +9,16 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.getTestContext;
 
 import java.util.concurrent.Callable;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.InputParam.InputParamType;
-import org.fao.riv.tests.utils.TestTable;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
+import org.fao.riv.utils.TestTable;
+import org.fao.riv.utils.InputParam.InputParamType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ReferenceTableItems extends WebTestUtil {
+public class ReferenceTableItems extends WebTest {
 	 @BeforeClass 
 	 public static void start() {      
 	       System.out.println("     test ReferenceTableItems");

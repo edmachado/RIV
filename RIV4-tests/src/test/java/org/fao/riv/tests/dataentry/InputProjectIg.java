@@ -5,10 +5,10 @@ import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import java.io.File;
 import java.util.concurrent.Callable;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.InputParam.InputParamType;
-import org.fao.riv.tests.utils.TestTable;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
+import org.fao.riv.utils.TestTable;
+import org.fao.riv.utils.InputParam.InputParamType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class InputProjectIg extends WebTestUtil {
+public class InputProjectIg extends WebTest {
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder(new File(this.getClass().getResource("/dataentry").getFile()));
 	

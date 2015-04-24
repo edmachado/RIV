@@ -14,10 +14,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
 
-public class ImportProfile extends WebTestUtil {
+public class ImportProfile extends WebTest {
 
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();

@@ -16,9 +16,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
 
-public class Settings extends WebTestUtil {
+public class Settings extends WebTest {
 
 	@Rule
     public TemporaryFolder folder = new TemporaryFolder();

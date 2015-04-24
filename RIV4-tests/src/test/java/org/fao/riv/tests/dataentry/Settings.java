@@ -20,11 +20,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.TestTable;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
+import org.fao.riv.utils.TestTable;
 
-public class Settings extends WebTestUtil {
+public class Settings extends WebTest {
 	
 	 @BeforeClass 
 	 public static void setUpClass() {      

@@ -6,14 +6,14 @@ import java.util.List;
 
 import net.sourceforge.jwebunit.api.IElement;
 
-import org.fao.riv.tests.utils.ImportFile;
-import org.fao.riv.tests.utils.WebTestUtil;
+import org.fao.riv.tests.WebTest;
+import org.fao.riv.utils.ImportFile;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class EditAndSave extends WebTestUtil {
+public class EditAndSave extends WebTest {
 	 @BeforeClass 
 	 public static void setUpClass() {      
 	       System.out.println("     test EditAndSave");
