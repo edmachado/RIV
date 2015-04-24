@@ -1,8 +1,6 @@
 package org.fao.riv.tests.exceldownload;
 
-import static net.sourceforge.jwebunit.junit.JWebUnit.clickLink;
-import static net.sourceforge.jwebunit.junit.JWebUnit.closeBrowser;
-import static net.sourceforge.jwebunit.junit.JWebUnit.saveAs;
+import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,10 +27,17 @@ public class ProjectReportValues extends WebTestUtil {
 	@Before
 	public void before() {
 		login();
+		clickLink("gotoSettings");
+		setTextField("discountRate", "3");
+		rivSubmitForm();
+		goHome();
 	}
 	
 	@After
     public void close() {
+		clickLink("gotoSettings");
+		setTextField("discountRate", "10");
+		rivSubmitForm();
 		clickLink("logoff");
         closeBrowser();
     }
@@ -40,6 +45,7 @@ public class ProjectReportValues extends WebTestUtil {
 	@Test
 	public void testProjectIg() throws IOException {
 		deletePros(true, true);
+		
 		importProject(ImportFile.ProjectTanzaniaRiv, "igpj", false, false, "Dinos Tanzania case");
 		goToPro(true,true,true);
 		clickLink("step13");
@@ -72,10 +78,10 @@ public class ProjectReportValues extends WebTestUtil {
 		comp.CompareSheet(0, 0, 46, 25);
 		// complete
 		comp = new CompareExcel(complete, ImportFile.ProjectTanzaniaCashFlow.getFile());
-		comp.CompareSheet(11, 0, 46, 25);
+		comp.CompareSheet(12, 0, 46, 25);
 		// stand-alone vs complete
 		comp = new CompareExcel(complete, f);
-		comp.CompareSheet(11, 0, 46, 25);
+		comp.CompareSheet(12, 0, 46, 25);
 		
 		
 		// profitability
@@ -84,13 +90,13 @@ public class ProjectReportValues extends WebTestUtil {
 		f = folder.newFile(); 
 		saveAs(f);
 		comp = new CompareExcel(ImportFile.ProjectTanzaniaProfitability.getFile(), f);
-		comp.CompareSheet(0, 0, 33, 22);
+		comp.CompareSheet(0, 2, 33, 22);
 		// complete
 		comp = new CompareExcel(ImportFile.ProjectTanzaniaProfitability.getFile(), complete);
-		comp.CompareSheet(0, 12, 33, 22);
+		comp.CompareSheet(0, 16, 33, 22);
 		// stand-alone vs complete
 		comp = new CompareExcel(complete, f);
-		comp.CompareSheet(12, 0, 33, 22);
+		comp.CompareSheet(16, 2, 33, 22);
 		
 		// for other reports, compare stand-alone with complete
 		// summary
@@ -158,6 +164,6 @@ public class ProjectReportValues extends WebTestUtil {
 		f = folder.newFile();
 		saveAs(f);
 		comp= new CompareExcel(complete, f);
-		comp.CompareSheet(13, 0, 20, 2);
+		comp.CompareSheet(17, 0, 20, 2);
 	}
 }
