@@ -1,3 +1,4 @@
+
 package org.fao.riv.tests.exceldownload;
 
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
@@ -62,12 +63,15 @@ public class ProjectReportValues extends WebTestUtil {
 		saveAs(f);
 		CompareExcel comp = new CompareExcel(f, ImportFile.ProjectTanzaniaCashFlowFirst.getFile());
 		comp.CompareSheet(0, 0, 17, 15);
+		comp.CompareSheet(1, 1, 17, 15);
 		// complete
 		comp = new CompareExcel(complete, ImportFile.ProjectTanzaniaCashFlowFirst.getFile());
 		comp.CompareSheet(10, 0, 17, 15);
+		comp.CompareSheet(11, 1, 17, 15);
 		// stand-alone vs complete
 		comp = new CompareExcel(complete, f);
 		comp.CompareSheet(10, 0, 17, 5);
+		comp.CompareSheet(11, 1, 17, 5);
 				
 		// compare cash flow
 		// stand-alone
@@ -76,12 +80,15 @@ public class ProjectReportValues extends WebTestUtil {
 		saveAs(f);
 		comp = new CompareExcel(f, ImportFile.ProjectTanzaniaCashFlow.getFile());
 		comp.CompareSheet(0, 0, 46, 25);
+		comp.CompareSheet(1, 1, 46, 25);
 		// complete
 		comp = new CompareExcel(complete, ImportFile.ProjectTanzaniaCashFlow.getFile());
 		comp.CompareSheet(12, 0, 46, 25);
+		comp.CompareSheet(13, 1, 46, 25);
 		// stand-alone vs complete
 		comp = new CompareExcel(complete, f);
 		comp.CompareSheet(12, 0, 46, 25);
+		comp.CompareSheet(13, 1, 46, 25);
 		
 		
 		// profitability
@@ -90,12 +97,18 @@ public class ProjectReportValues extends WebTestUtil {
 		f = folder.newFile(); 
 		saveAs(f);
 		comp = new CompareExcel(ImportFile.ProjectTanzaniaProfitability.getFile(), f);
-		comp.CompareSheet(0, 2, 33, 22);
+		comp.CompareSheet(0, 0, 33, 22);
+		comp.CompareSheet(1, 1, 33, 22);
+		comp.CompareSheet(2, 2, 33, 22);
 		// complete
 		comp = new CompareExcel(ImportFile.ProjectTanzaniaProfitability.getFile(), complete);
-		comp.CompareSheet(0, 16, 33, 22);
+		comp.CompareSheet(0, 14, 33, 22);
+		comp.CompareSheet(1, 15, 33, 22);
+		comp.CompareSheet(2, 16, 33, 22);
 		// stand-alone vs complete
 		comp = new CompareExcel(complete, f);
+		comp.CompareSheet(14, 0, 33, 22);
+		comp.CompareSheet(15, 1, 33, 22);
 		comp.CompareSheet(16, 2, 33, 22);
 		
 		// for other reports, compare stand-alone with complete
@@ -149,7 +162,7 @@ public class ProjectReportValues extends WebTestUtil {
 		saveAs(f);
 		comp= new CompareExcel(complete, f);
 		comp.CompareSheet(7, 0, 85, 11);
-		// invest without
+		// blocks without
 		comp.CompareSheet(8, 1, 25, 11);
 		
 		// parameters
