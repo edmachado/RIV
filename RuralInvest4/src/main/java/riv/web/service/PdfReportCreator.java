@@ -522,7 +522,6 @@ public class PdfReportCreator {
 	public ReportWrapper projectCashFlow(Project project, int startPage, FinanceMatrix matrix, boolean without) {
 		ReportWrapper report = new ReportWrapper(without ? "/reports/project/projectCashFlowWithout.jasper" : "/reports/project/projectCashFlow.jasper", true, matrix.getYearlyData(), "projectCashFlow.pdf", startPage);
 		
-		report.getParams().put("without", without);
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
 		

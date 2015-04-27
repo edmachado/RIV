@@ -25,10 +25,10 @@
 							<spring:message code="project.report.cashFlowNongen.costs"/>
 						</c:when>
 						<c:when test="${row_rowNum eq 3}">
-							<b><spring:message code="project.report.summary.total"/></b>
+							<b><spring:message code="project.report.summary.cashFlow.total"/></b>
 						</c:when>
 						<c:when test="${row_rowNum eq 4}">
-							<b><spring:message code="project.report.summary.cumulative"/></b>
+							<b><spring:message code="project.report.summary.cashFlow.cumulative"/></b>
 						</c:when>
 					</c:choose>
 				</display:column>
@@ -53,10 +53,10 @@
 								<spring:message code="project.report.cashFlowNongen.costs"/>
 							</c:when>
 							<c:when test="${wo_rowNum eq 3}">
-								<b><spring:message code="project.report.summary.total"/></b>
+								<b><spring:message code="project.report.summary.cashFlow.total"/></b>
 							</c:when>
 							<c:when test="${wo_rowNum eq 4}">
-								<b><spring:message code="project.report.summary.cumulative"/></b>
+								<b><spring:message code="project.report.summary.cashFlow.cumulative"/></b>
 							</c:when>
 						</c:choose>
 					</display:column>

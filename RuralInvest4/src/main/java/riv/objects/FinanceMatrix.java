@@ -450,7 +450,7 @@ public class FinanceMatrix {
 		if (project.getWizardStep()==null||project.getWizardStep()>11) {
 			// add donated and own working capital
 			yearlyData.get(0).workingCapitalDonation=project.getCapitalDonate()==null?0.0:project.getCapitalDonate();
-			yearlyData.get(0).workingCapitalOwn=project.getCapitalOwn()==null?0.0:project.getCapitalDonate();
+			yearlyData.get(0).workingCapitalOwn=project.getCapitalOwn()==null?0.0:project.getCapitalOwn();
 			// add loans received
 			yearlyData.get(project.getLoan2InitPeriod()-1).loanReceived=project.getLoan2Amt()==null?0.0:project.getLoan2Amt();
 			yearlyData.get(0).loanReceived+=project.getLoan1Amt()==null?project.getInvestmentTotal():project.getLoan1Amt();
