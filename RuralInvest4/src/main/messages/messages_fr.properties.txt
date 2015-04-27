@@ -1,7 +1,104 @@
 # RIV4.2
-project.donor.statePublic=Montant sur fonds publics/d'Etat
+project.report.production.nonGen=Profil d'activité
 
-project.report.production.nonGen=Activity pattern
+project.report.cashFlow.loan1.capitalDuringGrace=Capital restant dû durant la période de grâce (premier prêt) 
+project.report.cashFlow.loan1.interestDuringGrace=Intérêts accumulés durant la période de grâce sur les intérêts (premier prêt)
+project.report.cashFlow.loan1.interestDuringGraceCapital=Intérêts payés durant la période de grâce sur le capital (premier prêt)
+project.report.cashFlow.loan1.total=Annuité (premier prêt)
+project.report.cashFlow.loan2.capitalDuringGrace=Capital restant dû durant la période de grâce (second prêt) 
+project.report.cashFlow.loan2.interestDuringGrace=Intérêts accumulés durant la période de grâce sur les intérêts (second prêt)
+project.report.cashFlow.loan2.interestDuringGraceCapital=Intérêts payés durant la période de grâce sur le capital (second prêt)
+project.report.cashFlow.loan2.total=Annuité (second prêt)
+project.report.cashFlow.loanRecieved=Prêts reçus
+project.report.cashFlow.wcCapital=Capital prêt fonds de roulement
+
+project.report.profitability.totalMinusInvest.after=Revenu net (avant subventions) en considérant les investissements de la 1ère année durant l'année précédente (année 0)
+project.report.profitability.totalMinusInvest.before=Revenu net (après subventions) en considérant les investissements de la 1ère année durant l'année précédente (année 0)
+
+
+project.donor.statePublic=Montant sur fonds publics/d'Etat
+project.donors=Donateurs
+project.donors.help=Les donateurs ou institutions qui contribuent au financement du projet, de manière globale ou pour des coûts ou activités spécifiques
+project.donor.notSpecified=Non précisé
+project.donor.description=Donateur
+project.donor.description.help=Organisation ou institution qui contribue au financement du projet sous forme de dons ou contributions pour l’ensemble du projet ou pour des coûts ou activités spécifiques
+project.donor.type=Type de donateur
+project.donor.type.help=Type d’organisation ou institution contribuant au financement du projet sous forme de dons ou contributions
+ 
+ 
+projectNongenInput.donated=Dons
+projectNongenInput.donated.help=Précisez ici le montant éventuellement financé sous forme de don ou contribution (financière ou en nature) pour cet élément de coût
+projectNongenLabour.donated=Subventions et dons
+projectNongenLabour.donated.help=Précisez ici le montant éventuellement financé sous forme de don ou contribution (financière ou en nature) pour cet élément de coût
+projectNongenGeneral.donated=Subventions et dons
+projectNongenGeneral.donated.help=Précisez ici le montant éventuellement financé sous forme de don ou contribution (financière ou en nature) pour cet élément de coût
+ 
+error.moreDetails=Plus de details…
+projectBlockIncome.unitNum.nocycle.help=Précisez ici la quantité d’unités de ventes (du produit considéré) par unité de production après avoir tenu compte des pertes et rejets de production non vendables
+projectBlockInput.unitNum.nocycle.help=Précisez ici la quantité d’unités (pour cet élément) par unité de production ou activité
+projectBlockLabour.unitNum.nocycle.help=Précisez ici la quantité d’unités de travail utilisée (pour cet élément) par unité de production ou activité
+ 
+projectBlockInput.donated=Subventions totales
+projectBlockInput.donated.help=Précisez ici le montant éventuellement financé sous forme de don ou contribution (financière ou en nature) pour cet élément de coût
+projectBlockLabour.donated=Subventions totales
+projectBlockLabour.donated.help=Précisez ici la quantité d’unités de travail requise (pour cet élément) financée soius forme de dons ou contribution (monétaire ou en nature)
+ 
+ 
+profile.report.blockDetail.totals=Totaux
+project.report.blockDetail.totals=Totaux
+project.report.cashFlow.income.investWithout=Investissements déjà effectués
+project.report.cashFlow.profit=Solde
+project.incremental=(Additionnel)
+ 
+units.perUnitActivityNoCycle=par unité d’activité
+units.perUnitNoCycle=par unité de production
+ 
+project.report.contributionSummary.investments=Investissements
+project.report.contributionSummary.general=Frais généraux
+project.report.contributionSummary.operation=Coûts d’exploitation
+project.report.contributionSummary.contributions=Contributions
+project.report.contributionSummary.total=Total
+ 
+#translator: the following items cannot be more than 31 characters, and must be different from each other
+project.report.cashFlow.with.sheetname=Flux de trésorerie (avec)
+project.report.cashFlow.without.sheetname=Flux de trésorerie (sans)
+project.report.profitability.with.sheetname=Rentabilité (avec)
+project.report.profitability.without.sheetname=Rentabilité (sans)
+project.report.profitability.incremental.sheetname=Rentabilité (additionnel)
+project.report.cashFlowFirst.with.sheetname=Flux de trésorerie année 1 (avec)
+project.report.cashFlowFirst.without.sheetname=Flux de trésorerie année 1 (sans)
+profile.report.preliminary.with.sheetname=Analyse (avec)
+profile.report.preliminary.without.sheetname=Analyse (sans)
+profile.report.preliminary.incremental.sheetname=Analyse (additionnel)
+ 
+#changed from previous versions
+project.report.contributionSummary=Résumé des dons
+project.step2=Bénéficiaires et donateurs
+project.report.summary.block=Résumé des revenus et coûts opérationnels (avec projet)
+error.pleaseCorrect=Vérifiez les données et corrigez les éléments en rouge
+error.unknown=Désolé pour l’erreur
+error.maxLength=Ce champ ne peut contenir plus de {1} caractère(s).
+error.max=La valeur de cet élément ne peut dépasser {1}.
+error.requiredNonNegative=La valeur de cet élément ne peut être négative
+error.fieldRequired=Ce champ doit être renseigné
+typeMismatch.java.lang.Double=Ce champ doit être renseigné et doit être un chiffre
+typeMismatch.java.lang.Integer=Ce champ doit être renseigné et doit être un chiffre rond
+typeMismatch.java.math.BigDecimal=Ce champ doit être renseigné et doit être un chiffre
+typeMismatch.java.util.Date=La valeur indiquée n’est pas un format de date correct (jj/MM/aaaa)
+settings.export=Exporter le paramétrage actuel de Rural Invest
+
+ 
+#corrected from previously sent translations
+project.workingCapital.explain=Le fonds de roulement pour la première année est calculé à partir du flux de trésorerie mensuel cumulé de la première année  
+project.amtRequired.explain=La valeur négative la plus importante.
+projectContribution.copy=Copier tous les éléments dans une autre année durant la période d’analyse (not very clear though)
+projectContribution.addAll=Ajouter à chaque année durant la période d’analyse du projet
+projectContribution.yearlyFlow=Flux de trésorerie annuel net (après les contributions et dons):
+projectBlock.pattern.noCycles.help=Indiquez la quantité d’unités de production durant la période d’analyse. Souvent le nombre d’unités peut varier d’un cycle à l’autre
+ 
+projectActivity.pattern.noCycles.qty=Nombre d’unités d’activité
+ 
+ 
 project.with=(Avec projet)
 
 ### RIV4.1.4
@@ -17,11 +114,8 @@ projectContribution.contributor.help=L’organisation donatrice (ONG, agence gou
 projectContribution.yearlyFlow.help=Revenus moins les coûts pour chaque annnée-projet  
 
 project.workingCapital.how=Comment est estimé le fonds de roulement pour la première année
-project.workingCapital.explain=Le fonds de roulement pour la première année est calculé à partir cash flow mensuel cumulé de la première année  
-project.amtRequired.explain=La valeur négative la plus importante.
  
 project.report.wcCalculation=Calcul du besoin en fonds de roulement
-project.report.contributionSummary=Résumé des dons
 project.report.summaryTables=Tableaux résumés
  
 project.report.summary.income=Revenus
@@ -29,8 +123,9 @@ project.report.summary.income=Revenus
 project.report.summary.costs=Dépenses
 project.report.summary.total=Total
 project.report.summary.cumulative=Total cumulé
+project.report.summary.cashFlow.total=Solde de trésorerie après financement (annuel)
+project.report.summary.cashFlow.cumulative=Solde de trésorerie après financement (cumulé)
 project.report.summaryTables.info=Pour plus d’informations, voir
-project.report.summary.block=Résumé des revenus et dépenses opérationels
 project.report.summary.block.all=Tous les blocs
 project.report.summary.block.all.nongen=Toutes les activités
  
@@ -39,12 +134,9 @@ project.recommendation.review=Une plus ample analyse est nécessaire
  
 units.year=Année
 misc.confirm=Confirmez svp
-projectContribution.copy=Copier tous les éléments dans une autre année durant la période d’analyse (not very clear though)
 projectContribution.copy.title=Copier
 projectContribution.copy.toYear=Copier dans l’année:
 projectContribution.copy.range=Vous pouvez copier dans n’importe quelle année entre 1 et {0}
-projectContribution.addAll=Ajouter à chaque année durant la période d’analyse du projet
-projectContribution.yearlyFlow=Cash flow annuel net (inclus les contributions et dons)
 projectContribution.contribType.beneficiary=Bénéficiaires
 projectContribution.method.simplified=Simplifié
 projectContribution.method.simplified.help=Dans l’approche “simplifiée” il est considéré que les contributions (dons) sont identiques pour chaque année durant la période d’analyse du projet
@@ -55,10 +147,8 @@ projectContribution.contributor=Donateur
  
 projectBlock.usesCycles=Ce bloc a plusieurs cycles
 projectBlock.usesCycles.help=Ce bloc utilise des unités par cycle (par exemple tonnes/ha, litres/an, etc.)
-projectBlock.pattern.noCycles.help=Indiquez la quantité d’unités de production durant la période d’analyse. Souvent le nombre d’unités peut varier d’un cycle à l’autre
 projectBlock.pattern.noCycles.qty=Quantité d’unités de production
 projectActivity.pattern.noCycles.help=Si le nombre d’unités de production est amené à évoluer avec le temps, définir le nombre d’unités (dans le cas d’une école pour laquelle l’unité est l’étudiant, la quantité d’unité est amenée à varier avec le temps)
-projectActivity.pattern.noCycles.qty=Nombre d’unités d’activité
 project.report.blockDetail.totalPerUnitNoCycle=Total par unité
  
 project.recommendation.seeReports=Pour les résumés et rapports utiles aux fins d’évaluation et d’élaboration des recommandations, voir
@@ -68,7 +158,141 @@ project.amtRequired.help=Le besoin en fonds de roulement requis est le montant n
 project.period.help=Nombre de mois durant lesquels les dépenses excèdent les revenus, plus deux mois (avec un maximum de douze mois).
 profile.report.title=Rapports
  
+### RIV4.0
+# the attach file table in step one of projects and profiles
+attach.fileExists=Un fichier avec  le même nom existe déjà
+attach.free=Espace disponible
+attach.new=Joindre un nouveau fichier
+attach.newProfile=Dans cette section, vous pourrez joindre des fichiers à cet avant-projet une fois la première étape sauvegardée
+attach.newProject=Dans cette section, vous pourrez joindre des fichiers à ce projet une fois la première étape sauvegardée
+attach.noSpace=La taille du fichier dépasse l’espace disponible pour ce projet/avant-projet
+attach.used=Espace utilisé
+attach=Fichiers joints
+project.step1.6.help=Vous pouvez joindre des fichiers à ce projet (cartes, images, fichiers texte, feuille de calcul, etc.), dans une limite de 3 MB par projet.
+project.step1.6=Fichiers joints
 
+enviroCategory.addCat=Ajouter une catégorie environnementale
+error.benefRequired=Il doit y avoir au moins un bénéficiaire direct
+error.import.incompatibleSettings=Les paramètres que vous importez ne sont pas compatibles avec la configuration existante
+error.import.logoTooBig=La taille maximale du logo à insérer est de 70 Kb
+error.import.noEnviroCategory=Ce projet contient une catégorie environnementale qui ne fait part partie de vos paramétrages actuels. Seuls les projets utilisant la même configuration peuvent être importés
+error.import.notImage=Le logo importé doit être au format jpeg ou gif
+error.import.profile=Une erreur est survenue lors de la sauvegarde de l’avant-projet
+error.logo=Ajouter le logo de votre institution
+error.maxLoanLength=La durée du prêt ne peut être supérieure à la durée d’analyse du projet
+error.unknown.log=Merci de fournir ce fichier pour aider à la compréhension du problème:
+fieldOffice.delete.warn=You will not be able to import projects or profiles that use this field office, and exporting these settings to other computers which have this field office will not be possible.  Please use this function only for correcting mistakes when first setting up your configuration, before exporting the settings or any profiles or projects to other computers.  Do you wish to continue? Effacer un bureau de terrain pourrait rendre l’installation de Rural Invest incompatible avec d’autres utilisateurs. Vous ne serez plus en mesure d’importer des avant-projets et projets utilisant ce bureau de terrain, ni d’exporter ces paramétrages à d’autres utilisateurs qui utilisent ce bureau de terrain dans leur configuration. N’effacez ce bureau que pour corriger des erreurs lors du paramétrage initial, avant de partager le fichier paramètre initialement créé avec d’autres utilisateurs. Etes-vous sûr de vouloir continuer ?
+home.help.help=La plupart des termes utilisés dans Rural Invest sont décrits en détail dans les textes d’aide. Cliquez sur le terme voulu et une fenêtre comme celle-ci apparaîtra automatiquement. Elle disparaîtra dès que vous déplacerez le curseur hors du message affiché.
+import.error.excel.read=Le fichier Excel joint ne peut être ouvert. Assurez-vous que ce fichier a été créé à partir de la feuille de saisie Excel type Rural Invest et est bien au format xlsx
+import.excel.error.datatype=Des éléments de texte ont été trouvés là où devraient être saisis uniquement des chiffres. Corrigez les données saisies et essayez à nouveau.
+ 
+# Excel import function
+# "{0}" should not be translated, it's used by the software
+import.excel.error=Erreur sur la ligne {0}.
+import.excel.fail=L’importation n’a pas réussi.
+import.excel.file=Choisir un fichier
+import.excel.instruction=<p>Vous pouvez importer des données directement dans Rural Invest en utilisant une feuille de calcul Excel au format approprié.</p><p>Pour l’obtenir, cliquez sur “annuler” puis téléchargez <ol><li>la feuille Excel Rural Invest vierge en vue de saisir les données, ou bien</li><li>exporter les données déjà saisies dans Rural Invest sur Excel au format Rural Invest en vue de la compléter puis la réimporter.</li></ol></p><p> Lors de l’importation, les données existantes dans Rural Invest seront éliminées et remplacées par celles saisies dans la feuille Excel au format approprié.</p>
+ 
+import.generic.confirm=Merci de confirmer le taux de change du dollar des Etats-Unis d’Amérique (USD):
+import.generic.info=Ce projet ou avant-projet a été converti en USD et sera converti dans la monnaie utilisée par votre configuration
+manual.description.2=Tous les manuels et guides peuvent être lus ou téléchargés au format pdf (en utilisant le logiciel gratuit Adobe Acrobate Reader). De plus, des fichiers au format Word sont proposés pour les discussions de terrain avec les promoteurs de projet, notamment pour le module 2. Il est recommandé aux agents appuyant la préparation des projets avec leurs promoteurs d’utiliser ces formats Word ainsi qu’un tableau noir ou de larges feuilles de papiers affichées au mur afin de faciliter les discussions avec l’ensemble des promoteurs concernés.
+ 
+# Text that appears when you put the mouse over the "up" and "down" buttons in tables
+misc.moveDown=Déplacer cet élément vers le bas
+misc.moveUp=Déplacer cet élément vers le haut
+ 
+# The names of the sheets in the complete Excel report.
+# Each must be no more than 31 characters including spaces, and they must be distinct.
+profile.report.benefits.sheetname=Bénéfices
+profile.report.costDetail.with.sheetname=Frais généraux (sans)
+profile.report.costDetail.without.sheetname=Frais généraux (avec)
+profile.report.general.sheetname=Frais généraux
+profile.report.investDetail.sheetname=Coûts d’investissement
+profile.report.investDetail.with.sheetname=Coûts d’investissement (avec)
+profile.report.investDetail.without.sheetname=Coûts d’investissement (sans)
+profile.report.preliminary.sheetname=Analyse
+profile.report.productDetail.sheetname=Produits
+profile.report.productDetail.with.sheetname=Produits (avec)
+profile.report.productDetail.without.sheetname=Produits (sans)
+profile.report.results.sheetname=Avant-projets
+profile.report.summary.sheetname=Résumé
+ 
+project.report.activityDetail.sheetname=Activités
+project.report.blockDetail.sheetname=Blocs
+project.report.blockDetail.with.sheetname=Blocs (avec)
+project.report.blockDetail.without.sheetname=Blocs (sans)
+project.report.cashFlowFirst.sheetname=Flux de trésorerie année 1
+project.report.cashFlowNongen.sheetname=Durabilité
+project.report.chronology.sheetname=Chronologie
+project.report.contributions.sheetname=Contributions
+project.report.general.sheetname=Description
+project.report.generalCostsDetail.sheetname=Frais généraux
+project.report.generalCostsDetail.with.sheetname=Frais généraux (avec)
+project.report.generalCostsDetail.without.sheetname=Frais généraux (sans)
+project.report.investDetail.sheetname=Coûts d’investissement
+project.report.investDetail.with.sheetname=Coûts d’investissement (avec)
+project.report.investDetail.without.sheetname=Coûts d’investissement (sans)
+project.report.cashFlow.sheetname=Flux de trésorerie
+project.report.parameters.sheetname=Paramètres
+project.report.production.nonGen.sheetname=Profil d'activité
+project.report.production.sheetname=Profil de production
+project.report.profitability.sheetname=Rentabilité
+project.report.recommendation.sheetname=Recommandation
+project.report.summary.sheetname=Résumé
+ 
+project.report.results.sheetname=Projets
+ 
+profile.step1.6.help=Vous pouvez joindre des fichiers à cet avant-projet (cartes, images, fichiers texte, feuilles de calcul, etc.), dans une limite de 3 MB par projet.
+profile.step1.6=Fichiers joints
+ 
+profile.withWithout.remove=Vous avez choisi de ne pas avoir de produits «avec projet » et « sans projet » pour cet avant-projet. Les produits « sans projet » existant seront transformés en produits « avec projet », tandis que les coûts d’investissement et frais généraux « sans projet » éventuellement saisis seront éliminés.
+ 
+# project cash flow report
+project.report.cashFlow.costs.initial=Investissement initial
+project.report.cashFlow.costs.invest=Coûts d’investissement
+project.report.cashFlow.costs.recurrent=Dépenses d’exploitation
+project.report.cashFlow.costs.total=Dépenses totales
+project.report.cashFlow.costs=Dépenses
+project.report.cashFlow.financing=Dépenses financières
+project.report.cashFlow.income.finance=Recettes financières
+project.report.cashFlow.income.invest=Dons (investissement)
+project.report.cashFlow.income.loans=Prêts (investissement)
+project.report.cashFlow.income.loanwc=Prêt (fonds de roulement)
+project.report.cashFlow.income.main=Recettes d’exploitation
+project.report.cashFlow.income.own=Ressources propres (investissement)
+project.report.cashFlow.income.total=Recettes totales
+project.report.cashFlow.income.wcDonation=Dons (fonds de roulement)
+project.report.cashFlow.income.wcOwn=Ressources propres (fonds de roulement)
+project.report.cashFlow.invest=Investissement
+ 
+# project summary report
+project.report.summary.employment.total=Total
+ 
+Incremental Additionnel
+project.without=Sans projet
+project.withWithout.remove=Vous avez choisi de ne pas avoir de blocs «avec projet » et « sans projet » pour ce projet. Les blocs « sans projet » existant seront transformés en blocs « avec projet ».
+projectBlock.chronology.selectAll=(Sélectionner tous)
+ 
+# for cost items that are linked to reference table items
+# the following "Link" is the verb in imperative, used for the button "Link"
+reference.item.link.imperative=Lier
+reference.item.linkedTo=Lié à:
+ 
+settings.currency.decimalLength.help=Choisir le nombre de décimales à faire apparaître pour les valeurs monétaires
+settings.currency.decimalLength=Nombre de décimales
+settings.currency.decimalSeparator.help=Choisir le caractère à utiliser comme séparateur de décimale
+settings.currency.decimalSeparator=Séparateur de décimale 
+settings.currency.thousandsSeparator.help=Choisir le caractère à utiliser comme séparateur de milliers
+settings.currency.thousandsSeparator=Séparateur de milliers
+settings.language.help=Définit la langue par défaut qui sera utilisée pour les utilisateurs qui n’ont pas indiqué une préférence de langue
+settings.language=Langue par défaut
+ 
+units.days.calendar=Jours(s) calendaires
+units.days.week=Jour(s) ouvrables
+user.language=Langue
+
+ 
+###
 
 #demo site login page
 demo.welcome=BIENVENUE DANS RURALINVEST
@@ -169,7 +393,6 @@ error.import.notARivFile=Ce fichier n'est pas un fichier avec une extension .riv
 error.import.notSettings=Le fichier que vous tentez d'importer n'est pas un fichier de configuration Rural Invest. 
 error.import.noStatus=Ce projet ou avant-projet contient un statut d’avancement du projet qui ne fait pas partie de la configuration existante. Seulement les projets utilisant les mêmes paramètres de configuration peuvent être importés. Il est cependant possible d’importer des projets ou avant-projets créés avec une configuration différente à condition qu’ils aient été exportés avec l’option d’exportation « générale ». 
 error.import.wrongType=Vous essayez d'importer un projet à la place d'un avant-projet ou inversement
-error.fieldRequired="{0}" doit obligatoirement être renseigné
 error.loanTooLong=Le prêt ne peut pas être prolongé au-delà de la date de fin du projet.
 error.noAccess.info=Vous n'avez pas la permission d'accéder à cette page
 error.noAccess=Pas d'accès
@@ -181,14 +404,12 @@ error.noProjectActivity=Le projet doit contenir au moins une activité
 error.noProjectBlock=Le projet doit contenir au moins un bloc
 error.notFound.info=La page demandée est introuvable. Veuillez vérifier le lien et contacter l'équipe RuralInvest de la FAO
 error.notFound=Page introuvable
-error.pleaseCorrect=Veuillez corriger les champs ci-dessous
-error.positiveNumber="{0}" doit être un nombre positif
+error.positiveNumber=La valeur de ce champ doit être supérieure à zéro
 error.productNoTable=Produit"{0}": Tableau "{1}"ne peut rester vide
 error.tableEmpty="{0}": Ce tableau ne peut rester vide
 error.tableMissingData=Une donnée est manquante. Peut-être essayez vous d'importer un avant-projet ou un projet créé avec une configuration différente de RuralInvest ?
 error.unknown.info=Une erreur inconnue s'est produite. Veuillez contacter l'équipe RuralInvest avec les informations suivantes :
 error.unknown.noInfo=Aucune information disponible
-error.unknown=Erreur inconnue
 error.user.usernameTaken=Ce nom d’utilisateur est déjà utilisé. S’il vous plaît, choisissez un autre nom d’utilisateur.
 error=Erreur
 export.download=Exporter les données sous Excel 
@@ -263,7 +484,7 @@ mainMenu.config.customFields=Champs additionnels
 mainMenu.config.offices=Zones
 mainMenu.config.enviroCategories=Categories environnementales
 mainMenu.config.settings=Paramètres
-mainMenu.config.statuses=Statuts du projet
+mainMenu.config.statuses=État (d’avancement) du projet
 mainMenu.config.users.addEdit=Ajouter/Modifier un utilisateur
 mainMenu.config.users=Utilisateurs
 mainMenu.config=Configuration
@@ -606,7 +827,7 @@ project.demand=Demande prévue
 project.duration.help=Nombre d'années considéré pour l'analyse du projet. De grands projets peuvent nécessiter une durée d'analyse plus longue pour justifier leur coût d'investissement. Attention, la durée maximale d'analyse d'un projet a été établie dans le chapitre Configuration – Paramètres.
 project.duration=Durée
 project.enviroCat.help=A: pas d'impacts négatifs; B: faibles impacts; C: impacts moyens ou importants; D: impacts négatifs importants - pas de mesures d'atténuation possibles.  Pour plus de détails sur les catégories environnementales, voir le manuel du module 3.
-project.enviroCat=Catégorie environne- mentale 
+project.enviroCat=Catégorie environnementale 
 project.enviroImpact.help=Expliquer quels sont les impacts potentiels du projet sur l’environnement (par exemple sur la faune et la flore, sur le couvert végétal, sur les ressources en eau, sur l'utilisation des sols, etc.). Ces impacts peuvent être tant négatifs que positifs. Discuter l'ampleur et la probabilité de réalisation de ces impacts, ainsi que les mesures d’atténuation envisagées pour les impacts négatifs sur l’environnement. 
 project.enviroImpact=Durabilité environnementale/impact
 project.exchRate.help=Entrer le taux de change actuel de la monnaie locale par rapport au dollar EU c'est à dire le nombre d'unités de monnaie locale pour 1 dollar UE (x unités de monnaie locale = 1 dollar EU) au moment de la préparation du projet.
@@ -702,7 +923,7 @@ project.report.cashFlow.profitBefore=Solde avant financement
 project.report.cashFlow.secCapital=Capital second prêt
 project.report.cashFlow.secInterest=Intérêts second prêt
 project.report.cashFlow.wcInterest=Intérêts prêt FR
-project.report.cashFlow=Flux de trésorerie
+project.report.cashFlow=Flux de trésorerie (monétaire)
 project.report.cashFlowFirst.cumFlow=Flux de trésorerie cumulé
 project.report.cashFlowFirst.general=Frais généraux
 project.report.cashFlowFirst.maint=Entretien
@@ -745,7 +966,7 @@ project.report.profitability.costs.investment=Investissement
 project.report.profitability.costs.maintenance=Entretien
 project.report.profitability.costs.operation=Coûts de production
 project.report.profitability.costs.personnel=Personnel
-project.report.profitability.costs.replacement=Remplacement
+project.report.profitability.costs.replacement=Remplacement des investissements
 project.report.profitability.costs=Dépenses
 project.report.profitability.donations=Subventions
 project.report.profitability.donations.wc=Fonds de roulement
@@ -753,9 +974,9 @@ project.report.profitability.donations.investment=Investissement
 project.report.profitability.donations.netBefore=Revenu net (avant subventions)
 project.report.profitability.donations.netAfter=Revenu net (avec subventions)
 project.report.profitability.incomes.capDonation=Subvention FR
-project.report.profitability.incomes.residual=Valeur résiduelle
+project.report.profitability.incomes.residual=Valeur résiduelle des investissements
 project.report.profitability.incomes.sales=Ventes
-project.report.profitability.incomes.salvage=Valeur de revente
+project.report.profitability.incomes.salvage=Revente des biens remplacés
 project.report.profitability.incomes=Recettes
 project.report.profitability.indicators=Indicateurs
 project.report.profitability.netIncome=Revenu net
@@ -827,7 +1048,6 @@ project.step2.2=Bénéficiaires directs
 project.step2.3.help=Les bénéficiaires indirects sont ceux qui peuvent attendre des bénéfices indirects du projet. Cela peut comprendre tous les habitants des environs immédiats de l'activité ou ceux qui pourraient potentiellement atteindre le service proposé même s'il n'est pas prévu qu'ils soient des utilisateurs directs de l'investissement. Pour un projet environnemental, il peut être difficile d'identifier les bénéficiaires indirects (voir manuel).
 project.step2.3=Bénéficiaires indirects
 project.step2.4=Description des bénéficiaires
-project.step2=Bénéficiaires
 project.step3=Description
 project.step4.nongen=Technologie et formation
 project.step4=Technologie et formation
@@ -1281,7 +1501,6 @@ settings.discountRate.help=Taux auquel les revenus futurs seront actualisés. Vo
 settings.discountRate=Taux d'actualisation
 settings.exchRate.help=Entrer le taux de change actuel de la monnaie locale par rapport au dollar EU c'est à dire le nombre d'unités de monnaie locale pour 1 dollar UE (x unités de monnaie locale = 1 dollar EU). Les utilisateurs auront la possibilité de modifier ce taux lors de la préparation des Avant-projets ou des Projets si celui-ci a changé.
 settings.exchRate=Taux de change
-settings.export=Exporter
 settings.firstConfigImport=Import
 settings.link1.text=Lien texte 1
 settings.link1.url=Lien URL 1
@@ -1318,10 +1537,6 @@ style.menu5=320
 style.menu6=445
 style.menu7=400
 style.menu8=25
-typeMismatch.java.lang.Double="{0}" est nécessaire et doit être un nombre
-typeMismatch.java.lang.Integer="{0}" est nécessaire et doit être un nombre entier
-typeMismatch.java.math.BigDecimal="{0}" est nécessaire et doit être un nombre
-typeMismatch.java.util.Date="{0}" n'est pas une date correcte (Jour/Mois/Année)
 units.USD=Dollars EU
 units.days=jour(s)
 units.inPercent=en %

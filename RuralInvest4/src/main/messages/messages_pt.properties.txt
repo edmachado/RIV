@@ -111,6 +111,8 @@ project.report.summary.income=Receitas
 project.report.summary.costs=Custos
 project.report.summary.total=Total
 project.report.summary.cumulative=Total acumulado
+project.report.summary.cashFlow.total=Total
+project.report.summary.cashFlow.cumulative=Total acumulado
 project.report.summary.block.all=Todos os blocos
 project.report.summary.block.all.nongen=Todas as actividades
  
