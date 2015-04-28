@@ -24,6 +24,7 @@
 				<tags:dataentry field="orgName" labelKey="settings.organization" inputClass="text" size="40" maxLength="100" helpText="settings.organization.help" />
 				<div class="dataentry">
 					<tags:help text="settings.language.help"><form:label path="lang"><spring:message code="settings.language"/></form:label></tags:help>
+					<input type="hidden" name="exLang" value="${setting.lang}"/>
 					<form:select path="lang">
 						<form:option value="en">English</form:option>
 						<form:option value="es">Español</form:option>
@@ -41,7 +42,7 @@
 					<img src="orgLogo" border="0"/><br/>
 					<spring:message code="settings.changeLogo"/><br/>
 					<input type="file" name="tempLogo" id="fileSelect" accept="image/gif, image/jpeg, image/jpg" />
-						gif/jpeg <70 kb
+						gif/jpeg &lt;70 kb
 				</div>
 			</fieldset>
 			

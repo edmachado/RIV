@@ -86,6 +86,10 @@ public class RivConfig {
 		if (setting==null) {
 			setting=new Setting();
 		}
+		loadAppConfigs();
+	}
+	
+	public void loadAppConfigs() {
 		loadBeneficiaries();
 		loadFieldOffices();
 		loadCategories();
@@ -146,8 +150,9 @@ public class RivConfig {
 		}
 	}
 
-	public void setSetting(Setting setting) {
+	public void setSetting(Setting setting, boolean refreshAppConfigs) {
 		this.setting = setting;
+		if (refreshAppConfigs) { loadAppConfigs(); }
 	}
 
 	public Setting getSetting() {
@@ -311,7 +316,7 @@ public class RivConfig {
 	
 	public RivConfig copyForExport() throws SQLException {
 		RivConfig newRc = new RivConfig();
-		newRc.setSetting(this.getSetting().copy());
+		newRc.setSetting(this.getSetting().copy(), false);
 		
 		newRc.setBeneficiaries(new HashMap<Integer,Beneficiary>());
 		for (Beneficiary ac : beneficiaries.values()) {

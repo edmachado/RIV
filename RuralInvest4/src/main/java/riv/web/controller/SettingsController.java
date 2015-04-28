@@ -101,7 +101,8 @@ public class SettingsController {
 			
 			dataService.storeAppSetting(setting);
 			setting.refreshCurrencyFormatter();
-			rivConfig.setSetting(dataService.getAppSetting());
+			boolean refreshAppConfigs = !request.getParameter("exLang").equals(setting.getLang());
+			rivConfig.setSetting(dataService.getAppSetting(), refreshAppConfigs);
 			
 			// if discount has changed, recalculate indicators
 			if (request.getParameter("exDiscountRate")!=null &! request.getParameter("exDiscountRate").isEmpty()) {
