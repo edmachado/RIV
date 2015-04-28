@@ -7,7 +7,6 @@
 	<parameter name="irr" class="java.math.BigDecimal" isForPrompting="false"/>
 	<parameter name="npvNoDonation" class="java.lang.Double" isForPrompting="false"/>
 	<parameter name="irrNoDonation" class="java.math.BigDecimal" isForPrompting="false"/>
-	
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -19,7 +18,7 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="137" splitType="Stretch">
+		<band height="169" splitType="Stretch">
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="2be84317-2c40-4275-a5b7-0f95d1675fd1" key="textField-43" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="210" y="37" width="129" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[new Boolean($P{irr}.doubleValue()*100.0 >= -1000.0 &&
@@ -223,6 +222,20 @@ true || $P{irr}.compareTo(new BigDecimal(10)) <= 0)]]></printWhenExpression>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.irrApplicant.help}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2598ed58-06ff-4e88-bced-b78a22dfdb36" key="textField-42" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="6" y="137" width="630" height="32" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.profitability.footnote}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

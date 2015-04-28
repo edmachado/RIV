@@ -1,5 +1,97 @@
 # RIV4.2
+project.report.profitability.footnote=El flujo de ingresos netos es ajustado para estimar TIR y VPN bajo el supuesto que la inversión principal (en año uno) se realiza un año antes del inicio de operaciones (año cero).
+
 project.donor.statePublic=Recursos públicos  o del estado
+project.report.cashFlow.costs.initial=Inversión inicial
+project.report.cashFlow.costs.invest=Costos de inversión
+project.report.cashFlow.costs.recurrent=Costos recurrentes
+project.report.cashFlow.costs.total=Gastos totales
+project.report.cashFlow.costs=Gastos
+project.report.cashFlow.income.finance=Fuentes de financiamiento
+project.report.cashFlow.income.invest=Donación para inversión
+project.report.cashFlow.income.loans=Préstamos para inversión
+project.report.cashFlow.income.loanwc=Préstamo para capital de trabajo
+project.report.cashFlow.income.main=Ingreso principal
+project.report.cashFlow.income.own=Recursos propios para inversión
+project.report.cashFlow.income.total=Ingreso total
+project.report.cashFlow.income.wcDonation=Donación para capital de trabajo
+project.report.cashFlow.income.wcOwn=Recursos propios para capital de trabajo
+project.report.cashFlow.wcCapital=Capital de trabajo - Capital
+	
+project.report.cashFlowNongen.sheetname=Sostenibilidad
+
+project.report.profitability.totalMinusInvest.after=Ingreso neto antes de donación considerando inversión de primer año, en año cero
+project.report.profitability.totalMinusInvest.before=Ingreso neto después de donación considerando inversión de primer año, en año cero
+
+project.donors=Donantes
+project.donors.help=Donantes y organizaciones que contribuyen a este proyecto, de manera general o para costos específicos de rubros de inversion u operación. 
+project.donor.notSpecified=No especificado
+project.donor.description=Donante
+project.donor.description.help=Una organización o ente que realice donaciones o contribuciones al proyecto, de manera general o para rubros específicos.
+project.donor.type=Tipo de donante
+project.donor.type.help=El tipo de organización o ente que realize donaciones o contribuciones al proyecto.
+
+projectNongenInput.donated=Recursos donados
+projectNongenInput.donated.help=En caso que una parte del costo de este rubro pueda ser cubierto con recursos donados (ya sea en especio o en efectivo), identifique aquí el monto en valor monetario.
+projectNongenLabour.donated=Recursos donados
+projectNongenLabour.donated.help=En caso que una parte del costo de este rubro pueda ser cubierto con recursos donados (ya sea en especie o en efectivo), identifique aquí el monto en valor monetario.
+projectNongenGeneral.donated=Recursos donados
+projectNongenGeneral.donated.help=En caso que una parte del costo de este rubro pueda ser cubierto con recursos donados (ya sea en especie o en efectivo), identifique aquí el monto en valor monetario.
+
+error.moreDetails=Más detalles...
+projectBlockIncome.unitNum.nocycle.help=Indicar el número de unidades de venta producidas por unidad de producción (excluyendo pérdidas y descartes).
+projectBlockInput.unitNum.nocycle.help=Indicar el número de unidades utilizadas de este rubro, por unidad de producción o actividad.
+projectBlockLabour.unitNum.nocycle.help=Indicar el número de unidades utilizadas de este tipo de mano de obra, por unidad de producción o actividad.
+
+projectBlockInput.donated=Total de recursos donados
+projectBlockInput.donated.help=En caso que una parte del costo de este rubro pueda ser cubierto con recursos donados (ya sea en especie o en efectivo), identifique aquí el monto en valor monetario.
+projectBlockLabour.donated=Total de recursos donados
+projectBlockLabour.donated.help= En caso que una parte del costo de este rubro pueda ser cubierto con recursos donados (ya sea en especie o en efectivo), identifique aquí el monto en valor monetario.
+
+profile.report.blockDetail.totals=Totales
+project.report.blockDetail.totals=Totales
+project.report.cashFlow.income.investWithout=Inversiones financiadas
+project.report.cashFlow.profit=Ingreso neto
+project.incremental=(Incremental)
+
+units.perUnitActivityNoCycle=por unidad de actividad
+units.perUnitNoCycle=por unidad de producción
+
+project.report.contributionSummary.investments=Inversiones
+project.report.contributionSummary.general=Costos generales
+project.report.contributionSummary.operation=Costos de operación
+project.report.contributionSummary.contributions=Contribuciones
+project.report.contributionSummary.total=Total
+
+#translator: the following items cannot be more than 31 characters, and must be different from each other
+project.report.cashFlow.with.sheetname=Flujo efectivo (con)
+project.report.cashFlow.without.sheetname=Flujo efectivo (sin)
+project.report.profitability.with.sheetname=Rentabilidad (con)
+project.report.profitability.without.sheetname=Rentabilidad (sin)
+project.report.profitability.incremental.sheetname=Rentabilidad (incr)
+project.report.cashFlowFirst.with.sheetname=Flujo efectivo año 1o (con)
+project.report.cashFlowFirst.without.sheetname= Flujo efectivo año 1o (sin)
+profile.report.preliminary.with.sheetname=Análisis (con)
+profile.report.preliminary.without.sheetname=Análisis (sin)
+profile.report.preliminary.incremental.sheetname=Análisis (incr)
+
+#changed from previous versions
+project.report.contributionSummary=Resumen de donaciones
+project.step2=Beneficiarios y donantes
+project.report.summary.block=Resumen de ingresos y costos operativos con proyecto
+error.pleaseCorrect=Por favor verifique sus datos y corrija los campos marcados en rojo.
+error.unknown=Disculpe por el inconveniente
+error.maxLength=Este campo no tener más de {1} caracteres.
+error.max=Este campo no puede ser mayor de {1} caracteres.
+error.requiredNonNegative=This field cannot be negative.=Este campo no puede ser negativo
+error.fieldRequired=Este es una información necesaria.
+error.positiveNumber=Este dato debe ser mayor que 0.
+typeMismatch.java.lang.Double=Esta información es necesaria y debe ser un número.
+typeMismatch.java.lang.Integer=Este es un dato necesario y debe ser un numero entero.
+typeMismatch.java.math.BigDecimal= Este campo es necesario y debe ser un número.
+typeMismatch.java.util.Date=Este campo no tiene un formato de fecha válido (dd/MM/yyyy).
+settings.export=Exportar la configuración existente de RuralInvest
+
 
 ### RIV4.1.4
 project.quickAnalysis=Análisis rápido (no análisis cualitativo)

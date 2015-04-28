@@ -1,6 +1,8 @@
 ## RIV4.2
+project.report.profitability.footnote=The net income flow is adjusted to estimate IRR and NPV under the assumption that the major investment (in year one) takes place one year before operations start (year zero).
+
 project.donors=Donors
-project.donors.help=Donors or organizations that make contributions to this project, either generally or for specific cost or operational items.
+project.donors.help=Donors or organizations that make contributions to this project, either generally or for specific cost of investment or operational items.
 project.donor.notSpecified=Not specified
 project.donor.statePublic=Public/state resources
 project.donor.description=Donor
@@ -134,8 +136,8 @@ profile.report.title=Reports
 
 ### RIV4.0
 
-project.report.profitability.totalMinusInvest.before=Total before donation minus investment in first year
-project.report.profitability.totalMinusInvest.after=Total after donation minus investment in first year
+project.report.profitability.totalMinusInvest.before=Net income before donation with first-year investment considered in year zero
+project.report.profitability.totalMinusInvest.after=Net income after donation with first-year investment considered in year zero
 
 project.report.cashFlow.income.total=Total income
 project.report.cashFlow.costs.total=Total expenses

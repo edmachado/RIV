@@ -2646,14 +2646,34 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, tind, translate("project.report.profitability.totInvestApplicant"), Style.H2);
 
 		row = sheet.createRow(30);
-		report.addTextCell(row, 0, translate("project.irr.long"));
+		report.addTextCell(row, 0, translate("project.irr.long"), Style.H2);
 		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(IRR(A25:%1$s25)),IRR(A25:%1$s25),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
 		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(IRR(A27:%1$s27)),IRR(A27:%1$s27),\""+translate("misc.undefined")+"\")", getColumn(data.size())),Style.PERCENT);
 		
 		row = sheet.createRow(31);
-		report.addTextCell(row, 0, translate("project.npv.long"));
+		report.addTextCell(row, 0, translate("project.npv.long"), Style.H2);
 		report.addFormulaCell(row, 1, String.format("IF(ISNUMBER(NPV(%1$f,B25:%2$s25)),NPV(%1$f,B25:%2$s25)+A25,\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
 		report.addFormulaCell(row, tind, String.format("IF(ISNUMBER(NPV(%1$f,B27:%2$s27)),NPV(%1$f,B27:%2$s27)+A27,\""+translate("misc.undefined")+"\")", rivConfig.getSetting().getDiscountRate()/100, getColumn(data.size())), Style.CURRENCY);
+		
+		rowNum=33;
+		row = sheet.createRow(rowNum);
+		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
+		report.addTextCell(row, 0, translate("project.irr.desc") + " / " + translate("project.npv.desc"), Style.LABEL);
+		row = sheet.createRow(++rowNum);
+		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
+		report.addTextCell(row, 0, translate("project.irr.help"));
+
+		row = sheet.createRow(++rowNum);
+		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
+		report.addTextCell(row, 0, translate("project.irrWithDonation.desc") + " / " + translate("project.irrWithDonation.desc"), Style.LABEL);
+		row = sheet.createRow(++rowNum);
+		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
+		report.addTextCell(row, 0, translate("project.irrApplicant.help"));
+		
+		rowNum++;
+		row = sheet.createRow(++rowNum);
+		sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, data.size()));
+		report.addTextCell(row, 0, translate("project.report.profitability.footnote"));
 		
 		return sheet;
 	}

@@ -150,6 +150,9 @@ public class RivConfig {
 		}
 	}
 
+	public void setSetting(Setting s) {
+		setSetting(s, false);
+	}
 	public void setSetting(Setting setting, boolean refreshAppConfigs) {
 		this.setting = setting;
 		if (refreshAppConfigs) { loadAppConfigs(); }
