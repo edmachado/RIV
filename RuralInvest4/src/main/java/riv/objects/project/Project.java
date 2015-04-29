@@ -1459,8 +1459,6 @@ public double getInvestmentTotal() {
 	}	
 	
 	public double[][][] getDonationSummary() {
-//		if (incomeGen) { throw new RuntimeException("Method only for NIG projects."); }
-		
 		int donorSize=donors.size();
 		double[][][] donations = new double[donorSize+1][5][this.getDuration()];
 		

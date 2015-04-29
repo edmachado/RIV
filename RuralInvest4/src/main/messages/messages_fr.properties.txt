@@ -12,19 +12,18 @@ project.report.cashFlow.loan2.total=Annuité (second prêt)
 project.report.cashFlow.loanRecieved=Prêts reçus
 project.report.cashFlow.wcCapital=Capital prêt fonds de roulement
 
-project.report.profitability.totalMinusInvest.after=Revenu net (avant subventions) en considérant les investissements de la 1ère année durant l'année précédente (année 0)
-project.report.profitability.totalMinusInvest.before=Revenu net (après subventions) en considérant les investissements de la 1ère année durant l'année précédente (année 0)
-
+project.report.profitability.totalMinusInvest.after=Revenu net (avant subventions) en considérant que les investissements de la 1ère année sont effectués durant l'année précédente (année 0)
+project.report.profitability.totalMinusInvest.before=Revenu net (après subventions) en considérant que les investissements de la 1ère année sont effectués durant l'année précédente (année 0)
+project.report.profitability.footnote=Aux fins d’estimer le TRI et la VAN de manière réaliste, le revenu net a été recalculé en considérant que l’investissement principal (de l’année 1) serait réalisé durant l’année précédente (année 0), soit un an avant que ne commencent les activités et les recettes/dépenses opérationnelles et frais généraux y afférents.
 
 project.donor.statePublic=Montant sur fonds publics/d'Etat
 project.donors=Donateurs
-project.donors.help=Les donateurs ou institutions qui contribuent au financement du projet, de manière globale ou pour des coûts ou activités spécifiques
+project.donors.help=Donateurs ou organisations contribuant au projet sous forme de dons ou contributions, pour l’ensemble du projet ou pour des coûts d’investissement ou opérationnels spécifiques
 project.donor.notSpecified=Non précisé
 project.donor.description=Donateur
 project.donor.description.help=Organisation ou institution qui contribue au financement du projet sous forme de dons ou contributions pour l’ensemble du projet ou pour des coûts ou activités spécifiques
 project.donor.type=Type de donateur
 project.donor.type.help=Type d’organisation ou institution contribuant au financement du projet sous forme de dons ou contributions
- 
  
 projectNongenInput.donated=Dons
 projectNongenInput.donated.help=Précisez ici le montant éventuellement financé sous forme de don ou contribution (financière ou en nature) pour cet élément de coût
@@ -42,7 +41,6 @@ projectBlockInput.donated=Subventions totales
 projectBlockInput.donated.help=Précisez ici le montant éventuellement financé sous forme de don ou contribution (financière ou en nature) pour cet élément de coût
 projectBlockLabour.donated=Subventions totales
 projectBlockLabour.donated.help=Précisez ici la quantité d’unités de travail requise (pour cet élément) financée soius forme de dons ou contribution (monétaire ou en nature)
- 
  
 profile.report.blockDetail.totals=Totaux
 project.report.blockDetail.totals=Totaux
@@ -101,15 +99,13 @@ projectActivity.pattern.noCycles.qty=Nombre d’unités d’activité
  
 project.with=(Avec projet)
 
-### RIV4.1.4
+### RIV4.1
 project.quickAnalysis=Analyse rapide  
 projectBlock.cloneWith=Copier comme bloc “avec projet”
 projectBlock.cloneWithout=Copier comme bloc “sans projet”
 project.report.cashFlowNongen.accumulated=Cash flow cumulé
 import.excel.error.noWithout=Le projet sur lequel vous travaillez inclue un scenario “sans projet», alors que le fichier Excel que vous importez ne comprend pas de feuille de calcul «sans projet ». Vérifiez que vous utilisez le bon formulaire Excel – voir le le lien « téléchargez le formulaire Excel » sur cette page.
 
-
-## RIV 4.1
 projectContribution.contributor.help=L’organisation donatrice (ONG, agence gouvernementale, projet, etc.)
 projectContribution.yearlyFlow.help=Revenus moins les coûts pour chaque annnée-projet  
 
@@ -262,13 +258,12 @@ project.report.cashFlow.income.main=Recettes d’exploitation
 project.report.cashFlow.income.own=Ressources propres (investissement)
 project.report.cashFlow.income.total=Recettes totales
 project.report.cashFlow.income.wcDonation=Dons (fonds de roulement)
-project.report.cashFlow.income.wcOwn=Ressources propres (fonds de roulement)
+project.report.cashFlow.income.wcOwn=Ressources propres (f. de roulement)
 project.report.cashFlow.invest=Investissement
  
 # project summary report
 project.report.summary.employment.total=Total
  
-Incremental Additionnel
 project.without=Sans projet
 project.withWithout.remove=Vous avez choisi de ne pas avoir de blocs «avec projet » et « sans projet » pour ce projet. Les blocs « sans projet » existant seront transformés en blocs « avec projet ».
 projectBlock.chronology.selectAll=(Sélectionner tous)
@@ -326,7 +321,7 @@ customFields.appConfig2.generic=Catégorie additionnelle 2 (général)
 settings.8=Catégories additionnelles 
 settings.8.help=Ces catégories additionnelles sont définies par l'administrateur, en fonction des besoins spécifiques du pays ou de l'organisation utilisatrice. Elles font partie intégrante de la configuration de RuralInvest pour ce pays/cette organisation. Les éléments de choix au sein de chacune de ces catégories sont définis par l'administrateur dans le menu "Configuration". Comme pour les autres catégories (utilisateurs, zones, type de projet, catégories environnementales, bénéficiaires), elles permettent de classer les avant-projets/projets et d'effectuer des tris au sein de la base des données, grâce à un menu déroulant. Quand un avant-projet/projet est exporté en utilisant l'option d'exportation "générale", la catégorie aditionnelle générale est retenue.      
 settings.9=Champ de texte défini par l'administrateur   
-settings.9.help=Ces champs de texte sont définis par l'administratteur, selon les besoins spécifiques du pays ou de l'organisation utilisatrice. Ils font partie intégrante de la configuration de RuralInvest pour ce pays/cette organisation.   
+settings.9.help=L’administrateur peut ajouter jusqu’à 3 éléments pour la Description du projet, à la suite de ceux prédéfinis soit ‘Contexte et Justification’, ‘Objectif du projet’, et ‘Activités principales ‘.   
 adminText.1=1er Champ de texte défini par l'administrateur   
 adminText.2=2ème Champ de texte défini par l'administrateur  
 adminText.3=3ème Champ de texte défini par l'administrateur
@@ -534,7 +529,7 @@ misc.total=Total
 misc.undefined=Non défini
 misc.viewEditItem=Visualiser/Modifier cet élément
 misc.yes=Oui
-profile.benefDesc.help=Dans le cas d'un groupe, préciser la durée pendant laquelle les bénéficiaires ont travaillé ensemble, s'ils ont déjà entrepris des projets ou des activités en commun, s'ils ont une structure officielle (par exemple, un président, trésorier, secrétaire, etc.) et s'ils ont un statut légal. Pour tous les candidats, préciser quels sont leurs activités principales, leurs niveaux de revenu et de richesse, etc.
+profile.benefDesc.help=Dans le cas d'un groupe, préciser la durée pendant laquelle les bénéficiaires ont travaillé ensemble, s'ils ont déjà entrepris des projets ou des activités en commun, s'ils ont une structure officielle (par exemple, un président, trésorier, secrétaire, etc.) et s'ils ont un statut légal. Pour tous les candidats, préciser quelles sont leurs activités principales, leurs niveaux de revenu et de richesse, etc.
 profile.benefDesc=Description des bénéficiaires
 profile.benefFamilies=Familles
 profile.benefName.help=Entrez le nom de la communauté bénéficiaire, du groupe, de la famille ou du particulier, selon les cas. Si un groupe n'a pas de nom, demandez à ses membres d'en choisir un.
@@ -627,7 +622,7 @@ profile.sharingMessage=Souhaitez-vous que d'autres utilisateurs puissent modifie
 profile.sourceFunds.help=Préciser toutes les sources de revenus escomptées pour financer le fonctionnement de l'investissement réalisé (les salaires du personnel, l'entretien, les fournitures, etc.), ceci peut inclure le paiement du service par les usagers, la contribution de la communauté, l'aide du gouvernement et des ONG.
 profile.sourceFunds=Sources de financements
 profile.status=Etat d’avant-projet
-profile.status.help= Les avant-projets suivent un cycle de projet qui démarre par le etat de « proposition ». Ils sont considérés comme « approuvés » seulement une fois le financement accordé.
+profile.status.help= Les avant-projets suivent un cycle de projet qui démarre par l'état de « proposition ». Ils sont considérés comme « approuvés » seulement une fois le financement accordé.
 profile.step1.1=Généralités
 profile.step1.2=Localisation
 profile.step1.3.help=Si vous créez un avant-projet, cette section doit afficher vos coordonnées. Si celles-ci sont erronées, mettez-les à jour dans la section "Utilisateurs" de la page d'Accueil. Il se peut également que vous soyez entré dans RuralInvest en utilisant la connexion d'un autre utilisateur.
@@ -646,7 +641,7 @@ profile.step8=Recommandations
 profile.step9=Résumé & rapports
 profile.technician=Technicien
 profile.upgrade=Passer au stade projet
-profile.withWithoutMessage= Est-ce que cet avant-projetfait la distinction entre une situation "avec" et "sans" projet et donc entre des produits "avec" et "sans" projet ?
+profile.withWithoutMessage= Cet avant-projet fait-il la distinction entre une situation "avec" et "sans" projet et donc entre des produits "avec" et "sans" projet ?
 profile.yearsToRecover=Nombre d'années pour recouvrir l'investissement
 profile=Avant-projet
 profileActivity.addNew=Ajouter une nouvelle activité
@@ -1427,10 +1422,10 @@ projectStatus.investment=Investissement
 projectStatus.operational=Opérationnel
 projectStatus.proposal=Proposition
 projectStatus.statuses=Etats d’avancement du projet
-project.status.help= Les projets suivent un cycle de projet qui démarre par l'etat de « proposition ». Ils sont considérés comme « approuvés » seulement une fois le financement accordé.
+project.status.help= Les projets suivent un cycle de projet qui démarre par l'état de « proposition ». Ils sont considérés comme « approuvés » seulement une fois le financement accordé.
 projectStatus.generic=Etat d'avancement du projet (catégorie générale)
-projectStatus.addStatus=Ajouter le etat d’avancement du projet
-projectStatus.save=Enregistrer le etat d’avancement du projet
+projectStatus.addStatus=Ajouter un état d’avancement du projet
+projectStatus.save=Enregistrer l'état d’avancement du projet
 projectStatus.delete.warn= Effacer un etat d’avancement de projet peut rendre cette version de RuralInvest incompatible avec une version ayant une configuration différente et utilisée par d'autres utilisateurs. Vous ne pourrez plus importer d'avant-projets ou de projets venant de ces utilisateurs (qui ont utilisés ce etat d’avancement de projet dans leurs avant-projets ou projets) et ces derniers ne pourront pas lire vos fichiers (sauf si vous les avez exportés en utilisant l’option d’exportation « générale »). Nous vous conseillons donc de ne pas utiliser cette fonction, sauf à la création de votre configuration initiale, avant d'avoir distribuée la configuration aux utilisateurs. Etes-vous sûr de vouloir continuer ?
 projectStatus.description=Description
 reference.costs=Biens et services
@@ -1543,7 +1538,7 @@ units.inPercent=en %
 units.labourTypes=Type de main d'oeuvre
 units.months=mois
 units.pdays=p/jour(s)
-units.people=personne
+units.people=personnes
 units.perUSD=pour 1 dollar EU
 units.perUnitActivityPerCycle=par unité d'activité et par cycle
 units.perUnitperCycle=par unité de production et par cycle

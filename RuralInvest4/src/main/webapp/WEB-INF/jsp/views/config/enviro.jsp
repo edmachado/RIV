@@ -9,7 +9,7 @@
 	<div style="width:500px;">
 	    <fieldset>
 			<legend><span class="header"><spring:message code="enviroCategory.addCat"/></span></legend>      
-			<tags:dataentry field="description" labelKey="enviroCategory.description" size="20" inputClass="text"/>
+			<tags:dataentry field="description" labelKey="enviroCategory.description" size="30" maxLength="50" inputClass="text"/>
 		</fieldset>
 	 </div>
 	<tags:submit><spring:message code="enviroCategory.save"/></tags:submit>

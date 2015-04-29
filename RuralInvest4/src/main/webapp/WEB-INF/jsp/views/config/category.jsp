@@ -9,7 +9,7 @@
 	<div style="width:500px;">
 	    <fieldset>
 			<legend><span class="header"><spring:message code="projectCategory.addCat"/></span></legend>      
-			<tags:dataentry field="description" labelKey="projectCategory.description" size="20" inputClass="text"/>
+			<tags:dataentry field="description" labelKey="projectCategory.description" size="30" maxLength="50" inputClass="text"/>
 			<form:label path="incomeGen"><spring:message code="projectCategory.incomeGenerating"/></form:label>
 			<spring:bind path="incomeGen">
 				<input type="hidden" name="_<c:out value="${status.expression}"/>">

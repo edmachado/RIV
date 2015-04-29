@@ -18,7 +18,7 @@
 	<div style="width:500px;">
 	    <fieldset>
 			<legend><spring:message code="customFields.add"/></legend>      
-			<tags:dataentry field="description" labelKey="customFields.description" size="20" inputClass="text"/>
+			<tags:dataentry field="description" labelKey="customFields.description" size="30" maxLength="50" inputClass="text"/>
 		</fieldset>
 	 </div>
 	<tags:submit><spring:message code="customFields.save"/></tags:submit>

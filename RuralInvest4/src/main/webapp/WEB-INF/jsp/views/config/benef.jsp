@@ -9,7 +9,7 @@
 	<div style="width:500px;">
 	    <fieldset>
 			<legend><spring:message code="beneficiary.addBenef"/></legend>      
-			<tags:dataentry field="description" labelKey="beneficiary.description" size="20" inputClass="text"/>
+			<tags:dataentry field="description" labelKey="beneficiary.description" size="30" maxLength="50" inputClass="text"/>
 		</fieldset>
 	 </div>
 	<tags:submit><spring:message code="beneficiary.saveBenef"/></tags:submit>

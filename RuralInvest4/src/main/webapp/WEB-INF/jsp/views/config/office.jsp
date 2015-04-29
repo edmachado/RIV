@@ -9,7 +9,7 @@
 	<div style="width:500px;">
 	    <fieldset>
 			<legend><span class="header"><spring:message code="fieldOffice.addOffice"/></span></legend>
-			<tags:dataentry field="description" labelKey="fieldOffice.description" size="20" maxLength="50" inputClass="text"/>
+			<tags:dataentry field="description" labelKey="fieldOffice.description" size="30" maxLength="50" inputClass="text"/>
 		</fieldset>
 	 </div>
 	<tags:submit><spring:message code="fieldOffice.saveOffice"/></tags:submit>
