@@ -458,11 +458,35 @@ INSERT INTO project_item_donation (item_id, donor_order_by, amount) SELECT i.pro
 UPDATE project_item SET own_resources=null WHERE class>=8 AND class<=10;
 -- no more need for 'donated' column
 ALTER TABLE project_item DROP COLUMN donated;
+
+-- fix problem with contributions from early builds of RIV4.1
+UPDATE project_item c SET c.year_begin=1 WHERE c.class=5 AND c.year_begin IS NULL;
+UPDATE project_item c SET c.contributor='' WHERE c.class=5 AND c.contributor IS NULL;
+
+-- add donors from nig project contributions
+INSERT INTO donor (project_id, description, contrib_type, not_specified, order_by) 
+	SELECT DISTINCT project_id, contributor, contrib_type, false, (ROW_NUMBER() OVER()) * -1 
+	FROM project_item WHERE class=5 
+	GROUP BY project_id, contributor, contrib_type;
+-- fix order_by for the above
+UPDATE donor d SET d.order_by= (SELECT count(*)-1 FROM donor A 
+	INNER JOIN donor B ON A.id>=B.id AND A.project_id=B.project_id 
+	GROUP BY A.project_id, A.id HAVING A.id=d.id)
+-- set donor in nig project contributions
+ALTER TABLE project_item ADD COLUMN donor_id INT;
+ALTER TABLE project_item ADD FOREIGN KEY (donor_id) REFERENCES donor(id);
+UPDATE project_item pi SET pi.donor_id=
+	(SELECT d.id FROM donor d WHERE pi.project_id=d.project_id AND pi.contrib_type=d.contrib_type AND pi.contributor=d.description) 
+	WHERE pi.class=5;
+ALTER TABLE project_item DROP COLUMN contributor;
+ALTER TABLE project_item DROP COLUMN contrib_type;
+
+-- compress lob
 SET FILES LOB COMPRESSED TRUE;
 	</query>
 	</version>
-	
-<!-- 	- note field for tables -->
+
+<!-- note field for tables -->
 <!-- ALTER TABLE profile_item ADD COLUMN note VARCHAR(2000); -->
 <!-- ALTER TABLE profile_product_item ADD COLUMN note VARCHAR(2000); -->
 <!-- ALTER TABLE project_item ADD COLUMN note VARCHAR(2000); -->
