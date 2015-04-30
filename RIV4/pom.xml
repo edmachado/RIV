@@ -1,12 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fao.riv</groupId>
 	<artifactId>RIV4</artifactId>
 	<version>4.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<izpack.version>5.0.0-rc1</izpack.version>
-<!-- 		<izpack.version>5.0.0-rc1-SNAPSHOT</izpack.version> -->
+		<izpack.version>5.0.0-rc1-SNAPSHOT</izpack.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,12 +35,17 @@
 	</dependencyManagement>
 	<repositories>
 		<repository>
-			<id>izpack</id>
-			<name>izpack</name>
-			<url>https://nexus.codehaus.org/content/repositories/releases</url>
-<!-- 			<snapshots> -->
-<!-- 				<enabled>true</enabled> -->
-<!-- 			</snapshots> -->
+		<id>izpack</id>
+		<name>izpack</name>
+		<url>https://nexus.codehaus.org/content/repositories/releases</url>
+		<snapshots>
+		<enabled>true</enabled>
+		</snapshots>
+		</repository>
+		<repository>
+			<id>codehaus-snapshots</id>
+			<name>Codehaus Snapshot Repository</name>
+			<url>https://nexus.codehaus.org/content/repositories/snapshots/</url>
 		</repository>
 		<repository>
 			<id>hsql-snaps</id>
@@ -53,12 +58,17 @@
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
+			<id>codehaus-snapshots</id>
+			<name>Codehaus Snapshot Repository</name>
+			<url>https://nexus.codehaus.org/content/repositories/snapshots/</url>
+		</pluginRepository>
+		<pluginRepository>
 			<id>izpack</id>
 			<name>izpack</name>
 			<url>https://nexus.codehaus.org/content/repositories/releases</url>
-<!-- 			<snapshots> -->
-<!-- 				<enabled>true</enabled> -->
-<!-- 			</snapshots> -->
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
 	<build>
@@ -82,7 +92,7 @@
 											izpack-maven-plugin
 										</artifactId>
 										<versionRange>
-											[5.0.0-rc1-SNAPSHOT,)
+											[5.0.0-rc5-SNAPSHOT,)
 										</versionRange>
 										<goals>
 											<goal>izpack</goal>
@@ -111,23 +121,23 @@
 										<ignore />
 									</action>
 								</pluginExecution>
-							<pluginExecution>
-								<pluginExecutionFilter>
-									<groupId>
-										org.apache.maven.plugins
-									</groupId>
-									<artifactId>
-										maven-antrun-plugin
-									</artifactId>
-									<versionRange>[1.7,)</versionRange>
-									<goals>
-										<goal>run</goal>
-									</goals>
-								</pluginExecutionFilter>
-								<action>
-									<ignore />
-								</action>
-							</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-antrun-plugin
+										</artifactId>
+										<versionRange>[1.7,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -141,18 +151,18 @@
 		</pluginManagement>
 	</build>
 	<distributionManagement>
-        <repository>
-            <id>artifactory.fao.org</id>
-            <name>ruralInvest-releases</name>
-            <url>http://artifactory.fao.org/artifactory/ruralinvest-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>artifactory.fao.org</id>
-            <name>ruralinvest-snapshot</name>
-            <url>http://artifactory.fao.org/artifactory/ruralinvest-snapshot-local</url>
-        </snapshotRepository>
+		<repository>
+			<id>artifactory.fao.org</id>
+			<name>ruralInvest-releases</name>
+			<url>http://artifactory.fao.org/artifactory/ruralinvest-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>artifactory.fao.org</id>
+			<name>ruralinvest-snapshot</name>
+			<url>http://artifactory.fao.org/artifactory/ruralinvest-snapshot-local</url>
+		</snapshotRepository>
 		<downloadUrl>http://artifactory.fao.org/artifactory/ruralinvest</downloadUrl>
-    </distributionManagement>
+	</distributionManagement>
 	<scm>
 		<url>https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</url>
 		<connection>scm:svn:https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</connection>
