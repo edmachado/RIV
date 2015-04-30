@@ -47,7 +47,7 @@ public class UpdateSql  {
 			stmt.close();
 			connection.close();
 			
-			// open and close with hsqldb 3.2
+			// open and close with hsqldb 2.3
 			System.out.println("Opening and closing with HSQLDB 2.3.1");
 			connection = getDataSource(false).getConnection();
 			stmt = connection.createStatement();
@@ -121,7 +121,7 @@ public class UpdateSql  {
 				if (version.getVersionNumber() > current) {
 					System.out.println("Upgrading to: "+version.getVersionNumber());
 					Statement stmt = connection.createStatement();
-					String[] queries = version.getQuery().split("\n");
+					String[] queries = version.getQuery().replace("&gt;", ">").replace("&lt;", "<").split("\n");
 					for (String q : queries) {
 						if (!q.trim().startsWith("--") && !q.trim().isEmpty()) {
 							try {
@@ -142,14 +142,16 @@ public class UpdateSql  {
 					
 					current=version.getVersionNumber();
 					
-					if (current==3.9) { // here we migrate from HSQLDB 1.8 to 3.2
+					if (current==3.9) { // here we migrate from HSQLDB 1.8 to 2.3
 						migrateDb();
 					}
 				}
 			}
 		} catch (SQLException sqle) {
+			System.out.println("SQLException:"+sqle.getLocalizedMessage());
 			log(sqle, "SQLException:"+sqle.getLocalizedMessage());
 		} catch (JAXBException jaxbe) {
+			System.out.println("JAXBException:"+jaxbe.getLocalizedMessage());
 			log(jaxbe, "JAXBException:"+jaxbe.getLocalizedMessage());
 		} finally {
 			System.out.println("final close of db");
