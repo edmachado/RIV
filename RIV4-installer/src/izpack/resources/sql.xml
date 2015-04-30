@@ -457,7 +457,6 @@ INSERT INTO donor (project_id, description, contrib_type, not_specified) SELECT 
 INSERT INTO project_item_donation (item_id, donor_id, amount) SELECT i.proj_item_id, d.id, i.own_resources FROM project_item i LEFT JOIN donor d ON (d.project_id=i.project_id AND d.not_specified IS FALSE) WHERE i.class>=8 AND i.class<=10 AND i.own_resources IS NOT NULL AND i.own_resources<>0;
 UPDATE project_item SET own_resources=null WHERE class>=8 AND class<=10;
 --TODO: l10n for 'state-public'?
---TODO: use own_resources for NIG contribution class instead of moving to donations table?
 -- no more need for 'donated' column
 ALTER TABLE project_item DROP COLUMN donated;
 
