@@ -473,16 +473,24 @@ UPDATE donor d SET d.order_by= (SELECT count(*)-1 FROM donor A
 	INNER JOIN donor B ON A.id>=B.id AND A.project_id=B.project_id 
 	GROUP BY A.project_id, A.id HAVING A.id=d.id)
 -- set donor in nig project contributions
-ALTER TABLE project_item ADD COLUMN donor_id INT;
-ALTER TABLE project_item ADD FOREIGN KEY (donor_id) REFERENCES donor(id);
-UPDATE project_item pi SET pi.donor_id=
-	(SELECT d.id FROM donor d WHERE pi.project_id=d.project_id AND pi.contrib_type=d.contrib_type AND pi.contributor=d.description) 
+ALTER TABLE project_item ADD COLUMN donor_order_by INT;
+UPDATE project_item pi SET pi.donor_order_by=
+	(SELECT d.order_by FROM donor d WHERE pi.project_id=d.project_id AND pi.contrib_type=d.contrib_type AND pi.contributor=d.description) 
 	WHERE pi.class=5;
 ALTER TABLE project_item DROP COLUMN contributor;
 ALTER TABLE project_item DROP COLUMN contrib_type;
 
 -- compress lob
 SET FILES LOB COMPRESSED TRUE;
+
+<!-- ALTER TABLE project_item ADD COLUMN donor_id INT; -->
+<!-- ALTER TABLE project_item ADD FOREIGN KEY (donor_id) REFERENCES donor(id); -->
+<!-- UPDATE project_item pi SET pi.donor_id= -->
+<!-- 	(SELECT d.id FROM donor d WHERE pi.project_id=d.project_id AND pi.contrib_type=d.contrib_type AND pi.contributor=d.description)  -->
+<!-- 	WHERE pi.class=5; -->
+<!-- ALTER TABLE project_item DROP COLUMN contributor; -->
+<!-- ALTER TABLE project_item DROP COLUMN contrib_type; -->
+
 	</query>
 	</version>
 
