@@ -18,7 +18,7 @@ public class Version  {
 	@Column(name="DESCRIPTION", nullable = false)
 	@Size(max=255)
 	private String description;
-	@Column
+	@Column(name="INSTALL_TIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date installTime;
 	@Column

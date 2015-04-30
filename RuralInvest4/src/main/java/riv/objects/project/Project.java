@@ -1465,24 +1465,30 @@ public double getInvestmentTotal() {
 		// investment donations
 		for (ProjectItemAsset a : this.getAssets()) {
 			for (int d : a.getDonations().keySet()) {
-				donations[d][0][a.getYearBegin()-1] += a.getDonations().get(d);
-				if (a.getReplace()) {
-					int replace=a.getYearBegin()+a.getEconLife();
-					while (replace<=this.getDuration()) {
-						donations[d][0][replace-1] += a.getDonations().get(d);
-						replace+=a.getEconLife();
+				if (a.getYearBegin()<=duration) {
+					donations[d][0][a.getYearBegin()-1] += a.getDonations().get(d);
+					if (a.getReplace()) {
+						int replace=a.getYearBegin()+a.getEconLife();
+						while (replace<=this.getDuration()) {
+							donations[d][0][replace-1] += a.getDonations().get(d);
+							replace+=a.getEconLife();
+						}
 					}
 				}
 			}
 		}
 		for (ProjectItemLabour l : this.getLabours()) {
 			for (int d : l.getDonations().keySet()) {
-				donations[d][0][l.getYearBegin()-1] += l.getDonations().get(d);
+				if (l.getYearBegin()<=duration) {
+					donations[d][0][l.getYearBegin()-1] += l.getDonations().get(d);
+				}
 			}
 		}
 		for (ProjectItemService s : this.getServices()) {
 			for (int d : s.getDonations().keySet()) {
-				donations[d][0][s.getYearBegin()-1] += s.getDonations().get(d);
+				if (s.getYearBegin()<=duration) {
+					donations[d][0][s.getYearBegin()-1] += s.getDonations().get(d);
+				}
 			}
 		}
 		

@@ -56,10 +56,12 @@ public class ProjectValidator implements Validator {
 				errors.rejectValue("duration", "error.durationExceeds", "The duration exceeds the maximum length set in the software configuration.");
 			
 			if (project.getIncomeGen() && errors.getFieldErrorCount("duration")==0) {
-				if (project.getLoan1Duration()!=null && project.getLoan1Duration()>project.getDuration())
-						errors.rejectValue("loan1Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");
-				if (project.getLoan2Duration()!=null && project.getLoan2InitPeriod()!=null && project.getLoan2Duration()>project.getDuration()-project.getLoan2InitPeriod()+1)
-						errors.rejectValue("loan2Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");
+				if (project.getLoan1Duration()!=null && project.getLoan1Duration()>project.getDuration()) {
+					errors.rejectValue("loan1Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");
+				}
+				if (project.getLoan2Duration()!=null && project.getLoan2InitPeriod()!=null && project.getLoan2Duration()>project.getDuration()-project.getLoan2InitPeriod()+1) {
+					errors.rejectValue("loan2Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");
+				}
 			}
 			break; 
 		case 2:

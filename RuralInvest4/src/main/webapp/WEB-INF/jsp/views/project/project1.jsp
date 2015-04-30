@@ -21,7 +21,8 @@ $( "#radioShared" ).buttonset();
 	</c:if>
 	<div> <!-- container div -->
 		<div style="float:left;margin-right:12px;"> <!-- left div -->
-
+		<form:errors path="loan1Duration" cssClass="error" element="div" />
+		<form:errors path="loan2Duration" cssClass="error" element="div" />
 		<fieldset>
 			<legend>i. <spring:message code="project.step1.1"/></legend>
 				<c:if test="${empty param['rename']}">

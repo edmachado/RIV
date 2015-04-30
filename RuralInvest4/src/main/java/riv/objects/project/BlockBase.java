@@ -288,15 +288,17 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     	
     	for (BlockPattern pat : this.getPatterns().values()) {
     		int year = pat.getYearNum();
-    		if (year==1 && this.getProject().getIncomeGen()) {
-    			incomes[0]=getTotalIncome().doubleValue()*getCycleFirstYearIncome()*pat.getQty();
-				costs[0]=getTotalCost().doubleValue()*getCycleFirstYear()*pat.getQty();
-    		} else {
-    			incomes[year-1]=getTotalIncome().doubleValue()*getCyclePerYear()*pat.getQty();
-    			costs[year-1]=getTotalCost().doubleValue()*getCyclePerYear()*pat.getQty();
+	    		if (year<=this.getProject().getDuration()) {
+	    		if (year==1 && this.getProject().getIncomeGen()) {
+	    			incomes[0]=getTotalIncome().doubleValue()*getCycleFirstYearIncome()*pat.getQty();
+					costs[0]=getTotalCost().doubleValue()*getCycleFirstYear()*pat.getQty();
+	    		} else {
+	    			incomes[year-1]=getTotalIncome().doubleValue()*getCyclePerYear()*pat.getQty();
+	    			costs[year-1]=getTotalCost().doubleValue()*getCyclePerYear()*pat.getQty();
+	    		}
+	    		totals[year-1]=incomes[year-1]-costs[year-1];
+	    		cumulative[year-1]=year==1 ? totals[0]:totals[year-1]+cumulative[year-2];
     		}
-    		totals[year-1]=incomes[year-1]-costs[year-1];
-    		cumulative[year-1]=year==1 ? totals[0]:totals[year-1]+cumulative[year-2];
     	}
     	
     	list.add(incomes);

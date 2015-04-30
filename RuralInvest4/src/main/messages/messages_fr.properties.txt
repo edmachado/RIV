@@ -258,7 +258,7 @@ project.report.cashFlow.income.main=Recettes d’exploitation
 project.report.cashFlow.income.own=Ressources propres (investissement)
 project.report.cashFlow.income.total=Recettes totales
 project.report.cashFlow.income.wcDonation=Dons (fonds de roulement)
-project.report.cashFlow.income.wcOwn=Ressources propres (f. de roulement)
+project.report.cashFlow.income.wcOwn=Ressources propres (fds de roulement)
 project.report.cashFlow.invest=Investissement
  
 # project summary report
