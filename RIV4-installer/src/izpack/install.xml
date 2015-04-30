@@ -29,20 +29,15 @@
 		<langpack iso3="bra"/>
 		<langpack iso3="rus"/>
 		<langpack iso3="tur"/>
-		<!-- langpack iso3="ara"/ --><!--  Arabic not yet supported by IZpack -->
 	</locale>
 
 	<guiprefs width="800" height="600" resizable="no">
 		<splash>images/splash.png</splash>
-		<laf name="substance">
-			<os family="windows" />
-			<os family="unix" />
-			<param name="variant" value="mist-silver" />
-		</laf>
-		<laf name="substance">
-			<os family="mac" />
-			<param name="variant" value="mist-aqua" />
-		</laf>
+<!-- 		<laf name="substance"> -->
+<!-- 			<os family="windows" /> -->
+<!-- 			<os family="unix" /> -->
+<!-- 			<param name="variant" value="mist-silver" /> -->
+<!-- 		</laf> -->
 		<modifier key="useHeadingPanel" value="yes" />
 	</guiprefs>
 

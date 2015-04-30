@@ -1,4 +1,4 @@
-<!-- this file is for testint purposes -->
+<!-- this file is for testing purposes -->
 <installation version="5.0"
 	xmlns:izpack="http://izpack.org/schema/installation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
@@ -10,7 +10,7 @@
 	<info>
 		<appname>myapp</appname>
 		<appversion>1</appversion>
-		<javaversion>1.7</javaversion>
+		<javaversion>1.6</javaversion>
 		<run-privileged />
 	</info>
 
@@ -27,8 +27,6 @@
 		</laf>
 		<modifier key="useHeadingPanel" value="yes" />
 	</guiprefs>
-	
-	<jar src="lib/izpack-panel-5.0.0-rc1.jar" stage="install" />
 
 	<resources>
 		<res id="userInputSpec.xml" src="resources/userInputSpec_simple.xml"/>
@@ -37,7 +35,7 @@
 	
 	<panels>
 		<panel classname="HelloPanel" />
-		<panel classname="DefaultTargetPanel" />
+		<panel classname="TargetPanel" />
 		<panel classname="UserInputPanel" id="panel.newUser"/>
 		<panel classname="InstallPanel" />
 		<panel classname="SimpleFinishPanel" />
