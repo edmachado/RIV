@@ -480,6 +480,9 @@ UPDATE project_item pi SET pi.donor_order_by=
 ALTER TABLE project_item DROP COLUMN contributor;
 ALTER TABLE project_item DROP COLUMN contrib_type;
 
+-- new project results columns
+ALTER TABLE project_result ADD COLUMN negative_years INTEGER;
+
 -- compress lob
 SET FILES LOB COMPRESSED TRUE;
 
