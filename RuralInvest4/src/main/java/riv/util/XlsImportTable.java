@@ -114,11 +114,18 @@ public class XlsImportTable<E extends OrderByable> {
 					setObjectProperty(item, column.property, yes);
 				} else if (column.isSelect) {
 					Object value = sheet.getRow(rowNum).getCell(column.column).getStringCellValue();
+					boolean found=false;
 					for (Object key : column.options.keySet()) {
 						if (column.options.get(key).equals(value)) {
 							value = key;
+							found=true;
 							break;
 						}
+					}
+					// TODO: if options are in a different language the value will not be found
+					if (!found) {
+						String error = messageSource.getMessage("import.excel.error.selectList", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale());
+						throw new ExcelImportException(error);
 					}
 					setObjectProperty(item, column.property, value);
 				} else if (column.isNumeric) {

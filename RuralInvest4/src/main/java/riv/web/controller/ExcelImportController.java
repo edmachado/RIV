@@ -61,6 +61,7 @@ import riv.util.validators.BlockItemValidator;
 import riv.util.validators.ProfileItemValidator;
 import riv.util.validators.ProfileProductItemValidator;
 import riv.util.validators.ProjectItemValidator;
+import riv.web.config.RivConfig;
 import riv.web.service.DataService;
  
 @Controller
@@ -71,6 +72,8 @@ public class ExcelImportController {
     private DataService dataService;
 	@Autowired
 	private MessageSource messageSource;
+	@Autowired
+	private RivConfig rivConfig;
 	
 	@RequestMapping(value="/import/project/{type}/{id}", method=RequestMethod.POST)
 	public @ResponseBody String projectImport(@PathVariable Integer id,@PathVariable String type, MultipartHttpServletRequest request) {
@@ -609,12 +612,13 @@ public class ExcelImportController {
 	}
 	
 	private Map<String, String> labourTypes(){
-		HashMap<String, String>labourTypes=new HashMap<String, String>();
-		labourTypes.put("0", translate("units.pyears"));
-		labourTypes.put("1", translate("units.pmonths"));
-		labourTypes.put("2", translate("units.pweeks"));
-		labourTypes.put("3", translate("units.pdays"));
-		return labourTypes;
+		return rivConfig.getLabourTypes(); 
+//		HashMap<String, String>labourTypes=new HashMap<String, String>();
+//		labourTypes.put("0", translate("units.pyears"));
+//		labourTypes.put("1", translate("units.pmonths"));
+//		labourTypes.put("2", translate("units.pweeks"));
+//		labourTypes.put("3", translate("units.pdays"));
+//		return labourTypes;
 	}
 	
 	private XSSFWorkbook getWorkbook(InputStream file) throws ExcelImportException {

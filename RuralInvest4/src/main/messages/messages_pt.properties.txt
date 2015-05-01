@@ -1,4 +1,6 @@
 ﻿# RIV4.2
+project.report.profitability.footnote= O valor presente líquido (VPL) e a taxa interna de retorno (TIR) são estimados assumindo que o investimento principal (do primeiro ano) é realizado no ano anterior ao início das operações (ano zero).
+
 project.donor.statePublic=Recursos públicos ou do Estado
 project.donors=Doador
 project.donors.help=Doador ou organização que contribui para o projecto, tanto de forma geral, como para um ou mais custos em específico.
@@ -7,37 +9,38 @@ project.donor.description=Doador
 project.donor.description.help=Organização ou agente que efectua doações ou contribuições para o projecto, tanto de forma geral, como para um ou mais custos em específico.
 project.donor.type=Tipo de doador
 project.donor.type.help=Tipo de organização ou agente que efectua doações ou contribuições para o projeto.
+
 projectNongenInput.donated=Recursos doados
 projectNongenInput.donated.help=Se se prevê que alguma parcela do custo seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
 projectNongenLabour.donated.help=Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
 projectNongenGeneral.donated=Recursos doados
 projectNongenGeneral.donated.help= Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
- 
+
 error.moreDetails=Detalhes adicionais...
+
 projectBlockIncome.unitNum.nocycle.help=Indique o número de unidades de venda produzidos por unidade de análise (excluindo perdas e desperdícios).
 projectBlockInput.unitNum.nocycle.help= Indique o número de unidades deste item usadas por unidade de análise (excluindo perdas e desperdícios).
 projectBlockLabour.unitNum.nocycle.help= Indique o número de unidades deste tipo trabalho usadas por unidade de análise.
- 
 projectBlockInput.donated=Total de recursos doados
 projectBlockInput.donated.help= Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
 projectBlockLabour.donated=Total de recursos doados.
 projectBlockLabour.donated.help= Se se prevê que alguma parcela do custo de este item seja coberta através de recursos doados (em género ou espécie), insira o valor correspondente quantificado na moeda em uso na análise.
- 
+
 profile.report.blockDetail.totals=Totais
 project.report.blockDetail.totals=Totais
 project.report.cashFlow.income.investWithout=Investimentos financiados
 project.report.cashFlow.profit=Lucro
 project.incremental=(Incremental)
- 
+
 units.perUnitActivityNoCycle=por unidade de análise (actividade)
 units.perUnitNoCycle=por unidade de análise
- 
+
 project.report.contributionSummary.investments=Investimento
 project.report.contributionSummary.general=Custos Gerais
 project.report.contributionSummary.operation=Custos operacionais
 project.report.contributionSummary.contributions=Contribuições
 project.report.contributionSummary.total=Total
- 
+
 #translator: as descrições dos seguintes itens não podem conter mais de 31 caracteres e devem ser diferentes entre si.
 project.report.cashFlow.with.sheetname=Fluxo de tesouraria (com)
 project.report.cashFlow.without.sheetname=Fluxo de tesouraria (sem)
@@ -49,7 +52,7 @@ project.report.cashFlowFirst.without.sheetname=Fluxo de tesouraria ano 1 (sem)
 profile.report.preliminary.with.sheetname=Análise (com)
 profile.report.preliminary.without.sheetname=Análise (sem)
 profile.report.preliminary.incremental.sheetname=Análise (incr)
- 
+
 #changed from previous versions
 project.report.contributionSummary=Resumo de doações
 project.step2=Beneficiários e doadores
@@ -65,9 +68,8 @@ typeMismatch.java.lang.Double=Este campo é de preenchimento obrigatório e requ
 typeMismatch.java.lang.Integer= Este campo é de preenchimento obrigatório e requer um número inteiro.
 typeMismatch.java.math.BigDecimal= Este campo é de preenchimento obrigatório e requer um número.
 typeMismatch.java.util.Date=O texto inserido não corresponde a um formato de data válido. (dd/MM/aaaa).
- 
 settings.export=Exportar a configuração actual do Rural Invest
- 
+
 project.report.cashFlow.costs.initial=Investimento inicial
 project.report.cashFlow.costs.invest=Custos de investimento
 project.report.cashFlow.costs.recurrent=Custos recurrentes
@@ -84,26 +86,22 @@ project.report.cashFlow.income.wcDonation=Doação de capital de trabalho
 project.report.cashFlow.income.wcOwn=Contribuição própria para o capital de trabalho
 project.report.cashFlow.wcCapital=Capital de trabalho - capital
 project.report.cashFlowNongen.sheetname=Sustentabilidade
-project.report.profitability.totalMinusInvest.after=Total depois de doação menos o investimento do primeiro ano
-project.report.profitability.totalMinusInvest.before=Total antes de doação menos o investimento do primeiro ano
- 
+project.report.profitability.totalMinusInvest.after=Fluxo de tesouraria depois da doação para o investimento do primeiro ano
+project.report.profitability.totalMinusInvest.before=Fluxo de tesouraria antes da doação para o investimento do primeiro ano
 projectNongenLabour.donated=Recursos doados
- 
-## RIV4.1.4
+
+## RIV4.1
 project.quickAnalysis=Análise rápida (ignorar análise qualitativa)
 projectBlock.cloneWith=Clonar como bloco “com projecto”
 projectBlock.cloneWithout=Clonar como bloco “sem projecto”
 project.report.cashFlowNongen.accumulated=Fluxo de tesouraria cumulativo
 import.excel.error.noWithout=O Projecto no qual está a trabalhar distingue entre blocos “sem projecto” e “com projecto”. No entanto, o ficheiro de Excel que está tentando importar não contem dados para a situação “sem projecto”. Por favor assegure-se de que está importando o formulário de Excel correcto – veja “Descarregar formulário em Excel” nesta página.
 
-# RIV4.1 B
 projectContribution.contributor.help=Organização doadora (ONG, associação, agência do governo)
 projectContribution.yearlyFlow.help=Receita menos custos totais para cada ano do projecto.
- 
 project.workingCapital.how=Como é que o capital de trabalho para o primeiro ano é estimado?
 project.workingCapital.explain=O capital de trabalho necessário durante o primeiro ano é estimado a partir do fluxo de caixa mensal acumulado para o primeiro ano.
 project.amtRequired.explain=O maior valor negativo
- 
 project.report.wcCalculation=Cálculo do capital de trabalho
 project.report.summaryTables=Quadros resumo
 project.report.summaryTables.info=Para informação mais detalhada, ver
@@ -115,11 +113,9 @@ project.report.summary.cashFlow.total=Total
 project.report.summary.cashFlow.cumulative=Total acumulado
 project.report.summary.block.all=Todos os blocos
 project.report.summary.block.all.nongen=Todas as actividades
- 
 about.version=Versão
 project.recommendation.review=Necessário rever e melhorar
 
-# RIV4.1
 units.year=Ano
 misc.confirm=Confirmar
 projectContribution.copy=Copiar todos os itens para outro ano do projecto.
@@ -135,22 +131,19 @@ projectContribution.method.perYear=Por ano
 projectContribution.method.perYear.help=Com o modelo "Por ano" as contribuições podem diferir para cada ano do projeto.
 projectContribution.method.confirm=Este procedimento copiará ascontribuições do primeiro ano para os restantes anos do projeto. A informação inserida para os restantes anos será perdida. Deseja continuar?
 projectContribution.contributor=Contribuinte
-
 projectBlock.usesCycles=Este bloco considera ciclos de produção.
 projectBlock.usesCycles.help=Este bloco considera ciclos de produção, por exemplo agricultura (toneladas/ha, litros/ano, etc.)
 projectBlock.pattern.noCycles.help=Indique o número de unidades de análise durante o periodo a ser analisado. Frequentemente, o número de unidades (hectare, paciente, comunidade,...) não é o mesmo de um ciclo para o outro
 projectBlock.pattern.noCycles.qty=Número de unidades de análise
-projectActivity.pattern.noCycles.help=Se o número de unidades de atividade muda ao longo do tempo, defina o número de unidades durante periodo do projeto que está sendo analisado (por exemplo, se no caso de uma escola a unidade é estudante, pode ser que se espere que o número de estudantes aumente ao longo do tempo).
+projectActivity.pattern.noCycles.help=Se o número de unidades de actividade muda ao longo do tempo, defina o número de unidades durante periodo do projeto que está sendo analisado (por exemplo, se no caso de uma escola a unidade é estudante, pode ser que se espere que o número de estudantes aumente ao longo do tempo).
 projectActivity.pattern.noCycles.qty=Número de unidade de atividade
 project.report.blockDetail.totalPerUnitNoCycle=Totais por unidade
-
 project.recommendation.seeReports=Para resumos e relatórios úteis durante a avaliação e formulação de recommendações, consulte
 
 # Changed from previous versions
 project.amtRequired.help=A quantidade de capital de trabalho necessária é o valor que cobrirá todos os custos operativos até que as receitas acumuladas o possam fazer. É calculado automaticamente pelo RuralInvest.
 project.period.help=Número de meses nos quais os custos excedem as receitas mais dois meses (nunca excede um ano).
 profile.report.title=Relatórios
-
 
 # Translator: o nome da folha de Excel não pode exceder os 31 carateres
 # e não pode haver duas folhas com o mesmo nome.
@@ -162,9 +155,9 @@ profile.report.costDetail.without.sheetname=Custos gerais (sem)
 profile.report.investDetail.sheetname=Custos de investimento
 profile.report.investDetail.with.sheetname=Custos de investimento (com)
 profile.report.investDetail.without.sheetname=Custos de investimento (sem)
-profile.report.productDetail.sheetname=Produtos
-profile.report.productDetail.with.sheetname=Produtos (com)
-profile.report.productDetail.without.sheetname=Produtos (sem)
+profile.report.productDetail.sheetname=Actividades
+profile.report.productDetail.with.sheetname=Actividades (com)
+profile.report.productDetail.without.sheetname=Actividades (sem)
 profile.report.preliminary.sheetname=Análise
 profile.report.benefits.sheetname=Benefícios
 project.report.recommendation.sheetname=Recomendação
@@ -190,9 +183,7 @@ project.report.cashFlow.sheetname=Fluxo de tesouraria
 project.report.profitability.sheetname=Rentabilidade financeira
 project.report.contributions.sheetname=Contribuições
 project.report.results.sheetname=Projectos
- 
- 
- 
+
 error.logo=Por favor adicione um logótipo para a sua organização.
 error.import.profile=Ocorreu um erro ao guardar o anteprojecto.
 import.excel.file=Seleccione o arquivo.
@@ -203,6 +194,7 @@ import.excel.error=Erro na linha número {0}.
 import.error.excel.read=Arquivo de Excel não pode ser importado. Verifique que se trata de um arquivo xlsx baseado no formato correcto de Excel para RuralInvest.
 import.generic.info=Este projecto ou anteprojecto foi convertido para Dólares dos EUA e será convertido para a moeda definida na configuração do seu RuralInvest.
 import.generic.confirm=Por favor confirme a taxa de câmbio de Dólares dos EUA para a moeda utilizada:
+
 project.report.cashFlow.loanRecieved=Empréstimo(s) recebido(s)
 project.report.cashFlow.invest=Investimento
 project.report.cashFlow.loan1.total=Pagamento total do empréstimo base
@@ -214,8 +206,10 @@ project.report.cashFlow.loan2.capitalDuringGrace=Capital inicial do empréstimo 
 project.report.cashFlow.loan2.interestDuringGrace=Juros do empréstimo secundário durante o período de graça para juros
 project.report.cashFlow.loan2.interestDuringGraceCapital=Juros do empréstimo base quando há período de graça para o capital
 project.report.cashFlow.financing=Pagamento da dívida
+
 beneficiary.delete=Apagar beneficiário
 beneficiary.delete.warn=Eliminar um beneficiário pode tornar esta instalação do RuralInvest incompatível com outras. Ao fazê-lo deixará de poder importar projectos ou anteprojectos que usem este beneficiário e não será possível exportar os parâmetros desta instalação para outras instalações que contenham este beneficiário. Por favor utilize esta função apenas para corrigir erros cometidos durante a primeira definição de parâmetros, e só se ainda não exportou os parâmetros ou quaisquer projectos ou anteprojectos para outros computadores. Deseja continuar?
+
 error.block.cyclesPerFirstYearIncome=O número total de ciclos de pagamento do primeiro ano não pode exceder um ano.
 error.durationExceeds=A duração excede o tempo máximo definido na configuração do sistema.
 error.import.logoTooBig=A imagem não pode exceder os 70 kb.
@@ -237,16 +231,18 @@ misc.moveUp=Mover o item para cima
 misc.report.currency=Valores monetários em:
 misc.report.page=Página
 misc.sum=Soma
+
 profile.report.results.IG=Search results: Anteprojectos com o objectivo de gerar rendimentos ($)
 profile.report.results.NIG=Search results: Anteprojectos sem o objectivo de gerar rendimentos (:)
 profile.report.results.total=Total de anteprojectos
 profile.step7=Items de referência
-profile.withWithoutMessage=Este anteprojecto distingue entre produtos "con" e "sem" projecto?
+profile.withWithoutMessage=Este anteprojecto distingue entre actividades "com" e "sem" projecto?
 profileProduct.with.description.help=Seleccione se o produto está relacionado com uma actividade existente (com e sem projecto) ou se é completamente novo (com projecto). Esta selecção determinará se os custos e benefícios considerados substituem em parte custos e benefícios já existentes ou são completamente incrementais.
 profileProduct.with.description=Tipo de produto
 profileProduct.with.with=Com projecto
 profileProduct.with.without=Sem projecto
 project.investCredit.nongen=Investimento financiado por empréstimo
+
 project.report.activityDetail=Benefícios e custos operacionais por actividade
 project.report.cashFlowNongen.contributionsGeneral=Contribuções para os custos gerais
 project.report.cashFlowNongen.investDonated=Investimento: Recursos Doados
@@ -265,6 +261,7 @@ projectBlock.chronology.selectAll=(seleccionar tudo)
 projectCategory.both=São necessarias pelo menos uma categoria para projectos com o objectivo de gerar rendimentos e uma categoria para projectos sem o objectivo de gerar rendimentos.
 projectCategory.delete=Eliminar categoria de produto.
 projectCategory.delete.warn=Eliminar uma categoria de produto pode tornar esta instalação do RuralInvest incompatível com outras. Ao fazê-lo deixará de poder importar projectos ou anteprojectos que usem este beneficiário e não será possível exportar os parâmetros desta instalação para outras instalações que contenham esta categoria. Por favor utilize esta função apenas para corrigir erros cometidos durante a primeira definição de parâmetros, e só se ainda não exportou os parâmetros ou quaisquer projectos ou anteprojectos para outros computadores. Deseja continuar?
+
 reference.item.linkedTo=Ligado a:
 reference.transport=O item de referência ligado não contém custo de transporte. Por favor insira o custo de transporte aqui.
 units.days.calendar=dia(s) do calendário
@@ -273,7 +270,7 @@ units.labourTypes=Tipos de mão-de-obra
 units.people=Pessoas
 user.delete.warn=Eliminar um utilizador eliminará todos os seus projectos e anteprojectos. Deseja continuar?
 user.username.description=Estes dados são utilizados para aceder ao software RuralInvest. Se se esquecer da sua password não poderá voltar a aceder.
- 
+
 project.report.profitability.donations=Recursos doados
 project.report.profitability.donations.wc=Capital de trabalho
 project.report.profitability.donations.investment=Investimento
@@ -294,11 +291,10 @@ demo.examples.2=à direita do nome de cada caso. <b>Nota:</b> para distinguir en
 demo.create=Se você quer criar o seu próprio caso, escolha "Criar Novo", em qualquer categoria e comece à preencher as seções com as informações necessárias. <b>Nota:</b> O site de demonstração RuralInvest é limpo o último dia de cada mês e cada caso que você criou desaparecerá nesse momento. Se você quiser fazer uma cópia dos relatórios decorrentes dos seus casos, tem que descaregar eles nas seções “Resumo e Relatórios" de cada caso que voce criou. <b>Note:</b> Os relatórios só podem ser gerados para os casos completos.
 demo.username=Visitante-pt
 demo.password=Visitante-pt
-
-
 error.maxLoanLength=A duração do empréstimo não pode ser superior à duração máxima do projecto.
 error.import.incompatibleSettings=A configuração do arquivo a importar não é compatível com a configuração existente.
 error.unknown.log=Por favor, envie o arquivo que originou esta mensagem de modo a que seja mais fácil resolver o problema.
+
 # Translator: The following is "link", a verb in the imperative... It's used in the pop-up windows when you link a profile or project cost item to a existing item from the "reference items" tables.
 reference.item.link.imperative=Ligar
 user.language=Língua
@@ -307,13 +303,10 @@ project.withWithout.remove=Seleccionou não considerar blocos “com” e “sem
 profile.withWithout.remove= Seleccionou não considerar produtos ou atividades “com” e “sem projecto”. Todos os produtos ou atividades actualmente classificados como “sem projecto” serão reclassificados para “com projecto”.
 project.with=(com projecto)
 project.without=(sem projecto)
-attach.newProfile=Poderá anexar um arquivo externo a este perfil nesta secção assim que o primeiro passo tenha sido gravado.
+attach.newProfile=Poderá anexar um arquivo externo a este anteprojecto nesta secção assim que o primeiro passo tenha sido gravado.
 attach.newProject= Poderá anexar um arquivo externo a este projecto nesta secção assim que o primeiro passo tenha sido gravado.
- 
 home.help.help=A maioria dos termos utilizados no RuralInvest está descrita em detalhe no texto de ajuda. Clique na palavra cuja descrição pretende obter e ser-lhe-á mostrada uma mensagem deste tipo. A mensagem desaparecerá assim que mover o rato para fora da mensagem.
 settings.language=Língua Padrão
-
-
 misc.per.unitType=por
 misc.per.cycleLength=para
 misc.per.cycleLength.many=a cada
@@ -323,12 +316,14 @@ attach.new=Anexar um novo ficheiro.
 attach.free=espaço disponível.
 attach.used=espaço utilizado.
 attach.fileExists=Já existe um ficheiro com o mesmo nome.
-attach.noSpace=O tamanho do ficheiro excede os espaço disponível para este perfil ou projecto.
+attach.noSpace=O tamanho do ficheiro excede os espaço disponível para este anteprojecto ou projecto.
+
 project.step1.6=Ficheiros anexos
 project.step1.6.help=Anexe aqui ficheiros adicionais ao documento de projecto (mapas, documentos complementares, etc.). Não deverá exceder os 3Mb por projecto.
 profile.step1.6= Ficheiros anexos
-profile.step1.6.help= Anexe aqui ficheiros adicionais ao documento de perfil (mapas, documentos complementares, etc.). Não deverá exceder os 3Mb por perfil.
+profile.step1.6.help= Anexe aqui ficheiros adicionais ao documento de anteprojecto (mapas, documentos complementares, etc.). Não deverá exceder os 3Mb por anteprojecto.
 project.activities=Principais actividades do projecto.
+
 settings.currency.decimalSeparator=Separador decimal
 settings.currency.decimalSeparator.help=Seleccione um caracter para separar as casas decimais de um valor monetário.
 settings.currency.thousandsSeparator=Separador da classe dos milhares.
@@ -342,6 +337,7 @@ export.generic.title=Utilize esta opção caso o ficheiro venha a ser importado 
 export.local=Exportar utilizando a configuração actual.
 export.local.title=Exportar utilizando a moeda e outros parâmetros utilizados pela sua instalação de RuralInvest.
 export.local.desc=Utilize esta opção caso o ficheiro venha a ser importado por uma instalação com a mesma configuração.
+
 reference.reference=Item de referência
 reference.costs=Bens e serviços
 reference.cost.description=Bem/serviço
@@ -356,7 +352,7 @@ reference.labours=Mão-de-obra
 reference.labour.description=Mão-de-obra
 reference.labour.description.help=Inclua toda a mão-de-obra paga por period de tempo (dia, mês, etc.), mas exclua os serviços (assistência veterinária, contabilidade, etc.). Serviços contratados deverão ser inseridos na categoria de Bens e Serviços.
 reference.labour.unitType=Unidade
-reference.labour.unitType.help=Seleccione o period de tempo apropriado entre as opções oferecidas (dia, mês, etc.).
+reference.labour.unitType.help=Seleccione o periodo de tempo apropriado entre as opções oferecidas (dia, mês, etc.).
 reference.labour.unitCost=Custo Unitário
 reference.labour.unitCost.help=Insira o custo da mão-de-obra por unidade de tempo seleccionada, incluindo taxas e impostos, assim como quaisquer benefícios, como seja segurança social ou refeições. Se a mão-de-obra não for paga em efectivo, insira o valor de mercado (por exemplo, mã-de-obra familiar).
 reference.incomes=Receita
@@ -375,18 +371,21 @@ reference.item.linked.yes= Este item está ligado a uma tabela de referência. Q
 reference.item.link=Ligar a um item de referência
 reference.item.link.different=Ligar a outro item de referência.
 reference.item.link.or=OU
+
 mainMenu.config.columns=Indicadores do Projecto
 mainMenu.config.enviroCategories=Categorias Ambientais
 settings.projectResults=Seleccione os campos a serem mostrados no quadro de resultados de pesquisa de projectos. Se todos os campos forem seleccionados, os resultados poderão exceder as margens do ecrã.
 error.benefRequired=Deverá haver pelo menos um beneficiário directo.
 profile.benefFamilies=Famílias
+
 enviroCategory.addCat=Adicione uma nova categoria ambiental.
 enviroCategory.categories=Categorias ambientais
-enviroCategory.delete.warn=Apagar uma categoria ambiental pode tornar esta instalação de RuralInvest incompatível com outras. Nesse caso não será possível importar projectos nem perfis que usem esta categoria. Também não será possível exportar esta configuração para computadores que já tenham esta categoria ambiental. Por favor, utilize esta função apenas para corrigir enganos durante a primeira parametrização do seu RuralInvest e antes de exportar a configuração, perfis ou projectos para outros computadores. Deseja continuar? 
+enviroCategory.delete.warn=Apagar uma categoria ambiental pode tornar esta instalação de RuralInvest incompatível com outras. Nesse caso não será possível importar projectos nem anteprojectos que usem esta categoria. Também não será possível exportar esta configuração para computadores que já tenham esta categoria ambiental. Por favor, utilize esta função apenas para corrigir enganos durante a primeira parametrização do seu RuralInvest e antes de exportar a configuração, anteprojectos ou projectos para outros computadores. Deseja continuar? 
 enviroCategory.description=Descrição
 enviroCategory.generic=categoria ambiental genérica
 enviroCategory.save=Guardar
 project.enviroCat.help=Seleccione uma das opções disponibilizadas.
+
 project.capitalOwn=Recursos Próprios
 project.capitalOwn.help=Se os proponentes contribuem para as necessidades de capital de trabalho com recursos próprios indique o valor dessa contribuição.
 project.results.workCapital=Capital de trabalho total
@@ -402,28 +401,28 @@ project.report.summary.employment.general=Geral
 project.report.summary.employment.total=Total
 project.report.summary.wc.source=Capital de trabalho (Distribuição por fonte de financiamento)
 project.report.summary.costs.source=Custos Totais (Distribuição por fonte de financiamento)
+
 error.import.noEnviroCategory=O projecto está classificado com uma categoria ambiental que não faz parte da configuração actual. Só projectos com a mesma configuração podem ser importados.
 manual.description=Os manuais que descrevendo a abordagem e a metodologia utilizadas em cada modulo do RuralInvest de modo detalhado são listados abaixo (o módulo 4 é coberto no manual do módulo 3). Os manuais são disponibilizados na língua seleccionada para o RuralInvest. Os módulos descrevem o processo de identificação e preparação de projectos de investimento tanto em actividades com o objectivo de gerar rendimento como em actividades sem o objectivo de gerar rendimentos. Os manuais não descrevem o software (apenas utilizado para os módulos 2, 3 e 4). O uso do software é descrito no manual do utilizador.
-manual.description.2=Todos os manuais e guias podem ser descarregados para o computador do utilizador em formato pdf. As tabelas para recolha de dados de campo para construção de perfis (módulo 2) são disponibilizadas em ficheiros Word. É recomendável que estas tabelas sejam utilizadas como guia pelo pessoal encarregue de construir os perfis, mas que os dados do perfil sejam inicialmente escritos em quadros ou folhas de papel-cenário (folhas de papel de grande dimensão) numa parede, para que os dados sejam claramente visualizados pelos proponentes.
+manual.description.2=Todos os manuais e guias podem ser descarregados para o computador do utilizador em formato pdf. As tabelas para recolha de dados de campo para construção de anteprojectos (módulo 2) são disponibilizadas em ficheiros Word. É recomendável que estas tabelas sejam utilizadas como guia pelo pessoal encarregue de construir os anteprojectos, mas que os dados do anteprojecto sejam inicialmente escritos em quadros ou folhas de papel-cenário (folhas de papel de grande dimensão) numa parede, para que os dados sejam claramente visualizados pelos proponentes.
 project.createdBy=Elaborado por
-project.createdBy.help=Técnico que deu origem ao document.
+project.createdBy.help=Técnico que deu origem ao documento.
 profile.createdBy=Elaborado por
-profile.createdBy.help=Técnico que deu origem ao perfil.
+profile.createdBy.help=Técnico que deu origem ao anteprojecto.
+
 export.download=Exportar dados
 export.downloadTemplate=Descarregar formulário em Excel
 export.generic.desc= Utilize esta opção caso o ficheiro venha a ser importado por uma instalação com uma configuração diferente. Todos os valores monetários serão convertidos para Dólares dos EUA e as categorias de projecto, beneficiários, etc. serão guardados numa categoria genérica.
-fieldOffice.delete.warn=Eliminar um escritório poderá resultar numa instalação de RuralInvest incompatível com outras em computadores de outros utilizadores. Nesse caso, não será possível importar projectos ou perfis com esse escritório seleccionado, nem exportar estes parâmetros para outros computadores com este escritório configurado. Aconselhamos a que não utilize esta função, salvo para corrigir enganos durante a primeira configuração e antes de exportar os parâmetros ou quaisquer perfis ou projectos para outros computadores. Deseja continuar?
+
+fieldOffice.delete.warn=Eliminar um escritório poderá resultar numa instalação de RuralInvest incompatível com outras em computadores de outros utilizadores. Nesse caso, não será possível importar projectos ou anteprojectos com esse escritório seleccionado, nem exportar estes parâmetros para outros computadores com este escritório configurado. Aconselhamos a que não utilize esta função, salvo para corrigir enganos durante a primeira configuração e antes de exportar os parâmetros ou quaisquer panteprojectos ou projectos para outros computadores. Deseja continuar?
 project.withWithout=Blocos "com projecto" e "sem projecto"
 project.withWithout.help=Esta opção vai influenciar as opções no separador “blocos”. Ao alterar esta opção de “distinguir blocos Com projecto e Sem Projecto” para “não distinguir”, todos os blocos criados serão considerados “Com projecto”.
-
 beneficiary.generic=Beneficiário genérico
 projectCategory.generic.ig=Categoria genérica de projectos ($)
 projectCategory.generic.nig=Categoria genérica de projectos (:)
 fieldOffice.generic=Escritório genérico
-
 customFields.appConfig1.generic=Campo genérico por definir 1
 customFields.appConfig2.generic=Campo genérico por definir 2
- 
 settings.8=Categorias definidas pelo administrador
 settings.8.help=Estas categorias podem ser específicas de um país ou organização e fazem parte da configuração do RuralInvest. As opções para cada categoria podem ser alteradas na secção “configuração” para cada projecto seleccionado.
 settings.9=Campos de texto definidos pelo administrador
@@ -435,50 +434,44 @@ adminText.title=Título
 adminText.help=Texto de ajuda
 misc.enabled=Activo
 error.import.noAppConfig=O projecto contém uma categoria definida pelo administrador que não faz parte da configuração. Só projectos construídos sobre a mesma configuração ou que tenham sido exportados como “genéricos” podem ser importados.
- 
-
-
 misc.copy=Copiar Item
- 
 mainMenu.config.customFields=campo padrão
 customFields.appConfig1=campo padrão 1
 customFields.appConfig2=campo padrão 2
 customFields.description=descrição
 customFields.add=adicionar item
 customFields.save=guardar item
-customFields.appConfig.delete.warn=Apagar um campo padrão tornará esta instalação do RuralInvest incompatível com outras. Não será possível importar projectos nem perfis que usem este item. Também não será possível a exportação dos parâmetros de configuração para outros computadores com este item padrão. Por favor, utilize esta função apenas para a correcção de erros ocurridos durante a primeira definição dos parâmetros de configuração, ou antes de exportar os parâmetros de configuração ou quaisquer perfis ou projectos para outros computadores. Deseja continuar?
- 
+customFields.appConfig.delete.warn=Apagar um campo padrão tornará esta instalação do RuralInvest incompatível com outras. Não será possível importar projectos nem anteprojectos que usem este item. Também não será possível a exportação dos parâmetros de configuração para outros computadores com este item padrão. Por favor, utilize esta função apenas para a correcção de erros ocurridos durante a primeira definição dos parâmetros de configuração, ou antes de exportar os parâmetros de configuração ou quaisquer anteprojectos ou projectos para outros computadores. Deseja continuar?
+
 projectGeneral.with=custos gerais (com projecto)
 projectGeneral.without=custos gerais (sem projecto)
- 
 project.report.profitability.totInvestAllCosts=todos os custos
 project.report.profitability.totInvestApplicant=candidato
- 
 error.import.notSettings=O ficheiro que está a importar não é um ficheiro de parâmetros de configuração do RuralInvest.
- 
+
 project.report.blockDetail.netIncome.nongen=balanço líquido
 profileProductLabour.desc.nongen.help=Liste toda a mão de obra e serviços utilizados nesta unidade ou actividade
 profileProductInput.unitNum.nongen.help=Número de unidades usadas durante um ciclo para produzir uma unidade da actividade.
 profileProductInput.desc.nongen.help=Liste todos os consumíveis usados nesta unidade de actividade.
 profileProductLabour.unitNum.nongen.help=Número de unidades utilizadas durante um ciclo para produzir uma unidade de actividade.
- 
+
 error.assetYearExceeds=O primeiro ano de utilização do bem excede a duração do projecto.
 error.user.usernameTaken=O nome de utilizador escolhido já existe. Por favor seleccione um outro.
-error.import.noStatus=O projecto ou perfil contém um estado de projecto que não existe na configuração. Só projectos realizados com a mesma configuração podem ser importados.
+
+error.import.noStatus=O projecto ou anteprojecto contém um estado de projecto que não existe na configuração. Só projectos realizados com a mesma configuração podem ser importados.
 profile.status=Etapa
-profile.status.help=Texto de ajuda para etapa de perfil
+profile.status.help=Situação actual do projecto que pode ser modificada ao longo do tempo. Os anteprojectos podem ser filtrados por etapa no ecrã de resultados de pesquisa de forma a, por exemplo, apenas mostrar os anteprojetos aprovados ou apenas os anteprojetos em fase de proposta.
 mainMenu.config.statuses=Etapas do Projecto
-project.status.help=Texto de ajuda para etapa de projecto
+project.status.help=Situação actual do projecto que pode ser modificada ao longo do tempo. Os projectos podem ser filtrados por etapa no ecrã de resultados de pesquisa de forma a, por exemplo, apenas mostrar os projetos aprovados ou apenas os projetos em fase de proposta.
 projectStatus.statuses=Etapas
 projectStatus.generic=Etapa de projecto genérica
 projectStatus.addStatus=Adicionar etapa de projecto
 projectStatus.save=Guardar etapa
-projectStatus.delete.warn=Apagar um tipo de etapa de projecto pode tornar esta instalação do RuralInvest incompatível com outras. Não será possível importar projectos nem perfis que usem este etapa de projecto. Também não será possível a exportação dos parâmetros de configuração para outros computadores com este etapa de projecto. Por favor, utilize esta função apenas para a correcção de erros ocurridos durante a primeira definição dos parâmetros de configuração, ou antes de exportar os parâmetros de configuração ou quaisquer perfis ou projectos para outros computadores. Deseja continuar?
- 
+projectStatus.delete.warn=Apagar um tipo de etapa de projecto pode tornar esta instalação do RuralInvest incompatível com outras. Não será possível importar projectos nem anteprojectos que usem este etapa de projecto. Também não será possível a exportação dos parâmetros de configuração para outros computadores com este etapa de projecto. Por favor, utilize esta função apenas para a correcção de erros ocurridos durante a primeira definição dos parâmetros de configuração, ou antes de exportar os parâmetros de configuração ou quaisquer anteprojectos ou projectos para outros computadores. Deseja continuar?
 projectStatus.description=Descripção
 projectBlock.cycleFirstYearIncome=Ciclos de pagamento (primeiro ano)
-projectBlock.cycleFirstYearIncome.help=...
-projectBlock.cycleFirstYear.help=Indique o número de ciclos de produção durante o primeiro ano que poderão ser diferentes nos anos seguintes. Dependendo das unidades de tempo utilizadas em “duração do ciclo”, o produto do número de ciclos pela duração dos ciclos não poderá exceder os 12 meses, as 52 semanas, os 260 dias úteis ou os 365 dias do ano.
+projectBlock.cycleFirstYearIncome.help=No caso de no primeiro ano os pagamento pela venda da produção virem desfasados e se receberem pagamentos relativamente a menos ciclos do que todos os ciclos de produção, indique o número de ciclos de produção para os quais se recebeu o pagamento no primeiro ano (isto afectará o fluxo de tesouraria do primeiro ano). Caso contrário o valor a inserir deverá ser igual ao inserido em "ciclos de produção (primeiro ano)". 
+projectBlock.cycleFirstYear.help=Indique o número de ciclos de produção durante o primeiro. Este poderá ou não ser diferente do número de ciclos inserido para os restantes anos. Dependendo das unidades de tempo utilizadas em “duração do ciclo”, o produto do número de ciclos pela duração dos ciclos não poderá exceder os 12 meses, as 52 semanas, os 260 dias úteis ou os 365 dias do ano.
 projectBlock.cycleFirstYear=Ciclos de produção (primeiro ano)
 project.irrWithDonation.desc=TIR (candidato)
 project.irr.desc=TIR (todos os custos)
@@ -489,6 +482,7 @@ project.npvWithDonation.desc=VPL (candidato)
 project.npv.desc=VPL (todos os custos)
 project.npv.long=VPL
 
+# RIV 3
 about.description=RuralInvest é um conjunto de módulos criados para apoiar pessoal técnico de Ministérios da Agricultura, ONG ou de bancos, para trabalharem com proponentes e comunidades, para identificar necessidades locais de investimento rural e definir projectos que respondam a essas necessidades. Com a utilização de manuais e programas informáticos próprios, assegura-se a formulação de propostas de grande qualidade que respodem adequadamente às necessidades dos proponentes, proporcionando a informação necessária para eficazmente avaliar a adequação, a lucratividade e a sustentabilidade a longo prazo dos investimentos propostos.
 beneficiary.addBenef=Adicionar beneficiário
 beneficiary.beneficiaries=Beneficiários
@@ -544,7 +538,7 @@ faq.4.a=A categoria de projectos com o objectivo de gerar rendimentos cobre uma 
 faq.4.q=O que é um projecto com o objectivo de gerar rendimentos?
 faq.5.a=A categoria de projectos sem o objectivo de gerar rendimentos também inclui uma ampla gama de actividades e podem-se dividir em três sub-grupos distintos: Apoio à produção: Incluindo vias de acesso e pontes, electrificação e comunicações, assim como infraestruturas principais de irrigação; Projectos sociais: Serviços de saúde e educação, fornecimento de água potável e sistemas de saneamento básico, e apoio à organização comunitária; Projectos ambientais: protecção de linhas de água e encostas, reflorestação e conservação de solos. 
 faq.5.q=O que é um projecto sem o objectivo de gerar rendimentos?
-faq.6.a=O investimento é o cerne de qualquer projecto. De facto, pode-se definir um projecto como uma actividade na qual se faz um investimento agora, a fim de obter benefícios no futuro. O investimento é um tipo de gasto, mas que se pode distinguir pela duração do seu impacte. Se este tem uma duração não superior a um ano, o custo não se pode tomar em conta como um investimento, e em vez disso, deve-se vê-lo como um custo de produção.
+faq.6.a=O investimento é o cerne de qualquer projecto. De facto, pode-se definir um projecto como uma actividade na qual se faz um investimento agora, a fim de obter benefícios no futuro. O investimento é um tipo de gasto, mas que se pode distinguir pela duração do seu impacto. Se este tem uma duração não superior a um ano, o custo não se pode tomar em conta como um investimento, e em vez disso, deve-se vê-lo como um custo de produção.
 faq.6.q=O que é um custo de investimento?
 faq.7.a=O investimento não é o único custo que um projecto tem que suportar. Uma vez que um projecto esteja em marcha, existem custos que se devem cobrir anualmente (ou com maior frequência). Os custos que não são investimentos descrevem-se como custos recorrentes, quer dizer, que ocorrem ano após ano. Este conceito, abrange duas categorias distintas: os custo de produção e os custos gerais.
 faq.7.q=O que são custos recorrentes?
@@ -641,10 +635,10 @@ profile.beneficiaries=Beneficiário
 profile.clone.help=Clonar, permite copiar um anteprojecto, que pode ser posteriormente modificado para criar um projecto semelhante, mas separado. Isto permite poupar aos utilizadores a introdução duma grande quantidade de dados idênticos quando criam um anteprojecto semelhante.
 profile.clone=Clonar este anteprojecto
 profile.costPerBenef=Custo anual por beneficiário
-profile.creationDate=Criar uma data
+profile.creationDate=Data de criação da proposta
 profile.demand.help=Descreve o que se sabe sobre a procura para o serviço ou produto que será produzido pelo projecto. Porque é que ainda não está disponível? Que fazem as pessoas sem ele? Como se sabe que há procura?
 profile.demand=Estimativa da procura
-profile.envirImpact.help=Descreva se se espera que o projecto possa vir a ter alguma consequência para o ambiente, incluindo abate de florestas ou bosques, construção de caminhos, produção de resíduos, utilização de água. Que significado poderá ter esse impacte?
+profile.envirImpact.help=Descreva se se espera que o projecto possa vir a ter alguma consequência para o ambiente, incluindo abate de florestas ou bosques, construção de caminhos, produção de resíduos, utilização de água. Que significado poderá ter esse impacto?
 profile.envirImpact=Consequências para o ambiente
 profile.enviroImpact=Consequências para o ambiente
 profile.exchRate.help=Se a taxa de câmbio mostrada não é correcta, por favor modifique-a para a taxa de câmbio à altura da preparação do anteprojecto. 
@@ -705,7 +699,7 @@ profile.report.productDetail.costs=Despesas
 profile.report.productDetail.incomes=Receitas
 profile.report.productDetail.netIncome=Lucro líquido
 profile.report.productDetail.totalPerUnitCycle=Totais por unidade e por ciclo
-profile.report.productDetail=Pormenor das receitas e despesas por produto 
+profile.report.productDetail=Pormenor das receitas e despesas por actividade
 profile.report.productDetailNongen=Pormenor das receitas e despesas por actividade
 profile.report.recommendation.signature=Assinatura
 profile.report.recommendation=Recomendações
@@ -729,7 +723,7 @@ profile.step3=Avaliação qualitativa
 profile.step4=Custos de investimento
 profile.step5=Custos gerais
 profile.step6.nongen=Actividades
-profile.step6=Produtos
+profile.step6=Actividades
 profile.step8=Recomendações
 profile.step9=Resumo e Relatórios
 profile.technician=Técnico
@@ -760,8 +754,8 @@ profileActivityCharge.unitCost=Preço por unidade
 profileActivityCharge.unitNum.help=Normalmente definido como o número de unidades produzidas, menos aquelas para as quais não foi cobrado um preço, se aplicável.
 profileActivityCharge.unitNum=Número de unidades
 profileActivityCharge.unitType.help=Unidade de medida utilizada para estimar o preço pago pelos utilizadores (p. ex. por visita, criança, etc.)
-profileActivityCharge.unitType=Tipo de unidade
-profileActivityCharge=Pagamento
+profileActivityCharge.unitType=Unidade
+profileActivityCharge=Pagamentos de utilizadores/doadores
 profileGeneral.description.help=Esta tabela deve ser utilizada para o conjunto dos custos que não variam com o nível d actividade, e poderá incluir gestores, contabilistas, materiais de escritório, impostos sobre propriedade, etc.
 profileGeneral.description=Descrição
 profileGeneral.totalCost.help=Número de unidades, multiplicado pelo custo unitário
@@ -770,7 +764,7 @@ profileGeneral.unitCost=Custo unitário
 profileGeneral.unitNum.help=Número de unidades utilizadas num ano. Se a unidade foi definida como um ano, então este valor deve ser 1
 profileGeneral.unitNum=Número de unidades por ano
 profileGeneral.unitType.help=Unidade usada para estimar os custos (p. ex. mês, estação, kwh, ano)
-profileGeneral.unitType=Tipo de unidade
+profileGeneral.unitType=Unidade
 profileGeneral=Custos gerais 
 profileGoods.description=Descrição
 profileGoods.econLife.help=Número de anos de utilização até o item ter de ser substituído
@@ -789,7 +783,7 @@ profileGoods.unitCost=Custo unitário
 profileGoods.unitNum.help=Número de unidades a comprar ou a utilizar
 profileGoods.unitNum=Número de unidades
 profileGoods.unitType.help=Unidade de medida utilizada para um item (p. ex. hectare, metro quadrado, cabeça de gado, quilograma, peça, conjunto)
-profileGoods.unitType=Tipo de unidade
+profileGoods.unitType=Unidade
 profileGoods=Bens e materiais
 profileLabour.description=Descrição
 profileLabour.externalResources.help=Custo total, menos os recursos próprios. Este montante deverá ser doado ou feito um empréstimo ao(s) proponente(s)
@@ -802,23 +796,23 @@ profileLabour.unitCost=Custo unitário
 profileLabour.unitNum.help=Número de unidades que serão utilizadas
 profileLabour.unitNum=Número de unidades
 profileLabour.unitType.help=Unidade utilizada para quantificar a mão-de-obra ou serviço (p. ex. dia, semana, visita, curso)
-profileLabour.unitType=Tipo de unidade
+profileLabour.unitType=Unidade
 profileLabour=Mão-de-obra e serviços
-profileProduct.addNew=Adicionar um novo produto
-profileProduct.clone=Clonar este produto
+profileProduct.addNew=Adicionar uma nova actividade
+profileProduct.clone=Clonar esta actividade
 profileProduct.cycleLength.help=Quanto tempo dura um ciclo de produção (p. ex. frangos para carne pode ser 10 semanas). O ciclo de produção não pode exceder um ano. Para os processos contínuos (p. ex. refeições num restaurante, produção de camisas) utilizar o período usado para a maioria dos custos (p. ex. mês, semana)
 profileProduct.cycleLength=Duração do ciclo
 profileProduct.cyclePerYear=Ciclos
-profileProduct.cycles.help=O número de ciclos, multiplicado pela duração do ciclo, não pode exceder 12 (meses). Se um ciclo dura 4 meses logo, o número máximo de ciclos é 3. No entanto, nem toda a actividade de produção dura todo o ano (p. ex. 2 ciclos de produção de milho com a duração de 4 meses cada).
+profileProduct.cycles.help=O número de ciclos, multiplicado pela duração do ciclo, não pode exceder 12 (meses). Se um ciclo dura 4 meses logo, o número máximo de ciclos é 3. No entanto, nem todas as actividades de produção se desenvolvem durante todo o ano (p. ex. 2 ciclos de produção de milho com a duração de 4 meses cada).
 profileProduct.cycles=Ciclos
-profileProduct.delete=Eliminar um produto
+profileProduct.delete=Eliminar uma actividade
 profileProduct.desc=Descrição
 profileProduct.editDesc=Corrigir a descrição
-profileProduct.name.help=Defina o nome do produto ou serviço (p. ex. tomate, passageiros, vacinação)
-profileProduct.name=Nome do produto
+profileProduct.name.help=Defina o nome da actividade (p. ex. produção de tomate, criação de galinhas,...)
+profileProduct.name=Nome da actividade
 profileProduct.numUnits.help=Número de unidades por ciclo, onde cada unidade é a base para calcular as receitas e as despesas
 profileProduct.numUnits=Número de unidades
-profileProduct.prodUnit.help=Unidade utilizada para quantificar o produto ou serviço (p. ex. quilograma, caixa, pessoa, hectare)
+profileProduct.prodUnit.help=Unidade utilizada para quantificar a unidade de análise (p. ex. galinheiro (200 galinhas), tanque de aquacultura, caixa, hectare)
 profileProduct.prodUnit=Unidade de análise
 profileProduct.unitNum=Número de unidades
 profileProductIncome.desc.help=O produto vendido pode ser o mesmo que a unidade de análise mas nem sempre (p. ex. se a unidade de análise é a ovelha, o artigo vendido pode ser lã ou carne)
@@ -842,10 +836,10 @@ profileProductInput.transport.help=Quando o artigo é comprado longe do local de
 profileProductInput.transport=Custo do transporte por unidade
 profileProductInput.unitCost.help=Preço pago por cada unidade utilizada
 profileProductInput.unitCost=Custo unitário
-profileProductInput.unitNum.help=Número de unidades usadas durante um ciclo para produzir uma unidade de produto
+profileProductInput.unitNum.help=Número de unidades usadas durante um ciclo para produzir uma unidade de análise
 profileProductInput.unitNum=Unidades usadas
 profileProductInput.unitType.help=Unidade utilizada para quantificar o artigo (p. ex. hectare, cabeça de gado, caixa)
-profileProductInput.unitType=Tipo de unidade
+profileProductInput.unitType=Unidade
 profileProductInput=Custo dos factores de produção ou materiais
 profileProductLabour.desc.help=Liste toda a mão-de-obra e serviços usados nesta unidade de análise.
 profileProductLabour.desc=Item
@@ -853,10 +847,10 @@ profileProductLabour.total.help=Número de unidades utilizadas, multiplicado pel
 profileProductLabour.total=Total
 profileProductLabour.unitCost.help=Salário ou preço pago por cada unidade utilizada
 profileProductLabour.unitCost=Custo unitário
-profileProductLabour.unitNum.help=Número de unidades usadas durante um ciclo para produzir uma unidade de produto
+profileProductLabour.unitNum.help=Número de unidades usadas durante um ciclo para produzir uma unidade de análise
 profileProductLabour.unitNum=Unidades usadas
 profileProductLabour.unitType.help=Unidade utilizada para quantificar o artigo (p. ex. dia, semana, visita)
-profileProductLabour.unitType=Tipo de unidade
+profileProductLabour.unitType=Unidade
 profileProductLabour=Custos de mão-de-obra
 project.activities.help=Descreva as principais actividades ou elementos do projecto proposto
 project.amtFinanced.help=O montante financiado é igual ao fundo de financiamento necessário, menos qualquer doação ou empréstimo recebido.
@@ -905,7 +899,7 @@ project.demand=Estimativa da procura
 project.duration.help=Número de anos ao longo dos quais o projecto será analisado. Projectos maiores necessitarão de mais tempo para recuperar os custos de investimento. A duração máxima dum projecto já foi definida em "Configuração - Definições".
 project.duration=Duração
 project.enviroCat=Categoria ambiental
-project.enviroImpact.help=Explique se se espera que o projecto venha a ter algum impacte ambiental, através dos seus efeitos sobre as florestas ou coberto vegetal, recurso hídricos, utilização do solo, vida selvagem, etc. Qual será a importância desse impacte?
+project.enviroImpact.help=Explique se se espera que o projecto venha a ter algum impacto ambiental, através dos seus efeitos sobre as florestas ou coberto vegetal, recurso hídricos, utilização do solo, vida selvagem, etc. Qual será a importância desse impacto?
 project.enviroImpact=Sustentabilidade ambiental/impacto
 project.exchRate.help=Registe o câmbio à altura da preparação do projecto
 project.exchRate=Câmbio
@@ -955,8 +949,8 @@ project.loan2InitPeriod=Ano do investimento
 project.loan2Interest=Taxa de juro anual
 project.market.help=Descreva o que se sabe sobre o mercado para o(s) produto(s) gerado(s) pelo projecto. Se já está disponível no mercado, identifique as variações de preço ao longo do ano e estime os volumes de compra e venda. Quem são os actuais fornecedores? Para produtos novos, explique porque se supõe que exista um mercado e qual a sua dimensão.
 project.market=Estimativa de mercado
-project.mitigation.help=Se se espera que o projecto venha a ter algum impacte ambiental negativo, descreva as medidas propostas para minimizar esse impacte (p. ex. tratamento de águas residuais, plantação de árvores, etc.)
-project.mitigation=Medidas propostas para minimizar o impacte
+project.mitigation.help=Se se espera que o projecto venha a ter algum impacto ambiental negativo, descreva as medidas propostas para minimizar esse impacto (p. ex. tratamento de águas residuais, plantação de árvores, etc.)
+project.mitigation=Medidas propostas para minimizar o impacto
 project.nonIncomeGen=Projectos sem o objectivo de gerar rendimentos (:)
 project.npv.rate=Taxa
 project.npv=VAL
@@ -1007,7 +1001,7 @@ project.report.cashFlowNongen.income=Receitas
 project.report.cashFlowNongen.netBalance=Saldo líquido
 project.report.cashFlowNongen.operation=Custos de funcionamento
 project.report.cashFlowNongen.userCharges=Cobranças a utilizadores
-project.report.cashFlowNongen=Sustentabilidade da produção
+project.report.cashFlowNongen=Sustentabilidade da actividade
 project.report.chronology=Cronologia da produção
 project.report.complete=Relatório completo
 project.report.contributions=Contribuições
@@ -1068,9 +1062,9 @@ project.step1.1.help=É necessário informação no que diz respeito à descriç
 project.step1.1=Informação geral
 project.step1.2.help=É necessário informação sobre a localização do projecto, de acordo com a divisão administrativa definida.
 project.step1.2=Localização
-project.step1.3.help=Um projecto deve geralmente distinguir entre blocos "com projecto" e "sem projecto" se este tem como objectivo adicionar ou modificar uma actividade já existente. Neste caso os blocos "sem projecto" descrevem a situação actual, enquanto que os blocos "com projecto" descrevem a situação depois do investimento do projecto. O computador subtrai os resultados dos blocos "sem projecto" dos resultados dos blocos "com projecto" para calcular os custos e benefícios incrementais.
+project.step1.3.help=Um projecto deve geralmente distinguir entre blocos "com projecto" e "sem projecto" se este tem como objectivo adicionar ou modificar uma actividade já existente. Neste caso os blocos "sem projecto" descrevem a situação actual, enquanto que os blocos "com projecto" descrevem a situação depois do investimento do projecto. O computador subtrai os resultados dos blocos "sem projecto" aos resultados dos blocos "com projecto" para calcular os custos e benefícios incrementais.
 project.step1.3=Tipo e etapa
-project.step1.4.help=Se está a criar uma proposta de projecto, estes campos deverão mostrar a sua informação. Se os dados estão incorrectos ou os campos estão em branco, deve encerrar a proposta e verificar (a) que tenha entrado no sistema com o seu próprio nome e, (b) que tenha completado correctamente o campo referente ao "técnico" na secção de "Configuração".
+project.step1.4.help=Se está a criar uma proposta de projecto, estes campos deverão mostrar a sua informação. Se os dados estão incorrectos ou os campos estão em branco, deve encerrar a proposta e verificar (a) que tenha entrado no sistema com o seu próprio nome e, (b) que tenha completado correctamente o campo referente ao "utilizador" na secção de "Configuração".
 project.step1.4=Técnico
 project.step1.5.help=Seleccione "Sim" se deseja que outros utilizadores possam modificar este projecto. Se seleccionar "Não" os outros utilizadores poderão visualizar a informação mas não poderão alterar este projecto.
 project.step1.5=Partilhar
@@ -1127,16 +1121,16 @@ projectActivity.pattern.years=Ano
 projectActivity.pattern=Perfil da produção
 projectActivity.prodUnit.help=Se aplicável, defina a unidade de actividade (p. ex. quilómetro de estrada, comunidade, paciente) na qual se baseia o cálculo dos custos, caso contrário indique "projecto".
 projectActivity.prodUnit=Unidade de actividade
-projectActivityCharge.desc.help=Por favor indique o nome da actividade (produto ou serviço) sujeito a pagamento por parte dos utilizadores.
+projectActivityCharge.desc.help=Nome do produto ou serviço sujeito a pagamento por parte dos utilizadores (vacina, serviço de água, consulta, etc.).
 projectActivityCharge.desc=Descrição
 projectActivityCharge.total.help=O total dos pagamentos do utilizador é calculado automaticamente como custo por unidade, multiplicado pelo número de unidades.
 projectActivityCharge.total=Total
-projectActivityCharge.unitCost.help=Indique o montante, ou para pagamentos em espécie, o valor, dum pagamento médio feito pelos utilizadores.
+projectActivityCharge.unitCost.help=Indique o montante ou o valor (no caso de pagamentos em género) médio do pagamento feito pelos utilizadores.
 projectActivityCharge.unitCost=Pagamento por unidade
 projectActivityCharge.unitNum.help=Especifique o número de unidades que se espera produzir por ciclo.
 projectActivityCharge.unitNum=Número de unidades
-projectActivityCharge.unitType.help=Indique o tipo de unidades utilizadas para quantificar um custo (dinheiro, trabalho, materiais, etc.). Assim, as unidades poderão ser dólares, dias, ou doses de medicamentos).
-projectActivityCharge.unitType=Tipo de unidade
+projectActivityCharge.unitType.help=Indique a unidade em que se mede o producto ou serviço pelo qual o utilizador paga (dólares, dias, doses de medicamentos, etc.).
+projectActivityCharge.unitType=Unidade
 projectActivityCharge=Pagamento por parte do utilizador
 projectBlock.addNew=Adicione um novo bloco de produção
 projectBlock.chronology.harvest=Colheita/Venda
@@ -1219,7 +1213,7 @@ projectBlockLabour.unitCost=Custo unitário
 projectBlockLabour.unitNum.help=Indique o número de unidades deste tipo de mão-de-obra utilizada em cada unidade de análise ou actividade, por ciclo.
 projectBlockLabour.unitNum=Unidades utilizadas
 projectBlockLabour.unitType.help=Seleccione a unidade utilizada para quantificar o custo da mão-de-obra (pessoas/dias, etc.)
-projectBlockLabour.unitType=Tipo de unidade
+projectBlockLabour.unitType=Unidade
 projectBlockLabour=Custo da mão-de-obra
 projectCategory.addCat=Adicionar categoria
 projectCategory.categories=Categorias de projectos
@@ -1244,8 +1238,8 @@ projectContribution.unitCost.help=Indique o custo, ou, para contribuições em e
 projectContribution.unitCost=Custo unitário
 projectContribution.unitNum.help=Indique o número de unidades que serão recebidas anualmente.
 projectContribution.unitNum=Número de unidades
-projectContribution.unitType.help=Indique o tipo de unidades utilizadas para quantificar as contribuições descritas
-projectContribution.unitType=Tipo de unidade
+projectContribution.unitType.help=Indique as unidades utilizadas para quantificar as contribuições descritas
+projectContribution.unitType=Unidade
 projectContribution=Contribuições anuais
 projectGeneral=Custos gerais
 projectGeneralPersonnel.description.help=Indique todo o pessoal utilizado pelo projecto quando este estiver operacional, cuja função não esteja directamente ligada ao volume de produção (p. ex. vigilante, encarregado, condutor, etc.)
@@ -1261,7 +1255,7 @@ projectGeneralPersonnel.unitCost=Custo unitário
 projectGeneralPersonnel.unitNum.help=Especifique o número de unidades (dias, meses, etc.) pagos por ano.
 projectGeneralPersonnel.unitNum=Número de unidades
 projectGeneralPersonnel.unitType.help=Seleccione o período de tempo utilizado para pagar os custos deste tipo de pessoal (p. ex. pessoa/dia, pessoa/mês)
-projectGeneralPersonnel.unitType=Tipo de unidade
+projectGeneralPersonnel.unitType=Unidade
 projectGeneralPersonnel=Pessoal
 projectGeneralSupplies.description.help=Indique todos os fornecimentos e serviços externos que serão necessários à operação do projecto mas que não estão directamente ligados ao volume de produção do projecto (serviços de contabilidade, despesas de escritório, impostos fundiários, etc.)
 projectGeneralSupplies.description=Descrição
@@ -1276,7 +1270,7 @@ projectGeneralSupplies.unitCost=Custo unitário
 projectGeneralSupplies.unitNum.help=Especifique o número de unidades necessárias por ano
 projectGeneralSupplies.unitNum=Número de unidades
 projectGeneralSupplies.unitType.help=Indique a unidade utilizada para quantificar o valor do fornecimento ou serviço (frequentemente, mensalmente ou anualmente, mas pode ser por quilovátio, hectare, etc.)
-projectGeneralSupplies.unitType=Tipo de unidade
+projectGeneralSupplies.unitType=Unidade
 projectGeneralSupplies=Fornecimentos e serviços
 projectInvestAsset.description.help=Descreva brevemente o tipo de bens a adquirir
 projectInvestAsset.description=Descrição
@@ -1301,7 +1295,7 @@ projectInvestAsset.unitCost=Custo unitário
 projectInvestAsset.unitNum.help=Número de unidades a adquirir
 projectInvestAsset.unitNum=Número de unidades
 projectInvestAsset.unitType.help=Defina as unidades usadas para quantificar um elemento de custo (p. ex. quilograma, metro, peças, cabeças de gado)
-projectInvestAsset.unitType=Tipo de unidade
+projectInvestAsset.unitType=Unidade
 projectInvestAsset.yearBegin.help=Assume-se que a maioria dos bens serão adquiridos no ano 1 do projecto. Se assim não for, corrija o valor predeterminado para o ano de aquisição.
 projectInvestAsset.yearBegin=Ano de início
 projectInvestAsset=Activos/Bens
@@ -1320,7 +1314,7 @@ projectInvestAssetNongen.unitCost=Custo unitário
 projectInvestAssetNongen.unitNum.help=Número de unidades a adquirir
 projectInvestAssetNongen.unitNum=Número de unidades
 projectInvestAssetNongen.unitType.help=Defina as unidades usadas para quantificar um elemento de custo (p. ex. quilograma, metro, peças, cabeças de gado)
-projectInvestAssetNongen.unitType=Tipo de unidade
+projectInvestAssetNongen.unitType=Unidade
 projectInvestAssetNongen=Bens e materiais
 projectInvestLabour.description.help=Indique os diversos tipos de mão-de-obra que serão necessários para realizar os investimentos (p. ex. preparação da terra, contrução de caminhos, etc.)
 projectInvestLabour.description=Descrição
@@ -1337,7 +1331,7 @@ projectInvestLabour.unitCost=Custo unitário
 projectInvestLabour.unitNum.help=Indique o número de unidades de trabalho que serão utilizadas
 projectInvestLabour.unitNum=Número de unidades
 projectInvestLabour.unitType.help=Seleccione, do menu de opções, as unidades (pessoa/dia, pessoa/mês) que serão utilizadas para quantificar as necessidades de mão-de-obra
-projectInvestLabour.unitType=Tipo de unidade
+projectInvestLabour.unitType=Unidade
 projectInvestLabour.yearBegin.help=Ano em que o investimento será feito. O valor predefinido é o ano um.
 projectInvestLabour.yearBegin=Ano de início
 projectInvestLabour=Mão-de-obra
@@ -1356,7 +1350,7 @@ projectInvestLabourNongen.unitCost=Custo unitário
 projectInvestLabourNongen.unitNum.help=Indique quantas unidades de mão-de-obra serão utilizadas
 projectInvestLabourNongen.unitNum=Número de unidades
 projectInvestLabourNongen.unitType.help=Seleccione, do menu de opções, as unidades (pessoa/dia, pessoa/mês) que serão utilizadas para quantificar as necessidades de mão-de-obra
-projectInvestLabourNongen.unitType=Tipo de unidade
+projectInvestLabourNongen.unitType=Unidade
 projectInvestLabourNongen=Mão-de-obra
 projectInvestService.description.help=Indique todos os serviços profissionais necessários ao projecto, incluindo áreas como arquitectos e engenheiros, treino, estabelecimento de serviços de gestão e contabilidade, etc.
 projectInvestService.description=Descrição
@@ -1373,7 +1367,7 @@ projectInvestService.unitCost=Custo unitário
 projectInvestService.unitNum.help=Especifique o número de unidades necessárias
 projectInvestService.unitNum=Número de unidades
 projectInvestService.unitType.help=Indique a unidade utilizada para quantificar o custo dum serviço (p. ex. curso, supervisão, visita de inspecção, etc.)
-projectInvestService.unitType=Tipo de unidade
+projectInvestService.unitType=Unidade
 projectInvestService.yearBegin.help=Ano em que o investimento será feito. O valor predefinido é o ano um.
 projectInvestService.yearBegin=Ano de início
 projectInvestService=Serviços profissionais
@@ -1392,7 +1386,7 @@ projectInvestServiceNongen.unitCost=Custo unitário
 projectInvestServiceNongen.unitNum.help=Especifique o número de unidades necessárias
 projectInvestServiceNongen.unitNum=Número de unidades
 projectInvestServiceNongen.unitType.help=Indique a unidade utilizada para quantificar o custo dum serviço (p. ex. curso, supervisão, visita de inspecção, etc.)
-projectInvestServiceNongen.unitType=Tipo de unidade
+projectInvestServiceNongen.unitType=Unidade
 projectInvestServiceNongen.yearBegin.help=Ano em que o investimento será feito. O valor predefinido é o ano um.
 projectInvestServiceNongen.yearBegin=Ano de início
 projectInvestServiceNongen=Serviços profissionais
@@ -1410,8 +1404,8 @@ projectNongenGeneral.unitCost.help=Indique o custo por unidade do fornecimento o
 projectNongenGeneral.unitCost=Custo unitário
 projectNongenGeneral.unitNum.help=Especifique o número de unidades necessárias por ano
 projectNongenGeneral.unitNum=Número de unidades
-projectNongenGeneral.unitType.help=Indique o tipo de unidades usadas para quantificar este custo
-projectNongenGeneral.unitType=Tipo de unidade
+projectNongenGeneral.unitType.help=Indique a unidade usada para quantificar este custo
+projectNongenGeneral.unitType=Unidade
 projectNongenGeneral=Custos gerais e de manutenção
 projectNongenInput.description.help=Indique todos os materiais e serviços externos que sejam utilizados na operação do projecto, mas que não estejam vinculados ao nível de produção (p.ex. serviços de contabilidade, despesas de escritório, impostos fundiários, etc.)
 projectNongenInput.description=Descrição
@@ -1428,7 +1422,7 @@ projectNongenInput.unitCost=Custo unitário
 projectNongenInput.unitNum.help=Especifique o número de unidades necessárias por ano
 projectNongenInput.unitNum=Número de unidades
 projectNongenInput.unitType.help=Indique a unidade utilizada para quantificar o valor do fornecimento ou serviço (frequentemente, mensalmente ou anualmente, mas pode ser por quilovátio, hectare, etc.)
-projectNongenInput.unitType=Tipo de unidade
+projectNongenInput.unitType=Unidade
 projectNongenInput=Factores de produção ou materiais
 projectNongenLabour.description.help=Descreva qualquer custo de mão-de-obra que seja independente do nível da actividade. Estes podem incluir gestão, condutores, etc.
 projectNongenLabour.description=Descrição
@@ -1444,8 +1438,8 @@ projectNongenLabour.unitCost.help=Indique o custo por unidade de fornecimento ou
 projectNongenLabour.unitCost=Custo unitário
 projectNongenLabour.unitNum.help=Especifique o número de unidades necessárias por ano
 projectNongenLabour.unitNum=Número de unidades
-projectNongenLabour.unitType.help=Indique o tipo de unidades usadas para quantificar a necessidade de mão-de-obra (dias, semanas)
-projectNongenLabour.unitType=Tipo de unidade
+projectNongenLabour.unitType.help=Indique a usada para quantificar a necessidade de mão-de-obra (dias, semanas)
+projectNongenLabour.unitType=Unidade
 projectNongenLabour=Mão-de-obra
 projectStatus.approved=Aprovado
 projectStatus.investment=Investimento
@@ -1524,14 +1518,14 @@ units.USD=Dólar dos Estados Unidos
 units.days=Dia(s)
 units.inPercent=Em %
 units.months=Mês(es)
-units.pdays=p/dia(s)
+units.pdays=p.dia(s)
 units.perUSD=Por dólar dos Estados Unidos
 units.perUnitActivityPerCycle=por unidade de actividade por ciclo
 units.perUnitperCycle=por unidade de análise por ciclo
 units.perYear=Por ano
-units.pmonths=p/mês(es)
-units.pweeks=p/semana(s)
-units.pyears=p/ano(s)
+units.pmonths=p.mês(es)
+units.pweeks=p.semana(s)
+units.pyears=p.ano(s)
 units.weeks=Semana(s)
 units.years=Ano(s)
 user.addUser=Adicionar utilizador

@@ -1,3 +1,5 @@
+import.excel.error.selectList=The data in a select menu is invalid: row {0}.
+
 ## RIV4.2
 project.report.profitability.footnote=The net income flow is adjusted to estimate IRR and NPV under the assumption that the major investment (in year one) takes place one year before operations start (year zero).
 

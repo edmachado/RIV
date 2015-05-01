@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import riv.objects.config.AppConfig;
@@ -21,10 +24,15 @@ import riv.objects.config.FieldOffice;
 import riv.objects.config.ProjectCategory;
 import riv.objects.config.Setting;
 import riv.objects.config.Status;
+import riv.objects.config.User;
 import riv.web.service.DataService;
 
 @Component("rivConfig")
 public class RivConfig {
+
+	@Autowired
+	ServletContext sc;
+	
 	private Setting setting;
 	private Map<Integer, Beneficiary> beneficiaries;
 	private Map<Integer, ProjectCategory> categories;
@@ -36,10 +44,10 @@ public class RivConfig {
 	private MessageSource messageSource;
 	private DataService dataService;
 	private double version;
-	private Map<String, String> labourTypes=new HashMap<String, String>();
-	private Map<Integer, String> lengthUnits = new HashMap<Integer, String>();
-	private Map<Integer, String> contribTypes = new HashMap<Integer, String>();
-	private Map<Integer, String> recommendationTypes = new HashMap<Integer, String>();
+//	private Map<String, String> labourTypes=new HashMap<String, String>();
+//	private Map<Integer, String> lengthUnits = new HashMap<Integer, String>();
+//	private Map<Integer, String> contribTypes = new HashMap<Integer, String>();
+//	private Map<Integer, String> recommendationTypes = new HashMap<Integer, String>();
 	
 	@Value("${av}")	private String admin;
 	@Value("${buildLang}") private String buildLang;
@@ -52,28 +60,6 @@ public class RivConfig {
 		this.dataService=dService;
 		this.version=dataService.getLatestVersion().getVersion();
 		reload();
-		
-		labourTypes.put("0", translate("units.pyears"));
-		labourTypes.put("1", translate("units.pmonths"));
-		labourTypes.put("2", translate("units.pweeks"));
-		labourTypes.put("3", translate("units.pdays"));
-		
-		lengthUnits.put(0, translate("units.months"));
-		lengthUnits.put(1, translate("units.weeks"));
-		lengthUnits.put(2, translate("units.days.calendar"));
-		lengthUnits.put(3, translate("units.days.week"));
-		
-		contribTypes.put(0, translate("projectContribution.contribType.govtCentral"));
-		contribTypes.put(1, translate("projectContribution.contribType.govtLocal"));
-		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal"));
-		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl"));
-		contribTypes.put(5, translate("projectContribution.contribType.beneficiary"));
-		contribTypes.put(4, translate("projectContribution.contribType.other"));
-		
-		recommendationTypes.put(null, "");
-		recommendationTypes.put(1, translate("project.recommendation.implement"));
-		recommendationTypes.put(2, translate("project.recommendation.reject"));
-		recommendationTypes.put(3, translate("project.recommendation.review"));
 	}
 	
 	public boolean isAdmin() { return admin.equals("true"); }
@@ -314,6 +300,9 @@ public class RivConfig {
 	
 	private String translate(String messageCode) {
 		String lang = setting==null || setting.getLang()==null ? "en" : setting.getLang();
+		return translate(messageCode, lang);
+	}
+	private String translate(String messageCode, String lang) {
 		return messageSource.getMessage(messageCode, new Object[0], "", new Locale(lang));
 	}
 	
@@ -390,15 +379,41 @@ public class RivConfig {
 	}
 	
 	public Map<String, String> getLabourTypes() {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Map<String, String> labourTypes = new HashMap<String, String>(4);
+		labourTypes.put("0", translate("units.pyears", user.getLang()));
+		labourTypes.put("1", translate("units.pmonths", user.getLang()));
+		labourTypes.put("2", translate("units.pweeks", user.getLang()));
+		labourTypes.put("3", translate("units.pdays", user.getLang()));
 		return labourTypes;
 	}
 	public Map<Integer, String> getLengthUnits() {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Map<Integer, String> lengthUnits = new HashMap<Integer, String>(4);
+		lengthUnits.put(0, translate("units.months", user.getLang()));
+		lengthUnits.put(1, translate("units.weeks", user.getLang()));
+		lengthUnits.put(2, translate("units.days.calendar", user.getLang()));
+		lengthUnits.put(3, translate("units.days.week", user.getLang()));
 		return lengthUnits;
 	}
 	public Map<Integer, String> getContribTypes() {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Map<Integer, String> contribTypes = new HashMap<Integer, String>(6);
+		contribTypes.put(0, translate("projectContribution.contribType.govtCentral", user.getLang()));
+		contribTypes.put(1, translate("projectContribution.contribType.govtLocal", user.getLang()));
+		contribTypes.put(2, translate("projectContribution.contribType.ngoLocal", user.getLang()));
+		contribTypes.put(3, translate("projectContribution.contribType.ngoIntl", user.getLang()));
+		contribTypes.put(5, translate("projectContribution.contribType.beneficiary", user.getLang()));
+		contribTypes.put(4, translate("projectContribution.contribType.other", user.getLang()));
 		return contribTypes;
 	}
 	public Map<Integer, String> getRecommendationTypes() {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Map<Integer, String> recommendationTypes = new HashMap<Integer, String>(4);
+		recommendationTypes.put(null, "");
+		recommendationTypes.put(1, translate("project.recommendation.implement", user.getLang()));
+		recommendationTypes.put(2, translate("project.recommendation.reject", user.getLang()));
+		recommendationTypes.put(3, translate("project.recommendation.review", user.getLang()));
 		return recommendationTypes;
 	}
 }
