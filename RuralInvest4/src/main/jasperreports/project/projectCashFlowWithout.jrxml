@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlow" columnCount="8" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="79" columnSpacing="2" leftMargin="181" rightMargin="14" topMargin="10" bottomMargin="10" uuid="2b8b13e1-9e1f-4c82-8039-353fbc6f5c93">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
@@ -65,8 +65,7 @@
 		<variableExpression><![CDATA[new java.lang.Boolean($F{year}.intValue()==1||($F{year}.intValue()-1)%8==0)]]></variableExpression>
 	</variable>
 	<variable name="incFinanceTotal" class="java.lang.Double">
-		<variableExpression><![CDATA[$F{costInvestDonatedWithout}+$F{costInvestOwnWithout}+$F{costInvestFinanceWithout}
-]]></variableExpression>
+		<variableExpression><![CDATA[$F{costInvestDonatedWithout}+$F{costInvestOwnWithout}+$F{costInvestFinanceWithout}]]></variableExpression>
 	</variable>
 	<variable name="incMainTotal" class="java.lang.Double">
 		<variableExpression><![CDATA[$P{without}
@@ -273,7 +272,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.profitability.incomes.salvage}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="b7da723f-c602-4cca-84ff-2f27c8b4019a" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="62" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -305,7 +304,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="d50b40e6-b722-4c7f-9005-ff529386b4f6" key="textField-28" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="158" width="160" height="11" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -321,7 +320,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="f15fe714-bc49-41c4-87d3-09127738ebf8" key="textField-29" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="182" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -337,7 +336,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs.initial}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="884bb9f1-3192-4a1e-bec3-8ecfbe3bbbc9" key="textField-30" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="194" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -353,7 +352,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.replacement}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="23354403-81f6-4d03-a351-f83e0a4fa32b" key="textField-33" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="257" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -369,7 +368,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.maintenance}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="e28d61fb-69e9-4f19-b8d4-d333f54d2446" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="269" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -499,7 +498,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.finance}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="805f4edb-0735-4d53-a64f-ac3a809099b7" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="91" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -515,7 +514,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.invest}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="6ae4af96-6a86-4681-809a-4d571ea22f75" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="102" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -585,7 +584,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.cashFlow.costs.recurrent}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="4f0ef1f1-3d1e-4579-9796-7c2784e0b304" key="textField-33" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="234" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -601,7 +600,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.operation}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="5c5806bb-b06e-4594-98c4-df252aebbcb9" key="textField-33" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="246" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -617,7 +616,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$R{project.report.profitability.costs.general}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="3ef6446b-3061-4fad-aa9c-087d6b969e96" key="textField-35" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="280" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -665,7 +664,7 @@
 ? $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvestOwnWithout},riv.util.CurrencyFormat.NODECIMALS)
 : $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{costInvestOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="ee7c75a8-b9eb-4328-ba75-6e307b59fd89" key="textField-29" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="170" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
@@ -817,7 +816,7 @@
     $V{cumulativeCF}
  ,riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="c1c04630-707b-40d6-a182-0fba141fcdd8" key="textField-26" positionType="Float" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="112" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{showRowLabel}]]></printWhenExpression>
 				</reportElement>
