@@ -3732,7 +3732,7 @@ public class ExcelWorksheetBuilder {
 		
 		if (showSummary) {
 			row = sheet.createRow(rowNum++);
-			report.addTextCell(row, 0, translate("profile.report.blockDetail.totals"), Style.H2);
+			report.addTextCell(row, 0, translate("profile.report.blockDetail.totals") + " (" + translate("units.perYear") + ")", Style.H2);
 			
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, translate("profile.report.blockDetail.incomes"));

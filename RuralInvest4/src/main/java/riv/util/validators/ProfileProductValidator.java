@@ -27,7 +27,7 @@ public class ProfileProductValidator implements Validator {
 		}
 
 		// total length of cycles cannot be longer than 1 year
-		if (pp.getCyclePerYear()!=null) {
+		if (!errors.hasFieldErrors("cycleLength") && pp.getCyclePerYear()!=null) {
 			double cycleLength = 0.0; // cycle length expressed in years
 			switch (pp.getLengthUnit()) {
 				case 0:  // months

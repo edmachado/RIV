@@ -264,7 +264,8 @@
 					<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{profile.report.blockDetail.totals}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{profile.report.blockDetail.totals}
+ + " (" + $R{units.perYear} + ")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="ffb4d762-167e-4792-ae20-c10616fabec5" key="textField-16" positionType="Float" mode="Opaque" x="139" y="274" width="65" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
