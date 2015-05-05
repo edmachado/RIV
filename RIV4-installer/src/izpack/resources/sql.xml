@@ -474,6 +474,9 @@ ALTER TABLE project_result ADD COLUMN negative_years INTEGER;
 -- record login
 ALTER TABLE user ADD COLUMN last_login TIMESTAMP;
 
+-- no null language
+UPDATE USER u SET u.lang=(SELECT TOP 1 s.lang FROM setting s ORDER BY s.setting_id DESC) WHERE u.lang IS NULL;
+
 -- compress lob
 SET FILES LOB COMPRESSED TRUE;
 	</query>
