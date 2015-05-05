@@ -11,7 +11,7 @@
     <dependency>
     	<groupId>org.hsqldb</groupId>
     	<artifactId>hsqldb</artifactId>
-    	<version>1.8.0.10</version>
+    	<version>1.8.0.10</version><!--$NO-MVN-MAN-VER$-->
     </dependency>
   </dependencies>
   <build>
