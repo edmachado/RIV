@@ -49,7 +49,7 @@ $( "#radioShared" ).buttonset();
 				</c:if>
 				
 				<div class="dataentry">
-					<label><tags:help text="project.startupMonth" title="project.startupMonth.help"><spring:message code="project.startupMonth"/></tags:help></label>
+					<label><tags:help text="project.startupMonth.help" title="project.startupMonth"><spring:message code="project.startupMonth"/></tags:help></label>
 					<form:select path="startupMonth">
 						<c:forEach var="i" begin="1" end="12">
 							<c:set var="label"><spring:message code="calendar.month.${i}" /></c:set>
