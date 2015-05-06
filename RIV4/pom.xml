@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fao.riv</groupId>
 	<artifactId>RIV4</artifactId>
-	<version>4.2.0</version>
+	<version>4.2.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<izpack.version>5.0.0-rc1</izpack.version>
@@ -159,7 +159,7 @@
 		<downloadUrl>http://artifactory.fao.org/artifactory/ruralinvest</downloadUrl>
     </distributionManagement>
 	<scm>
-		<url>https://svn.fao.org/projects/ruralinvest/RIV4/tags/RIV4-4.2.0/RIV4</url>
-		<connection>scm:svn:https://svn.fao.org/projects/ruralinvest/RIV4/tags/RIV4-4.2.0/RIV4</connection>
+		<url>https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</url>
+		<connection>scm:svn:https://svn.fao.org/projects/ruralinvest/RIV4/trunk/RIV4</connection>
 	</scm>
 </project>
