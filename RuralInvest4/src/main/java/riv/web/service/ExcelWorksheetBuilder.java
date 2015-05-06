@@ -1159,7 +1159,7 @@ public class ExcelWorksheetBuilder {
 			for (int i=0;i<project.getDuration();i++) {
 				assetsTable.addColumn(XlsColumnType.FORMULA, investmentCost, true);
 			}
-			String investmentReplace = "IF(AND(ISNUMBER(CX),ISNUMBER(DX),ISNUMBER(IX),ISNUMBER(LX),ISNUMBER(MX)), IF(AND(exact(LX,\"#\"),@3>MX,MOD(@3-MX,IX)=0), CX*DX, 0), 0)";
+			String investmentReplace = "IF(AND(ISNUMBER(CX),ISNUMBER(DX),ISNUMBER(IX),ISNUMBER(MX)), IF(AND(exact(LX,\"#\"),@3>MX,MOD(@3-MX,IX)=0), CX*DX, 0), 0)";
 			for (int i=0;i<project.getDuration();i++) {
 				assetsTable.addColumn(XlsColumnType.FORMULA, investmentReplace, true);
 			}
