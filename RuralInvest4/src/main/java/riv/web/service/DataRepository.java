@@ -434,6 +434,7 @@ public class DataRepository {
 	public List<ProfileResult> getProfileResults(FilterCriteria filter) {
 		Criteria criteria = currentSession()
 				.createCriteria(ProfileResult.class)
+				.setMaxResults(100)
 				.add(Restrictions.eq("incomeGen", filter.isIncomeGen()))
 				.add(Restrictions.like("profileName",
 						"%" + filter.getFreeText() + "%").ignoreCase());
@@ -673,6 +674,7 @@ public class DataRepository {
 	public List<ProjectResult> getProjectResults(FilterCriteria filter) {
 		Criteria criteria = currentSession()
 				.createCriteria(ProjectResult.class)
+				.setMaxResults(100)
 				.add(Restrictions.eq("incomeGen", filter.isIncomeGen()))
 				.add(Restrictions.or(
 						Restrictions.like("projectName",
