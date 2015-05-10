@@ -3,6 +3,7 @@ package riv.web.controller;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +27,15 @@ public class ExportController {
 	}
 	
 	@RequestMapping("/profile/export/{id}/{filename}")
-	public void exportProfile(@PathVariable int id, @PathVariable String filename, HttpServletRequest request, OutputStream out)  {
+	public void exportProfile(@PathVariable int id, @PathVariable String filename, HttpServletRequest request, HttpServletResponse response, OutputStream out)  {
+		response.setHeader("Content-Disposition", "attachment;filename=\"" + exporter.getDownloadName(filename) + "\"");
 		boolean isGeneric =  Boolean.parseBoolean(request.getParameter("generic"));
 		exporter.exportProfile(id,isGeneric, out);
 	}
 	
 	@RequestMapping("project/export/{id}/{filename}")
-	public void exportProject(@PathVariable Integer id, @PathVariable String filename, HttpServletRequest request, OutputStream out) {
+	public void exportProject(@PathVariable Integer id, @PathVariable String filename, HttpServletRequest request, HttpServletResponse response, OutputStream out) {
+		response.setHeader("Content-Disposition", "attachment;filename=\"" + exporter.getDownloadName(filename) + "\"");
 		boolean isGeneric =  Boolean.parseBoolean(request.getParameter("generic"));
 		exporter.exportProject(id,isGeneric, out);
 	}

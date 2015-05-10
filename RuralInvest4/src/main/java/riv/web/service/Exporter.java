@@ -131,12 +131,10 @@ public class Exporter {
 	public void exportConfig(OutputStream out) {
 		String filename = "settings";
 		
-		// better to save image directly in zip
+		// save image directly in zip
 		try {
 			RivConfig rcExport = rivConfig.copyForExport();
-			//Blob orgLogo = rcExport.getSetting().getOrgLogo();
-			byte[] userLogo = rcExport.getSetting().getOrgLogo();// orgLogo.getBytes(1L, (int) orgLogo.length());
-			//orgLogo.free(); // performance call
+			byte[] userLogo = rcExport.getSetting().getOrgLogo();
 			rcExport.getSetting().setOrgLogo(null);
 			
 			export(filename, serializeObject(rcExport), userLogo, "rivOrgLogo", null, out);
@@ -245,23 +243,17 @@ public class Exporter {
 										.getTime()) });
 					}
 				});
-
-		/*Map delegates = HibernatePersistenceDelegate.getDelegates();
-		for (java.util.Iterator i = delegates.keySet().iterator(); i.hasNext();) {
-			Class clazz = (Class) i.next();
-			encoder.setPersistenceDelegate(clazz,
-					(java.beans.PersistenceDelegate) delegates.get(clazz));
-		}*/
+		
 		return encoder;
 	}
 	
 	// for downloading
 	public String getDownloadName(String input)  {
 		// filename shouldn't contain unacceptable characters
-		String output = input.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+		String output = input.replace("'", "")
+				.replace("х", "x") // cyrillic x -- for some reason this creates a problem
+				.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
 		output = output.substring(0, Math.min(output.length(), 50));
-		// get rid of cyrillic x -- for some reason this creates a problem
-		output = output.replace("х", "x");
 		return output;
 	}
 
