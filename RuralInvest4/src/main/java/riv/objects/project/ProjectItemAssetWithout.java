@@ -223,4 +223,15 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 		    
 		    return code;
 		}
+		
+		@Override
+		public void convertCurrency(Double exchange, int scale) {
+			maintCost = project.round(maintCost*exchange, scale);
+			ownResources = project.round(ownResources*exchange, scale);
+			salvage = project.round(salvage*exchange, scale);
+			this.setUnitCost(project.round(this.getUnitCost()*exchange, scale));
+			for (Integer key : donations.keySet()) {
+				donations.put(key, project.round(donations.get(key)*exchange, scale));
+			}
+		}
 }

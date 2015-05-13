@@ -98,6 +98,14 @@ public class BlockIncome extends BlockItem {
 	}
 	
 	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		if (block.getProject().getIncomeGen()) {
+			transport=new BigDecimal(block.getProject().round(transport.doubleValue()*exchange,scale));
+		}
+		unitCost = new BigDecimal(block.getProject().round(unitCost.doubleValue()*exchange,scale));				
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (!super.equals(obj)) return false;
 		BlockIncome x = (BlockIncome)obj;

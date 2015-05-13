@@ -218,10 +218,20 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 		    if (econLife!=null) code = multiplier * code + econLife;
 		    if (salvage!=null) code = multiplier * code + salvage.intValue();
 		    if (maintCost!=null) code = multiplier * code + maintCost.intValue();
-//		    if (donated!=null) code = multiplier * code + donated.intValue();
 		    if (yearBegin!=null) code = multiplier * code + yearBegin;
 		    if (ownResources!=null) code = multiplier * code + ownResources.intValue();
 		    
 		    return code;
+		}
+		
+		@Override
+		public void convertCurrency(Double exchange, int scale) {
+			maintCost = project.round(maintCost*exchange, scale);
+			ownResources = project.round(ownResources*exchange, scale);
+			salvage = project.round(salvage*exchange, scale);
+			this.setUnitCost(project.round(this.getUnitCost()*exchange, scale));
+			for (Integer key : donations.keySet()) {
+				donations.put(key, project.round(donations.get(key)*exchange, scale));
+			}
 		}
 }

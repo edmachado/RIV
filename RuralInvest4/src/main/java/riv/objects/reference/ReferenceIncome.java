@@ -100,27 +100,12 @@ public class ReferenceIncome extends ReferenceItem {
 		 newItem.setUnitType(this.getUnitType());
 		 return newItem;
 	}
-	
-//	public void updateProbase() {
-//		if (this.getProject()!=null) {
-//			for (Block b : this.getProject().getBlocks()) {
-//				for (BlockIncome i : b.getIncomes()) {
-//					if (this.equals(i.getLinkedTo())) {
-//						i.setUnitCost(new BigDecimal(this.getUnitCost()));
-//						i.setTransport(new BigDecimal(transport));
-//					}
-//				}
-//			}
-//		} else if (this.getProfile() != null) {
-//			for (ProfileProduct pp : this.getProfile().getProducts()) {
-//				for (ProfileProductIncome i : pp.getProfileIncomes()) {
-//					if (this.equals(i.getLinkedTo())) {
-//						i.setUnitCost(new BigDecimal(this.getUnitCost()));
-//						i.setTransport(new BigDecimal(this.getTransport()));
-//					}
-//				}
-//			}
-//		}
-//	}
-//	
+
+	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		this.setUnitCost(this.getProbase().round(this.getUnitCost()*exchange, scale));
+		if (transport!=null) {
+			transport = this.getProbase().round(transport*exchange, scale);
+		}
+	}
 }

@@ -111,6 +111,8 @@ public abstract class ReferenceItem  implements Serializable, OrderByable, HasPr
    abstract public void setProfile(Profile p);
    abstract public ReferenceItem copy();
    //abstract public void updateProbase();
+   public abstract void convertCurrency(Double exchange, int scale);
+	
 
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;

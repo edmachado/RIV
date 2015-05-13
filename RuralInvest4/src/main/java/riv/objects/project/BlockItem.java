@@ -158,6 +158,7 @@ public abstract class BlockItem  implements Serializable, OrderByable, LinkedToa
 	public Probase getProbase() {
 		return this.getBlock().getProject();
 	}
+	public abstract void convertCurrency(Double exchange, int scale);
 	
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;

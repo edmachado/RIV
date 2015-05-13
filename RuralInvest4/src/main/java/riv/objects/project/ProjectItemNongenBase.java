@@ -51,22 +51,6 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 	public abstract Project getProject();
 	public abstract void setProject(Project project);
 	
-//	public Double getStatePublic() {
-//		return publicState;
-//	}
-//
-//	public void setStatePublic(Double publicState) {
-//		this.publicState = publicState;
-//	}
-//
-//	public Double getOther1() {
-//		return 0.0;//other1;
-//	}
-//
-//	public void setOther1(Double other1) {
-//		this.other1 = other1;
-//	}
-
 	public Double getTotal() {
 		if (getUnitCost()==null || getUnitNum()==null) return 0.0;
 		return this.getUnitCost()*this.getUnitNum();
@@ -83,9 +67,6 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-//		result = prime * result + ((other1 == null) ? 0 : other1.hashCode());
-//		result = prime * result
-//				+ ((publicState == null) ? 0 : publicState.hashCode());
 		result = prime * result + ((this.getProject() == null) ? 0 : this.getProject().hashCode());
 		return result;
 	}
@@ -99,16 +80,6 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 		if (getClass() != obj.getClass())
 			return false;
 		ProjectItemNongenBase other = (ProjectItemNongenBase) obj;
-//		if (other1 == null) {
-//			if (other.other1 != null)
-//				return false;
-//		} else if (!other1.equals(other.other1))
-//			return false;
-//		if (publicState == null) {
-//			if (other.publicState != null)
-//				return false;
-//		} else if (!publicState.equals(other.publicState))
-//			return false;
 		if (this.getProject() == null) {
 			if (other.getProject() != null)
 				return false;
@@ -117,5 +88,11 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 		return true;
 	}
 	
-	
+	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		unitCost = this.getProject().round(unitCost*exchange, scale);
+		for (Integer key : donations.keySet()) {
+			donations.put(key, this.getProject().round(donations.get(key)*exchange, scale));
+		}
+	}
 }

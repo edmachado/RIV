@@ -1,5 +1,6 @@
 package riv.objects;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import riv.objects.config.User;
@@ -87,4 +88,14 @@ public abstract class Probase {
 			}
 		}
 	}
+	
+	public double round(double value, int scale) {
+		 BigDecimal bd = new BigDecimal(Double.toString(value));
+		    bd = bd.setScale(2,BigDecimal.ROUND_HALF_UP);
+		    return bd.doubleValue();
+	 }
+	 public BigDecimal round(BigDecimal value, int scale) {
+		 return value.setScale(scale, BigDecimal.ROUND_HALF_UP);
+	 }
+	 
 }

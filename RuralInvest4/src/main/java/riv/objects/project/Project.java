@@ -1253,15 +1253,6 @@ public double getInvestmentTotal() {
 		return getAnnualEmploymentInvestment()+getAnnualEmploymentOperation()+getAnnualEmploymentGeneral();
 	}
 	
-	private double round(double value, int scale) {
-		 BigDecimal bd = new BigDecimal(Double.toString(value));
-		    bd = bd.setScale(2,BigDecimal.ROUND_HALF_UP);
-		    return bd.doubleValue();
-	 }
-	 private BigDecimal round(BigDecimal value, int scale) {
-		 return value.setScale(scale, BigDecimal.ROUND_HALF_UP);
-	 }
-	 
 	// gives summary data for contributions (and helper classes)
 	public List<double[]> getContributionSummary() {
 		List<double[]> summary = new ArrayList<double[]>(donors.size());
@@ -1281,124 +1272,95 @@ public double getInvestmentTotal() {
 	 * @param exchange
 	 */
 	public void convertCurrency(Double exchange, int scale) {
-		//this.ExchRate=1/exchange;
 		if (this.incomeGen) {
-			capitalDonate=round(capitalDonate*exchange, scale);
+			if (capitalDonate!=null) {
+				capitalDonate=round(capitalDonate*exchange, scale);
+			}
 			this.loan2Amt=round(loan2Amt*exchange, scale);
 		}
 		//  step 7
 		for (ProjectItemAsset ass : assets) {
-//			ass.setDonated(round(ass.getDonated()*exchange, scale));
-			ass.setMaintCost(round(ass.getMaintCost()*exchange, scale));
-			ass.setOwnResources(round(ass.getOwnResources()*exchange, scale));
-			ass.setSalvage(round(ass.getSalvage()*exchange, scale));
-			ass.setUnitCost(round(ass.getUnitCost()*exchange, scale));
+			ass.convertCurrency(exchange, scale);
 		}
 		for (ProjectItemLabour lab : labours) {
-//			lab.setDonated(round(lab.getDonated()*exchange, scale));
-			lab.setOwnResources(round(lab.getOwnResources()*exchange, scale));
-			lab.setUnitCost(round(lab.getUnitCost()*exchange, scale));
+			lab.convertCurrency(exchange, scale);
 		}
 		for (ProjectItemService serv : services) {
-//			serv.setDonated(round(serv.getDonated()*exchange, scale));
-			serv.setOwnResources(round(serv.getOwnResources()*exchange, scale));
-			serv.setUnitCost(round(serv.getUnitCost()*exchange, scale));
+			serv.convertCurrency(exchange, scale);
 		}
 		for (ProjectItemAssetWithout ass : assetsWithout) {
-//			ass.setDonated(round(ass.getDonated()*exchange, scale));
-			ass.setMaintCost(round(ass.getMaintCost()*exchange, scale));
-			ass.setOwnResources(round(ass.getOwnResources()*exchange, scale));
-			ass.setSalvage(round(ass.getSalvage()*exchange, scale));
-			ass.setUnitCost(round(ass.getUnitCost()*exchange, scale));
+			ass.convertCurrency(exchange, scale);
 		}
 		for (ProjectItemLabourWithout lab : laboursWithout) {
-//			lab.setDonated(round(lab.getDonated()*exchange, scale));
-			lab.setOwnResources(round(lab.getOwnResources()*exchange, scale));
-			lab.setUnitCost(round(lab.getUnitCost()*exchange, scale));
+			lab.convertCurrency(exchange, scale);
 		}
 		for (ProjectItemServiceWithout serv : servicesWithout) {
-//			serv.setDonated(round(serv.getDonated()*exchange, scale));
-			serv.setOwnResources(round(serv.getOwnResources()*exchange, scale));
-			serv.setUnitCost(round(serv.getUnitCost()*exchange, scale));
+			serv.convertCurrency(exchange, scale);
 		}
-		for (ProjectItemNongenMaterials nongen : nongenMaterials) {
-//			nongen.setOther1(round(nongen.getOther1()*exchange, scale));
-//			nongen.setStatePublic(round(nongen.getStatePublic()*exchange, scale));
-			nongen.setUnitCost(round(nongen.getUnitCost()*exchange, scale));
-		}
-		for (ProjectItemNongenMaintenance nongen : nongenMaintenance) {
-//			nongen.setOther1(round(nongen.getOther1()*exchange, scale));
-//			nongen.setStatePublic(round(nongen.getStatePublic()*exchange, scale));
-			nongen.setUnitCost(round(nongen.getUnitCost()*exchange, scale));			
-		}
-		for (ProjectItemNongenLabour nongen : nongenLabours) {
-//			nongen.setOther1(round(nongen.getOther1()*exchange, scale));
-//			nongen.setStatePublic(round(nongen.getStatePublic()*exchange, scale));
-			nongen.setUnitCost(round(nongen.getUnitCost()*exchange, scale));
-		}
+		
 		//  step 8
-		for (ProjectItemGeneral i : generals) {
-			i.setOwnResources(round(i.getOwnResources()*exchange, scale));
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
+		if (incomeGen) {
+			for (ProjectItemGeneral i : generals) {
+				i.convertCurrency(exchange, scale);
+			}
+			for (ProjectItemPersonnel i : personnels) {
+				i.convertCurrency(exchange, scale);
+			}
+			for (ProjectItemGeneralWithout i : generalWithouts) {
+				i.convertCurrency(exchange, scale);
+			}
+			for (ProjectItemPersonnelWithout i : personnelWithouts) {
+				i.convertCurrency(exchange, scale);
+			}
+		} else {
+			for (ProjectItemNongenMaterials nongen : nongenMaterials) {
+				nongen.convertCurrency(exchange, scale);
+			}
+			for (ProjectItemNongenMaintenance nongen : nongenMaintenance) {
+				nongen.convertCurrency(exchange, scale);			
+			}
+			for (ProjectItemNongenLabour nongen : nongenLabours) {
+				nongen.convertCurrency(exchange, scale);
+			}
 		}
-		for (ProjectItemPersonnel i : personnels) {
-			i.setOwnResources(round(i.getOwnResources()*exchange, scale));
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
-		}
-		for (ProjectItemGeneralWithout i : generalWithouts) {
-			i.setOwnResources(round(i.getOwnResources()*exchange, scale));
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
-		}
-		for (ProjectItemPersonnelWithout i : personnelWithouts) {
-			i.setOwnResources(round(i.getOwnResources()*exchange, scale));
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
-		}
+		
+		// step 9
 		for (Block block : this.getBlocks()) {
 			for (BlockIncome i : block.getIncomes()) {
-				if (block.getProject().getIncomeGen()) {
-					i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange)),scale));
-				}
-				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange)),scale));				
+				i.convertCurrency(exchange, scale);			
 			}
 			for (BlockInput i : block.getInputs()) {
-				i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange)),scale));
-				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange)),scale));				
+				i.convertCurrency(exchange, scale);		
 			}
 			for (BlockLabour i : block.getLabours()) {
-				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange)),scale));
+				i.convertCurrency(exchange, scale);
 			}
 		}
 		for (BlockWithout block : this.getBlocksWithout()) {
 			for (BlockIncome i : block.getIncomes()) {
-				if (block.getProject().getIncomeGen()) {
-					i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange)),scale));
-				}
-				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange)),scale));				
+				i.convertCurrency(exchange, scale);
 			}
 			for (BlockInput i : block.getInputs()) {
-				i.setTransport(round(i.getTransport().multiply(BigDecimal.valueOf(exchange)),scale));
-				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange)),scale));				
+				i.convertCurrency(exchange, scale);
 			}
 			for (BlockLabour i : block.getLabours()) {
-				i.setUnitCost(round(i.getUnitCost().multiply(BigDecimal.valueOf(exchange)),scale));
+				i.convertCurrency(exchange, scale);
 			}
 		}
 		//  step 10
 		for (ProjectItemContribution i : contributions) {
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
+			i.convertCurrency(exchange, scale);
 		}
 		
 		// refitems
 		for (ReferenceIncome i : refIncomes) {
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
-			if (i.getTransport()!=null) i.setTransport(round(i.getTransport()*exchange, scale));
+			i.convertCurrency(exchange, scale);
 		}
 		for (ReferenceCost i : refCosts) {
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
-			if (i.getTransport()!=null) i.setTransport(round(i.getTransport()*exchange, scale));
-		}
+			i.convertCurrency(exchange, scale);
+			}
 		for (ReferenceLabour i : refLabours) {
-			i.setUnitCost(round(i.getUnitCost()*exchange, scale));
+			i.convertCurrency(exchange, scale);
 		}
 	}
 	

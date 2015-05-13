@@ -79,34 +79,8 @@ public class ReferenceLabour extends ReferenceItem {
 		 return newRef;
 	}
 	
-//	public void updateProbase() {
-//		if (this.getProject()!=null) {
-//			Project p = this.getProject();
-//			for (ProjectItemLabour i : p.getLabours()) {
-//				if (this.equals(i.getLinkedTo())) {
-//					i.setUnitCost(this.getUnitCost());
-//				}
-//			}
-//			for (ProjectItemPersonnel i : p.getPersonnels()) {
-//				if (this.equals(i.getLinkedTo())) {
-//					i.setUnitCost(this.getUnitCost());
-//				}
-//			}
-//			for (Block b : p.getBlocks()) {
-//				for (BlockLabour i : b.getLabours()) {
-//					if (this.equals(i.getLinkedTo())) {
-//						i.setUnitCost(new BigDecimal(this.getUnitCost()));
-//					}
-//				}
-//			}
-//		} else { // profile
-//			for (ProfileProduct pp : this.getProfile().getProducts()) {
-//				for (ProfileProductLabour i : pp.getProfileLabours()) {
-//					if (this.equals(i.getLinkedTo())) {
-//						i.setUnitCost(new BigDecimal(this.getUnitCost()));
-//					}
-//				}
-//			}
-//		}
-//	}
+	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		this.setUnitCost(this.getProbase().round(this.getUnitCost()*exchange, scale));
+	}
 }

@@ -175,6 +175,12 @@ public class ReferenceCost extends ReferenceItem {
     	return project == null ? profile : project;
 	}   
 	
-	
+	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		this.setUnitCost(this.getProbase().round(this.getUnitCost()*exchange, scale));
+		if (transport!=null) {
+			transport = this.getProbase().round(transport*exchange, scale);
+		}
+	}
 	
 }

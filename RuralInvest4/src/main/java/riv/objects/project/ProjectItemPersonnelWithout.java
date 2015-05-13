@@ -95,5 +95,9 @@ public class ProjectItemPersonnelWithout extends ProjectItem  {//implements Gene
 	    return code;
 	}
 	
+	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		this.setOwnResources(project.round(this.getOwnResources()*exchange, scale));
+		this.setUnitCost(project.round(this.getUnitCost()*exchange, scale));
+	}	
 }
-

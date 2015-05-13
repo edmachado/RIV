@@ -138,6 +138,14 @@ public class BlockInput extends BlockItem implements HasDonations {
 		return item;
 	}
 	
+	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		Transport=new BigDecimal(block.getProject().round(Transport.doubleValue()*exchange,scale));
+		unitCost = new BigDecimal(block.getProject().round(unitCost.doubleValue()*exchange,scale));		
+		for (Integer key : donations.keySet()) {
+			donations.put(key, block.getProject().round(donations.get(key)*exchange, scale));
+		}
+	}
 	
 	@Override
 	public boolean equals(Object obj) {

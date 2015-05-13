@@ -30,9 +30,6 @@ public class ProjectItemContribution extends ProjectItem {
 	
 	@Column(name="YEAR_BEGIN")
 	private Integer year;
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="DONOR_ID")
-//	private Donor donor;
 	@Column(name="DONOR_ORDER_BY")
 	private int donorOrderBy;
 	
@@ -63,14 +60,6 @@ public class ProjectItemContribution extends ProjectItem {
 		this.donorOrderBy = donorOrderBy;
 	}
 
-//	public Donor getDonor() {
-//		return donor;
-//	}
-//
-//	public void setDonor(Donor donor) {
-//		this.donor = donor;
-//	}
-
 	public String getOldDonor() {
 		return oldDonor;
 	}
@@ -96,8 +85,6 @@ public class ProjectItemContribution extends ProjectItem {
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
 		   String desc = donorsByOrder.get(donorOrderBy).getNotSpecified()?"Not specified":donorsByOrder.get(donorOrderBy).getDescription();
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".donorOrderBy="+desc+lineSeparator);
-//		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contribType="+rivConfig.getContribTypes().get(contribType)+lineSeparator);
-//		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".contributor="+contributor+lineSeparator);
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+lineSeparator);
 		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
@@ -110,16 +97,12 @@ public class ProjectItemContribution extends ProjectItem {
 	 ProjectItemContribution item = new ProjectItemContribution();
 	 	item.setYear(year);
 	   item.setDescription(description);
-	   ///item.setExportLinkedTo(exportLinkedTo);
 	   item.setLinkedTo(getLinkedTo());
 	   item.setProject(project);
 	   item.setUnitCost(unitCost);
 	   item.setUnitNum(unitNum);
 	   item.setUnitType(unitType);
 	   item.setDonorOrderBy(donorOrderBy);
-//	   item.setDonor(donor);
-//	   item.setContribType(contribType);
-//	   item.setContributor(contributor);
 	   item.setOrderBy(getOrderBy());
 	   return item;
    }
@@ -129,8 +112,6 @@ public class ProjectItemContribution extends ProjectItem {
 		if (!super.equals(obj)) return false;
 		ProjectItemContribution x = (ProjectItemContribution)obj;
 		boolean isEqual = 
-//		contribType.equals(x.contribType)
-//				&& contributor.equals(x.contributor) &&
 		((year==null && this.getProjItemId()==x.getProjItemId()) || (year!=null && year==x.getYear()));
 		return isEqual;
 	}
@@ -139,9 +120,12 @@ public class ProjectItemContribution extends ProjectItem {
 	public int hashCode() {
 		int code = super.hashCode();
 		final int multiplier = 23;
-//	    if (contribType!=null) { code = multiplier * code + contribType; }	
 	    if (year!=null) { code = multiplier * code + year.hashCode(); }
-//	    if (contributor!=null) {code=multiplier * code + contributor.hashCode(); }
 	    return code;
+	}
+	
+	@Override
+	public void convertCurrency(Double exchange, int scale) {
+		unitCost = project.round(unitCost*exchange, scale);
 	}
 }

@@ -135,6 +135,7 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	public abstract void setProject(Project p);
 	public abstract ProjectItem copy(); 
 	public Probase getProbase() { return this.getProject(); }
+	public abstract void convertCurrency(Double exchange, int scale);
 	
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;
