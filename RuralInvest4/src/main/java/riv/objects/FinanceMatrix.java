@@ -57,7 +57,7 @@ public class FinanceMatrix {
 	}
 	
 	protected void finalize() {
-		LOG.debug("FinanceMatrix finalize.");
+//		LOG.debug("FinanceMatrix finalize.");
 		yearlyData.clear();
 	}
 	

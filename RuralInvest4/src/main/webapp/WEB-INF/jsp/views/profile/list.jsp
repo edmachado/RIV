@@ -108,7 +108,7 @@ $("#confirmDelete").dialog({
 		</tags:table>
 		
 		<c:if test="${fn:length(results) gt 0}">
-			<spring:message code="settings.export"/>: 
+			<spring:message code="export.search"/>: 
 			<a href="report/profileResults.pdf" target="_blank"><img src="../img/pdf.gif" alt="PDF" border="0"/>  PDF</a>
 			<a href="report/profileResults.xlsx" target="_blank"><img src="../img/xls.gif" alt="XLS" border="0"/>  XLS</a>
 			<a href="results/profileResults.zip" target="_blank"><img src="../img/zip.png" alt="ZIP" border="0"/> ZIP</a><br/>

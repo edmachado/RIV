@@ -1,4 +1,6 @@
-﻿# RIV4.2
+﻿export.search=Экспорт данных
+
+# RIV4.2
 project.donor.statePublic=Общественные/государственные ресурсы
 
 project.report.cashFlow.costs.initial=Изначальная инвестиция 

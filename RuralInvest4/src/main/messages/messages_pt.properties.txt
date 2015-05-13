@@ -1,4 +1,6 @@
-﻿# RIV4.2
+﻿export.search=Exportar dados
+
+# RIV4.2
 project.report.profitability.footnote= O valor presente líquido (VPL) e a taxa interna de retorno (TIR) são estimados assumindo que o investimento principal (do primeiro ano) é realizado no ano anterior ao início das operações (ano zero).
 
 project.donor.statePublic=Recursos públicos ou do Estado

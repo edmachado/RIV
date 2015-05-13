@@ -1,3 +1,6 @@
+export.search=Datos Exportados
+
+
 # RIV4.2
 project.report.profitability.footnote=El flujo de ingresos netos es ajustado para estimar TIR y VPN bajo el supuesto que la inversión principal (en año uno) se realiza un año antes del inicio de operaciones (año cero).
 
