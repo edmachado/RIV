@@ -1807,58 +1807,32 @@ public class DataRepository {
 		HomeData hd = new HomeData();
 
 		int[] stats = new int[8];
-		for (int i = 0; i < 8; i++) {
-			stats[i] = 0;
-		}
-
-		List profile = currentSession()
-				.createQuery("select p.wizardStep, p.incomeGen from Profile p")
-				.list();
-		for (Object p : profile) {
-			Object[] prof = (Object[]) p;
-			if (prof[0] == null) {
-				if ((Boolean) prof[1] == true)
-					stats[0]++;
-				else
-					stats[2]++;
-			} else if ((Boolean) prof[1] == true)
-				stats[1]++;
-			else
-				stats[3]++;
-		}
-
-		List project = currentSession()
-				.createQuery("select p.wizardStep, p.incomeGen from Project p").list();
-		for (Object p : project) {
-			Object[] proj = (Object[]) p;
-			if (proj[0] == null) {
-				if ((Boolean) proj[1] == true) {
-					stats[4]++;
-				} else {
-					stats[6]++;
-				}
-			} else if ((Boolean) proj[1] == true) {
-				stats[5]++;
-			} else {
-				stats[7]++;
-			}
-		}
+		
+		stats[0] = ((Long) currentSession().createQuery("select count(*) from ProfileResult p where p.incomeGen is true").uniqueResult()).intValue();
+		stats[1] = ((Long) currentSession().createQuery("select count(*) from Profile p where p.wizardStep is not null and p.incomeGen is true").uniqueResult()).intValue();
+		stats[2] = ((Long) currentSession().createQuery("select count(*) from ProfileResult p where p.incomeGen is false").uniqueResult()).intValue();
+		stats[3] = ((Long) currentSession().createQuery("select count(*) from Profile p where p.wizardStep is not null and p.incomeGen is false").uniqueResult()).intValue();
+		
+		stats[4] = ((Long) currentSession().createQuery("select count(*) from ProjectResult p where p.incomeGen is true").uniqueResult()).intValue();
+		stats[5] = ((Long) currentSession().createQuery("select count(*) from Project p where p.wizardStep is not null and p.incomeGen is true").uniqueResult()).intValue();
+		stats[6] = ((Long) currentSession().createQuery("select count(*) from ProjectResult p where p.incomeGen is false").uniqueResult()).intValue();
+		stats[7] = ((Long) currentSession().createQuery("select count(*) from Project p where p.wizardStep is not null and p.incomeGen is false").uniqueResult()).intValue();
 
 		hd.setDbStats(stats);
 
 		List projs = currentSession()
 				.createQuery(
-						"SELECT p.projectId, p.projectName, p.lastUpdate " + // ,
-						// p.technician.description
+						"SELECT p.projectId, p.projectName, p.lastUpdate " +
 						"FROM Project p WHERE p.wizardStep IS NOT NULL ORDER BY p.lastUpdate DESC")
+				.setMaxResults(3)
 				.list();
 		hd.setProjs(projs);
 
 		List profs = currentSession()
 				.createQuery(
-						"SELECT p.profileId, p.profileName, p.lastUpdate " + // ,
-						// p.technician.description "+
+						"SELECT p.profileId, p.profileName, p.lastUpdate " +
 						"FROM Profile p WHERE p.wizardStep IS NOT NULL ORDER BY p.lastUpdate DESC")
+				.setMaxResults(3)
 				.list();
 		hd.setProfs(profs);
 
