@@ -480,9 +480,8 @@ UPDATE USER u SET u.lang=(SELECT TOP 1 s.lang FROM setting s ORDER BY s.setting_
 -- compress lob
 SET FILES LOB COMPRESSED TRUE;
 
-
 -- project results precision
-delete from project_result;
+DELETE FROM project_result;
 ALTER TABLE project_result ALTER COLUMN annual_employment DECIMAL(25,4);
 ALTER TABLE project_result ALTER COLUMN annual_net_income DECIMAL(25,4);
 ALTER TABLE project_result ALTER COLUMN npv DECIMAL(25,4);
@@ -497,7 +496,7 @@ ALTER TABLE project_result ALTER COLUMN npv_with_donation DECIMAL(25,4);
 ALTER TABLE project_result ALTER COLUMN irr_with_donation DECIMAL(25,4);
 
 --  profile results precision
-delete from profile_result;
+DELETE FROM profile_result;
 ALTER TABLE profile_result ALTER COLUMN investment_total Decimal(25,4); 
 ALTER TABLE profile_result ALTER COLUMN investment_own Decimal(25,4); 
 ALTER TABLE profile_result ALTER COLUMN tot_income Decimal(25,4); 
@@ -509,4 +508,35 @@ ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(25,4);
 
 	</query>
 	</version>
+	
+
+<!--    	<version number="4.3"> -->
+<!--    	<query> -->
+<!--    	 project results precision -->
+<!-- 	DELETE FROM project_result; -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN annual_employment DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN annual_net_income DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN npv DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN invest_total DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN invest_own DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN invest_donated DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN working_capital DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN wc_own DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN wc_donated DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN wc_financed DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN npv_with_donation DECIMAL(25,4); -->
+<!-- 	ALTER TABLE project_result ALTER COLUMN irr_with_donation DECIMAL(25,4); -->
+	
+<!-- 	  profile results precision -->
+<!-- 	DELETE FROM profile_result; -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN investment_total Decimal(25,4);  -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN investment_own Decimal(25,4);  -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN tot_income Decimal(25,4);  -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN oper_cost Decimal(25,4);  -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN annual_reserve Decimal(25,4);  -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN invest_per_benef Decimal(25,4);  -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN cost_per_benef Decimal(25,4);  -->
+<!-- 	ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(25,4); -->
+<!-- 	</query> -->
+<!-- 	</version> -->
 </sql>
