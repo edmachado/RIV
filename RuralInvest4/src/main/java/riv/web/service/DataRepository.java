@@ -133,9 +133,6 @@ public class DataRepository {
 	}
 
 	public void replaceProjectContribution(int projectId, List<ProjectItemContribution> items) {
-//		String[] classes = new String[] {"ProjectItemContribution"};
-//		deleteCollections(classes, "project.projectId", projectId);
-		
 		Project p = getProject(projectId, 10);
 		p.getContributions().clear();
 		for (ProjectItemContribution i : items) {
@@ -144,9 +141,6 @@ public class DataRepository {
 	}
 	
 	public void replaceProfileProduct(int productId, List<ProfileProductIncome> incs, List<ProfileProductInput> inps, List<ProfileProductLabour> labs) {
-//		String[] classes = new String[] {"ProfileProductIncome", "ProfileProductInput", "ProfileProductLabour"};
-//		deleteCollections(classes, "profileProduct.productId", productId);
-		
 		ProfileProductBase pp = getProfileProduct(productId, "all");
 		pp.getProfileIncomes().clear();
 		for (ProfileProductIncome item : incs) {
@@ -163,8 +157,6 @@ public class DataRepository {
 	}
 	
 	public void replaceProfileGeneral(int profileId, List<ProfileItemGeneral> gens, List<ProfileItemGeneralWithout> gensWo) {
-//		deleteCollections(new String[] {"ProfileItemGeneral","ProfileItemGeneralWithout"}, "profile.profileId", profileId);
-		
 		Profile p = getProfile(profileId, 5);
 		p.getGlsGeneral().clear();
 		for (ProfileItemGeneral item : gens) {
@@ -180,9 +172,6 @@ public class DataRepository {
 	}
 	
 	public void replaceProjectGeneralNongen(int projectId, List<ProjectItemNongenMaterials> materials, List<ProjectItemNongenLabour> labours, List<ProjectItemNongenMaintenance> maints) {
-//		String[] classes = new String[] {"ProjectItemNongenMaterials", "ProjectItemNongenLabour", "ProjectItemNongenMaintenance"};
-//		deleteCollections(classes, "project.projectId", projectId);
-		
 		Project p = getProject(projectId, 8);
 		p.getNongenMaterials().clear();
 		for (ProjectItemNongenMaterials i : materials) {
@@ -200,10 +189,7 @@ public class DataRepository {
 		storeProject(p, p.getWizardStep()==null);
 	}
 	
-	public void replaceBlock(int blockId, List<BlockIncome> incs, List<BlockInput> inps, List<BlockLabour> labs) {
-//		String[] classes = new String[] {"BlockIncome", "BlockInput", "BlockLabour"};
-//		deleteCollections(classes, "block.BlockId", blockId);
-		
+	public void replaceBlock(int blockId, List<BlockIncome> incs, List<BlockInput> inps, List<BlockLabour> labs) {		
 		BlockBase b = getBlock(blockId, "all");
 		b.getIncomes().clear();
 		for (BlockIncome i : incs) {
@@ -223,9 +209,6 @@ public class DataRepository {
 	}
 	
 	public void replaceProjectGeneral(int projectId, List<ProjectItemGeneral> gens, List<ProjectItemPersonnel> pers, List<ProjectItemGeneralWithout> gensWo, List<ProjectItemPersonnelWithout> persWo) {
-//		String[] classes = new String[] {"ProjectItemGeneral", "ProjectItemPersonnel", "ProjectItemGeneralWithout", "ProjectItemPersonnelWithout"};
-//		deleteCollections(classes, "project.projectId", projectId);
-		
 		Project p = getProject(projectId, 8);
 		p.getGenerals().clear();
 		for (ProjectItemGeneral i : gens) {
@@ -250,20 +233,7 @@ public class DataRepository {
 		storeProject(p, p.getWizardStep()==null);
 	}
 	
-//	private void deleteCollections(String[] classes, String idProperty, int id) {
-//		Query q; String sql;
-//		for (String s : classes) {
-//			sql = String.format("delete from %s i where i.%s=:id", s, idProperty);
-//			q = currentSession().createQuery(sql);
-//			q.setInteger("id", id);
-//			q.executeUpdate();
-//		}
-//	}
-	
 	public void replaceProjectInvest(int projectId, List<ProjectItemAsset> assets, List<ProjectItemLabour> labours, List<ProjectItemService> services, List<ProjectItemAssetWithout> assetsWo, List<ProjectItemLabourWithout> laboursWo, List<ProjectItemServiceWithout> servicesWo) {
-//		String[] classes = new String[] {"ProjectItemAsset", "ProjectItemLabour", "ProjectItemService", "ProjectItemAssetWithout", "ProjectItemLabourWithout", "ProjectItemServiceWithout"};
-//		deleteCollections(classes, "project.projectId", projectId);
-		
 		Project p = getProject(projectId, 7, true);
 		p.getAssets().clear();
 		for (ProjectItemAsset i : assets) {
@@ -451,7 +421,7 @@ public class DataRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	//TODO: need to add technician and status to criteria
+	//TODO: add technician and status to criteria
 	public List<Profile> getProfileUnfinished(boolean incomeGen) {
 		Criteria criteria = currentSession()
 				.createCriteria(Profile.class)
@@ -1820,16 +1790,14 @@ public class DataRepository {
 
 		hd.setDbStats(stats);
 
-		List projs = currentSession()
-				.createQuery(
+		List projs = currentSession().createQuery(
 						"SELECT p.projectId, p.projectName, p.lastUpdate " +
 						"FROM Project p WHERE p.wizardStep IS NOT NULL ORDER BY p.lastUpdate DESC")
 				.setMaxResults(3)
 				.list();
 		hd.setProjs(projs);
 
-		List profs = currentSession()
-				.createQuery(
+		List profs = currentSession().createQuery(
 						"SELECT p.profileId, p.profileName, p.lastUpdate " +
 						"FROM Profile p WHERE p.wizardStep IS NOT NULL ORDER BY p.lastUpdate DESC")
 				.setMaxResults(3)

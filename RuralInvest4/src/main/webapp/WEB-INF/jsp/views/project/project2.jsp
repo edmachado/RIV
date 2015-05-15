@@ -4,17 +4,17 @@
 $(function() {
 	loadDonors();
 });
-var statePub='<spring:message code="project.donor.statePublic"/>';
-var viewEdit='<spring:message code="misc.viewEditItem"/>';
-var deleteItem='<spring:message code="misc.deleteItem"/>';
+var statePub="<spring:message code='project.donor.statePublic'/>";
+var viewEdit="<spring:message code='misc.viewEditItem'/>";
+var deleteItem="<spring:message code='misc.deleteItem'/>";
 var projId=${project.projectId};
 function cType(type) {
-	if (type==0) return '<spring:message code="projectContribution.contribType.govtCentral"/>';
-	if (type==1) return '<spring:message code="projectContribution.contribType.govtLocal"/>';
-	if (type==2) return '<spring:message code="projectContribution.contribType.ngoLocal"/>';
-	if (type==3) return '<spring:message code="projectContribution.contribType.ngoIntl"/>';
-	if (type==4) return '<spring:message code="projectContribution.contribType.other"/>';
-	return '<spring:message code="projectContribution.contribType.beneficiary"/>';
+	if (type==0) return "<spring:message code='projectContribution.contribType.govtCentral'/>";
+	if (type==1) return "<spring:message code='projectContribution.contribType.govtLocal'/>";
+	if (type==2) return "<spring:message code='projectContribution.contribType.ngoLocal'/>";
+	if (type==3) return "<spring:message code='projectContribution.contribType.ngoIntl'/>";
+	if (type==4) return "<spring:message code='projectContribution.contribType.other'/>";
+	return "<spring:message code='projectContribution.contribType.beneficiary'/>";
 }
 </script>
 <script language="javascript" src="<c:url value="/scripts/donors.js"/>" type="text/javascript"></script>
