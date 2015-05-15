@@ -97,7 +97,7 @@ public class ProjectResult implements java.io.Serializable {
 	// for downloading
 	public String getDownloadName() throws UnsupportedEncodingException {
 		// filename shouldn't contain unacceptable characters
-		String output = projectName.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+		String output = projectName.replaceAll("[\"']", "").replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
 		output = output.substring(0, Math.min(output.length(), 50));
 		// get rid of cyrillic x -- for some reason this creates a problem
 		output = output.replace("х", "x");

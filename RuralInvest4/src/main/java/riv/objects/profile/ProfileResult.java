@@ -58,7 +58,7 @@ public class ProfileResult implements Serializable {
 	// for downloading
 	public String getDownloadName()  {
 		// filename shouldn't contain unacceptable characters
-		String output = profileName.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
+		String output = profileName.replaceAll("[\"']", "").replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
 		output = output.substring(0, Math.min(output.length(), 50));
 		// get rid of cyrillic x -- for some reason this creates a problem
 		output = output.replace("х", "x");

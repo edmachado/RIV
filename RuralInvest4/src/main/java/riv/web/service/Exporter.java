@@ -250,7 +250,7 @@ public class Exporter {
 	// for downloading
 	public String getDownloadName(String input)  {
 		// filename shouldn't contain unacceptable characters
-		String output = input.replace("'", "")
+		String output = input.replaceAll("[\"']", "")
 				.replace("х", "x") // cyrillic x -- for some reason this creates a problem
 				.replaceAll("[:<>\\.|\\?\\*/\\\\\"\\s]", "_");
 		output = output.substring(0, Math.min(output.length(), 50));
