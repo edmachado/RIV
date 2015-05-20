@@ -165,6 +165,7 @@ public class ProjectController {
 			if (request.getParameter("incgen").equals("true")) { p.setIncomeGen(true); }
 			p.setWizardStep(1);
 			p.setTechnician(u);
+			p.setExchRate(rivConfig.getSetting().getExchRate());
 			p.setPrepDate(new Date());
 			p.setCreatedBy(u.getDescription() + " ("+u.getOrganization()+")");
 			p.setFieldOffice(rivConfig.getFieldOffices().get(-4));
