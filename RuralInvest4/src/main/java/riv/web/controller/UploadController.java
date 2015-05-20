@@ -116,7 +116,7 @@ public class UploadController implements Serializable {
 			return "redirect:../step1/"+p.getProfileId()+rename;
 		} else { // project
 			Project p = (Project)decoded;
-			p.setWizardStep(1);
+			//p.setWizardStep(1);
 			p.setTechnician((User)request.getAttribute("user"));
 			p.setPrepDate(new java.util.Date());
 			if (p.isGeneric()) {

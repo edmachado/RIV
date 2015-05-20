@@ -178,4 +178,10 @@ public class ProjectFirstYear {
 		    bd = bd.setScale(decimals,BigDecimal.ROUND_HALF_UP);
 		    return bd.doubleValue();
 	 }
+	
+	protected void finalize() {
+//		LOG.debug("ProjectFirstYear finalize.");
+		incomes.clear();
+		costs.clear();
+	}
 }
