@@ -7,7 +7,7 @@
 
 1. Introduction
 2.1 Installing on Windows
-2.3 Installing on MAC
+2.3 Installing on Mac
 
 1. Introduction
 
@@ -19,16 +19,15 @@ privileges. Follow instruction based on your running OS.
 
 2.1 Installing on Windows
 ---------------------
-Just launch setup.exe and if needed the installer asks you to provide Administrator login to continue.
-If you fail to do this the installation may continue, but it will not work, and you'll have some error
+Launch setup.exe and if needed the installer asks you to provide Administrator login to continue.
+If you fail to do this the installation may continue, but it will not work and you'll have some error
 messages.
 
-On some installation of Vista/7, Windows may show you a windows saying the installer may not
-finished correctly, prompting to choose between some options. Unless you noticed any errors during
-the installation procedure, it's an error belonging to Windows, not a real issue.
-Feel free to select the option that the installer ended correctly.
-The installer add a service named "RuralInvest", so the application will be available at any boot.
+Windows may show you a windows saying the installer may not have finished correctly, 
+prompting to choose between some options. Unless you noticed any errors during
+the installation procedure, it is not a real issue.
+Feel free to select the option "the installer ended correctly".
 
 2.2 Installing on MacOS
 -----------------------
-We hope to have a MacOS installer ready soon.
+We hope to have a MacOS installer available in the future.

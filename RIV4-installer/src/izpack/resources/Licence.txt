@@ -18,7 +18,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License (included in full below) for more details.
 
-RuralInvest is also dependent on Tomcat 5.5 and the Java 2 Standard Edition Runtime
+RuralInvest is also dependent on Tomcat 7 and the Java 2 Standard Edition Runtime
 Environment version 6.0 or later. Installation of RuralInvest implies acceptance of
 their respective licences and copyright agreements; Apache License and Sun
 Microsystems, Inc. Binary Code License Agreements included.
