@@ -1,14 +1,14 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp"%>
 <c:set var="menuType" value="config" scope="request" /><c:set var="currentStep" value="2" scope="request" />
+<c:set var="accessOK" value="${currentUser.userId==user.userId and (not rivConfig.demo or (empty user.userId or user.userId gt 18))}" scope="request"/>
 <html><head><title><spring:message code="mainMenu.config.users.addEdit" /></title></head>
 <body>
-<c:set var="accessOK" value="${not rivConfig.demo}" scope="request"/>
 	<form:form id="userForm" name="form" method="post" commandName="user">
 		<div style="width:500px">
 			<tags:errors/>
 			<fieldset>
 				<legend><spring:message code="user.addUser"/></legend> 
-				<c:if test="${currentUser.userId==user.userId and not rivConfig.demo}">
+				<c:if test="${accessOK}">
 					<div class="dataentry">
 					<a id="changeUser" href="${user.userId}?changePassword" class="button">&nbsp;<spring:message code="user.changePassword"/>&nbsp;</a>
 					</div>
