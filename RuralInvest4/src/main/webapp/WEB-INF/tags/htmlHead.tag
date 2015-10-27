@@ -9,6 +9,9 @@
 	<!--[if lt IE 9]>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/styles/style-ie8.css"/>" />
 	<![endif]-->
-	<script>$(function() { $( document ).tooltip(); });
+	<script>$(function() { 
+		$( document ).tooltip(); 
+		$('input.curlabel').click( function(){ $(this).next('input').focus(); });
+	});
 	var curSepThou='${rivConfig.setting.thousandSeparator}';var curSepDec='${rivConfig.setting.decimalSeparator}';var decLength=${rivConfig.setting.decimalLength};
 	</script>
