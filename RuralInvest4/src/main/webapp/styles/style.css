@@ -279,6 +279,10 @@ padding-right:2px;
 text-align:right;
 }
 
+table td a {
+	cursor:pointer;
+}
+
 .even {
 background-color:#FFF;
 }

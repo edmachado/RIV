@@ -270,6 +270,10 @@ padding:2px;
 text-align:right;
 }
 
+table td a {
+	cursor:pointer;
+}
+
 .centered {
 text-align:center;
 }
