@@ -1,3 +1,5 @@
+project.step2=Translation needed
+
 export.search=Өгөгдөл экспортлох
 
 
