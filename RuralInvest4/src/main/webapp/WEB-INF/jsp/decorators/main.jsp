@@ -19,9 +19,16 @@
 	<%-- End testing tools --%>
 	
 	<tags:toprow/>
-	<div id="title"><decorator:title default="RuralInvest"/>
-<%-- 	<c:if test="${not empty project}"> : ${project.projectName}</c:if> --%>
-<%-- 	<c:if test="${not empty profile}"> : ${profile.profileName}</c:if> --%>
+	<div id="title">
+		<decorator:title default="RuralInvest"/>
+		<c:if test="${not empty project}"> :: ${project.projectName}</c:if>
+		<c:if test="${not empty profile}"> :: ${profile.profileName}</c:if>
+		<c:if test="${not empty project or not empty profile}">
+		<c:choose>
+			<c:when test="${project.incomeGen or profile.incomeGen}"> ($)</c:when>
+			<c:otherwise> (:)</c:otherwise>
+		</c:choose>
+		</c:if>
 	</div>
 	<table id="main">
 		<tr>
