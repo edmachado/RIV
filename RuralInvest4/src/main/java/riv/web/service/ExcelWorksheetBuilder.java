@@ -999,44 +999,22 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 	
-	public Sheet projectGeneralDetail(ExcelWrapper report, Project project, boolean template) {
+	public Sheet projectGeneralDetail(ExcelWrapper report, Project project, boolean without, boolean template) {
 		int rowNum=0;
-		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_GENERAL));
-
-		//sheet.setColumnWidth(1, 75*36);
-		sheet.setSelected(true);
+		
+		String title = without ? translate("project.report.generalCostsDetail") + " " + translate("project.without")
+				: project.isWithWithout() ? translate("project.report.generalCostsDetail") + " " + translate("project.with")
+				: translate("project.report.generalCostsDetail");
+		SheetName sheetname = project.isWithWithout() ? without ? SheetName.PROJECT_GENERAL_WITHOUT : SheetName.PROJECT_GENERAL_WITH : SheetName.PROJECT_GENERAL;
+				
+		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
+		
+		sheet.setSelected(!without);
+		
 		
 		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("project.report.generalCostsDetail"), Style.TITLE);
+		report.addTextCell(row, 0, title, Style.TITLE);
 		
-		if (project.getIncomeGen() && project.isWithWithout()) {
-			row = sheet.createRow(rowNum++);
-			report.addTextCell(row, 0, translate("projectGeneral.with"), Style.H2);
-		} else {
-			rowNum++;
-		}
-		
-		rowNum=addGeneralCosts(report, true, project, rowNum, sheet, template);
-
-		if (project.isWithWithout()) {
-			rowNum=rowNum+2;
-			row = sheet.createRow(rowNum++);
-			report.addTextCell(row, 0, translate("projectGeneral.without"), Style.H2);
-			rowNum = addGeneralCosts(report, false, project, rowNum, sheet, template);
-		}
-		
-		autoSizeColumns(sheet, 7);
-		return sheet;
-	}
-	
-	private void autoSizeColumns(Sheet sheet, int cols) {
-		for (short i=0;i<cols;i++) {
-			sheet.autoSizeColumn(i);
-		}
-	}
-	
-	private int addGeneralCosts(ExcelWrapper report, boolean withProject, Project project, int rowNum, Sheet sheet, boolean template) {
-
 		String[] headerSupplies = new String[]{"projectGeneralSupplies.description", "projectGeneralSupplies.unitType", 
 				"projectGeneralSupplies.unitNum", "projectGeneralSupplies.unitCost", "projectGeneralSupplies.totalCost", 
 				"projectGeneralSupplies.ownResources", "projectGeneralSupplies.external"};
@@ -1046,7 +1024,7 @@ public class ExcelWorksheetBuilder {
 		
 		int[] totalRows = new int[2];
 		
-		Row row = sheet.createRow(rowNum++);
+		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("projectGeneralSupplies"), Style.H2);
 		
 		XlsTable table = new XlsTable(report, headerSupplies);
@@ -1057,7 +1035,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.FORMULA, "CX*DX", true)
 		.addColumn(XlsColumnType.CURRENCY, "getOwnResources", true)
 		.addColumn(XlsColumnType.FORMULA, "EX-FX", true);
-		rowNum = table.writeTable(sheet, rowNum, template ? null : withProject ? project.getGenerals() : project.getGeneralWithouts(), true);
+		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getGenerals() : project.getGeneralWithouts(), true);
 		totalRows[0]=rowNum;
 		rowNum++;
 		
@@ -1073,7 +1051,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.FORMULA, "CX*DX", true)
 		.addColumn(XlsColumnType.CURRENCY, "getOwnResources", true)
 		.addColumn(XlsColumnType.FORMULA, "EX-FX", true);
-		rowNum = table.writeTable(sheet, rowNum, template ? null : withProject ? project.getPersonnels() : project.getPersonnelWithouts(), true);
+		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getPersonnels() : project.getPersonnelWithouts(), true);
 		totalRows[1]=rowNum;
 		
 		rowNum++;
@@ -1084,7 +1062,7 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 6, String.format("G%d+G%d", totalRows[0],totalRows[1]), Style.CURRENCY);
 		
 		if (report.isCompleteReport()) {
-			if (withProject) {
+			if (!without) {
 				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 				report.addLink(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
 				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
@@ -1094,8 +1072,15 @@ public class ExcelWorksheetBuilder {
 				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
 			}
 		}
-		
-		return rowNum;
+	
+		autoSizeColumns(sheet, 7);
+		return sheet;
+	}
+	
+	private void autoSizeColumns(Sheet sheet, int cols) {
+		for (short i=0;i<cols;i++) {
+			sheet.autoSizeColumn(i);
+		}
 	}
 	
 	public Sheet projectInvestmentDetail(ExcelWrapper report, Project project, boolean without, boolean template) {

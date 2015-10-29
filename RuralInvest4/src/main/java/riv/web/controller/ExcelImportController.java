@@ -289,16 +289,23 @@ public class ExcelImportController {
 		List<ProjectItemGeneralWithout> gensWithout;
 		List<ProjectItemPersonnelWithout> persWithout;
 		
+		
 		if (p.isWithWithout()) {
+			rowNum=0;
+			
+			if (workbook.getNumberOfSheets()==1) { // without project sheet is missing
+				throw new ExcelImportException(translate("import.excel.error.noWithout"));
+			}
+			XSSFSheet sheetWithout = workbook.getSheetAt(1);
+		
 			// supplies Without
-			//rowNum=rowNum+;
 			XlsImportTable<ProjectItemGeneralWithout> tableGenWithout = new XlsImportTable<ProjectItemGeneralWithout>(ProjectItemGeneralWithout.class, rowNum, 4, validator)
 					.addColumn(0, "description", false)
 					.addColumn(1, "unitType", false)
 					.addColumn(2, "unitNum", true)
 					.addColumn(3, "unitCost", true)
 					.addColumn(5, "ownResources", true);
-			gensWithout = tableGenWithout.readTable(sheet, messageSource);
+			gensWithout = tableGenWithout.readTable(sheetWithout, messageSource);
 			rowNum = rowNum+gensWithout.size()+6;
 			
 			// personnel Without
@@ -308,7 +315,7 @@ public class ExcelImportController {
 					.addColumn(2, "unitNum", true)
 					.addColumn(3, "unitCost", true)
 					.addColumn(5, "ownResources", true);
-			persWithout = tablePersWithout.readTable(sheet, messageSource);	
+			persWithout = tablePersWithout.readTable(sheetWithout, messageSource);	
 		} else {
 			gensWithout = new ArrayList<ProjectItemGeneralWithout>();
 			persWithout = new ArrayList<ProjectItemPersonnelWithout>();

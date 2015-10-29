@@ -107,7 +107,10 @@ public class ExcelReportController {
 		ExcelWrapper report = ewb.create();
 		try {
 			if (p.getIncomeGen()) {
-				ewb.projectGeneralDetail(report, p, template != null);
+				ewb.projectGeneralDetail(report, p, false, template != null);
+				if (p.isWithWithout()) {
+					ewb.projectGeneralDetail(report, p, true, template != null);
+				}
 			} else {
 				ewb.projectGeneralDetailNongen(report, p, template != null);
 			}
@@ -375,7 +378,10 @@ public class ExcelReportController {
 				ewb.projectInvestmentDetail(report, project, true, false);
 			}
 			if (project.getIncomeGen()) {
-				ewb.projectGeneralDetail(report, project, false);
+				ewb.projectGeneralDetail(report, project, false, false);
+				if (project.isWithWithout()) {
+					ewb.projectGeneralDetail(report, project, true, false);
+				}
 			} else {
 				ewb.projectGeneralDetailNongen(report, project, false);
 			}
