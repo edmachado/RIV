@@ -11,7 +11,7 @@
 	<![endif]-->
 	<script>$(function() { 
 		$( document ).tooltip(); 
-		$('input.curlabel').click( function(){ $(this).next('input').focus(); });
+		$('input.curlabel').focus( function(){ $(this).next('input').focus(); });
 	});
 	var curSepThou='${rivConfig.setting.thousandSeparator}';var curSepDec='${rivConfig.setting.decimalSeparator}';var decLength=${rivConfig.setting.decimalLength};
 	</script>
