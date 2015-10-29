@@ -149,11 +149,10 @@ public class FinanceMatrix {
 	
 	
 	private void addWorkingCapital(Project project) {
-		int lastNegMonth=0; //int negMonths=0;
+		int lastNegMonth=0;
 		Double highestNeg=0.0;		
 		for (int i=0;i<12;i++) {
 			if (firstYearData.getCumulative()[i]<0) {
-				//negMonths++;
 				lastNegMonth=i+1; // add one because i is 0-based
 				if (firstYearData.getCumulative()[i]<highestNeg) {					
 					highestNeg=firstYearData.getCumulative()[i];
@@ -214,7 +213,7 @@ public class FinanceMatrix {
 		// calculate interest and capital payments from first year after capital grace period ends
 		for (int i=0;i<project.getLoan2Duration()-project.getLoan2GraceCapital();i++) {
 			int year = project.getLoan2GraceCapital()+i-1+project.getLoan2InitPeriod();
-			if (yearlyData.size()<year) { //
+				if (year<=yearlyData.size()) { //if (yearlyData.size()<year) { 
 				double[] payments = payments(loan2interest, (double)i+1, (double)project.getLoan2Duration()-project.getLoan2GraceCapital(), loan2amt, 0.0);
 				yearlyData.get(year).loan2capital=payments[0];
 				yearlyData.get(year).loan2interest=payments[1];

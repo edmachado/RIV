@@ -10,7 +10,7 @@ package riv.objects;
  */
 public class ProjectFinanceData implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
-	//private AnalysisType analType;
+
 	protected int year;
 	protected double incOperationDonation;
 	protected double incOperationDonationWithout;
@@ -71,43 +71,14 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getTotalIncomeCashFlowWithout() {
 		return incSalesWithout-incSalesInternalWithout+incSalvageWithout+costInvestDonatedWithout+costInvestOwnWithout+getCostInvestFinanceWithout();
 	}
-//	public double getTotalIncomeProfitabilityx() {
-//		return incSales-incSalesWithout+incSalvage-incSalvageWithout+incResidual-incResidualWithout;
-//	}
+
 	public double getTotalIncomeProfitabilityWith() {
 		return incSales+incSalvage+incResidual;
 	}
 	public double getTotalIncomeProfitabilityWithout() {
 		return incSalesWithout+incSalvageWithout+incResidualWithout;
 	}
-//	public double getTotalIncome() {
-//		if (analType==AnalysisType.CashFlow) {
-//			return getMainIncome()+loanReceived+workingCapitalCapital+costInvestDonated+costInvestOwn+workingCapitalDonation+workingCapitalOwn;
-//		} else { 
-//			return incSales-incSalesWithout+incSalvage-incSalvageWithout+incResidual-incResidualWithout;
-//		}
-//	}
-//	
-//	public double getMainIncome() {
-//		if (analType!=AnalysisType.CashFlow) {
-//			throw new RuntimeException("This method should only be used for Cash Flow analysis, not profitability analysis.");
-//		}
-//		return incSales-incSalesInternal+incSalvage;
-//	}
-//	
-//	public double getInvestAndRecurringCosts() {
-//		if (analType!=AnalysisType.CashFlow) {
-//			throw new RuntimeException("This method should only be used for Cash Flow analysis, not profitability analysis.");
-//		}
-//		return costInvest+costReplace+costOperation-costOperationInternal+costGeneral-costGeneralOwn+costMaintenance;
-//	}
-//	public double getFinancingCosts() {
-//		if (analType!=AnalysisType.CashFlow) {
-//			throw new RuntimeException("This method should only be used for Cash Flow analysis, not profitability analysis.");
-//		}
-//		return loan1capital+loan1interest+loan2capital+loan2interest+workingCapitalCapital+workingCapitalInterest;
-//	}
-//	
+
 	public double getTotalCostsCashFlow() {
 		return costInvest+costReplace+costOperation-costOperationInternal+costGeneral-costGeneralOwn+costMaintenance
 		+ loan1capital+loan1interest+loan2capital+loan2interest+workingCapitalCapital+workingCapitalInterest;
@@ -123,21 +94,8 @@ public class ProjectFinanceData implements java.io.Serializable{
 		return costOperationWithout+costReplaceWithout+costGeneralWithout+costMaintenanceWithout+costInvestWithout;
 	}
 	
-//	private double getTotalCosts() {
-//		if (analType==AnalysisType.CashFlow) {
-//			return getInvestAndRecurringCosts()+getFinancingCosts();
-//		} else { 
-//			return costOperation-costOperationWithout+costReplace-costReplaceWithout+costGeneral-costGeneralWithout+costMaintenance-costMaintenanceWithout+costInvest-costInvestWithout;
-//		}
-//	}
-//	
-//	public double getNetIncome() {
-//		return getTotalIncome()-getTotalCosts();
-//	}
-	
-	public ProjectFinanceData(int year) {//, AnalysisType analType) {
+	public ProjectFinanceData(int year) {
 		this.year=year;
-//		this.analType=analType;
 	}
 	
 	// property accessors

@@ -3048,8 +3048,8 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 
 		row = sheet.createRow(rowNum++);
-		rowNum = addLoans(report, sheet, rowNum, translate("project.loan2"), project.getLoan2Amt(), null,  project.getLoan1Interest(), 
-				project.getLoan1Duration(), project.getLoan1GraceCapital(), project.getLoan1GraceInterest());
+		rowNum = addLoans(report, sheet, rowNum, translate("project.loan2"), project.getLoan2Amt(), null,  project.getLoan2Interest(), 
+				project.getLoan2Duration(), project.getLoan2GraceCapital(), project.getLoan2GraceInterest());
 		if (report.isCompleteReport()) {
 			report.addLink(ExcelLink.PROJECT_LOAN2_AMOUNT, "'"+sheet.getSheetName()+"'!$B$15");
 			report.addLink(ExcelLink.PROJECT_LOAN2_RATE, "'"+sheet.getSheetName()+"'!$B$16");
