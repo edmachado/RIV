@@ -83,10 +83,10 @@
 								<includes>
 									<include>**/*</include>
 								</includes>
-								<excludes>
-									<exclude>setup.bat</exclude>
-						         	<exclude>**/.gitignore</exclude>
-						        </excludes>
+<!-- 								<excludes> -->
+<!-- 									<exclude>setup.bat</exclude> -->
+<!-- 						         	<exclude>**/.gitignore</exclude> -->
+<!-- 						        </excludes> -->
 							</resource>
 						</resources>
   					</configuration>
