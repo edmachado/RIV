@@ -8,4 +8,4 @@ IF %ERRORLEVEL% NEQ 0 (
     jre\jre.exe INSTALL_SILENT=1 STATIC=1 INSTALLDIR="%PROGRAMFILES(X86)%\java99"
     set RIV_JAVA="%PROGRAMFILES(X86)%\java99\bin\java"
 )
-%RIV_JAVA% -jar %CD%\lib\riv.jar
+%RIV_JAVA% -jar %CD%\lib\riv.jar > nul 2> nul
