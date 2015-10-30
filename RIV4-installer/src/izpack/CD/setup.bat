@@ -1,5 +1,5 @@
 @echo off
-configure
+rem configure
 echo Please wait while FAO RuralInvest collects your settings...
 set RIV_JAVA=java
 java -version > nul 2> nul
