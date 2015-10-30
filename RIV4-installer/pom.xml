@@ -84,7 +84,8 @@
 									<include>**/*</include>
 								</includes>
 								<excludes>
-						          <exclude>**/.gitignore</exclude>
+									<exclude>setup.bat</exclude>
+						         	<exclude>**/.gitignore</exclude>
 						        </excludes>
 							</resource>
 						</resources>
