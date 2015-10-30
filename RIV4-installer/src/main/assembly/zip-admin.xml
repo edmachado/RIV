@@ -30,7 +30,7 @@
 			<outputDirectory>lib</outputDirectory>
 		</file>
 		<file>
-			<source>${izpack.dir}/jre/jre-7u45-windows-i586.exe</source>
+			<source>${izpack.dir}/jre/jre-8u66-windows-i586.exe</source>
 			<outputDirectory>jre</outputDirectory>
 			<destName>jre.exe</destName>
 		</file>
