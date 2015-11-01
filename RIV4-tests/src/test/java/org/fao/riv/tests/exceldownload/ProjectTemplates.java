@@ -65,7 +65,7 @@ public class ProjectTemplates extends WebTest {
 		clickLink("downloadTemplate");
 		f = folder.newFile();
 		saveAs(f);
-		testXls(f, getMessage("project.report.generalCostsDetail"));
+		testXls(f, isIG? getMessage("project.report.generalCostsDetail")+ " " + getMessage("project.with"):getMessage("project.report.generalCostsDetail"));
 		
 		// block template
 		assertLinkPresent("step9");
