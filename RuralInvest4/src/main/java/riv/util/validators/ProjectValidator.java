@@ -180,6 +180,17 @@ public class ProjectValidator implements Validator {
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalInterest", "project.capitalInterest", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalDonate", "project.capitalDonate", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalOwn", "project.capitalOwn", errors);
+				
+				
+				if (project.getLoan1GraceInterest()!=null && project.getLoan1GraceCapital()!=null
+						&& project.getLoan1GraceInterest()>project.getLoan1GraceCapital()) {
+					errors.rejectValue("loan1GraceInterest", "error.graceInterestGreaterThanCapital", "The grace period for the interest on a loan cannot be longer than the grace period for the capital.");
+				}
+				if (project.getLoan2GraceInterest()!=null && project.getLoan2GraceCapital()!=null
+						&& project.getLoan2GraceInterest()>project.getLoan2GraceCapital()) {
+					errors.rejectValue("loan2GraceInterest", "error.graceInterestGreaterThanCapital", "The grace period for the interest on a loan cannot be longer than the grace period for the capital.");
+				}
+				
 				// calculated values
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
 				if (project.getLoan1Duration()!=null && 
