@@ -57,7 +57,6 @@ project.report.cashFlowFirst.without.sheetname=Мөнгөн Урсгал 1-р ж
 profile.report.preliminary.with.sheetname=Шинжилгээ (Төсөлтэй)
 profile.report.preliminary.without.sheetname=Шинжилгээ (Төсөлгүй)
 profile.report.preliminary.incremental.sheetname=Шинжилгээ (Нэмэгдэл)
-project.report.cashFlowNongen.sheetname=Тогтвортой байдал
  
 error.moreDetails=Илүү дэлгэрэнгүй ...
  
@@ -168,27 +167,26 @@ project.period.help=зардал нь орлогоосоо хэтэрсэн са
 
 ## RIV 4.0
 
-project.report.profitability.totalMinusInvest.before=Тусламжийг оролцуулахгүйгээр анхны хөрөнгө оруулалтыг хассан дүн 
-project.report.profitability.totalMinusInvest.after= Тусламжийг оролцуулаад анхны хөрөнгө оруулалтыг хассан дүн
+#project.report.profitability.totalMinusInvest.before=Тусламжийг оролцуулахгүйгээр анхны хөрөнгө оруулалтыг хассан дүн 
+#project.report.profitability.totalMinusInvest.after=Тусламжийг оролцуулаад анхны хөрөнгө оруулалтыг хассан дүн
 
-project.report.cashFlow.income.total=Нийт орлого
-project.report.cashFlow.costs.total=Нийт зардал
-project.report.cashFlow.income.wcDonation=Хандивын
-project.report.cashFlow.income.wcOwn=Өөрийн хөрөнгөөр 
+#project.report.cashFlow.income.total=Нийт орлого
+#project.report.cashFlow.income.wcDonation=Хандивын
+#project.report.cashFlow.income.wcOwn=Өөрийн хөрөнгөөр 
 
 ###
-project.report.cashFlow.income.main=Үндсэн орлого
-project.report.cashFlow.income.finance=Санхүүгийн эх үүсвэр
-project.report.cashFlow.income.invest= Буцалтгүй тусламжийн хөрөнгө оруулалт
-project.report.cashFlow.income.own=Өөрийн хөрөнгө оруулалт 
-project.report.cashFlow.income.loans=Зээлийн хөрөнгө оруулалт 
-project.report.cashFlow.income.loanwc=Зээлээр хийгдсэн ажлын капитал 
+#project.report.cashFlow.income.main=Үндсэн орлого
+#project.report.cashFlow.income.finance=Санхүүгийн эх үүсвэр
+#project.report.cashFlow.income.invest= Буцалтгүй тусламжийн хөрөнгө оруулалт
+#project.report.cashFlow.income.own=Өөрийн хөрөнгө оруулалт 
+#project.report.cashFlow.income.loans=Зээлийн хөрөнгө оруулалт 
+#project.report.cashFlow.income.loanwc=Зээлээр хийгдсэн ажлын капитал 
 
-project.report.cashFlow.costs=Зардал
-project.report.cashFlow.costs.invest=Хөрөнгө оруулалтын зардал
-project.report.cashFlow.costs.initial=Анхны хөрөнгө оруулалт
-project.report.cashFlow.costs.recurrent=Урсгал зардал	
-project.report.cashFlow.wcCapital=Ажлын капитал - капитал
+#project.report.cashFlow.costs=Зардал
+#project.report.cashFlow.costs.invest=Хөрөнгө оруулалтын зардал
+#project.report.cashFlow.costs.initial=Анхны хөрөнгө оруулалт
+#project.report.cashFlow.costs.recurrent=Урсгал зардал	
+#project.report.cashFlow.wcCapital=Ажлын капитал - капитал
 
 =
 profile.report.summary.sheetname=Хураангуй
@@ -1102,11 +1100,9 @@ project.report.profitability.costs.operation=Үйл ажиллагаа
 project.report.profitability.costs.personnel=Цалин
 project.report.profitability.costs.replacement=Шинэчлэх
 project.report.profitability.costs=Зардал
-project.report.profitability.donations=Хандив
-project.report.profitability.donations.wc=Ажлын капитал
-project.report.profitability.donations.investment=Хөрөнгө оруулалт
-project.report.profitability.donations.netBefore=Хандивийн өмнөх ашиг 
-project.report.profitability.donations.netAfter= Хандивийн дараах ашиг 
+#project.report.profitability.donations=Хандив
+#project.report.profitability.donations.netBefore=Хандивийн өмнөх ашиг 
+#project.report.profitability.donations.netAfter= Хандивийн дараах ашиг 
 project.report.profitability.incomes.capDonation= Ажлын капиталын хандив
 project.report.profitability.incomes.residual=Хөрөнгийн үлдэгдэл
 project.report.profitability.incomes.sales=Борлуулалт
