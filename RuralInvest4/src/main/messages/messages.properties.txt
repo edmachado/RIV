@@ -1,9 +1,15 @@
-## RIV 4.3
+## RIV 4.2.5
 error.graceInterestGreaterThanCapital=The grace period for interest cannot be longer than the grace period for capital.
 misc.noDeleteGeneric=Generic categories cannot be deleted
 misc.noDeleteCategory=This item cannot be deleted because it is currently being referenced by a profile or project.
-import.excel.error.selectList=The data in a select menu is invalid: row {0}.
 export.search=Export search results
+import.excel.error.noData=Data is expected for cell {0}. Please correct the data and try again.
+import.excel.error.noTable=A required table is missing at row {0}. Make sure that the file is based on the correct RuralInvest Excel template.
+
+# changed from previous versions
+import.excel.error.datatype=Cell {0}: Text was found when numeric data was expected, or vice-versa. Please correct the data and try again.
+import.excel.error.selectList=Cell {0}: The data in the select menu is invalid. Please correct the data and try again.
+
 
 ## RIV4.2
 project.report.profitability.footnote=The net income flow is adjusted to estimate IRR and NPV under the assumption that the major investment (in year one) takes place one year before operations start (year zero).
@@ -209,11 +215,10 @@ project.report.cashFlowNongen.sheetname=Sustainability
 error.logo=Please add a logo for your organization.
 error.import.profile=An error occurred when saving profile.
 import.excel.file=Choose a file
-import.excel.instruction=<p>You may import data directly from an Excel spreadsheet into RuralInvest. Only correctly formatted Excel spreadsheets are acceptable.</p><p>For the proper format, choose "cancel" and then download either <ol><li>A blank Excel template, or</li><li>an Excel file with existing data.</li></ol></p><p>Items in existing tables will be deleted in favor of the data you are importing.</p>
+import.excel.instruction=<p>You may import data directly from an Excel spreadsheet into RuralInvest. Only correctly formatted Excel spreadsheets are acceptable.</p><p>For the proper format, choose "cancel" and then download either <ol><li>A blank Excel template, or</li><li>an Excel file with existing data.</li></ol></p><p>Items in existing tables will be replaced with the data you are importing.</p>
 import.excel.fail=The import was not successful.
-import.excel.error.datatype=Text was found when numerical data was expected. Please correct the data and try again.
 import.excel.error=Error on line {0}. 
-import.error.excel.read=Could not open the imported Excel file. Make sure that the file is a working xlsx file based on the correct RuralInvest excel template.
+import.excel.read=Could not open the imported Excel file. Make sure that the file is a working xlsx file based on the correct RuralInvest excel template.
 import.generic.info=This project or profile has been converted to USD and will be converted to the currency of your RuralInvest installation.
 import.generic.confirm=Please confirm the exchange rate from USD:
 project.report.cashFlow.loanRecieved=Loan(s) received

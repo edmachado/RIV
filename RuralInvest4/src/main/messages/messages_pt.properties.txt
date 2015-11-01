@@ -193,7 +193,7 @@ import.excel.instruction=<p>Pode importar dados directamente de uma folha de Exc
 import.excel.fail=Importação sem sucesso.
 import.excel.error.datatype=Texto inserido em campo númerico. Por favor corrija os dados e volte a tentar.
 import.excel.error=Erro na linha número {0}.
-import.error.excel.read=Arquivo de Excel não pode ser importado. Verifique que se trata de um arquivo xlsx baseado no formato correcto de Excel para RuralInvest.
+import.excel.read=Arquivo de Excel não pode ser importado. Verifique que se trata de um arquivo xlsx baseado no formato correcto de Excel para RuralInvest.
 import.generic.info=Este projecto ou anteprojecto foi convertido para Dólares dos EUA e será convertido para a moeda definida na configuração do seu RuralInvest.
 import.generic.confirm=Por favor confirme a taxa de câmbio de Dólares dos EUA para a moeda utilizada:
 

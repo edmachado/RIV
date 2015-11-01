@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.POIXMLException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,8 +29,8 @@ import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileItemGeneral;
 import riv.objects.profile.ProfileItemGeneralWithout;
 import riv.objects.profile.ProfileItemGood;
-import riv.objects.profile.ProfileItemLabour;
 import riv.objects.profile.ProfileItemGoodWithout;
+import riv.objects.profile.ProfileItemLabour;
 import riv.objects.profile.ProfileItemLabourWithout;
 import riv.objects.profile.ProfileProductBase;
 import riv.objects.profile.ProfileProductIncome;
@@ -94,7 +95,7 @@ public class ExcelImportController {
 				importContribution(id, mpf.getInputStream());
 			}
 		} catch (IOException e) {
-			error = "import.error.excel.read";
+			error = "import.excel.read";
 		} catch (ExcelImportException e) {
 			e.printStackTrace(System.out);
 			error = e.getMessage();
@@ -103,12 +104,13 @@ public class ExcelImportController {
 		if (error==null) {
 			return "{\"success\": \"success\"}";
 		} else {
-			return "{\"error\": \""+error+"\"}"; //.replace("\"", "\\\"")
+			return "{\"error\": \""+error.replace("\"", "\\\"")+"\"}"; //
 		}
 	}
 	
 	private void importBlock(int id, InputStream file) throws ExcelImportException {
-		XSSFWorkbook workbook = getWorkbook(file);
+		XSSFWorkbook workbook = openWorkbook(file);
+		
 		int rowNum=0;
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		BlockBase b = dataService.getBlock(id);
@@ -168,7 +170,7 @@ public class ExcelImportController {
 	}
 	
 	private void importContribution(int id, InputStream file) throws ExcelImportException {
-		XSSFWorkbook workbook = getWorkbook(file);
+		XSSFWorkbook workbook = openWorkbook(file);
 		
 		ProjectItemValidator validator = new ProjectItemValidator();
 		Project p = dataService.getProject(id, 10);
@@ -209,7 +211,7 @@ public class ExcelImportController {
 	}
 	
 	private void importProjectGeneralNongen(int id, InputStream file) throws ExcelImportException {
-		XSSFWorkbook workbook = getWorkbook(file);
+		XSSFWorkbook workbook = openWorkbook(file);
 		
 		int rowNum=0;
 		XSSFSheet sheet = workbook.getSheetAt(0);
@@ -255,8 +257,19 @@ public class ExcelImportController {
 		}	
 	}
 	
+	private XSSFWorkbook openWorkbook(InputStream file) throws ExcelImportException {
+		XSSFWorkbook workbook=null;
+	
+		try {
+			workbook= getWorkbook(file);
+		} catch (POIXMLException e) {
+			throw new ExcelImportException(messageSource.getMessage("import.excel.read", null, LocaleContextHolder.getLocale()));
+		}
+		return workbook;
+	}
+	
 	private void importProjectGeneral(int id, InputStream file) throws ExcelImportException {
-		XSSFWorkbook workbook = getWorkbook(file);
+		XSSFWorkbook workbook = openWorkbook(file);
 		
 		int rowNum=0;
 		XSSFSheet sheet = workbook.getSheetAt(0);
@@ -332,7 +345,7 @@ public class ExcelImportController {
 	
 	
 	private void importProjectInvest(int id, InputStream file) throws ExcelImportException {
-		XSSFWorkbook workbook = getWorkbook(file);
+		XSSFWorkbook workbook = openWorkbook(file);
 		
 		int rowNum=0;
 		XSSFSheet sheetWith = workbook.getSheetAt(0);
@@ -457,7 +470,7 @@ public class ExcelImportController {
 				importProfileProduct(id, mpf.getInputStream());
 			}
 		} catch (IOException e) {
-			error = "import.error.excel.read";
+			error = "import.excel.read";
 		} catch (ExcelImportException e) {
 			error = e.getMessage();
 		}
@@ -470,7 +483,7 @@ public class ExcelImportController {
 	}
 	
 	private void importProfileProduct(int id, InputStream file) throws ExcelImportException {
-		Workbook workbook = getWorkbook(file);
+		Workbook workbook = openWorkbook(file);
 		int rowNum=0;
 		ProfileProductBase pp = dataService.getProfileProduct(id);
 		ProfileProductItemValidator validator = new ProfileProductItemValidator();
@@ -513,7 +526,7 @@ public class ExcelImportController {
 	}
 	
 	private void importProfileGeneral(int id, InputStream file) throws ExcelImportException {
-		XSSFWorkbook workbook = getWorkbook(file);
+		XSSFWorkbook workbook = openWorkbook(file);
 		Profile p = dataService.getProfile(id, 1);
 		
 		XlsImportTable<ProfileItemGeneral> table = new XlsImportTable<ProfileItemGeneral>(ProfileItemGeneral.class, 0, 4, new ProfileItemValidator())
@@ -544,7 +557,7 @@ public class ExcelImportController {
 	}
 	
 	private void importProfileInvest(int id, InputStream file) throws ExcelImportException {
-		XSSFWorkbook workbook = getWorkbook(file);
+		XSSFWorkbook workbook = openWorkbook(file);
 		Profile p = dataService.getProfile(id, 1);
 		
 		int rowNum=0;
@@ -633,7 +646,7 @@ public class ExcelImportController {
 		try {
 			workbook = new XSSFWorkbook(file);
 		} catch (IOException e) {
-			throw new ExcelImportException(translate("import.error.excel.read"));
+			throw new ExcelImportException(translate("import.excel.read"));
 		}
 		return workbook;
 	}
