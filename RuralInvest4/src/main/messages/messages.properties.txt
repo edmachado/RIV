@@ -1,5 +1,5 @@
 ## RIV 4.3
-error.graceInterestGreaterThanCapital=The grace period for the interest on a loan cannot be longer than the grace period for the capital.
+error.graceInterestGreaterThanCapital=The grace period for interest cannot be longer than the grace period for capital.
 misc.noDeleteGeneric=Generic categories cannot be deleted
 misc.noDeleteCategory=This item cannot be deleted because it is currently being referenced by a profile or project.
 import.excel.error.selectList=The data in a select menu is invalid: row {0}.
