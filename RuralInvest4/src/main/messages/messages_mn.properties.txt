@@ -1,11 +1,112 @@
-project.step2=Translation needed
-
+## RIV 4.2.5
 export.search=Өгөгдөл экспортлох
 
 
 
 # RIV4.2
-project.donor.statePublic=Улс/орон нутгийн төсөв
+project.donor.statePublic=Улс/орон нутгийн төсөв 
+project.donors=Хандивлагчид
+project.donors.help=Хандивлагчид гэдэгт тухайн төсөлд ерөнхий байдлаар, эсвэл зарим зардал, үйл ажиллагааг санхүүжүүлэх байдлаар хувь нэмэр оруулж буй хувь хүн, байгууллагыг хамруулан ойлгоно.
+project.donor.notSpecified=Тодорхойлогдоогүй
+project.donor.description=Хандивлагч
+project.donor.description.help=Хандивлагч гэдэгт тухайн төсөлд ерөнхий байдлаар, эсвэл зарим зардал, үйл ажиллагааг санхүүжүүлэх байдлаар хувь нэмэр оруулж буй хувь хүн, байгууллагыг хамруулан ойлгоно.
+project.donor.type=Хандивлагчийн төрөл
+project.donor.type.help=Тухайн төсөлд мөнгөн болон мөнгөн бус хандив өргөж буй хувь хүн эсвэл албан байгууллагын төрөл
+ 
+projectNongenInput.donated=Хандивын хөрөнгө
+projectNongenInput.donated.help=Хэрэв энэ зардлын зарим нэг хэсэг эсвэл бүхлээрээ (мөнгөн болон мөнгөн бус) хандивын хөрөнгөд тооцогдохоор бол энэ талбарт үүнийг мөнгөн дүнгээр бич.
+projectNongenLabour.donated=Хандивын хөрөнгө
+projectNongenLabour.donated.help=Хэрэв энэ зардлын зарим нэг хэсэг эсвэл бүхлээрээ (мөнгөн болон мөнгөн бус) хандивын хөрөнгөд тооцогдохоор бол энэ талбарт үүнийг мөнгөн дүнгээр бич.
+projectNongenGeneral.donated=Хандивын хөрөнгө
+projectNongenGeneral.donated.help=Хэрэв энэ зардлын зарим нэг хэсэг эсвэл бүхлээрээ (мөнгөн болон мөнгөн бус) хандивын хөрөнгөд тооцогдохоор бол энэ талбарт үүнийг мөнгөн дүнгээр бич.
+ 
+projectBlockIncome.unitNum.nocycle.help=Нэг нэгж үйлдвэрлэлд ногдох борлуулалтын тоо хэмжээ (үүнд бүтээгдэхүүний хорогдол, гологдлыг оруулж тооцохгүй).
+projectBlockInput.unitNum.nocycle.help=Үйлдвэрлэл эсвэл үйл ажиллагааны нэг нэгжид ногдох ашигласан орц материалын тоог бич.
+projectBlockLabour.unitNum.nocycle.help=Үйлдвэрлэл эсвэл үйл ажиллагааны нэгж тус бүрт ашиглагдсан хөдөлмөрийн тоо хэмжээг бич.
+ 
+projectBlockInput.donated=Нийт хандивлагдсан хөрөнгө
+projectBlockInput.donated.help=Хэрэв энэ зардлын зарим нэг хэсэг эсвэл бүхлээрээ (мөнгөн болон мөнгөн бус) хандивын хөрөнгөд тооцогдохоор бол энэ талбарт үүнийг мөнгөн дүнгээр бич.
+projectBlockLabour.donated=Нийт хандивлагдсан хөрөнгө
+projectBlockLabour.donated.help=Хэрэв энэ зардлын зарим нэг хэсэг эсвэл бүхлээрээ (мөнгөн болон мөнгөн бус) хандивын хөрөнгөд тооцогдохоор бол энэ талбарт үүнийг мөнгөн дүнгээр бич.
+ 
+profile.report.profileDetail.totals=Нийт
+project.report.blockDetail.totals=Нийт
+ 
+project.report.cashFlow.income.investWithout=Санхүүжүүлэгдсэн хөрөнгө оруулалтын хэмжээ
+project.report.cashFlow.profit=Ашиг
+ 
+project.incremental=(Нэмэгдэл)
+ 
+units.perUnitActivityNoCycle=Нэг нэгж үйл ажиллагаанд ногдох
+units.perUnitNoCycle=Нэг нэгж үйлдвэрлэлд ногдох
+ 
+project.report.contributionSummary.investments=Хөрөнгө оруулалтууд
+project.report.contributionSummary.general=Тогтмол зардал
+project.report.contributionSummary.operation=Үйл ажиллагааны зардал
+project.report.contributionSummary.contributions=Оруулсан хувь нэмэр
+project.report.contributionSummary.total=Нийт
+ 
+#translator: the following items cannot be more than 31 characters including spaces, and must be different from each other
+project.report.cashFlow.with.sheetname=Мөнгөн Урсгал (Төсөлтэй)
+project.report.cashFlow.without.sheetname=Мөнгөн Урсгал (Төсөлгүй)
+project.report.profitability.with.sheetname=Ашигт ажиллагаа (Төсөлтэй)
+project.report.profitability.without.sheetname=Ашигт ажиллагаа (Төсөлгүй)
+project.report.profitability.incremental.sheetname=Ашигт ажиллагаа (Нэмэгдэл)
+project.report.cashFlowFirst.with.sheetname=Мөнгөн Урсгал 1-р жил(Төсөлтэй)
+project.report.cashFlowFirst.without.sheetname=Мөнгөн Урсгал 1-р жил(Төсөлгүй)
+profile.report.preliminary.with.sheetname=Шинжилгээ (Төсөлтэй)
+profile.report.preliminary.without.sheetname=Шинжилгээ (Төсөлгүй)
+profile.report.preliminary.incremental.sheetname=Шинжилгээ (Нэмэгдэл)
+project.report.cashFlowNongen.sheetname=Тогтвортой байдал
+ 
+error.moreDetails=Илүү дэлгэрэнгүй ...
+ 
+project.report.cashFlow.costs.initial=Анхны хөрөнгө оруулалт
+project.report.cashFlow.costs.invest=Хөрөнгө оруулалтын зардлууд
+project.report.cashFlow.costs.recurrent=Урсгал зардал
+project.report.cashFlow.costs.total=Нийт зардал
+project.report.cashFlow.costs=Зардлууд
+project.report.cashFlow.income.finance=Санхүүжилтийн эх үүсвэрүүд
+project.report.cashFlow.income.invest=Хандивын хөрөнгө оруулалт
+project.report.cashFlow.income.loans=Зээлийн хөрөнгө оруулалт
+project.report.cashFlow.income.loanwc=Зээлийн ажлын капитал
+project.report.cashFlow.income.main=Үндсэн орлого
+project.report.cashFlow.income.own=Өөрийн хөрөнгө оруулалт
+project.report.cashFlow.income.total=Нийт орлого
+project.report.cashFlow.income.wcDonation=Ажлын капиталын хандив
+project.report.cashFlow.income.wcOwn=Өөрийн ажлын капитал
+project.report.cashFlow.wcCapital=Ажлын капитал - капитал
+Profitability report   Ашигт ажиллагааны тайлан
+ 
+project.report.profitability.donations.investment=Хөрөнгө оруулалт
+project.report.profitability.donations.netAfter=Хандивын дараах Цэвэр орлого
+project.report.profitability.donations.netBefore=Хандивын өмнөх Цэвэр орлого
+project.report.profitability.donations.wc=Ажлын капитал
+project.report.profitability.donations=Хандивууд
+project.report.profitability.totalMinusInvest.after=Эхний жилд, хандивын дүнгээс хөрөнгө оруулалтын дүнг хассаны дараах үеийн нийт дүн
+project.report.profitability.totalMinusInvest.before=Эхний жилд, хандивын дүнгээс хөрөнгө оруулалтын дүнг хасахаас өмнөх үеийн нийт дүн
+ 
+ 
+#changed from previous versions
+ 
+project.report.contributionSummary=Хандивын хураангуй
+project.step2=Ашиг хүртэгчид ба хандивлагчид
+project.report.summary.block=Төсөлтэй үеийн үйл ажиллагааны зардал, орлогын хураангуй
+ 
+error.pleaseCorrect=Оруулсан тоо мэдээгээ дахин нягтлан, улаанаар тэмдэглэгдсэн талбар дахь алдааг засна уу!
+error.unknown=Алдаа гарсанд хүлцэл өчье.
+ 
+error.maxLength=Энд оруулах тэмдэгтийн урт нь {1} -ээс хэтрэх ёсгүй.
+error.max=Энд оруулах тэмдэгтийн тоо нь {1} -ээс хэтрэх ёсгүй.
+error.requiredNonNegative=Энэ талбарт оруулсан утга нь сөрө байж болохгүй.
+error.fieldRequired=Энэ талбарыг заавал бөглөх шаардлагатай.
+error.positiveNumber=Энэ талбарт оруулах өгөгдөл нь 0 -ээс их байх ёстой.
+typeMismatch.java.lang.Double=Энэ талбарт заавал өгөгдөл оруулах ёстой бөгөөд тэр нь тоон өгөгдөл байх ёстой.
+typeMismatch.java.lang.Integer=Энэ талбарт заавал өгөгдөл оруулах ёстой бөгөөд тэр нь бүхэл тоо байх ёстой.
+typeMismatch.java.math.BigDecimal=Энэ талбарт заавал өгөгдөл оруулах ёстой бөгөөд тэр нь тоон өгөгдөл байх ёстой.
+typeMismatch.java.util.Date=Энэ талбарт оруулсан өгөгдөл буруу байна (dd/MM/yyyy буюу өдөр/сар/жил байх ёстой).
+settings.export=Одоогийн Рүралинвэстийн тохиргоог экспортлох
+ 
 
 ## RIV4.1.4
 project.quickAnalysis=Шуурхай шинжилгээ (чанарын шинжилгээгүй)
