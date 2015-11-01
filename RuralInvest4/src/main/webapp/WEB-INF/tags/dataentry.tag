@@ -32,7 +32,7 @@
 		<c:if test="${not empty currency}"><c:set var="curlabelValue" value="${rivConfig.setting.currencySym}"/></c:if>
 	
 		<c:if test="${not empty calculated}"><c:set var="readonlyClass" value=" readonly"/></c:if>
-		<input size="5" class="curlabel ${readonlyClass}"  value="${curlabelValue}"/><%--disabled --%>
+		<input size="5" class="curlabel ${readonlyClass}" tabindex="-1" value="${curlabelValue}"/><%--disabled --%>
 	</c:if>
 	
 	<c:if test="${empty calculated}">
