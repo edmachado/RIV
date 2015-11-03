@@ -4,6 +4,11 @@ export.search=Өгөгдөл экспортлох
 
 
 # RIV4.2
+project.report.profitability.footnote=Цэвэр орлогын урсгал гэдэг нь гол (1-р жилийн) хөрөнгө оруулалт бүх үйл ажиллагаа эхлэхээс нэг жилийн өмнө (0-р жил) хийгдсэн гэж үзэн IRR болон NPV-г тооцооход ашигласан үзүүлэлт юм. 
+profile.report.blockDetail.totals=Нийт
+project.report.summary.cashFlow.cumulative=Хуримтлагдсан нийт цэвэр орлого
+project.report.summary.cashFlow.total=Нийт цэвэр орлого
+
 project.donor.statePublic=Улс/орон нутгийн төсөв 
 project.donors=Хандивлагчид
 project.donors.help=Хандивлагчид гэдэгт тухайн төсөлд ерөнхий байдлаар, эсвэл зарим зардал, үйл ажиллагааг санхүүжүүлэх байдлаар хувь нэмэр оруулж буй хувь хүн, байгууллагыг хамруулан ойлгоно.
