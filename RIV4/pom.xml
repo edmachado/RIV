@@ -35,14 +35,6 @@
 	</dependencyManagement>
 	<repositories>
 		<repository>
-			<id>izpack</id>
-			<name>izpack</name>
-			<url>https://nexus.codehaus.org/content/repositories/releases</url>
-<!-- 			<snapshots> -->
-<!-- 				<enabled>true</enabled> -->
-<!-- 			</snapshots> -->
-		</repository>
-		<repository>
 			<id>hsql-snaps</id>
 			<name>hsqldb-private</name>
 			<url>http://www.hsqldb.org/repos</url>
@@ -52,11 +44,6 @@
 		</repository>
 	</repositories>
 	<pluginRepositories>
-	<!--	<pluginRepository> -->
-	<!--			<id>codehaus-snapshots</id> -->
-		<!--		<name>Codehaus Snapshot Repository</name> -->
-			<!--	<url>https://nexus.codehaus.org/content/repositories/snapshots/</url> -->
-	<!--		</pluginRepository> -->
 		<pluginRepository>
 			<id>izpack</id>
 			<name>izpack</name>
