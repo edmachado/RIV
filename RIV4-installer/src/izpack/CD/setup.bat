@@ -7,7 +7,7 @@ findstr /r "version 1.[678]" %JTMP%
 IF %ERRORLEVEL% NEQ 0 (
     echo Installing missing required component.
     echo It could take a few minutes. Please wait.
-    jre\jre.exe STATIC=1 INSTALL_SILENT=1 INSTALLDIR="%PROGRAMFILES(X86)%\java99"
+    jre\jre.exe STATIC=1 INSTALLDIR="%PROGRAMFILES(X86)%\java99"
     set RIV_JAVA="%ALLUSERSPROFILE%\Oracle\Java\javapath\java.exe"
 )
 del %JTMP%
