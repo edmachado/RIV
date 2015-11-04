@@ -99,7 +99,7 @@
 				</fieldset>
 
 				<c:if test="${project.incomeGen}">	
-					<span class="error"><form:errors field="incomes"/></span>			
+<%-- 					<span class="error"><form:errors field="incomes"/></span>			 --%>
 					<c:set var="incomeName"><spring:message code="projectBlockIncome"/>  <tags:blockExplanation block="${blockEntry}" /></c:set>
 					<tags:table title="${incomeName}">
 						<display:table list="${blockEntry.incomes}" id="inc" requestURI="" cellspacing="0" cellpadding="0"

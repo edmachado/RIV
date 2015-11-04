@@ -29,6 +29,7 @@ $(function() {
 </style>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
+	<span class="error"><form:errors field="incomes"/></span>
 	
 	<div align="right">
 		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${project.projectId}/projectBlock.xlsx?template=${project.incomeGen}" target="_blank"><spring:message code="export.downloadTemplate"/></a><br/>

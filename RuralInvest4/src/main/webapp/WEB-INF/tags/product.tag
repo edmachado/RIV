@@ -83,7 +83,7 @@
 					</table>
 			</fieldset>
 			<br/>
-			<span class="error"><form:errors field="profileIncomes"/></span>
+<%-- 			<span class="error"><form:errors field="profileIncomes"/></span> --%>
 			<tags:table title="${incomeTitle}">
 				<display:table list="${product.profileIncomes}" id="inc" requestURI="" cellspacing="0" cellpadding="0"
 					export="false" htmlId="incomeTable${unique}">

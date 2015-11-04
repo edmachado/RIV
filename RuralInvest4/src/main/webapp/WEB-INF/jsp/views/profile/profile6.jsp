@@ -21,7 +21,8 @@ $(function() {
 </head>
 <body>
 <form:form name="form" method="post" commandName="profile">
-	<tags:errors />
+	<tags:errors></tags:errors>
+	<span class="error"><form:errors field="products"/></span>
 	<div align="right">
 		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${profile.profileId}/profileProduct.xlsx?template=${profile.incomeGen}" target="_blank"><spring:message code="export.downloadTemplate"/></a>
  	</div>
@@ -32,8 +33,7 @@ $(function() {
 			<li><a href="#tabs-without"><spring:message code="profileProduct.with.without"/></a></li>
 		</ul></c:if>
 		<div id="tabs-with">
-			<span class="error"><form:errors field="products"/></span>
-		 	<c:if test="${accessOK}">
+			<c:if test="${accessOK}">
 				<div align="left"><a id="addProduct" href="../product/-1?profileId=${profile.profileId}"><img src="../../img/product.gif" border="0"/>&nbsp;<c:if test="${profile.incomeGen}"><spring:message code="${prodType}.addNew"/></c:if><c:if test="${!profile.incomeGen}"><spring:message code="profileActivity.addNew"/></c:if>&nbsp;&nbsp;</a></div>
 			</c:if>
 			<c:forEach var="productEntry" items="${profile.products}">
