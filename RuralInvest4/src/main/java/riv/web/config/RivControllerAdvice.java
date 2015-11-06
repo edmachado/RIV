@@ -28,11 +28,4 @@ public class RivControllerAdvice {
 		modelAndView.setViewName("error");
 		return modelAndView;
 	}
-	
-  /*@InitBinder
-  public void registerCustomEditors(WebDataBinder binder, WebRequest request) {
-	  binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-	  binder.registerCustomEditor(Double.class, new CustomNumberEditor(Double.class, true));
-	  // binder.registerCustomEditor(BigDecimal.class, new  CustomNumberEditor(BigDecimal.class, NumberFormat.getNumberInstance(new Locale("pt", "BR"), true));
-  }*/
 }

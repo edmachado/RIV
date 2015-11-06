@@ -12,7 +12,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/util/spring-util-4.1.xsd">
     
 	 <http use-expressions="true">
-		<intercept-url pattern="/login*" access="isAnonymous()" />
+		<intercept-url pattern="/login*" access="permitAll" />
 		<intercept-url pattern="/img/**" access="permitAll" />
 		<intercept-url pattern="/styles/**" access="permitAll" />
 		<intercept-url pattern="/scripts/**" access="permitAll" />

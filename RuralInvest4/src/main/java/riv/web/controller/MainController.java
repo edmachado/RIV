@@ -77,13 +77,17 @@ public class MainController {
 		}
 	}
 	
-	@RequestMapping("/home/test")
-	public String test() {
-		return "test";
-	}
+//	@RequestMapping("/home/test")
+//	public String test() {
+//		return "test";
+//	}
 	
     @RequestMapping("/login")
     public String login(@RequestParam(required=false) String lang, Model model, HttpServletRequest request) {
+    	User u = (User)request.getAttribute("user");
+    	if (u!=null) {
+    		return "redirect:home";
+    	}
     	if (rivConfig.isDemo() && lang!=null) {
     		request.setAttribute("pageLang", lang);
 		}
