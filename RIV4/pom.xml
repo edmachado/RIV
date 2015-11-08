@@ -43,16 +43,6 @@
 			</snapshots>
 		</repository>
 	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>izpack</id>
-			<name>izpack</name>
-			<url>https://nexus.codehaus.org/content/repositories/releases</url>
-<!-- 			<snapshots> -->
-<!-- 				<enabled>true</enabled> -->
-<!-- 			</snapshots> -->
-		</pluginRepository>
-	</pluginRepositories>
 	<build>
 		<pluginManagement>
 			<plugins>
