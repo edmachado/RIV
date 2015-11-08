@@ -2,7 +2,7 @@
 echo Please wait while FAO RuralInvest collects your settings...
 set RIV_JAVA=java
 set JTMP=%temp%\jtmp
-java -version > %JTMP% 2>&1
+java -version > %JTMP% 2> %JTMP%
 findstr /r "version 1.[678]" %JTMP%
 IF %ERRORLEVEL% NEQ 0 (
     echo Installing missing required component.
@@ -12,4 +12,4 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 del %JTMP%
 echo Please don't close this window.
-start "RIV Installer" /b %RIV_JAVA% -jar "%CD%\lib\riv.jar" > nul 2>&1
+start "RIV Installer" /b %RIV_JAVA% -jar "%CD%\lib\riv.jar" > nul 2> nul
