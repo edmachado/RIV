@@ -1,4 +1,15 @@
-﻿export.search=Exportar dados
+﻿## RIV4.2.5
+error.graceInterestGreaterThanCapital=O período de graça para os juros não pode ser maior que o período de graça para o capital.
+misc.noDeleteGeneric=Categorias “genéricas”não podem ser eliminadas.
+misc.noDeleteCategory=Este  item não pode ser eliminado porque foi utilizado num anteprojecto ou num projecto.
+export.search=Exportar os resultados da procura
+import.excel.error.noData=Esta célula não contém dados {0}. Por favor corrija com o tipo de dados adequado e volte a tentar.
+import.excel.error.noTable=Falta uma linha na tabela {0}. Verifique que o arquivo de Excel que usou está de acordo com o modelo do formulário que se descarrega do Rural Invest.
+
+# changed from previous versions
+import.excel.error.datatype=Cell {0}: Inseriu texto num campo numérico ou vice-versa. Por favor corrija e volte a tentar.
+import.excel.error.selectList=Cell {0}: Os dados inseridos no menu de selecção são inválidos para este campo. Por favor corrija os dados e volte a tentar.
+ 
 
 # RIV4.2
 project.report.profitability.footnote= O valor presente líquido (VPL) e a taxa interna de retorno (TIR) são estimados assumindo que o investimento principal (do primeiro ano) é realizado no ano anterior ao início das operações (ano zero).
@@ -191,7 +202,6 @@ error.import.profile=Ocorreu um erro ao guardar o anteprojecto.
 import.excel.file=Seleccione o arquivo.
 import.excel.instruction=<p>Pode importar dados directamente de uma folha de Excel para o RuralInvest. Apenas as folhas de Excel correctamente formatadas serão aceites.</p><p>Para obter o formato apropriado, clique em "cancelar" e descarregue o<ol><li>Formato Excel em branco, ou o</li><li>Formato de Excel com os dados já inseridos no RuralInvest.</li></ol></p><p>Os itens já inseridos nas tabelas do RuralInvest serão apagados e substituídos pelos dados que importará da tabela de Excel.</p>
 import.excel.fail=Importação sem sucesso.
-import.excel.error.datatype=Texto inserido em campo númerico. Por favor corrija os dados e volte a tentar.
 import.excel.error=Erro na linha número {0}.
 import.excel.read=Arquivo de Excel não pode ser importado. Verifique que se trata de um arquivo xlsx baseado no formato correcto de Excel para RuralInvest.
 import.generic.info=Este projecto ou anteprojecto foi convertido para Dólares dos EUA e será convertido para a moeda definida na configuração do seu RuralInvest.

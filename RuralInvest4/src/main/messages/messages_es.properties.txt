@@ -1,4 +1,14 @@
-export.search=Datos Exportados
+# RIV4.2.5
+error.graceInterestGreaterThanCapital=El período de gracia para intereses no puede ser mayor al período de gracia para capital
+misc.noDeleteGeneric=Categorías genéricas no pueden ser eliminadas
+misc.noDeleteCategory=Este rubro no puede ser eliminado ya que está actualmente utilizado por un perfil o un proyecto.
+export.search=Exportar resultados de búsqueda
+import.excel.error.noData=Datos son necesarios en celda {0}. Por favor corrija los datos y pruebe de nuevo.
+import.excel.error.noTable=Falta una tabla en renglón {0}. Asegúrese que el archive está basado en un formato Excel correcto.
+ 
+# cambio de versions previas
+import.excel.error.datatype=Celda {0}: Hay texto donde se esperan datos numéricos, o vice-versa. Por favor corrija dichos datos y trate de nuevo.
+import.excel.error.selectList=Celda {0}: Los datos en el menú seleccionado son inválidos. Por favor corrija dichos datos y trate de nuevo.
 
 
 # RIV4.2
@@ -204,7 +214,6 @@ error.import.profile=Un error ocurrió al grabar el perfil.
 import.excel.file=Escoja un archivo
 import.excel.instruction=<p>Puede importar datos directamente desde una planilla Excel a RuralInvest. Solo planillas Excel correctamente formateadas son aceptadas.</p><p>Para el formato apropiado, seleccione "cancelar" y des[ués descargue ya sea <ol><li>una proforma Excel en blanco , o</li><li>un archivo Excel con los datos existentes.</li></ol></p><p>Los rubros en tables existentes serán eliminados y reemplazados por los datos que está importando.</p>
 import.excel.fail=La importación no fue exitosa.
-import.excel.error.datatype=Se encontró texto cuando se esperaba datos numéricos. Por favor corrija los datos e intente de nuevo.
 import.excel.error=Error en línea {0}.
 import.excel.read=No se pudo abrir el archivo Excel importado. Asegúrese que el archivo es un archivo xlsx basado en el formato Excel correcto de RuralInvest.
 import.generic.info=Este proyecto o perfil ha sido convertido a USD y será convertido a la moneda definida en su RuralInvest instalado.
