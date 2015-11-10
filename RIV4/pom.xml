@@ -65,7 +65,7 @@
 											izpack-maven-plugin
 										</artifactId>
 										<versionRange>
-											[5.0.0-rc1-SNAPSHOT,)
+											[5.0.0-rc1,)
 										</versionRange>
 										<goals>
 											<goal>izpack</goal>
