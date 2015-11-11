@@ -32,7 +32,8 @@ if not defined javaDir (
     echo JAVA_HOME="%javaDir%"
     echo JAVA_VERSION="%javaVersion%"
     set RIV_JAVA="%javaDir%\bin\java.exe"
-    if "%javaVersion%" LSS "1.6" (
+    for %%A in ("1.1" "1.2" "1.3" "1.4" "1.5") do if "%VAR%"==%%A do set "doit=yes"
+    if "%doit%" == "yes" (
         echo Upgrading required component.
         echo It could take a few minutes. Please wait.
         jre\jre.exe STATIC=1
