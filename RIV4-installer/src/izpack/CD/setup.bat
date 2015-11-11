@@ -1,16 +1,45 @@
-rem @echo off
-echo Please wait while FAO RuralInvest collects your settings...
-set RIV_JAVA=java
-for /f "tokens=2-8 delims=.:/ " %%a in ("%date% %time%") do set JTMP=%%c-%%a-%%b_%%d-%%e-%%f.%%g
-java -version > %JTMP% 2&>1
-findstr /r "version 1.[6789]" %JTMP%
-IF %ERRORLEVEL% NEQ 0 (
+renm @echo off
+setlocal enableextensions disabledelayedexpansion
+
+:: possible locations under HKLM\SOFTWARE of JavaSoft registry data
+set "javaNativeVersion="
+set "java32ON64=Wow6432Node\"
+
+:: for variables
+::    %%k = HKLM\SOFTWARE subkeys where to search for JavaSoft key
+::    %%j = full path of "Java Runtime Environment" key under %%k
+::    %%v = current java version
+::    %%e = path to java
+
+set "javaDir="
+set "javaVersion="
+for %%k in ( "%javaNativeVersion%" "%java32ON64%") do if not defined javaDir (
+    for %%j in (
+        "HKLM\SOFTWARE\%%~kJavaSoft\Java Runtime Environment"
+    ) do for /f "tokens=3" %%v in (
+        'reg query "%%~j" /v "CurrentVersion" 2^>nul ^| find /i "CurrentVersion"'
+    ) do for /f "tokens=2,*" %%d in (
+        'reg query "%%~j\%%v" /v "JavaHome"   2^>nul ^| find /i "JavaHome"'
+    ) do ( set "javaDir=%%~e" & set "javaVersion=%%v" )
+)
+
+if not defined javaDir (
     echo Installing missing required component.
     echo It could take a few minutes. Please wait.
     jre\jre.exe STATIC=1
     set RIV_JAVA="%ALLUSERSPROFILE%\Oracle\Java\javapath\java.exe"
+) else (
+    echo JAVA_HOME="%javaDir%"
+    echo JAVA_VERSION="%javaVersion%"
+    set RIV_JAVA="%javaDir%\bin\java.exe"
+    if "%javaVersion%" LSS "1.6" (
+        echo Upgrading required component.
+        echo It could take a few minutes. Please wait.
+        jre\jre.exe STATIC=1
+        set RIV_JAVA="%ALLUSERSPROFILE%\Oracle\Java\javapath\java.exe"
+    )
 )
-del %JTMP%
-echo Please don't close this window.
-start "RIV Installer" /b %RIV_JAVA% -jar "%CD%\lib\riv.jar" > nul 2> nul
+
+start "RIV Installer" /b %RIV_JAVA% -jar "%CD%\lib\riv.jar" > nul 2>&1
+endlocal
 pause
