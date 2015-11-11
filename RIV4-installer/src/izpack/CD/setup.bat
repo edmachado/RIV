@@ -1,4 +1,4 @@
-renm @echo off
+@echo off
 setlocal enableextensions disabledelayedexpansion
 
 :: possible locations under HKLM\SOFTWARE of JavaSoft registry data
@@ -43,4 +43,4 @@ if not defined javaDir (
 
 start "RIV Installer" /b %RIV_JAVA% -jar "%CD%\lib\riv.jar" > nul 2>&1
 endlocal
-pause
+rem pause
