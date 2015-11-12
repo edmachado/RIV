@@ -1,5 +1,13 @@
+# RIV4.2.5
+error.graceInterestGreaterThanCapital=La période de grâce pour les intérêts ne peut pas excéder la période de grâce pour le capital
+misc.noDeleteGeneric=Les catégories génériques ne peuvent pas être supprimées
+misc.noDeleteCategory=Cet élément ne peut pas être supprimé car il est actuellement utilisé par un avant-projet ou un projet
 export.search=Exporter les résultats de la recherche
-
+import.excel.error.noData=Des données doivent être insérées dans la cellule {0}. S'il vous plaît corrigez les données et essayez de nouveau.
+import.excel.error.noTable=Un tableau requis est manquant à la ligne {0}. Assurez-vous que le fichier importé est compatible avec le format Excel de RuralInvest.
+ 
+import.excel.error.datatype=Cellule {0}: des charactères alphabétiques ont été trouvés alors que l'on attendait des données numériques, ou vice-versa. S'il vous plait, corrigez les données et essayez de nouveau.
+import.excel.error.selectList=Cellule {0}: les données choisies dans le menu de sélection sont invalides. S'il vous plait, corrigez les données et essayez de nouveau.
 
 # RIV4.2
 project.report.production.nonGen=Profil d'activité
@@ -183,7 +191,6 @@ error.unknown.log=Merci de fournir ce fichier pour aider à la compréhension du
 fieldOffice.delete.warn=You will not be able to import projects or profiles that use this field office, and exporting these settings to other computers which have this field office will not be possible.  Please use this function only for correcting mistakes when first setting up your configuration, before exporting the settings or any profiles or projects to other computers.  Do you wish to continue? Effacer un bureau de terrain pourrait rendre l’installation de Rural Invest incompatible avec d’autres utilisateurs. Vous ne serez plus en mesure d’importer des avant-projets et projets utilisant ce bureau de terrain, ni d’exporter ces paramétrages à d’autres utilisateurs qui utilisent ce bureau de terrain dans leur configuration. N’effacez ce bureau que pour corriger des erreurs lors du paramétrage initial, avant de partager le fichier paramètre initialement créé avec d’autres utilisateurs. Etes-vous sûr de vouloir continuer ?
 home.help.help=La plupart des termes utilisés dans Rural Invest sont décrits en détail dans les textes d’aide. Cliquez sur le terme voulu et une fenêtre comme celle-ci apparaîtra automatiquement. Elle disparaîtra dès que vous déplacerez le curseur hors du message affiché.
 import.excel.read=Le fichier Excel joint ne peut être ouvert. Assurez-vous que ce fichier a été créé à partir de la feuille de saisie Excel type Rural Invest et est bien au format xlsx
-import.excel.error.datatype=Des éléments de texte ont été trouvés là où devraient être saisis uniquement des chiffres. Corrigez les données saisies et essayez à nouveau.
  
 # Excel import function
 # "{0}" should not be translated, it's used by the software
