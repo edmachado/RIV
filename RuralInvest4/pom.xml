@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>RuralInvest4-webapp</artifactId>
@@ -434,40 +432,38 @@
                         </goals>
                         <configuration>
                             <target>
-                                <property name="messages.dir" value="${basedir}/src/main/messages"/>
-                                <property name="messages.target.dir"
-                                          value="${war.dir}/WEB-INF/messages"/>
+                                <property name="messages.dir" value="${basedir}/src/main/messages" />
+                                <property name="messages.target.dir" value="${war.dir}/WEB-INF/messages" />
                                 <echo>converting messages from ${messages.dir} to
                                     ${messages.target.dir}
                                 </echo>
-                                <mkdir dir="${messages.target.dir}"/>
+                                <mkdir dir="${messages.target.dir}" />
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages.properties.txt' '${messages.target.dir}/messages.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages.properties.txt' '${messages.target.dir}/messages.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_es.properties.txt' '${messages.target.dir}/messages_es.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_es.properties.txt' '${messages.target.dir}/messages_es.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_fr.properties.txt' '${messages.target.dir}/messages_fr.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_fr.properties.txt' '${messages.target.dir}/messages_fr.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_tr.properties.txt' '${messages.target.dir}/messages_tr.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_tr.properties.txt' '${messages.target.dir}/messages_tr.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_pt.properties.txt' '${messages.target.dir}/messages_pt.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_pt.properties.txt' '${messages.target.dir}/messages_pt.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_ru.properties.txt' '${messages.target.dir}/messages_ru.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_ru.properties.txt' '${messages.target.dir}/messages_ru.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_ar.properties.txt' '${messages.target.dir}/messages_ar.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_ar.properties.txt' '${messages.target.dir}/messages_ar.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_mn.properties.txt' '${messages.target.dir}/messages_mn.properties'"/>
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_mn.properties.txt' '${messages.target.dir}/messages_mn.properties'" />
                                 </exec>
 
-                                <copy file="${messages.target.dir}/messages.properties"
-                                      tofile="${messages.target.dir}/messages_en.properties"/>
+                                <copy file="${messages.target.dir}/messages.properties" tofile="${messages.target.dir}/messages_en.properties" />
                             </target>
                         </configuration>
                     </execution>
@@ -479,12 +475,11 @@
                         </goals>
                         <configuration>
                             <target>
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-                                         classpathref="maven.plugin.classpath"/>
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
 
                                 <copy todir="${war.dir}/WEB-INF/data">
                                     <fileset dir="${data.dir}/data-${build-lang}">
-                                        <include name="**/*.*"/>
+                                        <include name="**/*.*" />
                                     </fileset>
                                 </copy>
                             </target>
@@ -498,41 +493,40 @@
                         </goals>
                         <configuration>
                             <target>
-                                <taskdef resource="net/sf/antcontrib/antlib.xml"
-                                         classpathref="maven.plugin.classpath"/>
+                                <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath" />
 
-                                <echo message="processing files..."/>
-                                <echo message="preassembly.dir = ${preassembly.dir}"/>
+                                <echo message="processing files..." />
+                                <echo message="preassembly.dir = ${preassembly.dir}" />
                                 <!-- copy the file to be processed -->
                                 <copy todir="${preassembly.dir}">
                                     <fileset dir="${basedir}/src/main/resources/">
-                                        <include name="application.properties"/>
-                                        <include name="logging.xml"/>
+                                        <include name="application.properties" />
+                                        <include name="logging.xml" />
                                     </fileset>
                                 </copy>
                                 <!-- sent build-lang where necessary -->
                                 <replace dir="${preassembly.dir}" value="build-${build-lang}">
-                                    <include name="application.properties"/>
-                                    <include name="logging.xml"/>
+                                    <include name="application.properties" />
+                                    <include name="logging.xml" />
                                     <replacetoken>build-lang</replacetoken>
                                 </replace>
                                 <!-- set demo to user version and qa to admin version -->
                                 <if>
-                                    <equals arg1="${build-lang}" arg2="demo"/>
+                                    <equals arg1="${build-lang}" arg2="demo" />
                                     <then>
-                                        <echo message="making demo user version"/>
+                                        <echo message="making demo user version" />
                                         <replace dir="${preassembly.dir}" value="av=false">
-                                            <include name="application.properties"/>
+                                            <include name="application.properties" />
                                             <replacetoken>av=${IS_ADMIN}</replacetoken>
                                         </replace>
                                     </then>
                                 </if>
                                 <if>
-                                    <equals arg1="${build-lang}" arg2="qa"/>
+                                    <equals arg1="${build-lang}" arg2="qa" />
                                     <then>
-                                        <echo message="making qa admin version"/>
+                                        <echo message="making qa admin version" />
                                         <replace dir="${preassembly.dir}" value="av=true">
-                                            <include name="application.properties"/>
+                                            <include name="application.properties" />
                                             <replacetoken>av=${IS_ADMIN}</replacetoken>
                                         </replace>
                                     </then>
@@ -549,15 +543,14 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo message="rtl converting jasperreports..."/>
-                                <taskdef name="rtlReports" classname="riv.util.RtlReportConverter"
-                                         classpathref="maven.compile.classpath"/>
+                                <echo message="rtl converting jasperreports..." />
+                                <taskdef name="rtlReports" classname="riv.util.RtlReportConverter" classpathref="maven.compile.classpath" />
 
                                 <copy todir="${reports.target.dir}">
-                                    <fileset dir="${reports.dir}"/>
+                                    <fileset dir="${reports.dir}" />
                                 </copy>
 
-                                <rtlReports path="${reports.target.dir}"/>
+                                <rtlReports path="${reports.target.dir}" />
                             </target>
                         </configuration>
                     </execution>
@@ -603,7 +596,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -616,7 +609,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore/>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
@@ -629,7 +622,7 @@
     <parent>
         <groupId>org.fao.riv</groupId>
         <artifactId>RIV4</artifactId>
-        <version>4.2.5-SNAPSHOT</version>
+        <version>4.2.5</version>
         <relativePath>../RIV4/pom.xml</relativePath>
     </parent>
 </project>
