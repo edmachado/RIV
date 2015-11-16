@@ -1,8 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<izpack:shortcuts version="5.0"
-				  xmlns:izpack="http://izpack.org/schema/shortcuts"
-				  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				  xsi:schemaLocation="http://izpack.org/schema/shortcuts http://izpack.org/schema/5.0/izpack-shortcuts-5.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<shortcuts>
 	<programGroup defaultName="RuralInvest4" location="applications||startMenu" />
 	
 	<shortcut name="RuralInvest" target="$INSTALL_PATH/service/RuralInvest.url" 
@@ -22,4 +19,4 @@
 	       createForAll="true" iconFile='$INSTALL_PATH/icons/riv.ico' 
 	       iconIndex="0"  programGroup="yes" desktop="no" applications="no" 
 	       startMenu="no" startup="no" initialState="noShow" />
-</izpack:shortcuts>
+</shortcuts> 
