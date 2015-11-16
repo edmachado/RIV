@@ -40,7 +40,6 @@ if not defined javaDir (
         set RIV_JAVA="%ALLUSERSPROFILE%\Oracle\Java\javapath\java.exe"
     )
 )
-
 start "RIV Installer" /b %RIV_JAVA% -jar "%CD%\lib\riv.jar" > nul 2>&1
 endlocal
 rem pause
