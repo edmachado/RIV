@@ -22,7 +22,8 @@ public class UpdateSql  {
 	double current = -1;
 	Connection connection = null;
 	
-	public void run(AbstractUIProcessHandler uih, String[] args) {
+	public boolean run(AbstractUIProcessHandler uih, String[] args) {
+		
 		uih.logOutput("Updating database structure.", false);
 		installPath = args[0].replace("\\", "/");
 		sqlPath = args[1].replace("\\", "/");
@@ -34,8 +35,11 @@ public class UpdateSql  {
 		System.out.println("sql path: "+sqlPath);
 		System.out.println("isRiv3: "+args[2]);
 		
-		execute(isRiv3);
-		System.out.println("Finished updating database structure.");
+		boolean result=execute(isRiv3, uih);
+		if (result) {
+			System.out.println("Finished updating database structure.");
+		}
+		return result;
 	}
 	
 	private void migrateDb() {
@@ -81,7 +85,8 @@ public class UpdateSql  {
 		}
 	}
 	
-	private void execute(boolean isRiv3) {
+	private boolean execute(boolean isRiv3, AbstractUIProcessHandler uih) {
+		boolean result=true;
 		try {
 			JAXBContext context = JAXBContext.newInstance(SQL.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -92,7 +97,10 @@ public class UpdateSql  {
 			try {
 				connection = getDataSource(isRiv3).getConnection();
 			} catch (SQLException e) {
-				e.printStackTrace(System.out);
+				log(e, "SQLException:"+e.getLocalizedMessage());
+				uih.emitError("Error updating database.", "Error updating database, see log for more information.");
+				uih.finishProcess();
+				result=false;
 			}
 			
 			getCurrentVersion();
@@ -128,7 +136,10 @@ public class UpdateSql  {
 								System.out.println(q);
 								System.out.println(stmt.execute(q));
 							} catch (Exception e) {
-								e.printStackTrace(System.out);
+								log(e, "SQLException:"+e.getLocalizedMessage());
+								uih.emitError("Error updating database.", "Error updating database, see log for more information.");
+								uih.finishProcess();
+								result=false;
 							}
 						}
 					}
@@ -148,15 +159,20 @@ public class UpdateSql  {
 				}
 			}
 		} catch (SQLException sqle) {
-			System.out.println("SQLException:"+sqle.getLocalizedMessage());
 			log(sqle, "SQLException:"+sqle.getLocalizedMessage());
+			uih.emitError("Error updating database.", "Error updating database, see log for more information.");
+			uih.finishProcess();
+			result=false;
 		} catch (JAXBException jaxbe) {
-			System.out.println("JAXBException:"+jaxbe.getLocalizedMessage());
 			log(jaxbe, "JAXBException:"+jaxbe.getLocalizedMessage());
+			uih.emitError("Error updating database.", "Error updating database, see log for more information.");
+			uih.finishProcess();
+			result=false;
 		} finally {
 			System.out.println("final close of db");
 			close();
 		}
+		return result;
 	}
 	
 	private void getCurrentVersion() throws SQLException {
