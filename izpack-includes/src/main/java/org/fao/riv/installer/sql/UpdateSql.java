@@ -1,6 +1,8 @@
 package org.fao.riv.installer.sql;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +11,6 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
@@ -42,7 +43,7 @@ public class UpdateSql  {
 		return result;
 	}
 	
-	private void migrateDb() {
+	private boolean migrateDb(AbstractUIProcessHandler uih) {
 		try {
 			// close well with hsqldb 1.8
 			System.out.println("Closing well with HSQLDB 1.8");
@@ -62,8 +63,11 @@ public class UpdateSql  {
 			// make fresh connection using HSQLDB 2.3.1
 			System.out.println("Reopening new HSQLB 2.3.1 connection");
 			connection = getDataSource(false).getConnection();
+
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace(System.out);
+			logError(uih, e);
+			return false;
 		}
 	}
 	
@@ -97,9 +101,7 @@ public class UpdateSql  {
 			try {
 				connection = getDataSource(isRiv3).getConnection();
 			} catch (SQLException e) {
-				log(e, "SQLException:"+e.getLocalizedMessage());
-				uih.emitError("Error updating database.", "Error updating database, see log for more information.");
-				uih.finishProcess();
+				logError(uih, e);
 				result=false;
 			}
 			
@@ -136,7 +138,7 @@ public class UpdateSql  {
 								System.out.println(q);
 								System.out.println(stmt.execute(q));
 							} catch (Exception e) {
-								log(e, "SQLException:"+e.getLocalizedMessage());
+								uih.logOutput("SQLException:"+e.getLocalizedMessage(), false);
 								uih.emitError("Error updating database.", "Error updating database, see log for more information.");
 								uih.finishProcess();
 								result=false;
@@ -154,23 +156,16 @@ public class UpdateSql  {
 					current=version.getVersionNumber();
 					
 					if (current==3.9) { // here we migrate from HSQLDB 1.8 to 2.3
-						migrateDb();
+						result = migrateDb(uih);
 					}
 				}
 			}
-		} catch (SQLException sqle) {
-			log(sqle, "SQLException:"+sqle.getLocalizedMessage());
-			uih.emitError("Error updating database.", "Error updating database, see log for more information.");
-			uih.finishProcess();
-			result=false;
-		} catch (JAXBException jaxbe) {
-			log(jaxbe, "JAXBException:"+jaxbe.getLocalizedMessage());
-			uih.emitError("Error updating database.", "Error updating database, see log for more information.");
-			uih.finishProcess();
+		} catch (Exception e) {
+			logError(uih, e);
 			result=false;
 		} finally {
 			System.out.println("final close of db");
-			close();
+			close(uih);
 		}
 		return result;
 	}
@@ -187,7 +182,7 @@ public class UpdateSql  {
 				}
 				System.out.println("Current db version: "+current);
 				
-			} catch (SQLException sqle) { // ops the database isn't yet updated.
+			} catch (SQLException sqle) { // oops the database isn't yet updated.
 											// So we assume it's version 1
 				if (stmt != null) {
 					String query = "CREATE CACHED TABLE version ("
@@ -207,7 +202,7 @@ public class UpdateSql  {
 		}
 	}
 		
-	private void close() {
+	private void close(AbstractUIProcessHandler uih) {
 		try {
 			if (connection != null && !connection.isClosed()) {
 				System.out.println("Closing open connection");
@@ -219,11 +214,22 @@ public class UpdateSql  {
 				new File(String.format("%s/webapp/WEB-INF/data/riv.lck", installPath)).delete();
 			}
 		} catch (Exception e) {
-			e.printStackTrace(System.out);
+			logError(uih, e);
 		}
 	}
 	
-	private void log(Exception e, String message) {
+	private void logError(AbstractUIProcessHandler uih, Exception e) {
 		e.printStackTrace(System.out);
+		e.printStackTrace(System.err);
+		
+		// convert stack trace into string
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		e.printStackTrace(pw);
+		String stackTrace = sw.toString(); // stack trace as a string
+		
+		uih.logOutput("Error updating database."+stackTrace, false);
+		uih.emitError("We apologize for the difficulty.", "Error updating database. Please contact the RuralInvest team.");
+		uih.finishProcess();
 	}
 }
