@@ -20,7 +20,7 @@
 			<li><a href="../docs/module3_${lang}.pdf" target="_blank"><spring:message code="manual.mod3"/></a></li>
 			
 			<c:if test="${lang=='ru'}"><c:set var="lang" value="en"/></c:if>
-			<li><a href="../docs/guide_${lang}.<c:if test="${lang != 'en'}">ppt</c:if><c:if test="${lang == 'en'}">pdf</c:if>" target="_blank"><spring:message code="manual.guide"/></a></li>
+			<li><a href="../docs/guide_${lang}.pdf" target="_blank"><spring:message code="manual.guide"/></a></li>
 			
 			
 		</ul>
