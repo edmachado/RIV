@@ -538,7 +538,7 @@ ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(25,4);
 <!-- 	ALTER TABLE profile_result ALTER COLUMN cost_per_benef Decimal(25,4);  -->
 <!-- 	ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(25,4); -->
 
-<!-- -- indexing for performance -->
+<!-- indexing for performance -->
 <!-- CREATE INDEX project_wiz_step ON project (wizard_step); -->
 <!-- CREATE INDEX project_income_gen ON project (income_gen); -->
 <!-- CREATE INDEX profile_wiz_step ON project (wizard_step); -->
