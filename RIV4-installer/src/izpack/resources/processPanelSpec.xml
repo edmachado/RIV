@@ -1,5 +1,7 @@
 <processing>
 	<logfiledir>$INSTALL_PATH</logfiledir>
+	<onFail previous="false" next="false" />
+	
 	<job name="uninstalling ruralinvest3" condition="dbExists-old">
 		<os family="windows" />
 		<executefile name="$TEMP_DIRECTORY/uninstall-riv3.bat"/>
