@@ -14,7 +14,7 @@
 		<appname>RuralInvest</appname>
 		<appversion>@{app.version}</appversion>
 		<authors>
-			<author name="Food and Agriculture Organization" email="TCI-Ruralinvest@fao.org" />
+			<author name="Food and Agriculture Organization of the UN" email="TCI-Ruralinvest@fao.org" />
 		</authors>
 		<javaversion>1.6</javaversion>
 		<run-privileged />
