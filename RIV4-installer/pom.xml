@@ -43,29 +43,27 @@
     <build>
         <finalName>RuralInvest-${project.version}</finalName>
         <plugins>
-<!-- 
-	TODO: VALIDATE XML FILES, AT LEAST SQL.XML
-	MAY NEED TO CREATE DIRECTORY ONLY FOR XML FILES
-	AND THEN CHECK THAT INSTALL.XML IS UPDATED FOR NEW FILE LOCATIONS
- -->
-<!--         	<plugin> -->
-<!--         		<groupId>org.codehaus.mojo</groupId> -->
-<!-- 		        <artifactId>xml-maven-plugin</artifactId> -->
-<!-- 		        <executions> -->
-<!-- 		          <execution> -->
-<!-- 		            <goals> -->
-<!-- 		              <goal>validate</goal> -->
-<!-- 		            </goals> -->
-<!-- 		          </execution> -->
-<!-- 		        </executions> -->
-<!-- 		        <configuration> -->
-<!-- 		          <validationSets> -->
-<!-- 		            <validationSet> -->
-<!-- 		              <dir>src/izpack/resources</dir> -->
-<!-- 		            </validationSet> -->
-<!-- 		          </validationSets> -->
-<!-- 		        </configuration> -->
-<!--         	</plugin> -->
+         	<plugin>
+         		<groupId>org.codehaus.mojo</groupId>
+ 		        <artifactId>xml-maven-plugin</artifactId>
+ 		        <executions>
+ 		          <execution>
+ 		            <goals>
+ 		              <goal>validate</goal>
+ 		            </goals>
+ 		          </execution>
+ 		        </executions>
+ 		        <configuration>
+ 		          <validationSets>
+ 		            <validationSet>
+ 		              <dir>src/izpack/resources</dir>
+                      <includes>
+                          <include>sql.xml</include>
+                      </includes>
+ 		            </validationSet>
+ 		          </validationSets>
+ 		        </configuration>
+         	</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
