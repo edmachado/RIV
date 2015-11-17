@@ -222,14 +222,13 @@ public class UpdateSql  {
 		e.printStackTrace(System.out);
 		e.printStackTrace(System.err);
 		
-		// convert stack trace into string
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		e.printStackTrace(pw);
 		String stackTrace = sw.toString(); // stack trace as a string
 		
-		uih.logOutput("Error updating database."+stackTrace, false);
-		uih.emitError("We apologize for the difficulty.", "Error updating database. Please contact the RuralInvest team.");
+		uih.logOutput("Error updating database. "+ stackTrace, true);
+		uih.emitError("We apologize for the difficulty.", "Error updating database. Please contact the RuralInvest team at TCI-Ruralinvest@fao.org and include the error message displayed in this screen.");
 		uih.finishProcess();
 	}
 }
