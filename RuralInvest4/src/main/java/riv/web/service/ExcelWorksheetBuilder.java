@@ -467,7 +467,7 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 6, translate("project.report.blockDetail.incomes"), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d",sumRows[0]), Style.CURRENCY);
-		report.addFormulaCell(row, 9, String.format("H%d",rowNum), Style.CURRENCY);
+		report.addFormulaCell(row, 9, String.format("J%d",sumRows[0]), Style.CURRENCY);
 
 
 		row = sheet.createRow(rowNum++);
