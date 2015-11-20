@@ -53,7 +53,7 @@
   <parent>
   	<groupId>org.fao.riv</groupId>
   	<artifactId>RIV4</artifactId>
-  	<version>4.2.7</version>
+  	<version>4.2.8-SNAPSHOT</version>
   	<relativePath>../RIV4/pom.xml</relativePath>
   </parent>
 </project>
