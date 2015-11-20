@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<izpack:userInput version="5.0"
-                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xmlns:izpack="http://izpack.org/schema/userinput"
-                  xsi:schemaLocation="http://izpack.org/schema/userinput http://izpack.org/schema/5.0/izpack-userinput-5.0.xsd">
+<userInput>
 	<!-- user info -->
 	<panel id="panel.newUser">
 		<field type="title" id="input.userconfig" bold="true" size="2"/>
-
+		
 		<field type="text" variable="RIV_USER_NAME" >
 			<description align="left" id="username.description"/>
 			<spec id="username" size="12"  />
 		    <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="username.invalid" />
         </field>
-
+		
 		<field type="staticText" id="password.description"/>
         <field type="password" variable="RIV_PASSWORD">
             <spec>
@@ -21,33 +18,33 @@
             </spec>
             <validator class="com.izforge.izpack.panels.userinput.validator.PasswordEqualityValidator" id="password.invalid" />
         </field>
-
+        
     	<field type="space" /><field type="divider" /><field type="space" /><field type="space" />
-
+        
         <field type="text" variable="RIV_FULL_NAME">
 			<description id="fullname.description" />
             <spec id="fullname" size="30" />
             <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="fullname.invalid" />
         </field>
-
+        
         <field type="text" variable="RIV_ORGANIZATION">
             <spec id="organization" size="30" />
             <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="organization.invalid" />
         </field>
-
+        
          <field type="text" variable="RIV_LOCATION">
             <spec id="location" size="12" />
             <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="location.invalid" />
         </field>
-
+        
          <field type="text" variable="RIV_TELEPHONE">
             <spec id="telephone" size="12" />
             <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="telephone.invalid" />
         </field>
-
+        
          <field type="text" variable="RIV_EMAIL">
             <spec id="email" size="30" />
             <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="email.invalid" />
         </field>
     </panel>
-</izpack:userInput>
+</userInput>
