@@ -167,12 +167,14 @@ public class FinanceMatrix {
 		yearlyData.get(0).workingCapitalInterest=yearlyData.get(0).workingCapitalCapital*wcPeriod/12*(project.getCapitalInterest()*0.01);
 		
 		// year 2
-		double remainingNegative = firstYearData.getCumulative()[11];
-		if (remainingNegative<0) {
-			yearlyData.get(1).workingCapitalCapital=-1*remainingNegative;
-			double interestYear2 = remainingNegative * yearlyData.get(1).getTotalCostsCashFlow()/yearlyData.get(0).getTotalCostsCashFlow()
-				* wcPeriod/12 *(project.getCapitalInterest()*0.01);
-			yearlyData.get(1).workingCapitalInterest=-1*interestYear2;
+		if (project.getDuration()>1) {
+			double remainingNegative = firstYearData.getCumulative()[11];
+			if (remainingNegative<0) {
+				yearlyData.get(1).workingCapitalCapital=-1*remainingNegative;
+				double interestYear2 = remainingNegative * yearlyData.get(1).getTotalCostsCashFlow()/yearlyData.get(0).getTotalCostsCashFlow()
+					* wcPeriod/12 *(project.getCapitalInterest()*0.01);
+				yearlyData.get(1).workingCapitalInterest=-1*interestYear2;
+			}
 		}
 	}
 	
