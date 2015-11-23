@@ -267,7 +267,8 @@ public class ProjectController {
             final RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			setupPageAttributes(project, model, step, request);
-			return "project/project"+step;
+			String view = "project/project"+step + ((!project.getIncomeGen() && step==8) ? "nongen" : "");
+			return view;
 		} else {
 			updateWizardStep(project, step);
 			
