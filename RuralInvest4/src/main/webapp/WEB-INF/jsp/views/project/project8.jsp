@@ -14,6 +14,10 @@
 		<c:if test="${not project.withWithout}">projectGeneral</c:if>
 	</c:set>
 	
+	<br/>
+	<form:errors path="generals" cssClass="error" element="div" />
+	<form:errors path="personnels" cssClass="error" element="div" />
+	
 	<tags:tableContainer titleKey="${withTableTitle}">
 		<tags:table titleKey="projectGeneralSupplies">
 			<display:table list="${project.generals}" id="row" requestURI=""  cellspacing="0" cellpadding="0"
