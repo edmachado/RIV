@@ -7,6 +7,7 @@ $(function() {
 var statePub="<spring:message code='project.donor.statePublic'/>";
 var viewEdit="<spring:message code='misc.viewEditItem'/>";
 var deleteItem="<spring:message code='misc.deleteItem'/>";
+var noDeleteItem="<spring:message code='project.donor.noDelete'/>";
 var projId=${project.projectId};
 function cType(type) {
 	if (type==0) return "<spring:message code='projectContribution.contribType.govtCentral'/>";

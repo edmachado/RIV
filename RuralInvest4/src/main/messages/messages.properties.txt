@@ -1,5 +1,5 @@
 ## RIV 4.3
-
+project.donor.noDelete=A donor cannot be deleted if the project has donations or contributions from that source.
 
 ## RIV 4.2.5
 error.graceInterestGreaterThanCapital=The grace period for interest cannot be longer than the grace period for capital.

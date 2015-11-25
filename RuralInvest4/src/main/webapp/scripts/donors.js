@@ -74,6 +74,9 @@ function loadDonors() {
 				 if (! data[key].inUse) {
 					 d = addLink('javascript:deleteDonor('+data[key].donorId+')','../../img/delete.gif',deleteItem);
 					 $(td4).append(d);
+				 } else {
+					 img = addImg('../../img/no-delete.gif',noDeleteItem);
+					 $(td4).append(img);
 				 }
 				 $(tr).append(td4);
 				 $(tbody).append(tr);
@@ -102,15 +105,22 @@ function showme(order) {
 function addLink(href,img,alt) {
 	a = $('<a/>');
 	 $(a).attr('href',href);
-	 edit = $('<img/>');
-	 $(edit).attr('src',img);
-	 $(edit).attr('alt',alt);
-	 $(edit).attr('width','16');
-	 $(edit).attr('height','16');
-	 $(edit).attr('border','0');
+	 edit=addImg(img, alt);
 	 $(a).append(edit);
 	 return a;
 }
+
+function addImg(img, alt) {
+	edit = $('<img/>');
+	 $(edit).attr('src',img);
+	 $(edit).attr('alt',alt);
+	 $(edit).attr('title',alt);
+	 $(edit).attr('width','16');
+	 $(edit).attr('height','16');
+	 $(edit).attr('border','0');
+	 return edit;
+}
+
 function Calculate() {
 	with (Math) {
 		var dirMen = (document.form.beneDirectMen.value);
