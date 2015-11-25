@@ -5,6 +5,11 @@ $(function() { CalculateDonated(); CalculateTotal(); });
 </script>
 </head>
 <body>
+	<c:set var="assetTitle">
+		<c:if test="${project.incomeGen}"><spring:message code="projectInvestAsset"/></c:if>
+		<c:if test="${not project.incomeGen}"><spring:message code="projectInvestAssetNongen"/></c:if>
+	</c:set>
+
 	<div class="datatitle">
 		<c:if test="${not project.withWithout}"><spring:message code="project.invest"/></c:if>
 		<c:if test="${project.withWithout and without}"><spring:message code="project.invest"/> <spring:message code="project.without"/></c:if>
@@ -12,7 +17,7 @@ $(function() { CalculateDonated(); CalculateTotal(); });
 	</div>
 	<div align="right"><a href="#" onClick="toggle('tblAssets')"><spring:message code="misc.toggle"/></a></div>
 	<div id="tblAssets" style="display:none">
-		<tags:table titleKey="projectInvestAsset">
+		<tags:table title="${assetTitle}">
 			<c:if test="${projectItem.getClass().getSimpleName() eq 'ProjectItemAsset'}"><c:set var="tableSource" value="${project.assets}"/></c:if>
 			<c:if test="${projectItem.getClass().getSimpleName() eq 'ProjectItemAssetWithout'}"><c:set var="tableSource" value="${project.assetsWithout}"/></c:if>
 			<display:table list="${tableSource}" id="row" requestURI="" cellspacing="0" cellpadding="0"
@@ -65,7 +70,7 @@ $(function() { CalculateDonated(); CalculateTotal(); });
 		<tags:errors />
 		<div style="display:inline-block;width:470px">
 			<fieldset>
-				<legend><spring:message code="misc.addItem"/> (<spring:message code="projectInvestAsset"/>)</legend>
+				<legend><spring:message code="misc.addItem"/> (${assetTitle})</legend>
 				<tags:dataentry field="description" labelKey="projectInvestAsset.description" helpText="projectInvestAsset.description.help" inputClass="text" size="20" maxLength="30"/>
 				<tags:dataentry field="unitType" labelKey="projectInvestAsset.unitType" helpText="projectInvestAsset.unitType.help" inputClass="text" size="20"/>
 				<tags:dataentry field="unitNum" labelKey="projectInvestAsset.unitNum" helpText="projectInvestAsset.unitNum.help" onmouseout="CalculateTotal()"/>

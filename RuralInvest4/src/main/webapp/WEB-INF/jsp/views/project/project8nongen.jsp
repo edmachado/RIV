@@ -9,6 +9,11 @@
 		<c:if test="${accessOK}"><a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
 	</div>
 	
+	<br/>
+	<form:errors path="nongenMaterials" cssClass="error" element="div" />
+	<form:errors path="nongenLabours" cssClass="error" element="div" />
+	<form:errors path="nongenMaintenance" cssClass="error" element="div" />
+	
 	<tags:tableContainer titleKey="projectGeneral">
 		<tags:table titleKey="projectNongenInput">
 			<display:table list="${project.nongenMaterials}" id="row" requestURI="" cellspacing="0" cellpadding="0"

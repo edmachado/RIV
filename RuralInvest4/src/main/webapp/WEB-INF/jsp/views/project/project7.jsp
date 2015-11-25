@@ -14,8 +14,17 @@
 		<c:if test="${not project.withWithout}"><spring:message code="project.invest"/></c:if>
 	</c:set>
 	
+	<br/>
+	<form:errors path="assets" cssClass="error" element="div" />
+	<form:errors path="labours" cssClass="error" element="div" />
+	<form:errors path="services" cssClass="error" element="div" />
+	
 	<tags:tableContainer title="${withTableTitle}">
-		<tags:table titleKey="projectInvestAsset">
+		<c:set var="assetTitle">
+			<c:if test="${project.incomeGen}"><spring:message code="projectInvestAsset"/></c:if>
+			<c:if test="${not project.incomeGen}"><spring:message code="projectInvestAssetNongen"/></c:if>
+		</c:set>
+		<tags:table title="${assetTitle}">
 			<display:table htmlId="assetsTable" list="${project.assets}" requestURI="" cellspacing="0" cellpadding="0"
 				 export="false" id="asset">
 				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
