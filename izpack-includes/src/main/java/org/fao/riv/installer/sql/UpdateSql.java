@@ -34,7 +34,7 @@ public class UpdateSql  {
 		
 		System.out.println("installPath: "+installPath);
 		System.out.println("sql path: "+sqlPath);
-		System.out.println("isRiv3: "+args[2]);
+		System.out.println("isRiv3: "+Boolean.toString(isRiv3));
 		
 		boolean result=execute(isRiv3, uih);
 		if (result) {
