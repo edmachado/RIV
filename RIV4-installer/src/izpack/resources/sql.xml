@@ -510,8 +510,12 @@ ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(25,4);
 	</version>
 	
 
-<!--    	<version number="4.3"> -->
-<!--    	<query> -->
+    	<version number="4.3">
+    	<query>
+
+    <!--add build to version -->
+ 	ALTER TABLE version ADD COLUMN build VARCHAR(15);
+
 <!--    	 project results precision -->
 <!-- 	DELETE FROM project_result; -->
 <!-- 	ALTER TABLE project_result ALTER COLUMN annual_employment DECIMAL(25,4); -->
@@ -545,6 +549,6 @@ ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(25,4);
 <!-- CREATE INDEX profile_income_gen ON project (income_gen); -->
 <!-- CREATE INDEX project_result_income_gen ON project_result (income_gen); -->
 <!-- CREATE INDEX profile_result_income_gen ON profile_result (income_gen); -->
-<!-- 	</query> -->
-<!-- 	</version> -->
+ 	</query>
+ 	</version>
 </sql>
