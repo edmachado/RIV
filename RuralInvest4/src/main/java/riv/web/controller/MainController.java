@@ -21,6 +21,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +67,7 @@ public class MainController {
 	ServletContext sc;
 	@Autowired
 	Exporter exporter;
+	@Value("${buildVersion}")	private String buildVersion;
 	
 	@PostConstruct
 	public void onAppStart() {
@@ -284,8 +286,9 @@ public class MainController {
 	
 	@RequestMapping(value="/help/{page}", method=RequestMethod.GET)
 	public String getHelp(@PathVariable String page, Model model) {
-		Version v = dataService.getLatestVersion();
-		model.addAttribute("version",v.getVersion());
+//		Version v = dataService.getLatestVersion();
+//		model.addAttribute("version",v.getVersion());
+		model.addAttribute("version",buildVersion);
 		return "help/"+page;
 	}
 	

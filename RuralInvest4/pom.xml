@@ -548,11 +548,15 @@
                                         <include name="logging.xml" />
                                     </fileset>
                                 </copy>
-                                <!-- sent build-lang where necessary -->
+                                <!-- set build-lang where necessary -->
                                 <replace dir="${preassembly.dir}" value="build-${build-lang}">
                                     <include name="application.properties" />
                                     <include name="logging.xml" />
                                     <replacetoken>build-lang</replacetoken>
+                                </replace>
+                                <replace dir="${preassembly.dir}" value="${project.version}">
+                                    <include name="application.properties" />
+                                    <replacetoken>project-version</replacetoken>
                                 </replace>
                                 <!-- set demo to user version and qa to admin version -->
                                 <if>
