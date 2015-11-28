@@ -9,7 +9,6 @@
    		<variable name="TargetPanel.dir.windows" value="${DEFAULT_INSTALL_PATH}4"/>
    		<variable name="DesktopShortcutCheckboxEnabled" value="true"/>
    		<variable name="ShowCreateDirectoryMessage" value="false" />
-		<variable name="build.version" value="4.3.0" />
 	</variables>
 	<info>
 		<appname>RuralInvest</appname>

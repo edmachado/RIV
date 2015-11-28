@@ -36,7 +36,6 @@
 			<arg>$INSTALL_PATH</arg>
 			<arg>$TEMP_DIRECTORY/sql.xml</arg>
 			<arg>${riv3installed}</arg>
-			<arg>${build.version}</arg>
 		</executeclass>
 	</job>
 	<job name="opening port" condition="!RIV4-service-exists">
