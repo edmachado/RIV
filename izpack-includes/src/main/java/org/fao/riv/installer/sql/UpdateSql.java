@@ -20,10 +20,6 @@ public class UpdateSql  {
 	private static String url;
 	private static String installPath;
 	private static String sqlPath;
-	private static String build;
-	private static final String insertIntoVersion = "INSERT INTO VERSION " +
-								"(version, description, install_time, recalculate) " +
-								"VALUES (%s, '%s', CURRENT_TIMESTAMP, true)";
 	double current = -1;
 	Connection connection = null;
 	
@@ -33,14 +29,12 @@ public class UpdateSql  {
 		installPath = args[0].replace("\\", "/");
 		sqlPath = args[1].replace("\\", "/");
 		boolean isRiv3 = args[2].trim().equals("true");
-		build = args[3];
 		
 		url = String.format("jdbc:hsqldb:file:%s/webapp/WEB-INF/data/riv;hsqldb.lock_file=false;", installPath);
 		
 		System.out.println("installPath: "+installPath);
 		System.out.println("sql path: "+sqlPath);
 		System.out.println("isRiv3: "+Boolean.toString(isRiv3));
-		System.out.println("build: "+build);
 		
 		boolean result=execute(isRiv3, uih);
 		if (result) {
@@ -112,13 +106,13 @@ public class UpdateSql  {
 			}
 			
 			getCurrentVersion();
-
+			
 			// BUG FIX: new install of 3.0 mistakenly registered as 2.2
 			if (Double.compare(current, 2.2)==0) {
 				try {
 					Statement stmt = connection.createStatement();
 					stmt.execute("SELECT * FROM SETTING WHERE ADMIN1_TITLE=''"); // if really 2.2 will throw exception
-					stmt.execute(String.format(insertIntoVersion, "3.0", "not yet used"));
+					stmt.execute("INSERT INTO VERSION (version, description, install_time, recalculate) VALUES (3.0, 'not yet used', CURRENT_TIMESTAMP, true)");
 					stmt.close();
 					current=3.0;
 				} catch (Exception e) { } 
@@ -127,7 +121,7 @@ public class UpdateSql  {
 					Statement stmt = connection.createStatement();
 					stmt.execute("SELECT * FROM project_block WHERE cycles IS FALSE"); // if really 4.0 will throw exception
 					stmt.execute("UPDATE project_item SET year_begin=1 WHERE class=5 AND year_begin IS NULL"); // year_begin missing in sql command RIV4.1.1 and 4.1.2
-					stmt.execute(String.format(insertIntoVersion, "4.1", "4.1"));
+					stmt.execute("INSERT INTO version (version, description, install_time, recalculate) VALUES (4.1, '4.1', CURRENT_TIMESTAMP, true)");
 					stmt.close();
 					current=4.1;
 				} catch (Exception e) { } 
@@ -151,8 +145,10 @@ public class UpdateSql  {
 							}
 						}
 					}
-					stmt.execute(String.format(insertIntoVersion, version.getVersionNumber(),
-											   version.getVersionNumber()));
+					stmt.execute(String.format(
+							"INSERT INTO VERSION (version, description, install_time, recalculate) "+
+							"VALUES (%s, '%s', CURRENT_TIMESTAMP, true)",
+							version.getVersionNumber(), version.getVersionNumber()));
 					stmt.getConnection().commit();
 					stmt.close();
 					System.out.println("Completed upgrade to: "+version.getVersionNumber());
@@ -164,11 +160,6 @@ public class UpdateSql  {
 					}
 				}
 			}
-			Statement stmt = connection.createStatement();
-			stmt.execute(String.format("UPDATE version v SET v.build='%s' WHERE v.version=(SELECT MAX(vv.version) FROM version vv)", build));
-			stmt.getConnection().commit();
-			stmt.close();
-			System.out.println("build # " + build);
 		} catch (Exception e) {
 			logError(uih, e);
 			result=false;
