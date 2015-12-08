@@ -8,7 +8,7 @@
 	</job>
 	<job name="adding first user">
 		<os family="windows" />
-		<executeForPack name="New (blank) database for RuralInvest"/>
+		<executeForPack name="NewInstall"/>
 		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
 			<arg>$INSTALL_PATH</arg>
 			<arg>$RIV_USER_NAME</arg>
@@ -19,11 +19,13 @@
 			<arg>$RIV_TELEPHONE</arg>
 			<arg>$RIV_EMAIL</arg>
 			<arg>$ISO2_LANG</arg>
+			<arg>true</arg>
 		</executeclass>
 	</job>
 	<job name="retrieving migrated database">
 		<os family="windows" />
-		<executeForPack name="Update existing RuralInvest database"/>
+		<executeForPack name="Upgrade"/>
+		<executeForPack name="UpgradeAddsUser"/>
 		<executeclass name="org.fao.riv.installer.util.MigrateDb">
 			<arg>$MIGRATED_DB</arg>
 			<arg>$INSTALL_PATH/webapp/WEB-INF/data</arg>
@@ -31,11 +33,28 @@
 	</job>
 	<job name="upgrading sql structure">
 		<os family="windows" />
-		<executeForPack name="Update existing RuralInvest database"/>
+		<executeForPack name="Upgrade"/>
+		<executeForPack name="UpgradeAddsUser"/>
 		<executeclass name="org.fao.riv.installer.sql.UpdateSql">
 			<arg>$INSTALL_PATH</arg>
 			<arg>$TEMP_DIRECTORY/sql.xml</arg>
 			<arg>${riv3installed}</arg>
+		</executeclass>
+	</job>
+	<job name="adding user">
+		<os family="windows" />
+		<executeForPack name="UpgradeAddsUser"/>
+		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
+			<arg>$INSTALL_PATH</arg>
+			<arg>$RIV_USER_NAME</arg>
+			<arg>$RIV_FULL_NAME</arg>
+			<arg>$RIV_PASSWORD</arg>
+			<arg>$RIV_ORGANIZATION</arg>
+			<arg>$RIV_LOCATION</arg>
+			<arg>$RIV_TELEPHONE</arg>
+			<arg>$RIV_EMAIL</arg>
+			<arg>$ISO2_LANG</arg>
+			<arg>false</arg>
 		</executeclass>
 	</job>
 	<job name="opening port" condition="!RIV4-service-exists">

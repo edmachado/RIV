@@ -12,5 +12,7 @@
 <str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest will be installed with a blank database.  Any existing data (projects and profiles) will be deleted."/>
 <str id="InstallationGroupPanel.group.Upgrade.html" txt="Upgrade RuralInvest installation"/>
 <str id="InstallationGroupPanel.description.Upgrade.html" txt="The RuralInvest application will be updated and existing data (projects and profiles) will be kept."/>
+<str id="InstallationGroupPanel.group.UpgradeAddsUser.html" txt="Upgrade RuralInvest with a new user"/>
+<str id="InstallationGroupPanel.description.UpgradeAddsUser.html" txt="The RuralInvest application will be updated and a new user added. Existing data (projects, profiles and users) will be kept."/>
 
 </izpack:langpack>

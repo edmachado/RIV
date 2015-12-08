@@ -4,8 +4,9 @@
 
 	<variables>
 		<variable name="INSTALL_GROUP" value="NewInstall"/>
- 		<variable name="InstallationGroupPanel.sortKey.NewInstall" value="B"/>
+ 		<variable name="InstallationGroupPanel.sortKey.NewInstall" value="C"/>
    		<variable name="InstallationGroupPanel.sortKey.Upgrade" value="A"/>
+   		<variable name="InstallationGroupPanel.sortKey.UpgradeAddsUser" value="B"/>
    		<variable name="TargetPanel.dir.windows" value="${DEFAULT_INSTALL_PATH}4"/>
    		<variable name="DesktopShortcutCheckboxEnabled" value="true"/>
    		<variable name="ShowCreateDirectoryMessage" value="false" />
@@ -92,7 +93,7 @@
 		</panel>
 		<panel classname="InstallationGroupPanel" condition="dbExists" />
 		<panel classname="DefaultTargetPanel" />
-		<panel classname="UserInputPanel" id="panel.newUser" condition="newInstallSelected"/>
+		<panel classname="UserInputPanel" id="panel.newUser" condition="addNewUser"/>
 		<panel classname="InstallPanel">
 			<actions>
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.BackupRiv3Action" />
@@ -139,12 +140,19 @@
 			<value>true</value>
 		</condition>
 		<condition type="packselection" id="newInstallSelected">
- 			<name>New (blank) database for RuralInvest</name>
+ 			<name>NewInstall</name>
+		</condition>
+		<condition type="packselection" id="upgradeAddsUserSelected">
+			<name>UpgradeAddsUser</name>
+		</condition>
+		<condition type="or" id="addNewUser">
+			<condition type="ref" refid="newInstallSelected"/>
+			<condition type="ref" refid="upgradeAddsUserSelected"/>
 		</condition>
 	</conditions>
 
 	<packs>
-		<pack name="RuralInvest web application" required="yes" installGroups="NewInstall,Upgrade" id="pack.webapp">
+		<pack name="RuralInvest web application" required="yes" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webapp">
 			<description>The core files needed for the application</description>
         
         	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="no" override="true">
@@ -168,7 +176,7 @@
 			<executable targetfile="$INSTALL_PATH/removeService.bat" keep="true" os="windows" stage="uninstall" />
 		</pack>
 		
-		<pack name="Web server launcher" required="yes" condition="!RIV4-service-exists" installGroups="NewInstall,Upgrade" id="pack.webserver">
+		<pack name="Web server launcher" required="yes" condition="!RIV4-service-exists" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webserver">
 			<description>Service to run embedded web server</description>
 			<!--  actual service launcher -->
 			<file src="@{izpack.staging}/lib/RIV4-service.jar" targetdir="$INSTALL_PATH/service" override="true" />
@@ -187,14 +195,17 @@
 			<parsable targetfile="$INSTALL_PATH/service/launchUrl.bat" />
 		</pack>
  
-		<pack name="New (blank) database for RuralInvest" required="yes" installGroups="NewInstall" id="pack.newDb">
+		<pack name="NewInstall" required="yes" installGroups="NewInstall" id="pack.newDb">
 			<description>Installs a blank database</description>
 			<fileset dir="@{izpack.staging}/webapp/WEB-INF/data" targetdir="$INSTALL_PATH/webapp/WEB-INF/data" casesensitive="no" override="true" />
 		</pack>
 		
-		<pack name="Update existing RuralInvest database" required="yes" installGroups="Upgrade" id="pack.upgrade">
+		<pack name="Upgrade" required="yes" installGroups="Upgrade,UpgradeAddsUser" id="pack.upgrade">
 			<description>Update existing RuralInvest database</description>
 			<file src="resources/sql.xml" targetdir="$TEMP_DIRECTORY" override="true" />
+		</pack>
+		<pack name="UpgradeAddsUser" required="yes" installGroups="UpgradeAddsUser" id="pack.upgradeAddsUser">
+			<description>Update existing RuralInvest database and add a new user</description>
 		</pack>
 	</packs>
 </installation>
