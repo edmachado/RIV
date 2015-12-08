@@ -72,12 +72,12 @@
 		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang.xml_tur" />
 		
 		<!-- Group selection -->
-		<res id="packsLang.xml_eng" src="resources/lang/packsLang.xml_eng"/>
-		<res id="packsLang.xml_fra" src="resources/lang/packsLang.xml_fra"/>
-		<res id="packsLang.xml_bra" src="resources/lang/packsLang.xml_bra"/>
-		<res id="packsLang.xml_rus" src="resources/lang/packsLang.xml_rus"/>
-		<res id="packsLang.xml_spa" src="resources/lang/packsLang.xml_spa"/>
-		<res id="packsLang.xml_tur" src="resources/lang/packsLang.xml_tur"/>
+		<res id="CustomLangPack.xml_eng" src="resources/lang/customLangPack.xml_eng"/>
+		<res id="CustomLangPack.xml_fra" src="resources/lang/customLangPack.xml_fra"/>
+		<res id="CustomLangPack.xml_bra" src="resources/lang/customLangPack.xml_bra"/>
+		<res id="CustomLangPack.xml_rus" src="resources/lang/customLangPack.xml_rus"/>
+		<res id="CustomLangPack.xml_spa" src="resources/lang/customLangPack.xml_spa"/>
+		<res id="CustomLangPack.xml_tur" src="resources/lang/customLangPack.xml_tur"/>
 	</resources>
 
 	<panels>

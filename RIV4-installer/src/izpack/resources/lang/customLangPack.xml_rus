@@ -1,6 +1,16 @@
-<langpack>
+<?xml version="1.0" encoding="UTF-8"?>
+<izpack:langpack version="5.0" xmlns:izpack="http://izpack.org/schema/langpack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
+
+<!-- packs -->
+<str id="pack.webapp" txt="RuralInvest web application"/>
+<str id="pack.webserver" txt="Web server launcher"/>
+<str id="pack.upgrade" txt="Upgrade existing RuralInvest database"/>
+<str id="pack.newdb" txt="New (blank) database for RuralInvest"/>
+
+<!-- installation groups -->
 <str id="InstallationGroupPanel.group.NewInstall.html" txt="Установка новой программы RuralInvest"/>
 <str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest будет установлена как. Вся существующая информация (проекты и профайлы) будут удалены."/>
 <str id="InstallationGroupPanel.group.Upgrade.html" txt="Обновление программы установки RuralInvest"/>
 <str id="InstallationGroupPanel.description.Upgrade.html" txt="Программы RuralInvest будет обновлена и существующая информация (проекты и профайлы) будут сохранены."/>
-</langpack>
+
+</izpack:langpack>
