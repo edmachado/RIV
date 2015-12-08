@@ -23,6 +23,7 @@ public class FirstUserAction {
 		public String telephone;
 		public String email;
 		public String language;
+		public boolean newInstall;
 	}
 	
 	public void run(AbstractUIProcessHandler uih, String[] args) {
@@ -37,6 +38,7 @@ public class FirstUserAction {
 		user.telephone = args[6];
 		user.email = args[7];
 		user.language = args[8];
+		user.newInstall = args[9].equalsIgnoreCase("true");
 		
 		try {
 			execute(user);
@@ -56,12 +58,14 @@ public class FirstUserAction {
 
 			Connection conn = DriverManager.getConnection("jdbc:hsqldb:file:" + user.webroot);
 
-			try {
-				Statement delete = conn.createStatement();
-				delete.executeUpdate("DELETE FROM User");
-				delete.close();
-			} catch (SQLException sqle) {
-				System.out.println(String.format("Cannot delete existing users: %s", sqle.getMessage()).getBytes());
+			if (user.newInstall) {
+				try {
+					Statement delete = conn.createStatement();
+					delete.executeUpdate("DELETE FROM User");
+					delete.close();
+				} catch (SQLException sqle) {
+					System.out.println(String.format("Cannot delete existing users: %s", sqle.getMessage()).getBytes());
+				}
 			}
 
 			// add new user
@@ -87,18 +91,9 @@ public class FirstUserAction {
            close.close();
                
 			conn.close();
-		} catch (InstantiationException ie) {
-			ie.printStackTrace();
-			throw ie;
-		} catch (IllegalAccessException iae) {
-			iae.printStackTrace();
-			throw iae;
-		} catch (ClassNotFoundException cnfe) {
-			cnfe.printStackTrace();
-			throw cnfe;
-		} catch (SQLException sqle) {
-			sqle.printStackTrace();
-			throw sqle;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
