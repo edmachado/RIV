@@ -15,8 +15,10 @@ import java.util.prefs.Preferences;
 public class RemoveExistingUninstallEntriesAction implements PanelAction {
 
     public static final int HKEY_LOCAL_MACHINE = 0x80000002;
-    private static final String
-            KEY = "Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall";
+    private static final String[] KEYS = {
+            "Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall",
+            "Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall"
+    };
 
     public static final int REG_SUCCESS = 0;
 
@@ -57,50 +59,19 @@ public class RemoveExistingUninstallEntriesAction implements PanelAction {
 
     /**
      * Delete previous RuralInvest installation items in Windows Control Panel.
+     *
      * @param iData provided by izPack
-     * @param uih provided by izPack
+     * @param uih   provided by izPack
      */
     @Override
     public void executeAction(InstallData iData, AbstractUIHandler uih) {
-        if (iData.getPlatform().equals(Platform.Name.WINDOWS)) {
-            try {
-                List<String> results = new ArrayList<String>();
-                int[] handles = (int[]) regOpenKey.invoke(systemRoot, new Object[]{
-                        HKEY_LOCAL_MACHINE, toCstr(KEY), new Integer(KEY_READ)
-                });
-                if (handles[1] != REG_SUCCESS) {
-                    return;
+        if (iData.getPlatform().getName().equals(Platform.Name.WINDOWS)) {
+            for (String key : KEYS) {
+                try {
+                    removeFromKey(key);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                int[] info = (int[]) regQueryInfoKey.invoke(systemRoot,
-                                                            new Object[]{new Integer(handles[0])});
-
-                int count = info[0];
-                int maxlen = info[3];
-                for (int index = 0; index < count; index++) {
-                    byte[] name = (byte[]) regEnumKeyEx.invoke(systemRoot, new Object[]{
-                            new Integer
-                                    (handles[0]), new Integer(index), new Integer(maxlen + 1)
-                    });
-                    results.add(new String(name).trim());
-                }
-                regCloseKey.invoke(systemRoot, new Object[]{new Integer(handles[0])});
-
-
-                for (String key : results) {
-                    if (key.startsWith("RuralInvest")) {
-                        Object[] deleteKey = new Object[]{HKEY_LOCAL_MACHINE,
-                                                          toCstr(String.format("%s\\%s", KEY, key))};
-                        int rc = ((Integer) regDeleteKey.invoke(systemRoot, deleteKey))
-                                .intValue();
-                        if (rc != REG_SUCCESS) {
-                            throw new IllegalArgumentException("rc=" + rc + "  key=" + key);
-                        }
-                    }
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -109,6 +80,49 @@ public class RemoveExistingUninstallEntriesAction implements PanelAction {
     public void initialize(PanelActionConfiguration pac) {
     }
 
+    private void removeFromKey(String key) throws Exception{
+        try {
+            List<String> results = new ArrayList<String>();
+            int[] handles = (int[]) regOpenKey.invoke(systemRoot, new Object[]{
+                    HKEY_LOCAL_MACHINE, toCstr(key), new Integer(KEY_READ)
+            });
+            if (handles[1] != REG_SUCCESS) {
+                return;
+            }
+            int[] info = (int[]) regQueryInfoKey.invoke(systemRoot,
+                                                        new Object[]{
+                                                                new Integer(handles[0])});
+
+            int count = info[0];
+            int maxlen = info[3];
+            for (int index = 0; index < count; index++) {
+                byte[] name = (byte[]) regEnumKeyEx.invoke(systemRoot, new Object[]{
+                        new Integer
+                                (handles[0]), new Integer(index), new Integer(maxlen + 1)
+                });
+                results.add(new String(name).trim());
+            }
+            regCloseKey.invoke(systemRoot, new Object[]{new Integer(handles[0])});
+
+            for (String subkey : results) {
+                if (subkey.startsWith("RuralInvest")) {
+                    Object[] deleteKey = new Object[]{HKEY_LOCAL_MACHINE,
+                                                      toCstr(String.format("%s\\%s", key,
+                                                                           subkey))};
+                    int rc = ((Integer) regDeleteKey.invoke(systemRoot, deleteKey))
+                            .intValue();
+                    if (rc != REG_SUCCESS) {
+                        throw new IllegalArgumentException("rc=" + rc + "  key=" + subkey);
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            throw new Exception(e);
+        } catch (InvocationTargetException e) {
+            throw new Exception(e);
+        }
+
+    }
 
     private static byte[] toCstr(String str) {
         byte[] result = new byte[str.length() + 1];
