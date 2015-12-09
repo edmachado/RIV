@@ -2,15 +2,17 @@
 <izpack:langpack version="5.0" xmlns:izpack="http://izpack.org/schema/langpack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
 
 <!-- packs -->
-<str id="pack.webapp" txt="RuralInvest web application"/>
+<str id="pack.webapp" txt="Aplicación web de RuralInvest"/>
 <str id="pack.webserver" txt="Web server launcher"/>
-<str id="pack.upgrade" txt="Upgrade existing RuralInvest database"/>
-<str id="pack.newdb" txt="New (blank) database for RuralInvest"/>
+<str id="pack.upgrade" txt="Actualice base de datos existente de RuralInvest"/>
+<str id="pack.newdb" txt="Nueva base de datos (en blanco) de RuralInvest"/>
 
 <!-- installation groups -->
 <str id="InstallationGroupPanel.group.NewInstall.html" txt="Instalación nueva de RuralInvest"/>
 <str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest será instalado en una base de datos en blanco. Datos existentes (proyectos y perfiles) serán eliminados."/>
-<str id="InstallationGroupPanel.group.Upgrade.html" txt="Instalación de actualización de RuralInvest"/>
-<str id="InstallationGroupPanel.description.Upgrade.html" txt="El software de RuralInvest será actualizado y los datos existentes (proyectos y perfiles) se conservarán."/>
+<str id="InstallationGroupPanel.group.Upgrade.html" txt="Actualice RuralInvest"/>
+<str id="InstallationGroupPanel.description.Upgrade.html" txt="RuralInvest será actualizado y los datos existentes (proyectos y perfiles) se conservarán."/>
+<str id="InstallationGroupPanel.group.UpgradeAddsUser.html" txt="Actualice RuralInvest con un nuevo usuario"/>
+<str id="InstallationGroupPanel.description.UpgradeAddsUser.html" txt="RuralInvest será actualizada y un nuevo usuario será añadido. Datos existentes (de proyectos, perfiles y usuarios) serán retenidos."/>
 
 </izpack:langpack>
