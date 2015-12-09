@@ -8,7 +8,7 @@
   <str id="pleaseWait" txt="please wait..." />
   <str id="username.description" txt="This is the username you will use to logon to RuralInvest, together with your password." />
   <str id="username.invalid" txt="Invalid username!" />
-  <str id="password" txt="Password" />
+  <str id="password" txt="Password (Enter the same password in both both fields)" />
   <str id="password.description" txt="Your password and username are necessary to logon to RuralInvest. Don't forget it otherwise you will have to reinstall the software and you might lost all your data! " />
   <str id="password.invalid" txt="Enter the same password in both both fields." />
   <str id="fullname" txt="Your name" />
