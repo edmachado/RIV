@@ -27,7 +27,7 @@ public class FirstUserAction {
 	}
 	
 	public void run(AbstractUIProcessHandler uih, String[] args) {
-		uih.logOutput("Adding first user.", false);
+		uih.logOutput("Adding user.", false);
 		FirstUserData user = new FirstUserData();
 		user.webroot = String.format("%s/webapp/WEB-INF/data/riv", args[0]);
 		user.username = args[1];
