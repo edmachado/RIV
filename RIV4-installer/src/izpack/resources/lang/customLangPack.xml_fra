@@ -2,15 +2,17 @@
 <izpack:langpack version="5.0" xmlns:izpack="http://izpack.org/schema/langpack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
  
 <!-- packs -->
-<str id="pack.webapp" txt="RuralInvest web application"/>
+<str id="pack.webapp" txt="Application web RuralInvest"/>
 <str id="pack.webserver" txt="Web server launcher"/>
-<str id="pack.upgrade" txt="Upgrade existing RuralInvest database"/>
-<str id="pack.newdb" txt="New (blank) database for RuralInvest"/>
+<str id="pack.upgrade" txt="Mettre à jour la base de données existante de RuralInvest"/>
+<str id="pack.newdb" txt="Nouvelle base de données (vide) pour RuralInvest"/>
 
 <!-- installation groups -->
-<str id="InstallationGroupPanel.group.NewInstall.html" txt="New RuralInvest installation"/>
-<str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest will be installed with a blank datatabase.  Any existing data (projects and profiles) will be deleted."/>
-<str id="InstallationGroupPanel.group.Upgrade.html" txt="Upgrade RuralInvest installation"/>
-<str id="InstallationGroupPanel.description.Upgrade.html" txt="The RuralInvest application will be updated and existing data (projects and profiles) will be kept."/>
+<str id="InstallationGroupPanel.group.NewInstall.html" txt="Nouvelle installation de RuralInvest"/>
+<str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest sera installé avec une base de données vide. Toutes les données existantes (projets et avant projets) seront supprimés."/>
+<str id="InstallationGroupPanel.group.Upgrade.html" txt="Mettre à jour l’installation de RuralInvest"/>
+<str id="InstallationGroupPanel.description.Upgrade.html" txt="RuralInvest sera mise à jour et les données existantes (projets et avant-projets) seront conservés."/>
+<str id="InstallationGroupPanel.group.UpgradeAddsUser.html" txt="Mettre à jour RuralInvest avec un nouvel utilisateur"/>
+<str id="InstallationGroupPanel.description.UpgradeAddsUser.html" txt="RuralInvest sera mise à jour et un nouvel utilisateur sera ajouté. Les données existantes (projets, avant-projets et utilisateurs) seront conservés."/>
 
 </izpack:langpack>
