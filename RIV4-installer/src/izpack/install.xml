@@ -73,12 +73,12 @@
 		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang_tur.xml" />
 		
 		<!-- Group selection -->
-		<res id="CustomLangPack.xml_eng" src="resources/lang/customLangPack.xml_eng"/>
-		<res id="CustomLangPack.xml_fra" src="resources/lang/customLangPack.xml_fra"/>
-		<res id="CustomLangPack.xml_bra" src="resources/lang/customLangPack.xml_bra"/>
-		<res id="CustomLangPack.xml_rus" src="resources/lang/customLangPack.xml_rus"/>
-		<res id="CustomLangPack.xml_spa" src="resources/lang/customLangPack.xml_spa"/>
-		<res id="CustomLangPack.xml_tur" src="resources/lang/customLangPack.xml_tur"/>
+		<res id="CustomLangPack.xml_eng" src="resources/lang/customLangPack_eng.xml"/>
+		<res id="CustomLangPack.xml_fra" src="resources/lang/customLangPack_fra.xml"/>
+		<res id="CustomLangPack.xml_bra" src="resources/lang/customLangPack_bra.xml"/>
+		<res id="CustomLangPack.xml_rus" src="resources/lang/customLangPack_rus.xml"/>
+		<res id="CustomLangPack.xml_spa" src="resources/lang/customLangPack_spa.xml"/>
+		<res id="CustomLangPack.xml_tur" src="resources/lang/customLangPack_tur.xml"/>
 	</resources>
 
 	<panels>
