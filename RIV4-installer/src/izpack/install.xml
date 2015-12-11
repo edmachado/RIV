@@ -65,12 +65,12 @@
 		<res id="HTMLInfoPanel.info_tur" src="resources/lang/Readme_tur.html" />
 		
 		<!-- InputPanel -->
-		<res id="userInputLang.xml_eng" src="resources/lang/userInputLang.xml_eng" />
-		<res id="userInputLang.xml_spa" src="resources/lang/userInputLang.xml_spa" />
-		<res id="userInputLang.xml_fra" src="resources/lang/userInputLang.xml_fra" />
-		<res id="userInputLang.xml_bra" src="resources/lang/userInputLang.xml_bra" />
-		<res id="userInputLang.xml_rus" src="resources/lang/userInputLang.xml_rus" />
-		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang.xml_tur" />
+		<res id="userInputLang.xml_eng" src="resources/lang/userInputLang_eng.xml" />
+		<res id="userInputLang.xml_spa" src="resources/lang/userInputLang_spa.xml" />
+		<res id="userInputLang.xml_fra" src="resources/lang/userInputLang_fra.xml" />
+		<res id="userInputLang.xml_bra" src="resources/lang/userInputLang_bra.xml" />
+		<res id="userInputLang.xml_rus" src="resources/lang/userInputLang_rus.xml" />
+		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang_tur.xml" />
 		
 		<!-- Group selection -->
 		<res id="CustomLangPack.xml_eng" src="resources/lang/customLangPack.xml_eng"/>
