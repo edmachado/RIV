@@ -2,15 +2,17 @@
 <izpack:langpack version="5.0" xmlns:izpack="http://izpack.org/schema/langpack" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
 
 <!-- packs -->
-<str id="pack.webapp" txt="RuralInvest web application"/>
+<str id="pack.webapp" txt="RuralInvest"/>
 <str id="pack.webserver" txt="Web server launcher"/>
-<str id="pack.upgrade" txt="Upgrade existing RuralInvest database"/>
-<str id="pack.newdb" txt="New (blank) database for RuralInvest"/>
+<str id="pack.upgrade" txt="Atualizar a base de dados do RuralInvest existente"/>
+<str id="pack.newdb" txt="Nova base de dados (vazia)"/>
 
 <!-- installation groups -->
-<str id="InstallationGroupPanel.group.NewInstall.html" txt="New RuralInvest installation"/>
-<str id="InstallationGroupPanel.description.NewInstall.html" txt="RuralInvest will be installed with a blank datatabase.  Any existing data (projects and profiles) will be deleted."/>
-<str id="InstallationGroupPanel.group.Upgrade.html" txt="Upgrade RuralInvest installation"/>
-<str id="InstallationGroupPanel.description.Upgrade.html" txt="The RuralInvest application will be updated and existing data (projects and profiles) will be kept."/>
+<str id="InstallationGroupPanel.group.NewInstall.html" txt="Nova instalação do RuralInvest"/>
+<str id="InstallationGroupPanel.description.NewInstall.html" txt="O RuralInvest sera instalado com uma base de dados vazia. Qualquer dado existente (anteprojetos ou projetos) será apagado."/>
+<str id="InstallationGroupPanel.group.Upgrade.html" txt="Atualizar a instalação do RuralInvest"/>
+<str id="InstallationGroupPanel.description.Upgrade.html" txt="O RuralInvest sera atualizado. Os dados existentes (projetos e anteprojetos) serão mantidos."/>
+<str id="InstallationGroupPanel.group.UpgradeAddsUser.html" txt="Atualize o RuralInvest com um novo utilizador."/>
+<str id="InstallationGroupPanel.description.UpgradeAddsUser.html" txt="O RuralInvest sera atualizado e um novo utilizador adicionado. Os dados existentes (projetos e anteprojetos) serão mantidos."/>
 
 </izpack:langpack>

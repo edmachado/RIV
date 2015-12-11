@@ -1,25 +1,25 @@
 <langpack>
 	<str id="tomcat" txt="Tomcat Port Configuration" />
-	<str id="input.userconfig" txt="User Configuration" />
+	<str id="input.userconfig" txt="Configuração do utilizador" />
   <str id="server.port" txt="Enter the Server Port No :" />
   <str id="server.port.invalid" txt="Invalid port number!" />
   <str id="http.port" txt="Enter the HTTP Port No :" />
-  <str id="username" txt="Username" />
-  <str id="username.description" txt="This is the username you will use to logon to RuralInvest, together with your password." />
-  <str id="username.invalid" txt="Invalid username!" />
-  <str id="password" txt="Password" />
-  <str id="password.description" txt="Your password is necessary to logon to RuralInvest. Don't forget it!" />
-  <str id="password.invalid" txt="Enter the same password in both both fields." />
-  <str id="fullname" txt="Your name" />
-  <str id="fullname.description" txt="This is your full name."/>
-  <str id="fullname.invalid" txt="Invalid name!" />
-  <str id="organization" txt="Organization" />
-  <str id="organization.invalid" txt="Invalid organization!" />
-  <str id="location" txt="Location" />
-  <str id="location.invalid" txt="Invalid location!" />
-  <str id="telephone" txt="Telephone" />
-  <str id="telephone.invalid" txt="Invalid telephone!" />
+  <str id="username" txt="Nome de utilizador" />
+  <str id="username.description" txt="Este é o nome de utilizador que utilizará, em conjunto com a palavra-passe para iniciar a sua sessão no RuralInvest." />
+  <str id="username.invalid" txt="O nome de utilizador inserido não é válido!" />
+  <str id="password" txt="Palavra-passe (Insira a mesma palavra-passe em ambos os campos)" />
+  <str id="password.description" txt="A sua palavra-passe é necessária para iniciar a sua sessão no RuralInvest. Não a esqueça!" />
+  <str id="password.invalid" txt="Insira a mesma palavra-passe em ambos os campos." />
+  <str id="fullname" txt="Nome" />
+  <str id="fullname.description" txt="Insira o seu nome completo."/>
+  <str id="fullname.invalid" txt="O nome inserido não é valido!" />
+  <str id="organization" txt="Organização" />
+  <str id="organization.invalid" txt="A organização inserida não é válida!" />
+  <str id="location" txt="Morada" />
+  <str id="location.invalid" txt="A morada inserida não é válida!" />
+  <str id="telephone" txt="Telefone" />
+  <str id="telephone.invalid" txt="O telefone inserido não é válido!" />
   <str id="email" txt="E-mail" />
-  <str id="email.invalid" txt="Invalid e-mail!" />
+  <str id="email.invalid" txt="O e-mail inserido não é valido!" />
   <str id="user.warning" txt="These parameters should be modified only by experienced users, otherwise leave the default values" />
 </langpack>
