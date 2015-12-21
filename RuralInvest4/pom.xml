@@ -689,7 +689,7 @@
     <parent>
         <groupId>org.fao.riv</groupId>
         <artifactId>RIV4</artifactId>
-        <version>4.2.9</version>
+        <version>4.2.10-SNAPSHOT</version>
         <relativePath>../RIV4/pom.xml</relativePath>
     </parent>
 </project>
