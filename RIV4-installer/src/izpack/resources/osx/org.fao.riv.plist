@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>org.fao.riv</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/Application/RuralInvest/bin/daemon.sh</string>
+    </array>
+
+    <key>ServiceDescription</key>
+    <string>RuralInvest</string>
+
+    <key>UserName</key>
+    <string>root</string>
+
+    <key>Nice</key>
+    <integer>1</integer>
+
+    <key>RunAtLoad</key>
+    <true/>
+    <key>OnDemand</key>
+    <false/>
+
+    <key>StandardErrorPath</key>
+    <string>/Applications/RuralInvest/logs/riv.err</string>
+    <key>StandardOutPath</key>
+    <string>/Applications/RuralInvest/logs/riv.out</string>
+
+  </dict>
+</plist>

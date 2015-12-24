@@ -48,7 +48,10 @@
 	
 	<resources>
 		<res id="LicencePanel.licence" src="resources/Licence.txt"/>
-		<res id="shortcutSpec.xml" src="resources/shortcutSpec.xml"/>
+
+		<res id="Unix_shortcutSpec.xml" src="resources/Unix_shortcutSpec.xml"/>
+		<res id="Win_shortcutSpec.xml" src="resources/Win_shortcutSpec.xml"/>
+
 		<res id="ProcessPanel.Spec.xml" src="resources/processPanelSpec.xml"/>
 		<res id="userInputSpec.xml" src="resources/userInputSpec.xml"/>
 		<res id="Installer.image" src="images/company_logo.gif" />
@@ -159,41 +162,72 @@
         	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="no" override="true">
         	
         	</fileset>
-        	<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
-			
-			<!-- Uninstaller for riv3 -->
-			<file src="resources/uninstall-riv3.bat" targetdir="$TEMP_DIRECTORY" override="true" />
-			<parsable targetfile="$TEMP_DIRECTORY/uninstall-riv3.bat" />
-			
-			<!-- shortcuts and their icon -->
-			<file src="resources/GuideRuralInvest.url" targetdir="$INSTALL_PATH" override="true" />
-			<parsable targetfile="$INSTALL_PATH/GuideRuralInvest.url" />
 			<file src="icons/riv.ico" targetdir="$INSTALL_PATH/icons" override="true" />
-			
-			<file src="resources/startService.bat" targetdir="$TEMP_DIRECTORY" override="true" />
-			<!-- removes the Windows service during uninstall  -->
-			<file src="resources/removeService.bat" targetdir="$INSTALL_PATH" override="true" />
-			<parsable targetfile="$INSTALL_PATH/removeService.bat" />
-			<executable targetfile="$INSTALL_PATH/removeService.bat" keep="true" os="windows" stage="uninstall" />
+        	<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
+
+            <!-- ==============
+			    	Windows
+                 ============== -->
+            <!-- Uninstaller for riv3 -->
+            <file src="resources/win/uninstall-riv3.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <parsable targetfile="$TEMP_DIRECTORY/uninstall-riv3.bat" os="windows"/>
+
+            <file src="resources/win/GuideRuralInvest.url" targetdir="$INSTALL_PATH" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/GuideRuralInvest.url" os="windows"/>
+
+            <file src="resources/win/startService.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <!-- removes the Windows service during uninstall  -->
+            <file src="resources/win/removeService.bat" targetdir="$INSTALL_PATH" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/removeService.bat" os="windows"/>
+            <executable targetfile="$INSTALL_PATH/removeService.bat" keep="true" os="windows" stage="uninstall" />
+
+            <!-- ==============
+			    	Mac OS X
+                 ============== -->
+            <file src="resources/osx/softwareManual.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+            <parsable targetfile="$INSTALL_PATH/bin/softwareManual.sh" os="mac"/>
+            <file src="resources/osx/riv.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+            <parsable targetfile="$INSTALL_PATH/bin/riv.sh" os="mac"/>
+
+            <file src="resources/osx/daemon.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+            <parsable targetfile="$INSTALL_PATH/bin/daemon.sh" os="mac"/>
+            <executable targetfile="$INSTALL_PATH/bin/daemon.sh" stage="never" keep="true" os="mac" />
+
+            <!-- removes the OS X service during uninstall  -->
+            <file src="resources/osx/daemonUnistaller.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+            <executable targetfile="$INSTALL_PATH/bin/daemonUnistaller.sh" keep="true" os="mac" stage="uninstall" />
+
 		</pack>
 		
 		<pack name="Web server launcher" required="yes" condition="!RIV4-service-exists" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webserver">
 			<description>Service to run embedded web server</description>
-			<!--  actual service launcher -->
-			<file src="@{izpack.staging}/lib/RIV4-service.jar" targetdir="$INSTALL_PATH/service" override="true" />
-			<!--  tool to create windows service -->
-			<file src="resources/prunsrv.exe" targetdir="$INSTALL_PATH/service" override="true" />
-			<!-- opens port during installation -->
-			<file src="resources/openPort.bat" targetdir="$TEMP_DIRECTORY" override="true" />
-			<parsable targetfile="$TEMP_DIRECTORY/openPort.bat" />
-			<!--  creates the service during installation -->
-			<file src="resources/createService.bat" targetdir="$TEMP_DIRECTORY" override="true" />
-			<parsable targetfile="$TEMP_DIRECTORY/createService.bat" />
-			<!-- shortcut to service -->
-			<file src="resources/RuralInvest.url" targetdir="$INSTALL_PATH/service" override="true" />
-			<parsable targetfile="$INSTALL_PATH/service/RuralInvest.url" />
-			<file src="resources/launchUrl.bat" targetdir="$INSTALL_PATH/service" override="true" />
-			<parsable targetfile="$INSTALL_PATH/service/launchUrl.bat" />
+
+            <!--  actual service launcher -->
+            <file src="@{izpack.staging}/lib/RIV4-service.jar" targetdir="$INSTALL_PATH/service" override="true" />
+
+            <!-- ==============
+			    	Windows
+                 ============== -->
+            <!--  tool to create windows service -->
+            <file src="resources/win/prunsrv.exe" targetdir="$INSTALL_PATH/service" override="true" os="windows"/>
+            <!-- opens port during installation -->
+            <file src="resources/win/openPort.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <parsable targetfile="$TEMP_DIRECTORY/openPort.bat" os="windows"/>
+            <!--  creates the service during installation -->
+            <file src="resources/win/createService.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <parsable targetfile="$TEMP_DIRECTORY/createService.bat" os="windows"/>
+
+            <!-- shortcut to service -->
+            <file src="resources/win/RuralInvest.url" targetdir="$INSTALL_PATH/service" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/service/RuralInvest.url" os="windows"/>
+
+            <file src="resources/win/launchUrl.bat" targetdir="$INSTALL_PATH/service" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/service/launchUrl.bat" os="windows"/>
+
+            <!-- ==============
+			    	Mac OS X
+                 ============== -->
+
 		</pack>
  
 		<pack name="NewInstall" required="yes" installGroups="NewInstall" id="pack.newDb">
