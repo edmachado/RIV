@@ -2,7 +2,6 @@ package riv.web.config;
 
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
@@ -31,8 +30,8 @@ public class RepositoryConfig {
     @Value("${hibernate.autocommit}")	private String hibernateAutocommit;
         
 
-	@Autowired
-	private ServletContext servletContext;
+//	@Autowired
+//	private ServletContext servletContext;
 	
     @Bean
     public DataSource getDataSource() {

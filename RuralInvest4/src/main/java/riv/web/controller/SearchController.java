@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -49,8 +48,8 @@ public class SearchController {
 	private RivConfig rivConfig;
 	@Autowired
 	private PdfReportCreator reportCreator;
-	@Autowired
-	private MessageSource messageSource;
+//	@Autowired
+//	private MessageSource messageSource;
 	@Autowired
 	private Exporter exporter;
 	@Autowired

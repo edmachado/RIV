@@ -25,7 +25,6 @@ import riv.objects.config.User;
 import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.util.validators.DonorValidator;
-import riv.web.config.RivConfig;
 import riv.web.service.DataService;
  
 @Controller
@@ -33,8 +32,8 @@ import riv.web.service.DataService;
 public class ProjectDonorController {
 	@Autowired
     private DataService dataService;
-	@Autowired
-	private RivConfig rivConfig;
+//	@Autowired
+//	private RivConfig rivConfig;
 	@Autowired
 	MessageSource messageSource;
 	
