@@ -35,14 +35,14 @@
 		</dependencies>
 	</dependencyManagement>
 	<repositories>
-		<repository>
-			<id>hsql-snaps</id>
-			<name>hsqldb-private</name>
-			<url>http://www.hsqldb.org/repos</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
+<!-- 		<repository> -->
+<!-- 			<id>hsql-snaps</id> -->
+<!-- 			<name>hsqldb-private</name> -->
+<!-- 			<url>http://www.hsqldb.org/repos</url> -->
+<!-- 			<snapshots> -->
+<!-- 				<enabled>true</enabled> -->
+<!-- 			</snapshots> -->
+<!-- 		</repository> -->
 	</repositories>
 	<build>
 		<pluginManagement>
