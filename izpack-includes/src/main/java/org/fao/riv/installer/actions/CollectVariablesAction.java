@@ -21,9 +21,14 @@ public class CollectVariablesAction implements PanelAction {
 		iData.setVariable("RIV3_INSTALL_PATH", iData.getVariable("DEFAULT_INSTALL_PATH"));
 		
 		// check if services exist
-		iData.setVariable("riv3service", String.valueOf(WindowsService.riv3Exists));
+		if (System.getProperty("os.name").contains("Windows")) {
+			iData.setVariable("riv3service", String.valueOf(WindowsService.riv3Exists));
+			iData.setVariable("riv4service", String.valueOf(WindowsService.riv4Exists));
+		} else { // might be necessary to check service/daemon in macos?
+			iData.setVariable("riv3service", String.valueOf(false));
+			iData.setVariable("riv4service", String.valueOf(false));
+		}
 		System.out.println("riv3service:"+iData.getVariable("riv3service"));
-		iData.setVariable("riv4service", String.valueOf(WindowsService.riv4Exists));
 		System.out.println("riv4service:"+iData.getVariable("riv4service"));
 		
 		// check if databases exist

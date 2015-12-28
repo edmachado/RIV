@@ -11,14 +11,17 @@ public class StopWindowsServiceAction implements PanelAction {
 	
 	@Override
 	public void executeAction(InstallData iData, AbstractUIHandler uih) {
-		if (iData.getVariable("riv4service").equals("true")) {
-			String service = "RuralInvest4"; 
-			if (WindowsService.isServiceActive(service)) {
-				System.out.println("Stopping service "+service);
-				WindowsService.stopService(service);
-			} else 
-				System.out.println("No need to stop service "+service+". The service is not running.");
-		}
+		 if (System.getProperty("os.name").contains("Windows")) {
+				 if (iData.getVariable("riv4service").equals("true")) {
+			 
+				String service = "RuralInvest4"; 
+				if (WindowsService.isServiceActive(service)) {
+					System.out.println("Stopping service "+service);
+					WindowsService.stopService(service);
+				} else 
+					System.out.println("No need to stop service "+service+". The service is not running.");
+			}
+		 }
 	}
 
 	@Override

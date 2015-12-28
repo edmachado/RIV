@@ -11,7 +11,6 @@ public class WindowsService {
 	private static final String REGQUERY_UTIL = "reg query \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\";
 
 	public static void removeService(String service) {
-        if (isWindows()) {
             System.out.println("removing service " + service);
             String cmd = "sc delete \"" + service + "\"";
             System.out.println(cmd);
@@ -28,22 +27,18 @@ public class WindowsService {
             }
             if (isServiceActive(service))
                 System.out.println("Couldn't remove service.");
-        }
 	}
 	
 	public static void stopService(String service) {
-        if (isWindows()) {
             System.out.println("NET STOP " + service);
             try {
                 Runtime.getRuntime().exec("NET STOP " + service);
             } catch (Exception ex) {
                 ex.printStackTrace(System.out);
             }
-        }
     }
 	
 	public static boolean isServiceExist(String serviceName)  {
-        if (isWindows()) {
             try {
                 Process
                         process =
@@ -61,12 +56,9 @@ public class WindowsService {
                 e.printStackTrace(System.out);
                 return false;
             }
-        }
-        return false;
 	}
 	
 	public static boolean isServiceActive(String service) {
-        if (isWindows()) {
             try {
                 Process process = Runtime.getRuntime().exec(REGQUERY_UTIL + service);
                 StreamReader reader = new StreamReader(process.getInputStream());
@@ -86,8 +78,6 @@ public class WindowsService {
             } catch (Exception e) {
                 return false;
             }
-        }
-        return false;
 	}
 	
 	static class StreamReader extends Thread {
@@ -115,7 +105,5 @@ public class WindowsService {
         }
     }
 
-    private static boolean isWindows() {
-        return System.getProperty("os.name").contains("Windows");
-    }
+  
 }
