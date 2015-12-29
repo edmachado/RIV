@@ -7,11 +7,28 @@
 
     <key>ProgramArguments</key>
     <array>
-      <string>/Application/RuralInvest/bin/daemon.sh</string>
+      <string>java</string>
+      <string>-cp</string>
+      <string>/Applications/RuralInvest/service/RIV4-service.jar</string>
+      <string>org.fao.riv.service.Launch</string>
+      <string>$HTTP_PORT_NO</string>
     </array>
 
     <key>ServiceDescription</key>
     <string>RuralInvest</string>
+
+    <key>Sockets</key>
+    <dict>
+      <key>Listeners</key>
+      <dict>
+        <key>SockServiceName</key>
+        <string>$HTTP_PORT_NO</string>
+        <key>SockType</key>
+        <string>stream</string>
+        <key>SockFamily</key>
+        <string>IPv4</string>
+      </dict>
+    </dict>
 
     <key>UserName</key>
     <string>root</string>
