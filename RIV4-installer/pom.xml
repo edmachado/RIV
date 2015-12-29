@@ -272,8 +272,8 @@
                 <version>2.5.4</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/main/assembly/zip-admin.xml</descriptor>
-                        <descriptor>src/main/assembly/zip-user.xml</descriptor>
+                        <descriptor>src/main/assembly/win-admin.xml</descriptor>
+                        <descriptor>src/main/assembly/win-user.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
