@@ -1,8 +1,8 @@
 <assembly
-	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
-	<id>admin</id>
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+	<id>user</id>
 	<includeBaseDirectory>false</includeBaseDirectory>
 	<baseDirectory>CD</baseDirectory>
 	<formats>
@@ -25,10 +25,6 @@
 		</fileSet>
 	</fileSets>
 	<files>
-		<file>
-			<source>${izpack.dir}/resources/av.riv</source>
-			<outputDirectory>lib</outputDirectory>
-		</file>
 		<file>
 			<source>${izpack.dir}/jre/jre-8u66-windows-i586.exe</source>
 			<outputDirectory>jre</outputDirectory>

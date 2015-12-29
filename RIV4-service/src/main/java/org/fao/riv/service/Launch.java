@@ -26,7 +26,7 @@ public class Launch  {
 	private static int port;
 	
     public static void main(String[] args) {
-    	System.out.println("In main()");
+    	System.out.println("Starting...");
 		if ("start".equals(args[0])) start(args);
 		else if ("stop".equals(args[0])) stop(args);
 		else start(new String[] {args[0]}); // so you can just pass port number
