@@ -188,10 +188,10 @@
             <parsable targetfile="$INSTALL_PATH/bin/softwareManual.sh" os="mac"/>
             <file src="resources/osx/riv.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
             <parsable targetfile="$INSTALL_PATH/bin/riv.sh" os="mac"/>
-
-            <file src="resources/osx/daemon.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
-            <parsable targetfile="$INSTALL_PATH/bin/daemon.sh" os="mac"/>
-            <executable targetfile="$INSTALL_PATH/bin/daemon.sh" stage="never" keep="true" os="mac" />
+            <executable targetfile="$INSTALL_PATH/bin/riv.sh" stage="never" keep="true" os="mac" />
+			<fileset dir="resources/osx/RuralInvest.app" targetdir="$INSTALL_PATH/RuralInvest.app" override="true" os="mac" />
+			<executable targetfile="$INSTALL_PATH/RuralInvest.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
+			<executable targetfile="$INSTALL_PATH/bin/daemonUnistaller.sh" keep="true" os="mac" stage="uninstall" />
 
             <!-- removes the OS X service during uninstall  -->
             <file src="resources/osx/daemonUnistaller.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
@@ -227,8 +227,9 @@
             <!-- ==============
 			    	Mac OS X
                  ============== -->
-
-		</pack>
+			<file src="resources/osx/org.fao.riv.plist" targetdir="/Library/LaunchDaemons" override="true" os="mac"/>
+			<parsable targetfile="/Library/LaunchDaemons/org.fao.riv.plist" os="mac"/>
+        </pack>
  
 		<pack name="NewInstall" required="yes" installGroups="NewInstall" id="pack.newDb">
 			<description>Installs a blank database</description>
