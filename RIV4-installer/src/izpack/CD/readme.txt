@@ -28,6 +28,12 @@ prompting to choose between some options. Unless you noticed any errors during
 the installation procedure, it is not a real issue.
 Feel free to select the option "the installer ended correctly".
 
+At the end of the installation the installer will open RuralInvest.
+
 2.2 Installing on MacOS
 -----------------------
-We hope to have a MacOS installer available in the future.
+Launch Install and if needed the installer asks you to provide Administrator login to continue.
+If you fail to do this the installation may continue, but it will not work and you'll have some error
+messages.
+
+At the end of the installation the installer will open RuralInvest.
