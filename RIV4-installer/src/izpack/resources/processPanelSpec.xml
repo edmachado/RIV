@@ -29,6 +29,14 @@
 			<arg>$INSTALL_PATH/webapp/WEB-INF/data</arg>
 		</executeclass>
 	</job>
+	<job name="stopping service" condition="RIV4-service-exists">
+		<os family="mac" />
+		<executefile name="/usr/bin/sudo">
+			<arg>launchctl</arg>
+			<arg>unload</arg>
+			<arg>/Library/LaunchDaemons/org.fao.riv.plist</arg>
+		</executefile>
+	</job>
 	<job name="upgrading sql structure">
 		<executeForPack name="Upgrade"/>
 		<executeForPack name="UpgradeAddsUser"/>
@@ -80,7 +88,7 @@
 			<arg>$INSTALL_PATH/logs</arg>
 		</executefile>
 	</job>
-	<job name="creating service" condition="!RIV4-service-exists">
+	<job name="starting service">
 		<os family="mac" />
 		<executefile name="/usr/bin/sudo">
 			<arg>launchctl</arg>
@@ -88,10 +96,10 @@
 			<arg>/Library/LaunchDaemons/org.fao.riv.plist</arg>
 		</executefile>
 	</job>
-	<job name="starting service">
+	<job name="waiting for service to startup">
 		<os family="mac" />
 		<executefile name="/bin/sleep">
-			<arg>1</arg>
+			<arg>2</arg>
 		</executefile>
 	</job>
 </processing>
