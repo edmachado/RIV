@@ -274,6 +274,8 @@
                     <descriptors>
                         <descriptor>src/main/assembly/win-admin.xml</descriptor>
                         <descriptor>src/main/assembly/win-user.xml</descriptor>
+                        <descriptor>src/main/assembly/osx-admin.xml</descriptor>
+                        <descriptor>src/main/assembly/osx-user.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
