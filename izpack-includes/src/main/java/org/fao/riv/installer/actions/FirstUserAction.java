@@ -28,7 +28,6 @@ public class FirstUserAction {
 	}
 	
 	public void run(AbstractUIProcessHandler uih, String[] args) {
-		uih.logOutput("Adding user.", false);
 		FirstUserData user = new FirstUserData();
 		user.webroot = String.format("%s/webapp/WEB-INF/data/riv", args[0]);
 		user.username = args[1];
@@ -40,7 +39,12 @@ public class FirstUserAction {
 		user.email = args[7];
 		user.language = args[8];
 		user.newInstall = args[9].equalsIgnoreCase("true");
-		
+
+		if (user.newInstall) {
+			uih.logOutput("Adding first user.", false);
+		} else {
+			uih.logOutput("Adding new user.", false);
+		}
 		try {
 			execute(user);
 		} catch (Exception e) {
