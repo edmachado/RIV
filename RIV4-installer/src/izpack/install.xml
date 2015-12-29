@@ -149,10 +149,10 @@
 		<condition type="packselection" id="upgradeAddsUserSelected">
 			<name>UpgradeAddsUser</name>
 		</condition>
-		<condition type="or" id="addNewUser">
-			<condition type="ref" refid="newInstallSelected"/>
-			<condition type="ref" refid="upgradeAddsUserSelected"/>
-		</condition>
+<!-- 		<condition type="or" id="addNewUser"> -->
+<!-- 			<condition type="ref" refid="newInstallSelected"/> -->
+<!-- 			<condition type="ref" refid="upgradeAddsUserSelected"/> -->
+<!-- 		</condition> -->
 	</conditions>
 
 	<packs>

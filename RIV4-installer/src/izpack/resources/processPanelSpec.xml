@@ -6,8 +6,8 @@
 		<os family="windows" />
 		<executefile name="$TEMP_DIRECTORY/uninstall-riv3.bat"/>
 	</job>
-	<job name="adding first user">
-		<executeForPack name="NewInstall"/>
+	<job name="adding first user" condition="newInstallSelected">
+<!-- 		<executeForPack name="NewInstall"/> -->
 		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
 			<arg>$INSTALL_PATH</arg>
 			<arg>$RIV_USER_NAME</arg>
@@ -39,8 +39,8 @@
 			<arg>${riv3installed}</arg>
 		</executeclass>
 	</job>
-	<job name="adding user">
-		<executeForPack name="UpgradeAddsUser"/>
+	<job name="adding user" condition="upgradeAddsUserSelected">
+<!-- 		<executeForPack name="UpgradeAddsUser"/> -->
 		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
 			<arg>$INSTALL_PATH</arg>
 			<arg>$RIV_USER_NAME</arg>
