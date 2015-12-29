@@ -70,7 +70,8 @@ public class Launch  {
 			}
         	System.out.println("basepath="+basePath);
 			String webappPath = basePath+System.getProperty("file.separator")+"webapp";
-			
+			String tomcatPath = basePath+System.getProperty("file.separator")+"tomcat";
+
 	        try {
 				// get port
 				getPort(args);
@@ -78,7 +79,10 @@ public class Launch  {
 				
 				// start tomcat
 				unlockDb();
-				System.out.println("configuring app with basedir: " + webappPath.toString());
+				System.out.println("configuring app with war dir: " + webappPath.toString());
+				System.out.println("and tomcat work dir: " + webappPath.toString());
+				tomcat.setBaseDir(tomcatPath);
+				
 				tomcat.getConnector().setURIEncoding("UTF-8");
 				Context myapp = tomcat.addWebapp("/RuralInvest", webappPath.toString());
 				myapp.setTldValidation(false);
