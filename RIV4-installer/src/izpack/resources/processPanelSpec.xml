@@ -7,7 +7,6 @@
 		<executefile name="$TEMP_DIRECTORY/uninstall-riv3.bat"/>
 	</job>
 	<job name="adding first user">
-		<os family="windows" />
 		<executeForPack name="NewInstall"/>
 		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
 			<arg>$INSTALL_PATH</arg>
@@ -32,7 +31,6 @@
 		</executeclass>
 	</job>
 	<job name="upgrading sql structure">
-		<os family="windows" />
 		<executeForPack name="Upgrade"/>
 		<executeForPack name="UpgradeAddsUser"/>
 		<executeclass name="org.fao.riv.installer.sql.UpdateSql">
@@ -42,7 +40,6 @@
 		</executeclass>
 	</job>
 	<job name="adding user">
-		<os family="windows" />
 		<executeForPack name="UpgradeAddsUser"/>
 		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
 			<arg>$INSTALL_PATH</arg>
@@ -57,6 +54,10 @@
 			<arg>false</arg>
 		</executeclass>
 	</job>
+
+	<!-- ==============
+            Windows
+         ============== -->
 	<job name="opening port" condition="!RIV4-service-exists">
 		<os family="windows" />
 		<executefile name="$TEMP_DIRECTORY/openPort.bat"/>
@@ -70,5 +71,29 @@
 	<job name="starting service">
 		<os family="windows" />
 		<executefile name="$TEMP_DIRECTORY/startService.bat"/>
+	</job>
+
+	<!-- ==============
+            Mac OS X
+         ============== -->
+	<job name="preparing service" condition="!RIV4-service-exists">
+		<os family="mac" />
+		<executefile name="/bin/mkdir">
+			<arg>/Applications/RuralInvest/logs</arg>
+		</executefile>
+	</job>
+	<job name="creating service" condition="!RIV4-service-exists">
+		<os family="mac" />
+		<executefile name="/usr/bin/sudo">
+			<arg>launchctl</arg>
+			<arg>load</arg>
+			<arg>/Library/LaunchDaemons/org.fao.riv.plist</arg>
+		</executefile>
+	</job>
+	<job name="starting service">
+		<os family="mac" />
+		<executefile name="/bin/sleep">
+			<arg>1</arg>
+		</executefile>
 	</job>
 </processing>
