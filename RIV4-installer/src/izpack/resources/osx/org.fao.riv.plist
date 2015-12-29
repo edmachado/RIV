@@ -9,7 +9,7 @@
     <array>
       <string>java</string>
       <string>-cp</string>
-      <string>/Applications/RuralInvest/service/RIV4-service.jar</string>
+      <string>$INSTALL_PATH/service/RIV4-service.jar</string>
       <string>org.fao.riv.service.Launch</string>
       <string>$HTTP_PORT_NO</string>
     </array>
@@ -42,9 +42,9 @@
     <false/>
 
     <key>StandardErrorPath</key>
-    <string>/Applications/RuralInvest/logs/riv.err</string>
+    <string>$INSTALL_PATH/logs/riv.err</string>
     <key>StandardOutPath</key>
-    <string>/Applications/RuralInvest/logs/riv.out</string>
+    <string>$INSTALL_PATH/logs/riv.out</string>
 
   </dict>
 </plist>

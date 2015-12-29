@@ -24,25 +24,34 @@ public class CollectVariablesAction implements PanelAction {
 		if (System.getProperty("os.name").contains("Windows")) {
 			iData.setVariable("riv3service", String.valueOf(WindowsService.riv3Exists));
 			iData.setVariable("riv4service", String.valueOf(WindowsService.riv4Exists));
-		} else { // might be necessary to check service/daemon in macos?
+            // check if databases exist
+            String riv3path = iData.getVariable("RIV3_INSTALL_PATH")+"/jakarta-tomcat/webapps/ROOT/WEB-INF/data/riv.data";
+            String riv3installed = String.valueOf(new File(riv3path).exists());
+            System.out.println("looking for: "+riv3path);
+            iData.setVariable("riv3installed", riv3installed);
+            System.out.println("riv3installed:"+riv3installed);
+
+            String riv4path = iData.getVariable("DEFAULT_INSTALL_PATH")+"4/webapp/WEB-INF/data/riv.data";
+            String riv4installed = String.valueOf(new File(riv4path).exists());
+            System.out.println("looking for: "+riv4path);
+            iData.setVariable("riv4installed", riv4installed);
+            System.out.println("riv4installed:"+riv4installed);
+
+        } else {
 			iData.setVariable("riv3service", String.valueOf(false));
-			iData.setVariable("riv4service", String.valueOf(false));
+            iData.setVariable("riv3installed", String.valueOf(false));
+
+            String rivDaemon = "/Library/LaunchDaemons/org.fao.riv.plist";
+            iData.setVariable("riv4service", String.valueOf(new File(rivDaemon).exists()));
+
+            String rivData = "/Library/RuralInvest/webapp/WEB-INF/data/riv.data";
+            String riv4installed = String.valueOf(new File(rivDaemon).exists());
+            System.out.println("looking for: "+rivData);
+            iData.setVariable("riv4installed", riv4installed);
+            System.out.println("riv4installed:"+riv4installed);
 		}
 		System.out.println("riv3service:"+iData.getVariable("riv3service"));
 		System.out.println("riv4service:"+iData.getVariable("riv4service"));
-		
-		// check if databases exist
-		String riv3path = iData.getVariable("RIV3_INSTALL_PATH")+"/jakarta-tomcat/webapps/ROOT/WEB-INF/data/riv.data";
-		String riv3installed = String.valueOf(new File(riv3path).exists());
-		System.out.println("looking for: "+riv3path);
-		iData.setVariable("riv3installed", riv3installed);
-		System.out.println("riv3installed:"+riv3installed);
-		
-		String riv4path = iData.getVariable("DEFAULT_INSTALL_PATH")+"4/webapp/WEB-INF/data/riv.data";
-		String riv4installed = String.valueOf(new File(riv4path).exists());
-		System.out.println("looking for: "+riv4path);
-		iData.setVariable("riv4installed", riv4installed);
-		System.out.println("riv4installed:"+riv4installed);
 		
 		// check if admin version
 		String jarBase=null;

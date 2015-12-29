@@ -77,7 +77,7 @@
 	<job name="preparing service" condition="!RIV4-service-exists">
 		<os family="mac" />
 		<executefile name="/bin/mkdir">
-			<arg>/Applications/RuralInvest/logs</arg>
+			<arg>$INSTALL_PATH/logs</arg>
 		</executefile>
 	</job>
 	<job name="creating service" condition="!RIV4-service-exists">

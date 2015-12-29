@@ -8,6 +8,7 @@
    		<variable name="InstallationGroupPanel.sortKey.Upgrade" value="A"/>
    		<variable name="InstallationGroupPanel.sortKey.UpgradeAddsUser" value="B"/>
    		<variable name="TargetPanel.dir.windows" value="${DEFAULT_INSTALL_PATH}4"/>
+        <variable name="TargetPanel.dir.mac_osx" value="/Library/RuralInvest"/>
    		<variable name="DesktopShortcutCheckboxEnabled" value="true"/>
    		<variable name="ShowCreateDirectoryMessage" value="false" />
 	</variables>
@@ -162,12 +163,12 @@
         	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="no" override="true">
         	
         	</fileset>
-			<file src="icons/riv.ico" targetdir="$INSTALL_PATH/icons" override="true" />
-        	<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
+			<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
 
             <!-- ==============
 			    	Windows
                  ============== -->
+            <file src="icons/riv.ico" targetdir="$INSTALL_PATH/icons" override="true" os="windows" />
             <!-- Uninstaller for riv3 -->
             <file src="resources/win/uninstall-riv3.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
             <parsable targetfile="$TEMP_DIRECTORY/uninstall-riv3.bat" os="windows"/>
@@ -184,19 +185,9 @@
             <!-- ==============
 			    	Mac OS X
                  ============== -->
-            <file src="resources/osx/softwareManual.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
-            <parsable targetfile="$INSTALL_PATH/bin/softwareManual.sh" os="mac"/>
-            <file src="resources/osx/riv.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
-            <parsable targetfile="$INSTALL_PATH/bin/riv.sh" os="mac"/>
-            <executable targetfile="$INSTALL_PATH/bin/riv.sh" stage="never" keep="true" os="mac" />
-			<fileset dir="resources/osx/RuralInvest.app" targetdir="$INSTALL_PATH/RuralInvest.app" override="true" os="mac" />
-			<executable targetfile="$INSTALL_PATH/RuralInvest.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
-			<executable targetfile="$INSTALL_PATH/bin/daemonUnistaller.sh" keep="true" os="mac" stage="uninstall" />
-
-            <!-- removes the OS X service during uninstall  -->
-            <file src="resources/osx/daemonUnistaller.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
-            <executable targetfile="$INSTALL_PATH/bin/daemonUnistaller.sh" keep="true" os="mac" stage="uninstall" />
-
+            <!-- === O    O === -->
+            <!-- ==== XXXX ==== -->
+            <!-- ============== -->
 		</pack>
 		
 		<pack name="Web server launcher" required="yes" condition="!RIV4-service-exists" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webserver">
@@ -229,6 +220,15 @@
                  ============== -->
 			<file src="resources/osx/org.fao.riv.plist" targetdir="/Library/LaunchDaemons" override="true" os="mac"/>
 			<parsable targetfile="/Library/LaunchDaemons/org.fao.riv.plist" os="mac"/>
+            <parsable targetfile="$INSTALL_PATH/bin/softwareManual.sh" os="mac"/>
+            <file src="resources/osx/riv.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+            <parsable targetfile="$INSTALL_PATH/bin/riv.sh" os="mac"/>
+            <executable targetfile="$INSTALL_PATH/bin/riv.sh" stage="never" keep="true" os="mac" />
+            <fileset dir="resources/osx/RuralInvest.app" targetdir="/Applications/RuralInvest/RuralInvest.app" override="true" os="mac" />
+            <executable targetfile="/Applications/RuralInvest/RuralInvest.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
+            <!-- removes the OS X service during uninstall  -->
+            <fileset dir="resources/osx/Uninstaller.app" targetdir="/Applications/RuralInvest/Uninstaller.app" override="true" os="mac" />
+            <executable targetfile="/Applications/RuralInvest/Uninstaller.app/Contents/MacOS/applet" stage="uninstall" keep="true" os="mac" />
         </pack>
  
 		<pack name="NewInstall" required="yes" installGroups="NewInstall" id="pack.newDb">
