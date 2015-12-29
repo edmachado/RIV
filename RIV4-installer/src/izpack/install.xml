@@ -146,8 +146,12 @@
 		<condition type="packselection" id="newInstallSelected">
  			<name>NewInstall</name>
 		</condition>
-		<condition type="packselection" id="upgradeAddsUserSelected">
-			<name>UpgradeAddsUser</name>
+<!-- 		<condition type="packselection" id="upgradeAddsUserSelected"> -->
+<!-- 			<name>UpgradeAddsUser</name> -->
+<!-- 		</condition> -->
+		<condition type="variable" id="upgradeAddsUserSelected">
+			<name>INSTALL_GROUP</name>
+			<value>UpgradeAddsUser</value>
 		</condition>
 	</conditions>
 
@@ -236,8 +240,8 @@
 			<description>Update existing RuralInvest database</description>
 			<file src="resources/sql.xml" targetdir="$TEMP_DIRECTORY" override="true" />
 		</pack>
-		<pack name="UpgradeAddsUser" required="yes" installGroups="UpgradeAddsUser" id="pack.upgradeAddsUser">
-			<description>Update existing RuralInvest database and add a new user</description>
-		</pack>
+<!-- 		<pack name="UpgradeAddsUser" required="yes" installGroups="UpgradeAddsUser" id="pack.upgradeAddsUser"> -->
+<!-- 			<description>Update existing RuralInvest database and add a new user</description> -->
+<!-- 		</pack> -->
 	</packs>
 </installation>
