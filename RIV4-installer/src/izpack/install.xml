@@ -154,6 +154,10 @@
 			<name>INSTALL_GROUP</name>
 			<value>UpgradeAddsUser</value>
 		</condition>
+		<condition type="or" id="addNewUser">
+			<condition type="ref" refid="newInstallSelected"/>
+			<condition type="ref" refid="upgradeAddsUserSelected"/>
+		</condition>
 	</conditions>
 
 	<packs>
