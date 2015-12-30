@@ -60,11 +60,11 @@ public class Launch  {
 				LOGGER.warning("Error url decoding base path.");
 			}
         	System.out.println("basepath="+basePath);
-			String webappPath = basePath+System.getProperty("file.separator")+"webapp";
-			String tomcatPath = basePath+System.getProperty("file.separator")+"tomcat";
+			String webappPath = appendToBasePath("webapp");
+			String tomcatPath = appendToBasePath("tomcat");
 
 	    	try {
-				logfile = new FileHandler(basePath+System.getProperty("file.separator")+"service.log");
+				logfile = new FileHandler(appendToBasePath("service.log"));
 			} catch (Exception e1) {
 				e1.printStackTrace(System.out);
 			}
@@ -103,8 +103,12 @@ public class Launch  {
 			}
     	}
     }
-    
-    private static void unlockDb() {
+
+	private static String appendToBasePath(String path) {
+		return basePath+System.getProperty("file.separator")+path;
+	}
+
+	private static void unlockDb() {
     	String lock = basePath+System.getProperty("file.separator")+"webapp"+System.getProperty("file.separator")+"WEB-INF"+System.getProperty("file.separator")+"data"+System.getProperty("file.separator")+"riv.lck";
     	LOGGER.info("Deleting "+lock);
     	File dbLck = new File(lock);
