@@ -3,6 +3,7 @@ package org.fao.riv.installer.actions;
 import java.io.File;
 import java.net.URISyntaxException;
 
+import org.fao.riv.installer.OS;
 import org.fao.riv.installer.util.WindowsService;
 
 import com.izforge.izpack.api.data.InstallData;
@@ -21,7 +22,7 @@ public class CollectVariablesAction implements PanelAction {
 		iData.setVariable("RIV3_INSTALL_PATH", iData.getVariable("DEFAULT_INSTALL_PATH"));
 		
 		// check if services exist
-		if (System.getProperty("os.name").contains("Windows")) {
+		if (OS.isWindows())) {
 			iData.setVariable("riv3service", String.valueOf(WindowsService.riv3Exists));
 			iData.setVariable("riv4service", String.valueOf(WindowsService.riv4Exists));
             // check if databases exist
@@ -37,7 +38,7 @@ public class CollectVariablesAction implements PanelAction {
             iData.setVariable("riv4installed", riv4installed);
             System.out.println("riv4installed:"+riv4installed);
 
-        } else {
+        } else if (OS.isMac()){
 			iData.setVariable("riv3service", String.valueOf(false));
             iData.setVariable("riv3installed", String.valueOf(false));
 
