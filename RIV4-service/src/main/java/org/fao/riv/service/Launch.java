@@ -51,15 +51,6 @@ public class Launch  {
     	if (tomcat==null) {
 	    	LOGGER = Logger.getLogger(Launch.class .getName());
 	    	LOGGER.setLevel(Level.SEVERE);
-	    	try {
-				logfile = new FileHandler("service.log");
-			} catch (Exception e1) {
-				e1.printStackTrace(System.out);
-			}
-	    	logfile.setFormatter(new SimpleFormatter());
-	    	LOGGER.addHandler(logfile);
-	    	
-	    	tomcat = new Tomcat();
 
 			// set paths
         	basePath = new File(new File(Launch.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent()).getParent();
@@ -71,6 +62,17 @@ public class Launch  {
         	System.out.println("basepath="+basePath);
 			String webappPath = basePath+System.getProperty("file.separator")+"webapp";
 			String tomcatPath = basePath+System.getProperty("file.separator")+"tomcat";
+
+	    	try {
+				logfile = new FileHandler(basePath+System.getProperty("file.separator")+"service.log");
+			} catch (Exception e1) {
+				e1.printStackTrace(System.out);
+			}
+	    	logfile.setFormatter(new SimpleFormatter());
+	    	LOGGER.addHandler(logfile);
+
+	    	tomcat = new Tomcat();
+
 
 	        try {
 				// get port
