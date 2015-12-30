@@ -20,33 +20,20 @@
 			<arg>true</arg>
 		</executeclass>
 	</job>
-	<job name="retrieving migrated database">
-		<os family="windows" />
-		<executeForPack name="Upgrade"/>
-		<executeForPack name="UpgradeAddsUser"/>
+	<job name="retrieving migrated database" condition="!newInstallSelected">
 		<executeclass name="org.fao.riv.installer.util.MigrateDb">
 			<arg>$MIGRATED_DB</arg>
 			<arg>$INSTALL_PATH/webapp/WEB-INF/data</arg>
 		</executeclass>
 	</job>
-	<job name="stopping service" condition="RIV4-service-exists">
-		<os family="mac" />
-		<executefile name="/usr/bin/sudo">
-			<arg>launchctl</arg>
-			<arg>unload</arg>
-			<arg>/Library/LaunchDaemons/org.fao.riv.plist</arg>
-		</executefile>
-	</job>
-	<job name="upgrading sql structure">
-		<executeForPack name="Upgrade"/>
-		<executeForPack name="UpgradeAddsUser"/>
+	<job name="upgrading sql structure" condition="!newInstallSelected">
 		<executeclass name="org.fao.riv.installer.sql.UpdateSql">
 			<arg>$INSTALL_PATH</arg>
 			<arg>$TEMP_DIRECTORY/sql.xml</arg>
 			<arg>${riv3installed}</arg>
 		</executeclass>
 	</job>
-	<job name="adding user" condition="upgradeAddsUserSelected">
+	<job name="adding user" condition="upgradeAddsUserSelected+!newInstallSelected">
 		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
 			<arg>$INSTALL_PATH</arg>
 			<arg>$RIV_USER_NAME</arg>

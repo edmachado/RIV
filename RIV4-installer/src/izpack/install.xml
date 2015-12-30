@@ -90,7 +90,7 @@
 		<panel classname="HTMLInfoPanel">
 			<actions>
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.CollectVariablesAction"/>
-				<action stage="preactivate" classname="org.fao.riv.installer.actions.StopWindowsServiceAction" />
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.StopServiceAction" />
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.GetJavaHomeAction" />
 				<action stage="prevalidate" classname="org.fao.riv.installer.actions.DetermineFreeHttpPortAction"/>
 			</actions>
@@ -147,9 +147,6 @@
 		<condition type="packselection" id="newInstallSelected">
  			<name>NewInstall</name>
 		</condition>
-<!-- 		<condition type="packselection" id="upgradeAddsUserSelected"> -->
-<!-- 			<name>UpgradeAddsUser</name> -->
-<!-- 		</condition> -->
 		<condition type="variable" id="upgradeAddsUserSelected">
 			<name>INSTALL_GROUP</name>
 			<value>UpgradeAddsUser</value>
@@ -231,8 +228,8 @@
             <fileset dir="resources/osx/RuralInvest.app" targetdir="/Applications/RuralInvest/RuralInvest.app" override="true" os="mac" />
             <executable targetfile="/Applications/RuralInvest/RuralInvest.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
             <!--  Manuals.app  -->
-            <fileset dir="resources/osx/Manuals.app" targetdir="/Applications/RuralInvest/Manuals.app" override="true" os="mac" />
-            <executable targetfile="/Applications/RuralInvest/Manuals.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
+            <fileset dir="resources/osx/Manual.app" targetdir="/Applications/RuralInvest/Manual.app" override="true" os="mac" />
+            <executable targetfile="/Applications/RuralInvest/Manual.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
             <!--  removes the OS X service during uninstall  -->
             <fileset dir="resources/osx/Uninstaller.app" targetdir="/Applications/RuralInvest/Uninstaller.app" override="true" os="mac" />
             <executable targetfile="/Applications/RuralInvest/Uninstaller.app/Contents/MacOS/applet" stage="uninstall" keep="true" os="mac" />
@@ -247,8 +244,5 @@
 			<description>Update existing RuralInvest database</description>
 			<file src="resources/sql.xml" targetdir="$TEMP_DIRECTORY" override="true" />
 		</pack>
-<!-- 		<pack name="UpgradeAddsUser" required="yes" installGroups="UpgradeAddsUser" id="pack.upgradeAddsUser"> -->
-<!-- 			<description>Update existing RuralInvest database and add a new user</description> -->
-<!-- 		</pack> -->
 	</packs>
 </installation>
