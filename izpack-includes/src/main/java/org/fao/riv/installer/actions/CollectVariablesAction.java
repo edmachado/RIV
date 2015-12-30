@@ -22,7 +22,7 @@ public class CollectVariablesAction implements PanelAction {
 		iData.setVariable("RIV3_INSTALL_PATH", iData.getVariable("DEFAULT_INSTALL_PATH"));
 		
 		// check if services exist
-		if (OS.isWindows())) {
+		if (OS.isWindows()) {
 			iData.setVariable("riv3service", String.valueOf(WindowsService.riv3Exists));
 			iData.setVariable("riv4service", String.valueOf(WindowsService.riv4Exists));
             // check if databases exist
