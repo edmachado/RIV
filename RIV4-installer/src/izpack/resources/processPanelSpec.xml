@@ -83,6 +83,22 @@
 			<arg>/Library/LaunchDaemons/org.fao.riv.plist</arg>
 		</executefile>
 	</job>
+	<job name="configuring uninstaller">
+		<os family="mac" />
+		<executefile name="/usr/bin/sudo">
+			<arg>chmod</arg>
+			<arg>755</arg>
+			<arg>/Applications/RuralInvest/Uninstaller.app/Contents/MacOS/Application Stub</arg>
+		</executefile>
+	</job>
+	<job name="configuring uninstaller">
+		<os family="mac" />
+		<executefile name="/usr/bin/sudo">
+			<arg>rm</arg>
+			<arg>-f</arg>
+			<arg>/-</arg>
+		</executefile>
+	</job>
 	<job name="waiting for service to startup">
 		<os family="mac" />
 		<executefile name="/bin/sleep">

@@ -232,7 +232,6 @@
             <executable targetfile="/Applications/RuralInvest/Manual.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
             <!--  removes the OS X service during uninstall  -->
             <fileset dir="resources/osx/Uninstaller.app" targetdir="/Applications/RuralInvest/Uninstaller.app" override="true" os="mac" />
-            <executable targetfile="/Applications/RuralInvest/Uninstaller.app/Contents/MacOS/applet" stage="uninstall" keep="true" os="mac" />
         </pack>
  
 		<pack name="NewInstall" required="yes" installGroups="NewInstall" id="pack.newDb">
