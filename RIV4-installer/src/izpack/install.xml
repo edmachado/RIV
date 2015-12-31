@@ -186,9 +186,9 @@
             <!-- ==============
 			    	Mac OS X
                  ============== -->
-            <!-- === O    O === -->
-            <!-- ==== XXXX ==== -->
-            <!-- ============== -->
+            <file src="resources/osx/softwareManual.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+            <parsable targetfile="$INSTALL_PATH/bin/softwareManual.sh" os="mac"/>
+            <executable targetfile="$INSTALL_PATH/bin/softwareManual.sh" stage="never" keep="true" os="mac" />
 		</pack>
 		
 		<pack name="Web server launcher" required="yes" condition="!RIV4-service-exists" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webserver">
