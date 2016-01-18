@@ -26,14 +26,37 @@ public class Launch  {
 	private static int port;
 	
     public static void main(String[] args) {
+    	setup();
     	System.out.println("Starting...");
-		if ("start".equals(args[0])) start(args);
-		else if ("stop".equals(args[0])) stop(args);
-		else start(new String[] {args[0]}); // so you can just pass port number
+		if ("start".equals(args[0])) { start(args); }
+		else if ("stop".equals(args[0])) { stop(args); }
+		else { start(new String[] {args[0]}); }// so you can just pass port number
+    }
+    
+    private static void setup() {
+    	basePath = new File(new File(Launch.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent()).getParent();
+    	try {
+			basePath = URLDecoder.decode(basePath, "utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			LOGGER.warning("Error url decoding base path.");
+		}
+    	System.out.println("basepath="+basePath);
+    	
+    	LOGGER = Logger.getLogger(Launch.class .getName());
+    	LOGGER.setLevel(Level.SEVERE);
+    	
+    	try {
+			logfile = new FileHandler(appendToBasePath("service.log"));
+		} catch (Exception e1) {
+			e1.printStackTrace(System.out);
+		}
+    	logfile.setFormatter(new SimpleFormatter());
+    	LOGGER.addHandler(logfile);
     }
     
     public static void stop(String[] args) {
     	System.out.println("Stopping...");
+    	LOGGER.info("Stopping...");
     	if (tomcat != null && tomcat.getServer() != null && tomcat.getServer().getState()!= LifecycleState.DESTROYED) {
 			try {
 				if (tomcat.getServer().getState() != LifecycleState.STOPPED)
@@ -47,33 +70,14 @@ public class Launch  {
     }
     
     public static void start(String[] args) {
+    	LOGGER.info("Starting...");
     	System.out.println("Starting...");
     	if (tomcat==null) {
-	    	LOGGER = Logger.getLogger(Launch.class .getName());
-	    	LOGGER.setLevel(Level.SEVERE);
-
 			// set paths
-        	basePath = new File(new File(Launch.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParent()).getParent();
-        	try {
-				basePath = URLDecoder.decode(basePath, "utf-8");
-			} catch (UnsupportedEncodingException e1) {
-				LOGGER.warning("Error url decoding base path.");
-			}
-        	System.out.println("basepath="+basePath);
 			String webappPath = appendToBasePath("webapp");
 			String tomcatPath = appendToBasePath("tomcat");
 
-	    	try {
-				logfile = new FileHandler(appendToBasePath("service.log"));
-			} catch (Exception e1) {
-				e1.printStackTrace(System.out);
-			}
-	    	logfile.setFormatter(new SimpleFormatter());
-	    	LOGGER.addHandler(logfile);
-
 	    	tomcat = new Tomcat();
-
-
 	        try {
 				// get port
 				getPort(args);
@@ -83,6 +87,8 @@ public class Launch  {
 				unlockDb();
 				System.out.println("configuring app with war dir: " + webappPath.toString());
 				System.out.println("and tomcat work dir: " + tomcatPath.toString());
+				LOGGER.info("configuring app with war dir: " + webappPath.toString());
+				LOGGER.info("and tomcat work dir: " + tomcatPath.toString());
 				tomcat.setBaseDir(tomcatPath);
 				
 				tomcat.getConnector().setURIEncoding("UTF-8");
