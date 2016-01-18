@@ -96,7 +96,9 @@ public class Launch  {
 				myapp.setTldValidation(false);
 				tomcat.getHost().setAutoDeploy(true);
 				tomcat.getHost().setDeployOnStartup(true);
+				LOGGER.info("about to start()");
 				tomcat.start();
+				LOGGER.info("started. about to await()");
 				tomcat.getServer().await();
 			} catch (ServletException e) {
 				// error adding webapp to tomcat
