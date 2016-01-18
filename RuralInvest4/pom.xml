@@ -454,6 +454,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
+                	<warName>riv-${build-lang}.war</warName>
                     <webResources>
                         <resource>
                             <!-- copy resources from this folder into the webapp before packaging -->
