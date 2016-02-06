@@ -12,6 +12,9 @@ $(function() {
 <body>
 <h2><spring:message code="error.unknown.info"/></h2>
 <b><spring:message code="error.unknown.log"/> <a href="<c:url value="/help/log"/>" target="_blank" id="getLog" style="text-decoration:underline">riv-application.log</a></b><br/><br/>
+
+<p>RuralInvest version: ${version}</p>
+
 <a id="showStackTrace"><spring:message code="error.moreDetails"/></a>
 <div id="stackTrace" style="display:none;">
 	${exception}

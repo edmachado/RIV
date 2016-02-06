@@ -5,8 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
@@ -16,8 +19,13 @@ public class RivControllerAdvice {
 	@Autowired
 	RivConfig rivConfig;
 	
+	@Value("${buildVersion}")	private String buildVersion;
+	
+//	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(HttpServletRequest request, Exception ex) {
+		request.setAttribute("version",buildVersion);
+		LOG.error("RuralInvest version "+buildVersion);
 		LOG.error("Exception during running application.",ex);
 		LOG.error("Request URL: "+request.getRequestURL().toString());
 		return errorModelAndView(ex);
