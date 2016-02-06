@@ -2004,9 +2004,9 @@ public class ExcelWorksheetBuilder {
 					if (yearNum==1) {
 						report.addFormulaCell(sheet.getRow(12), 1, report.getLink(ExcelLink.PROJECT_WC_FINANCED), Style.CURRENCY);
 					} else if (yearNum==2) {
-						formula = String.format("IF(%s<0,-1*%s*(C22+C28)/(B22-B28),0)",
+						formula = String.format("IF(%s<0,-1*%s*(C22+C28)/(B22+B28),0)",
 								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
-								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL).replace("$N$15", "$M$16"));
+								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL));//.replace("$N$15", "$M$16"));
 						report.addFormulaCell(sheet.getRow(12), 2, formula, Style.CURRENCY);
 					} else {
 						report.addNumericCell(sheet.getRow(12), yearNum, 0, Style.CURRENCY);
