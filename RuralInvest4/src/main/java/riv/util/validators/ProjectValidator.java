@@ -161,9 +161,9 @@ public class ProjectValidator implements Validator {
 			}
 			break;
 		case 10:
-			if (!project.getIncomeGen()) {
-				if (project.getContributions().size()==0) ValidateUtils.rejectEmptyTable("contributions","projectContribution",errors);
-			}
+//			if (!project.getIncomeGen()) {
+//				if (project.getContributions().size()==0) ValidateUtils.rejectEmptyTable("contributions","projectContribution",errors);
+//			}
 			break;
 		case 11:
 			if (project.getIncomeGen()) {
