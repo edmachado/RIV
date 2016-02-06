@@ -51,9 +51,9 @@ if ($('#errorbox')!=null && $('#linkedToId').val()!=null) {
 			// update input fields
 			document.getElementById('linkedToId').value=id;
 			//document.getElementById('${descField}').value=desc;
-			document.getElementById('${unitCostField}').value=unitCost;
+			document.getElementById('${unitCostField}').value=numToFormat(unitCost);
 			document.getElementById('${unitTypeField}').value=unitType;
-			if (trans != null) document.getElementById('${transField}').value=trans;
+			if (trans != null) document.getElementById('${transField}').value=numToFormat(trans);
 			// update desc of ref item
 			$('#linkedItemDesc').text(desc);
 
