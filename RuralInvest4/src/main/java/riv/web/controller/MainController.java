@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -277,17 +278,22 @@ public class MainController {
 		return "attachFile";
 	}
 	
+	@RequestMapping(value="/help/404", method=RequestMethod.GET)
+	public String error404(HttpServletRequest request) {
+		String uri = (String) request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI);
+		return "redirect:/help/error?code=404&url="+uri;
+	}
 	@RequestMapping("/help/error")
-	public String throwException() throws IOException {
-		boolean throwException = true;
-		if (throwException) throw new IOException("This is my IOException");
-		return "home";
+	public String exception(@RequestParam String code, @RequestParam String url) {
+		if (code.isEmpty()) {
+			throw new RuntimeException("Exception called intentionally");
+		} else { 
+			throw new RuntimeException(code+" exception in previous page. "+url);
+		}
 	}
 	
 	@RequestMapping(value="/help/{page}", method=RequestMethod.GET)
 	public String getHelp(@PathVariable String page, Model model) {
-//		Version v = dataService.getLatestVersion();
-//		model.addAttribute("version",v.getVersion());
 		model.addAttribute("version",buildVersion);
 		return "help/"+page;
 	}

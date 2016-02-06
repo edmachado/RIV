@@ -83,13 +83,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	    return resolver;
 	 }
 	 
-//	 @Override
-//	 public void addInterceptors(InterceptorRegistry registry) {
-//		 OpenSessionInViewInterceptor osiv = new OpenSessionInViewInterceptor();
-//		 osiv.setSessionFactory(sessionFactory);
-//		 registry.addWebRequestInterceptor(osiv);
-//	 }
-	 
 	 @Bean
 	 public static PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer() {
 		 PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();

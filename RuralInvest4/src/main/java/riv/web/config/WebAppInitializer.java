@@ -50,17 +50,18 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		   servletContext.addListener(new DriverCleanup());
 		      
 		// The main Spring MVC servlet.
-		   ServletRegistration.Dynamic springapp = servletContext.addServlet(
-		      "springapp", new DispatcherServlet(rootContext));
-				springapp.setLoadOnStartup(1);
+		   DispatcherServlet ds = new DispatcherServlet(rootContext);
+//		   ds.setThrowExceptionIfNoHandlerFound(true);
+		   ServletRegistration.Dynamic springapp = servletContext.addServlet("springapp", ds);
+		   springapp.setLoadOnStartup(1);
 		   Set<String> mappingConflicts = springapp.addMapping("/");
 		   
 		   if (!mappingConflicts.isEmpty()) {
-			      for (String s : mappingConflicts) {
-			        LOG.warn("Mapping conflict: " + s);
-			      }
-			      throw new IllegalStateException("'springapp' cannot be mapped to '/' under Tomcat versions <= 7.0.14");
-			   }
+		      for (String s : mappingConflicts) {
+		        LOG.warn("Mapping conflict: " + s);
+		      }
+		      throw new IllegalStateException("'springapp' cannot be mapped to '/' under Tomcat versions <= 7.0.14");
+		   }
 		   
 		   FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter",  
 				      new CharacterEncodingFilter());

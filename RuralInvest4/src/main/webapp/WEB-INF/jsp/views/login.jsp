@@ -14,7 +14,7 @@
 <body  onload='document.login.j_username.focus();'>
 
 <table width="750" border="0" cellspacing="0" cellpadding="0">
-  <tr><td background="img/divider.gif" width="1"><img src="img/spacer.gif" width="1" height="1" alt=""/></td>
+  <tr><td width="1"><img src="img/spacer.gif" width="1" height="1" alt=""/></td>
     <td width="347" align="left" valign="top" bgcolor="#F5F5F5">
     	<form name="login" action="j_spring_security_check" method="post"> 
 			<table border="0" cellspacing="0" cellpadding="2">
@@ -43,9 +43,9 @@
 	    	</table>
 	    </form>
     </td>
-    <td background="img/divider.gif" width="1"><img src="img/spacer.gif" width="1" height="1" alt=""></td>
+    <td width="1"><img src="img/spacer.gif" width="1" height="1" alt=""></td>
     <td width="400" align="left" valign="top"><img id="mainPhoto" src="img/spacer.gif"  width="400" height="225" alt="<spring:message code="misc.faoInAction"/>" /></td>
-    <td background="img/divider.gif" width="1"><img src="img/spacer.gif" width="1" height="1" alt=""></td>
+    <td width="1"><img src="img/spacer.gif" width="1" height="1" alt=""></td>
   </tr>
   <tr><td height="20" colspan="5" bgcolor="#E7AE0F">&nbsp;</td></tr>
 </table>

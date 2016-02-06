@@ -207,7 +207,7 @@ public class ProjectController {
 	}
 	
 	private String getView(Project project, int step) {
-		String view;
+		String view="";
 		if (project.getIncomeGen()) {
 			view = step!=10 ? "project/project"+step : "reference/listRefs";
 		} else {
