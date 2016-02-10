@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectProductionYears" columnCount="26" printOrder="Horizontal" pageWidth="550" pageHeight="141" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="21" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="89a74458-21ba-41d0-b8b6-02811c14b148">
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 5.2.0  -->
+<!-- 2016-02-07T19:03:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectProductionYears" columnCount="25" printOrder="Horizontal" pageWidth="800" pageHeight="141" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="32" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="89a74458-21ba-41d0-b8b6-02811c14b148">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -35,7 +38,9 @@
 	<detail>
 		<band height="11" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a6b06451-7a51-41f1-b24f-bbf722746c49" key="textField" mode="Opaque" x="0" y="0" width="21" height="11" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement key="textField" mode="Opaque" x="0" y="0" width="32" height="11" forecolor="#003365" backcolor="#FFFFFF" uuid="a6b06451-7a51-41f1-b24f-bbf722746c49">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>

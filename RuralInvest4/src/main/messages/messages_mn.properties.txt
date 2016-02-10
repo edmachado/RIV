@@ -1119,7 +1119,6 @@ project.report.profitability.costs=Зардал
 #project.report.profitability.donations.netAfter= Хандивийн дараах ашиг 
 project.report.profitability.incomes.capDonation= Ажлын капиталын хандив
 project.report.profitability.incomes.residual=Хөрөнгийн үлдэгдэл
-project.report.profitability.incomes.sales=Борлуулалт
 project.report.profitability.incomes.salvage= Үлдэх өртөг
 project.report.profitability.incomes=Орлого
 project.report.profitability.indicators=Үзүүлэлт

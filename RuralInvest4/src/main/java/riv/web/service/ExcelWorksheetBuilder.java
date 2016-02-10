@@ -2004,7 +2004,7 @@ public class ExcelWorksheetBuilder {
 					if (yearNum==1) {
 						report.addFormulaCell(sheet.getRow(12), 1, report.getLink(ExcelLink.PROJECT_WC_FINANCED), Style.CURRENCY);
 					} else if (yearNum==2) {
-						formula = String.format("IF(%s<0,-1*%s*(C22+C28)/(B22+B28),0)",
+						formula = String.format("IF(%s<0,-1*%s*(C24+C30)/(B24+B30),0)",
 								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
 								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL));//.replace("$N$15", "$M$16"));
 						report.addFormulaCell(sheet.getRow(12), 2, formula, Style.CURRENCY);
@@ -2090,22 +2090,23 @@ public class ExcelWorksheetBuilder {
 				//FINANCING
 				if (!without) {
 					// wc capital
-					report.addFormulaCell(sheet.getRow(32), yearNum, String.format("IF(%s2=1,%s13,0)", col, col,col,col), Style.CURRENCY);
+					report.addFormulaCell(sheet.getRow(32), yearNum, String.format("%s13", col), Style.CURRENCY);
 	
 					// wc interest
-					if (yearNum==1) {
-						formula = String.format("B13*%s/12*%s*0.01",
+//					if (yearNum==1||yearNum==2) {
+						formula = String.format("%s13*%s/12*%s*0.01",
+								col,
 								report.getLink(ExcelLink.PROJECT_WC_PERIOD),
 								report.getLink(ExcelLink.PROJECT_WC_INTEREST));
-					} else if (yearNum==2) {
-						formula = String.format("IF(%s<0,-1*%s*C16/B16*%s/12*%s*0.01,0)",
-								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
-								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
-								report.getLink(ExcelLink.PROJECT_WC_PERIOD),
-								report.getLink(ExcelLink.PROJECT_WC_INTEREST));
-					} else {
-						formula="0";
-					}
+//					} else if (yearNum==2) {
+//						formula = String.format("IF(%s<0,-1*%s*C16/B16*%s/12*%s*0.01,0)",
+//								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
+//								report.getLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL),
+//								report.getLink(ExcelLink.PROJECT_WC_PERIOD),
+//								report.getLink(ExcelLink.PROJECT_WC_INTEREST));
+//					} else {
+//						formula="0";
+//					}
 					report.addFormulaCell(sheet.getRow(33), yearNum, formula, Style.CURRENCY);
 					
 					// primary capital

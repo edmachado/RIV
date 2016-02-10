@@ -970,7 +970,6 @@ project.report.profitability.costs.replacement=Reemplazo
 project.report.profitability.costs=Costos
 project.report.profitability.incomes.capDonation=Donación para capital de trabajo
 project.report.profitability.incomes.residual=Residual
-project.report.profitability.incomes.sales=Ventas
 project.report.profitability.incomes.salvage=Rescate
 project.report.profitability.incomes=Ingresos
 project.report.profitability.indicators=Indicadores

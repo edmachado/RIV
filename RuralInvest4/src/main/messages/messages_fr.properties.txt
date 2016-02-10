@@ -1,3 +1,6 @@
+## RIV 4.2.12
+project.report.profitability.incomes.sales=Ventes et autoconsommation
+
 # RIV4.2.5
 error.graceInterestGreaterThanCapital=La période de grâce pour les intérêts ne peut pas excéder la période de grâce pour le capital
 misc.noDeleteGeneric=Les catégories génériques ne peuvent pas être supprimées
@@ -980,7 +983,6 @@ project.report.profitability.donations.netBefore=Revenu net (avant subventions)
 project.report.profitability.donations.netAfter=Revenu net (avec subventions)
 project.report.profitability.incomes.capDonation=Subvention FR
 project.report.profitability.incomes.residual=Valeur résiduelle des investissements
-project.report.profitability.incomes.sales=Ventes
 project.report.profitability.incomes.salvage=Revente des biens remplacés
 project.report.profitability.incomes=Recettes
 project.report.profitability.indicators=Indicateurs

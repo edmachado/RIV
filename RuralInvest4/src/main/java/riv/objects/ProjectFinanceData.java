@@ -79,8 +79,11 @@ public class ProjectFinanceData implements java.io.Serializable{
 		return incSalesWithout+incSalvageWithout+incResidualWithout;
 	}
 
+	public double getTotalCostsCashFlowNoFinance() {
+		return costInvest+costReplace+costOperation-costOperationInternal+costGeneral-costGeneralOwn+costMaintenance;
+	}
 	public double getTotalCostsCashFlow() {
-		return costInvest+costReplace+costOperation-costOperationInternal+costGeneral-costGeneralOwn+costMaintenance
+		return getTotalCostsCashFlowNoFinance()
 		+ loan1capital+loan1interest+loan2capital+loan2interest+workingCapitalCapital+workingCapitalInterest;
 	}
 	public double getTotalCostsCashFlowWithout() {

@@ -89,7 +89,7 @@ public class XlsImportTable<E extends OrderByable> {
 				if (errors.hasErrors()) {
 					String errorMsg = 
 							messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
-							errors.getAllErrors().get(0).getDefaultMessage().replace("\"", "\\\"");
+							errors.getAllErrors().get(0).getDefaultMessage();//.replace("\"", "\\\"");
 					throw new ExcelImportException(errorMsg);
 					//.createValidationException(rowNum+1, errors.getAllErrors().get(0).getDefaultMessage().replace("\"", "\\\""), messageSource, LocaleContextHolder.getLocale());
 				}
@@ -139,7 +139,7 @@ public class XlsImportTable<E extends OrderByable> {
 			 column = columns.get(columnNum);
 			 Cell cell = row.getCell(column.column);
 			 if (cell==null &! column.isBoolean) { // check that cell isn't null, except for boolean
-				throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+				throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum, column.column, messageSource, LocaleContextHolder.getLocale());
 			 }
 			 
 			 if (column.isBoolean) {
@@ -152,18 +152,16 @@ public class XlsImportTable<E extends OrderByable> {
 				} catch (IllegalStateException e) {
 					throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 				}
+				
 				boolean found=false;
-				for (Object key : column.options.keySet()) {
-					if (column.options.get(key).equals(value)) {
-						value = key;
-						found=true;
-						break;
-					}
+				if (column.options.get(value)!=null) {
+					value=column.options.get(value);
+					found=true;
 				}
-				// TODO: if options are in a different language the value will not be found
 				if (!found) {
 					throw ExcelImportException.createExcelException(ErrorType.NOT_IN_LIST, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 				}
+				
 				setObjectProperty(item, column.property, value);
 			} else if (column.isNumeric) {
 				double value;
@@ -196,11 +194,11 @@ public class XlsImportTable<E extends OrderByable> {
 	private int skipTo(Sheet sheet, int rowNum, int column, MessageSource messageSource) throws ExcelImportException {
 		int skipped=0;
 		Row row; Cell cell;
-		while (skipped <=10) {
+		while (skipped <=4) {
 			row = sheet.getRow(rowNum);
 			if (row!=null) {
 				cell = sheet.getRow(rowNum).getCell(column);
-				if (cell!=null && cell.getCellType()==Cell.CELL_TYPE_FORMULA) {
+				if (cell!=null && (cell.getCellType()==Cell.CELL_TYPE_FORMULA || cell.getCellType()==Cell.CELL_TYPE_NUMERIC)) {
 					return rowNum; // table has started
 				}
 			}
@@ -209,8 +207,8 @@ public class XlsImportTable<E extends OrderByable> {
 			rowNum++;
 			skipped++;
 		}
-		// more than 10 rows have been skipped, the sheet is not in the correct format
-		throw ExcelImportException.createExcelException(ErrorType.NO_TABLE, rowNum-10, null, messageSource, LocaleContextHolder.getLocale());	
+		// more than 4 rows have been skipped, the sheet is not in the correct format
+		throw ExcelImportException.createExcelException(ErrorType.NO_TABLE, rowNum-4, null, messageSource, LocaleContextHolder.getLocale());	
 	}
 	
 	public class XlsImportColumn {

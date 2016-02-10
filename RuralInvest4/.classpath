@@ -6,6 +6,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="src/main/jasperreports">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="RuralInvest4/target/riv-qa/WEB-INF/classes"/>
+			<attribute name="ignore_optional_problems" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -17,7 +23,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+	<classpathentry excluding="**" kind="src" path="src/test/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
@@ -34,5 +40,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/System/Library/Tomcat/apache-tomcat-7.0.59/lib/jsp-api.jar"/>
+	<classpathentry exported="true" kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="com.jaspersoft.server.JRS_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

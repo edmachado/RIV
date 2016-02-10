@@ -1,13 +1,16 @@
 ## RIV 4.3
 project.donor.noDelete=A donor cannot be deleted if the project has donations or contributions from that source.
 
+## RIV 4.2.12
+project.report.profitability.incomes.sales=Sales and own consumption
+import.excel.error.noTable=A required table is missing at row {0} or does not have the correct format. Make sure that the file is based on the correct RuralInvest Excel template.
+
 ## RIV 4.2.5
 error.graceInterestGreaterThanCapital=The grace period for interest cannot be longer than the grace period for capital.
 misc.noDeleteGeneric=Generic categories cannot be deleted
 misc.noDeleteCategory=This item cannot be deleted because it is currently being referenced by a profile or project.
 export.search=Export search results
 import.excel.error.noData=Data is expected for cell {0}. Please correct the data and try again.
-import.excel.error.noTable=A required table is missing at row {0}. Make sure that the file is based on the correct RuralInvest Excel template.
 
 # changed from previous versions
 import.excel.error.datatype=Cell {0}: Text was found when numeric data was expected, or vice-versa. Please correct the data and try again.
@@ -967,7 +970,6 @@ project.report.profitability.donations.netBefore=Net income before donation
 project.report.profitability.donations.netAfter=Net income after donation
 project.report.profitability.incomes.capDonation=Working capital donation
 project.report.profitability.incomes.residual=Residual
-project.report.profitability.incomes.sales=Sales
 project.report.profitability.incomes.salvage=Salvage
 project.report.profitability.incomes=Income
 project.report.profitability.indicators=Indicators

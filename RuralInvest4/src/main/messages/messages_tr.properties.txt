@@ -738,7 +738,6 @@ project.report.cashFlow.secCapital=İkincil sermaye
 project.report.cashFlow.secInterest=İkincil faiz
 project.report.profitability=Finansal karlılık
 project.report.profitability.incomes=Gelirler
-project.report.profitability.incomes.sales=Satışlar
 project.report.profitability.incomes.salvage=Elden çıkarma
 project.report.profitability.incomes.residual=Kalıntı
 project.report.profitability.incomes.capDonation=Döner sermaye bağışı

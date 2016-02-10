@@ -1035,7 +1035,6 @@ project.report.profitability.costs.replacement=Substituição
 project.report.profitability.costs=Despesas
 project.report.profitability.incomes.capDonation=Doação para o fundo de funcionamento
 project.report.profitability.incomes.residual=Valor residual
-project.report.profitability.incomes.sales=Vendas
 project.report.profitability.incomes.salvage=Valor comercial
 project.report.profitability.incomes=Receitas
 project.report.profitability.indicators=Indicadores

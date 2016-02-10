@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.POIXMLException;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.HtmlUtils;
 
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileItemGeneral;
@@ -76,8 +80,9 @@ public class ExcelImportController {
 	@Autowired
 	private RivConfig rivConfig;
 	
-	@RequestMapping(value="/import/project/{type}/{id}", method=RequestMethod.POST)
-	public @ResponseBody String projectImport(@PathVariable Integer id,@PathVariable String type, MultipartHttpServletRequest request) {
+	@RequestMapping(value="/import/project/{type}/{id}", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public @ResponseBody String projectImport(@PathVariable Integer id,@PathVariable String type, MultipartHttpServletRequest request, HttpServletResponse response) {
+//		response.setCharacterEncoding("UTF-8");
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
 		
@@ -177,13 +182,13 @@ public class ExcelImportController {
 		validator.setIncomeGen(false);
 		validator.setDuration(p.getDuration()); 
 		
-		Map<Integer, String> donorsByOrder = new HashMap<Integer,String>();
+		Map<String, Integer> donorsByOrder = new HashMap<String, Integer>();
 		for (Donor d : p.getDonors()) {
 			String desc;
 			if (d.getNotSpecified()) { desc = translate("project.donor.notSpecified"); }
 			else if (d.getContribType()==4 && d.getDescription().equals("state-public")) { desc = translate("project.donor.statePublic"); }
 			else { desc = d.getDescription(); }
-			donorsByOrder.put(d.getOrderBy(), desc);
+			donorsByOrder.put(desc, d.getOrderBy());
 		}
 		
 		List<ProjectItemContribution> items = new ArrayList<ProjectItemContribution>();
@@ -455,7 +460,7 @@ public class ExcelImportController {
 		}
 	}
 
-	@RequestMapping(value="/import/profile/{type}/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/import/profile/{type}/{id}", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String profileImport(@PathVariable Integer id,@PathVariable String type, MultipartHttpServletRequest request) {
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
@@ -630,15 +635,21 @@ public class ExcelImportController {
 	private String translate(String text) {
 		return messageSource.getMessage(text, new Object[0], LocaleContextHolder.getLocale());
 	}
+	private String translate(String text, String lang) {
+		return messageSource.getMessage(text,  new Object[0], new Locale(lang));
+	}
 	
 	private Map<String, String> labourTypes(){
-		return rivConfig.getLabourTypes(); 
-//		HashMap<String, String>labourTypes=new HashMap<String, String>();
-//		labourTypes.put("0", translate("units.pyears"));
-//		labourTypes.put("1", translate("units.pmonths"));
-//		labourTypes.put("2", translate("units.pweeks"));
-//		labourTypes.put("3", translate("units.pdays"));
-//		return labourTypes;
+//		return rivConfig.getLabourTypes(); 
+		HashMap<String, String>labourTypes=new HashMap<String, String>();
+		for (String lang : new String[]{"en","fr","es","pt","ru","mn","tr","ar"}) {
+			labourTypes.put(translate("units.pyears", lang), "0");
+			labourTypes.put(translate("units.pmonths", lang), "1");
+			labourTypes.put(translate("units.pweeks", lang), "2");
+			labourTypes.put(translate("units.pdays", lang), "3");
+		}
+		
+		return labourTypes;
 	}
 	
 	private XSSFWorkbook getWorkbook(InputStream file) throws ExcelImportException {

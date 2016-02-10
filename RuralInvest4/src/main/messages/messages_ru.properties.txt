@@ -955,7 +955,6 @@ project.report.profitability.costs.replacement=Замена
 project.report.profitability.costs=Расходы
 project.report.profitability.incomes.capDonation=Благотворительный оборотный капитал
 project.report.profitability.incomes.residual=Остаток
-project.report.profitability.incomes.sales=Продажи 
 project.report.profitability.incomes.salvage=Утилизация
 project.report.profitability.incomes=Доход
 project.report.profitability.indicators=Показатели
