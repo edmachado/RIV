@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.util.HtmlUtils;
 
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileItemGeneral;
@@ -66,7 +65,6 @@ import riv.util.validators.BlockItemValidator;
 import riv.util.validators.ProfileItemValidator;
 import riv.util.validators.ProfileProductItemValidator;
 import riv.util.validators.ProjectItemValidator;
-import riv.web.config.RivConfig;
 import riv.web.service.DataService;
  
 @Controller
@@ -77,12 +75,9 @@ public class ExcelImportController {
     private DataService dataService;
 	@Autowired
 	private MessageSource messageSource;
-	@Autowired
-	private RivConfig rivConfig;
 	
 	@RequestMapping(value="/import/project/{type}/{id}", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String projectImport(@PathVariable Integer id,@PathVariable String type, MultipartHttpServletRequest request, HttpServletResponse response) {
-//		response.setCharacterEncoding("UTF-8");
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
 		
@@ -99,17 +94,17 @@ public class ExcelImportController {
 			} else if (type.equals("contribution")) {
 				importContribution(id, mpf.getInputStream());
 			}
-		} catch (IOException e) {
-			error = "import.excel.read";
 		} catch (ExcelImportException e) {
 			e.printStackTrace(System.out);
 			error = e.getMessage();
+		} catch (Exception e) {
+			error = messageSource.getMessage("import.excel.read", null, LocaleContextHolder.getLocale());
 		}
 		
 		if (error==null) {
 			return "{\"success\": \"success\"}";
 		} else {
-			return "{\"error\": \""+error.replace("\"", "\\\"")+"\"}"; //
+			return "{\"error\": \""+error.replace("\"", "\\\"")+"\"}";
 		}
 	}
 	
