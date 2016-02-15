@@ -89,7 +89,7 @@ public class XlsImportTable<E extends OrderByable> {
 				if (errors.hasErrors()) {
 					String errorMsg = 
 							messageSource.getMessage("import.excel.error", new Object[] {(rowNum+1)}, LocaleContextHolder.getLocale()) +
-							messageSource.getMessage(errors.getAllErrors().get(0), LocaleContextHolder.getLocale());
+							messageSource.getMessage(errors.getAllErrors().get(0), LocaleContextHolder.getLocale());//.replace("\"", "\\\"");
 					throw new ExcelImportException(errorMsg);
 					//.createValidationException(rowNum+1, errors.getAllErrors().get(0).getDefaultMessage().replace("\"", "\\\""), messageSource, LocaleContextHolder.getLocale());
 				}
