@@ -26,17 +26,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.babel.editor.rbeBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.m2e.core.maven2Builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>net.sf.jasperreports.builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -50,7 +40,5 @@
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 		<nature>net.sf.eclipse.tomcat.tomcatnature</nature>
-		<nature>com.jaspersoft.studio.babel.editor.rbeNature</nature>
-		<nature>net.sf.jasperreports.nature</nature>
 	</natures>
 </projectDescription>
