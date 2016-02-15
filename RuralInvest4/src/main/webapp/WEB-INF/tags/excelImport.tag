@@ -17,3 +17,4 @@ var uploadBlockId='';
 		</div>
 	</div>
 </div>
+<form id="upload-test-form" action="${submitUrl}" method="post" enctype="multipart/form-data"></form>
