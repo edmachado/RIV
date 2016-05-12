@@ -115,7 +115,7 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     }
     
     public void projectDurationChanged() {
-    	if (patterns.size()==getProject().getDuration()) { 
+    	if (patterns.size()==0 || patterns.size()==getProject().getDuration()) { 
     		// do nothing
     	} else if (patterns.size()>getProject().getDuration()) {
         	// project is now shorter (need to remove extra patterns)
