@@ -158,7 +158,7 @@ public class BlockController {
 			} else {
 				// error if not number
 				try {
-					String qtyText = request.getParameter("pat"+i).replace(rivConfig.getSetting().getDecimalSeparator(), ".").replace(rivConfig.getSetting().getThousandSeparator(), "");
+					String qtyText = request.getParameter("pat"+i).replace(rivConfig.getSetting().getThousandSeparator(), "").replace(rivConfig.getSetting().getDecimalSeparator(), ".");
 					double qty = Double.parseDouble(qtyText);
 					if (pb.getPatterns().get(i) != null)
 						pb.getPatterns().get(i).setQty(qty);
