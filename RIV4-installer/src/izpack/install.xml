@@ -1,6 +1,7 @@
-<installation version="5.0"
-	xmlns:izpack="http://izpack.org/schema/installation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
+<izpack:installation version="5.0"
+					 xmlns:izpack="http://izpack.org/schema/installation"
+					 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					 xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
 
 	<variables>
 		<variable name="INSTALL_GROUP" value="NewInstall"/>
@@ -161,7 +162,7 @@
 		<pack name="RuralInvest web application" required="yes" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webapp">
 			<description>The core files needed for the application</description>
         
-        	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="no" override="true">
+        	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="false" override="true">
         	
         	</fileset>
 			<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
@@ -236,7 +237,7 @@
  
 		<pack name="NewInstall" required="yes" installGroups="NewInstall" id="pack.newDb">
 			<description>Installs a blank database</description>
-			<fileset dir="@{izpack.staging}/webapp/WEB-INF/data" targetdir="$INSTALL_PATH/webapp/WEB-INF/data" casesensitive="no" override="true" />
+			<fileset dir="@{izpack.staging}/webapp/WEB-INF/data" targetdir="$INSTALL_PATH/webapp/WEB-INF/data" casesensitive="false" override="true" />
 		</pack>
 		
 		<pack name="Upgrade" required="yes" installGroups="Upgrade,UpgradeAddsUser" id="pack.upgrade">
@@ -244,4 +245,4 @@
 			<file src="resources/sql.xml" targetdir="$TEMP_DIRECTORY" override="true" />
 		</pack>
 	</packs>
-</installation>
+</izpack:installation>

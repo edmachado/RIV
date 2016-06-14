@@ -1,6 +1,9 @@
-<langpack>
-	<str id="tomcat" txt="Configuración de Puerto Tomcat" />
-	<str id="input.userconfig" txt="Configuración del Usuario" />
+<izpack:langpack version="5.0"
+                 xmlns:izpack="http://izpack.org/schema/langpack"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
+  <str id="tomcat" txt="Configuración de Puerto Tomcat" />
+  <str id="input.userconfig" txt="Configuración del Usuario" />
   <str id="server.port" txt="Registre el No. de Puerto del Servidor" />
   <str id="server.port.invalid" txt="¡Número de puerto inválido!" />
   <str id="http.port" txt="Registre el No. de Puerto HTTP" />
@@ -23,4 +26,4 @@
   <str id="email" txt="Dirección electrónica" />
   <str id="email.invalid" txt="¡Dirección electrónica inválida!" />
   <str id="user.warning" txt="Estos parámetros deberían ser modificados solo por usuarios con experiencia, ya que de no ser así, es mejor dejar los values default" />
-</langpack>
+</izpack:langpack>

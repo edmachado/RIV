@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
-<shortcuts>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<izpack:shortcuts xmlns:izpack="http://izpack.org/schema/shortcuts" version="5.0">
 	<programGroup defaultName="RuralInvest4" location="applications" />
 	
 	<shortcut name="RuralInvest"
@@ -30,4 +30,4 @@
 			  startup="no"
 			  initialState="noShow"
 			/>
-</shortcuts> 
+</izpack:shortcuts>

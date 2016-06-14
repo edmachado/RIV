@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<userInput>
+<izpack:userinput version="5.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:izpack="http://izpack.org/schema/userinput"
+                  xsi:schemaLocation="http://izpack.org/schema/userinput http://izpack.org/schema/5.0/izpack-userinput-5.0.xsd">
+
 	<!-- user info -->
 	<panel id="panel.newUser">
 		<field type="title" id="input.userconfig" bold="true" size="2"/>
 		
 		<field type="text" variable="RIV_USER_NAME" >
-			<description align="left" id="username.description"/>
+			<description id="username.description"/>
 			<spec id="username" size="12"  />
 		    <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="username.invalid" />
         </field>
@@ -47,4 +51,4 @@
             <validator class="com.izforge.izpack.panels.userinput.validator.NotEmptyValidator" id="email.invalid" />
         </field>
     </panel>
-</userInput>
+</izpack:userinput>

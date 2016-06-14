@@ -1,4 +1,7 @@
-<langpack>
+<izpack:langpack version="5.0"
+                 xmlns:izpack="http://izpack.org/schema/langpack"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
   <str id="tomcat" txt="Tomcat Port Configuration" />
   <str id="input.userconfig" txt="User Configuration" />
   <str id="server.port" txt="Enter the Server Port No" />
@@ -23,4 +26,4 @@
   <str id="email" txt="E-mail" />
   <str id="email.invalid" txt="Invalid e-mail!" />
   <str id="user.warning" txt="These parameters should be modified only by experienced users, otherwise leave the default values" />
-</langpack>
+</izpack:langpack>

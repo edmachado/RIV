@@ -1,6 +1,9 @@
-<langpack>
-	<str id="tomcat" txt="Конфигурация порта Tomcat" />
-	<str id="input.userconfig" txt="Конфигурация пользователя" />
+<izpack:langpack version="5.0"
+                 xmlns:izpack="http://izpack.org/schema/langpack"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
+  <str id="tomcat" txt="Конфигурация порта Tomcat" />
+  <str id="input.userconfig" txt="Конфигурация пользователя" />
   <str id="server.port" txt="Введите номер порта сервера" />
   <str id="server.port.invalid" txt="Недействительный номер порта!" />
   <str id="http.port" txt="Введите номер порта HTTP " />
@@ -23,4 +26,4 @@
   <str id="email" txt="E-mail" />
   <str id="email.invalid" txt="Недействительный  e-mail!" />
   <str id="user.warning" txt="Эти параметры должны изменяться только опытным пользователем.  Если вы не являетесь таковым, пожалуйста оставте установки по умолчанию" />
-</langpack>
+</izpack:langpack>

@@ -1,6 +1,9 @@
-<langpack>
-	<str id="tomcat" txt="Tomcat Port Ayarı" />
-	<str id="input.userconfig" txt="Kullanıcı Ayarı" />
+<izpack:langpack version="5.0"
+                 xmlns:izpack="http://izpack.org/schema/langpack"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
+  <str id="tomcat" txt="Tomcat Port Ayarı" />
+  <str id="input.userconfig" txt="Kullanıcı Ayarı" />
   <str id="server.port" txt="Sunucu Port Numarasını Giriniz:" />
   <str id="server.port.invalid" txt="Geçersiz Port Numarası!" />
   <str id="http.port" txt="HTTP Port Numarasını Giriniz:" />
@@ -23,4 +26,4 @@
   <str id="email" txt="E-posta" />
   <str id="email.invalid" txt="Geçersiz e-posta" />
   <str id="user.warning" txt="bu parametreler yalnızca deneyimli kullanıcılar tarafından değiştirilmelidir, aksi takdirde varsayılan değerleri bırakın." />
-</langpack>
+</izpack:langpack>
