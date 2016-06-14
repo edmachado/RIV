@@ -11,12 +11,14 @@ $( "#radioShared" ).buttonset();
 <form:form name="form" method="post" commandName="profile">
 	<tags:errors />
 	
-	<div style="text-align:right;width:100%">
-		<tags:help text="profile.clone.help" title="profile.clone">
-			<a id="clone" href="${profile.profileId}/clone"><spring:message code="profile.clone"/> <img src="../../img/duplicate.gif" border="0"/></a>
-		</tags:help>&nbsp;
-		<a id="upgrade" href="${profile.profileId}/upgrade"><spring:message code="profile.upgrade"/> <img src="../../img/upgrade.gif" border="0"/></a>&nbsp;
-	</div>
+	<c:if test="${profile.wizardStep==null}">
+		<div style="text-align:right;width:100%">
+			<tags:help text="profile.clone.help" title="profile.clone">
+				<a id="clone" href="${profile.profileId}/clone"><spring:message code="profile.clone"/> <img src="../../img/duplicate.gif" border="0"/></a>
+			</tags:help>&nbsp;
+			<a id="upgrade" href="${profile.profileId}/upgrade"><spring:message code="profile.upgrade"/> <img src="../../img/upgrade.gif" border="0"/></a>&nbsp;
+		</div>
+	</c:if>
 		
 	<div> <!-- container div -->
 		<div style="float:left;margin-right:12px;"> <!-- left div -->
