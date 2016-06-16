@@ -178,7 +178,7 @@ public class BlockController {
    
     private void updateChronology(BlockBase pb, HttpServletRequest request, BindingResult result) {
     	// no chronology really needed if production is 0 for first year
-    	boolean productionNeeded=pb.getPatterns().size()>0 && pb.getPatterns().get(1).getQty()>0;
+    	boolean productionNeeded=pb.getPatterns().size()==pb.getProject().getDuration() && pb.getPatterns().get(1).getQty()>0;
     	boolean paymentNeeded = productionNeeded;
     	// update chronology if income gen
 		if (pb.getProject().getIncomeGen()) {
