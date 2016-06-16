@@ -1,4 +1,5 @@
 ## RIV 4.2.12
+project.report.blockDetail.cashTotal=Total monétaire
 project.report.profitability.incomes.sales=Ventes et autoconsommation
 
 # RIV4.2.5
