@@ -2,6 +2,7 @@
 project.donor.noDelete=A donor cannot be deleted if the project has donations or contributions from that source.
 
 ## RIV 4.2.12
+project.report.blockDetail.cashTotal=Cash total
 project.report.profitability.incomes.sales=Sales and own consumption
 import.excel.error.noTable=A required table is missing at row {0} or does not have the correct format. Make sure that the file is based on the correct RuralInvest Excel template.
 
