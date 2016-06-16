@@ -13,9 +13,11 @@ $( "#radioShared" ).buttonset();
 
 	<c:if test="${not empty project.projectId}">
 		<div style="text-align:right;width:100%">
-			<tags:help text="project.clone.help" title="project.clone">
-				<a href="${project.projectId}/clone"><spring:message code="project.clone"/> <img src="../../img/duplicate.gif" border="0"/></a>
-			</tags:help>&nbsp;
+			<c:if test="${empty project.wizardStep}">
+				<tags:help text="project.clone.help" title="project.clone">
+					<a href="${project.projectId}/clone"><spring:message code="project.clone"/> <img src="../../img/duplicate.gif" border="0"/></a>
+				</tags:help>&nbsp;
+			</c:if>
 			<c:if test="${user.administrator and rivConfig.qa}"><div><a target="_blank" id="properties" style="display:none;" href="${project.projectId}/project.properties">Download properties file</a></div></c:if>
 		</div>
 	</c:if>
