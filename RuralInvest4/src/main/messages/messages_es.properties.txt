@@ -1,3 +1,6 @@
+# RIV 4.2.12
+project.report.blockDetail.cashTotal=Total en efectivo
+
 # RIV4.2.5
 error.graceInterestGreaterThanCapital=El período de gracia para intereses no puede ser mayor al período de gracia para capital
 misc.noDeleteGeneric=Categorías genéricas no pueden ser eliminadas

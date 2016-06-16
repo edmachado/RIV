@@ -1,3 +1,6 @@
+# RIV 4.2.12
+project.report.blockDetail.cashTotal=Мөнгөн дүн
+
 ## RIV 4.2.5
 export.search=Өгөгдөл экспортлох
 
