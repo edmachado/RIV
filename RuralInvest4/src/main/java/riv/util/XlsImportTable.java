@@ -139,7 +139,7 @@ public class XlsImportTable<E extends OrderByable> {
 			 column = columns.get(columnNum);
 			 Cell cell = row.getCell(column.column);
 			 if (cell==null &! column.isBoolean) { // check that cell isn't null, except for boolean
-				throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum, column.column, messageSource, LocaleContextHolder.getLocale());
+				throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 			 }
 			 
 			 if (column.isBoolean) {
