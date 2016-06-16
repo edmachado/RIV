@@ -64,7 +64,7 @@
 				  		</div>
 				  		<c:if test="${accessOK}">
 							<div class="dataentry">
-								<a href="../block/${blockEntry.blockId}"><img src="../../img/edit.png" title="<spring:message code="${blockType}.editDesc"/>" alt="<spring:message code="${blockType}.editDesc"/>" border="0"/></a>
+								<a id="edit${unique}" href="../block/${blockEntry.blockId}"><img src="../../img/edit.png" title="<spring:message code="${blockType}.editDesc"/>" alt="<spring:message code="${blockType}.editDesc"/>" border="0"/></a>
 								<a id="delete${unique}" href="javascript:confirmDelete('../block/${blockEntry.blockId}/delete');"><img src="../../img/delete.gif" border="0" title="<spring:message code="${blockType}.delete"/>" alt="<spring:message code="${blockType}.delete"/>"/></a>
 								<a id="clone${unique}" href="../block/${blockEntry.blockId}/clone"><img src="../../img/duplicate.gif" title="<spring:message code="${blockType}.clone"/>" alt="<spring:message code="${blockType}.clone"/>" border="0"/></a>
 					    		<c:if test="${blockEntry.project.withWithout}">
