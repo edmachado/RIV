@@ -53,10 +53,7 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 			for (double val : donations.values()) {
 				donated+=val;
 			}
-			
-		} catch (Exception e) {
-			
-		}
+		} catch (Exception e) {}
 		return donated;
 	}
 	

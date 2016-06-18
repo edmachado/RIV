@@ -57,8 +57,8 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 	}
 	
 	public Double getOwnResource() {
-		   if (donated==null) return 0.0;
-		   return (getTotal() - donated);
+		   if (getDonated()==null) return 0.0;
+		   return (getTotal() - getDonated());
 	   }
 	
 	public abstract ProjectItemNongenBase copy();
