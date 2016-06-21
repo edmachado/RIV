@@ -26,4 +26,11 @@
 			<directoryMode>0777</directoryMode>
 		</fileSet>
 	</fileSets>
+	<files>
+		<file>
+			<source>${izpack.dir}/jre/jre1.8.tbz</source>
+			<outputDirectory>jre</outputDirectory>
+			<destName>jre1.8.tbz</destName>
+		</file>
+	</files>
 </assembly>
