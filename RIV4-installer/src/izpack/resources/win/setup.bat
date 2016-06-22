@@ -1,6 +1,11 @@
 @echo off
 setlocal enableextensions disabledelayedexpansion
 
+if not exist jre\jre.exe (
+ %MYFILES%\unzip.bat
+ ;exit /b 0
+)
+
 :: possible locations under HKLM\SOFTWARE of JavaSoft registry data
 set "javaNativeVersion="
 set "java32ON64=Wow6432Node\"
