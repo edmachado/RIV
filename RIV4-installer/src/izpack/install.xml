@@ -22,6 +22,8 @@
 		<javaversion>1.6</javaversion>
 		<run-privileged />
 		<tempdir/>
+        <writeinstallationinformation>no</writeinstallationinformation>
+        <readinstallationinformation>no</readinstallationinformation>
 		 <!--<pack200/> this works but compilation takes longer -->
 	</info>
 
