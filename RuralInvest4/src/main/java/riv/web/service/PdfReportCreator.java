@@ -606,7 +606,14 @@ public class PdfReportCreator {
 	public ReportWrapper projectContributions(Project project, int startPage) {
 		List<ProjectItemContribution> contribs = new ArrayList<ProjectItemContribution>(project.getContributions());
 		Collections.sort(contribs);
-		ReportWrapper report = new ReportWrapper("/reports/project/projectContributions.jasper", true, contribs, "projectContributions.pdf", startPage);
+		ReportWrapper report = new ReportWrapper(
+				project.isPerYearContributions() ? "/reports/project/projectContributionsPerYear.jasper" : "/reports/project/projectContributions.jasper", 
+				true, contribs, "projectContributions.pdf", startPage);
+		
+		if (project.isPerYearContributions()) {
+			JasperReport jrPerYearData = reportLoader.compileReport("/reports/project/projectGeneralPerYearData.jasper");
+			report.getParams().put("perYearDataSubreport", jrPerYearData);
+		}
 		
 		Map<Integer, String> donorsByOrder = new HashMap<Integer,String>();
 		for (Donor d : project.getDonors()) {
