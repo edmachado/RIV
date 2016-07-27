@@ -1,9 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/jasperreports/project/projectBlock.jrxml=UTF-8
 encoding//src/main/jasperreports/project/projectCashFlowWithout.jrxml=UTF-8
+encoding//src/main/jasperreports/project/projectGeneral.jrxml=UTF-8
 encoding//src/main/jasperreports/project/projectGeneralDetail.jrxml=UTF-8
-encoding//src/main/jasperreports/project/projectGeneralDetailPersonnel.jrxml=UTF-8
-encoding//src/main/jasperreports/project/projectGeneralDetailSupplies.jrxml=UTF-8
 encoding//src/main/jasperreports/project/projectInvestDetail.jrxml=UTF-8
 encoding//src/main/jasperreports/project/projectInvestDetailAssets.jrxml=UTF-8
 encoding//src/main/jasperreports/project/projectInvestDetailLabour.jrxml=UTF-8
