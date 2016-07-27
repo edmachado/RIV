@@ -1,7 +1,0 @@
-FONT_LIST=<?xml version\="1.0" encoding\="UTF-8"?>\n<fontFamilies>\n</fontFamilies>\n
-TEMPLATES_LOCATIONS_LIST=/Users/barzecharya/Documents/FAO/RIV/RIV4/RuralInvest4/src/main/jasperreports\:/Users/barzecharya/Documents/FAO/RIV/RIV4/RuralInvest4/src/main/jasperreports\:
-com.jaspersoft.studio.theme.ui.dark=gridColor\=255,255,255\npageMarginColor\=255,0,0\ncontainerMarginColor\=0,255,0\nelementDesignBorderColor\=255,255,0\npageBackground\=0,0,0\n
-com.jaspersoft.studio.theme.ui.light=gridColor\=192,192,192\npageMarginColor\=170,168,255\ncontainerMarginColor\=170,168,255\nelementDesignBorderColor\=0,0,0\npageBackground\=255,255,255\n
-eclipse.preferences.version=1
-net.sf.jasperreports.JRPROPERTIES=com.jaspersoft.jasperreports.components.customvisualization.require.js\=file\\\:/Applications/Dev/eclipse/jee-mars2/Eclipse.app/Contents/Eclipse/configuration/org.eclipse.osgi/1174/0/.cp/resources/scripts/require-2.1.6.src.js\nnet.sf.jasperreports.web.resource.pattern.customvisualization.scripts\=com/jaspersoft/jasperreports/customvisualization/resources/require/.*\nnet.sf.jasperreports.compiler.temp.dir\=/Applications/Dev/eclipse/jee-mars2/Eclipse.app/Contents/MacOS\nnet.sf.jasperreports.compiler.classpath\=/Applications/Dev/eclipse/jee-mars2/Eclipse.app/Contents/MacOS//../../../../../../../Users/barzecharya/.p2/pool/plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar\n
-pageDEFAULTUNITS=pixel
