@@ -24,6 +24,7 @@ public class ProjectItemGeneralPerYear extends PerYearItem implements Serializab
 	public  HasPerYearItems<ProjectItemGeneralPerYear> getParent() {
 		return parent;
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setParent(HasPerYearItems parent) {
 		this.parent = parent;
 	}

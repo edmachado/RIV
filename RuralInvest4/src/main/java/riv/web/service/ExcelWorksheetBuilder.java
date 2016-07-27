@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.ComparisonOperator;
@@ -57,7 +56,6 @@ import riv.objects.project.HasPerYearItems;
 import riv.objects.project.PerYearItem;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
-import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemService;
 import riv.objects.project.ProjectMonthFlow;

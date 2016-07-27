@@ -372,6 +372,7 @@ public class ProjectController {
 		return "redirect:../../../search/results";
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private Map<Integer, ArrayList<PerYearItem>> generalCostsForTable(int duration, boolean isPerYear, Set<? extends HasPerYearItems> hasItems) {
 		Map<Integer, ArrayList<PerYearItem>> itemsForTable = new HashMap<Integer, ArrayList<PerYearItem>>();
 		for (int i=0; i<duration; i++) {
