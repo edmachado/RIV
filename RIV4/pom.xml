@@ -10,6 +10,7 @@
 		<maven.compiler.source>${javaVersion}</maven.compiler.source>
 		<maven.compiler.target>${javaVersion}</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tomcat7Version>7.0.59</tomcat7Version>
 	</properties>
 	<modules>
 		<module>../RIV4-installer</module>
