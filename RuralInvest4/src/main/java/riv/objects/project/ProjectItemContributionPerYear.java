@@ -18,9 +18,9 @@ import org.hibernate.annotations.NaturalId;
 import riv.objects.PerYearItem;
 
 @Entity
-@DiscriminatorValue("0")
+@DiscriminatorValue("1")
 @Table(name="PROJECT_ITEM_PER_YEAR")
-public class ProjectItemGeneralPerYear extends PerYearItem implements Serializable {
+public class ProjectItemContributionPerYear extends PerYearItem implements Serializable {
 	private static final long serialVersionUID = 54539059591647783L;
 	
 	@Id
@@ -31,7 +31,7 @@ public class ProjectItemGeneralPerYear extends PerYearItem implements Serializab
 	@NaturalId
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="PROJ_ITEM_ID", nullable=false)
-	private ProjectItemGeneralBase general;
+	private ProjectItemContribution contribution;
 	
 	@NaturalId
 	@Column(name="YEAR", nullable=false)
@@ -40,14 +40,15 @@ public class ProjectItemGeneralPerYear extends PerYearItem implements Serializab
 	@Column(name="UNIT_NUM", nullable=false)
 	private Double unitNum;
 	
-	@Column(name="OWN_RESOURCES")
-	protected Double ownResources;
-	
-	public ProjectItemGeneralBase getGeneral() {
-		return general;
+	public Double getTotal() {
+		return unitNum*contribution.getUnitCost();
 	}
-	public void setGeneral(ProjectItemGeneralBase general) {
-		this.general = general;
+	
+	public ProjectItemContribution getContribution() {
+		return contribution;
+	}
+	public void setContribution(ProjectItemContribution contribution) {
+		this.contribution = contribution;
 	}
 	public Integer getYear() {
 		return year;
@@ -60,24 +61,5 @@ public class ProjectItemGeneralPerYear extends PerYearItem implements Serializab
 	}
 	public void setUnitNum(Double unitNum) {
 		this.unitNum = unitNum;
-	}
-	public Double getOwnResources() {
-		return ownResources;
-	}
-	public void setOwnResources(Double or) {
-		ownResources = or;
-	}
-	
-	public Double getTotal() {
-		if (getGeneral().getUnitCost()==null || getUnitNum()==null) return 0.0;
-		return getGeneral().getUnitCost()*getUnitNum();
-	}
-	public Double getExternal() {
-		if (ownResources==null) return 0.0;
-		return (getTotal()) - ownResources;
-	}
-	
-	public void convertCurrency(Double exchange, int scale) {
-		this.setOwnResources(getGeneral().getProject().round(ownResources*exchange, scale));
 	}
 }

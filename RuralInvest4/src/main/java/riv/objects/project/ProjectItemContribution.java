@@ -3,11 +3,15 @@ package riv.objects.project;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import riv.util.CurrencyFormat;
@@ -24,17 +28,40 @@ import riv.web.config.RivConfig;
 public class ProjectItemContribution extends ProjectItem {
 	private static final long serialVersionUID = 1L;
 
+	@OneToMany(mappedBy="general", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@MapKey(name="year")
+	private Map<Integer, ProjectItemContributionPerYear> years = new HashMap<Integer, ProjectItemContributionPerYear>();
+	
 	@ManyToOne
 	@JoinColumn(name="PROJECT_ID", nullable=false)
 	protected Project project;
 	
-	@Column(name="YEAR_BEGIN")
-	private Integer year;
 	@Column(name="DONOR_ORDER_BY")
 	private int donorOrderBy;
 	
 	@Transient // only for importing from previous versions
 	private String oldDonor;
+	
+	public Map<Integer, ProjectItemContributionPerYear> getYears() {
+		return years;
+	}
+	public void setYears(Map<Integer, ProjectItemContributionPerYear> years) {
+		this.years=years;
+	}
+	public void addYears(int years) {
+		this.years=new HashMap<Integer, ProjectItemContributionPerYear>();
+		for (int i=0;i<years;i++) {
+			ProjectItemContributionPerYear py = new ProjectItemContributionPerYear();
+			py.setYear(i);
+			py.setContribution(this);
+			this.years.put(i, py);
+		}
+	}
+
+	@Override
+	public Double getUnitNum() {
+		throw new RuntimeException("UnitNum should be called on a specific year of a contribution.");
+	}
 	
 	public Project getProject () {
 		return this.project;
@@ -42,14 +69,6 @@ public class ProjectItemContribution extends ProjectItem {
 
 	public void setProject (Project project) {
 		this.project = project;
-	}
-
-	public Integer getYear() {
-		return year;
-	}
-
-	public void setYear(Integer year) {
-		this.year = year;
 	}
 
 	public int getDonorOrderBy() {
@@ -68,10 +87,6 @@ public class ProjectItemContribution extends ProjectItem {
 		this.oldDonor = oldDonor;
 	}
 
-	public double getTotal() {
-		if (getUnitNum()==null || getUnitCost()==null) return 0;
-		return this.getUnitCost()*this.getUnitNum();
-	}
 	
 	public String testingProperties(RivConfig rivConfig) {
 		Map<Integer, Donor> donorsByOrder = new HashMap<Integer, Donor>();
@@ -82,46 +97,63 @@ public class ProjectItemContribution extends ProjectItem {
 		String lineSeparator = System.getProperty("line.separator");
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder(); 
-		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
+		   int order=this.getOrderBy()+1;
+		   
+		   
+		   
+		   sb.append("step10."+order+".description="+description+lineSeparator);
 		   String desc = donorsByOrder.get(donorOrderBy).getNotSpecified()?"Not specified":donorsByOrder.get(donorOrderBy).getDescription();
-		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".donorOrderBy="+desc+lineSeparator);
-		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);
-		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(unitNum)+lineSeparator);
-		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
-		   sb.append("step10.year."+year+".contribution."+(this.getOrderBy()+1)+".total="+cf.formatCurrency(getTotal(), CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step10."+order+".donorOrderBy="+desc+lineSeparator);
+		   sb.append("step10."+order+".unitType="+unitType+lineSeparator);
+		   sb.append("step10."+order+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
+		   
+		   for (ProjectItemContributionPerYear py : getYears().values()) {
+			   sb.append("step10."+order+".year."+py.getYear()+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(py.getUnitNum())+lineSeparator);
+			   sb.append("step10."+order+".year."+py.getYear()+".total="+cf.formatCurrency(py.getTotal(), CurrencyFormat.ALL)+lineSeparator);
+		   }
+		   
 		   return sb.toString();
 	   }
 	
 	 @Override
 	 public ProjectItemContribution copy() {
 	 ProjectItemContribution item = new ProjectItemContribution();
-	 	item.setYear(year);
-	   item.setDescription(description);
-	   item.setLinkedTo(getLinkedTo());
-	   item.setProject(project);
-	   item.setUnitCost(unitCost);
-	   item.setUnitNum(unitNum);
-	   item.setUnitType(unitType);
-	   item.setDonorOrderBy(donorOrderBy);
-	   item.setOrderBy(getOrderBy());
-	   return item;
-   }
+	 	item.setDescription(description);
+	 	item.setLinkedTo(getLinkedTo());
+	 	item.setProject(project);
+	 	item.setUnitCost(unitCost);
+	 	item.setUnitType(unitType);
+	 	item.setDonorOrderBy(donorOrderBy);
+	 	item.setOrderBy(getOrderBy());
+	 	item.setYears(new HashMap<Integer, ProjectItemContributionPerYear>());
+	 	for (ProjectItemContributionPerYear oldYear : this.getYears().values()) {
+	 		ProjectItemContributionPerYear newYear = new ProjectItemContributionPerYear();
+			   newYear.setUnitNum(oldYear.getUnitNum());
+			   newYear.setYear(oldYear.getYear());
+			   newYear.setContribution(item);
+			   item.getYears().put(newYear.getYear(), newYear);
+	 	}
+	 	
+	 	return item;
+	 }
 	 
 	@Override
 	public boolean equals(Object obj) {
-		if (!super.equals(obj)) return false;
-		ProjectItemContribution x = (ProjectItemContribution)obj;
-		boolean isEqual = 
-		((year==null && this.getProjItemId()==x.getProjItemId()) || (year!=null && year==x.getYear()));
-		return isEqual;
+		return super.equals(obj);
+//		if (!super.equals(obj)) return false;
+//		ProjectItemContribution x = (ProjectItemContribution)obj;
+//		boolean isEqual = 
+//		((year==null && this.getProjItemId()==x.getProjItemId()) || (year!=null && year==x.getYear()));
+//		return isEqual;
 	}
 	
 	@Override
 	public int hashCode() {
-		int code = super.hashCode();
-		final int multiplier = 23;
-	    if (year!=null) { code = multiplier * code + year.hashCode(); }
-	    return code;
+		return super.hashCode();
+//		int code = super.hashCode();
+//		final int multiplier = 23;
+//	    if (year!=null) { code = multiplier * code + year.hashCode(); }
+//	    return code;
 	}
 	
 	@Override
