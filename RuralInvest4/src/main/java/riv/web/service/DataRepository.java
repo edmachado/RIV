@@ -75,6 +75,7 @@ import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemContribution;
+import riv.objects.project.ProjectItemContributionPerYear;
 import riv.objects.project.ProjectItemGeneral;
 import riv.objects.project.ProjectItemGeneralBase;
 import riv.objects.project.ProjectItemGeneralPerYear;
@@ -1133,10 +1134,32 @@ public class DataRepository {
 		}
 	}
 	
+	public void simplifyContributions(Project p, boolean simplify) {
+		if (simplify) {
+			Query query=currentSession().createQuery("delete ProjectItemContributionPerYear year " +
+					"where year.id in (select y.id from ProjectItemContributionPerYear y where y.year>0 and y.parent.project=:p");
+				query.setParameter("p", p);
+				query.executeUpdate();
+		} else {
+			for (ProjectItemContribution c : p.getContributions()) {
+				for (int i=1;i<p.getDuration();i++) {
+					ProjectItemContributionPerYear newYear = new ProjectItemContributionPerYear();
+					newYear.setUnitNum(c.getYears().get(0).getUnitNum());
+					newYear.setYear(i);
+					newYear.setParent(c);
+					c.getYears().put(i, newYear);
+					currentSession().save(newYear);
+					currentSession().flush();
+					currentSession().saveOrUpdate(c);
+				}
+			}
+		}
+	}
+	
 	public void simplifyGeneralCosts(Project p, boolean simplify) {
 		if (simplify) { // from per-year to simplified model
 			Query query=currentSession().createQuery("delete ProjectItemGeneralPerYear year " +
-					"where year.id in (select y.id from ProjectItemGeneralPerYear y where y.year>0 and y.general.project=:p)");
+					"where year.id in (select y.id from ProjectItemGeneralPerYear y where y.year>0 and y.parent.project=:p)");
 			query.setParameter("p", p);
 			query.executeUpdate();
 		} else { // from simplified to per-year model
@@ -1155,32 +1178,12 @@ public class DataRepository {
 				newYear.setOwnResources(y1.getOwnResources());
 				newYear.setUnitNum(y1.getUnitNum());
 				newYear.setYear(i);
-				newYear.setGeneral(gen);
+				newYear.setParent(gen);
 				gen.getYears().put(i, newYear);
 				currentSession().save(newYear);
 				currentSession().flush();
 				currentSession().saveOrUpdate(gen);
 			}
-		}
-	}
-	
-	public void simplifyContributions(Project p) {
-		Query query=currentSession().createQuery("delete ProjectItemContribution c where c.year>1 and c.project=:p");
-		query.setParameter("p", p);
-		query.executeUpdate();
-		p = getProject(p.getProjectId(), 1);
-		p.setPerYearContributions(false);
-		storeProject(p, p.getWizardStep()==null);
-	}
-	
-	public void copyContributions(Project p, int sourceYear, int targetYear) {
-		int targetCount = p.getContributionsByYear().get(targetYear).size();
-		for (ProjectItemContribution c : p.getContributionsByYear().get(sourceYear)) {
-			ProjectItemContribution c2 = c.copy();
-			c2.setYear(targetYear);
-			c2.setOrderBy(targetCount++);
-			storeProjectItem(c2, true);
-			p.addContribution(c2);
 		}
 	}
 	
@@ -1459,11 +1462,11 @@ public class DataRepository {
 		
 		currentSession().delete(item);
 		
-		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
-			genericReorderWithYear(item.getClass().getSimpleName(), "project_id", projId, orderBy, ((ProjectItemContribution)item).getYear());
-		} else {
+//		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+//			genericReorderWithYear(item.getClass().getSimpleName(), "project_id", projId, orderBy, ((ProjectItemContribution)item).getYear());
+//		} else {
 			genericReorder(item.getClass().getSimpleName(), "project_id", projId, orderBy);
-		}
+//		}
 	}
 
 	
@@ -1733,12 +1736,12 @@ public class DataRepository {
 	}
 	
 	public void moveProjectItem(ProjectItem item, boolean up) {
-		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
-			genericMoveOrderWithYear(item.getClass().getSimpleName(), "Proj_Item_Id", item.getProjItemId(), "Project_Id", 
-					item.getProject().getProjectId(), item.getOrderBy(), ((ProjectItemContribution)item).getYear(), up);
-		} else {
+//		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+//			genericMoveOrderWithYear(item.getClass().getSimpleName(), "Proj_Item_Id", item.getProjItemId(), "Project_Id", 
+//					item.getProject().getProjectId(), item.getOrderBy(), ((ProjectItemContribution)item).getYear(), up);
+//		} else {
 			genericMoveOrder(item.getClass().getSimpleName(), "Proj_Item_Id", item.getProjItemId(), "Project_Id", item.getProject().getProjectId(), item.getOrderBy(), up);
-		}
+//		}
 	}
 
 	public void moveBlockItem(BlockItem item, boolean up) {

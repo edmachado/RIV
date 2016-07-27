@@ -186,28 +186,28 @@ public class ExcelImportController {
 			donorsByOrder.put(desc, d.getOrderBy());
 		}
 		
-		List<ProjectItemContribution> items = new ArrayList<ProjectItemContribution>();
-		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, 5, validator)
-				.addColumn(0, "description", false)
-				.addSelectColumn(1, "donorOrderBy", donorsByOrder)
-				.addColumn(2, "unitType", false)
-				.addColumn(3, "unitNum", true)
-				.addColumn(4, "unitCost", true);
+//		List<ProjectItemContribution> items = new ArrayList<ProjectItemContribution>();
+//		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, 5, validator)
+//				.addColumn(0, "description", false)
+//				.addSelectColumn(1, "donorOrderBy", donorsByOrder)
+//				.addColumn(2, "unitType", false)
+//				.addColumn(3, "unitNum", true)
+//				.addColumn(4, "unitCost", true);
 		
 		
-		for (int year=1; year<=p.getDuration();year++) {
-			if (p.isPerYearContributions() || year==1) {
-				table.setStartRow(2+items.size()+(year-1)*4);
-				List<ProjectItemContribution> yearItems = table.readTable(workbook.getSheetAt(0), messageSource);
-				for (ProjectItemContribution i : yearItems) {
- 					i.setYear(year);
-				}
-				items.addAll(yearItems);
-				yearItems.clear();
-			}
-		}
+//		for (int year=1; year<=p.getDuration();year++) {
+//			if (p.isPerYearContributions() || year==1) {
+//				table.setStartRow(2+items.size()+(year-1)*4);
+//				List<ProjectItemContribution> yearItems = table.readTable(workbook.getSheetAt(0), messageSource);
+//				for (ProjectItemContribution i : yearItems) {
+// 					i.setYear(year);
+//				}
+//				items.addAll(yearItems);
+//				yearItems.clear();
+//			}
+//		}
 		
-		dataService.replaceProjectContribution(id, items);
+//		dataService.replaceProjectContribution(id, items);
 	}
 	
 	private void importProjectGeneralNongen(int id, InputStream file) throws ExcelImportException {

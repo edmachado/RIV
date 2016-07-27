@@ -16,9 +16,9 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.validation.Validator;
 
-import riv.objects.HasPerYearItems;
 import riv.objects.OrderByable;
-import riv.objects.PerYearItem;
+import riv.objects.project.HasPerYearItems;
+import riv.objects.project.PerYearItem;
 import riv.util.ExcelImportException.ErrorType;
 
 public class XlsImportTable<E extends OrderByable> {

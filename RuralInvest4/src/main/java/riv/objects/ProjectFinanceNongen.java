@@ -10,6 +10,7 @@ import riv.objects.project.BlockLabour;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemContribution;
+import riv.objects.project.ProjectItemContributionPerYear;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemNongenLabour;
 import riv.objects.project.ProjectItemNongenMaintenance;
@@ -163,12 +164,14 @@ public class ProjectFinanceNongen {
 		// contributions
 		if (project.isPerYearContributions()) {
 			for (ProjectItemContribution cont : project.getContributions()) {
-				data.get(cont.getYear()-1).setContributions(data.get(cont.getYear()-1).getContributions()+cont.getTotal());
+				for (ProjectItemContributionPerYear py : cont.getYears().values()) {
+					data.get(py.getYear()).setContributions(data.get(py.getYear()-1).getContributions()+py.getTotal());
+				}
 			}
 		} else { // simplified approach 
 			for (ProjectItemContribution c : project.getContributions()) {
 				for (int i=0;i<project.getDuration();i++) {
-					data.get(i).setContributions(data.get(i).getContributions()+c.getTotal());
+					data.get(i).setContributions(data.get(i).getContributions()+c.getYears().get(0).getTotal());
 				}
 			}
 		}

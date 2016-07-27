@@ -25,16 +25,23 @@ import riv.web.config.RivConfig;
  */
 @Entity
 @DiscriminatorValue("5")
-public class ProjectItemContribution extends ProjectItem {
+public class ProjectItemContribution extends HasPerYearItems<ProjectItemContributionPerYear> {
 	private static final long serialVersionUID = 1L;
-
-	@OneToMany(mappedBy="general", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
-	@MapKey(name="year")
-	private Map<Integer, ProjectItemContributionPerYear> years = new HashMap<Integer, ProjectItemContributionPerYear>();
 	
+
 	@ManyToOne
 	@JoinColumn(name="PROJECT_ID", nullable=false)
 	protected Project project;
+	
+	@OneToMany(mappedBy="parent", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@MapKey(name="year")
+	private Map<Integer, ProjectItemContributionPerYear> years = new HashMap<Integer, ProjectItemContributionPerYear>();
+	public Map<Integer, ProjectItemContributionPerYear> getYears() {
+		return years;
+	}
+	public void setYears(Map<Integer, ProjectItemContributionPerYear> years) {
+		this.years = years;
+	}
 	
 	@Column(name="DONOR_ORDER_BY")
 	private int donorOrderBy;
@@ -42,19 +49,17 @@ public class ProjectItemContribution extends ProjectItem {
 	@Transient // only for importing from previous versions
 	private String oldDonor;
 	
-	public Map<Integer, ProjectItemContributionPerYear> getYears() {
-		return years;
-	}
-	public void setYears(Map<Integer, ProjectItemContributionPerYear> years) {
-		this.years=years;
-	}
 	public void addYears(int years) {
-		this.years=new HashMap<Integer, ProjectItemContributionPerYear>();
+		this.setYears(new HashMap<Integer, ProjectItemContributionPerYear>());
 		for (int i=0;i<years;i++) {
-			ProjectItemContributionPerYear py = new ProjectItemContributionPerYear();
-			py.setYear(i);
-			py.setContribution(this);
-			this.years.put(i, py);
+			try {
+				ProjectItemContributionPerYear py = new ProjectItemContributionPerYear();
+				py.setYear(i);
+				py.setParent(this);
+				this.getYears().put(i, py);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -130,7 +135,7 @@ public class ProjectItemContribution extends ProjectItem {
 	 		ProjectItemContributionPerYear newYear = new ProjectItemContributionPerYear();
 			   newYear.setUnitNum(oldYear.getUnitNum());
 			   newYear.setYear(oldYear.getYear());
-			   newYear.setContribution(item);
+			   newYear.setParent(item);
 			   item.getYears().put(newYear.getYear(), newYear);
 	 	}
 	 	
@@ -160,4 +165,5 @@ public class ProjectItemContribution extends ProjectItem {
 	public void convertCurrency(Double exchange, int scale) {
 		unitCost = project.round(unitCost*exchange, scale);
 	}
+
 }

@@ -299,9 +299,10 @@ public class Upgrader {
 		if (! project.getIncomeGen()) {
 			for (ProjectItemContribution c : project.getContributions()) {
 				// <RIV4.1 NIG project contributions need year
-				if (c.getYear()==null) {
-					c.setYear(1);
-				}
+				//TODO: check for compatibility RIV4.3
+//				if (c.getYear()==null) {
+//					c.setYear(1);
+//				}
 				// <RIV4.1 donor for old nig project contributions
 				if (c.getOldDonor()!=null) {
 					String[] split = c.getOldDonor().split("-XRIVX-");
@@ -345,8 +346,8 @@ public class Upgrader {
 	private void checkYearsHaveGeneral(Set<? extends ProjectItemGeneralBase> gens) {
 		for (ProjectItemGeneralBase g : gens) {
 			ProjectItemGeneralPerYear y = g.getYears().get(0);
-			if (y.getGeneral()==null) {
-				y.setGeneral(g);
+			if (y.getParent()==null) {
+				y.setParent(g);
 			}
 		}
 	}

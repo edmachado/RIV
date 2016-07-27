@@ -37,8 +37,6 @@ import org.springframework.stereotype.Component;
 import riv.objects.FilterCriteria;
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
-import riv.objects.HasPerYearItems;
-import riv.objects.PerYearItem;
 import riv.objects.ProfileMatrix;
 import riv.objects.ProjectFinanceData;
 import riv.objects.ProjectFinanceNongen;
@@ -55,6 +53,8 @@ import riv.objects.project.BlockChron;
 import riv.objects.project.BlockPattern;
 import riv.objects.project.BlockWithout;
 import riv.objects.project.Donor;
+import riv.objects.project.HasPerYearItems;
+import riv.objects.project.PerYearItem;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemContribution;
@@ -1658,7 +1658,7 @@ public class ExcelWorksheetBuilder {
 			int labourSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW))+project.getLabours().size(); 
 			int serviceSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_ROW))+project.getServices().size(); 
 			
-			Map<Integer, SortedSet<ProjectItemContribution>> contribsByYear = project.getContributionsByYear();
+//			Map<Integer, SortedSet<ProjectItemContribution>> contribsByYear = project.getContributionsByYear();
 			for (int year=1;year<=project.getDuration();year++) {
 				String col = getColumn(year);
 				report.addNumericCell(sheet.getRow(1), year, year);
@@ -1699,13 +1699,13 @@ public class ExcelWorksheetBuilder {
 				
 				// contributions
 				if (project.isPerYearContributions()) {
-					int rowsToSkip = 1;
-					for (int x=1;x<=year;x++) {
-						rowsToSkip+=4+contribsByYear.get(x).size();
-					}
-					report.addFormulaCell(rows[5], year, String.format("%s!$F$%d", contribSheetName, rowsToSkip), Style.CURRENCY);
+//					int rowsToSkip = 1;
+//					for (int x=1;x<=year;x++) {
+//						rowsToSkip+=4+contribsByYear.get(x).size();
+//					}
+//					report.addFormulaCell(rows[5], year, String.format("%s!$F$%d", contribSheetName, rowsToSkip), Style.CURRENCY);
 				} else {
-					report.addFormulaCell(rows[5], year, String.format("%s!$F$%d", contribSheetName, (5+contribsByYear.get(1).size())), Style.CURRENCY);
+//					report.addFormulaCell(rows[5], year, String.format("%s!$F$%d", contribSheetName, (5+contribsByYear.get(1).size())), Style.CURRENCY);
 				}
 				
 				// total
@@ -1839,12 +1839,12 @@ public class ExcelWorksheetBuilder {
 			for (int i=1;i<=project.getDuration();i++) {
 				row = sheet.createRow(rowNum++);
 				report.addTextCell(row, cellNum, translate("units.year")+" "+i, Style.H2);
-				rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(i), true);
+//				rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(i), true);
 				rowNum++;
 			}
 		} else {
 			row = sheet.createRow(rowNum++);
-			rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(1), true);
+//			rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(1), true);
 			rowNum++;
 		}
 		return sheet;

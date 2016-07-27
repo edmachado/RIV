@@ -49,9 +49,9 @@ import riv.objects.config.Setting;
 import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Donor;
+import riv.objects.project.HasPerYearItems;
+import riv.objects.project.PerYearItem;
 import riv.objects.project.Project;
-import riv.objects.project.ProjectItemGeneralBase;
-import riv.objects.project.ProjectItemGeneralSingleYear;
 import riv.objects.project.ProjectResult;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -325,15 +325,11 @@ public class ProjectController {
 	@RequestMapping(value="step{step}/{id}/perYearContributions", method=RequestMethod.GET)
 	public String perYearContributions(@PathVariable Integer step, @PathVariable Integer id, @RequestParam(required=true) Boolean simple, 
 			@ModelAttribute Project p, HttpServletRequest request) {
-		if (simple) { // remove all contributions after year 1
-			dataService.simplifyContributions(p);
-		} else { // copy year 1 contributions to all other years
-			for (int y=2;y<=p.getDuration();y++) {
-				dataService.copyContributions(p, 1, y);
-			}
-			p.setPerYearContributions(true);
-			dataService.storeProject(p, p.getWizardStep()==null);
-		}
+		
+		dataService.simplifyContributions(p, simple);
+		p=dataService.getProject(id, step);
+		p.setPerYearContributions(!simple);
+		dataService.storeProject(p, p.getWizardStep()==null);
 		
 		return "redirect:../../../project/step10/"+p.getProjectId();
 	}
@@ -352,16 +348,16 @@ public class ProjectController {
 		return "redirect:../../../project/step8/"+p.getProjectId();
 	}
 	
-	@RequestMapping(value="step{step}/{id}/copyContrib/{sourceYear}/{targetYear}", method=RequestMethod.GET)
-	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
-			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 
-			@ModelAttribute Project p, HttpServletRequest request) {
-		if (targetYear>0 && targetYear<=p.getDuration()) {
-			dataService.copyContributions(p, sourceYear, targetYear);
-			dataService.storeProject(p, p.getWizardStep()==null);
-		}
-		return "redirect:../../../"+p.getProjectId();
-	}
+//	@RequestMapping(value="step{step}/{id}/copyContrib/{sourceYear}/{targetYear}", method=RequestMethod.GET)
+//	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
+//			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 
+//			@ModelAttribute Project p, HttpServletRequest request) {
+//		if (targetYear>0 && targetYear<=p.getDuration()) {
+//			dataService.copyContributions(p, sourceYear, targetYear);
+//			dataService.storeProject(p, p.getWizardStep()==null);
+//		}
+//		return "redirect:../../../"+p.getProjectId();
+//	}
 	
 	@RequestMapping(value="step{step}/{id}/delete", method=RequestMethod.GET)
 	public String delete(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Project p) {
@@ -376,20 +372,20 @@ public class ProjectController {
 		return "redirect:../../../search/results";
 	}
 	
-	private Map<Integer, ArrayList<ProjectItemGeneralSingleYear>> generalCostsForTable(int duration, boolean isPerYear, Set<? extends ProjectItemGeneralBase> generals) {
-		Map<Integer, ArrayList<ProjectItemGeneralSingleYear>> generalsForTable = new HashMap<Integer, ArrayList<ProjectItemGeneralSingleYear>>();
+	private Map<Integer, ArrayList<PerYearItem>> generalCostsForTable(int duration, boolean isPerYear, Set<? extends HasPerYearItems> hasItems) {
+		Map<Integer, ArrayList<PerYearItem>> itemsForTable = new HashMap<Integer, ArrayList<PerYearItem>>();
 		for (int i=0; i<duration; i++) {
-			generalsForTable.put(i, new ArrayList<ProjectItemGeneralSingleYear>());
+			itemsForTable.put(i, new ArrayList<PerYearItem>());
 		}
 		
-		for (ProjectItemGeneralBase gen : generals) {
-			for (int i=0; i<duration; i++) {
-				if (i==0 || isPerYear) {
-					generalsForTable.get(i).add(gen.getOneYearData(i));
+		for (HasPerYearItems<?> has : hasItems) {
+			for (PerYearItem y : has.getYears().values()) {
+				if (y.getYear()==0 || isPerYear) {
+					itemsForTable.get(y.getYear()).add(y);
 				}
 			}
 		}
-		return generalsForTable;
+		return itemsForTable;
 	}
 	
 	private void setupPageAttributes(Project p, Model model, Integer step, HttpServletRequest request) {
@@ -437,7 +433,7 @@ public class ProjectController {
 			ArrayList<ProjectFinanceNongen> data = ProjectFinanceNongen.analyzeProject(p);
 			model.addAttribute("years",data);
 			// group contributions by year
-			model.addAttribute("contribsByYear", p.getContributionsByYear());
+//			model.addAttribute("contribsByYear", p.getContributionsByYear());
 		} else if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
 			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 			

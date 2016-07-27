@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -279,9 +280,9 @@ public class Project extends Probase implements java.io.Serializable {
 	private Set<ProjectItemServiceWithout> servicesWithout = new HashSet<ProjectItemServiceWithout>();
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemContribution.class, orphanRemoval=true, cascade = CascadeType.ALL)
-	//@OrderBy({"YEAR_BEGIN","ORDER_BY"})
+	@OrderBy("ORDER_BY")
 	@Where(clause="class='5'")
-	private Set<ProjectItemContribution> contributions;
+	private Set<ProjectItemContribution> contributions = new HashSet<ProjectItemContribution>();
 
 	@OneToMany(mappedBy="project", targetEntity=ProjectItemNongenMaterials.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
@@ -369,16 +370,16 @@ public double getInvestmentTotal() {
 	return investTotal;
 }
 
-	public Map<Integer, SortedSet<ProjectItemContribution>> getContributionsByYear() {
-		Map<Integer, SortedSet<ProjectItemContribution>> contribsByYear = new HashMap<Integer, SortedSet<ProjectItemContribution>>();
-		for (int i=1; i<=duration; i++) {
-			contribsByYear.put(i, new TreeSet<ProjectItemContribution>());
-		}
-		for (ProjectItemContribution contrib : contributions) {
-			contribsByYear.get(contrib.getYear()).add(contrib);
-		} 
-		return contribsByYear;
-	}
+//	public Map<Integer, SortedSet<ProjectItemContribution>> getContributionsByYear() {
+//		Map<Integer, SortedSet<ProjectItemContribution>> contribsByYear = new HashMap<Integer, SortedSet<ProjectItemContribution>>();
+//		for (int i=1; i<=duration; i++) {
+//			contribsByYear.put(i, new TreeSet<ProjectItemContribution>());
+//		}
+//		for (ProjectItemContribution contrib : contributions) {
+//			contribsByYear.get(contrib.getYear()).add(contrib);
+//		} 
+//		return contribsByYear;
+//	}
 
     // Constructors
 	/** default constructor */
@@ -565,19 +566,43 @@ public double getInvestmentTotal() {
         	for (BlockBase b : blocksWithout) {
         		b.projectDurationChanged();
         	}
-        	if (!incomeGen && decreased) {
-        		List<ProjectItemContribution> removes = new ArrayList<ProjectItemContribution>();
-        		for (ProjectItemContribution c : contributions) {
-        			if (c.getYear()>this.duration) {
-        				removes.add(c);
-        			}
-        		}
-        		contributions.removeAll(removes);
+        	if (decreased) {
+        		if (perYearContributions) {
+            		for (ProjectItemContribution c : contributions) {
+            			decreaseYear(c.getYears().values(), duration);
+            		}
+            	}
+            	if (perYearGeneralCosts) {
+            		for (ProjectItemGeneralBase g : generals) {
+            			decreaseYear(g.getYears().values(), duration);
+            		}
+            		for (ProjectItemGeneralBase g : generalWithouts) {
+            			decreaseYear(g.getYears().values(), duration);
+            		}
+            		for (ProjectItemGeneralBase g : personnels) {
+            			decreaseYear(g.getYears().values(), duration);
+            		}
+            		for (ProjectItemGeneralBase g : personnelWithouts) {
+            			decreaseYear(g.getYears().values(), duration);
+            		}
+            	}
+        	} else { // increased
+        		
         	}
         } else {
         	this.duration = Duration;
         }
     }
+   
+   private void decreaseYear(Collection<? extends PerYearItem> items, int maxYear) {
+	   List<PerYearItem> removes = new ArrayList<PerYearItem>();
+	   for (PerYearItem i : items) {
+		   if (i.getYear()>maxYear) {
+   				removes.add(i);
+   			}
+	   }
+	   items.removeAll(removes);
+   }
     
     public String getProjDesc () {
         return this.projDesc;
@@ -1273,7 +1298,9 @@ public double getInvestmentTotal() {
 		}
 		
 		for (ProjectItemContribution c : contributions) {
-			summary.get(c.getDonorOrderBy())[c.getYear()-1]+=c.getTotal();
+			for (int i=0;i<duration;i++) {
+				summary.get(c.getDonorOrderBy())[i]+= perYearContributions ? c.getYears().get(i).getTotal() : c.getYears().get(0).getTotal();
+			}
 		}
 		
 		return summary;
@@ -1510,12 +1537,9 @@ public double getInvestmentTotal() {
 		// contributions
 		if (!incomeGen) {
 			for (ProjectItemContribution c : this.getContributions()) {
-				if (perYearContributions) {
-					donations[c.getDonorOrderBy()][3][c.getYear()-1] += c.getUnitNum()*c.getUnitCost();
-				} else {
-					for (int y=0;y<this.getDuration();y++) {
-						donations[c.getDonorOrderBy()][3][y] += c.getUnitNum()*c.getUnitCost();
-					}
+				for (int i=0;i<duration;i++) {
+					donations[c.getDonorOrderBy()][3][i] += 
+							c.getYears().get(perYearContributions ? i : 0).getTotal();
 				}
 			}
 		}
@@ -1948,13 +1972,13 @@ public double getInvestmentTotal() {
 			for (int y=1;y<=duration;y++) {
 				total=0;
 				int count=0;
-				for (ProjectItemContribution i : contributions) {
-					if (i.getYear()==y) {
-						total+=i.getTotal();
-						sb.append(i.testingProperties(rivConfig));
-						count++;
-					}
-				}
+//				for (ProjectItemContribution i : contributions) {
+//					if (i.getYear()==y) {
+//						total+=i.getTotal();
+//						sb.append(i.testingProperties(rivConfig));
+//						count++;
+//					}
+//				}
 				sb.append("step10.year."+y+".contribution.Sum.description="+lineSeparator);
 				sb.append("step10.year."+y+".contribution.Sum.donorOrderBy="+lineSeparator);
 //				sb.append("step10.year."+y+".contribution.Sum.contribType="+lineSeparator);

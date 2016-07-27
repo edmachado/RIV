@@ -36,6 +36,9 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="PROJ_ITEM_ID", nullable = false)
 	private int projItemId;
+	
+	
+	@Column
 	protected String description;
 	@Column(name="ORDER_BY")
 	private Integer OrderBy;
@@ -63,7 +66,7 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	public ProjectItem(java.lang.Integer ProjItemId) {
 		this.projItemId = ProjItemId;
 	}
-
+	
 	public abstract String testingProperties(RivConfig rivConfig);
 	
 	public int getProjItemId () {
@@ -139,15 +142,7 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 	
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;
-		// at the moment, only ProjectItemContribution is grouped by year and order, not only by order
-		// if other classes implement this feature, they should use an interface
-		if (this instanceof ProjectItemContribution && i instanceof ProjectItemContribution) {
-			if (((ProjectItemContribution)this).getYear()==null) { return -1; }
-			int compare = ((ProjectItemContribution)this).getYear() - ((ProjectItemContribution)i).getYear();
-			if (compare!=0) { return compare; }
-		}
 		int compare = this.getOrderBy() - i.getOrderBy();
-//		if(compare == 0) return 1;
 		return compare; 
 	}
 

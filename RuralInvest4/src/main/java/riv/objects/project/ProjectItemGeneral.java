@@ -14,17 +14,17 @@ import javax.persistence.ManyToOne;
 public class ProjectItemGeneral extends ProjectItemGeneralBase {
 	private static final long serialVersionUID = 1L;
 
+
 	@ManyToOne
 	@JoinColumn(name="PROJECT_ID", nullable=false)
 	protected Project project;
-	
 	public Project getProject () {
 		return this.project;
 	}
-
 	public void setProject (Project project) {
 		this.project = project;
 	}
+
 	
 	protected String propertyLabel() {
 		return "supply";

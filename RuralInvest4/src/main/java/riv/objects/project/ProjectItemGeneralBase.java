@@ -4,13 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 
-import riv.objects.HasPerYearItems;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 import riv.web.config.RivConfig;
@@ -20,76 +18,69 @@ import riv.web.config.RivConfig;
  *
  */
 @Entity
-public abstract class ProjectItemGeneralBase extends ProjectItem implements HasPerYearItems<ProjectItemGeneralPerYear> {
+public abstract class ProjectItemGeneralBase extends HasPerYearItems<ProjectItemGeneralPerYear> {
 	private static final long serialVersionUID = 1L;
 	
-	@OneToMany(mappedBy="general", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="parent", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@MapKey(name="year")
 	private Map<Integer, ProjectItemGeneralPerYear> years = new HashMap<Integer, ProjectItemGeneralPerYear>();
-	
-	public abstract Project getProject();
-	public abstract void setProject (Project Project);
-
-
-	protected abstract String propertyLabel(); 
-	
-	
 	public Map<Integer, ProjectItemGeneralPerYear> getYears() {
 		return years;
 	}
 	public void setYears(Map<Integer, ProjectItemGeneralPerYear> years) {
-		this.years=years;
+		this.years = years;
 	}
+	
 	public void addYears(int years) {
-		this.years=new HashMap<Integer, ProjectItemGeneralPerYear>();
+		this.setYears(new HashMap<Integer, ProjectItemGeneralPerYear>());
 		for (int i=0;i<years;i++) {
-			ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
-			py.setYear(i);
-			py.setGeneral(this);
-			this.years.put(i, py);
+			try {
+				ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
+				py.setYear(i);
+				py.setParent(this);
+				this.getYears().put(i, py);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-	}
-
-	@Override
-	public Double getUnitNum() {
-		throw new RuntimeException("UnitNum should be called on a specific year of a general cost.");
 	}
 	
-	public ProjectItemGeneralSingleYear getOneYearData(int year) {
-		if (year>getProject().getDuration()) {
-			throw new RuntimeException("Attempting to access a year beyond the project duration. This should not be allowed to occur.");
-		}
-		
-		ProjectItemGeneralSingleYear single = new ProjectItemGeneralSingleYear();
-		ProjectItemGeneralPerYear perYear = years.get(year);
-		if (perYear==null) {
-			throw new RuntimeException("ProjectItemGeneralPerYear is missing. This should not occur at runtime.");
-		}
-		single.setProjItemId(this.getProjItemId());
-		single.setDescription(description);
-		single.setUnitType(unitType);
-		single.setUnitCost(unitCost);
-		single.setUnitNum(perYear.getUnitNum());
-		single.setOwnResources(perYear.getOwnResources());
-		single.setTotalCost(perYear.getTotal());
-		single.setExternal(perYear.getExternal());
-		single.setLinked(this.getLinkedTo()!=null);
-		
-		return single;
-	}
+	protected abstract String propertyLabel();
 	
+//	public ProjectItemGeneralSingleYear getOneYearData(int year) {
+//		if (year>getProject().getDuration()) {
+//			throw new RuntimeException("Attempting to access a year beyond the project duration. This should not be allowed to occur.");
+//		}
+//		
+//		ProjectItemGeneralSingleYear single = new ProjectItemGeneralSingleYear();
+//		ProjectItemGeneralPerYear perYear = years.get(year);
+//		if (perYear==null) {
+//			throw new RuntimeException("ProjectItemGeneralPerYear is missing. This should not occur at runtime.");
+//		}
+//		single.setProjItemId(this.getProjItemId());
+//		single.setDescription(description);
+//		single.setUnitType(unitType);
+//		single.setUnitCost(unitCost);
+//		single.setUnitNum(perYear.getUnitNum());
+//		single.setOwnResources(perYear.getOwnResources());
+//		single.setTotalCost(perYear.getTotal());
+//		single.setExternal(perYear.getExternal());
+//		single.setLinked(this.getLinkedTo()!=null);
+//		
+//		return single;
+//	}
 	
 	 protected ProjectItemGeneralBase copy(Class<? extends ProjectItemGeneralBase> newClass) {
-	 ProjectItemGeneralBase item;
-	 if (newClass.isAssignableFrom(ProjectItemGeneral.class)) {
-		 item = new ProjectItemGeneral();
-	 } else if (newClass.isAssignableFrom(ProjectItemGeneralWithout.class)) {
-		 item = new ProjectItemGeneralWithout();
-	 } else if (newClass.isAssignableFrom(ProjectItemPersonnel.class)) {
-		 item = new ProjectItemPersonnel();
-	 } else {
-		 item = new ProjectItemPersonnelWithout();
-	 }
+		 ProjectItemGeneralBase item;
+		 if (newClass.isAssignableFrom(ProjectItemGeneral.class)) {
+			 item = new ProjectItemGeneral();
+		 } else if (newClass.isAssignableFrom(ProjectItemGeneralWithout.class)) {
+			 item = new ProjectItemGeneralWithout();
+		 } else if (newClass.isAssignableFrom(ProjectItemPersonnel.class)) {
+			 item = new ProjectItemPersonnel();
+		 } else {
+			 item = new ProjectItemPersonnelWithout();
+		 }
 	 
 	   item.setDescription(description);
 	   item.setExportLinkedTo(exportLinkedTo);
@@ -105,7 +96,7 @@ public abstract class ProjectItemGeneralBase extends ProjectItem implements HasP
 		   newYear.setUnitNum(oldYear.getUnitNum());
 		   newYear.setOwnResources(oldYear.getOwnResources());
 		   newYear.setYear(oldYear.getYear());
-		   newYear.setGeneral(item);
+		   newYear.setParent(item);
 		   item.getYears().put(newYear.getYear(), newYear);
 	   }
 	   return item;

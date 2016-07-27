@@ -301,13 +301,13 @@ public class DataService implements UserDetailsService, Serializable {
 		repo.simplifyGeneralCosts(p, simplify);
 	}
 	
-	public void simplifyContributions(Project p) {
-		repo.simplifyContributions(p);
+	public void simplifyContributions(Project p, boolean simplify) {
+		repo.simplifyContributions(p, simplify);
 	}
 	
-	public void copyContributions(Project p, int sourceYear, int targetYear) {
-		repo.copyContributions(p, sourceYear, targetYear);
-	}
+//	public void copyContributions(Project p, int sourceYear, int targetYear) {
+//		repo.copyContributions(p, sourceYear, targetYear);
+//	}
 	
 	public void recalculateCompletedProjects() {
 		repo.recalculateCompletedProjects();
