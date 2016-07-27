@@ -135,12 +135,7 @@ about.version=Версия
 project.recommendation.review=Требуется более детальный анализ 
 
 units.year=Год 
-misc.confirm=Подтвердить 
-projectContribution.copy=Копировать все элементы в следующий год проекта.
-projectContribution.copy.title=Копировать 
-projectContribution.copy.toYear=Копировать в год:
-projectContribution.copy.range=Вы можете копировать в любой год с 1 по {0}
-projectContribution.addAll=Добавить в каждый год проекта 
+misc.confirm=Подтвердить
 projectContribution.yearlyFlow=Чистый ежегодный баланс (включая существующие вклады):
 projectContribution.contribType.beneficiary=Бенефициары 
 projectContribution.method.simplified=Упрощенный 

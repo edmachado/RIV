@@ -189,11 +189,13 @@ public class ProjectFinanceNongen {
 			data.get(asset.getYearBegin()-1).setOwnContribution(data.get(asset.getYearBegin()-1).getOwnContribution()+asset.getOwnResources());
 			data.get(asset.getYearBegin()-1).setDonated(data.get(asset.getYearBegin()-1).getDonated()+asset.getDonated());
 			
-			int lastAssetYear = asset.getReplace() ? project.getDuration() : asset.getYearBegin()-1+asset.getEconLife();
+			int lastAssetYear = asset.getReplace() ? project.getDuration() : asset.getYearBegin()+asset.getEconLife();
 			if (lastAssetYear>project.getDuration()) lastAssetYear = project.getDuration();
 			for (int i=asset.getYearBegin()-1; i<lastAssetYear; i++) {
 				// maintenance (every year)
-				data.get(i).setMaintenance(data.get(i).getMaintenance()+(asset.getMaintCost()*asset.getUnitNum()));
+				if (asset.getReplace() || i<lastAssetYear-1) {
+					data.get(i).setMaintenance(data.get(i).getMaintenance()+(asset.getMaintCost()*asset.getUnitNum()));
+				}
 				// replace and salvage (year after every expiry)
 				if (asset.getReplace()&&i!=asset.getYearBegin()-1&&(i+1-asset.getYearBegin())%asset.getEconLife()==0) {
 					data.get(i).setReplace(data.get(i).getReplace()+asset.getUnitNum()*asset.getUnitCost());

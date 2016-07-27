@@ -26,6 +26,7 @@ public class ProjectItemContributionPerYear extends PerYearItem implements Seria
 	}
 	
 	public Double getTotal() {
+		if (getParent().getUnitCost()==null || getUnitNum()==null) return 0.0;
 		return getUnitNum()*getParent().getUnitCost();
 	}
 }

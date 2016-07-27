@@ -42,15 +42,10 @@ import riv.objects.project.BlockWithout;
 import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
-import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemContributionPerYear;
 import riv.objects.project.ProjectItemGeneralBase;
 import riv.objects.project.ProjectItemGeneralPerYear;
-import riv.objects.project.ProjectItemGeneralWithout;
-import riv.objects.project.ProjectItemLabourWithout;
-import riv.objects.project.ProjectItemPersonnelWithout;
-import riv.objects.project.ProjectItemServiceWithout;
 import riv.objects.reference.ReferenceCost;
 import riv.objects.reference.ReferenceIncome;
 import riv.objects.reference.ReferenceLabour;
@@ -266,16 +261,16 @@ public class Upgrader {
 		
 		
 		// if <3.0 add general costs without project
-		if (project.getGeneralWithouts()==null) {
-			project.setGeneralWithouts(new HashSet<ProjectItemGeneralWithout>());
-			project.setPersonnelWithouts(new HashSet<ProjectItemPersonnelWithout>());
-		}
+//		if (project.getGeneralWithouts()==null) {
+//			project.setGeneralWithouts(new HashSet<ProjectItemGeneralWithout>());
+//			project.setPersonnelWithouts(new HashSet<ProjectItemPersonnelWithout>());
+//		}
 		//if <4.0 add investment costs without project
-		if (project.getAssetsWithout()==null) {
-			project.setAssetsWithout(new HashSet<ProjectItemAssetWithout>());
-			project.setLaboursWithout(new HashSet<ProjectItemLabourWithout>());
-			project.setServicesWithout(new HashSet<ProjectItemServiceWithout>());
-		}	
+//		if (project.getAssetsWithout()==null) {
+//			project.setAssetsWithout(new HashSet<ProjectItemAssetWithout>());
+//			project.setLaboursWithout(new HashSet<ProjectItemLabourWithout>());
+//			project.setServicesWithout(new HashSet<ProjectItemServiceWithout>());
+//		}	
 		
 		//<RIV2.(?) if table items are missing orderBy, add correct values
 		correctMissingOrders(project);	
@@ -284,7 +279,8 @@ public class Upgrader {
 		project.importRefLinks();
 		
 		// <RIV4.3 project general cost per-year
-		if (project.getIncomeGen() &! project.isPerYearGeneralCosts()) {
+		if ((project.getRivVersion()==null || project.getRivVersion()<4.3) 
+				&& project.getIncomeGen()) {
 			checkYearsHaveGeneral(project.getGenerals());
 			checkYearsHaveGeneral(project.getGeneralWithouts());
 			checkYearsHaveGeneral(project.getPersonnels());
@@ -324,9 +320,9 @@ public class Upgrader {
 					c.setDonorOrderBy(myDonor.getOrderBy());
 				}
 			}
-			// from RIV4.1, change from old model of per-year contributions.
-			if (project.isPerYearContributions() && project.getContributions().size()>0 
-					&& project.getContributions().iterator().next().getYears().size()!=project.getDuration()) {
+			
+			// change from old model of contributions.
+			if (project.getRivVersion()==null || project.getRivVersion()<4.3) {
 				Set<ProjectItemContribution> newContribs = new HashSet<ProjectItemContribution>();
 				for (ProjectItemContribution oldC : project.getContributions()) {
 					boolean add=true;
@@ -379,6 +375,15 @@ public class Upgrader {
 		}
 	}
 	
+	private void checkYearsHaveGeneral(Set<? extends ProjectItemGeneralBase> gens) {
+		for (ProjectItemGeneralBase g : gens) {
+			ProjectItemGeneralPerYear y = g.getYears().get(0);
+			if (y.getParent()==null) {
+				y.setParent(g);
+			}
+		}
+	}
+	
 	private Templates getTemplates() {
 		if (templates==null) {
 			TransformerFactory factory = TransformerFactory.newInstance();
@@ -390,15 +395,6 @@ public class Upgrader {
 			}
 		}
 		return templates;
-	}
-	
-	private void checkYearsHaveGeneral(Set<? extends ProjectItemGeneralBase> gens) {
-		for (ProjectItemGeneralBase g : gens) {
-			ProjectItemGeneralPerYear y = g.getYears().get(0);
-			if (y.getParent()==null) {
-				y.setParent(g);
-			}
-		}
 	}
 	
 	/**

@@ -61,35 +61,6 @@ function showYear(year) {
 		<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
  	</b>
  	
-<!--  	<div id="contribSummary" style="display:block;"> -->
-<%--  		<h2><spring:message code="project.report.contributionSummary"/></h2> --%>
-<%--  		<tags:summaryContributions/> --%>
-<!--  	</div> -->
- 	
-<!--  	<div id="yearlyFlow" style="display:block;"> -->
-<%--  		<h2><spring:message code="projectContribution.yearlyFlow"/></h2> --%>
-<%--  		<tags:table> --%>
-<!--  			<table cellspacing="0" cellpadding="0"> -->
-<!--  				<thead> -->
-<!--  					<tr> -->
-<%--  						<th class="left"><spring:message code="units.year"/></th> --%>
-<%--  						<c:forEach begin="1" end="${project.duration}" var="i"> --%>
-<%--  							<th>${i}</th> --%>
-<%--  						</c:forEach> --%>
-<!--  					</tr> -->
-<!--  				</thead> -->
-<!--  				<tbody> -->
-<!--  					<tr class="odd"> -->
-<!--  						<td></td> -->
-<%--  						<c:forEach var="year" items="${years}"> --%>
-<%--  							<td><tags:formatCurrency value="${year.total}" noDecimals="true" /></td> --%>
-<%--  						</c:forEach> --%>
-<!--  					</tr> -->
-<!--  				</tbody> -->
-<!--  			</table> -->
-<%--  		</tags:table> --%>
-<!--  	</div> -->
- 	
  	<c:if test="${project.perYearContributions}">
 		<tags:yearSelector end="${project.duration-1}"/>
 	</c:if>
@@ -176,6 +147,36 @@ function showYear(year) {
 			</div>
 		</c:forEach>
 	</tags:tableContainer>
+ 	
+ 	<div id="yearlyFlow" style="display:block;">
+ 		<h2><spring:message code="projectContribution.yearlyFlow"/></h2>
+ 		<tags:table>
+ 			<table cellspacing="0" cellpadding="0">
+ 				<thead>
+ 					<tr>
+ 						<th class="left"><spring:message code="units.year"/></th>
+ 						<c:forEach begin="1" end="${project.duration}" var="i">
+ 							<th>${i}</th>
+ 						</c:forEach>
+ 					</tr>
+ 				</thead>
+ 				<tbody>
+ 					<tr class="odd">
+ 						<td></td>
+ 						<c:forEach var="year" items="${years}">
+ 							<td><tags:formatCurrency value="${year.total}" noDecimals="true" /></td>
+ 						</c:forEach>
+ 					</tr>
+ 				</tbody>
+ 			</table>
+ 		</tags:table>
+ 	</div>
+ 
+	<div id="contribSummary" style="display:block;">
+ 		<h2><spring:message code="project.report.contributionSummary"/></h2>
+ 		<tags:summaryContributions/>
+ 	</div>
+ 	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step10"/></tags:submit>
 </form:form>
 

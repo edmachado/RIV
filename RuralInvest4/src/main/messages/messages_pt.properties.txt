@@ -131,11 +131,6 @@ project.recommendation.review=Necessário rever e melhorar
 
 units.year=Ano
 misc.confirm=Confirmar
-projectContribution.copy=Copiar todos os itens para outro ano do projecto.
-projectContribution.copy.title=Copiar
-projectContribution.copy.toYear=Copiar para o ano:
-projectContribution.copy.range=Pode copiar para qualquer ano entre 1 e {0}
-projectContribution.addAll=Adicione em todos os anos do projeto
 projectContribution.yearlyFlow=Resultado líquido anual (incluindo as contribuições realizadas):
 projectContribution.contribType.beneficiary=Beneficiários
 projectContribution.method.simplified=Simplificado

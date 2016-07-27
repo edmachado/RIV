@@ -5,13 +5,6 @@
 	<form:form name="form" method="post" commandName="projectItem">
 		<tags:errors />
 		<div style="display:inline-block;width:470px">
-				<c:if test="${project.perYearContributions && projectItem.projItemId eq 0}">
-					<div class="dataentry">
-						<tags:help text="projectContribution.contribType.help" title="projectContribution.contribType"><label><spring:message code="projectContribution.addAll"/></label></tags:help>
-						<input id="allYears" type="checkbox" value="false" name="allYears">	
-					</div>
-				</c:if>
-				
 				<tags:dataentry field="description" labelKey="projectContribution.description" helpText="projectContribution.description.help" inputClass="text" size="20" maxLength="30"/>
 				<div class="dataentry">
 					<tags:help text="projectContribution.contributor.help" title="projectContribution.contributor"><label><spring:message code="projectContribution.contributor"/></label></tags:help>

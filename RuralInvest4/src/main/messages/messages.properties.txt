@@ -151,11 +151,6 @@ project.recommendation.review=Further review required
 
 units.year=Year
 misc.confirm=Confirm
-projectContribution.copy=Copy all items to another year within the project duration.
-projectContribution.copy.title=Copy
-projectContribution.copy.toYear=Copy to year:
-projectContribution.copy.range=You can copy to any year between 1 and {0}
-projectContribution.addAll=Add to every year in the project timespan
 projectContribution.yearlyFlow=Yearly net balance (including existing contributions):
 projectContribution.contribType.beneficiary=Beneficiaries
 projectContribution.method.simplified=Simplified

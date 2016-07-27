@@ -102,10 +102,6 @@ settings.export=Exporter le paramétrage actuel de Rural Invest
 
  
 #corrected from previously sent translations
-project.workingCapital.explain=Le fonds de roulement pour la première année est calculé à partir du flux de trésorerie mensuel cumulé de la première année  
-project.amtRequired.explain=La valeur négative la plus importante.
-projectContribution.copy=Copier tous les éléments dans une autre année durant la période d’analyse
-projectContribution.addAll=Ajouter à chaque année durant la période d’analyse du projet
 projectContribution.yearlyFlow=Flux de trésorerie annuel net (après les contributions et dons):
 projectBlock.pattern.noCycles.help=Indiquez la quantité d’unités de production durant la période d’analyse. Souvent le nombre d’unités peut varier d’un cycle à l’autre
  

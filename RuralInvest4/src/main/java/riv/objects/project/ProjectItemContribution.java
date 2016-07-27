@@ -104,17 +104,15 @@ public class ProjectItemContribution extends HasPerYearItems<ProjectItemContribu
 		   StringBuilder sb = new StringBuilder(); 
 		   int order=this.getOrderBy()+1;
 		   
-		   
-		   
-		   sb.append("step10."+order+".description="+description+lineSeparator);
+		   sb.append("step10.contribution."+order+".description="+description+lineSeparator);
 		   String desc = donorsByOrder.get(donorOrderBy).getNotSpecified()?"Not specified":donorsByOrder.get(donorOrderBy).getDescription();
-		   sb.append("step10."+order+".donorOrderBy="+desc+lineSeparator);
-		   sb.append("step10."+order+".unitType="+unitType+lineSeparator);
-		   sb.append("step10."+order+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
+		   sb.append("step10.contribution."+order+".donorOrderBy="+desc+lineSeparator);
+		   sb.append("step10.contribution."+order+".unitType="+unitType+lineSeparator);
+		   sb.append("step10.contribution."+order+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
 		   
 		   for (ProjectItemContributionPerYear py : getYears().values()) {
-			   sb.append("step10."+order+".year."+py.getYear()+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(py.getUnitNum())+lineSeparator);
-			   sb.append("step10."+order+".year."+py.getYear()+".total="+cf.formatCurrency(py.getTotal(), CurrencyFormat.ALL)+lineSeparator);
+			   sb.append("step10.contribution."+order+".year."+py.getYear()+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(py.getUnitNum())+lineSeparator);
+			   sb.append("step10.contribution."+order+".year."+py.getYear()+".total="+cf.formatCurrency(py.getTotal(), CurrencyFormat.ALL)+lineSeparator);
 		   }
 		   
 		   return sb.toString();

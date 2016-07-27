@@ -339,8 +339,8 @@
 		</void>
 	</xsl:template>
 	<!-- no need for year or contributor elements anymore -->
-	<xsl:template match="void[@property='year' or @property='contributor'][contains('|riv.ProjectItemContribution|riv.objects.project.ProjectItemContribution|', concat('|', ../@class, '|'))]" />
-    
+	<xsl:template match="void[@property='year' and (../@class='riv.objects.project.ProjectItemContribution' or ../@class='riv.ProjectItemContribution')]"/>
+	<xsl:template match="void[@property='contributor' and (../@class='riv.objects.project.ProjectItemContribution' or ../@class='riv.ProjectItemContribution')]"/>
 	
 	<!-- introduce per-year general costs (<RIV4.3) -->
 	<xsl:template match="void[@property='unitNum'][contains('|riv.ProjectItemGeneral|riv.ProjectItemPersonnel|riv.objects.project.ProjectItemGeneral|riv.objects.project.ProjectItemGeneralWithout|riv.objects.project.ProjectItemPersonnel|riv.objects.project.ProjectItemPersonnelWithout|',
@@ -362,6 +362,9 @@
      		</object>
 		</void>
 	</xsl:template>
+	<!-- no need for ownResources element of general cost anymore -->
+	<xsl:template match="void[@property='ownResources'][contains('|riv.ProjectItemGeneral|riv.ProjectItemPersonnel|riv.objects.project.ProjectItemGeneral|riv.objects.project.ProjectItemGeneralWithout|riv.objects.project.ProjectItemPersonnel|riv.objects.project.ProjectItemPersonnelWithout|',
+                   concat('|', ../@class, '|'))]"/>
 	
 	<xsl:template match="@*|node()">
 		<xsl:copy>

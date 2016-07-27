@@ -187,7 +187,8 @@ public class ExcelImportController {
 			donorsByOrder.put(desc, d.getOrderBy());
 		}
 	
-		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, 5, validator)
+		int colWithFormula = p.isPerYearContributions()?3+2*p.getDuration():5;
+		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, colWithFormula, validator)
 				.addColumn(0, "description", false)
 				.addSelectColumn(1, "donorOrderBy", donorsByOrder)
 				.addColumn(2, "unitType", false)

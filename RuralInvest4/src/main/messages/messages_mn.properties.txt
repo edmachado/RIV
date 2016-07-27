@@ -157,11 +157,6 @@ project.recommendation.review=Дахин нягтлах шаардлагатай
 #RIV4.1
 units.year=жил
 misc.confirm=баталгаажуул
-projectContribution.copy=бүх зүйлийг төслийн бусад жил рүү шилжүүлж хуулах 
-projectContribution.copy.title=Хуулах 
-projectContribution.copy.toYear=жил рүү шилжүүлэх:
-projectContribution.copy.range=1 ээс {0}-ийн хооронд байгаа аль ч жилүүдэд хуулж болно
-projectContribution.addAll=төслийн бүх жилүүдэд нэмж оруулах
 projectContribution.yearlyFlow=Жилийн цэвэр орлого (одоогийн байгаа төслийн дэмжлэгийг оролцуулснаар): 
 projectContribution.contribType.beneficiary=ашиг хүртэгчид 
 projectContribution.method.simplified=Хялбаршуулсан 

@@ -1184,7 +1184,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.NUMERIC, "getYearBegin", false);
 		
 		if (report.isCompleteReport()) {
-			String salvage = "IF(AND(ISNUMBER(CX),ISNUMBER(IX),ISNUMBER(KX),ISNUMBER(MX)), IF(AND(@3<>MX,MOD(@3-MX,IX)=0), CX*KX, 0), 0)";
+			String salvage = "IF(AND(ISNUMBER(CX),ISNUMBER(IX),ISNUMBER(KX),ISNUMBER(MX)), IF(AND((OR(exact(LX,\"#\"),@3=MX+IX)),@3<>MX,MOD(@3-MX,IX)=0), CX*KX, 0), 0)";
 			for (int i=0;i<project.getDuration();i++) {
 				assetsTable.addColumn(XlsColumnType.FORMULA, salvage, true);
 			}
@@ -3502,7 +3502,7 @@ public class ExcelWorksheetBuilder {
 		}
 		public XlsTable addPerYearColumnsFormula(String data, int years, boolean sum, int[] colOffset) {
 			for (int i=0;i<years;i++) {
-				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i, colOffset, true);
+				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i, colOffset, true, true);
 				columns.add(newCol);
 			}
 			return this;
@@ -3548,8 +3548,21 @@ public class ExcelWorksheetBuilder {
 					XlsColumn col = columns.get(i);
 					if (col.type==XlsColumnType.FORMULA) {
 						//replace column variable
-						String formula = col.data.replace("@", getColumn(i));
+						String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
 						report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
+					} else if (col.type==XlsColumnType.PER_YEAR_PROPERTY) {
+						XlsPerYearColumn pyc = (XlsPerYearColumn)col;
+						if (pyc.formula) {
+							String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
+							for (int z=0;z<pyc.colOffset.length;z++) {
+								formula=formula.replaceFirst("%", getColumn(i-pyc.colOffset[z]).replace("X", "x"));
+							}
+							report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
+						}
+					} else if (col.type==XlsColumnType.CURRENCY) {
+						report.addNumericCell(row, i, 0, Style.CURRENCY);
+					} else if (col.type==XlsColumnType.NUMERIC) {
+						report.addNumericCell(row, i, 0);
 					}
 				}
 			} else {
@@ -3603,7 +3616,7 @@ public class ExcelWorksheetBuilder {
 								//replace column variable
 								String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
 								for (int z=0;z<pyc.colOffset.length;z++) {
-									formula=formula.replaceFirst("%", getColumn(i-pyc.colOffset[z]));
+									formula=formula.replaceFirst("%", getColumn(i-pyc.colOffset[z]).replace("X", "x"));
 								}
 								report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
 							}
@@ -3660,16 +3673,19 @@ public class ExcelWorksheetBuilder {
 		int year;
 		int[] colOffset;
 		boolean currency;
+		boolean formula;
+		
 		public XlsPerYearColumn (String data, boolean sum, int year, boolean currency) {
 			super(XlsColumnType.PER_YEAR_PROPERTY, data, sum);
 			this.year=year;
 			this.currency=currency;
 		}
-		public XlsPerYearColumn (String data, boolean sum, int year, int[] colOffset, boolean currency) {
+		public XlsPerYearColumn (String data, boolean sum, int year, int[] colOffset, boolean currency, boolean formula) {
 			super(XlsColumnType.PER_YEAR_PROPERTY, data, sum);
 			this.year=year;
 			this.colOffset=colOffset;
 			this.currency=currency;
+			this.formula=formula;
 		}
 	}
 	

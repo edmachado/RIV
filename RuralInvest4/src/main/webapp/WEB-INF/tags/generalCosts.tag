@@ -12,7 +12,7 @@
 			<c:set var="beginStyle"><c:if test="${year eq 0}">display:block</c:if><c:if test="${year ne 0}">display:none</c:if></c:set>
 			<div id="${type}${year}<c:if test="${without}">Without</c:if>" style="${beginStyle}">
 				<c:set var="htmlId">${type}<c:if test="${without}">Without</c:if></c:set>
-				<display:table list="${costs.get(year)}" id="row" cellspacing="0" cellpadding="0" export="false" htmlId="${htmlId}Table"> 
+				<display:table list="${costs.get(year)}" id="row" cellspacing="0" cellpadding="0" export="false" htmlId="${htmlId}Table${year}"> 
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					<display:column titleKey="${type}.description" property="parent.description" sortable="true" style="text-align:${left};" headerClass="left"/>
 					<display:column titleKey="${type}.unitType" sortable="true" style="text-align:${left};" headerClass="left">

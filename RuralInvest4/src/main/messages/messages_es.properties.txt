@@ -143,11 +143,6 @@ project.recommendation.review=Se requiere mayor revisión
 #RIV4.1
 units.year=Año
 misc.confirm=Confirmar
-projectContribution.copy=Copy all items to another year of the project.Copiar todos los rubros a otro año dentro del período de duración del proyecto.
-projectContribution.copy.title=Copiar
-projectContribution.copy.toYear=Copiar para año:
-projectContribution.copy.range=Puede copiar a cualquier año entre 1 y {0}
-projectContribution.addAll=Añada a cada año de duración del proyecto
 projectContribution.yearlyFlow=Balance neto anual (incluyendo contributiones ya existentes):
 projectContribution.contribType.beneficiary=Beneficiarios
 projectContribution.method.simplified=Simplificado

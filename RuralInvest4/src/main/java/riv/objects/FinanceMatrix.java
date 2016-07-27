@@ -243,7 +243,7 @@ public class FinanceMatrix {
 					yearlyData.get(i).costReplace+=asset.getUnitNum()*asset.getUnitCost();
 					yearlyData.get(i).incSalvage+=asset.getSalvage()*asset.getUnitNum();
 				// salvage value for non-replacing assets
-				} else if (!asset.getReplace() && i==lastAssetYear-1 && !(asset.getYearBegin()-1+asset.getEconLife()>project.getDuration())) {
+				} else if (!asset.getReplace() && i==lastAssetYear-1) {
 					yearlyData.get(i).incSalvage+=+asset.getSalvage()*asset.getUnitNum();
 				}
 			}
