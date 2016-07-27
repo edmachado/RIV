@@ -36,6 +36,8 @@ import org.springframework.stereotype.Component;
 import riv.objects.FilterCriteria;
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
+import riv.objects.HasPerYearItems;
+import riv.objects.PerYearItem;
 import riv.objects.ProfileMatrix;
 import riv.objects.ProjectFinanceData;
 import riv.objects.ProjectFinanceNongen;
@@ -55,6 +57,7 @@ import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemContribution;
+import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemService;
 import riv.objects.project.ProjectMonthFlow;
@@ -999,7 +1002,107 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 	
+	public Sheet projectGeneralDetailPerYear(ExcelWrapper report, Project project, boolean without, boolean template) {
+		int rowNum=0;
+		
+		String title = without ? translate("project.report.generalCostsDetail") + " " + translate("project.without")
+				: project.isWithWithout() ? translate("project.report.generalCostsDetail") + " " + translate("project.with")
+				: translate("project.report.generalCostsDetail");
+		SheetName sheetname = project.isWithWithout() ? without ? SheetName.PROJECT_GENERAL_WITHOUT : SheetName.PROJECT_GENERAL_WITH : SheetName.PROJECT_GENERAL;
+				
+		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
+		
+		sheet.setSelected(!without);
+		
+		
+		Row row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, title, Style.TITLE);
+		
+		ArrayList<String> headerSupplies = new ArrayList<String>();
+		headerSupplies.add("projectGeneralSupplies.description");
+		headerSupplies.add("projectGeneralSupplies.unitType"); 
+		headerSupplies.add("projectGeneralSupplies.unitCost");
+		
+		ArrayList<String> headerPersonnel = new ArrayList<String>();
+		headerSupplies.add("projectGeneralPersonnel.description");
+		headerSupplies.add("projectGeneralPersonnel.unitType"); 
+		headerSupplies.add("projectGeneralPersonnel.unitCost");
+		
+		int[] totalRows = new int[2];
+		
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("projectGeneralSupplies"), Style.H2);
+		
+		XlsTable table = new XlsTable(report, headerSupplies.toArray(new String[headerSupplies.size()]));
+		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
+		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
+		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
+		.addPerYearColumns("getUnitNum", project.getDuration(), false, false)
+		.addPerYearColumnsFormula("CX*%X", project.getDuration(), false, false, new int[] {project.getDuration()})
+		.addPerYearColumns("getOwnResources", project.getDuration(), false, false)
+		.addPerYearColumnsFormula("%X-%X", project.getDuration(), false, false, new int[] {project.getDuration()*2, project.getDuration()});
+		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getGenerals() : project.getGeneralWithouts(), true);
+		
+		Row headerRow = sheet.getRow(1);
+		for (int i=0;i<4;i++) {
+			int begin=3+i*project.getDuration();
+			for (int y=0;y<project.getDuration();y++) {
+				report.addTextCell(headerRow, begin+y, String.valueOf(y+1));
+			}
+		}
+		
+		headerRow = sheet.getRow(2);
+		report.addTextCell(headerRow, 3, translate("projectGeneralSupplies.unitNum"), Style.LABEL);
+		report.addTextCell(headerRow, 3+project.getDuration(), translate("projectGeneralSupplies.totalCost"), Style.LABEL);
+		report.addTextCell(headerRow, 3+2*project.getDuration(), translate("projectGeneralSupplies.ownResources"), Style.LABEL);
+		report.addTextCell(headerRow, 3+3*project.getDuration(), translate("projectGeneralSupplies.external"), Style.LABEL);
+		mergeCells(sheet, 2, 3, 2, 3+project.getDuration()-1); 
+		mergeCells(sheet, 2, 3+project.getDuration(), 2, 3+2*project.getDuration()-1); 
+		mergeCells(sheet, 2, 3+2*project.getDuration(), 2, 3+3*project.getDuration()-1); 
+		mergeCells(sheet, 2, 3+3*project.getDuration(), 2, 3+4*project.getDuration()-1); 
+		
+		totalRows[0]=rowNum;
+		rowNum++;
+		
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("projectGeneralPersonnel"), Style.H2);
+		
+		table = new XlsTable(report, headerSupplies.toArray(new String[headerSupplies.size()]));
+		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
+		.addSelectColumn("getUnitType", labourTypes())
+		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
+		.addPerYearColumns("getUnitNum", project.getDuration(), false, false)
+		.addPerYearColumnsFormula("CX*%X", project.getDuration(), false, false, new int[] {project.getDuration()})
+		.addPerYearColumns("getOwnResources", project.getDuration(), false, false)
+		.addPerYearColumnsFormula("%X-%X", project.getDuration(), false, false, new int[] {project.getDuration()*2, project.getDuration()});
+		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getPersonnels() : project.getPersonnelWithouts(), true);
+		totalRows[1]=rowNum;
+		
+		headerRow = sheet.getRow(totalRows[0]+2);
+		for (int i=0;i<4;i++) {
+			int begin=3+i*project.getDuration();
+			for (int y=0;y<project.getDuration();y++) {
+				report.addTextCell(headerRow, begin+y, String.valueOf(y+1));
+			}
+		}
+		
+		headerRow = sheet.getRow(totalRows[0]+3);
+		report.addTextCell(headerRow, 3, translate("projectGeneralPersonnel.unitNum"), Style.LABEL);
+		report.addTextCell(headerRow, 3+project.getDuration(), translate("projectGeneralPersonnel.totalCost"), Style.LABEL);
+		report.addTextCell(headerRow, 3+2*project.getDuration(), translate("projectGeneralPersonnel.ownResources"), Style.LABEL);
+		report.addTextCell(headerRow, 3+3*project.getDuration(), translate("projectGeneralPersonnel.external"), Style.LABEL);
+//		mergeCells(sheet, 2, 3, 2, 3+project.getDuration()-1); 
+//		mergeCells(sheet, 2, 3+project.getDuration(), 2, 3+2*project.getDuration()-1); 
+//		mergeCells(sheet, 2, 3+2*project.getDuration(), 2, 3+3*project.getDuration()-1); 
+//		mergeCells(sheet, 2, 3+3*project.getDuration(), 2, 3+4*project.getDuration()-1); 
+		
+//		autoSizeColumns(sheet, 7);
+		return sheet;
+	}
+	
 	public Sheet projectGeneralDetail(ExcelWrapper report, Project project, boolean without, boolean template) {
+		return projectGeneralDetailPerYear(report, project, without, template);
+		/*
 		int rowNum=0;
 		
 		String title = without ? translate("project.report.generalCostsDetail") + " " + translate("project.without")
@@ -1074,7 +1177,7 @@ public class ExcelWorksheetBuilder {
 		}
 	
 		autoSizeColumns(sheet, 7);
-		return sheet;
+		return sheet;*/
 	}
 	
 	private void autoSizeColumns(Sheet sheet, int cols) {
@@ -3379,6 +3482,15 @@ public class ExcelWorksheetBuilder {
 		autoSizeColumns(sheet, 5);
 	}
 	
+	private void mergeCells(Sheet sheet, int row1, int col1, int row2, int col2) {
+		sheet.addMergedRegion(new CellRangeAddress(
+		        row1, //first row (0-based)
+		        row2, //last row  (0-based)
+		        col1, //first column (0-based)
+		        col2  //last column  (0-based)
+		));
+	}
+	
 	protected class XlsTable {
 		private String[] titles;
 		private ArrayList<XlsColumn> columns;
@@ -3404,6 +3516,20 @@ public class ExcelWorksheetBuilder {
 			XlsColumn newCol = new XlsColumn(XlsColumnType.SELECT, data, false);
 			newCol.intOptions=options;
 			columns.add(newCol);
+			return this;
+		}
+		public XlsTable addPerYearColumns(String data, int years, boolean sum, boolean calculated) {
+			for (int i=0;i<years;i++) {
+				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i);
+				columns.add(newCol);
+			}
+			return this;
+		}
+		public XlsTable addPerYearColumnsFormula(String data, int years, boolean sum, boolean calculated, int[] colOffset) {
+			for (int i=0;i<years;i++) {
+				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i, colOffset);
+				columns.add(newCol);
+			}
 			return this;
 		}
 		
@@ -3474,7 +3600,6 @@ public class ExcelWorksheetBuilder {
 							//replace column variable
 							String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
 							report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
-
 						} else if (col.type==XlsColumnType.YESNO) {
 							String field = callMethod(o, col.data);
 							if (Boolean.parseBoolean(field)) {
@@ -3487,6 +3612,21 @@ public class ExcelWorksheetBuilder {
 								report.addTextCell(row, i, col.options.get(key));
 							} else if (col.intOptions!=null) {
 								report.addTextCell(row, i, col.intOptions.get(Integer.parseInt(key)));
+							}
+						} else if (col.type==XlsColumnType.PER_YEAR_PROPERTY) {
+							XlsPerYearColumn pyc = (XlsPerYearColumn)col;
+							if (pyc.colOffset==null) {
+								@SuppressWarnings("unchecked")
+								PerYearItem item = ((HasPerYearItems<PerYearItem>)o).getYears().get(pyc.year);
+								String field = callMethod(item, col.data);
+								report.addNumericCell(row, i, Double.parseDouble(field));
+							} else {
+								//replace column variable
+								String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
+								for (int z=0;z<pyc.colOffset.length;z++) {
+									formula=formula.replaceFirst("%", getColumn(i-pyc.colOffset[z]));
+								}
+								report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
 							}
 						}
 					}
@@ -3536,7 +3676,22 @@ public class ExcelWorksheetBuilder {
 		private Map<String, String> options; // for SELECT type
 		private Map<Integer, String> intOptions;
 	}
-	private enum XlsColumnType { TEXT, NUMERIC, CURRENCY, FORMULA, SELECT, YESNO, NONE }
+	
+	protected class XlsPerYearColumn extends XlsColumn {
+		int year;
+		int[] colOffset;
+		public XlsPerYearColumn (String data, boolean sum, int year) {
+			super(XlsColumnType.PER_YEAR_PROPERTY, data, sum);
+			this.year=year;
+		}
+		public XlsPerYearColumn (String data, boolean sum, int year, int[] colOffset) {
+			super(XlsColumnType.PER_YEAR_PROPERTY, data, sum);
+			this.year=year;
+			this.colOffset=colOffset;
+		}
+	}
+	
+	private enum XlsColumnType { TEXT, NUMERIC, CURRENCY, FORMULA, SELECT, YESNO, PER_YEAR_PROPERTY, NONE }
 	
 	private XlsTable[] productTables(ExcelWrapper report, boolean incomeGen) {
 		XlsTable[] tables = new XlsTable[3];

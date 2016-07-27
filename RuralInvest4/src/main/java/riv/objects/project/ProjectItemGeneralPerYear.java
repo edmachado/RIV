@@ -14,9 +14,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
+import riv.objects.PerYearItem;
+
 @Entity
 @Table(name="PROJECT_ITEM_PER_YEAR")
-public class ProjectItemGeneralPerYear implements Serializable {
+public class ProjectItemGeneralPerYear extends PerYearItem implements Serializable {
 	private static final long serialVersionUID = 54539059591647783L;
 	
 	@Id

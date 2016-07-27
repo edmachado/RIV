@@ -9,13 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+
+import riv.objects.HasPerYearItems;
 /**
  * Base class for General cost associated with a project
  * @author Bar Zecharya
  *
  */
 @Entity
-public abstract class ProjectItemGeneralBase extends ProjectItem {
+public abstract class ProjectItemGeneralBase extends ProjectItem implements HasPerYearItems<ProjectItemGeneralPerYear> {
 
 	private static final long serialVersionUID = 1L;
 
