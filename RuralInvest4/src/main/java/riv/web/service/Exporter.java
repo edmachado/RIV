@@ -8,6 +8,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Component;
 
 import riv.objects.AttachedFile;
 import riv.objects.ExportFile;
+import riv.objects.FilterCriteria;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.Project;
@@ -66,13 +68,83 @@ public class Exporter {
 		}
 	}
 	
+	public void exportBackup(OutputStream out) {
+		FilterCriteria fc = new FilterCriteria();
+		fc.setFreeText("");
+		FileOutputStream os=null;
+		ByteArrayOutputStream baos=null;
+		try {
+			// ig projects
+			File fIgProjects = File.createTempFile("ig-projects",".zip"); 
+			os = new FileOutputStream(fIgProjects);
+			fc.setObjType("igpj");
+			List<ProjectResult> projects = dataService.getProjectResults(fc);
+			batchExportProjects(projects, false, os);
+			os.close();
+			os.flush();
+			
+			// add nig projects
+			File fNigProjects = File.createTempFile("nig-projects",".zip");
+			os = new FileOutputStream(fNigProjects);
+			fc.setObjType("nigpj");
+			projects = dataService.getProjectResults(fc);
+			batchExportProjects(projects, false, os);
+			os.close();
+			os.flush();
+			
+			// ig profiles
+			File fIgProfiles = File.createTempFile("ig-profiles",".zip"); 
+			os = new FileOutputStream(fIgProfiles);
+			fc.setObjType("igpf");
+			List<ProfileResult> profiles = dataService.getProfileResults(fc);
+			batchExportProfiles(profiles, false, os);
+			os.close();
+			os.flush();
+			
+			// nig profiles
+			File fNigProfiles = File.createTempFile("nig-profiles",".zip"); 
+			os = new FileOutputStream(fNigProfiles);
+			fc.setObjType("nigpf");
+			profiles = dataService.getProfileResults(fc);
+			batchExportProfiles(profiles, false, os);
+			os.close();
+			os.flush();
+			
+			// create outer zip file
+			ZipArchiveOutputStream zos = new ZipArchiveOutputStream(new BufferedOutputStream(out));
+			zos.setCreateUnicodeExtraFields(ZipArchiveOutputStream.UnicodeExtraFieldPolicy.ALWAYS);
+			addFileToZip(fIgProjects, zos);
+			addFileToZip(fNigProjects, zos);
+			addFileToZip(fIgProfiles, zos);
+			addFileToZip(fNigProfiles, zos);
+		
+			// settings
+			baos = new ByteArrayOutputStream();
+			exportConfig(baos);
+			addByteArrayToZip(baos.toByteArray(), "settings.riv", zos);
+		
+			fIgProjects.delete();
+			fNigProjects.delete();
+			fIgProfiles.delete();
+			fNigProfiles.delete();
+			
+			zos.finish();
+			zos.close();
+		} catch (Exception e) {
+			LOG.error("Error",e);
+		} finally {
+			os=null; baos=null;
+			System.gc();
+		}
+	}
+	
 	public void batchExportProjects(List<ProjectResult> projects, boolean isGeneric, OutputStream out) {
 		ArrayList<ExportFile> files = new ArrayList<ExportFile>();
 		for (ProjectResult pr : projects) {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			exportProject(pr.getProjectId(), isGeneric, baos);
 			ExportFile ef = new ExportFile();
-			ef.setFilename(pr.getProjectName());
+			ef.setFilename(pr.getProjectName()+".riv");
 			ef.setContentBytes(baos.toByteArray());
 			files.add(ef);
 		}
@@ -85,7 +157,7 @@ public class Exporter {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			exportProfile(pr.getProfileId(), isGeneric, baos);
 			ExportFile ef = new ExportFile();
-			ef.setFilename(pr.getProfileName());
+			ef.setFilename(pr.getProfileName()+".riv");
 			ef.setContentBytes(baos.toByteArray());
 			files.add(ef);
 		}

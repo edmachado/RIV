@@ -499,7 +499,7 @@ public double getInvestmentTotal() {
 	this.createdBy = createdBy;
 	}
 	public String getCreatedBy() {
-		return createdBy;
+		return createdBy!=null?createdBy:"";
 	}
 	public void setLastUpdate(java.util.Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
@@ -1566,11 +1566,12 @@ public double getInvestmentTotal() {
 		sb.append("step1.officeId="+fieldOffice.getConfigId()+lineSeparator);
 		sb.append("step1.statusId="+status.getConfigId()+lineSeparator);
 		
-		sb.append("step1.benefType="+beneficiary.getDescription()+lineSeparator);
-		sb.append("step1.enviroCat="+enviroCategory.getDescription()+lineSeparator);
-		sb.append("step1.projCat="+projCategory.getDescription()+lineSeparator);
-		sb.append("step1.office="+fieldOffice.getDescription()+lineSeparator);
-		sb.append("step1.status="+status.getDescription()+lineSeparator);
+		sb.append("step1.benefType="+rivConfig.getBeneficiaries().get(beneficiary.getConfigId()).getDescription()+lineSeparator);
+		sb.append("step1.enviroCat="+rivConfig.getEnviroCategories().get(enviroCategory.getConfigId()).getDescription()+lineSeparator);
+		sb.append("step1.projCat="+rivConfig.getCategories().get(projCategory.getConfigId()).getDescription()+lineSeparator);
+		sb.append("step1.office="+rivConfig.getFieldOffices().get(fieldOffice.getConfigId()).getDescription()+lineSeparator);
+		sb.append("step1.status="+rivConfig.getStatuses().get(status.getConfigId()).getDescription()+lineSeparator);
+		
 		sb.append("step1.withWithout="+(withWithout?"true":"false")+lineSeparator);
 		sb.append("step1.shared="+(shared?"true":"false")+lineSeparator);
 		sb.append(lineSeparator);

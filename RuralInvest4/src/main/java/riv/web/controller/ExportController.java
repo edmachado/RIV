@@ -20,6 +20,12 @@ public class ExportController {
 	
 	@Autowired
 	Exporter exporter;
+	
+	@RequestMapping("/config/export/backup.riv")
+	public void backup(HttpServletRequest request, HttpServletResponse response, OutputStream out) {
+		response.setHeader("Content-Disposition", "attachment;filename=\"backup.riv\"");
+		exporter.exportBackup(out);
+	}
 
 	@RequestMapping("/config/export/settings.riv")
 	public void exportConfig(HttpServletRequest request, HttpServletResponse response, OutputStream out) {

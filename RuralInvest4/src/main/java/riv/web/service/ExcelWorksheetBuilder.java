@@ -1123,7 +1123,7 @@ public class ExcelWorksheetBuilder {
 //				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
 			} else {
 				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW, String.valueOf(rowNum));
-				report.addLink(ExcelLink.PROJECT_GENERAL_SHEET, "'"+sheet.getSheetName()+"'");
+				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_SHEET, "'"+sheet.getSheetName()+"'");
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);

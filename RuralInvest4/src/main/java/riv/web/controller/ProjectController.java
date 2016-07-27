@@ -87,41 +87,44 @@ public class ProjectController {
 		response.setHeader("Content-disposition", "attachment; filename=project.properties");
 		Setting setting = ((RivConfig)request.getAttribute("rivConfig")).getSetting();
 		CurrencyFormatter cf = setting.getCurrencyFormatter();
+		
 		byte[] output = p.testFile(rivConfig).getBytes("UTF8");
 		response.getOutputStream().write(output);
 		
 		ProjectResult pr = p.getProjectResult(setting);
 		StringBuilder sb = new StringBuilder();
-		sb.append("investTotal="+cf.formatCurrency(pr.getInvestmentTotal(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("investOwn="+cf.formatCurrency(pr.getInvestmentOwn(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("investDonate="+cf.formatCurrency(pr.getInvestmentDonated(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("investFinance="+cf.formatCurrency(pr.getInvestmentFinanced(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("employ="+cf.formatCurrency(pr.getAnnualEmployment(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("income="+cf.formatCurrency(pr.getAnnualNetIncome(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("wcTotal="+cf.formatCurrency(pr.getWorkingCapital(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("wcOwn="+cf.formatCurrency(pr.getWcOwn(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("wcDonate="+cf.formatCurrency(pr.getWcDonated(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("wcFinance="+cf.formatCurrency(pr.getWcFinanced(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("costTotal="+cf.formatCurrency(pr.getTotalCosts(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("costOwn="+cf.formatCurrency(pr.getTotalCostsOwn(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("costDonate="+cf.formatCurrency(pr.getTotalCostsDonated(), CurrencyFormat.ALL)+lineSeparator);
-		sb.append("costFinance="+cf.formatCurrency(pr.getTotalCostsFinanced(), CurrencyFormat.ALL)+lineSeparator);
+		
+		sb.append("result.investTotal="+cf.formatCurrency(pr.getInvestmentTotal(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.investOwn="+cf.formatCurrency(pr.getInvestmentOwn(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.investDonate="+cf.formatCurrency(pr.getInvestmentDonated(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.investFinance="+cf.formatCurrency(pr.getInvestmentFinanced(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.employ="+cf.formatCurrency(pr.getAnnualEmployment(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.income="+cf.formatCurrency(pr.getAnnualNetIncome(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.wcTotal="+cf.formatCurrency(pr.getWorkingCapital(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.wcOwn="+cf.formatCurrency(pr.getWcOwn(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.wcDonate="+cf.formatCurrency(pr.getWcDonated(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.wcFinance="+cf.formatCurrency(pr.getWcFinanced(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.costTotal="+cf.formatCurrency(pr.getTotalCosts(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.costOwn="+cf.formatCurrency(pr.getTotalCostsOwn(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.costDonate="+cf.formatCurrency(pr.getTotalCostsDonated(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.costFinance="+cf.formatCurrency(pr.getTotalCostsFinanced(), CurrencyFormat.ALL)+lineSeparator);
 		
 		sb.append("step11.period="+pr.getWcPeriod()+lineSeparator);
 		sb.append("step11.amtRequired="+cf.formatCurrency(pr.getWorkingCapital(), CurrencyFormat.ALL)+lineSeparator);
 		sb.append("step11.amtFinanced="+cf.formatCurrency(pr.getWcFinanced(), CurrencyFormat.ALL)+lineSeparator);
 
 		if (p.getIncomeGen()) { 
-			sb.append("npvAll="+cf.formatCurrency(pr.getNpv(), CurrencyFormat.ALL)+lineSeparator);
-			sb.append("irrAll="+((pr.getIrr().doubleValue()>1000 || pr.getIrr().doubleValue()<-1000)?"Undefined":pr.getIrr())+lineSeparator);
-			sb.append("npvApplicant="+cf.formatCurrency(pr.getNpvWithDonation(), CurrencyFormat.ALL)+lineSeparator);
-			sb.append("irrApplicant="+((pr.getIrrWithDonation().doubleValue()>1000 || pr.getIrrWithDonation().doubleValue()<-1000)?"Undefined":pr.getIrrWithDonation())+lineSeparator);
-		} else {
-			sb.append("investDirect="+cf.formatCurrency(pr.getInvestPerBenefDirect(), CurrencyFormat.ALL)+lineSeparator);
-			sb.append("investIndirect="+cf.formatCurrency(pr.getInvestPerBenefIndirect(), CurrencyFormat.ALL)+lineSeparator);
-			sb.append("benefDirect="+pr.getBeneDirect()+lineSeparator);
-			sb.append("benefIndirect="+pr.getBeneIndirect()+lineSeparator);
-		}
+			sb.append("result.npvAll="+cf.formatCurrency(pr.getNpv(), CurrencyFormat.ALL)+lineSeparator);
+			sb.append("result.irrAll="+((pr.getIrr().doubleValue()>1000 || pr.getIrr().doubleValue()<-1000)?"Undefined":pr.getIrr())+lineSeparator);
+			sb.append("result.npvApplicant="+cf.formatCurrency(pr.getNpvWithDonation(), CurrencyFormat.ALL)+lineSeparator);
+			sb.append("result.irrApplicant="+((pr.getIrrWithDonation().doubleValue()>1000 || pr.getIrrWithDonation().doubleValue()<-1000)?"Undefined":pr.getIrrWithDonation())+lineSeparator);
+		} 
+
+		sb.append("result.investDirect="+cf.formatCurrency(pr.getInvestPerBenefDirect(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.investIndirect="+cf.formatCurrency(pr.getInvestPerBenefIndirect(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("result.benefDirect="+pr.getBeneDirect()+lineSeparator);
+		sb.append("result.benefIndirect="+pr.getBeneIndirect()+lineSeparator);
+			
 		output = sb.toString().getBytes("UTF8");
 		response.getOutputStream().write(output);
 	}
