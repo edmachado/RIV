@@ -1,4 +1,13 @@
-## RIV 4.3
+## RIV 4.3 - phase 2
+admin.page=Admin functions
+admin.download=Download backup
+admin.download.desc=Download your RuralInvest configuration and all projects and profiles in a single package.
+admin.download.prepare=Preparing the backup file, please wait...
+admin.download.error=There was a problem generating the backup file for RuralInvest.
+admin.restore=Restore from backup
+admin.restore.desc=Restore configuration, projects and profiles from a backup file. (The current configuration, projects and profiles will be lost.)
+
+## RIV 4.3 - phase 1
 project.donor.noDelete=A donor cannot be deleted if the project has donations or contributions from that source.
 
 project.general.method.simplified=Simplified
@@ -13,16 +22,8 @@ error.perYearCost.requiredNonNegative=Year {0}, {1}: This field cannot be negati
 mainMenu.inProgress=In progress
 mainMenu.help.terms=Financial terms reference
 
-admin.page=Admin functions
-admin.download=Download backup
-admin.download.desc=Download your RuralInvest configuration and all projects and profiles in a single package.
-admin.download.prepare=Preparing the backup file, please wait...
-admin.download.error=There was a problem generating the backup file for RuralInvest.
-admin.restore=Restore from backup
-admin.restore.desc=Restore configuration, projects and profiles from a backup file. (The current configuration, projects and profiles will be lost.)
-
 # changed from previous versions
-# "Completed" as in "projects or profiles that have been completed", compared to "In progress"
+# "Completed" as in "projects or profiles that have been completed", rather than "In progress"
 mainMenu.showAll=Completed
 home.showAll=Completed
 
