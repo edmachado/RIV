@@ -547,6 +547,9 @@ AND a.class=5 AND b.class=-1);
 DELETE FROM project_item WHERE class=5;
 UPDATE project_item SET class=5 WHERE class=-1;
 
+-- no-cycle profile products
+ALTER TABLE profile_product ADD COLUMN cycles BOOLEAN DEFAULT true;
+UPDATE profile_product SET cycles=true;
 
 	</query>
 	</version>
