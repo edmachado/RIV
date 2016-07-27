@@ -31,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -253,10 +254,12 @@ public class UploadController implements Serializable {
 	}
 	
 	@RequestMapping(value = "/{type}/import", method = RequestMethod.POST)
-	public String upload(@PathVariable String type, Model model, MultipartHttpServletRequest request, HttpServletResponse response) throws Exception { 
+	public String upload(@PathVariable String type, Model model, MultipartHttpServletRequest request, HttpServletResponse response,
+			@RequestParam(required=true) Boolean allowComplete) throws Exception { 
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
-		return processUpload(mpf.getBytes(), type, model, (User)request.getAttribute("user"), false);
+		boolean complete = allowComplete!=null && allowComplete==true;
+		return processUpload(mpf.getBytes(), type, model, (User)request.getAttribute("user"), complete);
 	}
 	
 	private String processUpload(byte[] bytes, String type, Model model, User user, boolean markComplete) {
