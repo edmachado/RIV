@@ -14,16 +14,16 @@
 	<field name="unitCost" class="java.lang.Double"/>
 	<field name="unitType" class="java.lang.String"/>
 	<field name="map__years" class="java.util.Map"/>
+	<variable name="unitNum" class="java.lang.Double" resetType="Column">
+		<variableExpression><![CDATA[((riv.objects.project.ProjectItemGeneralPerYear)$F{map__years}.get(0)).getUnitNum()]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
 	<variable name="sumTotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{unitNum}*$F{unitCost}]]></variableExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="sumOwnResource" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{ownResources}]]></variableExpression>
-		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
-	</variable>
-	<variable name="unitNum" class="java.lang.Double">
-		<variableExpression><![CDATA[((riv.objects.project.ProjectItemGeneralPerYear)$F{map__years}.get(0)).getUnitNum()]]></variableExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="ownResources" class="java.lang.Double">

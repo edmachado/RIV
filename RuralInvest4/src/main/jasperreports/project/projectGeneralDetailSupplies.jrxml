@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectGeneralDetailSupplies" pageWidth="776" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="776" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b59195f9-da48-4ea3-8e8f-3590a62a9694">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="459"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -13,20 +13,24 @@
 	<field name="unitCost" class="java.lang.Double"/>
 	<field name="unitType" class="java.lang.String"/>
 	<field name="map__years" class="java.util.Map"/>
-	<variable name="sumTotal" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$V{unitNum}]]></variableExpression>
-		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
-	</variable>
-	<variable name="sumOwnResource" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$V{ownResources}]]></variableExpression>
-		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
-	</variable>
-	<variable name="unitNum" class="java.lang.Double">
+	<variable name="unitNum" class="java.lang.Double" resetType="Column">
 		<variableExpression><![CDATA[((riv.objects.project.ProjectItemGeneralPerYear)$F{map__years}.get(0)).getUnitNum()]]></variableExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<variable name="ownResources" class="java.lang.Double">
 		<variableExpression><![CDATA[((riv.objects.project.ProjectItemGeneralPerYear)$F{map__years}.get(0)).getOwnResources()]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="total" class="java.lang.Double" resetType="Column">
+		<variableExpression><![CDATA[$V{unitNum}.doubleValue()*$F{unitCost}.doubleValue()]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="sumTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
+	</variable>
+	<variable name="sumOwnResource" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{ownResources}]]></variableExpression>
 		<initialValueExpression><![CDATA[0.0]]></initialValueExpression>
 	</variable>
 	<title>
@@ -244,7 +248,7 @@
 					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{unitNum}.doubleValue()*$F{unitCost}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{total}, riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="e940c7d4-f686-4d6d-8d72-6f16e54f52b7" key="textField-15" mode="Opaque" x="534" y="3" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
