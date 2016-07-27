@@ -13,5 +13,8 @@
 		$( document ).tooltip(); 
 		$('input.curlabel').focus( function(){ $(this).next('input').focus(); });
 	});
+// 	$(document).keydown(function(event) { // Ctrl-S and Cmd-S click save button
+// 	    if((event.ctrlKey || event.metaKey) && event.which == 83) { if ($('#submit').length) { $('#submit').click(); event.preventDefault(); return false; }
+// 	};});
 	var curSepThou='${rivConfig.setting.thousandSeparator}';var curSepDec='${rivConfig.setting.decimalSeparator}';var decLength=${rivConfig.setting.decimalLength};
 	</script>
