@@ -1,7 +1,6 @@
 package riv.web.service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,7 +18,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,13 +37,14 @@ import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.BlockBase;
 import riv.objects.project.BlockChron;
-import riv.objects.project.Project;
 import riv.objects.project.Donor;
+import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemService;
 import riv.objects.project.ProjectResult;
+import riv.util.ReportLoader;
 import riv.util.ReportSource;
 import riv.util.ReportWrapper;
 import riv.web.config.RivConfig;
@@ -61,7 +60,7 @@ public class PdfReportCreator {
 	@Autowired
 	ServletContext ctx;
 	@Autowired
-	ServletContext sc;
+	ReportLoader reportLoader;
 	
 	public static final String MEDIA_TYPE_PDF = "application/pdf";
 	
@@ -153,11 +152,11 @@ public class PdfReportCreator {
 	public ReportWrapper profileProducts(Profile profile, int startPage, boolean without) {
 		ReportWrapper report = new ReportWrapper("/reports/profile/profileProduct.jasper", true, without ? profile.getProductsWithout() : profile.getProducts(), "profileProducts.pdf", startPage);
 		
-		JasperReport jrInc = compileReport("/reports/profile/profileProductIncome.jasper");
+		JasperReport jrInc = reportLoader.compileReport("/reports/profile/profileProductIncome.jasper");
 		report.getParams().put("incomeSubReport", jrInc);
-		JasperReport jrInp = compileReport("/reports/profile/profileProductInput.jasper");
+		JasperReport jrInp = reportLoader.compileReport("/reports/profile/profileProductInput.jasper");
 		report.getParams().put("inputSubReport", jrInp);
-		JasperReport jrLab = compileReport("/reports/profile/profileProductLabour.jasper");
+		JasperReport jrLab = reportLoader.compileReport("/reports/profile/profileProductLabour.jasper");
 		report.getParams().put("labourSubReport", jrLab);
 		
 		report.getParams().put("profileName", profile.getProfileName());
@@ -223,9 +222,9 @@ public class PdfReportCreator {
 	public ReportWrapper profileInvest(Profile profile, boolean withoutProject, int startPage) {
 		ReportWrapper report = new ReportWrapper("/reports/profile/profileInvest.jasper", true, profile, "profileInvest.pdf", startPage);
 		
-		JasperReport jrGoods = compileReport("/reports/profile/profileInvestGoods.jasper");
+		JasperReport jrGoods = reportLoader.compileReport("/reports/profile/profileInvestGoods.jasper");
 		report.getParams().put("goodsSubReport", jrGoods);
-		JasperReport jrLabour = compileReport("/reports/profile/profileInvestLabour.jasper");
+		JasperReport jrLabour = reportLoader.compileReport("/reports/profile/profileInvestLabour.jasper");
 		report.getParams().put("labourSubReport", jrLabour);
 		
 		report.getParams().put("reportname", "B: "+translate("profile.report.investDetail"));
@@ -238,7 +237,7 @@ public class PdfReportCreator {
 	public ReportWrapper profileGeneral(Profile profile, int startPage) {
 		ReportWrapper report = new ReportWrapper("/reports/profile/profileGeneral.jasper", true, profile, "profileGeneral.pdf", startPage);
 		
-		JasperReport jrSub = compileReport("/reports/profile/profileGeneralSubreport.jasper");
+		JasperReport jrSub = reportLoader.compileReport("/reports/profile/profileGeneralSubreport.jasper");
 		report.getParams().put("generalSubreport", jrSub);
 		
 		report.getParams().put("reportname", "C: "+translate("profile.report.costsDetail"));
@@ -266,9 +265,9 @@ public class PdfReportCreator {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectList.jasper", true, null, "projectResults.pdf", 0);
 		report.getParams().put("filter", filter);
 		
-		JasperReport jrSub1 = compileReport("/reports/project/projectListSub1.jasper");
+		JasperReport jrSub1 = reportLoader.compileReport("/reports/project/projectListSub1.jasper");
 		report.getParams().put("projectList1", jrSub1);
-		JasperReport jrSub2 = compileReport("/reports/project/projectListSub2.jasper");
+		JasperReport jrSub2 = reportLoader.compileReport("/reports/project/projectListSub2.jasper");
 		report.getParams().put("projectList2", jrSub2);
 		
 		report.getParams().put("data1", new ReportSource(results));
@@ -442,7 +441,7 @@ public class PdfReportCreator {
 	public ReportWrapper projectProfitability(Project project, ProjectResult result, int startPage, FinanceMatrix matrix, ProjectScenario scenario) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectProfitability.jasper", true, matrix.getYearlyData(), "projectProfitability.pdf", startPage);
 		
-		JasperReport jrIndicators = compileReport("/reports/project/projectProfitabilityIndicators.jasper");
+		JasperReport jrIndicators = reportLoader.compileReport("/reports/project/projectProfitabilityIndicators.jasper");
 		report.getParams().put("indicators", jrIndicators);
 		
 		report.getParams().put("scenario",scenario);
@@ -477,11 +476,11 @@ public class PdfReportCreator {
 	public ReportWrapper projectCashFlowFirst(Project project, int startPage, boolean without) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectCashFlowFirst.jasper", true, project, "projectCashFlowFirst.pdf", startPage);
 		
-		JasperReport jrIncome = compileReport("/reports/project/projectCashFlowFirstOpIncomes.jasper");
+		JasperReport jrIncome = reportLoader.compileReport("/reports/project/projectCashFlowFirstOpIncomes.jasper");
 		report.getParams().put("opIncomesSubReport", jrIncome);
-		JasperReport jrCosts = compileReport("/reports/project/projectCashFlowFirstOpCosts.jasper");
+		JasperReport jrCosts = reportLoader.compileReport("/reports/project/projectCashFlowFirstOpCosts.jasper");
 		report.getParams().put("opCostsSubReport", jrCosts);
-		JasperReport jrTotals = compileReport("/reports/project/projectCashFlowFirstTotals.jasper");
+		JasperReport jrTotals = reportLoader.compileReport("/reports/project/projectCashFlowFirstTotals.jasper");
 		report.getParams().put("totalsSubReport", jrTotals);
 		
 		report.getParams().put("firstYearData", new ProjectFirstYear(project, without, rivConfig.getSetting().getDecimalLength()));
@@ -557,11 +556,11 @@ public class PdfReportCreator {
 	public ReportWrapper projectBlock(Project project, int startPage, boolean withoutProject) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectBlock.jasper", true, withoutProject ? project.getBlocksWithout() : project.getBlocks(), "projectBlock.pdf", startPage);
 		
-		JasperReport jrIncome = compileReport("/reports/project/projectBlockIncome.jasper");
+		JasperReport jrIncome = reportLoader.compileReport("/reports/project/projectBlockIncome.jasper");
 		report.getParams().put("incomeSubReport", jrIncome);
-		JasperReport jrInput = compileReport("/reports/project/projectBlockInput.jasper");
+		JasperReport jrInput = reportLoader.compileReport("/reports/project/projectBlockInput.jasper");
 		report.getParams().put("inputSubReport", jrInput);
-		JasperReport jrLabour = compileReport("/reports/project/projectBlockLabour.jasper");
+		JasperReport jrLabour = reportLoader.compileReport("/reports/project/projectBlockLabour.jasper");
 		report.getParams().put("labourSubReport", jrLabour);
 		
 		report.getParams().put("projectName", project.getProjectName());
@@ -632,7 +631,7 @@ public class PdfReportCreator {
 	public ReportWrapper projectProduction(Project project, int startPage, boolean without) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectProduction.jasper", true, without ? project.getBlocksWithout() : project.getBlocks(), "projectProduction.pdf", startPage);
 		
-		JasperReport jrSupplies = compileReport("/reports/project/projectProductionYears.jasper");
+		JasperReport jrSupplies = reportLoader.compileReport("/reports/project/projectProductionYears.jasper");
 		report.getParams().put("yearsSubReport", jrSupplies);
 		
 		report.getParams().put("without", without);
@@ -654,10 +653,10 @@ public class PdfReportCreator {
 		
 		report = new ReportWrapper("/reports/project/projectGeneralDetail.jasper", true, project, "projectGeneralDetail.pdf", startPage);
 	
-		JasperReport jrSupplies = compileReport("/reports/project/projectGeneralDetailSupplies.jasper");
+		JasperReport jrSupplies = reportLoader.compileReport("/reports/project/projectGeneralDetailSupplies.jasper");
 		report.getParams().put("suppliesSubReport", jrSupplies);
 		
-		JasperReport jrPersonnel = compileReport("/reports/project/projectGeneralDetailPersonnel.jasper");
+		JasperReport jrPersonnel = reportLoader.compileReport("/reports/project/projectGeneralDetailPersonnel.jasper");
 		report.getParams().put("personnelSubReport", jrPersonnel);
 		
 		report.getParams().put("withoutProject", withoutProject);
@@ -671,11 +670,11 @@ public class PdfReportCreator {
 	
 	public ReportWrapper projectGeneralNongen(Project project, int startPage) {
 			ReportWrapper report = new ReportWrapper("/reports/project/projectGeneralNongen.jasper", true, project, "projectGeneralDetail.pdf", startPage);
-			JasperReport jrAssets = compileReport("/reports/project/projectGeneralNongenAssets.jasper");
+			JasperReport jrAssets = reportLoader.compileReport("/reports/project/projectGeneralNongenAssets.jasper");
 			report.getParams().put("assetsSubReport", jrAssets);
-			JasperReport jrLabour = compileReport("/reports/project/projectGeneralNongenLabour.jasper");
+			JasperReport jrLabour = reportLoader.compileReport("/reports/project/projectGeneralNongenLabour.jasper");
 			report.getParams().put("labourSubReport", jrLabour);
-			JasperReport jrService = compileReport("/reports/project/projectGeneralNongenService.jasper");
+			JasperReport jrService = reportLoader.compileReport("/reports/project/projectGeneralNongenService.jasper");
 			report.getParams().put("serviceSubReport", jrService);
 		report.getParams().put("labourTypes", this.labourTypes());
 		report.getParams().put("reportname", "D: "+translate("project.report.generalCostsDetail"));
@@ -687,11 +686,11 @@ public class PdfReportCreator {
 	public ReportWrapper projectInvestmentDetail(Project project, boolean withoutProject, int startPage) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectInvestDetail.jasper", true, project, "projectInvestmentDetail.pdf", startPage);
 		
-		JasperReport jrAssets = compileReport("/reports/project/projectInvestDetailAssets.jasper");
+		JasperReport jrAssets = reportLoader.compileReport("/reports/project/projectInvestDetailAssets.jasper");
 		report.getParams().put("assetsSubReport", jrAssets);
-		JasperReport jrLabour = compileReport("/reports/project/projectInvestDetailLabour.jasper");
+		JasperReport jrLabour = reportLoader.compileReport("/reports/project/projectInvestDetailLabour.jasper");
 		report.getParams().put("labourSubReport", jrLabour);
-		JasperReport jrService = compileReport("/reports/project/projectInvestDetailService.jasper");
+		JasperReport jrService = reportLoader.compileReport("/reports/project/projectInvestDetailService.jasper");
 		report.getParams().put("serviceSubReport", jrService);
 
 		report.getParams().put("labourTypes", this.labourTypes());
@@ -740,9 +739,9 @@ public class PdfReportCreator {
 	
 	private void addHeader(ReportWrapper report) {
 		String layout = report.isLandscape() ? "landscape" : "portrait";
-		JasperReport jrHeader = compileReport("/reports/header_"+layout+".jasper");
+		JasperReport jrHeader = reportLoader.compileReport("/reports/header_"+layout+".jasper");
 		report.getParams().put("header", jrHeader);
-		JasperReport jrFooter = compileReport("/reports/footer_"+layout+".jasper");
+		JasperReport jrFooter = reportLoader.compileReport("/reports/footer_"+layout+".jasper");
 		report.getParams().put("footer", jrFooter);
 	}
 	
@@ -764,7 +763,7 @@ public class PdfReportCreator {
 		String template = locale.getLanguage().equals("ar") 
 				? report.getReportTemplate().replace(".jasper", "_ar.jasper")
 				: report.getReportTemplate();
-		JasperReport jr = compileReport(template);
+		JasperReport jr = reportLoader.compileReport(template);
 		JasperPrint jp=null;
 		try {
 			jp= JasperFillManager.fillReport(jr, report.getParams(), report.getDataSource());
@@ -805,14 +804,7 @@ public class PdfReportCreator {
 		return months;
 	}
 	
-	private JasperReport compileReport(String template) {
-		try {
-			return (JasperReport)JRLoader.loadObject(new File(sc.getRealPath("/WEB-INF/classes"+template)));
-		} catch (JRException e) {
-			LOG.error("Error getting jasper report file.",e);
-			throw new RuntimeException("Error getting jasper report file.",e); 
-		}
-	}
+	
 	
 	public void export(HttpServletResponse response, ReportWrapper report) {
 		// export report

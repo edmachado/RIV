@@ -1586,6 +1586,7 @@ public class DataRepository {
 		currentSession().saveOrUpdate(s);
 	}
 
+//	@Cacheable("beneficiaries")
 	@SuppressWarnings("unchecked")
 	public List<Beneficiary> getBeneficiaries() {
 		return currentSession()

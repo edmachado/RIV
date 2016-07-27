@@ -4042,6 +4042,7 @@ public class ExcelWorksheetBuilder {
 	}
 
 	   private Map<String, String> labourTypes(){
+//		   User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			return rivConfig.getLabourTypes();
 		}
 }

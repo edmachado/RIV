@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -57,6 +58,8 @@ public class Upgrader {
 	
 	@Autowired
 	private RivConfig rivConfig;
+	
+	private Templates templates;
 	
 	public void upgradeRivConfig(RivConfig rcNew) {
 		// <3.1 add decimal separator, thousand separator and decimal length
@@ -314,7 +317,19 @@ public class Upgrader {
 				}
 			}
 		}
-
+	}
+	
+	private Templates getTemplates() {
+		if (templates==null) {
+			TransformerFactory factory = TransformerFactory.newInstance();
+			Source xslt = new StreamSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("upgrade.xslt"));
+			try {
+				templates=factory.newTemplates(xslt);
+			} catch (TransformerConfigurationException e) {
+				LOG.error("Error creating xsl transformer.",e);
+			}
+		}
+		return templates;
 	}
 	
 	/**
@@ -324,25 +339,17 @@ public class Upgrader {
 	 * @throws IOException 
 	 */
 	public byte[] upgradeXml(byte[] source) throws IOException {
-		
-				    	  
-			TransformerFactory factory = TransformerFactory.newInstance();
-			Source xslt = new StreamSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("upgrade.xslt"));
 			Source in=new StreamSource(new ByteArrayInputStream(source));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			Transformer transformer=null;
 			try {
-				transformer = factory.newTransformer(xslt);
+				Transformer transformer = getTemplates().newTransformer();
 				transformer.transform(in, new StreamResult(baos));
-			} catch (TransformerConfigurationException e) {
-				LOG.error("Error creating xsl transformer.",e);
 			} catch (TransformerException e) {
 				LOG.error("Error transforming xsl.",e);
 			}
-			// for testing:
-			// baos.writeTo(new FileOutputStream(new File("")));
-			return baos.toByteArray();
-		
+			byte[] bytes = baos.toByteArray();
+			baos.close();
+			return bytes;
 	}
 	
 	/**

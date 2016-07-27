@@ -44,10 +44,6 @@ public class RivConfig {
 	private MessageSource messageSource;
 	private DataService dataService;
 	private double version;
-//	private Map<String, String> labourTypes=new HashMap<String, String>();
-//	private Map<Integer, String> lengthUnits = new HashMap<Integer, String>();
-//	private Map<Integer, String> contribTypes = new HashMap<Integer, String>();
-//	private Map<Integer, String> recommendationTypes = new HashMap<Integer, String>();
 	
 	@Value("${av}")	private String admin;
 	@Value("${buildLang}") private String buildLang;
@@ -380,11 +376,12 @@ public class RivConfig {
 	
 	public Map<String, String> getLabourTypes() {
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String lang = user.getLang();
 		Map<String, String> labourTypes = new HashMap<String, String>(4);
-		labourTypes.put("0", translate("units.pyears", user.getLang()));
-		labourTypes.put("1", translate("units.pmonths", user.getLang()));
-		labourTypes.put("2", translate("units.pweeks", user.getLang()));
-		labourTypes.put("3", translate("units.pdays", user.getLang()));
+		labourTypes.put("0", translate("units.pyears", lang));
+		labourTypes.put("1", translate("units.pmonths", lang));
+		labourTypes.put("2", translate("units.pweeks", lang));
+		labourTypes.put("3", translate("units.pdays", lang));
 		return labourTypes;
 	}
 	public Map<Integer, String> getLengthUnits() {
@@ -415,5 +412,15 @@ public class RivConfig {
 		recommendationTypes.put(2, translate("project.recommendation.reject", user.getLang()));
 		recommendationTypes.put(3, translate("project.recommendation.review", user.getLang()));
 		return recommendationTypes;
+	}
+	
+	protected void finalize() {
+		beneficiaries.clear();
+		categories.clear();
+		fieldOffices.clear();
+		enviroCategories.clear();
+		statuses.clear();
+		appConfig1s.clear();
+		appConfig2s.clear();
 	}
 }

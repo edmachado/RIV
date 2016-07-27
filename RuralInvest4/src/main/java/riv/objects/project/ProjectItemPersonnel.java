@@ -12,7 +12,7 @@ import riv.web.config.RivConfig;
 
 @Entity
 @DiscriminatorValue("3")
-public class ProjectItemPersonnel extends ProjectItem {// implements GeneralCosts { // GeneralCostsDetail
+public class ProjectItemPersonnel extends ProjectItem {
 
 	private static final long serialVersionUID = 1L;
 
