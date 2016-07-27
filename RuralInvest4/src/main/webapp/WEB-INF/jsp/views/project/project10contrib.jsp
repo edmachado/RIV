@@ -32,6 +32,11 @@
 				</div>
 				<tags:dataentry field="unitType" labelKey="projectContribution.unitType" helpText="projectContribution.unitType.help" />
 				<tags:dataentry field="unitCost" labelKey="projectContribution.unitCost" helpText="projectContribution.unitCost.help" currency="true" onmouseout="Calculate()"/>
+				<c:if test="${not project.perYearContributions}">
+					<tags:dataentry field="years[0].unitNum" labelKey="projectContribution.unitNum" helpText="projectContribution.unitNum.help" onmouseout="Calculate()"/>
+					<tags:datadivider color="green"/>
+					<tags:dataentry field="years[0].total" labelKey="projectContribution.totalCost" helpText="projectContribution.totalCost.help" currency="true" calculated="true" />
+				</c:if>
 			<input type="hidden" name="linkedToId"/>
 		</div>
 		
@@ -41,5 +46,7 @@
 		
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
-<tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="Calculate" calc="*"/>
+	<c:if test="${not project.perYearContributions}">
+		<tags:jscriptCalc fieldA="years0\\\.unitNum" fieldB="unitCost" fieldC="years0\\\.total" functionName="Calculate" calc="*"/>
+	</c:if>
 </body></html>

@@ -15,8 +15,6 @@
 			<form:errors path="years" cssClass="error" element="div" />
 		</c:if>
 		<div style="display:inline-block;width:470px">
-<!-- 		<fieldset> -->
-<%-- 			<legend><spring:message code="misc.addItem"/> (<spring:message code="${type}"/>)</legend> --%>
 			<tags:dataentry field="description" labelKey="${type}.description" helpText="${type}.description.help" inputClass="text" size="20" maxLength="30"/>
 			<c:if test="${fn:contains(type,'Suppl') }">
 				<tags:dataentry field="unitType" labelKey="${type}.unitType" helpText="${type}.unitType.help" inputClass="text" size="20"/>
@@ -32,18 +30,16 @@
 					</form:select>
 				</div>
 			</c:if>
+			<tags:dataentry field="unitCost" labelKey="${type}.unitCost" helpText="${type}.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
+			
 			<c:if test="${not project.perYearGeneralCosts}">
 				<tags:dataentry field="years[0].unitNum" labelKey="${type}.unitNum" helpText="${type}.unitNum.help" onmouseout="CalculateTotal()"/>
-			</c:if>
-			<tags:dataentry field="unitCost" labelKey="${type}.unitCost" helpText="${type}.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
-			<c:if test="${not project.perYearGeneralCosts}">
 				<tags:datadivider color="green"/>
 				<tags:dataentry field="years[0].total" labelKey="${type}.totalCost" helpText="${type}.totalCost.help" currency="true" calculated="true" />
 				<tags:dataentry field="years[0].ownResources" labelKey="${type}.ownResources" helpText="${type}.ownResources.help" currency="true" onmouseout="CalculateExt()"/>
 				<tags:datadivider color="orange"/>
 				<tags:dataentry field="years[0].external" labelKey="${type}.external" helpText="${type}.external.help" currency="true" calculated="true" />
 			</c:if>
-<!-- 		</fieldset> -->
 		</div>
 		<c:set var="refType"><c:if test="${fn:contains(type,'Suppl') }">0</c:if><c:if test="${not fn:contains(type,'Suppl') }">2</c:if></c:set>
 		<div style="display:inline-block;">
