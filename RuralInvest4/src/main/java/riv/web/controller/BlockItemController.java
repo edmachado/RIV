@@ -134,10 +134,10 @@ public class BlockItemController {
     @RequestMapping(value="/{id}/copy", method=RequestMethod.GET)
     public String copy(@ModelAttribute BlockItem blockItem) {
     	BlockItem newItem = blockItem.copy();
-    	if (newItem.getClass().isAssignableFrom(BlockIncome.class)) {
+    	if (newItem instanceof BlockIncome) {
     		newItem.setOrderBy(newItem.getBlock().getIncomes().size());
     		newItem.getBlock().addIncome((BlockIncome)newItem);
-    	} else if (newItem.getClass().isAssignableFrom(BlockInput.class)) {
+    	} else if (newItem instanceof BlockInput) {
     		newItem.setOrderBy(newItem.getBlock().getInputs().size());
     		newItem.getBlock().addInput((BlockInput)newItem);
     	} else { // labour
@@ -157,13 +157,13 @@ public class BlockItemController {
     private void checkLinked(BlockItem item, Integer linkedToId, Boolean addLink) {
     	if (addLink!=null) {
     		ReferenceItem ref = null;
-			if (item.getClass().isAssignableFrom(BlockIncome.class)) {
+			if (item instanceof BlockIncome) {
 				ref = new ReferenceIncome();
 				ref.setOrderBy(item.getBlock().getProject().getRefIncomes().size());
 				if (item.getBlock().getProject().getIncomeGen()) {
 					((ReferenceIncome)ref).setTransport(((BlockIncome)item).getTransport().doubleValue());
 				}
-			} else if (item.getClass().isAssignableFrom(BlockInput.class)) {
+			} else if (item instanceof BlockInput) {
 				ref = new ReferenceCost();
 				ref.setOrderBy(item.getBlock().getProject().getRefCosts().size());
 				((ReferenceCost)ref).setTransport(((BlockInput)item).getTransport().doubleValue());
@@ -182,9 +182,9 @@ public class BlockItemController {
     		ReferenceItem ref = dataService.getReferenceItem(linkedToId);
     		item.setLinkedTo(ref);
     		//if (addTransport!=null) {
-    			if (item.getClass().isAssignableFrom(BlockIncome.class) && item.getProbase().getIncomeGen() && ((ReferenceIncome)ref).getTransport()==null) {
+    			if (item instanceof BlockIncome && item.getProbase().getIncomeGen() && ((ReferenceIncome)ref).getTransport()==null) {
     				((ReferenceIncome)ref).setTransport(((BlockIncome)item).getTransport().doubleValue());
-    			} else if (item.getClass().isAssignableFrom(BlockInput.class) && ((ReferenceCost)ref).getTransport()==null) {
+    			} else if (item instanceof BlockInput && ((ReferenceCost)ref).getTransport()==null) {
     				((ReferenceCost)ref).setTransport(((BlockInput)item).getTransport().doubleValue());
     			}
     			dataService.storeReferenceItem(ref);

@@ -162,6 +162,21 @@ public class ValidateUtils {
 		rejectIfEmptyOrNegativeOrOverMax(bean, fieldName, fieldCode, null, errors);
 	}
 	
+	public static boolean rejectChildValueIfEmptyOrNegative(Object bean, int childKey, String fieldName, String fieldCode, String parentFieldName, Errors errors) {
+		double propertyValue;
+		try {
+			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
+		} catch (Exception e) {
+			errors.rejectValue(parentFieldName, "error.perYearCost.fieldRequired", new Object[] {childKey+1, new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
+			return true;
+		}
+		if (propertyValue < 0) {
+			errors.rejectValue(parentFieldName, "error.perYearCost.requiredNonNegative", new Object[] {childKey+1, new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * @return true if error
 	 */

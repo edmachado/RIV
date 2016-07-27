@@ -13,7 +13,7 @@ public class ProjectItemValidator implements Validator {
 	private Integer duration;
 	private Set<Donor> donors;
 	private boolean fromExcel;
-	
+
 	@SuppressWarnings("rawtypes")
 	public boolean supports(Class clazz) {
 		return ProjectItem.class.isAssignableFrom(clazz);
@@ -83,22 +83,21 @@ public class ProjectItemValidator implements Validator {
 				errors.rejectValue("yearBegin", "error.assetYearExceeds", "The first year of the asset exceeds the project duration.");
 			}
 			
-		} else if (obj instanceof ProjectItemGeneral || obj instanceof ProjectItemGeneralWithout) {
-			ValidateUtils.rejectIfEmpty(i, "description", "projectGeneralSupplies.description", errors);
-			ValidateUtils.rejectIfEmpty(i, "unitType", "projectGeneralSupplies.unitType", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectGeneralSupplies.unitNum", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", "projectGeneralSupplies.unitCost", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", "projectGeneralSupplies.ownResources", errors);
-			ValidateUtils.rejectIfNegative( i, "total", "projectGeneralSupplies.totalCost", errors);
-			ValidateUtils.rejectIfNegative(i, "external", "projectGeneralSupplies.external", errors);
-		} else if (obj instanceof ProjectItemPersonnel || obj instanceof ProjectItemPersonnelWithout) {
-			ValidateUtils.rejectIfEmpty(i, "description", "projectGeneralPersonnel.description", errors);
-			ValidateUtils.rejectIfEmpty(i, "unitType", "projectGeneralPersonnel.unitType", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectGeneralPersonnel.unitNum", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", "projectGeneralPersonnel.unitCost", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", "projectGeneralPersonnel.ownResources", errors);
-			ValidateUtils.rejectIfNegative(i, "total", "projectGeneralPersonnel.totalCost", errors);
-			ValidateUtils.rejectIfNegative(i, "external", "projectGeneralPersonnel.external", errors);
+		} else if (obj instanceof ProjectItemGeneralBase) {
+			String type = obj instanceof ProjectItemGeneral || obj instanceof ProjectItemGeneralWithout ? "projectGeneralSupplies" : "projectGeneralPersonnel";
+			ValidateUtils.rejectIfEmpty(i, "description", type+".description", errors);
+			ValidateUtils.rejectIfEmpty(i, "unitType", type+".unitType", errors);
+			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", type+".unitCost", errors);
+			
+			for (int y=0;y<i.getProject().getDuration(); y++) {
+				if (y==0 || i.getProject().isPerYearGeneralCosts()) {
+					ProjectItemGeneralPerYear py = ((ProjectItemGeneralBase)i).getYears().get(y);
+					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "unitNum", type+".unitNum", "years", errors);
+					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "total", type+".totalCost", "years", errors);
+					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "ownResources", type+".ownResources", "years", errors);
+					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "external", type+".external", "years", errors);			
+				}
+			}
 		} else if (obj instanceof ProjectItemContribution) {
 			ValidateUtils.rejectIfEmpty(i, "description", "projectContribution.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "projectContribution.unitType", errors);

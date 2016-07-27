@@ -305,6 +305,27 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- introduce per-year general costs (<RIV4.3) -->
+	<xsl:template match="void[@property='unitNum'][contains('|riv.ProjectItemGeneral|riv.ProjectItemPersonnel|riv.objects.project.ProjectItemGeneral|riv.objects.project.ProjectItemGeneralWithout|riv.objects.project.ProjectItemPersonnel|riv.objects.project.ProjectItemPersonnelWithout|',
+                   concat('|', ../@class, '|'))]">
+		<void property="years">
+     			<object class="java.util.HashMap">
+				<void method="put">
+   			    	<int>0</int>
+					<object class="riv.objects.project.ProjectItemGeneralPerYear">
+						<void property="year"><int>0</int></void>
+						<void property="ownResources">
+          						<double><xsl:value-of select="../void[@property='ownResources']" /></double>
+			         	</void>
+         					<void property="unitNum">
+          						<double><xsl:value-of select="." /></double>
+        					</void>
+					</object>
+				</void>
+     			</object>
+		</void>
+	</xsl:template>
+	
 	<xsl:template match="@*|node()">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" />

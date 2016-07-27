@@ -43,6 +43,8 @@ import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemContribution;
+import riv.objects.project.ProjectItemGeneralBase;
+import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabourWithout;
 import riv.objects.project.ProjectItemPersonnelWithout;
@@ -55,7 +57,7 @@ import riv.web.config.RivConfig;
 @Component
 public class Upgrader {
 	static final Logger LOG = LoggerFactory.getLogger(Upgrader.class);
-	
+
 	@Autowired
 	private RivConfig rivConfig;
 	
@@ -279,7 +281,15 @@ public class Upgrader {
 		// import reference links using orderby field
 		project.importRefLinks();
 		
-
+		// <RIV4.3 project general cost per-year
+		if (project.getIncomeGen() &! project.isPerYearGeneralCosts()) {
+			checkYearsHaveGeneral(project.getGenerals());
+			checkYearsHaveGeneral(project.getGeneralWithouts());
+			checkYearsHaveGeneral(project.getPersonnels());
+			checkYearsHaveGeneral(project.getPersonnelWithouts());
+		}
+		
+		// donors
 		for (Donor d : project.getDonors()) {
 			if (d.getProject()==null) {
 				d.setProject(project);
@@ -330,6 +340,15 @@ public class Upgrader {
 			}
 		}
 		return templates;
+	}
+	
+	private void checkYearsHaveGeneral(Set<? extends ProjectItemGeneralBase> gens) {
+		for (ProjectItemGeneralBase g : gens) {
+			ProjectItemGeneralPerYear y = g.getYears().get(0);
+			if (y.getGeneral()==null) {
+				y.setGeneral(g);
+			}
+		}
 	}
 	
 	/**

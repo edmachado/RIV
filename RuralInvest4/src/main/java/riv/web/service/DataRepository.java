@@ -76,6 +76,8 @@ import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemGeneralBase;
+import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
@@ -845,9 +847,22 @@ public class DataRepository {
 		
 		if (p.getIncomeGen() && (step==-1 || step==8 || step==11 || step==12 || step==13)) {
 			Hibernate.initialize(p.getGenerals());
+			for (ProjectItemGeneralBase b : p.getGenerals()) {
+				Hibernate.initialize(b.getYears());
+			}
 			Hibernate.initialize(p.getGeneralWithouts());
+			for (ProjectItemGeneralBase b : p.getGeneralWithouts()) {
+				Hibernate.initialize(b.getYears());
+			}
+			
 			Hibernate.initialize(p.getPersonnels());
+			for (ProjectItemGeneralBase b : p.getPersonnels()) {
+				Hibernate.initialize(b.getYears());
+			}
 			Hibernate.initialize(p.getPersonnelWithouts());
+			for (ProjectItemGeneralBase b : p.getPersonnelWithouts()) {
+				Hibernate.initialize(b.getYears());
+			}
 		}
 		if (!p.getIncomeGen() && (step==-1 || step==8 || step==10 || step==12 || step==13)) {
 			Hibernate.initialize(p.getNongenLabours());
@@ -1119,6 +1134,37 @@ public class DataRepository {
 		}
 	}
 	
+	public void simplifyGeneralCosts(Project p, boolean simplify) {
+		if (simplify) { // from per-year to simplified model
+			Query query=currentSession().createQuery("delete ProjectItemGeneralPerYear year " +
+					"where year.id in (select y.id from ProjectItemGeneralPerYear y where y.year>0 and y.general.project=:p)");
+			query.setParameter("p", p);
+			query.executeUpdate();
+		} else { // from simplified to per-year model
+			MakePerYearGeneralCosts(p.getGenerals());
+			MakePerYearGeneralCosts(p.getGeneralWithouts());
+			MakePerYearGeneralCosts(p.getPersonnels());
+			MakePerYearGeneralCosts(p.getPersonnelWithouts());
+		}
+	}
+	
+	private void MakePerYearGeneralCosts(Set<? extends ProjectItemGeneralBase> gens) {
+		for (ProjectItemGeneralBase gen : gens) {
+			ProjectItemGeneralPerYear y1 = gen.getYears().get(0);
+			for (int i=1;i<gen.getProject().getDuration();i++) {
+				ProjectItemGeneralPerYear newYear = new ProjectItemGeneralPerYear();
+				newYear.setOwnResources(y1.getOwnResources());
+				newYear.setUnitNum(y1.getUnitNum());
+				newYear.setYear(i);
+				newYear.setGeneral(gen);
+				gen.getYears().put(i, newYear);
+				currentSession().save(newYear);
+				currentSession().flush();
+				currentSession().saveOrUpdate(gen);
+			}
+		}
+	}
+	
 	public void simplifyContributions(Project p) {
 		Query query=currentSession().createQuery("delete ProjectItemContribution c where c.year>1 and c.project=:p");
 		query.setParameter("p", p);
@@ -1351,22 +1397,22 @@ public class DataRepository {
 			Hibernate.initialize(p.getDonors());
 		}
 		
-		if (item.getClass().isAssignableFrom(ProjectItemContribution.class)) {
+		if (item instanceof ProjectItemContribution) {
 			Hibernate.initialize(p.getContributions());
 			Hibernate.initialize(item.getProject().getRefIncomes());
-		} else if (item.getClass().isAssignableFrom(ProjectItemLabour.class)) {
+		} else if (item instanceof ProjectItemLabour) {
 			Hibernate.initialize(p.getRefLabours());
 			Hibernate.initialize(p.getLabours());
-		} else if (item.getClass().isAssignableFrom(ProjectItemLabourWithout.class)) {
+		} else if (item instanceof ProjectItemLabourWithout) {
 			Hibernate.initialize(p.getRefLabours());
 			Hibernate.initialize(p.getLaboursWithout());
-		} else if (item.getClass().isAssignableFrom(ProjectItemPersonnel.class)) {
+		} else if (item instanceof ProjectItemPersonnel) {
 			Hibernate.initialize(p.getRefLabours());
 			Hibernate.initialize(p.getPersonnels());
-		} else if (item.getClass().isAssignableFrom(ProjectItemPersonnelWithout.class)) {
+		} else if (item instanceof ProjectItemPersonnelWithout) {
 			Hibernate.initialize(p.getRefLabours());
 			Hibernate.initialize(p.getPersonnelWithouts());
-		} else if (item.getClass().isAssignableFrom(ProjectItemNongenLabour.class)) {
+		} else if (item instanceof ProjectItemNongenLabour) {
 //			Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 			Hibernate.initialize(item.getProject().getRefLabours());
 			Hibernate.initialize(p.getNongenLabours());
@@ -1391,6 +1437,10 @@ public class DataRepository {
 //				Hibernate.initialize(((ProjectItemNongenBase)item).getDonations());
 				Hibernate.initialize(p.getNongenMaintenance());
 			}
+		}
+		
+		if (item instanceof ProjectItemGeneralBase) {
+			Hibernate.initialize(((ProjectItemGeneralBase)item).getYears());
 		}
 		return item;
 	}

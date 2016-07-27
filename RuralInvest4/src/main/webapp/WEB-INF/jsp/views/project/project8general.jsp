@@ -1,62 +1,60 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
-<html><head><title><spring:message code="projectGeneralSupplies"/></title></head>
+<html><head>
+	<title><spring:message code="${type}"/></title>
+</head>
 <body>
 	<div class="datatitle">
 		<c:if test="${not project.withWithout}"><spring:message code="projectGeneral"/></c:if>
 		<c:if test="${project.withWithout and without}"><spring:message code="projectGeneral.without"/></c:if>
 		<c:if test="${project.withWithout and not without}"><spring:message code="projectGeneral.with"/></c:if>
 	</div>
-	<div align="right"><a href="#" onClick="toggle('tblSupplies')"><spring:message code="misc.toggle"/></a></div>
-	<div id="tblSupplies" style="display:none">
-		<tags:table titleKey="projectGeneralSupplies">
-			<c:if test="${empty without}"><c:set var="generalsList" scope="request" value="${project.generals}"/></c:if>
-			<c:if test="${without}"><c:set var="generalsList" scope="request" value="${project.generalWithouts}"/></c:if>
-			<display:table name="generalsList" id="row" requestURI="" cellspacing="0" cellpadding="0" export="false">
-				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
-				<display:column titleKey="projectGeneralSupplies.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
-				<display:column titleKey="projectGeneralSupplies.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
-				<display:column titleKey="projectGeneralSupplies.unitNum" sortProperty="unitNum" sortable="true">
-						<tags:formatDecimal value="${row.unitNum}"/>
-					</display:column>
-				<display:column titleKey="projectGeneralSupplies.unitCost" sortable="true" sortProperty="unitCost">
-					<tags:formatCurrency value="${row.unitCost}"/>
-				</display:column>
-				<display:column titleKey="projectGeneralSupplies.totalCost" sortable="true" sortProperty="total">
-					<tags:formatCurrency value="${row.total}"/>
-				</display:column>
-				<display:column titleKey="projectGeneralSupplies.ownResources" sortable="true" sortProperty="ownResources" >
-					<tags:formatCurrency value="${row.unitCost}"/>
-				</display:column>
-				<display:column titleKey="projectGeneralSupplies.external" sortable="true" sortProperty="external">
-					<tags:formatCurrency value="${row.external}"/>
-				</display:column>
-			</display:table>
-		</tags:table>
-	</div>
 	
 	<form:form name="form" method="post" commandName="projectItem">
 		<tags:errors />
 		<div style="display:inline-block;width:470px">
-			<fieldset>
-				<legend><spring:message code="misc.addItem"/> (<spring:message code="projectGeneralSupplies"/>)</legend>
-				<tags:dataentry field="description" labelKey="projectGeneralSupplies.description" helpText="projectGeneralSupplies.description.help" inputClass="text" size="20" maxLength="30"/>
-				<tags:dataentry field="unitType" labelKey="projectGeneralSupplies.unitType" helpText="projectGeneralSupplies.unitType.help" inputClass="text" size="20"/>
-				<tags:dataentry field="unitNum" labelKey="projectGeneralSupplies.unitNum" helpText="projectGeneralSupplies.unitNum.help" onmouseout="CalculateTotal()"/>
-				<tags:dataentry field="unitCost" labelKey="projectGeneralSupplies.unitCost" helpText="projectGeneralSupplies.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
+<!-- 		<fieldset> -->
+<%-- 			<legend><spring:message code="misc.addItem"/> (<spring:message code="${type}"/>)</legend> --%>
+			<tags:dataentry field="description" labelKey="${type}.description" helpText="${type}.description.help" inputClass="text" size="20" maxLength="30"/>
+			<c:if test="${fn:contains(type,'Suppl') }">
+				<tags:dataentry field="unitType" labelKey="${type}.unitType" helpText="${type}.unitType.help" inputClass="text" size="20"/>
+			</c:if>
+			<c:if test="${not fn:contains(type,'Suppl') }">
+				<div class="dataentry">
+					<tags:help text="projectGeneralPersonnel.unitType.help" title="projectGeneralPersonnel.unitType"><label><spring:message code="projectGeneralPersonnel.unitType"/></label></tags:help>
+					<form:select path="unitType">
+						<form:option value="0"><spring:message code="units.pyears"/></form:option>
+						<form:option value="1"><spring:message code="units.pmonths"/></form:option>
+						<form:option value="2"><spring:message code="units.pweeks"/></form:option>
+						<form:option value="3"><spring:message code="units.pdays"/></form:option>
+					</form:select>
+				</div>
+			</c:if>
+			<c:if test="${not project.perYearGeneralCosts}">
+				<tags:dataentry field="years[0].unitNum" labelKey="${type}.unitNum" helpText="${type}.unitNum.help" onmouseout="CalculateTotal()"/>
+			</c:if>
+			<tags:dataentry field="unitCost" labelKey="${type}.unitCost" helpText="${type}.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
+			<c:if test="${not project.perYearGeneralCosts}">
 				<tags:datadivider color="green"/>
-				<tags:dataentry field="total" labelKey="projectGeneralSupplies.totalCost" helpText="projectGeneralSupplies.totalCost.help" currency="true" calculated="true" />
-				<!-- value="${projectGeneralSupplies.unitCost*projectGeneralSupplies.unitNum}" -->
-				<tags:dataentry field="ownResources" labelKey="projectGeneralSupplies.ownResources" helpText="projectGeneralSupplies.ownResources.help" currency="true" onmouseout="CalculateExt()"/>
+				<tags:dataentry field="years[0].total" labelKey="${type}.totalCost" helpText="${type}.totalCost.help" currency="true" calculated="true" />
+				<tags:dataentry field="years[0].ownResources" labelKey="${type}.ownResources" helpText="${type}.ownResources.help" currency="true" onmouseout="CalculateExt()"/>
 				<tags:datadivider color="orange"/>
-				<tags:dataentry field="external" labelKey="projectGeneralSupplies.external" helpText="projectGeneralSupplies.external.help" currency="true" calculated="true" />
-				<!-- value="${(projectGeneralSupplies.unitCost*projectGeneralSupplies.unitNum)-projectGeneralSupplies.ownResources}" -->
-			</fieldset>
+				<tags:dataentry field="years[0].external" labelKey="${type}.external" helpText="${type}.external.help" currency="true" calculated="true" />
+			</c:if>
+<!-- 		</fieldset> -->
 		</div>
+		<c:set var="refType"><c:if test="${fn:contains(type,'Suppl') }">0</c:if><c:if test="${not fn:contains(type,'Suppl') }">2</c:if></c:set>
 		<div style="display:inline-block;">
-			<tags:refItemChooser type="0" linked="${projectItem.linkedTo}" notLinked="'unitNum,ownResources'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="CalculateTotal();" />
+			<tags:refItemChooser type="${refType}" linked="${projectItem.linkedTo}" notLinked="'unitNum,ownResources'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="CalculateTotal();" />
 		</div>
+	
+		<c:if test="${project.perYearGeneralCosts}">	
+			<tags:generalCostPerYear itemCode="${type}" />
+		</c:if>
+		
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
-<tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateExt" />
-<tags:jscriptCalc fieldA="total" fieldB="ownResources" fieldC="external" functionName="CalculateExt" calc="-" />
+<c:if test="${not project.perYearGeneralCosts}">
+	<tags:jscriptCalc fieldA="years0\\\.unitNum" fieldB="unitCost" fieldC="years0\\\.total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateExt" />
+	<tags:jscriptCalc fieldA="years0\\\.total" fieldB="years0\\\.ownResources" fieldC="years0\\\.external" functionName="CalculateExt" calc="-" />
+</c:if>
 </body></html>

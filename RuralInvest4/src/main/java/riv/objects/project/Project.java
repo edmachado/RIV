@@ -211,6 +211,8 @@ public class Project extends Probase implements java.io.Serializable {
 	private String reccDesc;
 	@Column(name="PER_YEAR_CONTRIB")
 	private boolean perYearContributions;
+	@Column(name="PER_YEAR_GENERAL")
+	private boolean perYearGeneralCosts;
 	
 	@Column(name="ADMIN_MISC1")
 	private String adminMisc1;
@@ -1143,6 +1145,14 @@ public double getInvestmentTotal() {
 	public void setPerYearContributions(boolean perYearContributions) {
 		this.perYearContributions = perYearContributions;
 	}
+	
+	public boolean isPerYearGeneralCosts() {
+		return perYearGeneralCosts;
+	}
+
+	public void setPerYearGeneralCosts(boolean perYearGeneralCosts) {
+		this.perYearGeneralCosts = perYearGeneralCosts;
+	}
 
 	public void setAppConfig1(AppConfig1 appConfig1) {
 		this.appConfig1 = appConfig1;
@@ -1233,8 +1243,10 @@ public double getInvestmentTotal() {
 		double employment=0.0;
 		
 		if (incomeGen) {
-			for (ProjectItemPersonnel lab : personnels) {
-				employment+=employPerType(lab.getUnitNum(), 1.0, lab.getUnitType());
+			for (ProjectItemPersonnel lab : personnels) { 
+				// when per-year general costs, use employment from final year of project
+				double unitNum = isPerYearGeneralCosts() ? lab.getYears().get(duration-1).getUnitNum() : lab.getYears().get(0).getUnitNum(); 
+				employment+=employPerType(unitNum, 1.0, lab.getUnitType());
 			}
 		} else {
 			for (ProjectItemNongenLabour lab : nongenLabours) {
@@ -1728,9 +1740,9 @@ public double getInvestmentTotal() {
 			sb.append("step8.supply.count="+generals.size()+lineSeparator);
 			total=0;own=0; donated=0;
 			for (ProjectItemGeneral i : generals) {
-				total+=i.getTotal();
-				own+=i.getOwnResources();
-				donated+=i.getExternal();
+				total+=i.getYears().get(0).getTotal();
+				own+=i.getYears().get(0).getOwnResources();
+				donated+=i.getYears().get(0).getExternal();
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.supply.Sum.description="+lineSeparator);
@@ -1745,9 +1757,9 @@ public double getInvestmentTotal() {
 			sb.append("step8.supplyWo.count="+generalWithouts.size()+lineSeparator);
 			total=0;own=0;donated=0;
 			for (ProjectItemGeneralWithout i : generalWithouts) {
-				total+=i.getTotal();
-				own+=i.getOwnResources();
-				donated+=i.getExternal();
+				total+=i.getYears().get(0).getTotal();
+				own+=i.getYears().get(0).getOwnResources();
+				donated+=i.getYears().get(0).getExternal();
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.supplyWo.Sum.description="+lineSeparator);
@@ -1762,9 +1774,9 @@ public double getInvestmentTotal() {
 			sb.append("step8.personnel.count="+personnels.size()+lineSeparator);
 			total=0;own=0;donated=0;
 			for (ProjectItemPersonnel i : personnels) {
-				total+=i.getTotal();
-				own+=i.getOwnResources();
-				donated+=i.getExternal();
+				total+=i.getYears().get(0).getTotal();
+				own+=i.getYears().get(0).getOwnResources();
+				donated+=i.getYears().get(0).getExternal();
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.personnel.Sum.description="+lineSeparator);
@@ -1779,9 +1791,9 @@ public double getInvestmentTotal() {
 			sb.append("step8.personnelWo.count="+personnelWithouts.size()+lineSeparator);
 			total=0;own=0;donated=0;
 			for (ProjectItemPersonnelWithout i : personnelWithouts) {
-				total+=i.getTotal();
-				own+=i.getOwnResources();
-				donated+=i.getExternal();
+				total+=i.getYears().get(0).getTotal();
+				own+=i.getYears().get(0).getOwnResources();
+				donated+=i.getYears().get(0).getExternal();
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.personnelWo.Sum.description="+lineSeparator);

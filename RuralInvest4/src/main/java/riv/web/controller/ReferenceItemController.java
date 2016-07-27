@@ -118,9 +118,9 @@ public class ReferenceItemController {
     
     private String form(ReferenceItem pi) {
     	String form;
-    	if (pi.getClass().isAssignableFrom(ReferenceIncome.class)) {
+    	if (pi instanceof ReferenceIncome) {
     		form="reference/income";
-    	} else if (pi.getClass().isAssignableFrom(ReferenceCost.class)) {
+    	} else if (pi instanceof ReferenceCost) {
     		form="reference/cost";
     	} else {
     		form="reference/labour";

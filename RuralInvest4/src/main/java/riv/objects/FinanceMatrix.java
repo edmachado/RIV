@@ -16,6 +16,7 @@ import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
@@ -302,29 +303,37 @@ public class FinanceMatrix {
 			
 		// GENERAL COSTS (WITH PROJECT)
 		for (ProjectItemGeneral general : project.getGenerals()) {
+			ProjectItemGeneralPerYear y;
 			for (int i=0;i<project.getDuration();i++) {
-				yearlyData.get(i).costGeneral+=general.getTotal();
-				yearlyData.get(i).costGeneralOwn+=general.getOwnResources();
+				y = project.isPerYearGeneralCosts() ? general.getYears().get(i) : general.getYears().get(0);
+				yearlyData.get(i).costGeneral+=y.getTotal();
+				yearlyData.get(i).costGeneralOwn+=y.getOwnResources();
 			}
 		}
 		for (ProjectItemPersonnel personnel : project.getPersonnels()) {
+			ProjectItemGeneralPerYear y;
 			for (int i=0;i<project.getDuration();i++) {
-				yearlyData.get(i).costGeneral+=personnel.getTotal();
-				yearlyData.get(i).costGeneralOwn+=personnel.getOwnResources();
+				y = project.isPerYearGeneralCosts() ? personnel.getYears().get(i) : personnel.getYears().get(0);
+				yearlyData.get(i).costGeneral+=y.getTotal();
+				yearlyData.get(i).costGeneralOwn+=y.getOwnResources();
 			}
 		}
 		
 		// GENERAL COSTS (WITHOUT PROJECT)
 		for (ProjectItemGeneralWithout gwo : project.getGeneralWithouts()) {
+			ProjectItemGeneralPerYear y;
 			for (int i=0;i<project.getDuration();i++) {
-				yearlyData.get(i).costGeneralWithout+=gwo.getTotal();
-				yearlyData.get(i).costGeneralWithoutOwn+=gwo.getOwnResources();
+				y = project.isPerYearGeneralCosts() ? gwo.getYears().get(i) : gwo.getYears().get(0);
+				yearlyData.get(i).costGeneralWithout+=y.getTotal();
+				yearlyData.get(i).costGeneralWithoutOwn+=y.getOwnResources();
 			}
 		}
 		for (ProjectItemPersonnelWithout pwo : project.getPersonnelWithouts()) {
+			ProjectItemGeneralPerYear y;
 			for (int i=0;i<project.getDuration();i++) {
-				yearlyData.get(i).costGeneralWithout+=pwo.getTotal();
-				yearlyData.get(i).costGeneralWithoutOwn+=pwo.getOwnResources();
+				y = project.isPerYearGeneralCosts() ? pwo.getYears().get(i) : pwo.getYears().get(0);
+				yearlyData.get(i).costGeneralWithout+=y.getTotal();
+				yearlyData.get(i).costGeneralWithoutOwn+=y.getOwnResources();
 			}
 		}
 	

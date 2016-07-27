@@ -49,24 +49,26 @@ function numToFormat(num) {
 	return addCommas(num);
 }
 
-//TODO: include variables thousand and decimal separator
+// returns true if invalid character was removed
 function replaceNonNum(txtbox) {
-	var foo = "[^\d|"+checkCrazySeparator(curSepThou)+"|"+checkCrazySeparator(curSepDec)+"]";
-	if (/foo/.test(txtbox.value)) { // matches any character except number, comma or dot
-		txtbox.value = txtbox.value.replace(/[^\d|\.|,]/g,""); // replaces bad character with null
-		return true;
-	}
-	else return false;
+	var length = txtbox.value.length;
+	txtbox.value = txtbox.value.replace(/[^\d,\.]/g, '');
+	return txtbox.value.length!=length;
 }
 
 function checkCrazySeparator(separator) {
-	if (separator=='.') return '\.';
-	if (separator=='\'') return '\\\\';
-	else return separator;
+	var fix;
+	if (separator=='.') {
+		fix= '\.';
+	} else if (separator=='\'') {
+		fix= '\\\\';
+	} else {
+		fix=separator;
+	}
+	return fix;
 }
 
 function commasKeyup(txtbox) {
-//debugger;
 	var pos = getCaretPosition(txtbox);
 	if (replaceNonNum(txtbox)) {
 		setCaretPosition(txtbox, pos-1);

@@ -1,6 +1,9 @@
 package riv.web.controller;
  
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -9,9 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +35,8 @@ import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemGeneralBase;
+import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
@@ -47,7 +55,7 @@ import riv.util.CurrencyFormat;
 import riv.util.validators.ProjectItemValidator;
 import riv.web.config.RivConfig;
 import riv.web.service.DataService;
- 
+
 @Controller
 @RequestMapping({"/project/item"})
 public class ProjectItemController {
@@ -72,14 +80,18 @@ public class ProjectItemController {
         binder.registerCustomEditor(Double.class, "salvage", customNumberEditor);
         binder.registerCustomEditor(Double.class, "donated", customNumberEditor);
         binder.registerCustomEditor(Double.class, "financed", customNumberEditor);
-        binder.registerCustomEditor(Double.class, "external", customNumberEditor);
         binder.registerCustomEditor(Double.class, "amount", customNumberEditor);
         binder.registerCustomEditor(Double.class, "donations", customNumberEditor);
+        binder.registerCustomEditor(Double.class, "external", customNumberEditor);
+
+        binder.registerCustomEditor(Double.class, "years.unitCost", customNumberEditor);
+        binder.registerCustomEditor(Double.class, "years.ownResources", customNumberEditor);
+        binder.registerCustomEditor(Double.class, "years.total", customNumberEditor);
+        binder.registerCustomEditor(Double.class, "years.external", customNumberEditor);
         
         CustomNumberEditor cne2 = new CustomNumberEditor(Double.class, rivConfig.getSetting().getDecimalFormat(), true);
         binder.registerCustomEditor(Double.class, "unitNum", cne2);
-        
-//        binder.registerCustomEditor(Donor.class, "donor", new DonorEditor(dataService));
+        binder.registerCustomEditor(Double.class, "years.unitNum", cne2);
 	}
 	
 	@ModelAttribute("projectItem")
@@ -112,22 +124,26 @@ public class ProjectItemController {
 				p= dataService.getProject(projectId, 7);
 				pi = new ProjectItemServiceWithout();
 				pi.setOrderBy(p.getServicesWithout().size());
-			} else if (type.equals("personnel")) {
+			} else if (type.equals("projectGeneralPersonnel")) {
 				p = dataService.getProject(projectId, 8);
 				pi = new ProjectItemPersonnel();
 				pi.setOrderBy(p.getPersonnels().size());
-			} else if (type.equals("personnelWithout")) {
+				addPerYearItems((ProjectItemPersonnel)pi, p);
+			} else if (type.equals("projectGeneralPersonnelWithout")) {
 				p = dataService.getProject(projectId, 8);
 				pi = new ProjectItemPersonnelWithout();
 				pi.setOrderBy(p.getPersonnelWithouts().size());
-			} else if (type.equals("general")) {
+				addPerYearItems((ProjectItemPersonnelWithout)pi, p);
+			} else if (type.equals("projectGeneralSupplies")) {
 				p = dataService.getProject(projectId, 8);
 				pi = new ProjectItemGeneral();
 				pi.setOrderBy(p.getGenerals().size());
-			} else if (type.equals("generalWithout")) {
+				addPerYearItems((ProjectItemGeneral)pi, p);
+			} else if (type.equals("projectGeneralSuppliesWithout")) {
 				p = dataService.getProject(projectId, 8);
 				pi = new ProjectItemGeneralWithout();
 				pi.setOrderBy(p.getGeneralWithouts().size());
+				addPerYearItems((ProjectItemGeneralWithout)pi, p);
 			} else if (type.equals("nongenLabour")) {
 				p = dataService.getProject(projectId, 8);
 				pi = new ProjectItemNongenLabour();
@@ -151,10 +167,37 @@ public class ProjectItemController {
 		return pi;
 	}
 	
+	private void addPerYearItems(ProjectItemGeneralBase g, Project p) {
+		g.setYears(new HashMap<Integer,ProjectItemGeneralPerYear>());
+		for (int i=0;i<p.getDuration();i++) {
+			if (i==0||p.isPerYearGeneralCosts()) {
+				ProjectItemGeneralPerYear y = new ProjectItemGeneralPerYear();
+				y.setGeneral(g);
+				y.setYear(i);
+				y.setUnitNum(0.0);
+				y.setOwnResources(0.0);
+				g.getYears().put(i, y);
+			}
+		}
+	}
+	
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public String getItem(@ModelAttribute ProjectItem projectItem, Model model, HttpServletRequest request) {
     	setupPageAttributes(projectItem, model, request);
     	return form(projectItem);
+    }
+    
+    private void addPerYearErrors(List<FieldError> errors, Model model) {
+		if (errors.size()>0) {
+			ArrayList<String> errs = new ArrayList<String>(errors.size());
+			for (ObjectError err : errors) {
+				int year = (Integer)err.getArguments()[0]-1;
+				String code = ((DefaultMessageSourceResolvable)err.getArguments()[1]).getCodes()[0];
+				String type = code.substring(code.lastIndexOf(".")+1);
+				errs.add("years"+year+type);
+			}
+			model.addAttribute("yearsErrors", errs);
+		}
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
@@ -163,6 +206,7 @@ public class ProjectItemController {
     	
     	if (result.hasErrors()) {
 			setupPageAttributes(projectItem, model, request);
+			addPerYearErrors(result.getFieldErrors("years"), model);
 			return form(projectItem);
 		} else {
 			if (projectItem instanceof HasDonations) {
@@ -214,31 +258,31 @@ public class ProjectItemController {
     @RequestMapping(value="/{id}/copy", method=RequestMethod.GET)
     public String copy(@ModelAttribute ProjectItem projectItem) {
     	ProjectItem newItem = projectItem.copy();
-    	if (newItem.getClass()==ProjectItemAsset.class) {
+    	if (newItem instanceof ProjectItemAsset) {
     		newItem.setOrderBy(newItem.getProject().getAssets().size());
-    	} else if (newItem.getClass()==ProjectItemAssetWithout.class) {
+    	} else if (newItem instanceof ProjectItemAssetWithout) {
     		newItem.setOrderBy(newItem.getProject().getAssetsWithout().size());
-    	} else if (newItem.getClass()==ProjectItemContribution.class) {
+    	} else if (newItem instanceof ProjectItemContribution) {
     		newItem.setOrderBy(newItem.getProject().getContributionsByYear().get(((ProjectItemContribution)projectItem).getYear()).size());
-    	} else if (newItem.getClass()==ProjectItemGeneral.class) { 
+    	} else if (newItem instanceof ProjectItemGeneral) { 
     		newItem.setOrderBy(newItem.getProject().getGenerals().size());
-    	} else if (newItem.getClass()==ProjectItemGeneralWithout.class) {
+    	} else if (newItem instanceof ProjectItemGeneralWithout) {
     		newItem.setOrderBy(newItem.getProject().getGeneralWithouts().size());
-    	} else if (newItem.getClass()==ProjectItemLabour.class) {
+    	} else if (newItem instanceof ProjectItemLabour) {
     		newItem.setOrderBy(newItem.getProject().getLabours().size());
-    	} else if (newItem.getClass()==ProjectItemLabourWithout.class) {
+    	} else if (newItem instanceof ProjectItemLabourWithout) {
     		newItem.setOrderBy(newItem.getProject().getLaboursWithout().size());
-    	} else if (newItem.getClass()==ProjectItemPersonnel.class) {
+    	} else if (newItem instanceof ProjectItemPersonnel) {
     		newItem.setOrderBy(newItem.getProject().getPersonnels().size());
-    	} else if (newItem.getClass()==ProjectItemPersonnelWithout.class) {
+    	} else if (newItem instanceof ProjectItemPersonnelWithout) {
     		newItem.setOrderBy(newItem.getProject().getPersonnelWithouts().size());
-    	} else if (newItem.getClass()==ProjectItemNongenLabour.class) {
+    	} else if (newItem instanceof ProjectItemNongenLabour) {
     		newItem.setOrderBy(newItem.getProject().getNongenLabours().size());
-    	} else if (newItem.getClass()==ProjectItemNongenMaterials.class) { 
+    	} else if (newItem instanceof ProjectItemNongenMaterials) { 
     		newItem.setOrderBy(newItem.getProject().getNongenMaterials().size());
-    	} else if (newItem.getClass()==ProjectItemNongenMaintenance.class) {
+    	} else if (newItem instanceof ProjectItemNongenMaintenance) {
     		newItem.setOrderBy(newItem.getProject().getNongenMaintenance().size());
-    	} else if (newItem.getClass()==ProjectItemService.class) {
+    	} else if (newItem instanceof ProjectItemService) {
     		newItem.setOrderBy(newItem.getProject().getServices().size());
     	} else { // serviceWithout
     		newItem.setOrderBy(newItem.getProject().getServicesWithout().size());
@@ -250,14 +294,14 @@ public class ProjectItemController {
     
     private int currentStep(ProjectItem pi) {
     	int step;
-    	if (pi.getClass()==ProjectItemContribution.class)  {
+    	if (pi instanceof ProjectItemContribution)  {
     		step=10;
-    	} else if (pi.getClass()==ProjectItemAsset.class ||
-    			pi.getClass()==ProjectItemLabour.class ||
-    			pi.getClass()==ProjectItemService.class ||
-    			pi.getClass()==ProjectItemAssetWithout.class ||
-    			pi.getClass()==ProjectItemLabourWithout.class ||
-    			pi.getClass()==ProjectItemServiceWithout.class){
+    	} else if (pi instanceof ProjectItemAsset ||
+    			pi instanceof ProjectItemLabour ||
+    			pi instanceof ProjectItemService ||
+    			pi instanceof ProjectItemAssetWithout ||
+    			pi instanceof ProjectItemLabourWithout ||
+    			pi instanceof ProjectItemServiceWithout){
     		step = 7;
     	} else {
     		step = 8;
@@ -270,23 +314,22 @@ public class ProjectItemController {
     }
     private String form(ProjectItem pi) {
     	String form;
-    	if (pi.getClass()==ProjectItemAsset.class || pi.getClass()==ProjectItemAssetWithout.class) {
+    	if (pi instanceof ProjectItemAsset || pi instanceof ProjectItemAssetWithout) {
     		form="project/project7asset";
-    	} else if (pi.getClass()==ProjectItemLabour.class || pi.getClass()==ProjectItemLabourWithout.class) {
+    	} else if (pi instanceof ProjectItemLabour || pi instanceof ProjectItemLabourWithout) {
     		form="project/project7labour";
-    	} else if (pi.getClass()==ProjectItemService.class || pi.getClass()==ProjectItemServiceWithout.class) {
+    	} else if (pi instanceof ProjectItemService || pi instanceof ProjectItemServiceWithout) {
     		form="project/project7service";
-    	} else if (pi.getClass()==ProjectItemPersonnel.class ||
-    			pi.getClass()==ProjectItemPersonnelWithout.class) {
-    		form="project/project8personnel";
-    	} else if (pi.getClass()==ProjectItemGeneral.class ||
-    			pi.getClass()==ProjectItemGeneralWithout.class) {
+    	} else if (pi instanceof ProjectItemPersonnel ||
+    			pi instanceof ProjectItemPersonnelWithout ||
+    			pi instanceof ProjectItemGeneral ||
+    			pi instanceof ProjectItemGeneralWithout) {
     		form = "project/project8general";
-    	} else if (pi.getClass()==ProjectItemNongenLabour.class) {
+    	} else if (pi instanceof ProjectItemNongenLabour) {
     		form = "project/project8nongenLabour";
-    	} else if (pi.getClass()==ProjectItemNongenMaintenance.class) {
+    	} else if (pi instanceof ProjectItemNongenMaintenance) {
     		form = "project/project8nongenMaintenance";
-    	} else if (pi.getClass()==ProjectItemNongenMaterials.class) {
+    	} else if (pi instanceof ProjectItemNongenMaterials) {
     		form = "project/project8nongenMaterial";
     	} else { // contribution
     		form = "project/project10contrib";
@@ -333,13 +376,18 @@ public class ProjectItemController {
 		model.addAttribute("wizardStep",p.getWizardStep());
 		if (p.getIncomeGen()) { model.addAttribute("menuType","project"); }
 		else { model.addAttribute("menuType","projectNoninc"); }
-		if (pi.getClass()==ProjectItemGeneralWithout.class 
-				|| pi.getClass()==ProjectItemPersonnelWithout.class
-				|| pi.getClass()==ProjectItemAssetWithout.class
-				|| pi.getClass()==ProjectItemLabourWithout.class
-				|| pi.getClass()==ProjectItemServiceWithout.class
+		if (pi instanceof ProjectItemGeneralWithout 
+				|| pi instanceof ProjectItemPersonnelWithout
+				|| pi instanceof ProjectItemAssetWithout
+				|| pi instanceof ProjectItemLabourWithout
+				|| pi instanceof ProjectItemServiceWithout
 			) {
 			model.addAttribute("without",true);
+		}
+		if (pi instanceof ProjectItemGeneral || pi instanceof ProjectItemGeneralWithout) {
+			model.addAttribute("type", "projectGeneralSupplies");
+		} else if (pi instanceof ProjectItemPersonnel || pi instanceof ProjectItemPersonnelWithout) {
+			model.addAttribute("type","projectGeneralPersonnel");
 		}
 		if (pi instanceof HasDonations) {
 			HasDonations hd = (HasDonations)pi;

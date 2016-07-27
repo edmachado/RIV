@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +50,8 @@ import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.project.Donor;
 import riv.objects.project.Project;
+import riv.objects.project.ProjectItemGeneralBase;
+import riv.objects.project.ProjectItemGeneralSingleYear;
 import riv.objects.project.ProjectResult;
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -326,6 +330,20 @@ public class ProjectController {
 		return "redirect:../../../project/step10/"+p.getProjectId();
 	}
 	
+	@RequestMapping(value="step{step}/{id}/perYearGenerals", method=RequestMethod.GET)
+	public String perYearGenerals(@PathVariable Integer step, @PathVariable Integer id, @RequestParam(required=true) Boolean simple, 
+			@ModelAttribute Project p, HttpServletRequest request) {
+		
+		// TODO check accessOK
+		
+		dataService.simplifyGeneralCosts(p, simple);
+		p=dataService.getProject(id, step);
+		p.setPerYearGeneralCosts(!simple);
+		dataService.storeProject(p, p.getWizardStep()==null);
+		
+		return "redirect:../../../project/step8/"+p.getProjectId();
+	}
+	
 	@RequestMapping(value="step{step}/{id}/copyContrib/{sourceYear}/{targetYear}", method=RequestMethod.GET)
 	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
 			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 
@@ -350,6 +368,22 @@ public class ProjectController {
 		return "redirect:../../../search/results";
 	}
 	
+	private Map<Integer, ArrayList<ProjectItemGeneralSingleYear>> generalCostsForTable(int duration, boolean isPerYear, Set<? extends ProjectItemGeneralBase> generals) {
+		Map<Integer, ArrayList<ProjectItemGeneralSingleYear>> generalsForTable = new HashMap<Integer, ArrayList<ProjectItemGeneralSingleYear>>();
+		for (int i=0; i<duration; i++) {
+			generalsForTable.put(i, new ArrayList<ProjectItemGeneralSingleYear>());
+		}
+		
+		for (ProjectItemGeneralBase gen : generals) {
+			for (int i=0; i<duration; i++) {
+				if (i==0 || isPerYear) {
+					generalsForTable.get(i).add(gen.getOneYearData(i));
+				}
+			}
+		}
+		return generalsForTable;
+	}
+	
 	private void setupPageAttributes(Project p, Model model, Integer step, HttpServletRequest request) {
 		User u = (User)request.getAttribute("user");
 		model.addAttribute("accessOK", p.isShared() || p.getTechnician().getUserId().equals(u.getUserId()));
@@ -363,6 +397,15 @@ public class ProjectController {
 		}
 		
 		// step-specific data for views
+		
+		// per-year general cost tables
+		if (step==8 && p.getIncomeGen()) {
+			model.addAttribute("generalsForTable", generalCostsForTable(p.getDuration(), p.isPerYearGeneralCosts(), p.getGenerals()));
+			model.addAttribute("generalsWoForTable", generalCostsForTable(p.getDuration(), p.isPerYearGeneralCosts(), p.getGeneralWithouts()));
+			model.addAttribute("personnelsForTable", generalCostsForTable(p.getDuration(), p.isPerYearGeneralCosts(), p.getPersonnels()));
+			model.addAttribute("personnelsWoForTable", generalCostsForTable(p.getDuration(), p.isPerYearGeneralCosts(), p.getPersonnelWithouts()));
+		}
+		
 		if (step==12 || step==13 || (!p.getIncomeGen() && step==10)) {
 			HashMap<Integer, Donor> donors = new HashMap<Integer, Donor>();
 			for (Donor d : p.getDonors()) {

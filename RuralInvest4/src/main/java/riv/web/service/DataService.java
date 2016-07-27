@@ -297,6 +297,10 @@ public class DataService implements UserDetailsService, Serializable {
 		repo.checkProjectsOnUpgrade();
 	}
 	
+	public void simplifyGeneralCosts(Project p, boolean simplify) {
+		repo.simplifyGeneralCosts(p, simplify);
+	}
+	
 	public void simplifyContributions(Project p) {
 		repo.simplifyContributions(p);
 	}

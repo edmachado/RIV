@@ -114,10 +114,10 @@ public class ProfileProductItemController {
     @RequestMapping(value="/{id}/copy", method=RequestMethod.GET)
     public String copy(@ModelAttribute ProfileProductItem profileProductItem) {
     	ProfileProductItem newItem = profileProductItem.copy();
-    	if (newItem.getClass().isAssignableFrom(ProfileProductIncome.class)) {
+    	if (newItem instanceof ProfileProductIncome) {
     		newItem.setOrderBy(newItem.getProfileProduct().getProfileIncomes().size());
     		newItem.getProfileProduct().addProfileIncome((ProfileProductIncome)newItem);
-    	} else if (newItem.getClass().isAssignableFrom(ProfileProductInput.class)) {
+    	} else if (newItem instanceof ProfileProductInput) {
     		newItem.setOrderBy(newItem.getProfileProduct().getProfileInputs().size());
     		newItem.getProfileProduct().addProfileInput((ProfileProductInput)newItem);
     	} else { // labour
@@ -137,13 +137,13 @@ public class ProfileProductItemController {
     private void checkLinked(ProfileProductItem item, Integer linkedToId, Boolean addLink) {
     	if (addLink!=null) {
     		ReferenceItem ref = null;
-			if (item.getClass().isAssignableFrom(ProfileProductIncome.class)) {
+			if (item instanceof ProfileProductIncome) {
 				ref = new ReferenceIncome();
 				ref.setOrderBy(item.getProfileProduct().getProfile().getRefIncomes().size());
 				if (item.getProfileProduct().getProfile().getIncomeGen()) {
 					((ReferenceIncome)ref).setTransport(((ProfileProductIncome)item).getTransport().doubleValue());
 				}
-			} else if (item.getClass().isAssignableFrom(ProfileProductInput.class)) {
+			} else if (item instanceof ProfileProductInput) {
 				ref = new ReferenceCost();
 				ref.setOrderBy(item.getProfileProduct().getProfile().getRefCosts().size());
 				((ReferenceCost)ref).setTransport(((ProfileProductInput)item).getTransport().doubleValue());

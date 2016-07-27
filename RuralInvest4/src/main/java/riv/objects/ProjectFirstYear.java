@@ -10,6 +10,7 @@ import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemPersonnel;
 import riv.objects.project.ProjectItemPersonnelWithout;
@@ -87,17 +88,21 @@ public class ProjectFirstYear {
 		
 		if (without) {
 			for (ProjectItemGeneralWithout gen : project.getGeneralWithouts()) {
-				generalCost+=round(gen.getUnitCost()*gen.getUnitNum())-gen.getOwnResources();
+				ProjectItemGeneralPerYear y = gen.getYears().get(0);
+				generalCost+=round(gen.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 			for (ProjectItemPersonnelWithout per : project.getPersonnelWithouts()) {
-				generalCost+=round(per.getUnitCost()*per.getUnitNum())-per.getOwnResources();
+				ProjectItemGeneralPerYear y = per.getYears().get(0);
+				generalCost+=round(per.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 		} else {
 			for (ProjectItemGeneral gen : project.getGenerals()) {
-				generalCost+=round(gen.getUnitCost()*gen.getUnitNum())-gen.getOwnResources();
+				ProjectItemGeneralPerYear y = gen.getYears().get(0);
+				generalCost+=round(gen.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 			for (ProjectItemPersonnel per : project.getPersonnels()) {
-				generalCost+=round(per.getUnitCost()*per.getUnitNum())-per.getOwnResources();
+				ProjectItemGeneralPerYear y = per.getYears().get(0);
+				generalCost+=round(per.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 		}
 		
