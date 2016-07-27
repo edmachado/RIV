@@ -892,6 +892,9 @@ public class DataRepository {
 		
 		if (!p.getIncomeGen() && (step==-1 || step==1 || step==10 || step==12 || step==13)) {
 			Hibernate.initialize(p.getContributions());
+			for (ProjectItemContribution c : p.getContributions()) {
+				Hibernate.initialize(c.getYears());
+			}
 		}
 		
 		if (withDonations || step==12 || step==13) {

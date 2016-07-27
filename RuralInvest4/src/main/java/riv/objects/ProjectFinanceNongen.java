@@ -165,7 +165,7 @@ public class ProjectFinanceNongen {
 		if (project.isPerYearContributions()) {
 			for (ProjectItemContribution cont : project.getContributions()) {
 				for (ProjectItemContributionPerYear py : cont.getYears().values()) {
-					data.get(py.getYear()).setContributions(data.get(py.getYear()-1).getContributions()+py.getTotal());
+					data.get(py.getYear()).setContributions(data.get(py.getYear()).getContributions()+py.getTotal());
 				}
 			}
 		} else { // simplified approach 

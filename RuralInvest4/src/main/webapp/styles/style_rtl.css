@@ -575,3 +575,12 @@ th.period, span.period { background-color: #e63f42; }
 #indicators td:first-child { font-weight:bold;text-align:right; }
 #summaryBlocks tr:nth-child(3), #summaryBlocks tr:nth-child(4)  { font-weight:bold; }
 #profitabilitySummary tbody tr:nth-child(4), #profitabilitySummary tbody tr:nth-child(5) { font-weight:bold; }
+
+#yearSelector span.yearBox { display:inline-block; border:1px solid #b5b6b5; margin:10px 4px 0 4px; width:25px; height:25px; background-color:#efce6c; text-align:center; }
+#yearSelector span.selected { font-weight:bold; border:2px solid #036;}
+#yearSelector span.yearBox a { display:block; margin:5px 0 0 0; }
+#yearSelector span.yearBox:hover { background-color:#3a487c; }
+#yearSelector span.yearBox:hover a { color:#efce6c; }
+#yearSelector span.selected:hover,yearBox:hover { background-color:#efce6c; }
+#yearSelector span.selected a { cursor:default; }
+#yearSelector span.selected a:hover { color:#036; }

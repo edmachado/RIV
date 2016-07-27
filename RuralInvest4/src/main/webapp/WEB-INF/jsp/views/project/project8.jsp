@@ -23,6 +23,16 @@ $(function() {
 	});
 });
 var selectedYear=0;
+function showYear(year) {
+	toggle('projectGeneralSupplies'+year);
+	toggle('projectGeneralPersonnel'+year);
+	toggle('projectGeneralSupplies'+selectedYear);
+	toggle('projectGeneralPersonnel'+selectedYear);
+
+	$('#yearBox'+selectedYear).toggleClass('selected',false);
+	selectedYear=year;
+	$('#yearBox'+year).toggleClass('selected',true);
+}
 </script>
 
 </head>
@@ -57,37 +67,12 @@ var selectedYear=0;
 	
 	
 	<br/>
-	<style>
-	span.yearBox { display:inline-block; border:1px solid #b5b6b5; margin:10px 4px 0 4px; width:25px; height:25px; background-color:#efce6c; text-align:center; }
- 	span.selected { font-weight:bold; border:2px solid #036;}
- 	span.yearBox a { display:block; margin:5px 0 0 0; }
- 	span.yearBox:hover { background-color:#3a487c; }
-	span.yearBox:hover a { color:#efce6c; }
- 	span.selected:hover,yearBox:hover { background-color:#efce6c; }
- 	span.selected a { cursor:default; }
- 	span.selected a:hover { color:#036; }
-	</style>
 	<script>
-		function showYear(year) {
-			toggle('projectGeneralSupplies'+year);
-			toggle('projectGeneralPersonnel'+year);
-			toggle('projectGeneralSupplies'+selectedYear);
-			toggle('projectGeneralPersonnel'+selectedYear);
 
-			$('#yearBox'+selectedYear).toggleClass('selected',false);
-			selectedYear=year;
-			$('#yearBox'+year).toggleClass('selected',true);
-		}
-	
 	</script>
 	
 	<c:if test="${project.perYearGeneralCosts}">
-		<c:forEach var="year" begin="0" end="${project.duration-1}">
-			<span id="yearBox${year}" class="yearBox<c:if test='${year eq 0}'> selected</c:if>">
-				<a href="#" onclick="javascript:showYear(${year});">${year+1}</a>
-			</span>
-		</c:forEach>
-		<br/>
+		<tags:yearSelector end="${project.duration-1}"/>
 	</c:if>
 	
 	<tags:tableContainer titleKey="${withTableTitle}">

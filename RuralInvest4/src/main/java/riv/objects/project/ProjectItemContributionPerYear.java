@@ -20,6 +20,7 @@ public class ProjectItemContributionPerYear extends PerYearItem implements Seria
 	public  HasPerYearItems<ProjectItemContributionPerYear> getParent() {
 		return parent;
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setParent(HasPerYearItems parent) {
 		this.parent = parent;
 	}

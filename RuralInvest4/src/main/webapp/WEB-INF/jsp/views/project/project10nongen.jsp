@@ -21,24 +21,6 @@ $(function() {
 			}		
 		}
 	});
-	$("#copyYear").dialog({
-			bgiframe: true, autoOpen: false, resizable: false, height:200, width:360, modal: true,
-			overlay: { backgroundColor: '#000', opacity: 0.5 },
-			buttons: {
-				Cancel: function() { $(this).dialog('close'); },
-				"Copy": {
-					text: '<spring:message code="projectContribution.copy.title"/>',
-					id: "copyYearButton",
-					click: function() {
-						if ($.isNumeric($('#targetYear').val())) {
-							location.href=$('#copyUrl').val()+$('#targetYear').val(); 
-						} else {
-							$('#copyYear-error').append('<div class="alert alert-error"><spring:message code="projectContribution.copy.range" arguments="${project.duration}"/></div>');
-						}
-					}		
-				}
-			}
-	});
 	$('#contribForm input').on('change', function() {
 		   if($('input[name=simpleApproach]:checked', '#contribForm').val()=='true') {
 			   // simple selected
@@ -48,6 +30,15 @@ $(function() {
 		   }
 		});
 });
+var selectedYear=0;
+function showYear(year) {
+	toggle('contrib'+year);
+	toggle('contrib'+selectedYear);
+
+	$('#yearBox'+selectedYear).toggleClass('selected',false);
+	selectedYear=year;
+	$('#yearBox'+year).toggleClass('selected',true);
+}
 </script></head>
 <body>
 <form:form id="contribForm" name="form" method="post" commandName="project">
@@ -70,51 +61,53 @@ $(function() {
 		<c:if test="${project.perYearContributions}"><spring:message code="projectContribution.method.perYear.help"/></c:if>
  	</b>
  	
- 	<div id="contribSummary" style="display:block;">
- 		<h2><spring:message code="project.report.contributionSummary"/></h2>
- 		<tags:summaryContributions/>
- 	</div>
+<!--  	<div id="contribSummary" style="display:block;"> -->
+<%--  		<h2><spring:message code="project.report.contributionSummary"/></h2> --%>
+<%--  		<tags:summaryContributions/> --%>
+<!--  	</div> -->
  	
- 	<div id="yearlyFlow" style="display:block;">
- 		<h2><spring:message code="projectContribution.yearlyFlow"/></h2>
- 		<tags:table>
- 			<table cellspacing="0" cellpadding="0">
- 				<thead>
- 					<tr>
- 						<th class="left"><spring:message code="units.year"/></th>
- 						<c:forEach begin="1" end="${project.duration}" var="i">
- 							<th>${i}</th>
- 						</c:forEach>
- 					</tr>
- 				</thead>
- 				<tbody>
- 					<tr class="odd">
- 						<td></td>
- 						<c:forEach var="year" items="${years}">
- 							<td><tags:formatCurrency value="${year.total}" noDecimals="true" /></td>
- 						</c:forEach>
- 					</tr>
- 				</tbody>
- 			</table>
- 		</tags:table>
- 	</div>
+<!--  	<div id="yearlyFlow" style="display:block;"> -->
+<%--  		<h2><spring:message code="projectContribution.yearlyFlow"/></h2> --%>
+<%--  		<tags:table> --%>
+<!--  			<table cellspacing="0" cellpadding="0"> -->
+<!--  				<thead> -->
+<!--  					<tr> -->
+<%--  						<th class="left"><spring:message code="units.year"/></th> --%>
+<%--  						<c:forEach begin="1" end="${project.duration}" var="i"> --%>
+<%--  							<th>${i}</th> --%>
+<%--  						</c:forEach> --%>
+<!--  					</tr> -->
+<!--  				</thead> -->
+<!--  				<tbody> -->
+<!--  					<tr class="odd"> -->
+<!--  						<td></td> -->
+<%--  						<c:forEach var="year" items="${years}"> --%>
+<%--  							<td><tags:formatCurrency value="${year.total}" noDecimals="true" /></td> --%>
+<%--  						</c:forEach> --%>
+<!--  					</tr> -->
+<!--  				</tbody> -->
+<!--  			</table> -->
+<%--  		</tags:table> --%>
+<!--  	</div> -->
  	
+ 	<c:if test="${project.perYearContributions}">
+		<tags:yearSelector end="${project.duration-1}"/>
+	</c:if>
+	
 	<tags:tableContainer titleKey="projectContribution">
-		<c:forEach var="year" items="${years}">
-			<c:set var="yearNum" value="${year.year}"/>
-			<c:if test="${project.perYearContributions or yearNum eq 1}">
-				<div class="onlyPerYear">
-					<a name="year${yearNum}" id="year${yearNum}"></a>
-					<h3><spring:message code="units.year"/> ${yearNum}</h3> 
-					<c:set var="total" value="0"/>
-					<spring:message code="projectContribution.yearlyFlow"/> <tags:formatCurrency value="${year.total}"/> 
-				</div>
-				
+		<c:set var="end">
+			<c:if test="${project.perYearContributions}">${project.duration-1}</c:if>
+			<c:if test="${not project.perYearContributions}">0</c:if>
+		</c:set>
+		<c:forEach var="year" begin="0" end="${end}">
+			<c:set var="total" value="0"/>			
+			<c:set var="beginStyle"><c:if test="${year eq 0}">display:block</c:if><c:if test="${year ne 0}">display:none</c:if></c:set>	
+			<div id="contrib${year}" style="${beginStyle}">
 				<tags:table>
-					<display:table list="${contribsByYear[yearNum]}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
-							export="false" htmlId="contributionTable${yearNum}">
+					<display:table list="${project.contributions}" id="contrib" requestURI="" cellspacing="0" cellpadding="0"
+							export="false" htmlId="contributionTable${year}">
 						<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
-					
+<%-- 						<display:column title="year">${contrib.years[(year).intValue()].year}</display:column> --%>
 						<display:column titleKey="projectContribution.description" property="description" sortable="true" style="text-align:left;" headerClass="left"/>
 						<display:column titleKey="projectContribution.contributor" style="text-align:left;" headerClass="left">
 							<c:choose>
@@ -123,18 +116,15 @@ $(function() {
 								<c:otherwise>${donors[contrib.donorOrderBy].description}</c:otherwise>
 							</c:choose>
 						</display:column>
-<%-- 						<display:column titleKey="projectContribution.contribType" sortable="true" style="text-align:left;" headerClass="left"> --%>
-<%-- 							<tags:contribType type="${donors[contrib.donorOrderBy].contribType}"/> --%>
-<%-- 						</display:column> --%>
 						<display:column titleKey="projectContribution.unitType" property="unitType" sortable="true" style="text-align:left;" headerClass="left"/>
-						<display:column titleKey="projectContribution.unitNum" sortProperty="unitNum" sortable="true">
-							<tags:formatDecimal value="${contrib.unitNum}"/>
-						</display:column>
 						<display:column titleKey="projectContribution.unitCost" sortable="true" sortProperty="unitCost">
 							<tags:formatCurrency value="${contrib.unitCost}"/>
 						</display:column>
+						<display:column titleKey="projectContribution.unitNum" sortProperty="unitNum" sortable="true">
+							<tags:formatDecimal value="${contrib.years[(year).intValue()].unitNum}"/>
+						</display:column>
 						<display:column titleKey="projectContribution.totalCost" sortable="true" sortProperty="total">
-							<tags:formatCurrency value="${contrib.total}"/><c:set var="total" value="${total+contrib.total}"/>
+							<tags:formatCurrency value="${contrib.years[(year).intValue()].total}"/><c:set var="total" value="${total+contrib.years[(year).intValue()].total}"/>
 						</display:column>
 						<c:if test="${accessOK}">
 							<display:column title="&nbsp;" media="html">
@@ -153,12 +143,12 @@ $(function() {
 								</c:if>
 							</display:column>
 							<display:column title="&nbsp;" media="html">
-								<c:if test="${contrib_rowNum ne fn:length(contribsByYear[yearNum])}">
+								<c:if test="${contrib_rowNum ne fn:length(project.contributions)}">
 									<a name="moveDown" href="../item/${contrib.projItemId}/move?up=true">
 										<img src="../../img/arrow_down.png" title="<spring:message code="misc.moveDown"/>" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
 									</a>
 								</c:if>
-								<c:if test="${contrib_rowNum eq fn:length(contribsByYear[yearNum])}">
+								<c:if test="${contrib_rowNum eq fn:length(project.contributions)}">
 									<img src="../../img/spacer.gif" width="16" height="16" border="0">
 								</c:if>
 							</display:column>
@@ -180,25 +170,15 @@ $(function() {
 						</display:footer>
 					</display:table>
 					<c:if test="${accessOK}">
-						<div class="addNew"><a id="newContrib${yearNum}" href="../item/-1?type=contrib&projectId=${project.projectId}&year=${yearNum}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
-						<c:if test="${fn:length(contribsByYear[yearNum]) gt 0}">
-							<div class="addNew onlyPerYear"><a id="copyYear${yearNum}" href="javascript:copyContrib('../step10/${project.projectId}/copyContrib/${yearNum}/');"><img border="0" src="../../img/duplicate.gif"><spring:message code="projectContribution.copy"/></a>&nbsp;&nbsp;</div>
-						</c:if>
+						<div class="addNew"><a id="newContrib" href="../item/-1?type=contrib&projectId=${project.projectId}"><img src="../../img/add.gif" width="20" height="20" border="0"/> <spring:message code="misc.addItem"/></a>&nbsp;&nbsp;</div>
 					</c:if>
 				</tags:table>
-			</c:if>
+			</div>
 		</c:forEach>
-
 	</tags:tableContainer>
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step10"/></tags:submit>
 </form:form>
-<div id="copyYear" title="<spring:message code='projectContribution.copy.title'/>">
-	<p><spring:message code='projectContribution.copy'/><br/>
-	<spring:message code='projectContribution.copy.toYear' /> <input type="text" id="targetYear" name="targetYear" size="4" />
-	</p>
-	<div id="copyYear-error" style="margin-top:4px"></div>
-	<input id=copyUrl type="hidden" value=""/>
-</div>
+
 <div id="confirmSimple" title='<spring:message code="misc.confirm"/>'>
 	<span class="ui-icon ui-icon-alert" style="display:inline-block"></span> <spring:message code="projectContribution.method.confirm"/> 
 </div>
