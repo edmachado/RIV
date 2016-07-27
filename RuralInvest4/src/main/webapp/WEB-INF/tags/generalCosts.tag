@@ -42,8 +42,8 @@
 						<tags:formatCurrency value="${row.external}"/>
 					</display:column>
 					<display:column title="&nbsp;">
-						<c:if test="${row.parent.linkedTo}"><img src="../../img/linked.png" width="16" height="16" border="0"></c:if>
-						<c:if test="${not row.parent.linkedTo}"><img src="../../img/spacer.gif" width="16" height="16" border="0"></c:if>
+						<c:if test="${not empty row.parent.linkedTo}"><img src="../../img/linked.png" width="16" height="16" border="0"></c:if>
+						<c:if test="${empty row.parent.linkedTo}"><img src="../../img/spacer.gif" width="16" height="16" border="0"></c:if>
 					</display:column>
 					<c:if test="${accessOK}">
 						<display:column title="&nbsp;" media="html">
