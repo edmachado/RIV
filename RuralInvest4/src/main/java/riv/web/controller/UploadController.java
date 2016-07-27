@@ -182,11 +182,13 @@ public class UploadController implements Serializable {
 		return "uploadConfirm";
 	}
 	
-	@RequestMapping(value="/help/import", method=RequestMethod.POST)
+	@RequestMapping(value="/config/admin/import", method=RequestMethod.POST)
 	public String importBackup(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
-		FileOutputStream os;
 		User user = (User)request.getAttribute("user");
+		
 		if (user.isAdministrator()) {
+			FileOutputStream os;
+		
 			// delete current data
 			dataService.deleteAll(true, true);
 			dataService.deleteAll(true, false);
@@ -243,13 +245,14 @@ public class UploadController implements Serializable {
 				//TODO something
 				throw new RuntimeException(e);
 			}
-		}
+			
 
-		dataService.checkProjectsOnUpgrade();
-		dataService.checkProfilesOnUpgrade();
-		dataService.recalculateCompletedProjects();
-		dataService.recalculateCompletedProfiles();
-	
+			dataService.checkProjectsOnUpgrade();
+			dataService.checkProfilesOnUpgrade();
+			dataService.recalculateCompletedProjects();
+			dataService.recalculateCompletedProfiles();
+		}
+		
 		return "redirect:../home";
 	}
 	

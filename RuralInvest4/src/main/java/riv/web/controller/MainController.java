@@ -292,6 +292,12 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping(value="/config/admin", method=RequestMethod.GET)
+	public String admin(Model model, HttpServletRequest request) {
+		User u = (User)request.getAttribute("user");
+		return  u.isAdministrator() ? "config/admin" : "redirect:../home";
+	}
+	
 	@RequestMapping(value="/help/{page}", method=RequestMethod.GET)
 	public String getHelp(@PathVariable String page, Model model) {
 		model.addAttribute("version",buildVersion);
