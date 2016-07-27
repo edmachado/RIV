@@ -1041,12 +1041,13 @@ public class ExcelWorksheetBuilder {
 		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addPerYearColumns("getUnitNum", yearsInReport, true, false) // unitNum
+		.addPerYearColumns("getUnitNum", yearsInReport, false, false) // unitNum
 		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {yearsInReport}) // total
 		.addPerYearColumns("getOwnResources", yearsInReport, true, true) // ownResources
 		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {yearsInReport*2, yearsInReport}); // totalCash
 		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getGenerals() : project.getGeneralWithouts(), true);
 		
+		// Start header
 		Row headerRow = sheet.getRow(1);
 		if (project.isPerYearGeneralCosts()) {
 			for (int i=0;i<4;i++) {
@@ -1068,6 +1069,7 @@ public class ExcelWorksheetBuilder {
 			mergeCells(sheet, 2, 3+2*yearsInReport, 2, 3+3*yearsInReport-1); 
 			mergeCells(sheet, 2, 3+3*yearsInReport, 2, 3+4*yearsInReport-1); 
 		}
+		// end header
 		
 		totalRows[0]=rowNum;
 		rowNum++;
@@ -1121,15 +1123,9 @@ public class ExcelWorksheetBuilder {
 			if (!without) {
 				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW, String.valueOf(rowNum));
 				report.addLink(ExcelLink.PROJECT_GENERAL_SHEET, "'"+sheet.getSheetName()+"'");
-//				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
-//				report.addLink(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
-//				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
 			} else {
 				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW, String.valueOf(rowNum));
 				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_SHEET, "'"+sheet.getSheetName()+"'");
-//				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
-//				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
-//				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
 			}
 		}
 		
@@ -1804,6 +1800,7 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	public Sheet projectContributions(ExcelWrapper report, Project project, boolean template) {
+		int yearsInReport=project.isPerYearContributions()?project.getDuration():1;
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CONTRIBUTIONS));
 
 		sheet.setSelected(true);
@@ -1816,7 +1813,7 @@ public class ExcelWorksheetBuilder {
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, cellNum, translate("projectContribution"), Style.H2);
-		String[] header = new String[]{"projectContribution.description","projectContribution.contributor","projectContribution.unitType","projectContribution.unitNum","projectContribution.unitCost","projectContribution.totalCost"};
+		String[] header = new String[]{"projectContribution.description","projectContribution.contributor","projectContribution.unitType","projectContribution.unitCost"};
 		
 		Map<Integer, String> donorsByOrder = new HashMap<Integer,String>();
 		for (Donor d : project.getDonors()) {
@@ -1831,22 +1828,31 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addSelectColumnIntBased("getDonorOrderBy", donorsByOrder)
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
-		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
 		.addColumn(XlsColumnType.NUMERIC, "getUnitCost", false)
-		.addColumn(XlsColumnType.FORMULA, "DX*EX", true);
+		.addPerYearColumns("getUnitNum", yearsInReport, false, false) // unitNum
+		.addPerYearColumnsFormula("DX*%X", yearsInReport, true, new int[] {yearsInReport}); // total
+		rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributions(), true);
 		
+		// Start header
+		Row headerRow = sheet.getRow(1);
 		if (project.isPerYearContributions()) {
-			for (int i=1;i<=project.getDuration();i++) {
-				row = sheet.createRow(rowNum++);
-				report.addTextCell(row, cellNum, translate("units.year")+" "+i, Style.H2);
-//				rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(i), true);
-				rowNum++;
+			for (int i=0;i<=1;i++) {
+				int begin=4+i*project.getDuration();
+				for (int y=0;y<project.getDuration();y++) {
+					report.addTextCell(headerRow, begin+y, String.valueOf(y+1));
+				}
 			}
-		} else {
-			row = sheet.createRow(rowNum++);
-//			rowNum=table.writeTable(sheet, rowNum, template ? null : project.getContributionsByYear().get(1), true);
-			rowNum++;
 		}
+		
+		headerRow = sheet.getRow(2);
+		report.addTextCell(headerRow, 4, translate("projectGeneralSupplies.unitNum"), Style.LABEL);
+		report.addTextCell(headerRow, 4+yearsInReport, translate("projectGeneralSupplies.totalCost"), Style.LABEL);
+		if (project.isPerYearContributions()) {
+			mergeCells(sheet, 2, 4, 2, 4+yearsInReport-1); 
+			mergeCells(sheet, 2, 4+yearsInReport, 2, 4+2*yearsInReport-1); 
+		}
+		// end header
+		
 		return sheet;
 	}
 	
