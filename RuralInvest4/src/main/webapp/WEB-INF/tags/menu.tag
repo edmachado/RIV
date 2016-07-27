@@ -16,28 +16,28 @@
 		<span><u>&nbsp;</u><a id="newIgProfile"
 		href="${ctx}/profile/step1/-1?incgen=true"><spring:message code="mainMenu.create"/></a><a id="importProfileIg"
 		href="${ctx}/profile/import"><spring:message code="mainMenu.import"/></a><a
-		href="javascript:search(true, 'igpf', '');"><spring:message code="mainMenu.search"/></a><a
+		href="javascript:search(true, 'igpf', '');"><spring:message code="mainMenu.inProgress"/></a><a
 		href="javascript:search(false, 'igpf', '');"><spring:message code="mainMenu.showAll"/></a><u>&nbsp;</u></span>
 	</div>
 	<div id="menu3">
 		<span><u>&nbsp;</u><a id="newNigProfile"
 		href="${ctx}/profile/step1/-1?incgen=false"><spring:message code="mainMenu.create"/></a><a id="importProfileNig"
 		href="${ctx}/profile/import"><spring:message code="mainMenu.import"/></a><a
-		href="javascript:search(true, 'nigpf', '');"><spring:message code="mainMenu.search"/></a><a
+		href="javascript:search(true, 'nigpf', '');"><spring:message code="mainMenu.inProgress"/></a><a
 		href="javascript:search(false, 'nigpf', '');"><spring:message code="mainMenu.showAll"/></a><u>&nbsp;</u></span>
 	</div>
 	<div id="menu4">
 		<span><u>&nbsp;</u><a id="newIgProject"
 		href="${ctx}/project/step1/-1?incgen=true"><spring:message code="mainMenu.create"/></a><a id="importProjectIg"
 		href="${ctx}/project/import"><spring:message code="mainMenu.import"/></a><a
-		href="javascript:search(true, 'igpj', '');"><spring:message code="mainMenu.search"/></a><a id="allIgpj"
+		href="javascript:search(true, 'igpj', '');"><spring:message code="mainMenu.inProgress"/></a><a id="allIgpj"
 		href="javascript:search(false, 'igpj', '');"><spring:message code="mainMenu.showAll"/></a><u>&nbsp;</u></span>
 	</div>
 	<div id="menu5">
 		<span><u>&nbsp;</u><a id="newNigProject"
 		href="${ctx}/project/step1/-1?incgen=false"><spring:message code="mainMenu.create"/></a><a id="importProjectNig"
 		href="${ctx}/project/import"><spring:message code="mainMenu.import"/></a><a
-		href="javascript:search(true, 'nigpj', '');"><spring:message code="mainMenu.search"/></a><a id="allNigpj"
+		href="javascript:search(true, 'nigpj', '');"><spring:message code="mainMenu.inProgress"/></a><a id="allNigpj"
 		href="javascript:search(false, 'nigpj', '');"><spring:message code="mainMenu.showAll"/></a><u>&nbsp;</u></span>
 	</div>
 	<div id="menu6">
