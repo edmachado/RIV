@@ -131,7 +131,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
-            <scope>provided</scope>
+<!--             <scope>provided</scope> -->
         </dependency>
         <!-- Display template & layout -->
         <dependency>
