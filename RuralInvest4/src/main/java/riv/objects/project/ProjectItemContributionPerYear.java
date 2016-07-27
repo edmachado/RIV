@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 public class ProjectItemContributionPerYear extends PerYearItem implements Serializable {
 	private static final long serialVersionUID = 54539059591647783L;
 	
-//	@NaturalId
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="PROJ_ITEM_ID", nullable=false)
 	private HasPerYearItems<ProjectItemContributionPerYear> parent;

@@ -17,7 +17,6 @@ public class ProjectItemGeneralPerYear extends PerYearItem implements Serializab
 	@Column(name="OWN_RESOURCES")
 	protected Double ownResources;
 	
-//	@NaturalId
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="PROJ_ITEM_ID", nullable=false)
 	private HasPerYearItems<ProjectItemGeneralPerYear> parent;
