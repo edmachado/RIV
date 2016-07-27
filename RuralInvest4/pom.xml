@@ -131,6 +131,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Display template & layout -->
         <dependency>
@@ -299,6 +300,7 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jsp-api</artifactId>
 			<version>${tomcat7Version}</version>
+            <scope>provided</scope>
 		</dependency>
         <!-- hsqldb -->
         <dependency>
