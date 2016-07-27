@@ -1002,8 +1002,9 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 	
-	public Sheet projectGeneralDetailPerYear(ExcelWrapper report, Project project, boolean without, boolean template) {
+	public Sheet projectGeneralDetail(ExcelWrapper report, Project project, boolean without, boolean template) {
 		int rowNum=0;
+		int yearsInReport=project.isPerYearGeneralCosts()?project.getDuration():1;
 		
 		String title = without ? translate("project.report.generalCostsDetail") + " " + translate("project.without")
 				: project.isWithWithout() ? translate("project.report.generalCostsDetail") + " " + translate("project.with")
@@ -1024,9 +1025,9 @@ public class ExcelWorksheetBuilder {
 		headerSupplies.add("projectGeneralSupplies.unitCost");
 		
 		ArrayList<String> headerPersonnel = new ArrayList<String>();
-		headerSupplies.add("projectGeneralPersonnel.description");
-		headerSupplies.add("projectGeneralPersonnel.unitType"); 
-		headerSupplies.add("projectGeneralPersonnel.unitCost");
+		headerPersonnel.add("projectGeneralPersonnel.description");
+		headerPersonnel.add("projectGeneralPersonnel.unitType"); 
+		headerPersonnel.add("projectGeneralPersonnel.unitCost");
 		
 		int[] totalRows = new int[2];
 		
@@ -1037,29 +1038,33 @@ public class ExcelWorksheetBuilder {
 		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addPerYearColumns("getUnitNum", project.getDuration(), false, false)
-		.addPerYearColumnsFormula("CX*%X", project.getDuration(), false, false, new int[] {project.getDuration()})
-		.addPerYearColumns("getOwnResources", project.getDuration(), false, false)
-		.addPerYearColumnsFormula("%X-%X", project.getDuration(), false, false, new int[] {project.getDuration()*2, project.getDuration()});
+		.addPerYearColumns("getUnitNum", yearsInReport, true)
+		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {project.getDuration()})
+		.addPerYearColumns("getOwnResources", yearsInReport, true)
+		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {project.getDuration()*2, project.getDuration()});
 		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getGenerals() : project.getGeneralWithouts(), true);
 		
 		Row headerRow = sheet.getRow(1);
-		for (int i=0;i<4;i++) {
-			int begin=3+i*project.getDuration();
-			for (int y=0;y<project.getDuration();y++) {
-				report.addTextCell(headerRow, begin+y, String.valueOf(y+1));
+		if (project.isPerYearGeneralCosts()) {
+			for (int i=0;i<4;i++) {
+				int begin=3+i*project.getDuration();
+				for (int y=0;y<project.getDuration();y++) {
+					report.addTextCell(headerRow, begin+y, String.valueOf(y+1));
+				}
 			}
 		}
 		
 		headerRow = sheet.getRow(2);
 		report.addTextCell(headerRow, 3, translate("projectGeneralSupplies.unitNum"), Style.LABEL);
-		report.addTextCell(headerRow, 3+project.getDuration(), translate("projectGeneralSupplies.totalCost"), Style.LABEL);
-		report.addTextCell(headerRow, 3+2*project.getDuration(), translate("projectGeneralSupplies.ownResources"), Style.LABEL);
-		report.addTextCell(headerRow, 3+3*project.getDuration(), translate("projectGeneralSupplies.external"), Style.LABEL);
-		mergeCells(sheet, 2, 3, 2, 3+project.getDuration()-1); 
-		mergeCells(sheet, 2, 3+project.getDuration(), 2, 3+2*project.getDuration()-1); 
-		mergeCells(sheet, 2, 3+2*project.getDuration(), 2, 3+3*project.getDuration()-1); 
-		mergeCells(sheet, 2, 3+3*project.getDuration(), 2, 3+4*project.getDuration()-1); 
+		report.addTextCell(headerRow, 3+yearsInReport, translate("projectGeneralSupplies.totalCost"), Style.LABEL);
+		report.addTextCell(headerRow, 3+2*yearsInReport, translate("projectGeneralSupplies.ownResources"), Style.LABEL);
+		report.addTextCell(headerRow, 3+3*yearsInReport, translate("projectGeneralSupplies.external"), Style.LABEL);
+		if (project.isPerYearGeneralCosts()) {
+			mergeCells(sheet, 2, 3, 2, 3+yearsInReport-1); 
+			mergeCells(sheet, 2, 3+yearsInReport, 2, 3+2*yearsInReport-1); 
+			mergeCells(sheet, 2, 3+2*yearsInReport, 2, 3+3*yearsInReport-1); 
+			mergeCells(sheet, 2, 3+3*yearsInReport, 2, 3+4*yearsInReport-1); 
+		}
 		
 		totalRows[0]=rowNum;
 		rowNum++;
@@ -1067,117 +1072,62 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("projectGeneralPersonnel"), Style.H2);
 		
-		table = new XlsTable(report, headerSupplies.toArray(new String[headerSupplies.size()]));
+		table = new XlsTable(report, headerPersonnel.toArray(new String[headerPersonnel.size()]));
 		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addSelectColumn("getUnitType", labourTypes())
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addPerYearColumns("getUnitNum", project.getDuration(), false, false)
-		.addPerYearColumnsFormula("CX*%X", project.getDuration(), false, false, new int[] {project.getDuration()})
-		.addPerYearColumns("getOwnResources", project.getDuration(), false, false)
-		.addPerYearColumnsFormula("%X-%X", project.getDuration(), false, false, new int[] {project.getDuration()*2, project.getDuration()});
+		.addPerYearColumns("getUnitNum", yearsInReport, true)
+		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {project.getDuration()})
+		.addPerYearColumns("getOwnResources", yearsInReport, true)
+		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {project.getDuration()*2, project.getDuration()});
 		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getPersonnels() : project.getPersonnelWithouts(), true);
 		totalRows[1]=rowNum;
 		
-		headerRow = sheet.getRow(totalRows[0]+2);
-		for (int i=0;i<4;i++) {
-			int begin=3+i*project.getDuration();
-			for (int y=0;y<project.getDuration();y++) {
-				report.addTextCell(headerRow, begin+y, String.valueOf(y+1));
+		headerRow = sheet.getRow(totalRows[0]+1);
+		if (project.isPerYearGeneralCosts()) {
+			for (int i=0;i<4;i++) {
+				int begin=3+i*project.getDuration();
+				for (int y=0;y<project.getDuration();y++) {
+					report.addTextCell(headerRow, begin+y, String.valueOf(y+1));
+				}
 			}
 		}
-		
-		headerRow = sheet.getRow(totalRows[0]+3);
+		headerRow = sheet.getRow(totalRows[0]+2);
 		report.addTextCell(headerRow, 3, translate("projectGeneralPersonnel.unitNum"), Style.LABEL);
-		report.addTextCell(headerRow, 3+project.getDuration(), translate("projectGeneralPersonnel.totalCost"), Style.LABEL);
-		report.addTextCell(headerRow, 3+2*project.getDuration(), translate("projectGeneralPersonnel.ownResources"), Style.LABEL);
-		report.addTextCell(headerRow, 3+3*project.getDuration(), translate("projectGeneralPersonnel.external"), Style.LABEL);
-//		mergeCells(sheet, 2, 3, 2, 3+project.getDuration()-1); 
-//		mergeCells(sheet, 2, 3+project.getDuration(), 2, 3+2*project.getDuration()-1); 
-//		mergeCells(sheet, 2, 3+2*project.getDuration(), 2, 3+3*project.getDuration()-1); 
-//		mergeCells(sheet, 2, 3+3*project.getDuration(), 2, 3+4*project.getDuration()-1); 
+		report.addTextCell(headerRow, 3+yearsInReport, translate("projectGeneralPersonnel.totalCost"), Style.LABEL);
+		report.addTextCell(headerRow, 3+2*yearsInReport, translate("projectGeneralPersonnel.ownResources"), Style.LABEL);
+		report.addTextCell(headerRow, 3+3*yearsInReport, translate("projectGeneralPersonnel.external"), Style.LABEL);
+		if (project.isPerYearGeneralCosts()) {
+			mergeCells(sheet, totalRows[0]+2, 3, totalRows[0]+2, 3+yearsInReport-1); 
+			mergeCells(sheet, totalRows[0]+2, 3+yearsInReport, totalRows[0]+2, 3+2*yearsInReport-1); 
+			mergeCells(sheet, totalRows[0]+2, 3+2*yearsInReport, totalRows[0]+2, 3+3*yearsInReport-1); 
+			mergeCells(sheet, totalRows[0]+2, 3+3*yearsInReport, totalRows[0]+2, 3+4*yearsInReport-1); 
+		}
+		
+		rowNum++;
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 2, translate("misc.total"), Style.LABEL);
+		for (int z=0;z<=3;z++) {
+			for (int i=0; i<yearsInReport; i++) {
+				String column = getColumn(3+(z*yearsInReport)+i);
+				report.addFormulaCell(row, 3+(z*yearsInReport)+i, String.format("%s%d+%s%d", column, totalRows[0], column, totalRows[1]), Style.CURRENCY);
+			}
+		}
+	
+//		if (report.isCompleteReport()) {
+//			if (!without) {
+//				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
+//				report.addLink(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
+//				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
+//			} else {
+//				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
+//				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
+//				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
+//			}
+//		}
 		
 //		autoSizeColumns(sheet, 7);
 		return sheet;
-	}
-	
-	public Sheet projectGeneralDetail(ExcelWrapper report, Project project, boolean without, boolean template) {
-		return projectGeneralDetailPerYear(report, project, without, template);
-		/*
-		int rowNum=0;
-		
-		String title = without ? translate("project.report.generalCostsDetail") + " " + translate("project.without")
-				: project.isWithWithout() ? translate("project.report.generalCostsDetail") + " " + translate("project.with")
-				: translate("project.report.generalCostsDetail");
-		SheetName sheetname = project.isWithWithout() ? without ? SheetName.PROJECT_GENERAL_WITHOUT : SheetName.PROJECT_GENERAL_WITH : SheetName.PROJECT_GENERAL;
-				
-		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
-		
-		sheet.setSelected(!without);
-		
-		
-		Row row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, title, Style.TITLE);
-		
-		String[] headerSupplies = new String[]{"projectGeneralSupplies.description", "projectGeneralSupplies.unitType", 
-				"projectGeneralSupplies.unitNum", "projectGeneralSupplies.unitCost", "projectGeneralSupplies.totalCost", 
-				"projectGeneralSupplies.ownResources", "projectGeneralSupplies.external"};
-		String[] headerPersonnel = new String[]{"projectGeneralPersonnel.description", "projectGeneralPersonnel.unitType", 
-				"projectGeneralPersonnel.unitNum", "projectGeneralPersonnel.unitCost", "projectGeneralPersonnel.totalCost", 
-				"projectGeneralPersonnel.ownResources", "projectGeneralPersonnel.external"};
-		
-		int[] totalRows = new int[2];
-		
-		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("projectGeneralSupplies"), Style.H2);
-		
-		XlsTable table = new XlsTable(report, headerSupplies);
-		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
-		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
-		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
-		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addColumn(XlsColumnType.FORMULA, "CX*DX", true)
-		.addColumn(XlsColumnType.CURRENCY, "getOwnResources", true)
-		.addColumn(XlsColumnType.FORMULA, "EX-FX", true);
-		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getGenerals() : project.getGeneralWithouts(), true);
-		totalRows[0]=rowNum;
-		rowNum++;
-		
-		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, translate("projectGeneralPersonnel"), Style.H2);
-		
-		
-		table = new XlsTable(report, headerPersonnel);
-		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
-		.addSelectColumn("getUnitType", labourTypes())
-		.addColumn(XlsColumnType.NUMERIC, "getUnitNum", false)
-		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addColumn(XlsColumnType.FORMULA, "CX*DX", true)
-		.addColumn(XlsColumnType.CURRENCY, "getOwnResources", true)
-		.addColumn(XlsColumnType.FORMULA, "EX-FX", true);
-		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getPersonnels() : project.getPersonnelWithouts(), true);
-		totalRows[1]=rowNum;
-		
-		rowNum++;
-		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 3, translate("misc.total"), Style.LABEL);
-		report.addFormulaCell(row, 4, String.format("E%d+E%d", totalRows[0],totalRows[1]), Style.CURRENCY);
-		report.addFormulaCell(row, 5, String.format("F%d+F%d", totalRows[0],totalRows[1]), Style.CURRENCY);
-		report.addFormulaCell(row, 6, String.format("G%d+G%d", totalRows[0],totalRows[1]), Style.CURRENCY);
-		
-		if (report.isCompleteReport()) {
-			if (!without) {
-				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
-				report.addLink(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
-				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
-			} else {
-				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
-				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
-				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
-			}
-		}
-	
-		autoSizeColumns(sheet, 7);
-		return sheet;*/
 	}
 	
 	private void autoSizeColumns(Sheet sheet, int cols) {
@@ -3518,14 +3468,14 @@ public class ExcelWorksheetBuilder {
 			columns.add(newCol);
 			return this;
 		}
-		public XlsTable addPerYearColumns(String data, int years, boolean sum, boolean calculated) {
+		public XlsTable addPerYearColumns(String data, int years, boolean sum) {
 			for (int i=0;i<years;i++) {
 				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i);
 				columns.add(newCol);
 			}
 			return this;
 		}
-		public XlsTable addPerYearColumnsFormula(String data, int years, boolean sum, boolean calculated, int[] colOffset) {
+		public XlsTable addPerYearColumnsFormula(String data, int years, boolean sum, int[] colOffset) {
 			for (int i=0;i<years;i++) {
 				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i, colOffset);
 				columns.add(newCol);
