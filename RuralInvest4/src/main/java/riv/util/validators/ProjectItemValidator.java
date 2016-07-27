@@ -89,14 +89,14 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmpty(i, "unitType", type+".unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", type+".unitCost", errors);
 			
-			for (int y=0;y<i.getProject().getDuration(); y++) {
-				if (y==0 || i.getProject().isPerYearGeneralCosts()) {
+			for (int y=0;y<duration; y++) {
+//				if (y==0 || i.getProject().isPerYearGeneralCosts()) {
 					ProjectItemGeneralPerYear py = ((ProjectItemGeneralBase)i).getYears().get(y);
 					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "unitNum", type+".unitNum", "years", errors);
 					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "total", type+".totalCost", "years", errors);
 					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "ownResources", type+".ownResources", "years", errors);
 					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "external", type+".external", "years", errors);			
-				}
+//				}
 			}
 		} else if (obj instanceof ProjectItemContribution) {
 			ValidateUtils.rejectIfEmpty(i, "description", "projectContribution.description", errors);

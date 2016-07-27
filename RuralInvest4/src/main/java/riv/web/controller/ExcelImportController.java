@@ -276,26 +276,29 @@ public class ExcelImportController {
 		ProjectItemValidator validator = new ProjectItemValidator();
 		
 		Project p = dataService.getProject(id, 1);
+		int yearsInReport=p.isPerYearGeneralCosts()?p.getDuration():1;
+		
 		validator.setIncomeGen(true);
-		validator.setDuration(p.getDuration());
+		validator.setDuration(yearsInReport);
 	
 		// supplies
 		XlsImportTable<ProjectItemGeneral> tableGen = new XlsImportTable<ProjectItemGeneral>(ProjectItemGeneral.class, rowNum, 4, validator)
 				.addColumn(0, "description", false)
 				.addColumn(1, "unitType", false)
-				.addColumn(2, "unitNum", true)
-				.addColumn(3, "unitCost", true)
-				.addColumn(5, "ownResources", true);
+				.addColumn(2, "unitCost", true)
+				.addPerYearColumns(3, yearsInReport, "unitNum")
+				.addPerYearColumns(3+yearsInReport*2, yearsInReport, "ownResources");
 		List<ProjectItemGeneral> gensWith = tableGen.readTable(sheet, messageSource);
 		rowNum = gensWith.size()+6;
+		
 		
 		// personnel
 		XlsImportTable<ProjectItemPersonnel> tablePers = new XlsImportTable<ProjectItemPersonnel>(ProjectItemPersonnel.class, rowNum, 4, validator)
 				.addColumn(0, "description", false)
 				.addSelectColumn(1, "unitType", labourTypes())
-				.addColumn(2, "unitNum", true)
-				.addColumn(3, "unitCost", true)
-				.addColumn(5, "ownResources", true);
+				.addColumn(2, "unitCost", true)
+				.addPerYearColumns(3, yearsInReport, "unitNum")
+				.addPerYearColumns(3+yearsInReport*2, yearsInReport, "ownResources");
 		List<ProjectItemPersonnel> persWith = tablePers.readTable(sheet, messageSource);
 		rowNum = rowNum+persWith.size()+6;
 		
@@ -315,9 +318,9 @@ public class ExcelImportController {
 			XlsImportTable<ProjectItemGeneralWithout> tableGenWithout = new XlsImportTable<ProjectItemGeneralWithout>(ProjectItemGeneralWithout.class, rowNum, 4, validator)
 					.addColumn(0, "description", false)
 					.addColumn(1, "unitType", false)
-					.addColumn(2, "unitNum", true)
-					.addColumn(3, "unitCost", true)
-					.addColumn(5, "ownResources", true);
+					.addColumn(2, "unitCost", true)
+					.addPerYearColumns(3, yearsInReport, "unitNum")
+					.addPerYearColumns(3+yearsInReport*2, yearsInReport, "ownResources");
 			gensWithout = tableGenWithout.readTable(sheetWithout, messageSource);
 			rowNum = rowNum+gensWithout.size()+6;
 			
@@ -325,14 +328,15 @@ public class ExcelImportController {
 			XlsImportTable<ProjectItemPersonnelWithout> tablePersWithout = new XlsImportTable<ProjectItemPersonnelWithout>(ProjectItemPersonnelWithout.class, rowNum, 4, validator)
 					.addColumn(0, "description", false)
 					.addSelectColumn(1, "unitType", labourTypes())
-					.addColumn(2, "unitNum", true)
-					.addColumn(3, "unitCost", true)
-					.addColumn(5, "ownResources", true);
+					.addColumn(2, "unitCost", true)
+					.addPerYearColumns(3, yearsInReport, "unitNum")
+					.addPerYearColumns(3+yearsInReport*2, yearsInReport, "ownResources");
 			persWithout = tablePersWithout.readTable(sheetWithout, messageSource);	
 		} else {
 			gensWithout = new ArrayList<ProjectItemGeneralWithout>();
 			persWithout = new ArrayList<ProjectItemPersonnelWithout>();
 		}
+		
 		
 		dataService.replaceProjectGeneral(id, gensWith, persWith, gensWithout, persWithout);
 		

@@ -16,7 +16,9 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.MapBindingResult;
 import org.springframework.validation.Validator;
 
+import riv.objects.HasPerYearItems;
 import riv.objects.OrderByable;
+import riv.objects.PerYearItem;
 import riv.util.ExcelImportException.ErrorType;
 
 public class XlsImportTable<E extends OrderByable> {
@@ -37,28 +39,32 @@ public class XlsImportTable<E extends OrderByable> {
 		this.validator=validator;
 	}
 	
+	public XlsImportTable<E> addPerYearColumns(int columnBegin, int numYears, String property) {
+		for (int i=0;i<numYears;i++) {
+			XlsImportColumn c = new XlsImportColumn(columnBegin+i,property,true);
+			c.isPerYear=true;
+			c.year=i;
+			c.totalYears=numYears;
+			columns.add(c);
+		}
+		return this;
+	}
+	
 	public XlsImportTable<E> addColumn(int column, String property, boolean numeric) {
-		XlsImportColumn c = new XlsImportColumn();
-		c.column=column;
-		c.property=property;
-		c.isNumeric=numeric;
+		XlsImportColumn c = new XlsImportColumn(column,property,numeric);
 		columns.add(c);
 		return this;
 	}
 	
 	public XlsImportTable<E> addBooleanColumn(int column, String property) {
-		XlsImportColumn c = new XlsImportColumn();
-		c.column=column;
-		c.property=property;
+		XlsImportColumn c = new XlsImportColumn(column,property,false);
 		c.isBoolean=true;
 		columns.add(c);
 		return this;
 	}
 	
 	public XlsImportTable<E> addSelectColumn(int column, String property, @SuppressWarnings("rawtypes") Map options) {
-		XlsImportColumn c = new XlsImportColumn();
-		c.column=column;
-		c.property=property;
+		XlsImportColumn c = new XlsImportColumn(column,property,false);
 		c.isSelect=true;
 		c.options=options;
 		columns.add(c);
@@ -69,7 +75,7 @@ public class XlsImportTable<E extends OrderByable> {
 		this.startRow = startRow;
 	}
 
-	public void setObjectProperty(E o, String property, Object value) {
+	private void setObjectProperty(Object o, String property, Object value) {
 		try {
 			BeanUtils.setProperty(o, property, value);
 		} catch (Exception e) {
@@ -173,6 +179,13 @@ public class XlsImportTable<E extends OrderByable> {
 			
 				if (column.property.equals("donations(0)")) {
 					((riv.objects.HasDonations)item).getDonations().put(0, value);
+				} else if (column.isPerYear) {
+					HasPerYearItems<PerYearItem> hpy = (HasPerYearItems<PerYearItem>)item;
+					if (hpy.getYears().isEmpty()) {
+						hpy.addYears(column.totalYears);
+					}
+					PerYearItem pyi = hpy.getYears().get(column.year);
+					setObjectProperty(pyi, column.property, value);
 				} else {
 					setObjectProperty(item, column.property, value);
 				}
@@ -217,7 +230,22 @@ public class XlsImportTable<E extends OrderByable> {
 		public boolean isNumeric;
 		public boolean isBoolean;
 		public boolean isSelect;
+		public boolean isPerYear;
+		public int year;
+		public int totalYears;
 		@SuppressWarnings("rawtypes")
 		public Map options;
+		
+		public XlsImportColumn(int column, String property, boolean isNumeric) {
+			this.column=column; this.property=property; this.isNumeric=isNumeric;
+		}
 	}
+	
+//	protected class XlsImportColumnPerYear extends XlsImportColumn {
+//		public int year;
+//		public XlsImportColumnPerYear(int column, String property, boolean isNumeric, int year) {
+//			super(column, property, isNumeric);
+//			this.year=year;
+//		}
+//	}
 }

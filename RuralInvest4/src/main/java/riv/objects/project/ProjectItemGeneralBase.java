@@ -38,6 +38,15 @@ public abstract class ProjectItemGeneralBase extends ProjectItem implements HasP
 	public void setYears(Map<Integer, ProjectItemGeneralPerYear> years) {
 		this.years=years;
 	}
+	public void addYears(int years) {
+		this.years=new HashMap<Integer, ProjectItemGeneralPerYear>();
+		for (int i=0;i<years;i++) {
+			ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
+			py.setYear(i);
+			py.setGeneral(this);
+			this.years.put(i, py);
+		}
+	}
 
 	@Override
 	public Double getUnitNum() {

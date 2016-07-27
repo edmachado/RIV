@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.apache.poi.hssf.record.CFRuleRecord.ComparisonOperator;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.ComparisonOperator;
 import org.apache.poi.ss.usermodel.ConditionalFormattingRule;
 import org.apache.poi.ss.usermodel.DataValidation;
 import org.apache.poi.ss.usermodel.DataValidationHelper;
@@ -57,7 +57,6 @@ import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemContribution;
-import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemService;
 import riv.objects.project.ProjectMonthFlow;
