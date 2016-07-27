@@ -5,10 +5,6 @@
 	<form:form name="form" method="post" commandName="projectItem">
 		<tags:errors />
 		<div style="display:inline-block;width:470px">
-			<fieldset>
-				<legend><spring:message code="misc.addItem"/> 
-				<c:if test="${project.perYearContributions}">(<spring:message code="projectContribution"/> - <spring:message code="units.year"/> ${projectItem.year})</c:if>
-				</legend>
 				<c:if test="${project.perYearContributions && projectItem.projItemId eq 0}">
 					<div class="dataentry">
 						<tags:help text="projectContribution.contribType.help" title="projectContribution.contribType"><label><spring:message code="projectContribution.addAll"/></label></tags:help>
@@ -35,13 +31,14 @@
 					</form:select>
 				</div>
 				<tags:dataentry field="unitType" labelKey="projectContribution.unitType" helpText="projectContribution.unitType.help" />
-				<tags:dataentry field="unitNum" labelKey="projectContribution.unitNum" helpText="projectContribution.unitNum.help" onmouseout="Calculate()"/>
 				<tags:dataentry field="unitCost" labelKey="projectContribution.unitCost" helpText="projectContribution.unitCost.help" currency="true" onmouseout="Calculate()"/>
-				<tags:datadivider color="green"/>
-				<tags:dataentry field="total" labelKey="projectContribution.totalCost" helpText="projectContribution.totalCost.help" currency="true" calculated="true" />
-				<!-- value="${projectContribution.unitNum*projectContribution.unitCost}" -->
-			</fieldset><input type="hidden" name="linkedToId"/>
+			<input type="hidden" name="linkedToId"/>
 		</div>
+		
+		<c:if test="${project.perYearContributions}">	
+			<tags:generalCostPerYear itemCode="projectContribution" />
+		</c:if>
+		
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 <tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="Calculate" calc="*"/>

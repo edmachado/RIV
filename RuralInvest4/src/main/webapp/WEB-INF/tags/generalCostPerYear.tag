@@ -1,9 +1,4 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><%@ attribute name="itemCode" required="true" %>
-
-<style>
-#multiyear input { border:1px solid #003366 !important; }
-#multiyear input.error { border-color: red !important; }
-</style>
 <script>
 $(function() {
 	$('#unitCost').on("keyup", function() {
@@ -62,11 +57,14 @@ $(function() {
 function calculateYear(year) {
 	var unitCost = formatToNum($('#unitCost').val());
 	var qty = formatToNum($('#years'+year+'unitNum').val());
-	var own = formatToNum($('#years'+year+'ownResources').val());
 	var total = unitCost*qty;
-	var totalCash = total-own;
-	$('#years'+year+'total').val(numToFormat(round(total, decLength)));
-	$('#years'+year+'external').val(numToFormat(round(totalCash, decLength)));
+	
+	<c:if test="${itemCode ne 'projectContribution'}">
+		var own = formatToNum($('#years'+year+'ownResources').val());
+		var totalCash = total-own;
+		$('#years'+year+'external').val(numToFormat(round(totalCash, decLength)));
+	</c:if>
+	
 }
 </script>
 <div>
@@ -96,21 +94,23 @@ function calculateYear(year) {
 							<input id="${inputId}" disabled="disabled" class="<c:if test="${fn:contains(yearsErrors,inputId)}">error </c:if> num" type="text" size="5" value="<tags:formatCurrency value="${projectItem.years[year].total}"/>" name="years[${year}].total"/></td>
 					</c:forEach>
 				</tr>
-				<tr>
-					<td class="left"><spring:message code="${itemCode}.ownResources"/></td>
-					<c:forEach var="year" begin="0" end="${project.duration-1}">
-						<td><c:set var="inputId">years${year}ownResources</c:set>
-							
-							<input id="${inputId}" class="<c:if test="${fn:contains(yearsErrors,inputId)}">error </c:if> num" type="text" size="5" value="<tags:formatCurrency value="${projectItem.years[year].ownResources}"/>" name="years[${year}].ownResources"/></td>
-					</c:forEach>
-				</tr>
-				<tr>
-					<td class="left"><spring:message code="${itemCode}.external"/></td>
-					<c:forEach var="year" begin="0" end="${project.duration-1}">
-						<td><c:set var="inputId">years${year}external</c:set>
-						<input id="${inputId}" class="<c:if test="${fn:contains(yearsErrors,inputId)}">error </c:if> num" disabled="disabled" type="text" size="5" value="<tags:formatCurrency value="${projectItem.years[year].external}"/>" name="years[${year}].totalCash"/>
-					</td></c:forEach>
-				</tr>
+				<c:if test="${itemCode ne 'projectContribution'}">
+					<tr>
+						<td class="left"><spring:message code="${itemCode}.ownResources"/></td>
+						<c:forEach var="year" begin="0" end="${project.duration-1}">
+							<td><c:set var="inputId">years${year}ownResources</c:set>
+								
+								<input id="${inputId}" class="<c:if test="${fn:contains(yearsErrors,inputId)}">error </c:if> num" type="text" size="5" value="<tags:formatCurrency value="${projectItem.years[year].ownResources}"/>" name="years[${year}].ownResources"/></td>
+						</c:forEach>
+					</tr>
+					<tr>
+						<td class="left"><spring:message code="${itemCode}.external"/></td>
+						<c:forEach var="year" begin="0" end="${project.duration-1}">
+							<td><c:set var="inputId">years${year}external</c:set>
+							<input id="${inputId}" class="<c:if test="${fn:contains(yearsErrors,inputId)}">error </c:if> num" disabled="disabled" type="text" size="5" value="<tags:formatCurrency value="${projectItem.years[year].external}"/>" name="years[${year}].totalCash"/>
+						</td></c:forEach>
+					</tr>
+				</c:if>
 			</tbody>
 		</table>
 	</tags:table>

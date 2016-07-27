@@ -1140,7 +1140,7 @@ public class DataRepository {
 	public void simplifyContributions(Project p, boolean simplify) {
 		if (simplify) {
 			Query query=currentSession().createQuery("delete ProjectItemContributionPerYear year " +
-					"where year.id in (select y.id from ProjectItemContributionPerYear y where y.year>0 and y.parent.project=:p");
+					 "where year.id in (select y.id from ProjectItemContributionPerYear y where y.year>0 and y.parent.project=:p)");
 				query.setParameter("p", p);
 				query.executeUpdate();
 		} else {
@@ -1404,6 +1404,9 @@ public class DataRepository {
 		
 		if (item instanceof ProjectItemContribution) {
 			Hibernate.initialize(p.getContributions());
+			for (ProjectItemContribution c : p.getContributions()) {
+				Hibernate.initialize(c.getYears());
+			}
 			Hibernate.initialize(item.getProject().getRefIncomes());
 		} else if (item instanceof ProjectItemLabour) {
 			Hibernate.initialize(p.getRefLabours());

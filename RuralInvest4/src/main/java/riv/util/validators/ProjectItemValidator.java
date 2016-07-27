@@ -102,9 +102,9 @@ public class ProjectItemValidator implements Validator {
 		} else if (obj instanceof ProjectItemContribution) {
 			ValidateUtils.rejectIfEmpty(i, "description", "projectContribution.description", errors);
 			ValidateUtils.rejectIfEmpty(i, "unitType", "projectContribution.unitType", errors);
-			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectContribution.unitNum", errors);
+//			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", "projectContribution.unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", "projectContribution.unitCost", errors);	
-			ValidateUtils.rejectIfNegative(i, "total", "projectContribution.totalCost", errors);		
+//			ValidateUtils.rejectIfNegative(i, "total", "projectContribution.totalCost", errors);		
 		} else {
 			String itemType;
 			if (i.getClass().isAssignableFrom(ProjectItemNongenMaterials.class)){

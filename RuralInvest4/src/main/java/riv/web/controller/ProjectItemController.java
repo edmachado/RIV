@@ -167,20 +167,6 @@ public class ProjectItemController {
 		return pi;
 	}
 	
-//	private void addPerYearItems(ProjectItemGeneralBase g, Project p) {
-//		g.setYears(new HashMap<Integer,ProjectItemGeneralPerYear>());
-//		for (int i=0;i<p.getDuration();i++) {
-//			if (i==0||p.isPerYearGeneralCosts()) {
-//				ProjectItemGeneralPerYear y = new ProjectItemGeneralPerYear();
-//				y.setGeneral(g);
-//				y.setYear(i);
-//				y.setUnitNum(0.0);
-//				y.setOwnResources(0.0);
-//				g.getYears().put(i, y);
-//			}
-//		}
-//	}
-	
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public String getItem(@ModelAttribute ProjectItem projectItem, Model model, HttpServletRequest request) {
     	setupPageAttributes(projectItem, model, request);

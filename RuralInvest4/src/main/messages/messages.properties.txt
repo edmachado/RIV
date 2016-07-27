@@ -22,8 +22,9 @@ admin.restore=Restore from backup
 admin.restore.desc=Restore configuration, projects and profiles from a backup file. (The current configuration, projects and profiles will be lost.)
 
 # changed from previous versions
+# "Completed" as in "projects or profiles that have been completed", compared to "In progress"
 mainMenu.showAll=Completed
-
+home.showAll=Completed
 
 ## RIV 4.2.12
 project.report.blockDetail.cashTotal=Cash total
@@ -469,7 +470,6 @@ home.createNew=Create new
 home.inProgress=In progress
 home.incGen=Income generating...
 home.nonIncGen=Non income generating...
-home.showAll=Show completed
 home.weblinks=Useful weblinks
 home.help=Don't miss the help text!
 home.help.faq=Questions?
