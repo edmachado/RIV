@@ -31,7 +31,7 @@
         <jquery.version>1.9.0</jquery.version>
         <commons-lang.version>2.6</commons-lang.version>
         <jasper-reports-version>5.2.0</jasper-reports-version>
-        <poi-version>3.13</poi-version>
+        <poi-version>3.14</poi-version>
     </properties>
 
     <profiles>

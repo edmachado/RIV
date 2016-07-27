@@ -24,6 +24,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
 import org.jfree.util.Log;
 import org.slf4j.Logger;
@@ -305,6 +306,7 @@ public class ExcelWorksheetBuilder {
 	public Sheet block(ExcelWrapper report, BlockBase block, boolean incomeGen) {
 		XlsTable[] xlsTables = blockXlsTables(report, incomeGen);
 		Sheet sheet = report.getWorkbook().createSheet();
+		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
 		addBlock(block, incomeGen, report, sheet, 0, xlsTables);
 		autoSizeColumns(sheet, 9);
 		return sheet;
@@ -328,7 +330,8 @@ public class ExcelWorksheetBuilder {
 			sheetname = project.getIncomeGen() ? SheetName.PROJECT_BLOCKS : SheetName.PROJECT_ACTIVITIES;
 		}
 		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
-
+		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
+		
 		
 		Row row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, title, Style.TITLE);
@@ -1012,7 +1015,7 @@ public class ExcelWorksheetBuilder {
 		SheetName sheetname = project.isWithWithout() ? without ? SheetName.PROJECT_GENERAL_WITHOUT : SheetName.PROJECT_GENERAL_WITH : SheetName.PROJECT_GENERAL;
 				
 		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
-		
+		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
 		sheet.setSelected(!without);
 		
 		
@@ -1038,10 +1041,10 @@ public class ExcelWorksheetBuilder {
 		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addColumn(XlsColumnType.TEXT, "getUnitType", false)
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addPerYearColumns("getUnitNum", yearsInReport, true)
-		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {project.getDuration()})
-		.addPerYearColumns("getOwnResources", yearsInReport, true)
-		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {project.getDuration()*2, project.getDuration()});
+		.addPerYearColumns("getUnitNum", yearsInReport, true, false) // unitNum
+		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {yearsInReport}) // total
+		.addPerYearColumns("getOwnResources", yearsInReport, true, true) // ownResources
+		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {yearsInReport*2, yearsInReport}); // totalCash
 		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getGenerals() : project.getGeneralWithouts(), true);
 		
 		Row headerRow = sheet.getRow(1);
@@ -1076,10 +1079,10 @@ public class ExcelWorksheetBuilder {
 		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addSelectColumn("getUnitType", labourTypes())
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addPerYearColumns("getUnitNum", yearsInReport, true)
-		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {project.getDuration()})
-		.addPerYearColumns("getOwnResources", yearsInReport, true)
-		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {project.getDuration()*2, project.getDuration()});
+		.addPerYearColumns("getUnitNum", yearsInReport, true, false)
+		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {yearsInReport})
+		.addPerYearColumns("getOwnResources", yearsInReport, true, true)
+		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {yearsInReport*2, yearsInReport});
 		rowNum = table.writeTable(sheet, rowNum, template ? null : !without ? project.getPersonnels() : project.getPersonnelWithouts(), true);
 		totalRows[1]=rowNum;
 		
@@ -1130,7 +1133,7 @@ public class ExcelWorksheetBuilder {
 			}
 		}
 		
-		autoSizeColumns(sheet, 2+4*yearsInReport);
+		autoSizeColumns(sheet, project.isPerYearGeneralCosts() ? 2+4*yearsInReport : 6);
 		return sheet;
 	}
 	
@@ -2764,7 +2767,8 @@ public class ExcelWorksheetBuilder {
 			title=translate("project.report.cashFlowFirst") + " " + translate("project.without");
 		}
 		Sheet sheet = report.getWorkbook().createSheet(sheetname);
-
+		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
+		
 		sheet.setSelected(true);
 		int rowNum=0;
 		int[] firstRows = new int[2];
@@ -3329,6 +3333,7 @@ public class ExcelWorksheetBuilder {
 		SheetName sheetname = profile.getWithWithout() ? without ? SheetName.PROFILE_INVEST_WITHOUT : SheetName.PROFILE_INVEST_WITH : SheetName.PROFILE_INVEST;
 		
 		Sheet sheet = report.getWorkbook().createSheet(translate(sheetname));
+		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
 		sheet.setSelected(!without);
 				
 		int rowNum = 0;		
@@ -3409,7 +3414,8 @@ public class ExcelWorksheetBuilder {
 
 	public void profileGeneral(ExcelWrapper report, Profile profile, boolean template) {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_GENERAL));
-
+		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
+		
 		sheet.setSelected(true);
 		sheet.setDefaultColumnStyle((short)3, report.getStyles().get(Style.CURRENCY));
 		sheet.setDefaultColumnStyle((short)4, report.getStyles().get(Style.CURRENCY));
@@ -3488,16 +3494,16 @@ public class ExcelWorksheetBuilder {
 			columns.add(newCol);
 			return this;
 		}
-		public XlsTable addPerYearColumns(String data, int years, boolean sum) {
+		public XlsTable addPerYearColumns(String data, int years, boolean sum, boolean currency) {
 			for (int i=0;i<years;i++) {
-				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i);
+				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i, currency);
 				columns.add(newCol);
 			}
 			return this;
 		}
 		public XlsTable addPerYearColumnsFormula(String data, int years, boolean sum, int[] colOffset) {
 			for (int i=0;i<years;i++) {
-				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i, colOffset);
+				XlsPerYearColumn newCol = new XlsPerYearColumn(data, sum, i, colOffset, true);
 				columns.add(newCol);
 			}
 			return this;
@@ -3589,7 +3595,11 @@ public class ExcelWorksheetBuilder {
 								@SuppressWarnings("unchecked")
 								PerYearItem item = ((HasPerYearItems<PerYearItem>)o).getYears().get(pyc.year);
 								String field = callMethod(item, col.data);
-								report.addNumericCell(row, i, Double.parseDouble(field));
+								if (pyc.currency) {
+									report.addNumericCell(row, i, Double.parseDouble(field), Style.CURRENCY);
+								} else {
+									report.addNumericCell(row, i, Double.parseDouble(field));
+								}
 							} else {
 								//replace column variable
 								String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
@@ -3650,14 +3660,17 @@ public class ExcelWorksheetBuilder {
 	protected class XlsPerYearColumn extends XlsColumn {
 		int year;
 		int[] colOffset;
-		public XlsPerYearColumn (String data, boolean sum, int year) {
+		boolean currency;
+		public XlsPerYearColumn (String data, boolean sum, int year, boolean currency) {
 			super(XlsColumnType.PER_YEAR_PROPERTY, data, sum);
 			this.year=year;
+			this.currency=currency;
 		}
-		public XlsPerYearColumn (String data, boolean sum, int year, int[] colOffset) {
+		public XlsPerYearColumn (String data, boolean sum, int year, int[] colOffset, boolean currency) {
 			super(XlsColumnType.PER_YEAR_PROPERTY, data, sum);
 			this.year=year;
 			this.colOffset=colOffset;
+			this.currency=currency;
 		}
 	}
 	
