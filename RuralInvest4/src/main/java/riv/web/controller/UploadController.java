@@ -2,17 +2,24 @@
  
 import java.beans.XMLDecoder;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.safehaus.uuid.UUIDGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -174,15 +181,88 @@ public class UploadController implements Serializable {
 		return "uploadConfirm";
 	}
 	
+	@RequestMapping(value="/help/import", method=RequestMethod.POST)
+	public String importBackup(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
+		FileOutputStream os;
+		User user = (User)request.getAttribute("user");
+		if (user.isAdministrator()) {
+			// delete current data
+			dataService.deleteAll(true, true);
+			dataService.deleteAll(true, false);
+			dataService.deleteAll(false, true);
+			dataService.deleteAll(false, false);
+			dataService.deleteAllAppConfigs();
+			
+			// add new data
+			List<File> files = new ArrayList<File>(4);
+			File settings=null;
+			try {
+				Iterator<String> itr =  request.getFileNames();
+				MultipartFile file=request.getFile(itr.next());
+				ByteArrayInputStream bais= new ByteArrayInputStream(file.getBytes());
+				ZipEntry entry;
+				//TODO confirm is a zip file
+				ZipInputStream zis = new ZipInputStream(bais);
+				
+				// get files
+				while ((entry = zis.getNextEntry()) != null) {
+					File f = File.createTempFile(entry.getName(), "riv");
+					os=new FileOutputStream(f);
+					IOUtils.copy(zis, os);
+					os.close(); os.flush();
+					if (f.getName().startsWith("settings")) {
+						settings=f;
+					} else {
+						files.add(f);
+					}
+					zis.closeEntry();
+				}
+				zis.close();
+				zis=null;
+				
+				// add settings
+				processUpload(FileUtils.readFileToByteArray(settings), "config", model, user, true);
+				
+				// add projects and profiles
+				ByteArrayOutputStream baos;
+				for (File f : files) {
+					bais= new ByteArrayInputStream(FileUtils.readFileToByteArray(f));
+					zis = new ZipInputStream(bais);
+					String type = f.getName().contains("-project") ? "project" : "profile";
+					
+					while ((entry = zis.getNextEntry()) != null) {
+						baos = new ByteArrayOutputStream();
+						IOUtils.copy(zis, baos);
+						processUpload(baos.toByteArray(), type, model, user, true);
+						zis.closeEntry();
+					}
+					zis.close();zis=null;
+				}
+			} catch (Exception e) {
+				//TODO something
+				throw new RuntimeException(e);
+			}
+		}
+
+		dataService.checkProjectsOnUpgrade();
+		dataService.checkProfilesOnUpgrade();
+		dataService.recalculateCompletedProjects();
+		dataService.recalculateCompletedProfiles();
+	
+		return "redirect:../home";
+	}
+	
 	@RequestMapping(value = "/{type}/import", method = RequestMethod.POST)
-	public String upload(@PathVariable String type, Model model, MultipartHttpServletRequest request, HttpServletResponse response) { 
+	public String upload(@PathVariable String type, Model model, MultipartHttpServletRequest request, HttpServletResponse response) throws Exception { 
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
-		
+		return processUpload(mpf.getBytes(), type, model, (User)request.getAttribute("user"), false);
+	}
+	
+	private String processUpload(byte[] bytes, String type, Model model, User user, boolean markComplete) {
 		// 1. Get main riv object and keep containing file
 		try {
-			filename = mpf.getOriginalFilename();
-			containingFile = mpf.getBytes();
+			containingFile = bytes;
 			byte[] rivFile =  attachTools.getFileFromZip(containingFile, 0);
 			rivFile = upgrader.upgradeXml(rivFile);
 			
@@ -211,39 +291,39 @@ public class UploadController implements Serializable {
 		if (type.equals("config")) {
 			return handleConfig(model);
 		} else if (type.equals("profile")) {
-			return handleProfile((User)request.getAttribute("user"), model);
+			return handleProfile(user, model, markComplete);
 		} else  {
-			return handleProject((User)request.getAttribute("user"), model);
+			return handleProject(user, model, markComplete);
 		}
 	}
 	
-	private String handleProject(User user, Model model) {
+	private String handleProject(User user, Model model, boolean markComplete) {
 		Project project = (Project)decoded;
 		
 		boolean exists = dataService.getProjectByUniqueId(project.getUniqueId()) !=null;
 		if (!exists &! project.isGeneric()) {
-			project.setWizardStep(1);
+			if (!markComplete) {
+				project.setWizardStep(1);
+			}
 			project.setPrepDate(new java.util.Date());
 			project.setTechnician(user);
-			//try {
-				dataService.storeProject(project, false);
-				attachTools.saveAttachedFilesFromZip(project, containingFile);
-				clearFormData();
-				return "redirect:step1/"+project.getProjectId();
-			//} catch (Exception e) {
-				//return uploadError("error.import.profile", model);
-			//}
+			dataService.storeProject(project, false);
+			attachTools.saveAttachedFilesFromZip(project, containingFile);
+			clearFormData();
+			return "redirect:step1/"+project.getProjectId();
 		} else { 
 			return needConfirm(project.isGeneric(), exists, model);
 		}
 	}
 	
-	private String handleProfile(User user, Model model) {
+	private String handleProfile(User user, Model model, boolean markComplete) {
 		Profile profile = (Profile)decoded;
 		
 		boolean exists = dataService.getProfileByUniqueId(profile.getUniqueId())!=null;
 		if (!exists &! profile.isGeneric()) { // import directly
-			profile.setWizardStep(1);
+			if (!markComplete) {
+				profile.setWizardStep(1);
+			}
 			profile.setPrepDate(new java.util.Date());
 			profile.setTechnician(user);
 			
@@ -300,7 +380,7 @@ public class UploadController implements Serializable {
 				LOG.error("Error reading default logo image.",e);
 			}
 		}
-		//dataService.addOrgLogo(logoBytes, rcNew.getSetting());
+		
 		rcNew.getSetting().setOrgLogo(logoBytes);
 		rcNew.getSetting().setSettingId(rivConfig.getSetting().getSettingId());
 		dataService.storeAppSetting(rcNew.getSetting());

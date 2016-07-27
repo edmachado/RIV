@@ -75,7 +75,7 @@ public class Exporter {
 		ByteArrayOutputStream baos=null;
 		try {
 			// ig projects
-			File fIgProjects = File.createTempFile("ig-projects",".zip"); 
+			File fIgProjects = File.createTempFile("ig-projects.",".zip"); 
 			os = new FileOutputStream(fIgProjects);
 			fc.setObjType("igpj");
 			List<ProjectResult> projects = dataService.getProjectResults(fc);
@@ -84,7 +84,7 @@ public class Exporter {
 			os.flush();
 			
 			// add nig projects
-			File fNigProjects = File.createTempFile("nig-projects",".zip");
+			File fNigProjects = File.createTempFile("nig-projects.",".zip");
 			os = new FileOutputStream(fNigProjects);
 			fc.setObjType("nigpj");
 			projects = dataService.getProjectResults(fc);
@@ -93,7 +93,7 @@ public class Exporter {
 			os.flush();
 			
 			// ig profiles
-			File fIgProfiles = File.createTempFile("ig-profiles",".zip"); 
+			File fIgProfiles = File.createTempFile("ig-profiles.",".zip"); 
 			os = new FileOutputStream(fIgProfiles);
 			fc.setObjType("igpf");
 			List<ProfileResult> profiles = dataService.getProfileResults(fc);
@@ -102,7 +102,7 @@ public class Exporter {
 			os.flush();
 			
 			// nig profiles
-			File fNigProfiles = File.createTempFile("nig-profiles",".zip"); 
+			File fNigProfiles = File.createTempFile("nig-profiles.",".zip"); 
 			os = new FileOutputStream(fNigProfiles);
 			fc.setObjType("nigpf");
 			profiles = dataService.getProfileResults(fc);

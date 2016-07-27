@@ -509,7 +509,6 @@ public class DataRepository {
 		}
 		currentSession().createQuery("delete from ProfileFile where probaseId=:id").setInteger("id", p.getProfileId()).executeUpdate();
 		currentSession().delete(p);
-		
 	}
 
 	public ProfileResult getProfileResult(int id) {

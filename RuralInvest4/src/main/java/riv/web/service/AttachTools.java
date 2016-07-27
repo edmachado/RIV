@@ -204,7 +204,7 @@ public class AttachTools implements Serializable {
 	  }
 
 // Source: http://notepad2.blogspot.co.il/2012/07/java-detect-if-stream-or-file-is-zip.html
- public byte[] MAGIC = { 'P', 'K', 0x3, 0x4 };
+ private static byte[] MAGIC = { 'P', 'K', 0x3, 0x4 };
  
  /**
   * The method to test if a input stream is a zip archive.
@@ -213,7 +213,7 @@ public class AttachTools implements Serializable {
   *            the input stream to test.
   * @return
   */
- public boolean isZipStream(InputStream in) {
+ public static boolean isZipStream(InputStream in) {
   if (!in.markSupported()) {
    in = new BufferedInputStream(in);
   }
@@ -240,7 +240,7 @@ public class AttachTools implements Serializable {
   *            the file to test.
   * @return
   */
- public boolean isZipFile(File f) {
+ public static boolean isZipFile(File f) {
  
   boolean isZip = true;
   byte[] buffer = new byte[MAGIC.length];
