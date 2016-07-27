@@ -11,6 +11,9 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 
 import riv.objects.HasPerYearItems;
+import riv.util.CurrencyFormat;
+import riv.util.CurrencyFormatter;
+import riv.web.config.RivConfig;
 /**
  * Base class for General cost associated with a project
  * @author Bar Zecharya
@@ -18,7 +21,6 @@ import riv.objects.HasPerYearItems;
  */
 @Entity
 public abstract class ProjectItemGeneralBase extends ProjectItem implements HasPerYearItems<ProjectItemGeneralPerYear> {
-
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="OWN_RESOURCES")
@@ -31,6 +33,9 @@ public abstract class ProjectItemGeneralBase extends ProjectItem implements HasP
 	public abstract Project getProject();
 	public abstract void setProject (Project Project);
 
+
+	protected abstract String propertyLabel(); 
+	
 	
 	public Map<Integer, ProjectItemGeneralPerYear> getYears() {
 		return years;
@@ -109,6 +114,22 @@ public abstract class ProjectItemGeneralBase extends ProjectItem implements HasP
 	   }
 	   return item;
    }
+	 
+	 public String testingProperties(RivConfig rivConfig) {
+			String lineSeparator = System.getProperty("line.separator");
+		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
+		   StringBuilder sb = new StringBuilder();
+		   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
+		   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);
+		   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
+		   for (ProjectItemGeneralPerYear py : getYears().values()) {
+			   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".year."+py.getYear()+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(py.getUnitNum())+lineSeparator);
+			   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".year."+py.getYear()+".ownResources="+cf.formatCurrency(py.getOwnResources(), CurrencyFormat.ALL)+lineSeparator);
+			   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".year."+py.getYear()+".total="+cf.formatCurrency(py.getTotal(), CurrencyFormat.ALL)+lineSeparator);
+			   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".year."+py.getYear()+".external="+cf.formatCurrency(py.getExternal(), CurrencyFormat.ALL)+lineSeparator);
+		   }
+		   return sb.toString();
+	   }
 	
 	@Override
 	public boolean equals(Object obj) {

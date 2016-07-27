@@ -1737,72 +1737,85 @@ public double getInvestmentTotal() {
 		sb.append(lineSeparator);
 		
 		if (incomeGen) {
+			sb.append("step8.perYearGenerals="+(perYearGeneralCosts?"true":"false")+lineSeparator);
+			
 			sb.append("step8.supply.count="+generals.size()+lineSeparator);
-			total=0;own=0; donated=0;
+			double[] totals=new double[duration];
+			double[] owns=new double[duration]; 
+			double[] donateds=new double[duration];
 			for (ProjectItemGeneral i : generals) {
-				total+=i.getYears().get(0).getTotal();
-				own+=i.getYears().get(0).getOwnResources();
-				donated+=i.getYears().get(0).getExternal();
+				for (ProjectItemGeneralPerYear py : i.getYears().values()) {
+					totals[py.getYear()]=totals[py.getYear()]+py.getTotal();
+					owns[py.getYear()]=owns[py.getYear()]+py.getOwnResources();
+					donateds[py.getYear()]=donateds[py.getYear()]+py.getExternal();
+				}
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.supply.Sum.description="+lineSeparator);
 			sb.append("step8.supply.Sum.unitType="+lineSeparator);
-			sb.append("step8.supply.Sum.unitNum="+lineSeparator);
 			sb.append("step8.supply.Sum.unitCost="+lineSeparator);
-			sb.append("step8.supply.Sum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.supply.Sum.ownResources="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.supply.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
+			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.supply.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.supply.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.supply.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
+			}
 			sb.append(lineSeparator);
 			
 			sb.append("step8.supplyWo.count="+generalWithouts.size()+lineSeparator);
-			total=0;own=0;donated=0;
 			for (ProjectItemGeneralWithout i : generalWithouts) {
-				total+=i.getYears().get(0).getTotal();
-				own+=i.getYears().get(0).getOwnResources();
-				donated+=i.getYears().get(0).getExternal();
+				for (ProjectItemGeneralPerYear py : i.getYears().values()) {
+					totals[py.getYear()]=totals[py.getYear()]+py.getTotal();
+					owns[py.getYear()]=owns[py.getYear()]+py.getOwnResources();
+					donateds[py.getYear()]=donateds[py.getYear()]+py.getExternal();
+				}
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.supplyWo.Sum.description="+lineSeparator);
 			sb.append("step8.supplyWo.Sum.unitType="+lineSeparator);
-			sb.append("step8.supplyWo.Sum.unitNum="+lineSeparator);
 			sb.append("step8.supplyWo.Sum.unitCost="+lineSeparator);
-			sb.append("step8.supplyWo.Sum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.supplyWo.Sum.ownResources="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.supplyWo.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
+			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.supplyWo.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.supplyWo.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.supplyWo.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
+			}
 			sb.append(lineSeparator);
 			
 			sb.append("step8.personnel.count="+personnels.size()+lineSeparator);
-			total=0;own=0;donated=0;
 			for (ProjectItemPersonnel i : personnels) {
-				total+=i.getYears().get(0).getTotal();
-				own+=i.getYears().get(0).getOwnResources();
-				donated+=i.getYears().get(0).getExternal();
+				for (ProjectItemGeneralPerYear py : i.getYears().values()) {
+					totals[py.getYear()]=totals[py.getYear()]+py.getTotal();
+					owns[py.getYear()]=owns[py.getYear()]+py.getOwnResources();
+					donateds[py.getYear()]=donateds[py.getYear()]+py.getExternal();
+				}
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.personnel.Sum.description="+lineSeparator);
 			sb.append("step8.personnel.Sum.unitType="+lineSeparator);
-			sb.append("step8.personnel.Sum.unitNum="+lineSeparator);
 			sb.append("step8.personnel.Sum.unitCost="+lineSeparator);
-			sb.append("step8.personnel.Sum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.personnel.Sum.ownResources="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.personnel.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
+			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.personnel.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.personnel.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.personnel.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
+			}
 			sb.append(lineSeparator);
 			
 			sb.append("step8.personnelWo.count="+personnelWithouts.size()+lineSeparator);
-			total=0;own=0;donated=0;
 			for (ProjectItemPersonnelWithout i : personnelWithouts) {
-				total+=i.getYears().get(0).getTotal();
-				own+=i.getYears().get(0).getOwnResources();
-				donated+=i.getYears().get(0).getExternal();
+				for (ProjectItemGeneralPerYear py : i.getYears().values()) {
+					totals[py.getYear()]=totals[py.getYear()]+py.getTotal();
+					owns[py.getYear()]=owns[py.getYear()]+py.getOwnResources();
+					donateds[py.getYear()]=donateds[py.getYear()]+py.getExternal();
+				}
 				sb.append(i.testingProperties(rivConfig));
 			}
 			sb.append("step8.personnelWo.Sum.description="+lineSeparator);
 			sb.append("step8.personnelWo.Sum.unitType="+lineSeparator);
-			sb.append("step8.personnelWo.Sum.unitNum="+lineSeparator);
 			sb.append("step8.personnelWo.Sum.unitCost="+lineSeparator);
-			sb.append("step8.personnelWo.Sum.total="+cf.formatCurrency(total, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.personnelWo.Sum.ownResources="+cf.formatCurrency(own, CurrencyFormat.ALL)+lineSeparator);
-			sb.append("step8.personnelWo.Sum.external="+cf.formatCurrency(donated, CurrencyFormat.ALL)+lineSeparator);
+			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.personnelWo.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.personnelWo.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
+				sb.append("step8.personnelWo.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
+			}
 			sb.append(lineSeparator);
 		} else  {
 			//double state; double other;
