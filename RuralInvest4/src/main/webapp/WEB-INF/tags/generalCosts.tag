@@ -26,11 +26,11 @@
 							<c:if test="${row.unitType=='3'}"><spring:message code="units.pdays"/></c:if>
 						</c:if>
 					</display:column>
-					<display:column titleKey="${type}.unitNum" sortProperty="unitNum" sortable="true">
-						<tags:formatDecimal value="${row.unitNum}"/>
-					</display:column>
 					<display:column titleKey="${type}.unitCost" sortable="true" sortProperty="unitCost">
 						<tags:formatCurrency value="${row.unitCost}"/>
+					</display:column>
+					<display:column titleKey="${type}.unitNum" sortProperty="unitNum" sortable="true">
+						<tags:formatDecimal value="${row.unitNum}"/>
 					</display:column>
 					<display:column titleKey="${type}.totalCost" sortable="true" sortProperty="total">
 						<tags:formatCurrency value="${row.total}"/><c:set var="genTotal" value="${genTotal+row.total}"/>

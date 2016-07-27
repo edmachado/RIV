@@ -170,7 +170,7 @@ public class ValidateUtils {
 			return true;
 		}
 		if (propertyValue < 0) {
-			errors.rejectValue(parentFieldName, "error.perYearCost.requiredNonNegative", new Object[] {(childKey+1), new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" cannot be negative");
+			errors.rejectValue("years", "error.perYearCost.requiredNonNegative", new Object[] {(childKey+1), new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" cannot be negative");
 		}
 		
 		return false;

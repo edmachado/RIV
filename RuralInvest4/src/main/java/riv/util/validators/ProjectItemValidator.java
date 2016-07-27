@@ -89,7 +89,8 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmpty(i, "unitType", type+".unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", type+".unitCost", errors);
 			
-			for (int y=0;y<duration; y++) {
+			int years = ((ProjectItemGeneralBase) obj).getProject().isPerYearGeneralCosts()?duration:1;
+			for (int y=0;y<years; y++) {
 					ProjectItemGeneralPerYear py = ((ProjectItemGeneralBase)i).getYears().get(y);
 					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "unitNum", type+".unitNum", "years", errors);
 					ValidateUtils.rejectChildValueIfEmptyOrNegative(py, y, "total", type+".totalCost", "years", errors);

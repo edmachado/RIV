@@ -189,16 +189,14 @@ public class ProjectItemController {
     }
     
     private void addPerYearErrors(List<FieldError> errors, Model model) {
-		if (errors.size()>0) {
-			ArrayList<String> errs = new ArrayList<String>(errors.size());
-			for (ObjectError err : errors) {
-				int year = (Integer)err.getArguments()[0]-1;
-				String code = ((DefaultMessageSourceResolvable)err.getArguments()[1]).getCodes()[0];
-				String type = code.substring(code.lastIndexOf(".")+1);
-				errs.add("years"+year+type);
-			}
-			model.addAttribute("yearsErrors", errs);
-		}
+    	ArrayList<String> errs = new ArrayList<String>();
+		for (FieldError fe : errors) {
+			int year = (Integer)fe.getArguments()[0]-1;
+			String code = ((DefaultMessageSourceResolvable)fe.getArguments()[1]).getCodes()[0];
+			String type = code.substring(code.lastIndexOf(".")+1);
+			errs.add("years"+year+type);
+    	}
+    	model.addAttribute("yearsErrors", errs);
     }
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)

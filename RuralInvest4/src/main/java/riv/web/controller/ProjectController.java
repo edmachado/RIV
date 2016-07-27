@@ -106,6 +106,11 @@ public class ProjectController {
 		sb.append("costOwn="+cf.formatCurrency(pr.getTotalCostsOwn(), CurrencyFormat.ALL)+lineSeparator);
 		sb.append("costDonate="+cf.formatCurrency(pr.getTotalCostsDonated(), CurrencyFormat.ALL)+lineSeparator);
 		sb.append("costFinance="+cf.formatCurrency(pr.getTotalCostsFinanced(), CurrencyFormat.ALL)+lineSeparator);
+		
+		sb.append("step11.period="+pr.getWcPeriod()+lineSeparator);
+		sb.append("step11.amtRequired="+cf.formatCurrency(pr.getWorkingCapital(), CurrencyFormat.ALL)+lineSeparator);
+		sb.append("step11.amtFinanced="+cf.formatCurrency(pr.getWcFinanced(), CurrencyFormat.ALL)+lineSeparator);
+
 		if (p.getIncomeGen()) { 
 			sb.append("npvAll="+cf.formatCurrency(pr.getNpv(), CurrencyFormat.ALL)+lineSeparator);
 			sb.append("irrAll="+((pr.getIrr().doubleValue()>1000 || pr.getIrr().doubleValue()<-1000)?"Undefined":pr.getIrr())+lineSeparator);

@@ -3,9 +3,9 @@ package riv.objects.project;
 import riv.objects.HasDonations;
 
 public interface ProjectInvestment extends HasDonations {
-	public java.lang.Integer getYearBegin();
+	public Integer getYearBegin();
 
-	public void setYearBegin(java.lang.Integer YearBegin);
+	public void setYearBegin(Integer YearBegin);
 
 	public Double getFinanced();
 

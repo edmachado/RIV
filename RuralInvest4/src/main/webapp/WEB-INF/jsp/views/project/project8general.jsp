@@ -11,6 +11,9 @@
 	
 	<form:form name="form" method="post" commandName="projectItem">
 		<tags:errors />
+		<c:if test="${not project.perYearGeneralCosts}">
+			<form:errors path="years" cssClass="error" element="div" />
+		</c:if>
 		<div style="display:inline-block;width:470px">
 <!-- 		<fieldset> -->
 <%-- 			<legend><spring:message code="misc.addItem"/> (<spring:message code="${type}"/>)</legend> --%>

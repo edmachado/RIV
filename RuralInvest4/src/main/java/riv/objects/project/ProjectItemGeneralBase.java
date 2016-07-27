@@ -120,7 +120,12 @@ public abstract class ProjectItemGeneralBase extends ProjectItem implements HasP
 		   CurrencyFormatter cf = rivConfig.getSetting().getCurrencyFormatter();
 		   StringBuilder sb = new StringBuilder();
 		   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".description="+description+lineSeparator);
-		   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);
+		   if (propertyLabel().startsWith("suppl")) {
+			   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".unitType="+unitType+lineSeparator);
+		   } else {
+			   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".unitType="+rivConfig.getLabourTypes().get(unitType)+lineSeparator);
+		   }
+
 		   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".unitCost="+cf.formatCurrency(unitCost, CurrencyFormat.ALL)+lineSeparator);
 		   for (ProjectItemGeneralPerYear py : getYears().values()) {
 			   sb.append("step8."+propertyLabel()+"."+(this.getOrderBy()+1)+".year."+py.getYear()+".unitNum="+rivConfig.getSetting().getDecimalFormat().format(py.getUnitNum())+lineSeparator);

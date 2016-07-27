@@ -1755,6 +1755,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.supply.Sum.unitType="+lineSeparator);
 			sb.append("step8.supply.Sum.unitCost="+lineSeparator);
 			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.supply.Sum.year."+x+".unitNum="+lineSeparator);
 				sb.append("step8.supply.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.supply.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.supply.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
@@ -1762,6 +1763,7 @@ public double getInvestmentTotal() {
 			sb.append(lineSeparator);
 			
 			sb.append("step8.supplyWo.count="+generalWithouts.size()+lineSeparator);
+			totals=new double[duration]; owns=new double[duration]; donateds=new double[duration];
 			for (ProjectItemGeneralWithout i : generalWithouts) {
 				for (ProjectItemGeneralPerYear py : i.getYears().values()) {
 					totals[py.getYear()]=totals[py.getYear()]+py.getTotal();
@@ -1774,6 +1776,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.supplyWo.Sum.unitType="+lineSeparator);
 			sb.append("step8.supplyWo.Sum.unitCost="+lineSeparator);
 			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.supplyWo.Sum.year."+x+".unitNum="+lineSeparator);
 				sb.append("step8.supplyWo.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.supplyWo.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.supplyWo.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
@@ -1781,6 +1784,7 @@ public double getInvestmentTotal() {
 			sb.append(lineSeparator);
 			
 			sb.append("step8.personnel.count="+personnels.size()+lineSeparator);
+			totals=new double[duration]; owns=new double[duration]; donateds=new double[duration];
 			for (ProjectItemPersonnel i : personnels) {
 				for (ProjectItemGeneralPerYear py : i.getYears().values()) {
 					totals[py.getYear()]=totals[py.getYear()]+py.getTotal();
@@ -1793,6 +1797,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.personnel.Sum.unitType="+lineSeparator);
 			sb.append("step8.personnel.Sum.unitCost="+lineSeparator);
 			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.personnel.Sum.year."+x+".unitNum="+lineSeparator);
 				sb.append("step8.personnel.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.personnel.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.personnel.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
@@ -1800,6 +1805,7 @@ public double getInvestmentTotal() {
 			sb.append(lineSeparator);
 			
 			sb.append("step8.personnelWo.count="+personnelWithouts.size()+lineSeparator);
+			totals=new double[duration]; owns=new double[duration]; donateds=new double[duration];
 			for (ProjectItemPersonnelWithout i : personnelWithouts) {
 				for (ProjectItemGeneralPerYear py : i.getYears().values()) {
 					totals[py.getYear()]=totals[py.getYear()]+py.getTotal();
@@ -1812,6 +1818,7 @@ public double getInvestmentTotal() {
 			sb.append("step8.personnelWo.Sum.unitType="+lineSeparator);
 			sb.append("step8.personnelWo.Sum.unitCost="+lineSeparator);
 			for (int x=1;x<=(isPerYearGeneralCosts()?duration:1);x++) {
+				sb.append("step8.personnelWo.Sum.year."+x+".unitNum="+lineSeparator);
 				sb.append("step8.personnelWo.Sum.year."+x+".total="+cf.formatCurrency(totals[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.personnelWo.Sum.year."+x+".ownResources="+cf.formatCurrency(owns[x-1], CurrencyFormat.ALL)+lineSeparator);
 				sb.append("step8.personnelWo.Sum.year."+x+".external="+cf.formatCurrency(donateds[x-1], CurrencyFormat.ALL)+lineSeparator);
@@ -1926,7 +1933,7 @@ public double getInvestmentTotal() {
 //			double[] pfyResults = ProjectFirstYear.WcAnalysis(pfy);
 //			sb.append("step11.period="+pfyResults[0]+lineSeparator);
 //			sb.append("step11.amtRequired="+(-1*pfyResults[1])+lineSeparator);
-			sb.append("step11.period="+this.getWcFinancePeriod()+lineSeparator);
+//			sb.append("step11.period="+this.getWcFinancePeriod()+lineSeparator);
 //			sb.append("step11.amtRequired="+cf.formatCurrency(this.getWcAmountRequired(), CurrencyFormat.ALL)+lineSeparator);
 //			sb.append("step11.amtFinanced="+cf.formatCurrency(this.getWcAmountFinanced(), CurrencyFormat.ALL)+lineSeparator);
 			
@@ -1966,7 +1973,7 @@ public double getInvestmentTotal() {
 		
 		sb.append("step12.reccCode="+reccCode+lineSeparator);
 		sb.append("step12.reccDesc="+reccDesc.replace("\r", "\\r").replace("\n", "\\n")+lineSeparator);
-		sb.append("step12.reccDate="+reccDate.getDate()+"/"+(reccDate.getMonth()+1)+"/"+(reccDate.getYear()+1900)+"/"+lineSeparator);
+		sb.append("step12.reccDate="+reccDate.getDate()+"/"+(reccDate.getMonth()+1)+"/"+(reccDate.getYear()+1900)+lineSeparator);
 		
 		return sb.toString();
 	}
