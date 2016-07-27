@@ -651,13 +651,22 @@ public class PdfReportCreator {
 	public ReportWrapper projectGeneralDetail(Project project, boolean withoutProject, int startPage) {
 		ReportWrapper report;
 		
-		report = new ReportWrapper("/reports/project/projectGeneralDetail.jasper", true, project, "projectGeneralDetail.pdf", startPage);
+		report = new ReportWrapper("/reports/project/projectGeneral.jasper", true, project, "projectGeneralDetail.pdf", startPage);
 	
-		JasperReport jrSupplies = reportLoader.compileReport("/reports/project/projectGeneralDetailSupplies.jasper");
+		JasperReport jrSupplies = project.isPerYearGeneralCosts()
+				? reportLoader.compileReport("/reports/project/projectGeneralPerYear.jasper")
+				: reportLoader.compileReport("/reports/project/projectGeneralDetail.jasper");
 		report.getParams().put("suppliesSubReport", jrSupplies);
 		
-		JasperReport jrPersonnel = reportLoader.compileReport("/reports/project/projectGeneralDetailPersonnel.jasper");
+		JasperReport jrPersonnel = project.isPerYearGeneralCosts()
+				? reportLoader.compileReport("/reports/project/projectGeneralPerYear.jasper")
+				:  reportLoader.compileReport("/reports/project/projectGeneralDetail.jasper");
 		report.getParams().put("personnelSubReport", jrPersonnel);
+		
+		if (project.isPerYearGeneralCosts()) {
+			JasperReport jrPerYearData = reportLoader.compileReport("/reports/project/projectGeneralPerYearData.jasper");
+			report.getParams().put("perYearDataSubreport", jrPerYearData);
+		}
 		
 		report.getParams().put("withoutProject", withoutProject);
 		
