@@ -996,7 +996,7 @@ public class ExcelWorksheetBuilder {
 
 		if (report.isCompleteReport()) {
 			report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW, String.valueOf(rowNum));
-//			report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
+			report.addLink(ExcelLink.PROJECT_GENERAL_NONGEN_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 			report.addLink(ExcelLink.PROJECT_GENERAL_NONGEN_DONATED, "'"+sheet.getSheetName()+"'!$F$"+rowNum);
 			report.addLink(ExcelLink.PROJECT_GENERAL_NONGEN_FINANCED, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
 		}
@@ -1108,7 +1108,7 @@ public class ExcelWorksheetBuilder {
 		rowNum++;
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 2, translate("misc.total"), Style.LABEL);
-		for (int z=0;z<=3;z++) {
+		for (int z=1;z<=3;z++) {
 			for (int i=0; i<yearsInReport; i++) {
 				String column = getColumn(3+(z*yearsInReport)+i);
 				report.addFormulaCell(row, 3+(z*yearsInReport)+i, String.format("%s%d+%s%d", column, totalRows[0], column, totalRows[1]), Style.CURRENCY);
@@ -1118,11 +1118,13 @@ public class ExcelWorksheetBuilder {
 		if (report.isCompleteReport()) {
 			if (!without) {
 				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW, String.valueOf(rowNum));
+				report.addLink(ExcelLink.PROJECT_GENERAL_SHEET, "'"+sheet.getSheetName()+"'");
 //				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
 			} else {
 				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW, String.valueOf(rowNum));
+				report.addLink(ExcelLink.PROJECT_GENERAL_SHEET, "'"+sheet.getSheetName()+"'");
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
@@ -1735,19 +1737,15 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(rows[9], year, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 
 				// general
-				report.addFormulaCell(rows[10], year, report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL), Style.CURRENCY);
+				report.addFormulaCell(rows[10], year, report.getLink(ExcelLink.PROJECT_GENERAL_NONGEN_TOTAL));
 				
 				// Costs total
 				report.addFormulaCell(rowTotal2, year, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 12, 16), Style.CURRENCY);
 	
-				
 				// Net Balance
 				report.addFormulaCell(rowBalance, year, String.format("%1$s9-%1$s17", col), Style.CURRENCY);
 				// Accumulated net balance
 				report.addFormulaCell(rowAccumulated, year, year==1 ? "B18":String.format("%s19+%s18",getColumn(year-1),col), Style.CURRENCY);
-				
-				
-				
 			}
 		} else {
 			int cellNum = 1;
@@ -2127,11 +2125,15 @@ public class ExcelWorksheetBuilder {
 				} else {
 					report.addNumericCell(sheet.getRow(26), yearNum, 0, Style.CURRENCY);
 				}
+				
 				// general
+				String generalSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_SHEET);
+				String generalWithoutSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_SHEET);
+				int generalYears=project.isPerYearGeneralCosts()?project.getDuration():1;
 				if (!without) {
-					formula=report.getLink(ExcelLink.PROJECT_GENERAL_CASH);
+					formula=String.format("%s!$%s$%s", generalSheetName, getColumn(2+yearNum+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW));
 				} else {
-					formula=report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH);
+					formula=String.format("%s!$%s$%s", generalWithoutSheetName, getColumn(2+yearNum+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW));
 				}
 				report.addFormulaCell(sheet.getRow(27), yearNum, formula, Style.CURRENCY);
 				
@@ -2552,12 +2554,19 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(sheet.getRow(10), yearNum, formula, Style.CURRENCY);
 
 				// general
+				String generalSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_SHEET);
+				String generalWithoutSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_SHEET);
+				int generalYears=project.isPerYearGeneralCosts()?project.getDuration():1;
+				
+				
 				if (scenario==ProjectScenario.With) {
-					formula = report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL);
+					formula=String.format("%s!$%s$%s", generalSheetName, getColumn(2+yearNum+generalYears), report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW));
 				} else if (scenario==ProjectScenario.Without) {
-					formula = report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL);
+					formula=String.format("%s!$%s$%s", generalWithoutSheetName, getColumn(2+yearNum+generalYears), report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW));
 				} else { // incremental
-					formula=report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL)+"-"+report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL);
+					formula=String.format("%s!$%s$%s-%s!$%s$%s", 
+							generalSheetName, getColumn(2+yearNum+project.getDuration()), report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW),
+							generalWithoutSheetName, getColumn(2+yearNum+project.getDuration()), report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW));
 				}
 				report.addFormulaCell(sheet.getRow(11), yearNum, formula, Style.CURRENCY);
 				
@@ -2894,7 +2903,16 @@ public class ExcelWorksheetBuilder {
 
 		row = sheet.createRow(++rowNum);
 		if (report.isCompleteReport()) {
-			String formula = String.format("ROUND(%s/12,%d)", without ? report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH) : report.getLink(ExcelLink.PROJECT_GENERAL_CASH), decimals);
+			String generalSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_SHEET);
+			String generalWithoutSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_SHEET);
+			int generalYears=project.isPerYearGeneralCosts()?project.getDuration():1;
+			String formula;
+			if (!without) {
+				formula=String.format("ROUND(%s!$%s$%s/12,%d)", generalSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW), decimals);
+			} else {
+				formula=String.format("ROUND(%s!$%s$%s/12,%d)", generalWithoutSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW), decimals);
+			}
+//			String formula = String.format("ROUND(%s/12,%d)", without ? report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH) : report.getLink(ExcelLink.PROJECT_GENERAL_CASH), decimals);
 			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", formula);
 		} else {
 			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", pfy.getGeneralCost());
