@@ -395,7 +395,9 @@ public class ExcelWorksheetBuilder {
 				.addColumn(XlsColumnType.NONE, "", false)
 				.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
 				.addColumn(XlsColumnType.NONE, "", false)
-				.addColumn(XlsColumnType.FORMULA, "CX*FX", true);
+				.addColumn(XlsColumnType.FORMULA, "CX*FX", true)
+				.addColumn(XlsColumnType.NONE, "", false)
+				.addColumn(XlsColumnType.FORMULA, "HX", true);
 			}
 			
 			tables[1] = new XlsTable(report, inputTitles)
@@ -1654,7 +1656,6 @@ public class ExcelWorksheetBuilder {
 			int labourSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTLABOUR_ROW))+project.getLabours().size(); 
 			int serviceSumRow = Integer.parseInt(report.getLink(ExcelLink.PROJECT_INVEST_FIRSTSERVICE_ROW))+project.getServices().size(); 
 			
-//			Map<Integer, SortedSet<ProjectItemContribution>> contribsByYear = project.getContributionsByYear();
 			for (int year=1;year<=project.getDuration();year++) {
 				String col = getColumn(year);
 				report.addNumericCell(sheet.getRow(1), year, year);
@@ -1694,15 +1695,9 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(rows[4], year, report.getLink(ExcelLink.PROJECT_GENERAL_NONGEN_DONATED), Style.CURRENCY);
 				
 				// contributions
-				if (project.isPerYearContributions()) {
-//					int rowsToSkip = 1;
-//					for (int x=1;x<=year;x++) {
-//						rowsToSkip+=4+contribsByYear.get(x).size();
-//					}
-//					report.addFormulaCell(rows[5], year, String.format("%s!$F$%d", contribSheetName, rowsToSkip), Style.CURRENCY);
-				} else {
-//					report.addFormulaCell(rows[5], year, String.format("%s!$F$%d", contribSheetName, (5+contribsByYear.get(1).size())), Style.CURRENCY);
-				}
+				report.addFormulaCell(rows[5], year, 
+						String.format("%s!$%s$%d", contribSheetName, getColumn(project.isPerYearContributions()? 3+project.getDuration()+year : 5), 4+project.getContributions().size())
+					, Style.CURRENCY);
 				
 				// total
 				report.addFormulaCell(rowTotal1, year, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 3, 8), Style.CURRENCY);
@@ -1720,7 +1715,7 @@ public class ExcelWorksheetBuilder {
 
 				// maintenance
 				formulaBuild = new StringBuilder();
-				formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(14+project.getDuration()*5), assetSumRow));
+				formulaBuild.append(String.format("%s!$%s$%d",  assetSheetName, getColumn(year+14+project.getDuration()*5), assetSumRow));
 				report.addFormulaCell(rows[8], year, formulaBuild.toString(), Style.CURRENCY);
 
 				// operation
@@ -1735,7 +1730,7 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(rows[9], year, formulaBuild.deleteCharAt(formulaBuild.length()-1).toString(), Style.CURRENCY);
 
 				// general
-				report.addFormulaCell(rows[10], year, report.getLink(ExcelLink.PROJECT_GENERAL_NONGEN_TOTAL));
+				report.addFormulaCell(rows[10], year, report.getLink(ExcelLink.PROJECT_GENERAL_NONGEN_TOTAL), Style.CURRENCY);
 				
 				// Costs total
 				report.addFormulaCell(rowTotal2, year, String.format("SUM(%1$s%2$d:%1$s%3$d)", col, 12, 16), Style.CURRENCY);
