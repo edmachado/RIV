@@ -17,7 +17,6 @@ import org.springframework.validation.Errors;
  *
  */
 public class ValidateUtils {
-	
 	private static Integer getLengthFromAnnotation(Object bean, String fieldName) {
 		Integer length=null;
 		try {
@@ -167,11 +166,11 @@ public class ValidateUtils {
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
 		} catch (Exception e) {
-			errors.rejectValue(parentFieldName, "error.perYearCost.fieldRequired", new Object[] {childKey+1, new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
+			errors.rejectValue(parentFieldName, "error.perYearCost.fieldRequired", new Object[] {childKey+1, new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" is required");
 			return true;
 		}
 		if (propertyValue < 0) {
-			errors.rejectValue(parentFieldName, "error.perYearCost.requiredNonNegative", new Object[] {childKey+1, new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
+			errors.rejectValue(parentFieldName, "error.perYearCost.requiredNonNegative", new Object[] {(childKey+1), new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" cannot be negative");
 		}
 		
 		return false;
