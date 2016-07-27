@@ -28,7 +28,15 @@ public class ReportSource implements JRDataSource {
 	
 	private Object nestedFieldValue(Object object, String field) {
 		Object value = null;
-		if (field.indexOf("__")>-1) {
+		// MAP VALUES
+		if (field.indexOf("map__")>-1) {
+			try {
+				Method getter = PropertyUtils.getReadMethod(PropertyUtils.getPropertyDescriptor(object, field.substring(5, field.length())));
+				value = getter.invoke(object, (Object[])null);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} else if (field.indexOf("__")>-1) { // NESTED VALUES
 			try {
 				Method nestedGetter = PropertyUtils.getReadMethod(PropertyUtils.getPropertyDescriptor(object, field.substring(0,field.indexOf("__"))));
 				Object nestedObject = nestedGetter.invoke(object, (Object[])null);
@@ -37,20 +45,17 @@ public class ReportSource implements JRDataSource {
 			} catch (Exception ex) {
 				//ex.printStackTrace();
 			}
-		} else {
+		} else { // OTHER VALUES
 			try {
 				Method getter = PropertyUtils.getReadMethod(PropertyUtils.getPropertyDescriptor(object, field));
 				value = getter.invoke(object, (Object[])null);
-				/*if (value==null) {
-					return "";
-				} else {*/
-					if(Collection.class.isAssignableFrom(getter.getReturnType())) {
-						return new ReportSource((Collection)value);
-					}
-					if (Map.class.isAssignableFrom(getter.getReturnType())) {
-						return new ReportSource((Map)value);
-					}
-				//}
+
+				if(Collection.class.isAssignableFrom(getter.getReturnType())) {
+					return new ReportSource((Collection)value);
+				}
+				if (Map.class.isAssignableFrom(getter.getReturnType())) {
+					return new ReportSource((Map)value);
+				}
 			} catch (Exception ex) {
 				//ex.printStackTrace();
 			}

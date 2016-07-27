@@ -22,10 +22,7 @@ import riv.web.config.RivConfig;
 @Entity
 public abstract class ProjectItemGeneralBase extends ProjectItem implements HasPerYearItems<ProjectItemGeneralPerYear> {
 	private static final long serialVersionUID = 1L;
-
-	@Column(name="OWN_RESOURCES")
-	protected Double OwnResources;
-
+	
 	@OneToMany(mappedBy="general", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@MapKey(name="year")
 	private Map<Integer, ProjectItemGeneralPerYear> years = new HashMap<Integer, ProjectItemGeneralPerYear>();
@@ -101,7 +98,6 @@ public abstract class ProjectItemGeneralBase extends ProjectItem implements HasP
 	   item.setUnitCost(unitCost);
 	   item.setUnitNum(unitNum);
 	   item.setUnitType(unitType);
-//	   item.setOwnResources(OwnResources);
 	   item.setOrderBy(getOrderBy());
 	   item.setYears(new HashMap<Integer, ProjectItemGeneralPerYear>());
 	   for (ProjectItemGeneralPerYear oldYear : this.getYears().values()) {
@@ -138,18 +134,12 @@ public abstract class ProjectItemGeneralBase extends ProjectItem implements HasP
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!super.equals(obj)) return false;
-		ProjectItemGeneralBase x = (ProjectItemGeneralBase)obj;
-		boolean isEqual = OwnResources.equals(x.OwnResources);
-		return isEqual;
+		return super.equals(obj);
 	}
 	
 	@Override
 	public int hashCode() {
-		int code = super.hashCode();
-		final int multiplier = 23;
-	    if (OwnResources!=null) code = multiplier * code + OwnResources.intValue();	    
-	    return code;
+		return super.hashCode();
 	}
 	
 	@Override
