@@ -89,7 +89,7 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmpty(i, "unitType", type+".unitType", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", type+".unitCost", errors);
 			
-			if (!i.getProject().isPerYearGeneralCosts()) {
+			if (i.getProject()!=null && !i.getProject().isPerYearGeneralCosts()) {
 				duration=1;
 			}
 			for (int y=0;y<duration; y++) {
