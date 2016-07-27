@@ -348,17 +348,6 @@ public class ProjectController {
 		return "redirect:../../../project/step8/"+p.getProjectId();
 	}
 	
-//	@RequestMapping(value="step{step}/{id}/copyContrib/{sourceYear}/{targetYear}", method=RequestMethod.GET)
-//	public String copyContributions(@PathVariable Integer step, @PathVariable Integer id, 
-//			@PathVariable Integer sourceYear, @PathVariable Integer targetYear, 
-//			@ModelAttribute Project p, HttpServletRequest request) {
-//		if (targetYear>0 && targetYear<=p.getDuration()) {
-//			dataService.copyContributions(p, sourceYear, targetYear);
-//			dataService.storeProject(p, p.getWizardStep()==null);
-//		}
-//		return "redirect:../../../"+p.getProjectId();
-//	}
-	
 	@RequestMapping(value="step{step}/{id}/delete", method=RequestMethod.GET)
 	public String delete(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Project p) {
 		boolean isComplete=p.getWizardStep()==null;
@@ -433,8 +422,6 @@ public class ProjectController {
 			// get yearly cash flow total
 			ArrayList<ProjectFinanceNongen> data = ProjectFinanceNongen.analyzeProject(p);
 			model.addAttribute("years",data);
-			// group contributions by year
-//			model.addAttribute("contribsByYear", p.getContributionsByYear());
 		} else if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
 			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 			

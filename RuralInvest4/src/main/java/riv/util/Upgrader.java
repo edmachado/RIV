@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -43,6 +44,7 @@ import riv.objects.project.Project;
 import riv.objects.project.ProjectItem;
 import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemContribution;
+import riv.objects.project.ProjectItemContributionPerYear;
 import riv.objects.project.ProjectItemGeneralBase;
 import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemGeneralWithout;
@@ -298,11 +300,6 @@ public class Upgrader {
 		
 		if (! project.getIncomeGen()) {
 			for (ProjectItemContribution c : project.getContributions()) {
-				// <RIV4.1 NIG project contributions need year
-				//TODO: check for compatibility RIV4.3
-//				if (c.getYear()==null) {
-//					c.setYear(1);
-//				}
 				// <RIV4.1 donor for old nig project contributions
 				if (c.getOldDonor()!=null) {
 					String[] split = c.getOldDonor().split("-XRIVX-");
@@ -326,6 +323,58 @@ public class Upgrader {
 					} 
 					c.setDonorOrderBy(myDonor.getOrderBy());
 				}
+			}
+			// from RIV4.1, change from old model of per-year contributions.
+			if (project.isPerYearContributions() && project.getContributions().size()>0 
+					&& project.getContributions().iterator().next().getYears().size()!=project.getDuration()) {
+				Set<ProjectItemContribution> newContribs = new HashSet<ProjectItemContribution>();
+				for (ProjectItemContribution oldC : project.getContributions()) {
+					boolean add=true;
+					Iterator<ProjectItemContribution> iter = newContribs.iterator();
+					while (add && iter.hasNext()) {
+						ProjectItemContribution newC = iter.next();
+						if (newC.getDescription().equals(oldC.getDescription()) && newC.getDonorOrderBy()==oldC.getDonorOrderBy()
+								&& newC.getUnitType().equals(oldC.getUnitType()) && newC.getUnitCost().doubleValue()==oldC.getUnitCost().doubleValue()) {
+							for (ProjectItemContributionPerYear y : oldC.getYears().values()) {
+								newC.getYears().put(y.getYear(), y);
+							}
+							add=false;
+						}
+					}
+					if (add) {
+						ProjectItemContributionPerYear py = oldC.getYears().values().iterator().next();
+						int year = py.getYear(); double num = py.getUnitNum();
+						oldC.getYears().clear();
+						py = new ProjectItemContributionPerYear();
+						py.setParent(oldC);
+						py.setYear(year);
+						py.setUnitNum(num);
+						oldC.getYears().put(year, py);
+						newContribs.add(oldC);
+					}
+				}
+				
+				project.getContributions().clear();
+				
+				// set parent and orderBy
+				int orderBy=0;
+				for (ProjectItemContribution c : newContribs) {
+					for (int y=0;y<project.getDuration();y++) {
+						if (c.getYears().containsKey(y)) {
+							c.getYears().get(y).setParent(c);
+						} else {
+							ProjectItemContributionPerYear py = new ProjectItemContributionPerYear();
+							py.setYear(y);
+							py.setUnitNum(0.0);
+							py.setParent(c);
+							c.getYears().put(y, py);
+						}
+					}
+					c.setOrderBy(orderBy++);
+				}
+		
+				project.setContributions(newContribs);
+				
 			}
 		}
 	}

@@ -14,6 +14,6 @@ public abstract class HasPerYearItems<T extends PerYearItem> extends ProjectItem
 	
 	@Override
 	public Double getUnitNum() {
-		throw new RuntimeException("UnitNum should be called on a specific year of a general cost.");
+		throw new RuntimeException("UnitNum should be called on a specific year of a general cost or nig contribution.");
 	}
 }

@@ -157,9 +157,11 @@ public abstract class ProjectItem implements java.io.Serializable, OrderByable, 
 		ProjectItem other = (ProjectItem) obj;
 		boolean isEqual = OrderBy.equals(other.OrderBy) &&
 				unitCost.equals(other.unitCost) &&
-			unitNum.equals(other.unitNum) &&
 			unitType.equals(other.unitType) &&
 			description.equals(other.description);
+		if (! (obj instanceof HasPerYearItems)) {
+			isEqual = isEqual && unitNum.equals(other.unitNum);
+		}
 		return isEqual;
 	}
 	

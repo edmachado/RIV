@@ -144,21 +144,17 @@ public class ProjectItemContribution extends HasPerYearItems<ProjectItemContribu
 	 
 	@Override
 	public boolean equals(Object obj) {
-		return super.equals(obj);
-//		if (!super.equals(obj)) return false;
-//		ProjectItemContribution x = (ProjectItemContribution)obj;
-//		boolean isEqual = 
-//		((year==null && this.getProjItemId()==x.getProjItemId()) || (year!=null && year==x.getYear()));
-//		return isEqual;
+		if (!super.equals(obj)) return false;
+		ProjectItemContribution x = (ProjectItemContribution)obj;
+		return x.donorOrderBy==this.donorOrderBy;
 	}
 	
 	@Override
 	public int hashCode() {
-		return super.hashCode();
-//		int code = super.hashCode();
-//		final int multiplier = 23;
-//	    if (year!=null) { code = multiplier * code + year.hashCode(); }
-//	    return code;
+		int code = super.hashCode();
+		final int multiplier = 23;
+	    code = multiplier * code + donorOrderBy;
+	    return code;
 	}
 	
 	@Override

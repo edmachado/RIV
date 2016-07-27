@@ -1,4 +1,5 @@
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<?xml version="1.0"?>
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:output method="xml" indent="yes" />
 	
@@ -60,6 +61,7 @@
 			<xsl:apply-templates select="@*|node()" />
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="void[@property='statePublic']" />
 	
 	<!-- donated field moved to own table -->
 	<xsl:template match="void[@property='donated'][double]">
@@ -305,11 +307,46 @@
 		</xsl:element>
 	</xsl:template>
 	
+	<!-- per-year contributions -->
+	<xsl:template match="void[@property='unitNum'][contains('|riv.ProjectItemContribution|riv.objects.project.ProjectItemContribution|',
+                   concat('|', ../@class, '|'))]">
+         <void property="years">
+     		<object class="java.util.HashMap">
+				<void method="put">
+   			    	<int>0</int>
+					<object class="riv.objects.project.ProjectItemContributionPerYear">
+						<void property="year">
+							<int>
+								<xsl:if test="not(../void[@property='year'])">0</xsl:if>
+								<xsl:if test="../void[@property='year']">
+									<xsl:value-of select="../void[@property='year']/int - 1"/>
+								</xsl:if>
+							</int>
+						</void>
+						<void property="unitNum">
+         					<double><xsl:value-of select="." /></double>
+       					</void>
+					</object>
+				</void>
+     		</object>
+		</void>          
+    </xsl:template>
+    <!-- bogus, yet necessary, distinct orderBy when converting from RIV4.1 and RIV4.2 -->
+    <xsl:template match="void[@property='orderBy'][contains('|riv.ProjectItemContribution|riv.objects.project.ProjectItemContribution|',
+                   concat('|', ../@class, '|'))][../void[@property='year']]">
+		<void property="orderBy">
+			<int><xsl:value-of select="count(../../preceding-sibling::void)"/></int>
+		</void>
+	</xsl:template>
+	<!-- no need for year or contributor elements anymore -->
+	<xsl:template match="void[@property='year' or @property='contributor'][contains('|riv.ProjectItemContribution|riv.objects.project.ProjectItemContribution|', concat('|', ../@class, '|'))]" />
+    
+	
 	<!-- introduce per-year general costs (<RIV4.3) -->
 	<xsl:template match="void[@property='unitNum'][contains('|riv.ProjectItemGeneral|riv.ProjectItemPersonnel|riv.objects.project.ProjectItemGeneral|riv.objects.project.ProjectItemGeneralWithout|riv.objects.project.ProjectItemPersonnel|riv.objects.project.ProjectItemPersonnelWithout|',
                    concat('|', ../@class, '|'))]">
 		<void property="years">
-     			<object class="java.util.HashMap">
+     		<object class="java.util.HashMap">
 				<void method="put">
    			    	<int>0</int>
 					<object class="riv.objects.project.ProjectItemGeneralPerYear">
@@ -317,12 +354,12 @@
 						<void property="ownResources">
           						<double><xsl:value-of select="../void[@property='ownResources']" /></double>
 			         	</void>
-         					<void property="unitNum">
-          						<double><xsl:value-of select="." /></double>
-        					</void>
+        				<void property="unitNum">
+         					<double><xsl:value-of select="." /></double>
+       					</void>
 					</object>
 				</void>
-     			</object>
+     		</object>
 		</void>
 	</xsl:template>
 	
