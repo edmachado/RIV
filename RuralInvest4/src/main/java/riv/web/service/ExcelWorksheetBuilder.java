@@ -995,7 +995,8 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 6, String.format("G%d+G%d+G%d",subtotalRows[0],subtotalRows[1],subtotalRows[2]));
 
 		if (report.isCompleteReport()) {
-			report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
+			report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW, String.valueOf(rowNum));
+//			report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 			report.addLink(ExcelLink.PROJECT_GENERAL_NONGEN_DONATED, "'"+sheet.getSheetName()+"'!$F$"+rowNum);
 			report.addLink(ExcelLink.PROJECT_GENERAL_NONGEN_FINANCED, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
 		}
@@ -1114,19 +1115,21 @@ public class ExcelWorksheetBuilder {
 			}
 		}
 	
-//		if (report.isCompleteReport()) {
-//			if (!without) {
+		if (report.isCompleteReport()) {
+			if (!without) {
+				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW, String.valueOf(rowNum));
 //				report.addLink(ExcelLink.PROJECT_GENERAL_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
-//			} else {
+			} else {
+				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW, String.valueOf(rowNum));
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!$E$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_OWN, "'"+sheet.getSheetName()+"'!$R$"+rowNum);
 //				report.addLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH, "'"+sheet.getSheetName()+"'!$G$"+rowNum);
-//			}
-//		}
+			}
+		}
 		
-//		autoSizeColumns(sheet, 7);
+		autoSizeColumns(sheet, 2+4*yearsInReport);
 		return sheet;
 	}
 	
