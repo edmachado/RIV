@@ -1,4 +1,26 @@
-﻿## RIV4.2.5
+﻿error.perYearCost.fieldRequired=Year {0}, {1}: O preenchimento deste campo é obrigatório.
+error.perYearCost.requiredNonNegative=Year {0}, {1}: Os valores neste campo não podem ser negativos.
+ 
+mainMenu.help.terms=Condições financieras
+mainMenu.inProgress=Em progresso
+ 
+project.donor.noDelete=Um doador não pode ser apagado se o projecto conta com doações ou contribuções dessa fonte.
+ 
+project.general.method.confirm=Está prestes a aplicar os custos gerais do primeiro ano a todos os anos do projecto. Os valores já inseridos para os anos seguintes serão apagados. Deseja continuar?
+project.general.method.perYear.help=Com a abordagem “por ano” os custos gerais podem ser diferentes para cada ano do projecto.
+project.general.method.perYear=por ano
+project.general.method.simplified.help=Com a abordagem “simplificada” os custos gerais são os mesmos para todos os anos do projeto.
+project.general.method.simplified=Simplificada
+ 
+project.report.blockDetail.cashTotal=Total em dinheiro
+project.report.profitability.incomes.sales=Vendas e consumo próprio
+ 
+# changed from previous versions
+# "Completed" as in "projects or profiles that have been completed", rather than "In progress"
+mainMenu.showAll=Completo
+home.showAll=Completo
+
+## RIV4.2.5
 error.graceInterestGreaterThanCapital=O período de graça para os juros não pode ser maior que o período de graça para o capital.
 misc.noDeleteGeneric=Categorias “genéricas”não podem ser eliminadas.
 misc.noDeleteCategory=Este  item não pode ser eliminado porque foi utilizado num anteprojecto ou num projecto.
@@ -570,7 +592,6 @@ home.createNew=Criar novo
 home.inProgress=em progresso
 home.incGen=Com o objectivo de gerar rendimentos...
 home.nonIncGen=Sem o objectivo de gerar rendimentos...
-home.showAll=Mostrar tudo
 home.weblinks=Ligações úteis
 import.config=Importar os dados de configuração
 import.copy=Criar uma cópia
@@ -605,7 +626,6 @@ mainMenu.projects=Projectos
 mainMenu.search=Pesquisar
 mainMenu.searchItem=Pesquisar no RuralInvest
 mainMenu.searchReports=Pesquisar
-mainMenu.showAll=Mostrar tudo
 manual.guide=Manual de utilização do software
 manual.mod1=Módulo 1 de RuralInvest - Identificação participativa de prioridades locais de investimento
 manual.mod2=Módulo 2 de RuralInvest - Preparação e utilização de anteprojectos
