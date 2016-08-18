@@ -17,8 +17,8 @@ project.report.profitability.incomes.sales=Vendas e consumo próprio
  
 # changed from previous versions
 # "Completed" as in "projects or profiles that have been completed", rather than "In progress"
-mainMenu.showAll=Completo
-home.showAll=Completo
+mainMenu.showAll=Completos
+home.showAll=Completos
 
 ## RIV4.2.5
 error.graceInterestGreaterThanCapital=O período de graça para os juros não pode ser maior que o período de graça para o capital.
