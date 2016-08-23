@@ -40,7 +40,7 @@ $(function() {
 			e.preventDefault();
 		}
 	});
-	$('#multiyear input:not(:disabled,.curlabel)').on("keyup", function(e) { 
+	$('#multiyear input:not(:disabled,.curlabel)').on("keyup", function(e) { debugger;
 		var code = e.keyCode || e.which;
 		if (code==9) { return; } // tab key pressed
 		
@@ -58,6 +58,7 @@ function calculateYear(year) {
 	var unitCost = formatToNum($('#unitCost').val());
 	var qty = formatToNum($('#years'+year+'unitNum').val());
 	var total = unitCost*qty;
+	$('#years'+year+'total').val(numToFormat(round(total, decLength)));
 	
 	<c:if test="${itemCode ne 'projectContribution'}">
 		var own = formatToNum($('#years'+year+'ownResources').val());

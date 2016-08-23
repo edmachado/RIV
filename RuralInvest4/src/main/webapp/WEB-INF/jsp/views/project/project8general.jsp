@@ -1,6 +1,11 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
 <html><head>
 	<title><spring:message code="${type}"/></title>
+	<c:if test="${not project.perYearGeneralCosts}">
+		<tags:jscriptCalc fieldA="years0\\\.unitNum" fieldB="unitCost" fieldC="years0\\\.total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateExt" />
+		<tags:jscriptCalc fieldA="years0\\\.total" fieldB="years0\\\.ownResources" fieldC="years0\\\.external" functionName="CalculateExt" calc="-" />
+	</c:if>
+	<c:if test="${project.perYearGeneralCosts}"><script language="javascript">function CalculateTotal() {}</script></c:if>
 </head>
 <body>
 	<div class="datatitle">
@@ -30,7 +35,7 @@
 					</form:select>
 				</div>
 			</c:if>
-			<tags:dataentry field="unitCost" labelKey="${type}.unitCost" helpText="${type}.unitCost.help" currency="true" onmouseout="CalculateTotal()"/>
+			<tags:dataentry field="unitCost" labelKey="${type}.unitCost" helpText="${type}.unitCost.help" currency="true" />
 			
 			<c:if test="${not project.perYearGeneralCosts}">
 				<tags:dataentry field="years[0].unitNum" labelKey="${type}.unitNum" helpText="${type}.unitNum.help" onmouseout="CalculateTotal()"/>
@@ -52,8 +57,4 @@
 		
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
-<c:if test="${not project.perYearGeneralCosts}">
-	<tags:jscriptCalc fieldA="years0\\\.unitNum" fieldB="unitCost" fieldC="years0\\\.total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateExt" />
-	<tags:jscriptCalc fieldA="years0\\\.total" fieldB="years0\\\.ownResources" fieldC="years0\\\.external" functionName="CalculateExt" calc="-" />
-</c:if>
 </body></html>
