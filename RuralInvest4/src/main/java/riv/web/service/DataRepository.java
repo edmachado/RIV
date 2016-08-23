@@ -845,7 +845,7 @@ public class DataRepository {
 			Hibernate.initialize(p.getRefIncomes());
 		}
 		
-		if (p.getIncomeGen() && (step==-1 || step==8 || step==11 || step==12 || step==13)) {
+		if (p.getIncomeGen() && (step==-1 || step==1 || step==8 || step==11 || step==12 || step==13)) {
 			Hibernate.initialize(p.getGenerals());
 			for (ProjectItemGeneralBase b : p.getGenerals()) {
 				Hibernate.initialize(b.getYears());
