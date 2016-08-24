@@ -1082,7 +1082,7 @@ public class ExcelWorksheetBuilder {
 		table.addColumn(XlsColumnType.TEXT, "getDescription", false)
 		.addSelectColumn("getUnitType", labourTypes())
 		.addColumn(XlsColumnType.CURRENCY, "getUnitCost", false)
-		.addPerYearColumns("getUnitNum", yearsInReport, true, false)
+		.addPerYearColumns("getUnitNum", yearsInReport, false, false)
 		.addPerYearColumnsFormula("CX*%X", yearsInReport, true, new int[] {yearsInReport})
 		.addPerYearColumns("getOwnResources", yearsInReport, true, true)
 		.addPerYearColumnsFormula("%X-%X", yearsInReport, true, new int[] {yearsInReport*2, yearsInReport});
@@ -1112,7 +1112,7 @@ public class ExcelWorksheetBuilder {
 		
 		rowNum++;
 		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 2, translate("misc.total"), Style.LABEL);
+		report.addTextCell(row, 2+yearsInReport, translate("misc.total"), Style.LABEL);
 		for (int z=1;z<=3;z++) {
 			for (int i=0; i<yearsInReport; i++) {
 				String column = getColumn(3+(z*yearsInReport)+i);

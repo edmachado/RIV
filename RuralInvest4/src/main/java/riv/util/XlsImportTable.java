@@ -85,7 +85,7 @@ public class XlsImportTable<E extends OrderByable> {
 	
 	public List<E> readTable(Sheet sheet, MessageSource messageSource) throws ExcelImportException {
 		if (sheet!=null) {
-			int rowNum = skipTo(sheet, startRow, startWhenColumnIsNumeric, messageSource);
+			int rowNum = skipTo(sheet, startRow, messageSource);
 			while(rowHasData(sheet, rowNum, messageSource)) {
 				E item = getObjectFromRow(sheet, rowNum, messageSource);
 				
@@ -104,28 +104,50 @@ public class XlsImportTable<E extends OrderByable> {
 				items.add((E)item);
 				rowNum++;
 			}
+			
+			if (items.size()==0) {
+				throw ExcelImportException.createExcelException(ErrorType.NO_TABLE, (rowNum+1), 0, messageSource, LocaleContextHolder.getLocale());
+			}
 		}
 		
 		return items;
 	}
 
-	 // if the first two cells are blank, consider as no data and the table is considered finished
+	 // if first X cells are blank, consider as no data and the table is considered finished
 	private boolean rowHasData(Sheet sheet, int rowNum, MessageSource messageSource) throws ExcelImportException {
-		Row row; Cell cell1; Cell cell2;
+		Row row; Cell cell1; //Cell cell2;
 		row = sheet.getRow(rowNum);
 		if (row==null) { return false; }
-		cell1 = row.getCell(0);
-		cell2 = row.getCell(1);
-		if (
-				(cell1==null || cell1.getCellType()==Cell.CELL_TYPE_BLANK || cell1.getStringCellValue().isEmpty())
-				&& (cell2==null || cell2.getCellType()==Cell.CELL_TYPE_BLANK || cell2.getStringCellValue().isEmpty())
-			){
-			return false;
+		
+		boolean cellsAreEmpty = true;
+		for (int i=0;i<startWhenColumnIsNumeric-1;i++) {
+			if (cellsAreEmpty==true) {
+				cell1 = row.getCell(i);
+				if (cell1!=null && cell1.getCellType()!=Cell.CELL_TYPE_BLANK) {
+					if (cell1.getCellType()==Cell.CELL_TYPE_STRING && !cell1.getStringCellValue().isEmpty()) {
+						cellsAreEmpty=false;
+					} else if (cell1.getCellType()==Cell.CELL_TYPE_NUMERIC) {
+						cellsAreEmpty=false;
+					}
+				}
+			}
 		}
+		if (cellsAreEmpty) { return false; }
+		
+//		cell1 = row.getCell(0);
+//		cell2 = row.getCell(1);
+//		if (
+//				(cell1==null || cell1.getCellType()==Cell.CELL_TYPE_BLANK || cell1.getStringCellValue().isEmpty())
+//				&& (cell2==null || cell2.getCellType()==Cell.CELL_TYPE_BLANK || cell2.getStringCellValue().isEmpty())
+//			){
+//			return false;
+//		}
+		
 		// throw exception if cell 1 (always "description") is not text
-		if (cell1!=null && cell1.getCellType()!=Cell.CELL_TYPE_STRING) {
-			throw ExcelImportException.createExcelException(ErrorType.EXPECTED_TEXT, rowNum+1, 0, messageSource, LocaleContextHolder.getLocale());
-		}
+//		cell1 = row.getCell(0);
+//		if (cell1!=null && cell1.getCellType()!=Cell.CELL_TYPE_STRING) {
+//			throw ExcelImportException.createExcelException(ErrorType.EXPECTED_TEXT, rowNum+1, 0, messageSource, LocaleContextHolder.getLocale());
+//		}
 		return true;
 	}
 	
@@ -170,6 +192,9 @@ public class XlsImportTable<E extends OrderByable> {
 				
 				setObjectProperty(item, column.property, value);
 			} else if (column.isNumeric) {
+				if (cell.getCellType()==Cell.CELL_TYPE_BLANK) {
+					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+				}
 				double value;
 				try {
 					value = cell.getNumericCellValue();
@@ -204,15 +229,18 @@ public class XlsImportTable<E extends OrderByable> {
 	
 	
 	//Keep reading lines until you get to a formula cell 
-	private int skipTo(Sheet sheet, int rowNum, int column, MessageSource messageSource) throws ExcelImportException {
+	private int skipTo(Sheet sheet, int rowNum, MessageSource messageSource) throws ExcelImportException {
+		int column=startWhenColumnIsNumeric;
 		int skipped=0;
 		Row row; Cell cell;
 		while (skipped <=4) {
 			row = sheet.getRow(rowNum);
 			if (row!=null) {
-				cell = sheet.getRow(rowNum).getCell(column);
-				if (cell!=null && (cell.getCellType()==Cell.CELL_TYPE_FORMULA || cell.getCellType()==Cell.CELL_TYPE_NUMERIC)) {
-					return rowNum; // table has started
+				for (int i=0;i<column-1;i++) {
+					cell = sheet.getRow(rowNum).getCell(column);
+					if (cell!=null && (cell.getCellType()==Cell.CELL_TYPE_FORMULA || cell.getCellType()==Cell.CELL_TYPE_NUMERIC)) {
+						return rowNum; // table has started
+					}
 				}
 			}
 			
