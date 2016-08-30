@@ -156,6 +156,12 @@ public class NavItems {
 		steps[3][0] = "mainMenu.help.about";
 		steps[3][1] = "help/about";
 		getItems().put("help", steps);
+		
+		// menu admin
+		steps = new String[1][2];
+		steps[0][0] = "admin.page";
+		steps[0][1] = "config/admin";
+		getItems().put("admin", steps);
 	}
 
 	public String[][] getNavItems(String menuType) {

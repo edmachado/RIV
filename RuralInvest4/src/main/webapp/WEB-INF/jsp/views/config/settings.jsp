@@ -17,7 +17,6 @@
 					<spring:message code="settings.export"/>
 				</a><br/>
 			</c:if>
-			<c:if test="${user.administrator}"><a id="reset" style="display:none;" href="reset">Reset RuralInvest</a></c:if>
 			
 			<fieldset>
 				<legend>i. <spring:message code="settings.1"/></legend>

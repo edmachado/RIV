@@ -26,12 +26,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -45,6 +47,7 @@ import riv.objects.config.Status;
 import riv.objects.config.User;
 import riv.objects.profile.Profile;
 import riv.objects.project.Project;
+import riv.util.ExcelImportException;
 import riv.util.Upgrader;
 import riv.web.config.RivConfig;
 import riv.web.service.AttachTools;
@@ -182,20 +185,15 @@ public class UploadController implements Serializable {
 		return "uploadConfirm";
 	}
 	
-	@RequestMapping(value="/config/admin/import", method=RequestMethod.POST)
-	public String importBackup(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="/config/admin/import", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public @ResponseBody String importBackup(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
+		String error = "";
 		User user = (User)request.getAttribute("user");
 		
 		if (user.isAdministrator()) {
+			
 			FileOutputStream os;
 		
-			// delete current data
-			dataService.deleteAll(true, true);
-			dataService.deleteAll(true, false);
-			dataService.deleteAll(false, true);
-			dataService.deleteAll(false, false);
-			dataService.deleteAllAppConfigs();
-			
 			// add new data
 			List<File> files = new ArrayList<File>(4);
 			File settings=null;
@@ -223,6 +221,20 @@ public class UploadController implements Serializable {
 				zis.close();
 				zis=null;
 				
+				// confirm that settings are correct before deleting current data
+				if (settings==null || getDecoded(FileUtils.readFileToByteArray(settings), "config")!=null) {
+					String e = messageSource.getMessage("admin.restore.error.notBackup", null, LocaleContextHolder.getLocale());
+					throw new ExcelImportException(e);
+				}
+
+				// delete current data
+				dataService.deleteAll(true, true);
+				dataService.deleteAll(true, false);
+				dataService.deleteAll(false, true);
+				dataService.deleteAll(false, false);
+				dataService.deleteAllAppConfigs();
+				
+				
 				// add settings
 				processUpload(FileUtils.readFileToByteArray(settings), "config", model, user, true);
 				
@@ -241,11 +253,13 @@ public class UploadController implements Serializable {
 					}
 					zis.close();zis=null;
 				}
+			} catch (ExcelImportException e) {
+				e.printStackTrace(System.out);
+				error = e.getMessage();
 			} catch (Exception e) {
-				//TODO something
-				throw new RuntimeException(e);
+				e.printStackTrace(System.out);
+				error = e.getMessage();
 			}
-			
 
 			dataService.checkProjectsOnUpgrade();
 			dataService.checkProfilesOnUpgrade();
@@ -253,7 +267,11 @@ public class UploadController implements Serializable {
 			dataService.recalculateCompletedProfiles();
 		}
 		
-		return "redirect:../home";
+		if (error.isEmpty()) {
+			return "{\"success\": \"success\"}";
+		} else {
+			return "{\"error\": \""+error.replace("\"", "\\\"")+"\"}";
+		}
 	}
 	
 	@RequestMapping(value = "/{type}/import", method = RequestMethod.POST)
@@ -265,8 +283,8 @@ public class UploadController implements Serializable {
 		return processUpload(mpf.getBytes(), type, model, (User)request.getAttribute("user"), complete);
 	}
 	
-	private String processUpload(byte[] bytes, String type, Model model, User user, boolean markComplete) {
-		// 1. Get main riv object and keep containing file
+	private String getDecoded(byte[] bytes, String type) {
+		String result=null;
 		try {
 			containingFile = bytes;
 			byte[] rivFile =  attachTools.getFileFromZip(containingFile, 0);
@@ -278,16 +296,23 @@ public class UploadController implements Serializable {
 			try {
 				decoded = decoder.readObject();
 			} catch (Exception ex) {
-				if (type.equals("config")) { return uploadError("error.import.notSettings", model); }
-				else { return uploadError("error.import.wrongType", model); }
+				if (type.equals("config")) { result="error.import.notSettings"; }
+				else { result="error.import.wrongType"; }
 			} finally {
 				rivFile=null;
 				decoder.close();
 				bais.close();
 			}
 		} catch (Exception e) {
-			return uploadError("error.import.notARivFile", model);
+			result="error.import.notARivFile";
 		} 
+		return result;
+	}
+	
+	private String processUpload(byte[] bytes, String type, Model model, User user, boolean markComplete) {
+		// 1. Get main riv object and keep containing file
+		String result = getDecoded(bytes, type);
+		if (result != null) { return uploadError(result, model); }
 		
 		// 2. Check if any errors in riv object
 		String error=checkRivObjectForErrors(type);

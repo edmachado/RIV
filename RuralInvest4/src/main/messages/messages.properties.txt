@@ -4,7 +4,6 @@ profileProduct.usesCycles.help=This product uses cycles, e.g. primary agricultur
 profileActivity.usesCycles=This activity has cycles
 profileActivity.usesCycles.help=This activity uses cycles, e.g. primary agriculture (tons/ha, liters/year, etc.)
 
-
 admin.page=Admin functions
 admin.download=Download backup
 admin.download.desc=Download your RuralInvest configuration and all projects and profiles in a single package.
@@ -12,6 +11,9 @@ admin.download.prepare=Preparing the backup file, please wait...
 admin.download.error=There was a problem generating the backup file for RuralInvest.
 admin.restore=Restore from backup
 admin.restore.desc=Restore configuration, projects and profiles from a backup file. (The current configuration, projects and profiles will be lost.)
+admin.restore.fail=The restore operation was not successful. 
+admin.restore.error.notBackup=The file you are importing is not a proper RuralInvest backup.
+admin.restore.button=Choose a backup file
 user.admin=Administrator
 
 ## RIV 4.3 - phase 1

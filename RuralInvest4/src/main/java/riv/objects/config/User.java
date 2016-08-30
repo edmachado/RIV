@@ -187,20 +187,6 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-   /*public Set<Profile> getProfiles() {
-        return this.profiles;
-    }
-    
-    public void setProfiles(Set<Profile> profiles) {
-        this.profiles = profiles;
-    }
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
-	}
-	public Set<Project> getProjects() {
-		return projects;
-	}*/
-
 	public boolean isAdministrator() {
 		return administrator;
 	}

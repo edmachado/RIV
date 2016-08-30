@@ -2,6 +2,7 @@ package riv.web.controller;
 
 import java.io.OutputStream;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,6 +25,7 @@ public class ExportController {
 	@RequestMapping("/config/export/backup.riv")
 	public void backup(HttpServletRequest request, HttpServletResponse response, OutputStream out) {
 		response.setHeader("Content-Disposition", "attachment;filename=\"backup.riv\"");
+		response.setHeader("Set-Cookie", "fileDownload=true; path=/");
 		exporter.exportBackup(out);
 	}
 
