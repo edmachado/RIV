@@ -11,6 +11,10 @@ function randomPhoto(src, begin, end) {
 	$('#'+src).attr('src',"img/faoinaction"+ofThree+"x400.jpg");
 }
 
+function pagerCount_change() {
+	window.location.href='pageSize?size='+$('#pagerCount').val();
+}
+
 function formSubmit() {document.form.submit;}
 
 function openDownloadDialog(type, pid) {

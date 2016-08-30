@@ -551,6 +551,9 @@ UPDATE project_item SET class=5 WHERE class=-1;
 ALTER TABLE profile_product ADD COLUMN cycles BOOLEAN DEFAULT true;
 UPDATE profile_product SET cycles=true;
 
+-- per-user paging size for search results
+ALTER TABLE user ADD COLUMN page_size SMALLINT;
+
 	</query>
 	</version>
 </sql>

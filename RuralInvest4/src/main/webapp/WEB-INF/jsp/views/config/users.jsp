@@ -3,8 +3,9 @@
 <html><head><title><spring:message code="user.users"/></title></head>
 <body>
 <tags:tableContainer titleKey="mainMenu.config.users">
-			<tags:table titleKey="user.users">
-	<display:table name="users" htmlId="users" id="row" requestURI="" cellpadding="0" cellspacing="0" defaultsort="1">
+<tags:table pager="true">
+	<display:table name="users" htmlId="users" id="row" pagesize="${user.pageSize}" requestURI="" cellpadding="0" cellspacing="0" defaultsort="1">
+		<tags:pagingProperties/>
 		<display:column titleKey="user.description" property="description" sortable="true" style="text-align:left;" headerClass="left" />
 		<c:if test="${rivConfig.qa}">
 			<display:column title="Last login" headerClass="left" class="left" sortable="true" sortProperty="lastLogin">

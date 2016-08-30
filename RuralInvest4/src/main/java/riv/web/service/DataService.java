@@ -76,6 +76,10 @@ public class DataService implements UserDetailsService, Serializable {
 		repo.updateLogin(username);
 	}
 	
+	public void setPageSize(User u, int size) {
+		repo.setPageSize(u, size);
+	}
+	
 	public Donor getDonor(int id) {
 		return repo.getDonor(id);
 	}

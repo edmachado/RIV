@@ -19,8 +19,8 @@
 	</script>
 	<c:set var="currentStep" value="2" scope="request"/><c:set var="menuType" value="search" scope="request"/>
 	<c:set var="titleKey"><c:if test="${filter.incomeGen}">project.projects.incomeGen</c:if><c:if test="${not filter.incomeGen}">project.projects.nonIncomeGen</c:if></c:set>
-		<tags:table titleKey="${titleKey}">
-			<display:table name="results" id="row" pagesize="20" requestURI="" export="false" cellspacing="0" cellpadding="0"
+		<tags:table titleKey="${titleKey}" pager="true">
+			<display:table name="results" id="row" pagesize="${user.pageSize}" requestURI="" export="false" cellspacing="0" cellpadding="0"
 				 htmlId="results">
 				<tags:pagingProperties/>
 				<display:column style="text-align:left;" headerClass="left" titleKey="project.projectName" property="projectName" sortable="true" />

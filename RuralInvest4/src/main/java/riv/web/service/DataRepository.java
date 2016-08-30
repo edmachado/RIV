@@ -113,6 +113,13 @@ public class DataRepository {
 		q.executeUpdate();
 	}
 	
+	public void setPageSize(User u, int size) {
+		Query q = currentSession().createQuery("update User u set pageSize=:s where u.userId=:u");
+		q.setParameter("s", size);
+		q.setParameter("u", u.getUserId());
+		q.executeUpdate();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void deleteAll(boolean project, boolean incomeGen) {
 		Criteria c = currentSession().createCriteria(project ? Project.class : Profile.class).add(Restrictions.eq("incomeGen", incomeGen));	

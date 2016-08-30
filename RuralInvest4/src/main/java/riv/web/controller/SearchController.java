@@ -25,6 +25,7 @@ import riv.objects.config.EnviroCategory;
 import riv.objects.config.FieldOffice;
 import riv.objects.config.ProjectCategory;
 import riv.objects.config.Status;
+import riv.objects.config.User;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.ProjectResult;
 import riv.util.ExcelWrapper;
@@ -131,7 +132,6 @@ public class SearchController {
     public String results(Model model) { 
     	if (filter==null) { 
     		filter=new FilterCriteria(); 
-    		//filter.setObjType("igpj"); 
     	}
     	
     	model.addAttribute("results", getResults());

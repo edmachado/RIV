@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,6 +55,9 @@ public class User implements UserDetails {
 	@DateTimeFormat(iso=ISO.DATE_TIME)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastLogin;
+	
+	@Column(name="page_size")
+	private Integer pageSize;
 	
 	private String lang;
      @Column(name="RESULT_USER_CODE") private boolean resultUserCode;
@@ -201,6 +205,14 @@ public class User implements UserDetails {
 
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public int getPageSize() {
+		return pageSize==null ? 25 : pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
 	public String getLang() {

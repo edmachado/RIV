@@ -80,10 +80,13 @@ public class MainController {
 		}
 	}
 	
-//	@RequestMapping("/home/test")
-//	public String test() {
-//		return "test";
-//	}
+	@RequestMapping(value="/{source}/pageSize", method=RequestMethod.GET)
+	public String pageSize(Model model, @PathVariable String source, @RequestParam String size, HttpServletRequest request) {
+		User u = (User)request.getAttribute("user");
+		u.setPageSize(Integer.parseInt(size));
+		dataService.setPageSize(u, Integer.parseInt(size));
+		return source.equals("search") ? "redirect:/search/results" : "redirect:/config/user";
+	}
 	
     @RequestMapping("/login")
     public String login(@RequestParam(required=false) String lang, Model model, HttpServletRequest request) {

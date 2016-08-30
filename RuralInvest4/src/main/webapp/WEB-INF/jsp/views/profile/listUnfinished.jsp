@@ -16,8 +16,8 @@ $("#confirmDelete").dialog({
 <c:set var="currentStep" value="2" scope="request"/><c:set var="menuType" value="search" scope="request"/>
 <c:set var="titleKey"><c:if test="${param['type']=='igpf'}">profile.profiles.incomeGen</c:if><c:if test="${param['type']=='nigpf'}">profile.profiles.nonIncomeGen</c:if></c:set>
 <tags:tableContainer titleKey="home.inProgress">
-	<tags:table titleKey="${titleKey}">
-		<display:table name="results" requestURI="" id="row" export="false" cellspacing="0" cellpadding="0" htmlId="results">
+	<tags:table titleKey="${titleKey}" pager="true">
+		<display:table name="results" requestURI="" id="row" pagesize="${user.pageSize}" export="false" cellspacing="0" cellpadding="0" htmlId="results">
 			<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 			<display:column titleKey="profile.profileName" property="profileName" sortable="true" style="text-align:left" headerClass="left" />
 <%-- 			<display:column titleKey="profile.technician" property="technician.description" sortable="true" style="text-align:left" headerClass="left" /> --%>
