@@ -17,7 +17,7 @@
 				<c:forEach var="i" begin="1" end="${project.duration}">
 					<td class="production-year"<c:if test="${edit==false}"> id="${unique}prod${i}"</c:if>>
 						<c:set var="qty"><tags:formatDecimal value="${block.patterns[i].qty}"/></c:set>
-						<c:if test="${edit==true}"><input type="text" id="pat${i}" name="pat${i}" size="1" value="${qty}"/></c:if>
+						<c:if test="${edit==true}"><input type="text" id="pat${i}" name="pat${i}" size="4" value="${qty}"/></c:if>
 						<c:if test="${edit==false}">${qty}</c:if>					
 					
 				</c:forEach>
