@@ -45,41 +45,43 @@
 						   	</td>
 		 					<td/>
 						</tr>
-						<tr>
-							<td><tags:help title="${prodType}.cycleLength" text="${prodType}.cycleLength.help"><b><spring:message code="${prodType}.cycleLength"/></b></tags:help></td>
-							<td><span id="${unique}cycleLength"><tags:formatDecimal value="${product.cycleLength}"/></span>
-								<c:if test="${product.lengthUnit==0}"><spring:message code="units.months"/></c:if>
-								<c:if test="${product.lengthUnit==1}"><spring:message code="units.weeks"/></c:if>
-								<c:if test="${product.lengthUnit==2}"><spring:message code="units.days.calendar"/></c:if>
-								<c:if test="${product.lengthUnit==3}"><spring:message code="units.days.week"/></c:if>
-							</td>
-							<c:if test="${accessOK}">
-								<td>
-									<c:if test="${product.orderBy ne 0}">
-										<a name="moveUp" href="../product/${product.productId}/move?up=false">
-										<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
-										</a>
-									</c:if>
-									
-									<c:if test="${product.orderBy ne fn:length(profile.products)-1}">
-									<a name="moveDown" href="../product/${product.productId}/move?up=true">
-										<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
-									</a>
-									</c:if>
+						<c:if test="${product.cycles}">
+							<tr>
+								<td><tags:help title="${prodType}.cycleLength" text="${prodType}.cycleLength.help"><b><spring:message code="${prodType}.cycleLength"/></b></tags:help></td>
+								<td><span id="${unique}cycleLength"><tags:formatDecimal value="${product.cycleLength}"/></span>
+									<c:if test="${product.lengthUnit==0}"><spring:message code="units.months"/></c:if>
+									<c:if test="${product.lengthUnit==1}"><spring:message code="units.weeks"/></c:if>
+									<c:if test="${product.lengthUnit==2}"><spring:message code="units.days.calendar"/></c:if>
+									<c:if test="${product.lengthUnit==3}"><spring:message code="units.days.week"/></c:if>
 								</td>
-								<td/>
-							</c:if>
-							<c:if test="${not accessOK}">
-					    		<td colspan="2"/>
-					    	</c:if>
-						</tr>
-						 <tr>
-						   
-							<td><tags:help title="${prodType}.cycles" text="${prodType}.cycles.help"><b><spring:message code="${prodType}.cycles"/></b></tags:help></td>
-							<td><span id="${unique}cyclePerYear"><tags:formatDecimal value="${product.cyclePerYear}"/></span> <spring:message code="units.perYear"/></td>
-							
-	 						<td colspan="2"/>
-					   	</tr>
+								<c:if test="${accessOK}">
+									<td>
+										<c:if test="${product.orderBy ne 0}">
+											<a name="moveUp" href="../product/${product.productId}/move?up=false">
+											<img src="../../img/arrow_up.png" alt="<spring:message code="misc.moveUp"/>" width="16" height="16" border="0">
+											</a>
+										</c:if>
+										
+										<c:if test="${product.orderBy ne fn:length(profile.products)-1}">
+										<a name="moveDown" href="../product/${product.productId}/move?up=true">
+											<img src="../../img/arrow_down.png" alt="<spring:message code="misc.moveDown"/>" width="16" height="16" border="0">
+										</a>
+										</c:if>
+									</td>
+									<td/>
+								</c:if>
+								<c:if test="${not accessOK}">
+						    		<td colspan="2"/>
+						    	</c:if>
+							</tr>
+							 <tr>
+							   
+								<td><tags:help title="${prodType}.cycles" text="${prodType}.cycles.help"><b><spring:message code="${prodType}.cycles"/></b></tags:help></td>
+								<td><span id="${unique}cyclePerYear"><tags:formatDecimal value="${product.cyclePerYear}"/></span> <spring:message code="units.perYear"/></td>
+								
+		 						<td colspan="2"/>
+						   	</tr>
+					   	</c:if>
 					</table>
 			</fieldset>
 			<br/>

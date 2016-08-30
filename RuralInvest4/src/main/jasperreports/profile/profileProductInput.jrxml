@@ -10,6 +10,7 @@
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="returnedSubtotals" class="java.util.Map" isForPrompting="false"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
+	<parameter name="unitsPerCycle" class="java.lang.String" isForPrompting="false"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="unitCost" class="java.math.BigDecimal"/>
 	<field name="unitNum" class="java.math.BigDecimal"/>
@@ -108,7 +109,7 @@
 					<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{profileProductInput} + " ("+$R{units.perUnitperCycle}+")"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{profileProductInput} + $P{unitsPerCycle}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="1ff7f781-0193-4b9b-8d62-40a8ca811952" key="textField-16" stretchType="RelativeToBandHeight" mode="Opaque" x="352" y="19" width="123" height="14" forecolor="#003365" backcolor="#E5E5E5"/>

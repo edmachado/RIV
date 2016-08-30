@@ -11,6 +11,7 @@
 	<parameter name="returnedSubtotals" class="java.util.Map" isForPrompting="false"/>
 	<parameter name="incomeGen" class="java.lang.Boolean" isForPrompting="false"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
+	<parameter name="unitsPerCycle" class="java.lang.String" isForPrompting="false"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="unitCost" class="java.math.BigDecimal"/>
 	<field name="unitNum" class="java.math.BigDecimal"/>
@@ -122,8 +123,8 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{incomeGen}.booleanValue()
-? $R{profileProductIncome}  + " ("+$R{units.perUnitperCycle}+")"
-: $R{profileActivityCharge} + " ("+$R{units.perUnitperCycle}+")"]]></textFieldExpression>
+? $R{profileProductIncome}  + $P{unitsPerCycle}
+: $R{profileActivityCharge} + $P{unitsPerCycle}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="96c8840b-5c65-4c0d-bee9-c17dbe365fc7" key="textField-16" stretchType="RelativeToBandHeight" mode="Opaque" x="354" y="20" width="123" height="14" forecolor="#003365" backcolor="#E5E5E5">

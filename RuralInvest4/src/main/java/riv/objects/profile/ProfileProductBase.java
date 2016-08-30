@@ -57,6 +57,8 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
      private String unitType;
      @Column(name="UNIT_NUM")
      private Double unitNum;
+ 	@Column(name="CYCLES")
+ 	private boolean cycles=true;
      
      @OneToMany(mappedBy="profileProduct", targetEntity=ProfileProductIncome.class, orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
      @OrderBy("ORDER_BY")
@@ -79,8 +81,7 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
      }
      
      public abstract Profile getProfile();
-     public abstract void setProfile(Profile profile);     
-     public boolean isCycles() { return true; } // no-cycle blocks only for projects
+     public abstract void setProfile(Profile profile);
 
 	 
 	 // non-property accessors
@@ -176,7 +177,14 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
         this.unitNum = unitNum;
     }
 
-    public Set<ProfileProductInput> getProfileInputs() {
+    public boolean isCycles() {
+    	return cycles;
+    }
+    public void setCycles(boolean cycles) {
+		this.cycles = cycles;
+	}
+
+	public Set<ProfileProductInput> getProfileInputs() {
         return this.profileInputs;
     }
     
@@ -231,6 +239,7 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 		newProd.setLengthUnit(getLengthUnit());
 		newProd.setUnitNum(getUnitNum());
 		newProd.setUnitType(getUnitType());
+		newProd.setCycles(cycles);
 		newProd.setProfileIncomes(new HashSet<ProfileProductIncome>());
 		newProd.setProfileInputs(new HashSet<ProfileProductInput>());
 		newProd.setProfileLabours(new HashSet<ProfileProductLabour>());
@@ -281,9 +290,6 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 			cyclePerYear.equals(other.cyclePerYear) &&
 			description.equals(other.description) &&
 			lengthUnit.equals(other.lengthUnit) &&
-//			compareIncomes(profileIncomes, other.profileIncomes) &&
-//			compareInputs(profileInputs, other.profileInputs) &&
-//			compareLabours(profileLabours, other.profileLabours) &&
 			unitNum.equals(other.unitNum) &&
 			unitType.equals(other.unitType);
 		return isEqual;

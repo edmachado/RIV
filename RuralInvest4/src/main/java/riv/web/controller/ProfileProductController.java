@@ -82,6 +82,11 @@ public class ProfileProductController {
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public String saveProfileItem(@Valid @ModelAttribute("profileProduct") ProfileProductBase profileProduct, BindingResult result, Model model, HttpServletRequest request) {
+    	if (!profileProduct.isCycles()) {
+    		profileProduct.setCyclePerYear(1.0);
+    		profileProduct.setLengthUnit(0); // 0="month(s)"
+    		profileProduct.setCycleLength(12.0); // 12 months = 1 year-long cycle
+    	}
     	if (result.hasErrors()) {
     		setModelAttributes(profileProduct, model, request);
 			return "profile/profile6desc";
