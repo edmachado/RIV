@@ -20,9 +20,9 @@
 	<c:set var="currentStep" value="2" scope="request"/><c:set var="menuType" value="search" scope="request"/>
 	<c:set var="titleKey"><c:if test="${filter.incomeGen}">project.projects.incomeGen</c:if><c:if test="${not filter.incomeGen}">project.projects.nonIncomeGen</c:if></c:set>
 		<tags:table titleKey="${titleKey}">
-			<display:table name="results" id="row" requestURI="" export="false" cellspacing="0" cellpadding="0"
-				 htmlId="results"><!-- decorator="rivWeb.decorators.ProjectList" -->
-				<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
+			<display:table name="results" id="row" pagesize="20" requestURI="" export="false" cellspacing="0" cellpadding="0"
+				 htmlId="results">
+				<tags:pagingProperties/>
 				<display:column style="text-align:left;" headerClass="left" titleKey="project.projectName" property="projectName" sortable="true" />
 				<display:column style="text-align:left" headerClass="left" titleKey="project.userCode" property="userCode" sortable="true"/>
 				
@@ -281,7 +281,7 @@
 						<c:if test="${user.resultBenefIndirect}"><td><tags:formatDecimal value="${benefIndirect/fn:length(results)}" noDecimals="true"/></td></c:if>
 						<td colspan="3"></td>
 					</tr>
-					<tr><td colspan="12"  style="text-align: left;"><spring:message code="project.report.results.total"/> ${row_rowNum}</td></tr>
+<%-- 					<tr><td colspan="12"  style="text-align: left;"><spring:message code="project.report.results.total"/> ${row_rowNum}</td></tr> --%>
 				</display:footer>
 			</display:table>
 		</tags:table>

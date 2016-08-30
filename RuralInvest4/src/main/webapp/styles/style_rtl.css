@@ -587,3 +587,6 @@ th.period, span.period { background-color: #e63f42; }
 #yearSelector span.selected:hover,yearBox:hover { background-color:#efce6c; }
 #yearSelector span.selected a { cursor:default; }
 #yearSelector span.selected a:hover { color:#036; }
+
+span.pagebanner { display:block; background-color:#fff; }
+span.pagelinks { display:block; }

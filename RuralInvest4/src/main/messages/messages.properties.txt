@@ -4,6 +4,15 @@ profileProduct.usesCycles.help=This product uses cycles, e.g. primary agricultur
 profileActivity.usesCycles=This activity has cycles
 profileActivity.usesCycles.help=This activity uses cycles, e.g. primary agriculture (tons/ha, liters/year, etc.)
 
+paging.banner.one_item_found=One item found.
+paging.banner.all_items_found={0} items found, displaying all {2}.
+paging.banner.some_items_found={0} items found, displaying {2} to {3}.
+paging.banner.page.link=Go to page
+misc.first=First
+misc.previous=Previous
+misc.next=Next
+misc.last=Last
+
 admin.page=Admin functions
 admin.download=Download backup
 admin.download.desc=Download your RuralInvest configuration and all projects and profiles in a single package.
