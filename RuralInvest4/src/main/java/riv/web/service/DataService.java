@@ -80,6 +80,10 @@ public class DataService implements UserDetailsService, Serializable {
 		repo.setPageSize(u, size);
 	}
 	
+	public void makeAdmin(User u, boolean admin) {
+		repo.makeAdmin(u, admin);
+	}
+	
 	public Donor getDonor(int id) {
 		return repo.getDonor(id);
 	}

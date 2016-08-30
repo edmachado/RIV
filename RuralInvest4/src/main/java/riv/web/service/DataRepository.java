@@ -120,6 +120,13 @@ public class DataRepository {
 		q.executeUpdate();
 	}
 	
+	public void makeAdmin(User u, boolean admin) {
+		Query q = currentSession().createQuery("update User u set administrator=:a where u.userId=:u");
+		q.setParameter("a", admin);
+		q.setParameter("u", u.getUserId());
+		q.executeUpdate();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void deleteAll(boolean project, boolean incomeGen) {
 		Criteria c = currentSession().createCriteria(project ? Project.class : Profile.class).add(Restrictions.eq("incomeGen", incomeGen));	

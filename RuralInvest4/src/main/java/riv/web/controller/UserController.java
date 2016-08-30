@@ -65,6 +65,14 @@ public class UserController {
 		return u;
 	}
 	
+	@RequestMapping(value="/user/{id}/confirmAdmin", method=RequestMethod.GET)
+	public String makeAdmin(@ModelAttribute User user, HttpServletRequest request) {
+		if (((User)request.getAttribute("currentUser")).isAdministrator()) {
+			dataService.makeAdmin(user, true);
+		}
+		return "redirect:/config/user";
+	}
+	
 	@RequestMapping(value="/user/{id}", method=RequestMethod.GET)
 	public String getUser(@PathVariable Integer id, @RequestParam(required=false) String changePassword,  Model model, HttpServletRequest request) {	
 		User user = (User)request.getAttribute("user");

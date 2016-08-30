@@ -28,6 +28,12 @@ function download(downloadUrl) {
 	location.href=downloadUrl;
 }
 
+function makeAdmin(adminId, adminName) {
+	$('#adminLink').val('user/'+adminId+"/confirmAdmin");
+	$('#adminName').text(adminName);
+	$('#confirmAdmin').dialog('open');
+}
+
 function confirmDelete(href) {
 	$('#deleteUrl').val(href);
 	$('#confirmDelete').dialog('open');
