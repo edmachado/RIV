@@ -8,7 +8,7 @@
 	<span><a onmouseover="menuItemOver(3)"><spring:message code="mainMenu.profiles"/> (:)</a></span>
 	<span><a onmouseover="menuItemOver(4)"><spring:message code="mainMenu.projects"/> ($)</a></span>
 	<span><a onmouseover="menuItemOver(5)"><spring:message code="mainMenu.projects"/> (:)</a></span>
-	<span><a onmouseover="menuItemOver(6)"><spring:message code="mainMenu.searchReports"/></a></span>
+	<span><a onmouseover="menuItemOver(6)" href="${ctx}/search/new"><spring:message code="mainMenu.searchReports"/></a></span>
 	<span><a onmouseover="menuItemOver(7)"><spring:message code="mainMenu.help"/></a></span>
 	<span><a onmouseover="menuItemOver(8)"><spring:message code="mainMenu.config"/></a></span>
 	<div id="menu1" style="display:block">&nbsp;</div>
@@ -40,9 +40,7 @@
 		href="javascript:search(true, 'nigpj', '');"><spring:message code="mainMenu.inProgress"/></a><a id="allNigpj"
 		href="javascript:search(false, 'nigpj', '');"><spring:message code="mainMenu.showAll"/></a><u>&nbsp;</u></span>
 	</div>
-	<div id="menu6">
-		<span><u>&nbsp;</u><a href="${ctx}/search/new"><spring:message code="mainMenu.searchItem"/></a><u>&nbsp;</u></span>
-	</div>
+	<div id="menu6" style="display:none;">&nbsp;</div>
 	<div id="menu7">
 		<span><u>&nbsp;</u><a href="${ctx}/help/manuals"><spring:message code="mainMenu.help.manual"/></a><a
 		href="${ctx}/help/faq"><spring:message code="mainMenu.help.faq"/></a><a

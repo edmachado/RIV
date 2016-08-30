@@ -15,6 +15,9 @@
 		<display:column titleKey="user.location" property="location" sortable="true" style="text-align:left;" headerClass="left" />
 		<display:column titleKey="user.telephone" property="telephone" sortable="true" style="text-align:left;" headerClass="left" />
 		<display:column titleKey="user.email" property="email" autolink="true" sortable="true" style="text-align:left;" headerClass="left" />
+		<display:column titleKey="user.administrator" sortable="true" headerClass="left" >
+			<c:if test="${row.administrator}"><img src="../img/star.png" alt="<spring:message code="user.administrator"/>" title="<spring:message code="user.administrator"/>" width="16" height="16" border="0"></c:if>
+		</display:column>
 		<display:column title="&nbsp;">
 			<c:if test="${user.userId == row.userId}">
 				<a href="user/${row.userId}">
@@ -23,14 +26,14 @@
 			</c:if>
 		</display:column>
 		<display:column>
-			<c:if test="${user.userId != row.userId}">
+			<c:if test="${user.administrator && user.userId != row.userId}">
 				<a onclick="confirmDelete('user/${row.userId}/delete');" >
 					<img src="../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0">
 				</a>
 			</c:if>
 		</display:column>
 		<display:footer>
-			<TR height="1"><TD colspan="8" class="Sum1" height="1"></TD></TR>
+			<TR height="1"><TD colspan="9" class="Sum1" height="1"></TD></TR>
 		</display:footer>
 	</display:table>
 	<div class="addNew"><a id="addUser" href="user/-1"><spring:message code="user.addUser"/> <img src="../img/user.gif" width="16" height="16" alt="" border="0"></a></div>

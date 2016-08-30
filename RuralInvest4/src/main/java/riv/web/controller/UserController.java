@@ -68,7 +68,8 @@ public class UserController {
 	@RequestMapping(value="/user/{id}", method=RequestMethod.GET)
 	public String getUser(@PathVariable Integer id, @RequestParam(required=false) String changePassword,  Model model, HttpServletRequest request) {	
 		User user = (User)request.getAttribute("user");
-		model.addAttribute("accessOK", id==-1 || (isCurrentUser(id, request) && (!rivConfig.isDemo() || user.getUserId()>18)));
+		User currentUser = (User)request.getAttribute("currentUser");
+		model.addAttribute("accessOK", id==-1 || currentUser.isAdministrator() || (isCurrentUser(id, request) && (!rivConfig.isDemo() || user.getUserId()>18)));
 		return changePassword==null ? "config/user" : "config/userPassword";
 	}
 	
@@ -96,8 +97,7 @@ public class UserController {
 			@PathVariable Integer id, @RequestParam(required=false) String changePassword, HttpServletRequest request) {
 		// check permissions
 		User currentUser = (User)request.getAttribute("currentUser");
-		if (id==-1 && !currentUser.isAdministrator()) { return "redirect:../user"; } // must be admin to add user
-		if (id!=-1 && !isCurrentUser(id, request)) { return "redirect:../user"; } // cannot change another user
+		if (id!=-1 &! isCurrentUser(id, request) &! currentUser.isAdministrator()) { return "redirect:../user"; } // cannot change another user
 		
 		// check that password is repeated correctly
 		if ((changePassword!=null || id==-1) &!user.getPassword().equals(request.getParameter("passwordRepeat"))) {
@@ -109,7 +109,7 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
-			model.addAttribute("accessOK", id==-1 || isCurrentUser(user.getUserId(), request));
+			model.addAttribute("accessOK", id==-1 || currentUser.isAdministrator() || isCurrentUser(user.getUserId(), request));
 			return changePassword==null ? "config/user" : "config/userPassword";
 		} else {
 			if (request.getParameter("passwordRepeat")!=null || changePassword!=null) { // encrypt password

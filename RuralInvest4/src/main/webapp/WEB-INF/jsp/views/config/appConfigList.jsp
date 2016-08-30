@@ -9,12 +9,12 @@ var pageUrl = document.URL;
 <body>
 <tags:tableContainer title="${pageTitle}">
 	<tags:table title="${pageTitle}">
-	<display:table name="appConfigList" requestURI="" defaultsort="1" cellpadding="0" cellspacing="0" id="row"
+	<display:table name="appConfigList" requestURI="" defaultsort="2" cellpadding="0" cellspacing="0" id="row"
 		class="border-bottom-green">
 		<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 		<display:column title="${description}" property="description" sortable="true" style="text-align:center;" headerClass="centered"/>
 		<c:if test="${type eq 'category'}">
-			<display:column titleKey="projectCategory.type" style="text-align:center;" headerClass="centered" >
+			<display:column titleKey="projectCategory.type" sortable="true" style="text-align:center;" headerClass="centered" >
 				<c:if test="${row.incomeGen}"><spring:message code="projectCategory.incomeGenerating"/></c:if>
 				<c:if test="${!row.incomeGen}"><spring:message code="projectCategory.nonIncomeGenerating"/></c:if>
 			</display:column>
