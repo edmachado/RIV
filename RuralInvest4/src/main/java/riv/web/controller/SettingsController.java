@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import riv.objects.config.Setting;
+import riv.objects.config.User;
 import riv.util.validators.SettingsValidator;
 import riv.web.config.RivConfig;
 import riv.web.service.DataService;
@@ -54,13 +54,16 @@ public class SettingsController {
 	}
 	
 	@RequestMapping(value="/config/settings", method=RequestMethod.GET)
-	public String settings(Model model) {
+	public String settings() {
 		return "config/settings";
 	}
 	
 	@RequestMapping(value="/config/settings", method=RequestMethod.POST)
 	public String saveSettings(@Valid Setting setting, BindingResult result,
 			HttpServletRequest request, @RequestParam("tempLogo") MultipartFile tempLogo) {
+		User u = (User)request.getAttribute("user");
+		boolean access = u.isAdministrator() && rivConfig.isAdmin();
+		if (!access) { return "config/settings"; }
 		
 		if (setting.getOrgLogo()==null && tempLogo.getSize()==0) {
 			result.reject("error.logo");

@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <c:set var="menuType" value="config" scope="request"/><c:set var="currentStep" value="${step}" scope="request"/>
+<c:set var="accessOK" value="${user.administrator && rivConfig.admin}" scope="request"/>
 <html><head><title>${pageTitle}</title>
 <script>
 var pageUrl = document.URL;
@@ -18,7 +19,7 @@ var pageUrl = document.URL;
 				<c:if test="${!row.incomeGen}"><spring:message code="projectCategory.nonIncomeGenerating"/></c:if>
 			</display:column>
 		</c:if>
-		<c:if test="${rivConfig.admin}">
+		<c:if test="${accessOK}">
 			<display:column title="&nbsp;" style="text-align:right;">
 				<c:if test="${row.configId gt 0}">
 					<a href="javascript:location.href=pageUrl+'/'+${row.configId}"><img src="../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
@@ -42,7 +43,7 @@ var pageUrl = document.URL;
 			</display:column>
 		</c:if>
 	</display:table>
-	<c:if test="${rivConfig.admin}">
+	<c:if test="${accessOK}">
 			<div class="addNew"><a id="addNewAppConfig" href="javascript:location.href=pageUrl+'/-1'">${addNew} <img src="../img/${addImage}" width="16" height="16" border="0"></a></div>
 		</c:if>
 	</tags:table></tags:tableContainer>

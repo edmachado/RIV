@@ -67,7 +67,8 @@ public class UserController {
 	
 	@RequestMapping(value="/user/{id}", method=RequestMethod.GET)
 	public String getUser(@PathVariable Integer id, @RequestParam(required=false) String changePassword,  Model model, HttpServletRequest request) {	
-		model.addAttribute("accessOK", id==-1 || isCurrentUser(id, request));
+		User user = (User)request.getAttribute("user");
+		model.addAttribute("accessOK", id==-1 || (isCurrentUser(id, request) && (!rivConfig.isDemo() || user.getUserId()>18)));
 		return changePassword==null ? "config/user" : "config/userPassword";
 	}
 	
@@ -80,9 +81,10 @@ public class UserController {
 	// indicators.jsp also uses User object
 	@RequestMapping(value="indicators/{id}", method=RequestMethod.POST)
 	public String saveIndicators(@ModelAttribute User user, HttpServletRequest request) {
-		dataService.storeUser(user);
-		//rivConfig.loadUsers();
-		if (isCurrentUser(user.getUserId(), request)) reloadCurrentUser(user);
+		if (isCurrentUser(user.getUserId(), request)) {
+			dataService.storeUser(user);
+			reloadCurrentUser(user);
+		}
 		return "redirect:../indicators/"+user.getUserId();
 	}
 	
@@ -92,6 +94,11 @@ public class UserController {
 	@RequestMapping(value="/user/{id}", method=RequestMethod.POST)
 	public String updateUser(@Valid @ModelAttribute User user, BindingResult result, Model model,
 			@PathVariable Integer id, @RequestParam(required=false) String changePassword, HttpServletRequest request) {
+		// check permissions
+		User currentUser = (User)request.getAttribute("currentUser");
+		if (id==-1 && !currentUser.isAdministrator()) { return "redirect:../user"; } // must be admin to add user
+		if (id!=-1 && !isCurrentUser(id, request)) { return "redirect:../user"; } // cannot change another user
+		
 		// check that password is repeated correctly
 		if ((changePassword!=null || id==-1) &!user.getPassword().equals(request.getParameter("passwordRepeat"))) {
 			result.rejectValue("password", "user.repeatedPassword");
@@ -112,8 +119,8 @@ public class UserController {
 			}
 			
 			dataService.storeUser(user);
-			//rivConfig.loadUsers();
-			if (isCurrentUser(id, request)) reloadCurrentUser(user);
+			
+			if (isCurrentUser(id, request)) { reloadCurrentUser(user); }
 			return "redirect:../user";
 		}
 	}
@@ -128,9 +135,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/user/{id}/delete", method=RequestMethod.GET)
-	public String delete(@PathVariable Integer id, @ModelAttribute User user, Model model) {
-		dataService.deleteUser(user);
-		//rivConfig.loadUsers();
+	public String delete(@PathVariable Integer id, @ModelAttribute User user, Model model, HttpServletRequest request) {
+		User currentUser = (User)request.getAttribute("currentUser");
+		if (!(isCurrentUser(id, request) || !currentUser.isAdministrator())) {
+				dataService.deleteUser(user);
+		} else {
+			System.out.println("Access denied deleting user.");
+		}
 		return "redirect:../../user";
 	}	
 }

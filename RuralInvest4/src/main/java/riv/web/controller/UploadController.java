@@ -190,7 +190,9 @@ public class UploadController implements Serializable {
 		String error = "";
 		User user = (User)request.getAttribute("user");
 		
-		if (user.isAdministrator()) {
+		if (!user.isAdministrator()) {
+			System.out.println("Access denied importing backup");
+		} else {
 			
 			FileOutputStream os;
 		
@@ -277,10 +279,16 @@ public class UploadController implements Serializable {
 	@RequestMapping(value = "/{type}/import", method = RequestMethod.POST)
 	public String upload(@PathVariable String type, Model model, MultipartHttpServletRequest request, HttpServletResponse response,
 			@RequestParam(required=true) Boolean allowComplete) throws Exception { 
+		User user = (User)request.getAttribute("user");
+		if (type.equals("config") && !user.isAdministrator()) {
+			System.out.println("Access denied importing config");
+			return "redirect:../home"; 
+		}
+		
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
 		boolean complete = allowComplete!=null && allowComplete==true;
-		return processUpload(mpf.getBytes(), type, model, (User)request.getAttribute("user"), complete);
+		return processUpload(mpf.getBytes(), type, model, user, complete);
 	}
 	
 	private String getDecoded(byte[] bytes, String type) {

@@ -59,7 +59,7 @@
 		href="${ctx}/config/status" id="gotoStatuses"><spring:message code="mainMenu.config.statuses"/></a><a
 		href="${ctx}/config/indicators" id="gotoIndicators"><spring:message code="mainMenu.config.columns"/></a><c:if test="${rivConfig.setting.admin1Enabled}"><a 
 		href="${ctx}/config/appConfig1" id="gotoAppConfig1">${rivConfig.setting.admin1Title}</a></c:if><c:if test="${rivConfig.setting.admin2Enabled}"><a 
-		href="${ctx}/config/appConfig2" id="gotoAppConfig2">${rivConfig.setting.admin2Title}</a></c:if><a
-		href="${ctx}/config/import" id="gotoImportSettings"><spring:message code="mainMenu.import"/></a><u>&nbsp;</u></span>
+		href="${ctx}/config/appConfig2" id="gotoAppConfig2">${rivConfig.setting.admin2Title}</a></c:if><c:if test="${user.administrator}"><a
+		href="${ctx}/config/import" id="gotoImportSettings"><spring:message code="mainMenu.import"/></a></c:if><u>&nbsp;</u></span>
 	</div>
 </div>

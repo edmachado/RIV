@@ -2,7 +2,6 @@
 <c:set var="menuType" value="config" scope="request"/><c:set var="currentStep" value="4" scope="request"/>
 <html><head><title><spring:message code="projectCategory.addCat"/></title></head>
 <body>
-<c:set var="accessOK" value="${rivConfig.admin}" scope="request"/>
 <form:form name="form" commandName="appConfig" method="post">
 	<form:hidden path="configId"/>
 	<tags:errors />

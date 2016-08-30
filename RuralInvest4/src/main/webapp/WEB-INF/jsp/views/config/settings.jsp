@@ -3,7 +3,7 @@
 <html><head><title><spring:message code="mainMenu.config"/></title>
 </head>
 <body>
-	<c:set var="accessOK" value="${rivConfig.admin}" scope="request"/>
+	<c:set var="accessOK" value="${user.administrator && rivConfig.admin}" scope="request"/>
 	<form:form name="form" method="post" commandName="setting" action="" enctype="multipart/form-data">
 		<tags:errors />
 		<form:hidden path="settingId"/>
@@ -39,9 +39,11 @@
 				<div class="dataentry">
 					<b><spring:message code="settings.logo"/></b><br/>
 					<img src="orgLogo" border="0"/><br/>
-					<spring:message code="settings.changeLogo"/><br/>
-					<input type="file" name="tempLogo" id="fileSelect" accept="image/gif, image/jpeg, image/jpg" />
-						gif/jpeg &lt;70 kb
+					<c:if test="${accessOK}">
+						<spring:message code="settings.changeLogo"/><br/>
+						<input type="file" name="tempLogo" id="fileSelect" accept="image/gif, image/jpeg, image/jpg" />
+							gif/jpeg &lt;70 kb
+					</c:if>
 				</div>
 			</fieldset>
 			

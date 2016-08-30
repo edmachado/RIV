@@ -1,5 +1,6 @@
 package riv.web.controller;
  
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import riv.objects.config.EnviroCategory;
 import riv.objects.config.FieldOffice;
 import riv.objects.config.ProjectCategory;
 import riv.objects.config.Status;
+import riv.objects.config.User;
 import riv.util.validators.AppConfigValidator;
 import riv.web.config.RivConfig;
 import riv.web.service.DataService;
@@ -67,14 +69,19 @@ public class AppConfigController {
 	}
 	
 	@RequestMapping(value="/{type}/{id}", method=RequestMethod.GET)
-	public String getAppConfig(@PathVariable String type, @PathVariable Integer id, Model model) {	
+	public String getAppConfig(@PathVariable String type, @PathVariable Integer id, Model model, HttpServletRequest request) {	
 		model.addAttribute("type",type);
+		User u = (User)request.getAttribute("user");
+		model.addAttribute("accessOK", u.isAdministrator() && rivConfig.isAdmin());
 		return form(type);
 	}
 	
 	@RequestMapping(value="/{type}/{id}", method=RequestMethod.POST)
-	public String updateAppConfig(@PathVariable String type, @Valid @ModelAttribute AppConfig appConfig, BindingResult result) {
-		if (result.hasErrors()) {
+	public String updateAppConfig(@PathVariable String type, @Valid @ModelAttribute AppConfig appConfig, BindingResult result, HttpServletRequest request) {
+		User u = (User)request.getAttribute("user");
+		boolean access = u.isAdministrator() && rivConfig.isAdmin();
+		if (!access || result.hasErrors()) {
+			request.setAttribute("accessOK", u.isAdministrator() && rivConfig.isAdmin());
 			return form(type);
 		} else {
 			rivConfig.storeAppConfig(appConfig);
@@ -83,8 +90,11 @@ public class AppConfigController {
 	}
 	
 	@RequestMapping(value="/{type}/delete/{id}", method=RequestMethod.GET)
-	public String delete(@PathVariable String type, @ModelAttribute AppConfig appConfig, Model model) {
-		rivConfig.deleteAppConfig(appConfig);
+	public String delete(@PathVariable String type, @ModelAttribute AppConfig appConfig, Model model, HttpServletRequest request) {
+		User u = (User)request.getAttribute("user");
+		if (u.isAdministrator() && rivConfig.isAdmin()) {
+			rivConfig.deleteAppConfig(appConfig);
+		}
 		return "redirect:../../"+type;
 	}
 	

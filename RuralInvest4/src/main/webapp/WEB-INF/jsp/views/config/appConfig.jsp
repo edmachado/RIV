@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <c:set var="menuType" value="config" scope="request"/>
-<c:set var="accessOK" value="${rivConfig.admin}" scope="request"/>
 <c:if test="${type eq 'appConfig1'}">
 	<c:set var="title">${rivConfig.setting.admin1Title}</c:set>
 	<c:set var="currentStep" value="9" scope="request"/>

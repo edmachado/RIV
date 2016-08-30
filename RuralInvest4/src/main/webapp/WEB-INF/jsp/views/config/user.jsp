@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp"%>
 <c:set var="menuType" value="config" scope="request" /><c:set var="currentStep" value="2" scope="request" />
-<c:set var="accessOK" value="${empty user.userId or (currentUser.userId==user.userId and (not rivConfig.demo or user.userId gt 18))}" scope="request"/>
 <html><head><title><spring:message code="mainMenu.config.users.addEdit" /></title></head>
 <body>
 	<form:form id="userForm" name="form" method="post" commandName="user">
