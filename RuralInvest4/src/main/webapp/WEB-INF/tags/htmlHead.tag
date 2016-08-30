@@ -17,7 +17,11 @@
 			overlay: { backgroundColor: '#000', opacity: 0.5 },
 			buttons: {
 				Cancel: function() { $(this).dialog('close'); },
-				'<spring:message code="misc.deleteItem"/>': function() { location.href=$('#deleteUrl').val(); }		
+				Confirm: {
+					text:'<spring:message code="misc.deleteItem"/>',
+					id:'confirm-delete-button',
+					click: function() { location.href=$('#deleteUrl').val(); }		
+				}
 			}
 		});
 	});

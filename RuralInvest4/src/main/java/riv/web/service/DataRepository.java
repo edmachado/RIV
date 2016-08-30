@@ -1644,6 +1644,7 @@ public class DataRepository {
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
 		return currentSession().createCriteria(User.class)
+				.addOrder( Order.asc("description").ignoreCase() )
 				.list();
 	}
 
@@ -1663,48 +1664,50 @@ public class DataRepository {
 	public List<Beneficiary> getBeneficiaries() {
 		return currentSession()
 				.createCriteria(Beneficiary.class)
-				.addOrder(Order.asc("description")).list();
+				.addOrder(Order.asc("configId")).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<FieldOffice> getFieldOffices() {
 		return currentSession()
 				.createCriteria(FieldOffice.class)
-				.addOrder(Order.asc("description")).list();
+				.addOrder(Order.asc("configId")).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<ProjectCategory> getProjectCategories() {
 		return currentSession()
 				.createCriteria(ProjectCategory.class)
-				.addOrder(Order.asc("description")).list();
+				.addOrder(Order.asc("incomeGen"))
+				.addOrder(Order.asc("configId"))
+				.list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<EnviroCategory> getEnviroCategories() {
 		return currentSession()
 				.createCriteria(EnviroCategory.class)
-				.addOrder(Order.asc("description")).list();
+				.addOrder(Order.asc("configId")).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Status> getStatuses() {
 		return currentSession().createCriteria(Status.class)
-				.addOrder(Order.asc("description")).list();
+				.addOrder(Order.asc("configId")).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<AppConfig1> getAppConfig1s() {
 		return currentSession()
 				.createCriteria(AppConfig1.class)
-				.addOrder(Order.asc("description")).list();
+				.addOrder(Order.asc("configId")).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<AppConfig2> getAppConfig2s() {
 		return currentSession()
 				.createCriteria(AppConfig2.class)
-				.addOrder(Order.asc("description")).list();
+				.addOrder(Order.asc("configId")).list();
 	}
 
 	public User getUserByUsername(String username) {

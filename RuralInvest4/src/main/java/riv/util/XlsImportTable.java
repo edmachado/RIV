@@ -29,6 +29,7 @@ public class XlsImportTable<E extends OrderByable> {
 	private int startWhenColumnIsNumeric;
 	private ArrayList<XlsImportColumn> columns;
 	private Validator validator;
+	private boolean required=true;
 	Class<? extends OrderByable> clazz;
 	
 	public XlsImportTable(Class<? extends OrderByable> clazz, int startRow, int startWhenColumnIsNumeric, Validator validator) {
@@ -37,6 +38,10 @@ public class XlsImportTable<E extends OrderByable> {
 		this.startWhenColumnIsNumeric=startWhenColumnIsNumeric;
 		this.columns = new ArrayList<XlsImportColumn>();
 		this.validator=validator;
+	}
+	
+	public void setRequired(boolean required) {
+		this.required=required;
 	}
 	
 	public XlsImportTable<E> addPerYearColumns(int columnBegin, int numYears, String property) {
@@ -105,7 +110,7 @@ public class XlsImportTable<E extends OrderByable> {
 				rowNum++;
 			}
 			
-			if (items.size()==0) {
+			if (items.size()==0 && required) {
 				throw ExcelImportException.createExcelException(ErrorType.NO_TABLE, (rowNum+1), 0, messageSource, LocaleContextHolder.getLocale());
 			}
 		}
@@ -230,17 +235,15 @@ public class XlsImportTable<E extends OrderByable> {
 	
 	//Keep reading lines until you get to a formula cell 
 	private int skipTo(Sheet sheet, int rowNum, MessageSource messageSource) throws ExcelImportException {
-		int column=startWhenColumnIsNumeric;
+//		int column=startWhenColumnIsNumeric;
 		int skipped=0;
 		Row row; Cell cell;
 		while (skipped <=4) {
 			row = sheet.getRow(rowNum);
 			if (row!=null) {
-				for (int i=0;i<column-1;i++) {
-					cell = sheet.getRow(rowNum).getCell(column);
-					if (cell!=null && (cell.getCellType()==Cell.CELL_TYPE_FORMULA || cell.getCellType()==Cell.CELL_TYPE_NUMERIC)) {
-						return rowNum; // table has started
-					}
+				cell = sheet.getRow(rowNum).getCell(startWhenColumnIsNumeric);
+				if (cell!=null && (cell.getCellType()==Cell.CELL_TYPE_FORMULA || cell.getCellType()==Cell.CELL_TYPE_NUMERIC)) {
+					return rowNum; // table has started
 				}
 			}
 			

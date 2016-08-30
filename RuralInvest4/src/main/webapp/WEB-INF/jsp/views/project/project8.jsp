@@ -31,10 +31,14 @@ function showYear(year) {
 	toggle('projectGeneralPersonnel'+year);
 	toggle('projectGeneralSupplies'+selectedYear);
 	toggle('projectGeneralPersonnel'+selectedYear);
-	
 	$('#general-year').text(year+1);
 	$('#personnel-year').text(year+1);
+	
 	<c:if test="${project.withWithout}">
+		toggle('projectGeneralSupplies'+year+'Without');
+		toggle('projectGeneralPersonnel'+year+'Without');
+		toggle('projectGeneralSupplies'+selectedYear+'Without');
+		toggle('projectGeneralPersonnel'+selectedYear+'Without');
 		$('#general-year-wo').text(year+1);
 		$('#personnel-year-wo').text(year+1);
 	</c:if>

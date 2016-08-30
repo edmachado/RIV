@@ -569,8 +569,7 @@ public double getInvestmentTotal() {
             		for (ProjectItemContribution c : contributions) {
             			decreaseYear(c.getYears().values(), duration);
             		}
-            	}
-            	if (perYearGeneralCosts) {
+            	} else if (perYearGeneralCosts) {
             		for (ProjectItemGeneralBase g : generals) {
             			decreaseYear(g.getYears().values(), duration);
             		}
@@ -596,12 +595,38 @@ public double getInvestmentTotal() {
         					c.getYears().put(i, py);
         				}
         			}
+        		} else if (perYearGeneralCosts) {
+        			for (ProjectItemGeneralBase g : generals) {
+        				increaseYear(g, oldDuration);
+        			}
+        			for (ProjectItemGeneralBase g : generalWithouts) {
+        				increaseYear(g, oldDuration);
+        			}
+        			for (ProjectItemGeneralBase g : personnels) {
+        				increaseYear(g, oldDuration);
+        			}
+        			for (ProjectItemGeneralBase g : personnelWithouts) {
+        				increaseYear(g, oldDuration);
+        			}
         		}
         	}
         } else {
         	this.duration = Duration;
         }
     }
+   
+   private void increaseYear(ProjectItemGeneralBase g, int oldDuration) {
+	   double unitNum = g.getYears().get(oldDuration-1).getUnitNum();
+		double own = g.getYears().get(oldDuration-1).getOwnResources();
+		for (int i=oldDuration;i<duration;i++) {
+			ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
+			py.setYear(i);
+			py.setUnitNum(unitNum);
+			py.setOwnResources(own);
+			py.setParent(g);
+			g.getYears().put(i, py);
+		}
+   }
    
    private void decreaseYear(Collection<? extends PerYearItem> items, int maxYear) {
 	   List<PerYearItem> removes = new ArrayList<PerYearItem>();
@@ -2034,7 +2059,6 @@ public double getInvestmentTotal() {
 		newProj.setCapitalDonate(this.getCapitalDonate());
 		newProj.setCapitalInterest(this.getCapitalInterest());
 		newProj.setCapitalOwn(this.getCapitalOwn());
-//		newProj.setCategoryOther(this.getCategoryOther());
 		newProj.setCreatedBy(this.getCreatedBy());
 		newProj.setDuration(this.getDuration());
 		newProj.setEnviroCategory(this.getEnviroCategory());
@@ -2060,6 +2084,7 @@ public double getInvestmentTotal() {
 		newProj.setMarket(this.getMarket());
 		newProj.setOrganization(this.getOrganization());
 		newProj.setPerYearContributions(perYearContributions);
+		newProj.setPerYearGeneralCosts(perYearGeneralCosts);
 		newProj.setProjectName(this.projectName);
 		newProj.setProjCategory(this.getProjCategory());
 		newProj.setProjDesc(this.getProjDesc());

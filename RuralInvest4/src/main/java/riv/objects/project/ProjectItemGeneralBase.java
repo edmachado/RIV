@@ -47,29 +47,6 @@ public abstract class ProjectItemGeneralBase extends HasPerYearItems<ProjectItem
 	
 	protected abstract String propertyLabel();
 	
-//	public ProjectItemGeneralSingleYear getOneYearData(int year) {
-//		if (year>getProject().getDuration()) {
-//			throw new RuntimeException("Attempting to access a year beyond the project duration. This should not be allowed to occur.");
-//		}
-//		
-//		ProjectItemGeneralSingleYear single = new ProjectItemGeneralSingleYear();
-//		ProjectItemGeneralPerYear perYear = years.get(year);
-//		if (perYear==null) {
-//			throw new RuntimeException("ProjectItemGeneralPerYear is missing. This should not occur at runtime.");
-//		}
-//		single.setProjItemId(this.getProjItemId());
-//		single.setDescription(description);
-//		single.setUnitType(unitType);
-//		single.setUnitCost(unitCost);
-//		single.setUnitNum(perYear.getUnitNum());
-//		single.setOwnResources(perYear.getOwnResources());
-//		single.setTotalCost(perYear.getTotal());
-//		single.setExternal(perYear.getExternal());
-//		single.setLinked(this.getLinkedTo()!=null);
-//		
-//		return single;
-//	}
-	
 	 protected ProjectItemGeneralBase copy(Class<? extends ProjectItemGeneralBase> newClass) {
 		 ProjectItemGeneralBase item;
 		 if (newClass.isAssignableFrom(ProjectItemGeneral.class)) {

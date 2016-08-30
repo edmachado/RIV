@@ -319,10 +319,10 @@ public class ExcelWorksheetBuilder {
 		SheetName sheetname;
 		if (project.isWithWithout()) {
 			if (isWithout)  {
-				title =  "("+translate("projectBlock.with.without")+") "+ title;
+				title =  title + " ("+translate("projectBlock.with.without")+")";
 				sheetname = SheetName.PROJECT_BLOCKS_WITHOUT;
 			} else {
-				title =  "("+translate("projectBlock.with.with")+") "+ title;
+				title = title +  " ("+translate("projectBlock.with.with")+")";
 				sheetname = SheetName.PROJECT_BLOCKS_WITH;
 			}
 		} else {
@@ -3547,7 +3547,9 @@ public class ExcelWorksheetBuilder {
 				Row row = sheet.createRow(rowNum++);
 				for (int i=0; i<columns.size(); i++) {
 					XlsColumn col = columns.get(i);
-					if (col.type==XlsColumnType.FORMULA) {
+					if (col.type==XlsColumnType.TEXT) { 
+						report.addTextCell(row, i, " ");
+					} else if (col.type==XlsColumnType.FORMULA) {
 						//replace column variable
 						String formula = col.data.replace("@", getColumn(i).replace("X", "x"));
 						report.addFormulaCell(row, i, writeFormula(formula, rowNum), Style.CURRENCY);
