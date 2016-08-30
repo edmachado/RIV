@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><div id="top">
 	<div id="user" align="right">&nbsp;
 		<a id="welcome" href="<%=request.getContextPath()%>/config/user/${user.userId}"><spring:message code="header.welcome"/> ${user.description}</a> | 
-		<c:if test="${user.administrator}"><a id="adminPage" href="<%=request.getContextPath()%>/config/admin"><spring:message code="admin.page"/></a> | </c:if>
+		<c:if test="${user.administrator}"><a style="display:none;" id="adminPage" href="<%=request.getContextPath()%>/config/admin"><spring:message code="admin.page"/></a> | </c:if>
 		<a id="logoff" href="<%=request.getContextPath()%>/j_spring_security_logout"><spring:message code="header.logOff"/></a>&nbsp;
 	</div>
 	<div id="search">
