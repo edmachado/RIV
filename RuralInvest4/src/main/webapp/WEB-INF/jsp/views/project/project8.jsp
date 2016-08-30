@@ -31,6 +31,13 @@ function showYear(year) {
 	toggle('projectGeneralPersonnel'+year);
 	toggle('projectGeneralSupplies'+selectedYear);
 	toggle('projectGeneralPersonnel'+selectedYear);
+	
+	$('#general-year').text(year+1);
+	$('#personnel-year').text(year+1);
+	<c:if test="${project.withWithout}">
+		$('#general-year-wo').text(year+1);
+		$('#personnel-year-wo').text(year+1);
+	</c:if>
 
 	$('#yearBox'+selectedYear).toggleClass('selected',false);
 	selectedYear=year;
@@ -77,13 +84,19 @@ function showYear(year) {
 			<li><a href="#tabs-without"><spring:message code="projectBlock.with.without"/></a></li>
 		</ul></c:if>
 		<div id="tabs-with">
+			<c:if test="${project.perYearGeneralCosts}"><h2>(<spring:message code="units.year"/> <span id="general-year">1</span>)</h2></c:if>
 			<form:errors path="generals" cssClass="error" element="div" />
 			<tags:generalCosts costs="${generalsForTable}" type="projectGeneralSupplies" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
+			
+			<c:if test="${project.perYearGeneralCosts}"><h2>(<spring:message code="units.year"/> <span id="personnel-year">1</span>)</h2></c:if>
 			<form:errors path="personnels" cssClass="error" element="div" />
 			<tags:generalCosts costs="${personnelsForTable}" type="projectGeneralPersonnel" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
 		</div>
 		<c:if test="${project.withWithout}"><div id="tabs-without"><a name="wo" id="wo"></a>
+			<c:if test="${project.perYearGeneralCosts}"><h2>(<spring:message code="units.year"/> <span id="general-year-wo">1</span>)</h2></c:if>
 			<tags:generalCosts costs="${generalsWoForTable}" type="projectGeneralSupplies" without="true" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
+			
+			<c:if test="${project.perYearGeneralCosts}"><h2>(<spring:message code="units.year"/> <span id="personnel-year-wo">1</span>)</h2></c:if>
 			<tags:generalCosts costs="${personnelsWoForTable}" type="projectGeneralPersonnel" without="true"  duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
 		</div></c:if>
 	</div>
