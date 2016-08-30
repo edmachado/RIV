@@ -1,8 +1,22 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><c:set var="project" value="${projectItem.project}" scope="request"/>
 <html><head><title><spring:message code="projectInvestAsset"/></title>
-<script>
-$(function() { CalculateDonated(); CalculateTotal(); });
-</script>
+	<tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateFinance" />
+	<tags:jscriptCalc fieldA="total" fieldB="donated" fieldC="financed" fieldD="ownResources" functionName="CalculateFinance" calc="-" calc2="-" />
+	<script language="JavaScript">
+		function CalculateReserve() {
+			with (Math) {
+				var number = document.form.unitNum.value.split(',').join('');		
+				var unit = document.form.unitCost.value.split(',').join('');
+				var life = document.form.econLife.value.split(',').join('');
+				var salvage = document.form.salvage.value.split(',').join('');
+				var total = unit * number;
+				var reserve = (total - salvage*number) / life;
+			}
+			if (reserve == 'NaN') reserve=''; else reserve=round(reserve,2); document.form.reserve.value=reserve;
+		}
+		
+		$(function() { CalculateDonated(); CalculateTotal(); });
+	</script>
 </head>
 <body>
 	<c:set var="assetTitle">
@@ -93,21 +107,4 @@ $(function() { CalculateDonated(); CalculateTotal(); });
 		</div>
 		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
-	
-<tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateFinance" />
-<tags:jscriptCalc fieldA="total" fieldB="donated" fieldC="financed" fieldD="ownResources" functionName="CalculateFinance" calc="-" calc2="-" />
-<script language="JavaScript">
-	function CalculateReserve() {
-		with (Math) {
-			var number = document.form.unitNum.value.split(',').join('');		
-			var unit = document.form.unitCost.value.split(',').join('');
-			var life = document.form.econLife.value.split(',').join('');
-			var salvage = document.form.salvage.value.split(',').join('');
-			var total = unit * number;
-			var reserve = (total - salvage*number) / life;
-		}
-		if (reserve == 'NaN') reserve=''; else reserve=round(reserve,2); document.form.reserve.value=reserve;
-	}
-</script>
-
 </body></html>
