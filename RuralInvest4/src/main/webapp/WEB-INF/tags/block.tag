@@ -162,7 +162,7 @@
 									<a href="../blockItem/${inc.prodItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 								</display:column>
 								<display:column title="&nbsp;" media="html">
-									<a href="../blockItem/${inc.prodItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+									<a href="javascript:confirmDelete('../blockItem/${inc.prodItemId}/delete');"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 								</display:column>
 							</c:if>
 							<display:footer>
@@ -229,7 +229,7 @@
 								<a href="../blockItem/${inc.prodItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 							</display:column>
 							<display:column title="&nbsp;" media="html">
-								<a href="../blockItem/${inc.prodItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+								<a href="javascript:confirmDelete('../blockItem/${inc.prodItemId}/delete');"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 							</display:column>
 						</c:if>
 						<display:footer>
@@ -311,7 +311,7 @@
 							<a href="../blockItem/${inp.prodItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../blockItem/${inp.prodItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>"  alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+							<a href="javascript:confirmDelete('../blockItem/${inp.prodItemId}/delete');"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>"  alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -398,7 +398,7 @@
 							<a href="../blockItem/${lab.prodItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" title="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../blockItem/${lab.prodItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" title="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+							<a href="javascript:confirmDelete('../blockItem/${lab.prodItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" title="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 					</c:if>
 					<display:footer>

@@ -8,14 +8,6 @@ $(function() {
 	 if($("#tabs-without").find(window.location.hash).size()>0){
 		 $("#tabs").tabs("option", "active", 1);
 		} </c:if>
-	$("#confirmDelete").dialog({
-	bgiframe: true, autoOpen: false, resizable: false, height:300, width:400, modal: true,
-	overlay: { backgroundColor: '#000', opacity: 0.5 },
-	buttons: {
-		Cancel: function() { $(this).dialog('close'); },
-		'<spring:message code="misc.deleteItem"/>': function() { location.href=$('#deleteUrl').val(); }		
-	}
-});
 });
 </script>
 </head>
@@ -55,9 +47,6 @@ $(function() {
 	</div>
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="profile.step7"/></tags:submit>
 </form:form>
-<div id="confirmDelete" title="<spring:message code="misc.deleteItem"/>">
-	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-	<spring:message code="misc.confirmDel"/></p><input id="deleteUrl" type="hidden" value=""/>
-</div>
+<tags:confirmDelete/>
 <tags:excelImport submitUrl="../../import/profile/product/"/>
 </body></html>

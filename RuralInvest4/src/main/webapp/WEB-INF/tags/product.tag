@@ -138,7 +138,7 @@
 							<a href="../prodItem/${inc.prodItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../prodItem/${inc.prodItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../prodItem/${inc.prodItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -206,7 +206,7 @@
 							<a href="../prodItem/${inp.prodItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../prodItem/${inp.prodItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../prodItem/${inp.prodItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -269,7 +269,7 @@
 							<a href="../prodItem/${lab.prodItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../prodItem/${lab.prodItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../prodItem/${lab.prodItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>

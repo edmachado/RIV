@@ -76,7 +76,7 @@
 						<a href="../item/${row.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${row.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${row.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -160,7 +160,7 @@
 						<a href="../item/${lab.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${lab.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${lab.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -239,7 +239,7 @@
 						<a href="../item/${gen.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${gen.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${gen.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -257,8 +257,9 @@
 			</c:if>
 		</tags:table>
 	</tags:tableContainer>
-					
+		
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step9.nongen"/></tags:submit>
 </form:form>
+<tags:confirmDelete/>
 <tags:excelImport submitUrl="../../import/project/generalNongen/${project.projectId}"/>
 </body></html>

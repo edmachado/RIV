@@ -3,14 +3,6 @@
 <html><head><title>${pageTitle}</title>
 <script>
 var pageUrl = document.URL;
-$(function() { $("#confirmDelete").dialog({
-			bgiframe: true, autoOpen: false, resizable: false, height:300, width:400, modal: true,
-			overlay: { backgroundColor: '#000', opacity: 0.5 },
-			buttons: {
-				Cancel: function() { $(this).dialog('close'); },
-				'<spring:message code="misc.deleteItem"/>': function() { location.href=$('#deleteUrl').val(); }		
-			}
-}); });
 </script>
 </head>
 <body>

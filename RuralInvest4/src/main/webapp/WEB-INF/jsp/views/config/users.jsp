@@ -2,17 +2,6 @@
 <c:set var="menuType" value="config" scope="request"/><c:set var="currentStep" value="2" scope="request"/>
 <html><head><title><spring:message code="user.users"/></title></head>
 <body>
-<script>
-$(function() { $("#confirmDelete").dialog({
-			bgiframe: true, autoOpen: false, resizable: false, height:220, modal: true,
-			overlay: { backgroundColor: '#000', opacity: 0.5 },
-			buttons: {
-				Cancel: function() { $(this).dialog('close'); },
-				'<spring:message code="misc.deleteItem"/>': function() { location.href=$('#deleteUrl').val(); }		
-			}
-});
-});
-</script>
 <tags:tableContainer titleKey="mainMenu.config.users">
 			<tags:table titleKey="user.users">
 	<display:table name="users" htmlId="users" id="row" requestURI="" cellpadding="0" cellspacing="0" defaultsort="1">

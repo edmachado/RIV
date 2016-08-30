@@ -93,7 +93,7 @@ $(function() {
 							<a href="../item/${row.profItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../item/${row.profItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../item/${row.profItemId}/delete');"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -171,7 +171,7 @@ $(function() {
 						<a id="editLabour${lab.orderBy}" href="../item/${lab.profItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${lab.profItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${lab.profItemId}/delete');"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -253,7 +253,7 @@ $(function() {
 							<a href="../item/${goodWo.profItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../item/${goodWo.profItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>"  alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../item/${goodWo.profItemId}/delete');"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>"  alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -329,7 +329,7 @@ $(function() {
 						<a id="editLabour${lab.orderBy}" href="../item/${lab.profItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${lab.profItemId}/delete"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${lab.profItemId}/delete');"><img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -349,6 +349,7 @@ $(function() {
 	</div>
 <tags:submit><spring:message code="misc.goto"/> <spring:message code="profile.step5"/></tags:submit>
 </form:form>
+<tags:confirmDelete/>
 <tags:excelImport submitUrl="../../import/profile/invest/${profile.profileId}"/>
 </body>
 </html>

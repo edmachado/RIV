@@ -75,7 +75,7 @@
 							<a href="../item/${row.parent.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../item/${row.parent.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../item/${row.parent.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>

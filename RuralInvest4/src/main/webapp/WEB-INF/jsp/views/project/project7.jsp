@@ -96,7 +96,7 @@
 						<a href="../item/${asset.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${asset.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${asset.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -180,7 +180,7 @@
 						<a href="../item/${lab.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${lab.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${lab.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -259,7 +259,7 @@
 						<a href="../item/${serv.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
-						<a href="../item/${serv.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+						<a href="javascript:confirmDelete('../item/${serv.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 				<display:footer>
@@ -356,7 +356,7 @@
 							<a href="../item/${asset.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../item/${asset.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../item/${asset.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -440,7 +440,7 @@
 							<a href="../item/${lab.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../item/${lab.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../item/${lab.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -519,7 +519,7 @@
 							<a href="../item/${serv.projItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../item/${serv.projItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../item/${serv.projItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 					<display:footer>
@@ -540,5 +540,6 @@
 	</c:if>
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step8"/></tags:submit>
 </form:form>
+<tags:confirmDelete/>
 <tags:excelImport submitUrl="../../import/project/invest/${project.projectId}"/>
 </body></html>

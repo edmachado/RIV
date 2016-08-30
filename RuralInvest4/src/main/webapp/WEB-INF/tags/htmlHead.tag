@@ -12,6 +12,14 @@
 	<script>$(function() { 
 		$( document ).tooltip(); 
 		$('input.curlabel').focus( function(){ $(this).next('input').focus(); });
+		$("#confirmDelete").dialog({
+			bgiframe: true, autoOpen: false, resizable: false, height:140, modal: true,
+			overlay: { backgroundColor: '#000', opacity: 0.5 },
+			buttons: {
+				Cancel: function() { $(this).dialog('close'); },
+				'<spring:message code="misc.deleteItem"/>': function() { location.href=$('#deleteUrl').val(); }		
+			}
+		});
 	});
 	$(document).keydown(function(event) { // Ctrl-S and Cmd-S trigger save button
 	    if((event.ctrlKey || event.metaKey) && event.which == 83) { if ($('#submit').length) { $('#submit').click(); event.preventDefault(); return false; }

@@ -61,7 +61,7 @@
 					<a href="../item/${general.profItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 				</display:column>
 				<display:column title="&nbsp;" media="html">
-					<a href="../item/${general.profItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+					<a href="javascript:confirmDelete('../item/${general.profItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 				</display:column>
 			</c:if>
 			<display:footer>
@@ -127,7 +127,7 @@
 					<a href="../item/${general.profItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 				</display:column>
 				<display:column title="&nbsp;" media="html">
-					<a href="../item/${general.profItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+					<a href="javascript:confirmDelete('../item/${general.profItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 				</display:column>
 			</c:if>
 			<display:footer>
@@ -148,6 +148,7 @@
 	<c:if test="${not profile.incomeGen}"><spring:message code="profile.step6.nongen"/></c:if>
 </tags:submit>
 </form:form>
+<tags:confirmDelete/>
 <tags:excelImport submitUrl="../../import/profile/general/${profile.profileId}"/>
 </body>
 </html>

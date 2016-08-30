@@ -128,7 +128,7 @@ function showYear(year) {
 								<a href="../item/${contrib.projItemId}"><img src="../../img/edit.png" title="<spring:message code="misc.viewEditItem"/>" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 							</display:column>
 							<display:column title="&nbsp;" media="html">
-								<a name="delItem" href="../item/${contrib.projItemId}/delete">
+								<a name="delItem" href="javascript:confirmDelete('../item/${contrib.projItemId}/delete');">
 									<img src="../../img/delete.gif" title="<spring:message code="misc.deleteItem"/>" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0">
 								</a>
 							</display:column>
@@ -179,7 +179,7 @@ function showYear(year) {
  	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step10"/></tags:submit>
 </form:form>
-
+<tags:confirmDelete/>
 <div id="confirmSimple" title='<spring:message code="misc.confirm"/>'>
 	<span class="ui-icon ui-icon-alert" style="display:inline-block"></span> <spring:message code="projectContribution.method.confirm"/> 
 </div>

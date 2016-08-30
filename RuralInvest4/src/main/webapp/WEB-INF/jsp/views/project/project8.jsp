@@ -92,5 +92,6 @@ function showYear(year) {
 <div id="confirmSimple" title='<spring:message code="misc.confirm"/>'>
 	<span class="ui-icon ui-icon-alert" style="display:inline-block"></span> <spring:message code="project.general.method.confirm"/> 
 </div>
+<tags:confirmDelete/>
 <tags:excelImport submitUrl="../../import/project/general/${project.projectId}"/>
 </body></html>
