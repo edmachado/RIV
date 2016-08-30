@@ -5,14 +5,10 @@ $(function() {
 	<c:if test="${profile.withWithout}">	$("#tabs").tabs();
 	 if(window.location.hash=='#without'){ $("#tabs").tabs("option", "active", 1);} 
 	</c:if>
-	$( document ).tooltip();
 });
 </script>
-<style>
-	#tabs ul { margin:0; }
-</style>
+<style>	#tabs ul { margin:0; }</style>
 </head>
-
 <body>
 <form:form name="form" method="post" commandName="profile">
 	<tags:errors />

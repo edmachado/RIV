@@ -1,23 +1,22 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <c:if test="${project.incomeGen}"><c:set var="blockType" value="projectBlock" /></c:if>
 <c:if test="${not project.incomeGen}"><c:set var="blockType" value="projectActivity" /></c:if>
-<html><head><title><c:if test="${project.incomeGen}"><spring:message code="project.step9"/></c:if><c:if test="${not project.incomeGen}"><spring:message code="project.step9.nongen"/></c:if></title>
-</head>
+<html>
+	<head>
+		<title><c:if test="${project.incomeGen}"><spring:message code="project.step9"/></c:if><c:if test="${not project.incomeGen}"><spring:message code="project.step9.nongen"/></c:if></title>
+		<c:if test="${project.withWithout}"><script>
+			$(function() { $("#tabs").tabs();
+				 if($("#tabs-without").find(window.location.hash).size()>0){ $("#tabs").tabs("option", "active", 1); } 
+			});
+		</script></c:if>
+		<style>
+			div.dataentry {margin-left:0;}
+			div.dataentry label { line-height:1em; }
+			#tabs ul { margin:0; }
+			div.dataentry { font-size:11px;}
+		</style>
+	</head>
 <body>
-<script>
-$(function() {
-	<c:if test="${project.withWithout}">	$("#tabs").tabs();
-	 if($("#tabs-without").find(window.location.hash).size()>0){
-		 $("#tabs").tabs("option", "active", 1);
-		} </c:if>
-});
-</script>
-<style>
-	div.dataentry {margin-left:0;}
-	div.dataentry label { line-height:1em; }
-	#tabs ul { margin:0; }
-	div.dataentry { font-size:11px;}
-</style>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
 	<span class="error"><form:errors field="incomes"/></span>

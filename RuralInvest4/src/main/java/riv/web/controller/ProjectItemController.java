@@ -206,21 +206,6 @@ public class ProjectItemController {
 			
 			dataService.storeProjectItem(projectItem);
 			
-//			if (allYears!=null) { // save nig project contribution to all years of project
-//				Project p = projectItem.getProject();
-//				ProjectItemContribution c2;
-//				for (int i=1; i<= p.getDuration();i++) {
-//					if (i!=((ProjectItemContribution)projectItem).getYear()) {
-//						c2 = (ProjectItemContribution)projectItem.copy();
-//						c2.setYear(i);
-//						c2.setOrderBy(p.getContributionsByYear().get(i).size());
-//						dataService.storeProjectItem(c2, false);
-//						p.addContribution(c2);
-//					}
-//				}
-//				dataService.storeProject(p, p.getWizardStep()==null);
-//			}
-			
 			return "redirect:"+successView(projectItem);
 		}
     }
@@ -294,7 +279,10 @@ public class ProjectItemController {
     }
     private String successView(ProjectItem pi) {
     	int projectId = pi.getProject().getProjectId();
-    	return "../step"+currentStep(pi)+"/"+projectId;
+    	String wo = (pi instanceof ProjectItemGeneralWithout || pi instanceof ProjectItemPersonnelWithout 
+    			|| pi instanceof ProjectItemAssetWithout || pi instanceof ProjectItemLabourWithout || pi instanceof ProjectItemServiceWithout)
+    			? "#wo" : "";
+    	return "../step"+currentStep(pi)+"/"+projectId+wo;
     }
     private String form(ProjectItem pi) {
     	String form;

@@ -2,6 +2,9 @@
 <html><head><title><spring:message code="project.step8"/></title>
 <script>
 $(function() {
+	<c:if test="${project.withWithout}">	$("#tabs").tabs();
+	 if(window.location.hash=='#wo'){ $("#tabs").tabs("option", "active", 1);} 
+	</c:if>
 	$('#yearByYear').buttonset();
 	$('#form input').on('change', function() {
 		   if($('input[name=simpleApproach]:checked', '#form').val()=='true') {
@@ -34,25 +37,21 @@ function showYear(year) {
 	$('#yearBox'+year).toggleClass('selected',true);
 }
 </script>
-
+<style>#tabs ul { margin:0; }</style>
 </head>
 <body>
 <form:form name="form" id="form" method="post" commandName="project">
-	<tags:errors />
+	<tags:errors/>
 	
 	<div align="left">
 	 	<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadTemplate" href="../../report/${project.projectId}/projectGeneralDetail.xlsx?template=true" target="_blank"><spring:message code="export.downloadTemplate"/></a><br/>
 		<img src="../../img/xls.gif" alt="Excel" title="Excel"/> <a id="downloadExcel" href="../../report/${project.projectId}/projectGeneralDetail.xlsx" target="_blank"><spring:message code="export.download"/></a><br/>
 	 	<c:if test="${accessOK}"><a id="importExcel" href="#"><img src="../../img/xls.gif" alt="Excel" title="Excel"/> <spring:message code="import.importExcel"/></a></c:if>
  	</div>
-	<c:set var="withTableTitle">
-		<c:if test="${project.withWithout}">projectGeneral.with</c:if>
-		<c:if test="${not project.withWithout}">projectGeneral</c:if>
-	</c:set>
 	
 	<br/>
-	<form:errors path="generals" cssClass="error" element="div" />
-	<form:errors path="personnels" cssClass="error" element="div" />
+<%-- 	<form:errors path="generals" cssClass="error" element="div" /> --%>
+<%-- 	<form:errors path="personnels" cssClass="error" element="div" /> --%>
 		
  	<c:if test="${accessOK}">
 	 	<div id="yearByYear" style="margin:10px 5px;">
@@ -67,26 +66,27 @@ function showYear(year) {
 	
 	
 	<br/>
-	<script>
-
-	</script>
 	
 	<c:if test="${project.perYearGeneralCosts}">
-		<tags:yearSelector end="${project.duration-1}"/>
+		<tags:yearSelector end="${project.duration-1}"/><br/>
 	</c:if>
 	
-	<tags:tableContainer titleKey="${withTableTitle}">
-		<tags:generalCosts costs="${generalsForTable}" type="projectGeneralSupplies" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
-		<tags:generalCosts costs="${personnelsForTable}" type="projectGeneralPersonnel" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
-	</tags:tableContainer>
-	
-	<c:if test="${project.withWithout}">
-		<tags:tableContainer titleKey="projectGeneral.without">
+	<div id="tabs">
+		<c:if test="${project.withWithout}"><ul>
+			<li><a href="#tabs-with"><spring:message code="projectBlock.with.with"/></a></li>
+			<li><a href="#tabs-without"><spring:message code="projectBlock.with.without"/></a></li>
+		</ul></c:if>
+		<div id="tabs-with">
+			<form:errors path="generals" cssClass="error" element="div" />
+			<tags:generalCosts costs="${generalsForTable}" type="projectGeneralSupplies" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
+			<form:errors path="personnels" cssClass="error" element="div" />
+			<tags:generalCosts costs="${personnelsForTable}" type="projectGeneralPersonnel" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
+		</div>
+		<c:if test="${project.withWithout}"><div id="tabs-without"><a name="wo" id="wo"></a>
 			<tags:generalCosts costs="${generalsWoForTable}" type="projectGeneralSupplies" without="true" duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
 			<tags:generalCosts costs="${personnelsWoForTable}" type="projectGeneralPersonnel" without="true"  duration="${project.duration}" perYear="${project.perYearGeneralCosts}" />
-		</tags:tableContainer>
-	</c:if>
-
+		</div></c:if>
+	</div>
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step9"/></tags:submit>
 </form:form>
 <div id="confirmSimple" title='<spring:message code="misc.confirm"/>'>

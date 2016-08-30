@@ -152,9 +152,10 @@ public class ProfileItemController {
     }
     
     private String successView(ProfileItem pi) {
-    	int step= (pi.getClass().isAssignableFrom(ProfileItemGeneral.class) || pi.getClass().isAssignableFrom(ProfileItemGeneralWithout.class))?5:4;
+    	int step= pi instanceof ProfileItemGeneral || pi instanceof ProfileItemGeneralWithout ? 5 : 4;
     	int profileId = pi.getProfile().getProfileId();
-    	String wo = pi.getClass().isAssignableFrom(ProfileItemGoodWithout.class) || pi.getClass().isAssignableFrom(ProfileItemLabourWithout.class) || pi.getClass().isAssignableFrom(ProfileItemGeneralWithout.class) ? "#without" : "";
+    	String wo = pi instanceof ProfileItemGoodWithout || pi instanceof ProfileItemLabourWithout || pi instanceof ProfileItemGeneralWithout
+    			? "#without" : "";
     	return "../step"+step+"/"+profileId+wo;
     }
     
