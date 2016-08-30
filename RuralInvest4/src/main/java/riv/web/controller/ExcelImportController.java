@@ -187,8 +187,7 @@ public class ExcelImportController {
 			donorsByOrder.put(desc, d.getOrderBy());
 		}
 	
-		int colWithFormula = p.isPerYearContributions()?3+2*p.getDuration():5;
-		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, colWithFormula, validator)
+		XlsImportTable<ProjectItemContribution> table = new XlsImportTable<ProjectItemContribution>(ProjectItemContribution.class, 0, 5, validator)
 				.addColumn(0, "description", false)
 				.addSelectColumn(1, "donorOrderBy", donorsByOrder)
 				.addColumn(2, "unitType", false)
@@ -211,7 +210,7 @@ public class ExcelImportController {
 		validator.setIncomeGen(false);
 		validator.setDuration(p.getDuration());
 	
-		XlsImportTable<ProjectItemNongenMaterials> tableMaterials = new XlsImportTable<ProjectItemNongenMaterials>(ProjectItemNongenMaterials.class, rowNum, 6, validator)
+		XlsImportTable<ProjectItemNongenMaterials> tableMaterials = new XlsImportTable<ProjectItemNongenMaterials>(ProjectItemNongenMaterials.class, rowNum, 4, validator)
 				.addColumn(0, "description", false)
 				.addColumn(1, "unitType", false)
 				.addColumn(2, "unitNum", true)
@@ -220,7 +219,7 @@ public class ExcelImportController {
 		List<ProjectItemNongenMaterials> materials = tableMaterials.readTable(sheet, messageSource);
 		rowNum = materials.size()+6;
 		
-		XlsImportTable<ProjectItemNongenLabour> tableLabour = new XlsImportTable<ProjectItemNongenLabour>(ProjectItemNongenLabour.class, rowNum, 6, validator)
+		XlsImportTable<ProjectItemNongenLabour> tableLabour = new XlsImportTable<ProjectItemNongenLabour>(ProjectItemNongenLabour.class, rowNum, 4, validator)
 				.addColumn(0, "description", false)
 				.addSelectColumn(1, "unitType", labourTypes())
 				.addColumn(2, "unitNum", true)
@@ -229,7 +228,7 @@ public class ExcelImportController {
 		List<ProjectItemNongenLabour> labours = tableLabour.readTable(sheet, messageSource);
 		rowNum = rowNum+labours.size()+3;
 		
-		XlsImportTable<ProjectItemNongenMaintenance> tableMaintenance = new XlsImportTable<ProjectItemNongenMaintenance>(ProjectItemNongenMaintenance.class, rowNum, 6, validator)
+		XlsImportTable<ProjectItemNongenMaintenance> tableMaintenance = new XlsImportTable<ProjectItemNongenMaintenance>(ProjectItemNongenMaintenance.class, rowNum, 4, validator)
 				.addColumn(0, "description", false)
 				.addColumn(1, "unitType", false)
 				.addColumn(2, "unitNum", true)
@@ -596,7 +595,7 @@ public class ExcelImportController {
 					.addColumn(5, "ownResource", true)
 					.addColumn(7, "econLife", true)
 					.addColumn(8, "salvage", true);
-			
+			tableGoodWo.setRequired(false);
 			goodsWo = tableGoodWo.readTable(sheet, messageSource);
 			
 			rowNum = goodsWo.size()+6;
@@ -608,6 +607,7 @@ public class ExcelImportController {
 					.addColumn(2,"unitNum", true)
 					.addColumn(3, "unitCost", true)
 					.addColumn(5, "ownResource", true);
+			labourWoTable.setRequired(false);
 			laboursWo = labourWoTable.readTable(sheet, messageSource);
 		}
 		
