@@ -43,7 +43,7 @@
 							<a href="../refItem/${item.refItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../refItem/${item.refItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../refItem/${item.refItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 			 	</display:table>
@@ -88,7 +88,7 @@
 							<a href="../refItem/${cost.refItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../refItem/${cost.refItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../refItem/${cost.refItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 				</display:table>
@@ -140,7 +140,7 @@
 							<a href="../refItem/${item.refItemId}"><img src="../../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 						<display:column title="&nbsp;" media="html">
-							<a href="../refItem/${item.refItemId}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
+							<a href="javascript:confirmDelete('../refItem/${item.refItemId}/delete');"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 						</display:column>
 					</c:if>
 				</display:table>
@@ -153,4 +153,5 @@
 	<c:set var="nextStep"><c:if test="${project.incomeGen}">project.step11</c:if><c:if test="${not project.incomeGen}">project.step12</c:if></c:set>
 	<tags:submit>&raquo;&nbsp;<spring:message code="misc.goto"/> <spring:message code="${nextStep}"/></tags:submit>
 </form:form>
+<tags:confirmDelete/>
 </body></html>
