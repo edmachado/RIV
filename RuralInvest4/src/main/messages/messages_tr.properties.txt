@@ -1,6 +1,454 @@
-# RIV4.2
-project.donor.statePublic=Kamu/devlet kaynakları
+## RIV 4.3 - phase 2
+admin.page=Yönetici İşlevleri
+admin.download=Yedek İndir
+admin.download.desc=RuralInvest yapılandırmalarınızı ve tüm proje ve profillerinizi tek paket halinde indirin..
+admin.download.prepare=Yedek dosyası hazırlanıyor, lütfen bekleyiniz...
+admin.download.error=RuralInvest yedek dosyası hazırlanırken bir sorun oluştu.
+admin.restore=Yedekten geri yükle
+admin.restore.desc=Yapılandırmayı, proje ve profilleri yedekten geri yükle. (Geçerli olan yapılandırma, proje ve profiller kaybedilecektir.)
 
+## RIV 4.3 - phase 1
+project.donor.noDelete=Eğer projeye bir donörden bağış ya da katkı var ise, o donör silinemez.
+
+project.general.method.simplified=Sadeleştirilmiş
+project.general.method.simplified.help="Sadeleştirilmiş Yaklaşım" ile, genel maliyetler projenin her yılı için aynıdır.
+project.general.method.perYear=Yıl başına
+project.general.method.perYear.help="Yıl Başına Yaklaşımı" ile genel maliyetler projenin her yılı için farklı olabilir.
+project.general.method.confirm=Tüm Genel Maliyetleri projenin Yıl 1'den başlayarak tüm yıllar için uygulamak üzeresiniz. Diğer yılların ayrıntıları kaybedilecektir. Devam etmek istiyor musunuz?
+
+error.perYearCost.fieldRequired=Yıl {0}, {1}: Bu gerekli bir alandır.
+error.perYearCost.requiredNonNegative=Yıl {0}, {1}: Bu alan negatif değer olamaz.
+
+mainMenu.inProgress=İşlem sürüyor
+mainMenu.help.terms=Finansal terim başvuruları
+
+# "Completed" as in "projects or profiles that have been completed", rather than "In progress"
+mainMenu.showAll=Tamamlandı
+home.showAll=Tamamlandı
+
+## RIV 4.2.12
+project.report.blockDetail.cashTotal=Toplam Nakit
+project.report.profitability.incomes.sales=Satışlar ve dahili kullanım
+import.excel.error.noTable=Gerekli tablonun {0} satırı eksik ya da doğru biçimde değildir. Dosyanın doğru RuralInvest Excel şablonunu kullandığından emin olunuz.
+
+## RIV 4.2.5
+error.graceInterestGreaterThanCapital=Faiz için ödemesiz dönem, ana para için ödemesiz dönemden uzun olamaz.
+misc.noDeleteGeneric=Genel kategoriler silinemez
+misc.noDeleteCategory=Bu madde silinemez, şu an bir profil ya da proje tarafından atıfta bulunulmaktadır.
+export.search=Arama sonuçlarını dışa aktar
+import.excel.error.noData=Hücre {0} için veri beklenmektedir. Lütfen veriyi düzeltip, tekrar deneyiniz.
+import.excel.error.selectList=Hücre {0}: Seçim menüsündeki veri geçersizdir. Lütfen veriyi düzeltip, tekrar deneyiniz.
+
+import.excel.error.datatype=Hücre {0}: Sayısal veri alanına metin, ya da tam tersi giriş yapılmıştır. Lütfen veriyi düzeltip, tekrar deneyiniz.
+
+
+## RIV4.2
+project.report.profitability.footnote=Ana yatırım (yıl 1) işlemler başlamadan bir yıl önce (yıl 0) gerçekleştiği varsayımı altında, net gelir akışı İKO ve NBD tahmin etmek için düzenlenmiştir.
+
+project.donors=Donörler
+project.donors.help=Bu projede yatırım veya işletme kalemlerine genel ya da belirli maliyetler için katkı sağlayan donörler veya kuruluşlar.
+project.donor.notSpecified=Belirtilmemiş
+project.donor.statePublic=Kamu/devlet kaynakları
+project.donor.description=Donör
+project.donor.description.help=Bir projeye, genel ya da bağımsız maliyet kalemleri için bağış ya da katkı sağlayan kurum veya kuruluş.
+project.donor.type=Donör Tipi
+project.donor.type.help=Bu projeye bağış veya katkı sağlayan kurum ya da kuruluş tipidir.
+
+projectNongenInput.donated=Bağışlanan Kaynaklar
+projectNongenInput.donated.help=Bu kalem için maliyetin bir parçası bağışlanılan kaynaklar tarafından karşılanmak isteniyorsa (nakit ya da benzeri) parasal değer karşılığını bu kısımda belirtiniz.
+projectNongenLabour.donated=Bağışlanan Kaynaklar
+projectNongenLabour.donated.help=Bu kalem için maliyetin bir parçası bağışlanılan kaynaklar tarafından karşılanmak isteniyorsa (nakit ya da benzeri) parasal değer karşılığını bu kısımda belirtiniz.
+projectNongenGeneral.donated=Bağışlanan Kaynaklar
+projectNongenGeneral.donated.help=Bu kalem için maliyetin bir parçası bağışlanılan kaynaklar tarafından karşılanmak isteniyorsa (nakit ya da benzeri) parasal değer karşılığını bu kısımda belirtiniz.
+
+error.moreDetails=Daha fazla ayrıntı...
+projectBlockIncome.unitNum.nocycle.help=Üretim birimi başına satış birimi sayısını belirtiniz (kayıp ve kusurlular hariç).
+projectBlockInput.unitNum.nocycle.help=Üretim birimi veya faaliyet başına kullanılan ürün birim sayısını belirtiniz.
+projectBlockLabour.unitNum.nocycle.help=Her üretim birimi veya faaliyet başına kullanılan iş gücü birimi sayısını belirtiniz.
+
+projectBlockInput.donated=Toplam bağışlanan kaynaklar
+projectBlockInput.donated.help=Bu kalem için maliyetin bir parçası bağışlanılan kaynaklar tarafından karşılanmak isteniyorsa (nakit ya da benzeri) parasal değer karşılığını bu kısımda belirtiniz.
+projectBlockLabour.donated=Toplam bağışlanan kaynaklar
+projectBlockLabour.donated.help=Bu kalem için maliyetin bir parçası bağışlanılan kaynaklar tarafından karşılanmak isteniyorsa (nakit ya da benzeri) parasal değer karşılığını bu kısımda belirtiniz.
+
+profile.report.blockDetail.totals=Toplamlar
+project.report.blockDetail.totals=Toplamlar
+project.report.cashFlow.income.investWithout=Finanse edilen yatırımlar
+project.report.cashFlow.profit=Kar
+project.incremental=(incr)
+
+units.perUnitActivityNoCycle=faaliyet birimi başına
+units.perUnitNoCycle=üretim birimi başına
+
+project.report.contributionSummary.general=Genel Maliyetler
+project.report.contributionSummary.operation=İşletme Maliyetleri
+project.report.contributionSummary.contributions=Katkılar
+project.report.contributionSummary.total=Toplam
+
+#translator:the following items cannot be more than 31 characters, and must be different from each other
+project.report.cashFlow.with.sheetname=Nakit akışı (with)
+project.report.cashFlow.without.sheetname=Nakit akışı (without)
+project.report.profitability.with.sheetname=Karlılık (with)
+project.report.profitability.without.sheetname=Karlılık (without)
+project.report.profitability.incremental.sheetname=Karlılık (incr)
+project.report.cashFlowFirst.with.sheetname=Nakit Akışı yıl 1 (with)
+project.report.cashFlowFirst.without.sheetname=Nakit Akışı yıl 1 (without)
+profile.report.preliminary.with.sheetname=Analizler (with)
+profile.report.preliminary.without.sheetname=Analizler (w.out)
+profile.report.preliminary.incremental.sheetname=Analizler (incr)
+
+#changed from previous version
+project.report.contributionSummary=Bağış özeti
+project.step2=Faydalanıcılar ve donörler
+project.report.summary.block=With-proje işletme gelirleri ve maliyetleri özeti
+error.pleaseCorrect=Lütfen verilerinizi kontrol edip, kırmızı alandaki belirtilenleri düzeltiniz.
+error.unknown=Aksaklıktan dolayı özür dileriz.
+error.maxLength=Bu alan {1} karakterden daha uzun olamaz.
+error.max=Bu alan {1} 'dan/den büyük olamaz.
+error.requiredNonNegative=Bu alan negatif olamaz.
+error.fieldRequired=Bu gerekli bir alandır.
+error.positiveNumber=Bu alan 0 dan büyük olmak zorundadır.
+typeMismatch.java.lang.Double=Bu alan gerekli ve sayısal olmak zorundadır.
+typeMismatch.java.lang.Integer=Bu alan gerekli ve bir tamsayı olmak zorundadır.
+typeMismatch.java.math.BigDecimal=Bu alan gerekli ve sayısal olmak zorundadır.
+typeMismatch.java.util.Date=Bu alan geçerli bir tarih biçiminde değildir. (gg/aa/yyyy).
+settings.export=Geçerli RuralInvest yapılandırmasını dışa aktar
+
+### RIV4.1
+project.quickAnalysis=Hızlı analiz (nitel analiz değildir)
+projectBlock.cloneWith=Bloğu "With proje" olarak kopyala
+projectBlock.cloneWithout=Bloğu "Without proje" olarak kopyala
+project.report.cashFlowNongen.accumulated=Birikimli denge
+import.excel.error.noWithout=Üzerinde çalışmakta olduğunuz proje "without proje" senaryosunu içerir, fakat içe aktarmaya çalıştığınız Excel dosyasında "without proje" sayfası bulunmamaktadır. Lütfen doğru Excel şablonunu kullandığınızdan emin olunuz - bu sayfadaki "Excel Şablonu İndir" bağlantısına bakınız.
+
+profile.withWithout.remove=Bu proje için "with" ve "without proje" seçeneklerini kullanmamayı seçiyorsunuz. Şu anda "without proje" olan seçenekler "with proje" seçeneği ile değiştirilecektir. Tüm "without proje" yatırım maliyetleri ve genel maliyetler çıkartılacaktır.
+
+projectContribution.contributor.help=Katkı sağlayan kurum (STK, birlik, resmi kuruluş)
+projectContribution.yearlyFlow.help=Gelir eksi her yıl için proje maliyetleri.
+
+project.workingCapital.how=İlk yılın işletme sermayesi nasıl hesaplanır?
+project.workingCapital.explain=İlk yıl için işletme sermayesi, ilk yılın aylık birikimli nakit akışı ile belirlenir. 
+project.amtRequired.explain=En büyük negatif değer
+
+project.report.wcCalculation=İşletme sermayesi hesaplama
+project.report.summaryTables=Özet tablolar
+project.report.summary.income=Gelir
+project.report.summary.costs=Maliyetler
+project.report.summary.total=Toplam net gelir
+project.report.summary.cumulative=Birikimli Toplam net gelir
+project.report.summary.cashFlow.total=Toplam net gelir
+project.report.summary.cashFlow.cumulative=Birikimli Toplam net gelir
+project.report.summaryTables.info=Ayrıntılı bilgi için bakınız,
+project.report.summary.block.all=Tüm Bloklar
+project.report.summary.block.all.nongen=Tüm Faaliyetler
+
+about.version=Sürüm
+project.recommendation.review=Ayrıntılı yorum gerekmektedir
+
+units.year=Yıl
+misc.confirm=Onayla
+projectContribution.yearlyFlow=Yıllık net denge (sürmekte olan katkılar dahil):
+projectContribution.contribType.beneficiary=Faydalanıcılar
+projectContribution.method.simplified=Sadeleştirilmiş
+projectContribution.method.simplified.help="Sadeleştirilmiş Yaklaşım" ile, katkılar proje süresince projenin her yılı için aynıdır.
+projectContribution.method.perYear=Yıl Başına
+projectContribution.method.perYear.help="Yıl Başına Yaklaşımı", katkılar proje süresince projenin her yılı için farklı olabilir.
+projectContribution.method.confirm=Katkıları projenin Yıl 1'den başlayarak her yıl için proje süresince uygulamak üzeresiniz. Diğer yılların ayrıntıları kaybedilecektir. Devam etmek istiyor musunuz?
+projectContribution.contributor=Bağışçı
+
+projectBlock.usesCycles=Bu blok döngüler içermektedir.
+projectBlock.usesCycles.help=Bu blok döngüler kullanmaktadır , başlıca tarımsal örneğin (ton/ha, litre/yıl, vb.)
+projectBlock.pattern.noCycles.help=Analiz edilen proje süresi boyunca üretim birimleri sayısını belirtiniz. Birim sayıları (hektar, hasta, birlik) genellikle bir döngüden bir sonraki döngüye aynı kalmayabilir.
+projectBlock.pattern.noCycles.qty=Üretim birimleri sayısı
+projectActivity.pattern.noCycles.help=Eğer faaliyet birimlerinin sayıları zaman içinde değişecek ise, analiz edilen proje süresi boyunca birim sayılarını belirtiniz (Örneğin bir okulda, birim öğrenci olursa, öğrencilerin sayısının zamanla artması bekleniyor olabilir).
+projectActivity.pattern.noCycles.qty=Faaliyet birimleri sayısı
+project.report.blockDetail.totalPerUnitNoCycle=Birim Başına Toplamlar
+
+project.recommendation.seeReports=Değerlendirme ve tavsiye için kullanılan özetler ve raporlar için, bakınız
+
+project.amtRequired.help=Gereken işletme sermayesinin tutarı, gelir yeterli olana kadar tüm işletme maliyetlerini karşılayacak tutardır. RuralInvest tarafından otomatik olarak tahmin edilir.
+project.period.help=Maliyetlerin geliri aştığı ayların sayısı artı iki ay (bir yılı aşmayan).
+profile.report.title=Raporlar
+
+### RIV4.0
+
+project.report.profitability.totalMinusInvest.before=İlk yıl yatırımı yıl 0’da yapıldığı varsayımı ile bağıştan önceki net gelir.
+project.report.profitability.totalMinusInvest.after=İlk yıl yatırımı yıl 0’da yapıldığı varsayımı ile bağıştan sonraki net gelir.
+
+project.report.cashFlow.income.total=Toplam gelir
+project.report.cashFlow.costs.total=Toplam masraflar
+project.report.cashFlow.income.wcDonation=İşletme sermayesi bağışlar
+project.report.cashFlow.income.wcOwn=İşletme sermayesi öz kaynaklar
+
+###
+project.report.cashFlow.income.main=Temel gelir
+project.report.cashFlow.income.finance=Finansman kaynakları
+project.report.cashFlow.income.invest=Yatırım için bağışlar
+project.report.cashFlow.income.own=Yatırım için öz kaynaklar
+project.report.cashFlow.income.loans=Yatırım için krediler
+project.report.cashFlow.income.loanwc=İşletme sermayesi için krediler
+
+project.report.cashFlow.costs=Masraflar
+project.report.cashFlow.costs.invest=Yatırım maliyetleri
+project.report.cashFlow.costs.initial=İlk yatırım
+project.report.cashFlow.costs.recurrent=Yinelenen maliyetler
+project.report.cashFlow.wcCapital=İşletme sermayesi - sermaye
+
+profile.report.summary.sheetname=Özet
+profile.report.general.sheetname=Genel maliyetler
+profile.report.costDetail.with.sheetname=Genel maliyetler (w.out)
+profile.report.costDetail.without.sheetname=Genel maliyetler (with)
+profile.report.investDetail.sheetname=Yatırım maliyetleri
+profile.report.investDetail.with.sheetname=Yatırım maliyetleri (with)
+profile.report.investDetail.without.sheetname=Yatırım maliyetleri (w.out)
+profile.report.productDetail.sheetname=Ürünler
+profile.report.productDetail.with.sheetname=Ürünler (with)
+profile.report.productDetail.without.sheetname=Ürünler (w.out)
+profile.report.preliminary.sheetname=Analizler
+profile.report.benefits.sheetname=Faydalar
+project.report.recommendation.sheetname=Tavsiyeler
+profile.report.results.sheetname=Profiller
+
+project.report.summary.sheetname=Özet
+project.report.general.sheetname=Açıklama
+project.report.generalCostsDetail.sheetname=Genel maliyetler
+project.report.generalCostsDetail.with.sheetname=Genel maliyetler (with)
+project.report.generalCostsDetail.without.sheetname=Genel maliyetler (w.out)
+project.report.investDetail.sheetname=Yatırım maliyetleri
+project.report.investDetail.with.sheetname=Yatırım maliyetleri (with)
+project.report.investDetail.without.sheetname=Yatırım maliyetleri (w.out)
+project.report.chronology.sheetname=Kronoloji
+project.report.production.sheetname=Üretim deseni
+project.report.production.nonGen.sheetname=Faaliyet deseni
+project.report.blockDetail.sheetname=Bloklar
+project.report.blockDetail.with.sheetname=Bloklar (with)
+project.report.blockDetail.without.sheetname=Bloklar (w.out)
+project.report.activityDetail.sheetname=Faaliyetler
+project.report.parameters.sheetname=Parametreler
+project.report.cashFlowFirst.sheetname=Nakit Akışı 1. yıl
+project.report.cashFlow.sheetname=Nakit Akışı
+project.report.profitability.sheetname=Karlılık
+project.report.contributions.sheetname=Katkılar
+project.report.results.sheetname=Projeler
+project.report.cashFlowNongen.sheetname=Sürdürülebilirlik
+
+error.logo=Lütfen kuruluşunuza ait bir logo ekleyin.
+error.import.profile=Profil kaydedilirken bir hata oluştu.
+import.excel.file=Dosya seçiniz
+import.excel.instruction=<p>RuralInvest içerisine bir Excel tablosundan doğrudan veri aktarılabilir. Sadece doğru biçimlendirilmiş Excel tablolarına uygulanabilir.</p><p>Uygun biçimlendirme için, "iptal" seçiniz ve sonra <ol><li> boş Excel şablonunu, ya da </li><li>mevcut verilerin olduğu Excel dosyasını indiriniz.</li></ol></p><p>Mevcut tablolardaki öğeler içe aktardığınız verilerle değiştirilir.</p>
+import.excel.fail=İçe aktarma başarısız oldu.
+import.excel.error=Hata satırı {0}. 
+import.excel.read=İçe aktarılan Excel dosyası açılamadı. Dosyanın çalışır durumda xlsx uzantılı doğru RuralInvest Excel şablonu olduğundan emin olunuz.
+import.generic.info=Bu proje profili USD kuruna çevrilmiştir ve sizin RuralInvest yazılımına yüklediğiniz kura dönüşüm yapacaktır.
+import.generic.confirm=Lütfen USD döviz kurunu onaylayın:
+project.report.cashFlow.loanRecieved=Alınan Kredi(ler)
+project.report.cashFlow.invest=Yatırım
+project.report.cashFlow.loan1.total=Birinci toplam ödeme
+project.report.cashFlow.loan1.capitalDuringGrace=Yatırım için ödemesiz süreçte birinci başlangıç sermaye
+project.report.cashFlow.loan1.interestDuringGrace=Yatırım için ödemesiz süreçte Birinci yatırım
+project.report.cashFlow.loan1.interestDuringGraceCapital=Sermaye için ödemesiz süreçte birincil yatırım
+project.report.cashFlow.loan2.total=İkincil toplam ödeme
+project.report.cashFlow.loan2.capitalDuringGrace=Yatırım için ödemesiz süreçte ikincil başlangıç sermaye
+project.report.cashFlow.loan2.interestDuringGrace=Yatırım için ödemesiz süreçte ikincil yatırım 
+project.report.cashFlow.loan2.interestDuringGraceCapital=Sermaye için ödemesiz süreçte ikincil yatırım
+
+project.report.cashFlow.financing=Finansman ödemeleri
+
+
+
+
+
+attach.fileExists=Halihazırda aynı isimde bir dosya bulunmakta.
+attach.free=Boş alan
+attach.new=Yeni dosya ekle
+attach.newProfile=Bu bölümde 1. adım kaydedildikten sonra.bu profile harici bir dosya ekleyebilirsiniz.
+attach.newProject=Bu bölümde 1. adım kaydedildikten sonra.bu projeye harici bir dosya ekleyebilirsiniz.
+attach.noSpace=Dosyanın boyutu bu profil veya proje için kullanılabilir alanı aşıyor..
+attach.used=Kullanılan alan
+attach=Ekli dosyalar
+beneficiary.delete.warn=Faydalanıcı alanını silmek RuralInvest sürümünü diğerleri ile uyumsuz hale getirebilir. Bu faydalanıcıyı kullanan proje veya profilleri içe aktaramaz ve dışa aktardığınız bu ayarları faydalanıcıya sahip başka bilgisayarlara aktarmak mümkün olmayacaktır. Lütfen bu fonksiyonu sadece hata kontrol ederken ilk kez yapılandırma ayarlarını kurduğunuz zaman, bu ayarları ya da herhangi bir profili veya projeyi başka bilgisayarlara aktarmadan önce kullanınız. Devam etmek istiyor musunuz?
+beneficiary.delete=Yararlanıcıyı sil
+beneficiary.editBenef=Yararlanıcıyı düzenle
+error.activityNoTable=Faaliyet "{0}": Tablo "{1}" boş olamaz.
+error.block.cyclesPerFirstYear=Toplam döngülerin sayısı (ilk yıl) bir yılı aşamaz.
+error.block.cyclesPerFirstYearIncome=Toplam ödeme döngülerinin sayısı (ilk yıl) bir yılı aşamaz.
+error.block.cyclesPerYear=Toplam döngülerin sayısı bir yılı aşamaz.
+error.blockNoTable=Blok "{0}": Tablo "{1}" boş olamaz
+error.durationExceeds=Süre, yazılım yapılandırmasında bulunan maksimum süre ayarını aşıyor.
+error.import.incompatibleSettings=İçe aktardığınız ayarlar mevcut yapılandırma ile uyumlu değildir.
+error.import.logoTooBig=Bir görüntü için maksimum boyut 70 kb dır.
+error.import.noBeneficiary=Pproje yapılandırmanın parçası olmayan bir faydalanıcı içermektedir. Sadece benzer yapılandırmaya sahip projeler içe aktarılabilir.
+error.import.noCategory=Proje yapılandırmanın bir parçası olmayan bir kategori içermektedir. Sadece benzer yapılandırmaya sahip projeler içe aktarılabilir.
+error.import.noFieldOffice=Proje ya da profil yapılandırmanın bir parçası olmayan bir saha ofisi içermektedir. Sadece benzer yapılandırmaya sahip projeler içe aktarılabilir.
+error.import.notARivFile=Bu dosya RuralInvest tarafından oluşturulmuş bir .riv dosyası değildir.
+error.import.notImage=Logo , jpg veya gif . görüntü formatında olmalı
+error.import.wrongType=Bir projeyi profil olarak ya da tam tersi şekilde içe aktarmaya çalışıyor olabilirsiniz.
+error.loanTooLong=Kredi projenin bitiş tarihini aşamaz.
+error.maxLoanLength=Kredinin süresi maksimum proje süresinden daha uzun olamaz.
+error.noChronology=Lütfen üretim kronolojisini belirtiniz.
+error.noProfileActivity=Profil en az bir faaliyet içermelidir.
+error.noProfileProduct=Profil en az bir ürün içermelidir.
+error.noProjectActivity=Proje en az bir faaliyet içermelidir.
+error.noProjectBlock=Proje en az bir blok içermelidir.
+error.productNoTable=Ürün "{0}": Tablo "{1}" boş olamaz.
+error.tableEmpty="{0}": Bu tablo boş olamaz.
+error.tableMissingData="{0}": Bu tabloda gerekli alanlar eksiktir. Bunun sebebi, verilerin önceki RuralInvest sürümlerinden içe aktarılmış olabilir.
+error.unknown.log=Problemi tanılamak için takip eden dosyayı sağlayınız:
+export.download=Verileri Dışa Aktar
+export.downloadTemplate=Excel şablonunu indir
+faq.3.a=Tasarlama ve değerlendirme süreçleri için gerekecek derinlik ve detay seviyesi projenin karmaşıklığına ve kapsamına bağlıdır. Teknik analizci, başvuranlara ve yerel teknisyenlere aşağıda listelenen görevlerden bazılarına ya da hepsinin sağlanmasında destek sağlar: talep ve faydaların belirlenmesi; tekliflerin teknik fizibilite ve ölçek değerlendirilmesi; finansal ve çevresel açıdan sürdürülebilirlik; yatırım ve sonrasında gelen faaliyetlerin detaylı maliyetlerinin belirlenmesi; uygun yönetim ve idari yapının seçilmesi ve tanımlanması;  kaynakların ve finansman maliyetlerinin tahmini. Tasarlama ve değerlendirme süreci bilgisayar kullanımını gerektirir. Teklifin tamamen ihtiyaçları yansıttığından emin olunması için sorumlu teknisyen ile başvuran(lar) arasındaki iletişimin muhafaza edilmesi esastır.Ayrıca, detaylı tasarlama yatırım yönlerini açığa çıkartarak başvuranların planlarını gözden geçirmelerini gerektirebilir (örneğin, yılın kilit dönemleri için işgücündeki rekabet ya da yüksek bakım giderleri).
+faq.3.q=Detaylı proje nedir?
+faq.4.a=Gelir sağlayan projeler kategorisi geniş bir muhtemel faaliyetleri kapsar: tarımsal  üretim, su ürünleri yetiştiriciliği, köy dükkanları, sulama, tarıma dayalı sanayi, el sanatları, turizm, ulaşım, basit makine ve yedek parça imalatı ve pazarlama hizmetleri. Aslında bir proje buradaki birden fazla alanda yatırım gerektirebilir ve sıkça aynı yatırımdan birden fazla üretici faaliyet içerebilir. (örneğin, sulama yatırımının bir sonucu olarak farklı bitki ürünleri yetiştiriciliği)
+faq.4.q=Gelir sağlayan proje nedir?
+faq.5.a=Gelir sağlamayan projeler kategorisi geniş bir faaliyet alanı içerir ve üç farklı alt gruba ayrılabilir:(1) üretim desteği, yol ve köprülere ulaşım, elektriklendirme ve iletişim, yanı sıra temel sulama altyapısı; (2) eğitim ve sağlık hizmetleri gibi sosyal projeler, kanalizasyon ve içme suyu temini ve topluluk örgütlerine destek sağlanması; (3) havza ve yamaç koruma gibi çevresel projeler, ağaçlandırma ve toprak koruma.
+faq.5.q=Gelir sağlamayan proje nedir?
+faq.6.a=Yatırım herhangi bir projenin kalbidir. Aslında proje, gelecekte fayda sağlamak için bu günden yatırım yapılan faaliyetler olarak tanımlanabilir. Yatırım bir tür harcamadır fakat yatırımın etki süresine göre ayırt edilebilir. Eğer bir yıldan daha uzun sürmez ise, bu yatırım olarak düşünülemez ve bunun yerine işletme maliyeti olarak kabul görmelidir.
+faq.6.q=Yatırım maliyeti nedir?
+faq.7.a=Yatırımlar projenin karşı karşıya geldiği tek maliyet değildir. Proje yürümeye başladığı zaman, her yıl (veya daha sık) karşılanması gereken maliyetler vardır. Yatırım olmayan maliyetler ise, yineleme maliyetleri olarak açıklanır ve yıldan yıla ortaya çıkar. Bu kavram iki ayrı kategori ile ilgilidir: üretim maliyetleri ve genel harcamalar.
+faq.7.q=Yineleme maliyetleri nelerdir?
+fieldOffice.delete.warn=Bir saha ofisini silmek RuralInvest sürümünü diğerleri ile uyumsuz hale getirebilir. Bu sahsa ofisini kullanan proje veya profilleri içe aktaramaz ve dışa aktardığınız bu ayarları saha ofisine sahip başka bilgisayarlara aktarmak mümkün olmayacaktır. Lütfen bu fonksiyonu sadece hata kontrol ederken ilk kez yapılandırma ayarlarını kurduğunuz zaman, bu ayarları ya da herhangi bir profili veya projeyi başka bilgisayarlara aktarmadan önce kullanınız. Devam etmek istiyor musunuz?
+fieldOffice.editOffice=Saha ofisini düzenle
+home.help.faq.info=Sıkça sorulan sorulara bakınız.
+home.help.faq=Sorular?
+home.help.help=RuralInvest içerisindeki çoğu terim yardım metninde derinlemesine açıklanmıştır. Terim isminin üzerine tıklayınız, buna benzer bir mesaj kutusu açılacaktır.  Mesaj, işaretçiyi mesaj metni üzerinden uzaklaştırınca kaybolacaktır.
+home.help=Yardım metnine göz atın!
+import.config=Yapılandırma verilerini içe aktar
+import.importExcel=Excel den içe aktar
+logon=Oturum aç
+manual.guide=Yazılım Kullanım Kılavuzu
+manual.mod2.formats=Modül 2 Formatları
+misc.average=Ortalama
+misc.faoInAction=FAO Faaliyetleri
+misc.noItems=Hiçbir öğe bulunamadı
+misc.report.currency=Tüm kur değerleri:
+misc.report.page=Sayfa
+misc.sum=Toplam
+misc.undefined=Tanımlanmamış
+profile.clone.help=Klonlama, sonrasında değiştirilmek üzere ayrı ama benzer bir proje oluşturmak için profilin kopyalanmasına müsaade eder. Benzer bir profil olduğu durumlarda kullanıcıları çok sayıdaki aynı bilginin tekrar girilmesinden kurtarır.
+profile.enviroImpact=Çevresel etki
+profile.reccDate=Tavsiye tarihi
+profile.report.results.IG=Arama Sonuçları: Gelir sağlayan profiller($)
+profile.report.results.NIG=Arama Sonuçları: Gelir sağlamayan profiller (:)
+profile.report.results.total=Tüm profiller:
+profile.step1.6.help=Profile harici dosyaları (harita, destek dokümanlar, vb.) burada ekleyebilirsiniz, profil başına maksimum 3 Mb.
+profile.step1.6=Ekli dosyalar
+profile.step7=Referans Ögeler
+profile.withWithoutMessage=Bu profil  "with" ve "without" projesi ürünleri ayrımı yapmakta mıdır?
+profileActivity.clone=Bu faaliyeti kopyala
+profileProduct.clone=Bu ürünü kopyala
+profileProduct.cycle”PerYear=Döngüler
+profileProduct.unitNum=Birim sayıları
+profileProduct.with.description.help=Ürün mevcut bir faaliyet ile ilişkili ise (without ve with profil) ya da tamamen yeni ise (with profil), seçiniz. Bu gelir ve maliyetlerin,  mevcut maliyet ve gelire ek (veya artan) olup olmayacağını etkiler.
+profileProduct.with.description=Ürün tipi
+profileProduct.with.with=With proje
+profileProduct.with.without=Without proje
+project.annualEmployment.help=Proje faaliyetleri öngörülen ölçeğe ulaştığı zaman yıllık istihdam için tahmin edilen rakam (kişi/yıl ifade edilmiştir).
+project.annualEmployment=Yıllık istihdam
+project.annualIncome.help=Proje faaliyetleri öngörülen ölçeğe ulaştığı zaman artmış yıllık net gelir için tahmin edilen rakam (nakit ve nakit olmayan giriş çıkışlar dikkate alınarak).
+project.annualIncome=Yıllık net gelir
+project.beneDirectChild=Çocuklar
+project.beneDirectMen=Erkekler
+project.beneDirectNum=Hanehalkı
+project.beneDirectWomen=Kadınlar
+project.beneIndirectChild=Çocuklar
+project.beneIndirectMen=Erkekler
+project.beneIndirectNum=Hanehalkı
+project.beneIndirectWomen=Kadınlar
+project.clone.help=Klonlama, sonrasında değiştirilmek üzere ayrı ama benzer bir proje oluşturmak için projenin kopyalanmasına müsaade eder. Yakın ilişkili iki proje olduğu durumlarda kullanıcıları çok sayıdaki aynı bilginin tekrar girilmesinden kurtarır.
+project.loan1Duration=Kredi süresi
+project.loan1GraceCapital=Ödemesiz dönem - sermaye
+project.loan1GraceInterest=Ödemesiz dönem - yatırım
+project.loan1Interest=Yıllık faiz oranı
+project.loan2Amt=Tutar
+project.loan2Duration=Kredi süresi
+project.loan2GraceCapital=Ödemesiz dönem - sermaye
+project.loan2GraceInterest=Ödemesiz dönem - yatırım
+project.loan2Interest=Yıllık faiz oranı
+project.reccDate=Tarih
+project.report.activityDetail=Faaliyetlerin işletme gelirleri ve maliyet detayları
+project.report.blockDetail.costs=Maliyetler
+project.report.blockDetail.incomes=Gelir
+project.report.blockDetail.netIncome=Net gelir
+project.report.blockDetail.totalPerUnitCycle=Toplamlar her birim her döngü başına
+project.report.cashFlow.cumulative=Birikimli nakit akışı
+project.report.cashFlowFirst.general=Genel
+project.report.cashFlowFirst.maint=Bakım
+project.report.cashFlowFirst.personal=Kişisel
+project.report.cashFlowNongen.contributions=Katkılar
+project.report.cashFlowNongen.contributionsGeneral=Genel maliyetlere katkılar
+project.report.cashFlowNongen.costs=Maliyetler
+project.report.cashFlowNongen.general=Genel maliyetler 
+project.report.cashFlowNongen.genMaint=Genel ve Bakım
+project.report.cashFlowNongen.income=Gelir
+project.report.cashFlowNongen.investCosts=Yatırım maliyetleri
+project.report.cashFlowNongen.investDonated=Yatırım: Bağışlanan
+project.report.cashFlowNongen.investMaint=Yatırım sürdürme
+project.report.cashFlowNongen.investOwn=Yatırım: Öz kaynaklar
+project.report.cashFlowNongen.netBalance=Net Denge
+project.report.cashFlowNongen.operation=Faaliyet
+project.report.cashFlowNongen.replacement=Yenileme
+project.report.cashFlowNongen.salvage=Elden Çıkarma
+project.report.cashFlowNongen.userCharges=Kullanıcı masrafları
+project.report.cashFlowNongen=Operasyonel Sürdürülebilirlik
+project.report.contributions=Katkılar
+project.report.profitability.donations.investment=Yatırım
+project.report.profitability.donations.netAfter=Bağıştan sonra net gelir 
+project.report.profitability.donations.netBefore=Bağıştan önce net gelir
+project.report.profitability.donations.wc=İşletme sermayesi
+project.report.profitability.donations=Bağışlar
+project.report.results.IG=Arama sonuçları: Gelir sağlayan projeler ($)
+project.report.results.NIG=Arama sonuçları: Gelir sağlamayan projeler (:)
+project.report.results.total=Toplam projeler
+project.step1.6.help=Projeye harici dosyaları (harita, destek dokümanlar, vb.) burada ekleyebilirsiniz, proje başına maksimum 3 Mb.
+project.step1.6=Ekli dosyalar
+project.step10=Referans öğeler
+project.step11.nongen=Referans Öğeler
+project.with=(With proje)
+project.without=(Without proje)
+project.withWithout.help="with" ve "without" blokları ayrımı yap seçeneğini ayrım yapma olarak değiştirdiğiniz zaman, varolan tüm bloklar "with" projesi olarak kabul edilecektir.
+project.withWithout.remove=Bu proje için "with" ve "without proje" blokları bulundurmama seçimini yapıyorsunuz. Şu andaki tüm "without proje" blokları "with proje" olarak değiştirilecektir.
+project.withWithout="With" ve "Without" blokları
+projectCategory.both=En az bir gelir sağlayan kategori ve bir gelir sağlamayan kategori gereklidir.
+projectCategory.delete.warn=Ürün kategorisini silmek RuralInvest sürümünü diğerleri ile uyumsuz hale getirebilir. Bu proje kategorisini kullanan projeleri içe aktaramaz ve dışa aktardığınız bu ayarları faydalanıcı kategorisine sahip başka bilgisayarlara aktarmak mümkün olmayacaktır. Lütfen bu fonksiyonu sadece hata kontrol ederken ilk kez yapılandırma ayarlarını kurduğunuz zaman, bu ayarları ya da herhangi bir profili veya projeyi başka bilgisayarlara aktarmadan önce kullanınız. Devam etmek istiyor musunuz?
+projectCategory.delete=Ürün kategorisini sil
+projectCategory.editCat=Kategoriyi düzenle
+projectContribution.contribType.help=Yıllık katkı sağlayacak kurum tipini seçiniz (nakit ya da benzeri).
+projectContribution.totalCost.help=Toplam katkı değeri, ürün başına maliyet ile ürün sayısı ile çarpılarak otomatik olarak hesaplanır.
+projectContribution.unitCost.help=Maliyeti belirtiniz, katkılara benzer, değer olarak her birim katkıyı belirtiniz.  
+projectContribution.unitNum.help=Yıllık olarak alınacak birimlerin sayısını belirtiniz.
+projectContribution.unitType.help=Tanımlanan katkının ölçülen birimlerini belirtiniz.
+reference.item.link.imperative=Bağlantı
+reference.item.linked=Bağlantılı
+reference.item.linkedTo=Bağlantılı:
+reference.transport=Bağlantılı referans öğenin henüz ulaşım maliyeti bulunmamaktadır. Lütfen ulaşım maliyetlerini giriniz.
+settings.7.help=RuralInvest ana sayfasında görünecek hızlı bağlantıları ayarlayınız.
+settings.7=Hızlı bağlantılar
+settings.currency.decimalLength.help=Kur değerlerinde görüntülenecek ondalık sayısını seçiniz
+settings.currency.decimalLength=Ondalıkların sayısı
+settings.currency.decimalSeparator.help=Kur değeri ondalık kısmını gösterecek karakteri seçiniz.
+settings.currency.decimalSeparator=Ondalık ayırıcı
+settings.currency.thousandsSeparator.help=Kur değerlerinin binlik kısımlarını gruplamak için ayıraç karakteri seçininiz.
+settings.currency.thousandsSeparator=Binlik ayırıcı
+settings.firstConfigImport=İçe aktar
+settings.language.help=Varsayılan dil. Bu ayarlar dil tercihi belirtmeyen arayüz kullanıcıları içindir.
+settings.language=Varsayılan dil
+settings.link1.text=Bağlantı 1 metin
+settings.link1.url=Bağlantı 1 URL
+settings.link2.text=Bağlantı 2 metin
+settings.link2.url=Bağlantı 2 URL
+settings.link3.text=Bağlantı 3 metin
+settings.link3.url=Bağlantı 3 URL
+settings.link4.text=Bağlantı 4 metin
+settings.link4.url=Bağlantı 4 URL
+units.labourTypes=İşgücü tipleri
+units.people=İnsanlar
+user.delete.warn=Bir kullanıcı silmek onun projeleri ve profillerinin de silineceği anlamına gelir. Devam etmek istiyor musunuz?
+user.language=Dil
+user.username.description=Bu bilgi RuralInvest yazılımında oturum açmak için kullanılmaktadır. Eğer şifrenizi unutursanız, oturum açmanız mümkün olmayacaktır.
+
+
+
+# RIV4.2
 
 #demo site login page
 demo.welcome=RURALINVEST’E HOŞGELDİNİZ
@@ -113,7 +561,6 @@ home.createNIGProf=Gelir sağlamayan bir profil oluştur
 home.createIGProj=Gelir sağlayan bir proje oluştur
 home.createNIGProj=Gelir sağlamayan bir proje oluştur
 home.createNew=Yeni oluştur
-home.showAll=Hepsini göster
 enviroCategory.addCat=Yeni çevresel kategori ekleyiniz.
 enviroCategory.categories=Çevresel kategoriler
 enviroCategory.delete.warn=Çevresel bir kategorinin çıkarılması bu RuralInvest (Kırsal Yatırım) tesis etme durumunu diğerleriyle uyuşmaz bir hale getirebilirdi. Bu kategoriyi kullanan proje veya profilleri dışarıdan alamayacaksınız ve bu ayarlamaları bu çevresel kategoriye sahip olan bilgisayarlara aktarmak mümkün olmayacak.    Lütfen bu fonksiyonu sadece ilk başta yapılandırmanızı kurarken, ayarlamaları veya profil ya da projeleri diğer bilgisayarlara aktarmadan önce hataları düzeltmek için kullanın  Devam etmek istiyor musunuz?
@@ -123,21 +570,13 @@ enviroCategory.save=Kaydediniz
 error=Hata
 error.benefRequired=En az bir doğrudan faydalanıcı olması gerekmektedir. 
 error.import.noEnviroCategory=Proje yapının parçası olmayan bir çevre kategorisi içermektedir. Sadece aynı yapıya dayanan projeler dışarıdan alınabilir.
-error.unknown=Bilinmeyen hata
 error.unknown.info=Bilinmeyen bir hata oluştu. Lütfen aşağıdaki bilgiyle FAO RuralInvest takımına başvurun:
 error.unknown.noInfo=Bilgi mevcut değil
 error.noAccess=Erişim yok
 error.noAccess.info=Bu sayfaya erişmek için izniniz yok
 error.notFound=Sayfa bulunamadı
 error.notFound.info=İstenilen sayfa bulunamadı. Lütfen bağlantıyı kontrol edin ve FAO RuralInvest takımıyla temasa geçin.
-error.pleaseCorrect=Lütfen aşağıdaki alanları düzeltin
-error.fieldRequired={0} gerekli bir alandır
-error.positiveNumber={0} pozitif bir sayı olmalı.
 error.noProdPattern=Yıl {0} için üretim modeli eksik.
-typeMismatch.java.lang.Double={0} gereklidir ve bir sayı olmalıdır.
-typeMismatch.java.math.BigDecimal={0} gereklidir ve bir sayı olmalıdır.
-typeMismatch.java.lang.Integer={0} gereklidir ve bir tam sayı olmalıdır.
-typeMismatch.java.util.Date={0} geçerli bir tarih formatı değil (gg/AA/yyyy).
 misc.getStarted=Başlat
 misc.save=Kaydet
 misc.saveItem=Öge kaydet
@@ -186,7 +625,6 @@ mainMenu.config.columns=Proje göstergeleri
 mainMenu.config.enviroCategories=Çevresel kategoriler
 mainMenu.create=Oluştur
 mainMenu.search=Ara
-mainMenu.showAll=Hepsini göster
 mainMenu.import=İçeri Al
 user.title=Kullanıcı
 user.users=Kullanıcılar
@@ -371,7 +809,6 @@ profile.incomeAfterAnnual=Yıllık rezerv sonrası net gelir
 profile.yearsToRecover=Yatırımı geri kazanmak için gerekli yıl sayısı
 profile.investmentPerBenef=Yararlanıcı başına yatırım
 profile.costPerBenef=Yararlanıcı başına yıllık maliyet
-profile.report.title=Kendi raporunu oluştur
 profile.report.description=Lütfen yukarıdaki listeden bir rapor seçin.
 profile.report.summary=Profil özeti
 profile.report.summary.general=Genel bilgi
@@ -541,7 +978,6 @@ project.step1.4=Teknisyen
 project.step1.4.help=Teklifi oluşturuyorsanız, bu alanlar bilgilerinizi göstermelidir. Eğer veri yanlış veya alanlar boş ise; teklifi kapatmanız ve (a) sisteme kendi adınız ile giriş yaptığınızı ve (b) 'Şekillendir' bölümündeki 'Teknisyen' alanını doğru olarak doldurduğunuzu teyit etmeniz gerekir.
 project.step1.5=Paylaşım
 project.step1.5.help=Diğer teknisyenlerin bu projeyi değiştirebilmelerini istiyorsanız 'Evet'i seçin.
-project.step2=Yararlanıcılar
 project.step2.2=Doğrudan yararlanıcılar
 project.step2.2.help=Doğrudan yararlanıcılar için yardım yazısı
 project.step2.3=Dolaylı yararlanıcılar
@@ -647,11 +1083,9 @@ project.loan2InitPeriod.help=Yatırım Yılı için yardım yazısı
 project.workingCapital=Döner sermaye
 project.workingCapital.help=Döner sermaye için yardım yazısı
 project.amtRequired=Gereken miktar
-project.amtRequired.help=Gereken miktar için yardım yazısı
 project.amtFinanced=Finanse edilen miktar
 project.amtFinanced.help=Finanse edilen miktar için yardım yazısı
 project.period=Finansman süresi
-project.period.help=Finansman süresi için yardım yazısı
 project.inflationAnnual=Yıllık enflasyon oranı
 project.inflationAnnual.help=Yıllık enflasyon oranı için yardım yazısı
 project.capitalInterest=Yıllık faiz oranı
