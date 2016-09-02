@@ -60,9 +60,9 @@ public class BlockValidator implements Validator {
 						break;
 				}
 	
-				if (cycleLength>1.0) errors.reject("error.block.cyclesPerYear");
-				if (cycleLengthFirstYear>1.0) errors.reject("error.block.cyclesPerFirstYear");
-				if (cycleLengthFirstYearIncome>1.0) errors.reject("error.block.cyclesPerFirstYearIncome");
+				if (cycleLength>1.0) errors.rejectValue("cyclePerYear","error.block.cyclesPerYear");
+				if (cycleLengthFirstYear>1.0) errors.rejectValue("cycleFirstYear","error.block.cyclesPerFirstYear");
+				if (cycleLengthFirstYearIncome>1.0) errors.rejectValue("cycleFirstYearIncome","error.block.cyclesPerFirstYearIncome");
 			}
 		}
 	}

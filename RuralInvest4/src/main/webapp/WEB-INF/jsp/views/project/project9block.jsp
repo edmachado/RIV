@@ -58,6 +58,7 @@ $(function() {
 						<form:option value="2"><spring:message code="units.days.calendar"/></form:option>
 						<form:option value="3"><spring:message code="units.days.week"/></form:option>
 					</form:select>
+					<form:errors path="cycleLength" cssClass="error" element="div" />
 				</div>
 				<tags:dataentry field="cyclePerYear" labelKey="${blockType}.cyclePerYear" helpText="${blockType}.cycles.help" calcSignKey="units.perYear" />
 				<c:if test="${block.project.incomeGen}">
