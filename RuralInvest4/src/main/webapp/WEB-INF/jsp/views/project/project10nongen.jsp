@@ -15,7 +15,10 @@ $(function() {
 		bgiframe: true, autoOpen: false, resizable: false, height:200, width:360, modal: true,
 		overlay: { backgroundColor: '#000', opacity: 0.5 },
 		buttons: {
-			Cancel: function() { $(this).dialog('close'); },
+			Cancel: function() { 
+				$("#perYear").prop("checked", true).button('refresh');
+				$(this).dialog('close'); 
+			},
 			'<spring:message code="misc.confirm"/>': function() {
 				location.href='../step10/${project.projectId}/perYearContributions?simple=true';
 			}		
