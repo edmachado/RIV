@@ -7,6 +7,13 @@ admin.download.error=RuralInvest yedek dosyası hazırlanırken bir sorun oluşt
 admin.restore=Yedekten geri yükle
 admin.restore.desc=Yapılandırmayı, proje ve profilleri yedekten geri yükle. (Geçerli olan yapılandırma, proje ve profiller kaybedilecektir.)
 
+profileActivity.usesCycles.help=Bu faaliyet döngüler kullanmaktadır, başlıca tarımsal örneğin (ton/ha, litre/yıl, vb.)
+profileActivity.usesCycles=Bu faaliyet döngüler içermektedir.
+profileProduct.cyclePerYear=Döngüler
+profileProduct.usesCycles.help=Bu ürün döngüler kullanmaktadır, başlıca tarımsal örneğin (ton/ha, litre/yıl, vb.)
+profileProduct.usesCycles=Bu ürün döngüler içermektedir.
+project.report.contributionSummary.investments=Yatırımlar
+
 ## RIV 4.3 - phase 1
 project.donor.noDelete=Eğer projeye bir donörden bağış ya da katkı var ise, o donör silinemez.
 
@@ -555,7 +562,7 @@ login.incorrect=Girilen kullanıcı adı ve şifre kombinasyonu yanlış.
 home.incGen=Gelir sağlayan...
 home.nonIncGen=Gelir sağlamayan... (:)
 home.weblinks=Yararlı ağ bağlantıları
-home.inProgress=Üzerinde çalışılıyor
+home.inProgress=İşlem Sürüyor
 home.createIGProf=Gelir sağlayan bir profil oluştur
 home.createNIGProf=Gelir sağlamayan bir profil oluştur
 home.createIGProj=Gelir sağlayan bir proje oluştur
@@ -614,7 +621,7 @@ mainMenu.help=Yardım
 mainMenu.help.manual=Kullanım kılavuzları
 mainMenu.help.faq=Sıkça Sorulan Sorular (SSS)
 mainMenu.help.about=Hakkında
-mainMenu.config=Şekillendirme
+mainMenu.config=Yapılandırma
 mainMenu.config.users=Kullanıcılar
 mainMenu.config.users.addEdit=Kullanıcı Ekle/Düzenle
 mainMenu.config.offices=Saha ofisleri
@@ -625,7 +632,7 @@ mainMenu.config.columns=Proje göstergeleri
 mainMenu.config.enviroCategories=Çevresel kategoriler
 mainMenu.create=Oluştur
 mainMenu.search=Ara
-mainMenu.import=İçeri Al
+mainMenu.import=İçeri Aktar
 user.title=Kullanıcı
 user.users=Kullanıcılar
 user.name=Ad
