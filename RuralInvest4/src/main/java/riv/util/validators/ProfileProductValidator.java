@@ -16,10 +16,12 @@ public class ProfileProductValidator implements Validator {
 		ValidateUtils.rejectIfEmpty(pp, "description", type+".desc", errors);
 		ValidateUtils.rejectIfEmpty(pp, "unitType", type+".prodUnit", errors);
 		ValidateUtils.rejectIfEmptyOrNegative(pp, "unitNum", type+".numUnits", errors);
-		ValidateUtils.rejectIfEmptyOrNegative(pp, "cycleLength", type+".cycleLength", errors);
-		ValidateUtils.rejectIfEmptyOrNegative(pp, "cyclePerYear", type+".cycles", errors);
+		
 
 		if (pp.isCycles()) {
+			ValidateUtils.rejectIfEmptyOrNegative(pp, "cycleLength", type+".cycleLength", errors);
+			ValidateUtils.rejectIfEmptyOrNegative(pp, "cyclePerYear", type+".cycles", errors);
+			
 			// total length of cycles cannot be longer than 1 year
 			if (!errors.hasFieldErrors("cycleLength") && pp.getCyclePerYear()!=null) {
 				double cycleLength = 0.0; // cycle length expressed in years
