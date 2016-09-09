@@ -1,3 +1,8 @@
+## RIV 4.3 - phase 3
+admin.grant=Grant administrator privileges
+admin.grant.text=Admin users can backup and restore data, upload system configuration (settings.riv), and authorize future admin users. On the server version, admin users also can manually change the system configuration. Do you want to grant administrator privileges to the following user? 
+admin.grant.button=Grant privileges
+
 ## RIV 4.3 - phase 2
 profileProduct.usesCycles=This product has cycles
 profileProduct.usesCycles.help=This product uses cycles, e.g. primary agriculture (tons/ha, liters/year, etc.)
@@ -26,9 +31,9 @@ admin.restore.error.notBackup=The file you are importing is not a proper RuralIn
 admin.restore.button=Choose a backup file
 user.admin=Administrator
 
-admin.grant=Grant administrator privileges
-admin.grant.text=Admin users can backup and restore data, upload system configuration (settings.riv), and authorize future admin users. On the server version, admin users also can manually change the system configuration. Do you want to grant administrator privileges to the following user? 
-admin.grant.button=Grant privileges
+# changed from previous version
+settings.language.help=This sets the interface language for users who have not indicated a preferred language. Users can change their own interface language by clicking on the ‘Welcome’ link at the top of the screen.
+
 
 
 ## RIV 4.3 - phase 1
@@ -312,7 +317,6 @@ error.unknown.log=Please provide the following file to help them understand the 
 # "Link" as a verb in the imperative...
 reference.item.link.imperative=Link
 user.language=Language
-settings.language.help=Default language. This sets the language of the interface for users who have not set a preferred language.
 project.withWithout.remove=You are choosing to not have "with" and "without project" blocks for this project. Any blocks that are currently "without project" will be changed to "with project".
 #profile.withWithout.remove=You are choosing to not have "with" and "without project" products for this project. Any products that are currently "without project" will be changed to "with project".
 project.with=(With project)

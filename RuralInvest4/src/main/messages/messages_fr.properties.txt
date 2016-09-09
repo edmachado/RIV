@@ -289,7 +289,7 @@ settings.currency.decimalSeparator.help=Choisir le caractère à utiliser comme 
 settings.currency.decimalSeparator=Séparateur de décimale 
 settings.currency.thousandsSeparator.help=Choisir le caractère à utiliser comme séparateur de milliers
 settings.currency.thousandsSeparator=Séparateur de milliers
-settings.language.help=Définit la langue par défaut qui sera utilisée pour les utilisateurs qui n’ont pas indiqué une préférence de langue
+#settings.language.help=Définit la langue par défaut qui sera utilisée pour les utilisateurs qui n’ont pas indiqué une préférence de langue
 settings.language=Langue par défaut
  
 units.days.calendar=Jours(s) calendaires

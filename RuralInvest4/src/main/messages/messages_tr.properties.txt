@@ -1,4 +1,24 @@
 ## RIV 4.3 - phase 2
+admin.grant.button=Ayrıcalık Sağla
+admin.grant.text= Admin kullanıcı, veri yedekleme ve geri yükleme, sistem yapılandırmalarını yükleme (ayarlar.riv) ve yeni admin kullanıcılara yetki verebilir. Sunucu sürümünde, admin kullanıcılar aynı zamanda sistem yapılandırmasını manuel olarak da değiştirebilir. Yönetici ayrıcalıklarını aşağıdaki kullanıcı için de sağlamak istiyor musunuz? 
+admin.grant=Yönetici ayrıcalıkları sağla
+admin.restore.button=Yedek dosyası seçiniz
+admin.restore.error.notBackup=İçe aktarmakta olduğunuz dosya uygun bir RuralInvest yedeği değildir.
+admin.restore.fail=Geri yükleme işlemi başarılı olamadı. 
+misc.first=İlk
+misc.last=Son
+misc.next=Sonraki
+misc.previous=Önceki
+paging.banner.all_items_found={0} öğe bulundu, tüm görüntülenen {2}.
+paging.banner.one_item_found=Bir öğe bulundu.
+paging.banner.page.link=Sayfaya git
+paging.banner.some_items_found={0} öğe bulundu, görüntülenen {2} den {3}.
+paging.size=Tablo başına sonuçlar:
+user.admin=Yönetici
+ 
+# changed from previous version
+settings.language.help=Bu arayüz dil ayarları, dil tercihini belirtmeyen kullanıcılar içindir. Kullanıcılar kendi arayüz dili tercihlerini, ekranın üst kısmındaki ‘Hoşgeldiniz’ bağlantısına tıklayarak değiştirebilirler.
+
 admin.page=Yönetici İşlevleri
 admin.download=Yedek İndir
 admin.download.desc=RuralInvest yapılandırmalarınızı ve tüm proje ve profillerinizi tek paket halinde indirin..
@@ -437,7 +457,7 @@ settings.currency.decimalSeparator=Ondalık ayırıcı
 settings.currency.thousandsSeparator.help=Kur değerlerinin binlik kısımlarını gruplamak için ayıraç karakteri seçininiz.
 settings.currency.thousandsSeparator=Binlik ayırıcı
 settings.firstConfigImport=İçe aktar
-settings.language.help=Varsayılan dil. Bu ayarlar dil tercihi belirtmeyen arayüz kullanıcıları içindir.
+#settings.language.help=Varsayılan dil. Bu ayarlar dil tercihi belirtmeyen arayüz kullanıcıları içindir.
 settings.language=Varsayılan dil
 settings.link1.text=Bağlantı 1 metin
 settings.link1.url=Bağlantı 1 URL
@@ -567,7 +587,7 @@ home.createIGProf=Gelir sağlayan bir profil oluştur
 home.createNIGProf=Gelir sağlamayan bir profil oluştur
 home.createIGProj=Gelir sağlayan bir proje oluştur
 home.createNIGProj=Gelir sağlamayan bir proje oluştur
-home.createNew=Yeni oluştur
+home.createNew=Oluştur
 enviroCategory.addCat=Yeni çevresel kategori ekleyiniz.
 enviroCategory.categories=Çevresel kategoriler
 enviroCategory.delete.warn=Çevresel bir kategorinin çıkarılması bu RuralInvest (Kırsal Yatırım) tesis etme durumunu diğerleriyle uyuşmaz bir hale getirebilirdi. Bu kategoriyi kullanan proje veya profilleri dışarıdan alamayacaksınız ve bu ayarlamaları bu çevresel kategoriye sahip olan bilgisayarlara aktarmak mümkün olmayacak.    Lütfen bu fonksiyonu sadece ilk başta yapılandırmanızı kurarken, ayarlamaları veya profil ya da projeleri diğer bilgisayarlara aktarmadan önce hataları düzeltmek için kullanın  Devam etmek istiyor musunuz?

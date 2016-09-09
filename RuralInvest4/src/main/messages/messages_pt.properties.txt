@@ -327,7 +327,6 @@ error.unknown.log=Por favor, envie o arquivo que originou esta mensagem de modo 
 # Translator: The following is "link", a verb in the imperative... It's used in the pop-up windows when you link a profile or project cost item to a existing item from the "reference items" tables.
 reference.item.link.imperative=Ligar
 user.language=Língua
-settings.language.help=Língua Padrão. Esta será a língua utilizada para os utilizadores que não indicarem uma preferência sobre a língua a utilizar.
 project.withWithout.remove=Seleccionou não considerar blocos “com” e “sem projecto”. Todos os blocos actualmente classificados como “sem projecto” serão reclassificados para “com projecto”.
 profile.withWithout.remove= Seleccionou não considerar produtos ou atividades “com” e “sem projecto”. Todos os produtos ou atividades actualmente classificados como “sem projecto” serão reclassificados para “com projecto”.
 project.with=(com projecto)

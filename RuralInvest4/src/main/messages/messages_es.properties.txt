@@ -1,3 +1,33 @@
+profileProduct.usesCycles=Este producto tiene ciclos
+profileProduct.usesCycles.help=Este producto utiliza ciclos, por ejemplo, en agricultura (ton/ha) y ganadería (litros/año), etc.
+profileActivity.usesCycles=Esta actividad tiene ciclos
+profileActivity.usesCycles.help= Esta actividad utiliza ciclos, por ejemplo, en agricultura (ton/ha) y ganadería (litros/año), etc.
+ 
+paging.size=Resultados por tabla:
+paging.banner.one_item_found=Un artículo encontrado.
+paging.banner.all_items_found={0} artículos encontrados, mostrados todos {2}.
+paging.banner.some_items_found={0} artículos encontrados, mostrados {2} a {3}.
+paging.banner.page.link=Ir a página
+misc.first=Primero
+misc.previous=Previo
+misc.next=Siguiente
+misc.last=Último
+ 
+admin.page=Funciones administrativas
+admin.download=Descarga de respaldo
+admin.download.desc=Descargue su configuración de RuralInvest junto con todos los proyectos y perfiles en un solo paquete.
+admin.download.prepare=Preparando el archivo de respaldo, por favor espere ...
+admin.download.error=Hubo un problema al generar el archivo de respaldo para RuralInvest. admin.restore=Recupere el respaldo
+admin.restore.desc=Recupere configuración, proyectos y perfiles desde un archivo de respaldo (la configuración existente así como los proyectos y perfiles existentes se perderán).
+admin.restore.fail=La operación de recuperación no fue exitosa.
+admin.restore.error.notBackup=El archivo que está importando no es un archivo apropiado de respaldo de RuralInvest.
+admin.restore.button=Seleccione un archivo de respaldo
+user.admin=Administrador
+ 
+# changed from previous version
+settings.language.help=Esto cambia el lenguaje de interface para usuarios que no han indicado su lenguaje preferido. Usuarios pueden cambiar el lenguaje de su propia interface con un clic sobre el enlace ‘Bienvenido …’ en la parte superior del monitor.
+
+
 # RIV 4.2.12
 project.report.blockDetail.cashTotal=Total en efectivo
 
@@ -261,7 +291,6 @@ error.unknown.log=Por favor envíe el siguiente archivo al equipo de RuralInvest
 # Translator: The following is "link", a verb in the imperative... It's used in the pop-up windows when you link a profile or project cost item to a existing item from the "reference items" tables.
 reference.item.link.imperative=Enlazar
 user.language=Lenguaje
-settings.language.help=Lenguaje estándar. Este será el lenguaje utilizado por los usuarios que no indiquen una preferencia sobre el lenguaje a utilizar.
 project.withWithout.remove= Seleccionó el no considerar bloques “con” y “sin proyecto”. Todos los bloques actualmente clasificados como “sin proyecto” serán reclasificados como bloques “con proyecto”.
 profile.withWithout.remove= Seleccionó el no considerar productos “con” y “sin proyecto”. Todos los productos actualmente clasificados como “sin proyecto” serán reclasificados como productos “con proyecto”.
 project.with=(con proyecto)
