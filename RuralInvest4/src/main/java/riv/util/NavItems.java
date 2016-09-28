@@ -146,15 +146,15 @@ public class NavItems {
 		getItems().put("search", steps);
 		
 //		menu "help"
-		steps = new String[4][2];
+		steps = new String[3][2];
 		steps[0][0] = "mainMenu.help.manual";
 		steps[0][1] = "help/manuals";
 		steps[1][0] = "mainMenu.help.faq";
 		steps[1][1] = "help/faq";
-		steps[2][0] = "mainMenu.help.terms";
-		steps[2][1] = "help/terms";
-		steps[3][0] = "mainMenu.help.about";
-		steps[3][1] = "help/about";
+//		steps[2][0] = "mainMenu.help.terms";
+//		steps[2][1] = "help/terms";
+		steps[2][0] = "mainMenu.help.about";
+		steps[2][1] = "help/about";
 		getItems().put("help", steps);
 		
 		// menu admin

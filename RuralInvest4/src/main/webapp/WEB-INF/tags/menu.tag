@@ -44,7 +44,7 @@
 	<div id="menu7">
 		<span><u>&nbsp;</u><a href="${ctx}/help/manuals"><spring:message code="mainMenu.help.manual"/></a><a
 		href="${ctx}/help/faq"><spring:message code="mainMenu.help.faq"/></a><a
-		href="${ctx}/help/terms"><spring:message code="mainMenu.help.terms"/></a><a
+<%-- 		href="${ctx}/help/terms"><spring:message code="mainMenu.help.terms"/></a><a --%>
 		href="${ctx}/help/about"><spring:message code="mainMenu.help.about"/></a><u>&nbsp;</u></span>
 	</div>
 	<div id="menu8">
