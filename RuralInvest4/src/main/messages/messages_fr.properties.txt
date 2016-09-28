@@ -1,3 +1,26 @@
+# RIV4.3 - phase 1
+error.perYearCost.fieldRequired=Année {0}, {1}: ceci est un champs obligatoire.
+error.perYearCost.requiredNonNegative=Année {0}, {1}: ce champs ne peut être négatif.
+
+mainMenu.help.terms=Financial terms reference Référence aux termes financiers
+mainMenu.inProgress=In progress En cours
+ 
+project.amtRequired.explain=The largest negative value Valeur negative la plus grande 
+project.donor.noDelete=A donor cannot be deleted if the project has donations or contributions from that source. Un donateur ne peut être supprimé si le projet a des donations ou des contributions venant de cette source.
+ 
+project.general.method.confirm=You are about to apply all the general costs from Year 1 to every year of the project. Details from other years will be lost. Do you want to continue? Vous êtes sur le point d’appliquer tous les coûts généraux de la première année à toutes les années du projet. Les détails pour les autres années seront perdues. Voulez-vous continuer ?
+project.general.method.perYear.help=With the "Per-year approach", general costs may be different for each year of the project. Avec “l’approche par année”, les coûts généraux peuvent être différents pour chaque année du projet.
+project.general.method.perYear=Per-year par année
+project.general.method.simplified.help=With the "Simplified approach", general costs are the same for every year of the project. Avec “l’approche simplifiée”, les coûts généraux sont les mêmes pour chaque année du projet
+project.general.method.simplified=Simplified Simplifié
+ 
+project.workingCapital.explain=Working capital for the first year is determined by the cumulative monthly cash flow for the first year. Le besoin en fonds de roulement pour la première année est déterminé par le flux de trésorerie mensuel cumulé pour la première année. 
+ 
+# changed from previous versions
+# "Completed" as in "projects or profiles that have been completed", rather than "In progress"
+mainMenu.showAll=Completed terminés
+home.showAll=Completed terminés
+
 ## RIV 4.2.12
 project.report.blockDetail.cashTotal=Total monétaire
 project.report.profitability.incomes.sales=Ventes et autoconsommation
