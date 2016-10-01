@@ -4,6 +4,34 @@
 admin.download=Créez votre copie de sauvegarde (sur votre ordinateur)
 admin.download.desc=Sauvegardez votre configuration RuralInvest et tous vos projets et profiles en un seul fichier
 
+#RIV4.3 - phase 2
+profileProduct.usesCycles=Ce produit a des cycles
+profileProduct.usesCycles.help=Ce produit a des cycles, ex. agriculture (tonnes/ha, litres/an, etc.)
+profileActivity.usesCycles=Cette activité a des cycles
+profileActivity.usesCycles.help=Cette activité a des cycles, ex. agriculture (tonnes/ha, litres/ha, etc.)
+ 
+paging.size=Résultats par tableau
+paging.banner.one_item_found=Un objet trouvé
+paging.banner.all_items_found={0} objet trouvé, afficher tous les {2}
+paging.banner.some_items_found={0} objet trouvé, afficher {2} et {3}.
+paging.banner.page.link=Aller à la page
+misc.first=Premier
+misc.previous=Précédent
+misc.next=Prochain
+misc.last=Dernier
+ 
+admin.page=Fonctions admin
+admin.download.prepare=Préparation du fichier de sauvegarde, patientez svp…
+admin.download.error=Il y a eu un problème lors de la création du fichier de sauvegarde RuralInvest
+admin.restore=Récupération depuis le fichier de sauvegarde
+admin.restore.desc=Récupérer la configuration, les projets et les avants-projets depuis un fichier de sauvegarde (l’actuelle configuration, les projets et avant projets seront perdus)
+admin.restore.fail=Echec lors de l’opération de restauration
+admin.restore.error.notBackup=Le fichier que vous importez n’est pas une sauvegarde RuralInvest
+admin.restore.button=Choisissez un fichier de sauvegarde
+user.admin=Administrateur
+ 
+# changed from previous version
+settings.language.help=Cette fonctionalité sélectionne le language de l’interface pour les utilisateurs qui n’ont pas indiqué la langue par défaut. Les utilisateurs peuvent changer le language de l’interface en cliquant sur le lien de bienvenue en haut de l’écran.
 
 # RIV4.3 - phase 1
 error.perYearCost.fieldRequired=Année {0}, {1}: ceci est un champs obligatoire.
