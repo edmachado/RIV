@@ -1,3 +1,4 @@
+## RIV4.3 - phase 2
 profileProduct.usesCycles=Este producto tiene ciclos
 profileProduct.usesCycles.help=Este producto utiliza ciclos, por ejemplo, en agricultura (ton/ha) y ganadería (litros/año), etc.
 profileActivity.usesCycles=Esta actividad tiene ciclos
@@ -27,6 +28,27 @@ user.admin=Administrador
 # changed from previous version
 settings.language.help=Esto cambia el lenguaje de interface para usuarios que no han indicado su lenguaje preferido. Usuarios pueden cambiar el lenguaje de su propia interface con un clic sobre el enlace ‘Bienvenido …’ en la parte superior del monitor.
 
+#RIV4.3 - phase 1
+error.perYearCost.fieldRequired=Año {0}, {1}: Este es un dato necesario.
+error.perYearCost.requiredNonNegative=Año {0}, {1}: Este dato no puede ser negativo.
+
+mainMenu.help.terms=Referencia de términos financieros.
+mainMenu.inProgress=En progreso
+
+project.donor.noDelete=Un donante no puede ser eliminado si el proyecto tiene donaciones o contribuciones de esa fuente.
+
+project.general.method.confirm=Usted está por aplicar todos los costos generales de Año 1 a todos los años de duración del proyecto. Los detalles sobre los otros años se perderán. ¿Desea continuar?
+project.general.method.perYear.help=Con el "Enfoque por año", los costos generales pueden ser diferentes para cada año de duración del proyecto.
+project.general.method.perYear=Por año
+project.general.method.simplified.help=Con el "Enfoque simplificado", los costos generales son iguales para todos los años de duración del proyecto.
+project.general.method.simplified=Simplificado
+
+project.report.profitability.incomes.sales=Ventas y auto-consumo
+
+#  sujeto a cambios en relación con versión anterior
+# "Completos" como en "proyectos o perfiles que fueron completados", en relación con "En progreso"
+mainMenu.showAll=Completos
+home.showAll=Completos
 
 # RIV 4.2.12
 project.report.blockDetail.cashTotal=Total en efectivo
@@ -494,7 +516,6 @@ home.help.faq.info=Ver Preguntas Frecuentes
 home.inProgress=en progreso
 home.incGen=Se generan ingresos...
 home.nonIncGen=No se generan ingresos...
-home.showAll=Mostrar todo
 home.weblinks=Conexiones útiles
 import.config=Importar los datos de la configuración
 import.copy=Crear una copia
@@ -530,7 +551,6 @@ mainMenu.projects=Proyectos
 mainMenu.search=Buscar
 mainMenu.searchItem=Buscar RuralInvest
 mainMenu.searchReports=Búsqueda
-mainMenu.showAll=Mostrar todos
 mainMenu.config.columns=Indicadores del proyecto 
 mainMenu.config.enviroCategories=Categorías ambientales
 manual.description=Los manuales o guías detalladas, que describen la metodología utilizada en cada módulo de RuralInvest, están listados abajo (módulo 4 es cubierto en el manual de módulo 3). Dichos manuales están disponibles en la lengua seleccionada para el software. Todos los módulos tienen relación ya sea con la identificación o la preparación de inversiones que generan ingresos como inversiones que no generan ingresos. Los manuales no describen el software, utilizado en módulos 2, 3 y 4. Es la guía de usuarios del software, la que cubre dicha descripción.
