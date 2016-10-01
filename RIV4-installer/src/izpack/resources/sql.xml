@@ -510,12 +510,14 @@ ALTER TABLE profile_result ALTER COLUMN cost_per_benef Decimal(25,4);
 ALTER TABLE profile_result ALTER COLUMN general_cost Decimal(25,4);
 
 -- indexing for performance
+<!-- added to CD DB in previous version 
 CREATE INDEX project_wiz_step ON project (wizard_step);
 CREATE INDEX project_income_gen ON project (income_gen);
 CREATE INDEX profile_wiz_step ON project (wizard_step);
 CREATE INDEX profile_income_gen ON project (income_gen);
 CREATE INDEX project_result_income_gen ON project_result (income_gen);
 CREATE INDEX profile_result_income_gen ON profile_result (income_gen);
+ -->
 
 -- per-year general costs
 ALTER TABLE project ADD COLUMN per_year_general BOOLEAN DEFAULT false NOT NULL;
