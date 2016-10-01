@@ -3,6 +3,10 @@ admin.grant=Grant administrator privileges
 admin.grant.text=Admin users can backup and restore data, upload system configuration (settings.riv), and authorize future admin users. On the server version, admin users also can manually change the system configuration. Do you want to grant administrator privileges to the following user? 
 admin.grant.button=Grant privileges
 
+# changed from previous version
+admin.download=Create a backup (stored on your computer)
+admin.download.desc=Save locally your RuralInvest configuration and all projects and profiles in a single package
+
 ## RIV 4.3 - phase 2
 profileProduct.usesCycles=This product has cycles
 profileProduct.usesCycles.help=This product uses cycles, e.g. primary agriculture (tons/ha, liters/year, etc.)
@@ -20,8 +24,6 @@ misc.next=Next
 misc.last=Last
 
 admin.page=Admin functions
-admin.download=Download backup
-admin.download.desc=Download your RuralInvest configuration and all projects and profiles in a single package.
 admin.download.prepare=Preparing the backup file, please wait...
 admin.download.error=There was a problem generating the backup file for RuralInvest.
 admin.restore=Restore from backup

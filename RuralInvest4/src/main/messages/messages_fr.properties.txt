@@ -1,3 +1,10 @@
+#RIV4.3 - phase 3
+
+# changed from previous version
+admin.download=Créez votre copie de sauvegarde (sur votre ordinateur)
+admin.download.desc=Sauvegardez votre configuration RuralInvest et tous vos projets et profiles en un seul fichier
+
+
 # RIV4.3 - phase 1
 error.perYearCost.fieldRequired=Année {0}, {1}: ceci est un champs obligatoire.
 error.perYearCost.requiredNonNegative=Année {0}, {1}: ce champs ne peut être négatif.
@@ -488,7 +495,6 @@ home.help.faq.info=Voir les questions les plus fréquentes
 home.inProgress=En cours
 home.incGen=Des revenus...
 home.nonIncGen=Pas de revenus...
-home.showAll=Afficher terminés
 home.weblinks=Liens Internet
 import.config=Importer des données de configuration
 import.copy=Créer une copie
@@ -528,7 +534,6 @@ mainMenu.projects=Projets
 mainMenu.search=Rechercher
 mainMenu.searchItem=Rechercher dans RuralInvest
 mainMenu.searchReports=Rechercher
-mainMenu.showAll=Tout afficher
 manual.description=RuralInvest comprend 4 modules décrits brièvement ci-dessous. Chaque module appuie l'identification et la préparation d'investissements générateurs et non générateurs de revenus. Seuls les modules 2, 3 et 4 utilisent le logiciel RuralInvest. Tous les modules sont décrits de façon détaillée dans les manuels d'accompagnement.
 manual.description2=Les manuels techniques ainsi que les guides sont disponibles sur le site Internet du Centre d'Investissement de la FAO. Vous pouvez les consulter ou les télécharger sur votre ordinateur en tant que documents pdf (en utilisant le logiciel gratuit Adobe). En outre, les suggestions de formats nécessaires pour compiler les avant-projets RuralInvest (Module 2) sont fournies en tant que documents Word. Le personnel de support est vivement encouragé d’utiliser les formats suggérés. Durant les étapes initiales de travail, il est également conseillé au personnel de support de présenter ces formats sous forme écrite, sur un tableau noir ou sur de grandes feuilles de papier accrochés aux murs, de manière à ce qu’ils puissent être visibles à tous les participants. 
 manual.guide=Manuel de Utilisation du Logiciel (en préparation)

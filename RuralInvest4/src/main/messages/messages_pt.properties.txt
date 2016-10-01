@@ -1,4 +1,10 @@
-﻿## RIV 4.3 - phase 2
+﻿## RIV 4.3 - phase 3
+
+# changed from previous version
+admin.download=Criar uma cópia de segurança (no seu computador)
+admin.download.desc=Salvar localmente a sua configuração RuralInvest e todos os seus projetos e perfis em um único pacote
+
+## RIV 4.3 - phase 2
 profileProduct.usesCycles=Esta actividade tem mais de um ciclo anual
 profileProduct.usesCycles.help= Se esta actividade se repete mais de uma vez ao longo do ano (por exemplo, duas colheitas de um cultura agrícola ou vários 3 ciclos de produção aviária) indique aqui.
 profileActivity.usesCycles= Esta actividade tem mais de um ciclo anual.
@@ -15,8 +21,6 @@ misc.next=Próxima
 misc.last=Última
  
 admin.page=Administração de dados
-admin.download=Descarregar uma cópia de segurança
-admin.download.desc=Descarregar a configuração do RuralInvest e todos os projectos e anteprojectos de uma só vez.
 admin.download.prepare=A preparar a cópia de segurança, aguarde por favor...
 admin.download.error=Ocorreu um problema ao gerar a cópia de segurança do RuralInvest.
 admin.restore=Carregar a partir de uma cópia de segurança
