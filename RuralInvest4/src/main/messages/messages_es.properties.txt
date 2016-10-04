@@ -1,3 +1,22 @@
+## RIV 4.3 - phase 3
+admin.grant=Conceda privilegios de administrador
+admin.grant.text=Administradores pueden respaldar y recuperar datos, cargar o subir la configuración del sistema (settings.riv), y autorizar nuevos administradores. En la versión para servidor, los administradores pueden cambiar manualmente la configuración del sistema. ¿Desea usted conceder privilegios de administrador al usuario siguiente? 
+admin.grant.button=Conceda privilegios
+ 
+admin.welcome=¡Bienvenido a RuralInvest!
+admin.firstUse=Antes de usar el software de RuralInvest, usted debe definir la configuración del sistema (ajustes, zonas, beneficiarios, etc). Puede hacer esto importando un archivo de configuración (settings.riv) o recuperando la configuración de un respaldo previo.
+admin.manualConfig.text=Ya que usted está usando la versión para servidor de RuralInvest, pudiera también
+admin.manualConfig.link=cargar manualmente la configuración de RuralInvest.
+
+import.config.file=Seleccione el archivo de configuración para importar.
+import.config.text=Importe los datos de configuración (ajustes, zonas, beneficiarios, etc.) desde un archivo settings.riv.
+import.file=Seleccione el archivo a importar.
+import.config.error=La operación de importar no fue exitosa. 
+ 
+# changed from previous version
+admin.download=Proceda a crear un respaldo (guardado en su computadora)
+admin.download.desc=Guarde localmente su configuración de RuralInvest junto con todos los proyectos y perfiles en un solo paquete.
+
 ## RIV4.3 - phase 2
 profileProduct.usesCycles=Este producto tiene ciclos
 profileProduct.usesCycles.help=Este producto utiliza ciclos, por ejemplo, en agricultura (ton/ha) y ganadería (litros/año), etc.
@@ -15,8 +34,6 @@ misc.next=Siguiente
 misc.last=Último
  
 admin.page=Funciones administrativas
-admin.download=Descarga de respaldo
-admin.download.desc=Descargue su configuración de RuralInvest junto con todos los proyectos y perfiles en un solo paquete.
 admin.download.prepare=Preparando el archivo de respaldo, por favor espere ...
 admin.download.error=Hubo un problema al generar el archivo de respaldo para RuralInvest. admin.restore=Recupere el respaldo
 admin.restore.desc=Recupere configuración, proyectos y perfiles desde un archivo de respaldo (la configuración existente así como los proyectos y perfiles existentes se perderán).
