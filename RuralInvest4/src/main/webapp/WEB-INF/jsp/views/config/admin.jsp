@@ -14,7 +14,11 @@ $(document).on("click", "a.fileDownloadSimpleRichExperience", function () {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 });
 var failMsg=''; var uploadBlockId='';
-var submitUrlBase='admin/import';
+var submitUrlBase;
+var uploadDescRestore='<spring:message code="admin.restore.desc"/>';
+var uploadDescConfig='FOOCIAO';
+var titleRestore='<spring:message code="admin.restore"/>';
+var titleConfig='UPLOAD CONFIG';
 </script>
 </head>
 <body>
@@ -39,9 +43,9 @@ var submitUrlBase='admin/import';
 
 <c:if test="${user.administrator}"><h2><a id="reset" style="display:none;" href="reset">Reset RuralInvest</a></h2></c:if>
 
-<div id="upload-dialog" title="<spring:message code="admin.restore"/>">
-	<p><spring:message code="admin.restore.desc"/></p>
-	<div id="uploader-button"><spring:message code="admin.restore.button"/></div>
+<div id="upload-dialog">
+	<p id="upload-description"><spring:message code="admin.restore.desc"/></p>
+	<div id="uploader-button"><spring:message code="import.file"/></div><%--<spring:message code="admin.restore.button"/> --%>
 	<div id="jquery-wrapped-fine-uploader"></div>
 	<div id="uploader-error" style="display:none;">
 		<div class="alert alert-error"><h3><spring:message code="admin.restore.fail"/></h3>

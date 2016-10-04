@@ -1,9 +1,9 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %><html>
-<head><title>Import</title><c:set var="accessOK" value="true" scope="request"/>
+<head><title><spring:message code="import.import"/></title><c:set var="accessOK" value="true" scope="request"/>
 <script type="text/javascript">
 function checkFile() {
 	if ($("#file").val()=='') {
-		$('#message').text('Choose a file to import.');
+		$('#message').text('<spring:message code="import.file"/>');
 		$('#errorbox').css('display','block');
 		return false;
 	} else {

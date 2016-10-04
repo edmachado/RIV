@@ -24,7 +24,18 @@ $(document).ready(function () {
 	 }); 
 });
 
+function uploadConfig() {
+	$("#upload-dialog").dialog('option', 'title', titleConfig);
+	$('#upload-description').text(uploadDescConfig);
+	submitUrlBase='admin/import';
+	setupFileUploader(true);
+	$("#upload-dialog").dialog("open");
+}
+
 function uploadRestore() {
+	$("#upload-dialog").dialog('option', 'title', titleRestore);
+	$('#upload-description').text(uploadDescRestore);
+	submitUrlBase='admin/restore';
 	setupFileUploader(true);
 	$("#upload-dialog").dialog("open");
 }

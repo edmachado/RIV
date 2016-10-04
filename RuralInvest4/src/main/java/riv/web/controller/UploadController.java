@@ -186,6 +186,32 @@ public class UploadController implements Serializable {
 	}
 	
 	@RequestMapping(value="/config/admin/import", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public @ResponseBody String importConfig(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
+		String error = "";
+		User user = (User)request.getAttribute("user");
+		
+		if (!user.isAdministrator()) {
+			System.out.println("Access denied importing backup");
+		} else {
+			Iterator<String> itr =  request.getFileNames();
+			MultipartFile mpf = request.getFile(itr.next());
+			try {
+				byte[] settings=mpf.getBytes();
+				processUpload(settings, "config", model, user, true);
+			} catch (Exception e) {
+				e.printStackTrace(System.out);
+				error = e.getMessage();
+			}
+		}
+		
+		if (error.isEmpty()) {
+			return "{\"success\": \"success\"}";
+		} else {
+			return "{\"error\": \""+error.replace("\"", "\\\"")+"\"}";
+		}
+	}
+	
+	@RequestMapping(value="/config/admin/restore", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String importBackup(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
 		String error = "";
 		User user = (User)request.getAttribute("user");
