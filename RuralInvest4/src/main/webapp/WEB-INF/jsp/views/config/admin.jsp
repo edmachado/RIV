@@ -19,6 +19,12 @@ var submitUrlBase='admin/import';
 </head>
 <body>
 
+<h2><a id="import" href="javascript:uploadConfig();" href="" title="UPLOAD CONFIG" alt="UPLOAD CONFIG">
+	<img src="../img/up.gif" alt="UPLOAD CONFIG"/>
+	UPLOAD CONFIG
+</a></h2>
+<p>IMPORT CONFIGURATION FROM SETTINGS.RIV FILE</p>
+
 <h2><a id="backup" class="fileDownloadSimpleRichExperience" href="export/backup.riv" alt="<spring:message code="admin.download"/>">
 	<img src="../img/export_riv.gif" alt="<spring:message code="admin.download"/>"/>
 	<spring:message code="admin.download"/>
