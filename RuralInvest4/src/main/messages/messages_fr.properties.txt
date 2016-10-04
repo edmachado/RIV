@@ -1,5 +1,17 @@
 #RIV4.3 - phase 3
 
+admin.firstUse=Avant d’utiliser le logiciel RuralInvest, vous devez configurer le système (paramètres, zones, bénéficiaires etc.) Vous pouvez réaliser cette opération en important un fichier de configuration (settings.riv) où le récupérer à partir d’un fichier sauvegardé auparavant.
+admin.grant.button=Accordez des privilèges
+admin.grant.text=Les administrateur peuvent sauvegarder et récupérer les données, charger les configurations système (settings.riv) et autoriser de nouveaux administrateurs. Sur la version serveur, les administrateurs peuvent changer manuellement la configuration du système. Voulez vous accorder des privilèges d’administrateur à cet utilisateur ?
+admin.grant=Accordez des privilèges d’administrateur
+admin.manualConfig.text=Puisque vous utilisez la version serveur de RuralInvest, vous pouvez également
+admin.manualConfig.link=entrer la configuration de RuralInvest manuellement
+admin.welcome=Bienvenue sur RuralInvest!
+import.config.error=L’opération d’importation a échoué
+import.config.file=Choisissez un fichier de configuration à importer
+import.config.text=Importez les données de configuration (paramètres, zones, bénéficiaires, etc.) à partir d’un fichier settings.riv
+import.file=Choisissez un fichier à importer
+
 # changed from previous version
 admin.download=Créez votre copie de sauvegarde (sur votre ordinateur)
 admin.download.desc=Sauvegardez votre configuration RuralInvest et tous vos projets et profiles en un seul fichier

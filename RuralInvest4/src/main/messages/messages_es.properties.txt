@@ -35,7 +35,8 @@ misc.last=Último
  
 admin.page=Funciones administrativas
 admin.download.prepare=Preparando el archivo de respaldo, por favor espere ...
-admin.download.error=Hubo un problema al generar el archivo de respaldo para RuralInvest. admin.restore=Recupere el respaldo
+admin.download.error=Hubo un problema al generar el archivo de respaldo para RuralInvest. 
+admin.restore=Recupere el respaldo
 admin.restore.desc=Recupere configuración, proyectos y perfiles desde un archivo de respaldo (la configuración existente así como los proyectos y perfiles existentes se perderán).
 admin.restore.fail=La operación de recuperación no fue exitosa.
 admin.restore.error.notBackup=El archivo que está importando no es un archivo apropiado de respaldo de RuralInvest.
