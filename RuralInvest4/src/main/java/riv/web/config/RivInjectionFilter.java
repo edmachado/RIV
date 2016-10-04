@@ -34,8 +34,9 @@ public class RivInjectionFilter extends OncePerRequestFilter {
 		String pageRequested = request.getRequestURI();
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		request.setAttribute("user", user);
-		if (rivConfig.isComplete() || pageRequested.endsWith("/config/admin") // || pageRequested.endsWith("/config/import")
-				||  pageRequested.endsWith("/config/settings")) {
+		if (rivConfig.isComplete() || pageRequested.endsWith("/config/admin") ||  pageRequested.endsWith("/config/settings")
+				|| pageRequested.endsWith("admin/import") || pageRequested.endsWith("admin/restore"))  {
+				// || pageRequested.endsWith("/config/import")
 			request.setAttribute("rivConfig", rivConfig);
 		} else {
 //			if (rivConfig.isAdmin()) {

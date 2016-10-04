@@ -28,6 +28,7 @@ function uploadConfig() {
 	$('#uploader-error').hide();
 	$("#upload-dialog").dialog('option', 'title', titleConfig);
 	$('#upload-description').text(uploadDescConfig);
+	$('#upload-fail').text(uploadFailConfig);
 	submitUrlBase='admin/import';
 	setupFileUploader(true);
 	$("#upload-dialog").dialog("open");
@@ -37,6 +38,7 @@ function uploadRestore() {
 	$('#uploader-error').hide();
 	$("#upload-dialog").dialog('option', 'title', titleRestore);
 	$('#upload-description').text(uploadDescRestore);
+	$('#upload-fail').text(uploadFailRestore);
 	submitUrlBase='admin/restore';
 	setupFileUploader(true);
 	$("#upload-dialog").dialog("open");

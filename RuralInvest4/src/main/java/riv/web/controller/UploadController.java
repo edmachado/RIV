@@ -50,6 +50,7 @@ import riv.objects.project.Project;
 import riv.util.ExcelImportException;
 import riv.util.Upgrader;
 import riv.web.config.RivConfig;
+import riv.web.config.RivLocaleResolver;
 import riv.web.service.AttachTools;
 import riv.web.service.DataService;
  
@@ -71,6 +72,8 @@ public class UploadController implements Serializable {
 	private MessageSource messageSource;
 	@Autowired
 	private ServletContext sc;
+	@Autowired 
+	private RivLocaleResolver rivLocaleResolver;
 	
 	private byte[] containingFile;
 	private Object decoded;
@@ -169,8 +172,8 @@ public class UploadController implements Serializable {
 	private void clearFormData() {
 		decoded=null;containingFile=null;filename=null;
 	}
-	private String uploadError(String error, Model model) {
-		model.addAttribute("error", messageSource.getMessage(error, null, new Locale(rivConfig.getSetting().getLang())));
+	private String uploadError(String error, Model model, Locale locale) {
+		model.addAttribute("error", messageSource.getMessage(error, null, locale));
 		clearFormData();
 		return "upload";
 	}
@@ -187,6 +190,8 @@ public class UploadController implements Serializable {
 	
 	@RequestMapping(value="/config/admin/import", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String importConfig(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
+		Locale locale=rivLocaleResolver.resolveLocale(request);
+		
 		String error = "";
 		User user = (User)request.getAttribute("user");
 		
@@ -197,7 +202,7 @@ public class UploadController implements Serializable {
 			MultipartFile mpf = request.getFile(itr.next());
 			try {
 				byte[] settings=mpf.getBytes();
-				processUpload(settings, "config", model, user, true);
+				processUpload(settings, "config", model, user, true, locale);
 				if (model.containsAttribute("error")) {
 					error = (String) model.asMap().get("error");
 				}
@@ -216,6 +221,8 @@ public class UploadController implements Serializable {
 	
 	@RequestMapping(value="/config/admin/restore", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public @ResponseBody String importBackup(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
+		Locale locale=rivLocaleResolver.resolveLocale(request);
+		
 		String error = "";
 		User user = (User)request.getAttribute("user");
 		
@@ -254,9 +261,16 @@ public class UploadController implements Serializable {
 				
 				// confirm that settings are correct before deleting current data
 				if (settings==null || getDecoded(FileUtils.readFileToByteArray(settings), "config")!=null) {
-					String e = messageSource.getMessage("admin.restore.error.notBackup", null, LocaleContextHolder.getLocale());
+					String e = messageSource.getMessage("admin.restore.error.notBackup", null, locale);
 					throw new ExcelImportException(e);
 				}
+				
+				// possible function (if desired)
+				// if no profiles or projects, should be uploaded as configuration to avoid confusion
+//				if (files.size()==0) {
+//					String e = messageSource.getMessage("",  null, locale);
+//					throw new ExcelImportException(e);
+//				}
 
 				// delete current data
 				dataService.deleteAll(true, true);
@@ -267,7 +281,7 @@ public class UploadController implements Serializable {
 				
 				
 				// add settings
-				processUpload(FileUtils.readFileToByteArray(settings), "config", model, user, true);
+				processUpload(FileUtils.readFileToByteArray(settings), "config", model, user, true, locale);
 				
 				// add projects and profiles
 				ByteArrayOutputStream baos;
@@ -279,7 +293,7 @@ public class UploadController implements Serializable {
 					while ((entry = zis.getNextEntry()) != null) {
 						baos = new ByteArrayOutputStream();
 						IOUtils.copy(zis, baos);
-						processUpload(baos.toByteArray(), type, model, user, true);
+						processUpload(baos.toByteArray(), type, model, user, true, locale);
 						zis.closeEntry();
 					}
 					zis.close();zis=null;
@@ -308,6 +322,8 @@ public class UploadController implements Serializable {
 	@RequestMapping(value = "/{type}/import", method = RequestMethod.POST)
 	public String upload(@PathVariable String type, Model model, MultipartHttpServletRequest request, HttpServletResponse response,
 			@RequestParam(required=true) Boolean allowComplete) throws Exception { 
+		Locale locale=rivLocaleResolver.resolveLocale(request);
+		
 		User user = (User)request.getAttribute("user");
 		if (type.equals("config") && !user.isAdministrator()) {
 			System.out.println("Access denied importing config");
@@ -317,7 +333,7 @@ public class UploadController implements Serializable {
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
 		boolean complete = allowComplete!=null && allowComplete==true;
-		return processUpload(mpf.getBytes(), type, model, user, complete);
+		return processUpload(mpf.getBytes(), type, model, user, complete, locale);
 	}
 	
 	private String getDecoded(byte[] bytes, String type) {
@@ -346,20 +362,20 @@ public class UploadController implements Serializable {
 		return result;
 	}
 	
-	private String processUpload(byte[] bytes, String type, Model model, User user, boolean markComplete) {
+	private String processUpload(byte[] bytes, String type, Model model, User user, boolean markComplete, Locale locale) {
 		// 1. Get main riv object and keep containing file
 		String result = getDecoded(bytes, type);
-		if (result != null) { return uploadError(result, model); }
+		if (result != null) { return uploadError(result, model, locale); }
 		
 		// 2. Check if any errors in riv object
 		String error=checkRivObjectForErrors(type);
-		if (error!=null) { return uploadError(error, model); }
+		if (error!=null) { return uploadError(error, model, locale); }
 		
 		// 3. Update/require confirmations and save
 		if (type.equals("config")) {
 			return handleConfig(model);
 		} else if (type.equals("profile")) {
-			return handleProfile(user, model, markComplete);
+			return handleProfile(user, model, markComplete, locale);
 		} else  {
 			return handleProject(user, model, markComplete);
 		}
@@ -384,7 +400,7 @@ public class UploadController implements Serializable {
 		}
 	}
 	
-	private String handleProfile(User user, Model model, boolean markComplete) {
+	private String handleProfile(User user, Model model, boolean markComplete, Locale locale) {
 		Profile profile = (Profile)decoded;
 		
 		boolean exists = dataService.getProfileByUniqueId(profile.getUniqueId())!=null;
@@ -401,7 +417,7 @@ public class UploadController implements Serializable {
 				clearFormData();
 				return "redirect:step1/"+profile.getProfileId();
 			} catch (Exception e) {
-				return uploadError("An error occurred when saving profile. "+e.getMessage(), model);
+				return uploadError("An error occurred when saving profile. "+e.getMessage(), model, locale);
 			}
 		} else { 
 			return needConfirm(profile.isGeneric(), exists, model);

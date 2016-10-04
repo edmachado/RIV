@@ -17,6 +17,8 @@ var failMsg=''; var uploadBlockId='';
 var submitUrlBase;
 var uploadDescRestore="<spring:message code='admin.restore.desc'/>";
 var uploadDescConfig="<spring:message code='import.config.text'/>";
+var uploadFailRestore="<spring:message code='admin.restore.fail'/>";
+var uploadFailConfig="<spring:message code='import.config.error'/>";
 var titleRestore="<spring:message code='admin.restore'/>";
 var titleConfig="<spring:message code='import.config'/>";
 </script>
@@ -64,7 +66,7 @@ var titleConfig="<spring:message code='import.config'/>";
 	<div id="uploader-button"><spring:message code="import.file"/></div><%--<spring:message code="admin.restore.button"/> --%>
 	<div id="jquery-wrapped-fine-uploader"></div>
 	<div id="uploader-error" style="display:none;">
-		<div class="alert alert-error"><h3><spring:message code="admin.restore.fail"/></h3>
+		<div class="alert alert-error"><h3 id="upload-fail"></h3>
 			<div id="uploader-error-message"></div>
 		</div>
 	</div>
