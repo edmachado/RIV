@@ -3,15 +3,15 @@ admin.grant=Grant administrator privileges
 admin.grant.text=Admin users can backup and restore data, upload system configuration (settings.riv), and authorize future admin users. On the server version, admin users also can manually change the system configuration. Do you want to grant administrator privileges to the following user? 
 admin.grant.button=Grant privileges
 
-import.config.file=Choose a configuration file to import.
-import.config.text=Import configuration data (settings, field offices, beneficiaries, etc.) from a settings.riv file.
-import.file=Choose a file to import.
-import.config.error=The import operation was not successful. 
-
 admin.welcome=Welcome to RuralInvest!
 admin.firstUse=Before using the RuralInvest software, you must setup the system configuration (settings, field offices, beneficiaries, etc.). You may do this by importing a configuration file (settings.riv) or restoring from a backup made earlier.
 admin.manualConfig.text=Because you are using the server version of RuralInvest, you may also
 admin.manualConfig.link=enter the RuralInvest configuration manually.
+
+import.config.file=Choose a configuration file to import.
+import.config.text=Import configuration data (settings, field offices, beneficiaries, etc.) from a settings.riv file.
+import.file=Choose a file to import.
+import.config.error=The import operation was not successful. 
 
 # changed from previous version
 admin.download=Create a backup (stored on your computer)
