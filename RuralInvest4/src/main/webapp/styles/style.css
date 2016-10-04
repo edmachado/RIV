@@ -604,3 +604,8 @@ th.period, span.period { background-color: #e63f42; }
 
 span.pagebanner { display:block; background-color:#fff; }
 span.pagelinks { display:block; }
+
+#welcome { background-color:#fff;padding:20px;margin-right:20px;border: 1px solid #005cab; }
+#welcome h1 { color:#005cab; margin-bottom:20px; }
+#welcome a { color: #ebaf01; }
+#welcome a:hover { text-decoration: underline; }

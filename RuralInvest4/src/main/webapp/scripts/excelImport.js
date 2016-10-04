@@ -25,6 +25,7 @@ $(document).ready(function () {
 });
 
 function uploadConfig() {
+	$('#uploader-error').hide();
 	$("#upload-dialog").dialog('option', 'title', titleConfig);
 	$('#upload-description').text(uploadDescConfig);
 	submitUrlBase='admin/import';
@@ -33,6 +34,7 @@ function uploadConfig() {
 }
 
 function uploadRestore() {
+	$('#uploader-error').hide();
 	$("#upload-dialog").dialog('option', 'title', titleRestore);
 	$('#upload-description').text(uploadDescRestore);
 	submitUrlBase='admin/restore';

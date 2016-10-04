@@ -32,16 +32,22 @@ public class RivInjectionFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		String pageRequested = request.getRequestURI();
-		if (rivConfig.isComplete() || pageRequested.endsWith("/config/import") || (rivConfig.isAdmin() && pageRequested.endsWith("/config/settings"))) {
-			User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			request.setAttribute("user", user);
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		request.setAttribute("user", user);
+		if (rivConfig.isComplete() || pageRequested.endsWith("/config/admin") // || pageRequested.endsWith("/config/import")
+				||  pageRequested.endsWith("/config/settings")) {
 			request.setAttribute("rivConfig", rivConfig);
 		} else {
-			if (rivConfig.isAdmin()) {
-				response.sendRedirect(basePath(pageRequested)+"/config/settings");
+//			if (rivConfig.isAdmin()) {
+//				response.sendRedirect(basePath(pageRequested)+"/config/settings");
+//			} else {
+//				response.sendRedirect(basePath(pageRequested)+"/config/admin");
+//			}	
+			if (user.isAdministrator()) {
+				response.sendRedirect(basePath(pageRequested)+"/config/admin");
 			} else {
-				response.sendRedirect(basePath(pageRequested)+"/config/import");
-			}			
+				response.sendRedirect(basePath(pageRequested)+"/config/settings");
+			}
 		}
 		chain.doFilter(request, response);
 	}

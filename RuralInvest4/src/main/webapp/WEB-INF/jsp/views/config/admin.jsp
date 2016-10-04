@@ -15,33 +15,49 @@ $(document).on("click", "a.fileDownloadSimpleRichExperience", function () {
 });
 var failMsg=''; var uploadBlockId='';
 var submitUrlBase;
-var uploadDescRestore='<spring:message code="admin.restore.desc"/>';
-var uploadDescConfig='FOOCIAO';
-var titleRestore='<spring:message code="admin.restore"/>';
-var titleConfig='UPLOAD CONFIG';
+var uploadDescRestore="<spring:message code='admin.restore.desc'/>";
+var uploadDescConfig="<spring:message code='import.config.text'/>";
+var titleRestore="<spring:message code='admin.restore'/>";
+var titleConfig="<spring:message code='import.config'/>";
 </script>
 </head>
 <body>
 
-<h2><a id="import" href="javascript:uploadConfig();" href="" title="UPLOAD CONFIG" alt="UPLOAD CONFIG">
-	<img src="../img/up.gif" alt="UPLOAD CONFIG"/>
-	UPLOAD CONFIG
-</a></h2>
-<p>IMPORT CONFIGURATION FROM SETTINGS.RIV FILE</p>
+<c:if test="${user.administrator}"><h2><a id="reset" style="display:none;" href="reset">Reset RuralInvest</a></h2></c:if>
 
-<h2><a id="backup" class="fileDownloadSimpleRichExperience" href="export/backup.riv" alt="<spring:message code="admin.download"/>">
-	<img src="../img/export_riv.gif" alt="<spring:message code="admin.download"/>"/>
-	<spring:message code="admin.download"/>
-</a></h2>
-<p><spring:message code="admin.download.desc"/></p>
+<c:if test="${not rivConfig.complete}">
+	<div id="welcome">
+		<h1><spring:message code="admin.welcome"/></h1>
+		<p><spring:message code="admin.firstUse"/></p>
+		<c:if test="${rivConfig.admin}">
+			<br/>
+			<spring:message code="admin.manualConfig.text"/>
+			<a href="settings"><spring:message code="admin.manualConfig.link"/></a>
+		</c:if>
+	</div>
+</c:if>
 
-<h2><a id="restore" href="javascript:uploadRestore();" href="" title="<spring:message code="admin.restore"/>" alt="<spring:message code="admin.restore"/>">
+<h2><a id="import" href="javascript:uploadConfig();" href="" alt="<spring:message code='import.config'/>">
+	<img src="../img/up.gif" alt="<spring:message code='import.config'/>"/>
+	<spring:message code='import.config'/>
+</a></h2>
+<p><spring:message code="import.config.text"/></p>
+
+<h2><a id="restore" href="javascript:uploadRestore();" href="" alt="<spring:message code="admin.restore"/>">
 	<img src="../img/up.gif" alt="<spring:message code="admin.restore"/>"/>
 	<spring:message code="admin.restore"/>
 </a></h2>
 <p><spring:message code="admin.restore.desc"/></p>
 
-<c:if test="${user.administrator}"><h2><a id="reset" style="display:none;" href="reset">Reset RuralInvest</a></h2></c:if>
+<c:if test="${rivConfig.complete}">
+	<h2><a id="backup" class="fileDownloadSimpleRichExperience" href="export/backup.riv" alt="<spring:message code="admin.download"/>">
+		<img src="../img/export_riv.gif" alt="<spring:message code="admin.download"/>"/>
+		<spring:message code="admin.download"/>
+	</a></h2>
+	<p><spring:message code="admin.download.desc"/></p>
+</c:if>
+
+
 
 <div id="upload-dialog">
 	<p id="upload-description"><spring:message code="admin.restore.desc"/></p>

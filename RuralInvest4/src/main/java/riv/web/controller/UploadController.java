@@ -198,6 +198,9 @@ public class UploadController implements Serializable {
 			try {
 				byte[] settings=mpf.getBytes();
 				processUpload(settings, "config", model, user, true);
+				if (model.containsAttribute("error")) {
+					error = (String) model.asMap().get("error");
+				}
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 				error = e.getMessage();

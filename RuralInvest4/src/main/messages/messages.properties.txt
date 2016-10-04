@@ -4,7 +4,12 @@ admin.grant.text=Admin users can backup and restore data, upload system configur
 admin.grant.button=Grant privileges
 
 import.config.file=Choose a configuration file to import.
+import.config.text=Import configuration data (settings, field offices, beneficiaries, etc.) from a settings.riv file.
 import.file=Choose a file to import.
+admin.welcome=Welcome to RuralInvest!
+admin.firstUse=Before using the RuralInvest software, you must setup the system configuration (settings, field offices, beneficiaries, etc.). You may do this by importing a configuration file (settings.riv) or restoring from a backup made earlier.
+admin.manualConfig.text=Because you are using the server version of RuralInvest, you may also
+admin.manualConfig.link=enter the RuralInvest configuration manually.
 
 # changed from previous version
 admin.download=Create a backup (stored on your computer)
