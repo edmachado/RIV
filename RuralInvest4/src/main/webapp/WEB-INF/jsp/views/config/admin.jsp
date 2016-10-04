@@ -72,4 +72,5 @@ var titleConfig="<spring:message code='import.config'/>";
 	</div>
 </div>
 <form id="upload-test-form" action="admin/import" method="post" enctype="multipart/form-data"></form>
+<form id="restore-test-form" action="admin/restore" method="post" enctype="multipart/form-data"></form>
 </body></html>

@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -196,7 +195,7 @@ public class UploadController implements Serializable {
 		User user = (User)request.getAttribute("user");
 		
 		if (!user.isAdministrator()) {
-			System.out.println("Access denied importing backup");
+			System.out.println("Access denied importing configuration");
 		} else {
 			Iterator<String> itr =  request.getFileNames();
 			MultipartFile mpf = request.getFile(itr.next());
@@ -324,11 +323,12 @@ public class UploadController implements Serializable {
 			@RequestParam(required=true) Boolean allowComplete) throws Exception { 
 		Locale locale=rivLocaleResolver.resolveLocale(request);
 		
-		User user = (User)request.getAttribute("user");
-		if (type.equals("config") && !user.isAdministrator()) {
-			System.out.println("Access denied importing config");
-			return "redirect:../home"; 
+		// config import moved to own function
+		if (type.equals("config")) {
+			return "redirect:../home";
 		}
+		
+		User user = (User)request.getAttribute("user");
 		
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());
