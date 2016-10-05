@@ -165,9 +165,12 @@
 			<description>The core files needed for the application</description>
         
         	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="false" override="true">
-        	
+     
         	</fileset>
 			<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
+			
+			 <!-- service launcher -->
+            <file src="@{izpack.staging}/lib/RIV4-service.jar" targetdir="$INSTALL_PATH/service" override="true" />
 
             <!-- ==============
 			    	Windows
@@ -208,9 +211,6 @@
 
 		<pack name="Web server launcher" required="yes" condition="!RIV4-service-exists" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webserver">
 			<description>Service to run embedded web server</description>
-
-            <!--  actual service launcher -->
-            <file src="@{izpack.staging}/lib/RIV4-service.jar" targetdir="$INSTALL_PATH/service" override="true" />
 
             <!-- ==============
 			    	Windows
