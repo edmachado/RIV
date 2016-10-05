@@ -52,6 +52,8 @@
                         <configuration>
                             <outputDirectory>${war.dir}/WEB-INF/classes/reports</outputDirectory>
                             <sourceDirectory>${reports.target.dir}</sourceDirectory>
+                            <maven.compiler.source>1.6</maven.compiler.source>
+  							<maven.compiler.target>1.6</maven.compiler.target>
                         </configuration>
                         <executions>
                             <execution>
