@@ -99,14 +99,14 @@
 				<subreportExpression><![CDATA[$P{incomeSubReport}]]></subreportExpression>
 			</subreport>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="d683905d-d4b4-4aa6-a937-a213a6302580" key="textField" mode="Opaque" x="141" y="30" width="65" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="d683905d-d4b4-4aa6-a937-a213a6302580" key="textField" mode="Opaque" x="141" y="30" width="197" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement verticalAlignment="Top" rotation="None">
 					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
