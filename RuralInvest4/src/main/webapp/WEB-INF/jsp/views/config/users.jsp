@@ -28,12 +28,12 @@
 		<display:column titleKey="user.location" property="location" sortable="true" style="text-align:left;" headerClass="left" />
 		<display:column titleKey="user.telephone" property="telephone" sortable="true" style="text-align:left;" headerClass="left" />
 		<display:column titleKey="user.email" property="email" autolink="true" sortable="true" style="text-align:left;" headerClass="left" />
-<%-- 		<display:column titleKey="user.administrator" sortable="true" headerClass="left" style="text-align:center"> --%>
-<%-- 			<c:if test="${row.administrator}"><img src="../img/star.png" alt="<spring:message code="user.administrator"/>" title="<spring:message code="user.administrator"/>" width="16" height="16" border="0"></c:if> --%>
-<%-- 			<c:if test="${not row.administrator and user.administrator}"> --%>
-<%-- 				<a href="#" onclick="javascript:makeAdmin(${row.userId}, '<spring:escapeBody javaScriptEscape="true">${row.description} (${row.organization})</spring:escapeBody>');" alt="<spring:message code="admin.grant"/>" title="<spring:message code="admin.grant"/>"><img src="../img/up.gif" border="0"/></a> --%>
-<%-- 			</c:if> --%>
-<%-- 		</display:column> --%>
+		<display:column titleKey="user.administrator" sortable="true" headerClass="left" style="text-align:center">
+			<c:if test="${row.administrator}"><img src="../img/star.png" alt="<spring:message code="user.administrator"/>" title="<spring:message code="user.administrator"/>" width="16" height="16" border="0"></c:if>
+			<c:if test="${not row.administrator and user.administrator}">
+				<a href="#" onclick="javascript:makeAdmin(${row.userId}, '<spring:escapeBody javaScriptEscape="true">${row.description} (${row.organization})</spring:escapeBody>');" alt="<spring:message code="admin.grant"/>" title="<spring:message code="admin.grant"/>"><img src="../img/up.gif" border="0"/></a>
+			</c:if>
+		</display:column>
 		<display:column title="&nbsp;">
 			<c:if test="${user.userId == row.userId}">
 				<a href="user/${row.userId}">
