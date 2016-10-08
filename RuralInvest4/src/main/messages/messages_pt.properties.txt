@@ -1,4 +1,7 @@
-﻿## RIV 4.3 - phase 3
+﻿project.report.cashFlow.income.sales=Receitas das vendas
+
+
+## RIV 4.3 - phase 3
 admin.grant=Conceder acesso como administrador
 admin.grant.text=Administradores podem realizer cópias de segurança, recuperar dados a partir de cópias de segurança, carregar configurações (settings.riv) e autorizar novos administradores. Na versão para “servidor”, os administradores também podem alterar manualmente a configuração. Deseja conceder provilégios de administrador a este utilizador? 
 admin.grant.button=Conceder acesso

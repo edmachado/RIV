@@ -1,3 +1,6 @@
+project.report.cashFlow.income.sales=Ingresos por ventas
+
+
 ## RIV 4.3 - phase 3
 admin.grant=Conceda privilegios de administrador
 admin.grant.text=Administradores pueden respaldar y recuperar datos, cargar o subir la configuración del sistema (settings.riv), y autorizar nuevos administradores. En la versión para servidor, los administradores pueden cambiar manualmente la configuración del sistema. ¿Desea usted conceder privilegios de administrador al usuario siguiente? 

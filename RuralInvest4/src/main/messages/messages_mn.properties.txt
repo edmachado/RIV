@@ -1,3 +1,6 @@
+project.report.cashFlow.income.sales=Борлуулaлтын орлого
+
+
 profileProduct.usesCycles=Энэ бүтээгдэхүүн нь циклтэй
 profileProduct.usesCycles.help= Энэ бүтээгдэхүүн циклийг ашигладаг жишээ нь: анхдагч ХАА-н бүтээгдэхүүн (тонн/га, литр/жил г.м.)
 profileActivity.usesCycles= Энэ үйл ажиллагаа циклтэй

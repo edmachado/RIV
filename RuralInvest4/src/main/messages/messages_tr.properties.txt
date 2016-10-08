@@ -1,3 +1,6 @@
+project.report.cashFlow.income.sales=Satış geliri
+
+
 ## RIV 4.3 - phase 2
 admin.grant.button=Ayrıcalık Sağla
 admin.grant.text= Admin kullanıcı, veri yedekleme ve geri yükleme, sistem yapılandırmalarını yükleme (ayarlar.riv) ve yeni admin kullanıcılara yetki verebilir. Sunucu sürümünde, admin kullanıcılar aynı zamanda sistem yapılandırmasını manuel olarak da değiştirebilir. Yönetici ayrıcalıklarını aşağıdaki kullanıcı için de sağlamak istiyor musunuz? 

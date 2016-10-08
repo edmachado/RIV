@@ -1,4 +1,7 @@
-﻿#RIV 4.3 - phase 1
+﻿project.report.cashFlow.income.sales=Доход от реализации
+
+
+#RIV 4.3 - phase 1
 error.perYearCost.fieldRequired=Year {0}, {1}: Это поле нужно заполнить.
 error.perYearCost.requiredNonNegative=Year {0}, {1}: Значение в данном поле не может быть отрицательным.
 

@@ -1,3 +1,6 @@
+project.report.cashFlow.income.sales=Ventes
+
+
 #RIV4.3 - phase 3
 
 admin.firstUse=Avant d’utiliser le logiciel RuralInvest, vous devez configurer le système (paramètres, zones, bénéficiaires etc.) Vous pouvez réaliser cette opération en important un fichier de configuration (settings.riv) où le récupérer à partir d’un fichier sauvegardé auparavant.

@@ -1,4 +1,6 @@
 ## RIV 4.3 - phase 3
+project.report.cashFlow.income.sales=Sales income
+
 admin.grant=Grant administrator privileges
 admin.grant.text=Admin users can backup and restore data, upload system configuration (settings.riv), and authorize future admin users. On the server version, admin users also can manually change the system configuration. Do you want to grant administrator privileges to the following user? 
 admin.grant.button=Grant privileges

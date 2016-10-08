@@ -217,7 +217,7 @@
 					<font fontName="Arial" size="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{project.report.profitability.incomes.sales}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.report.cashFlow.income.sales}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="e89ea471-9e90-400f-9bd3-04a1661125ae" key="textField-24" isPrintRepeatedValues="false" mode="Opaque" x="-167" y="50" width="160" height="11" forecolor="#003365" backcolor="#FFFFFF">

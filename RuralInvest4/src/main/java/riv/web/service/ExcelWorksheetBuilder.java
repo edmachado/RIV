@@ -1914,7 +1914,7 @@ public class ExcelWorksheetBuilder {
 		
 		// Incomes
 		rowNum = addRowTitles(new String[] { "project.report.profitability.incomes",
-				"project.report.cashFlow.income.main","project.report.profitability.incomes.sales", "project.report.profitability.incomes.salvage","misc.subtotal","","project.report.cashFlow.income.finance","project.report.cashFlow.income.invest", "project.report.cashFlow.income.own",
+				"project.report.cashFlow.income.main","project.report.cashFlow.income.sales", "project.report.profitability.incomes.salvage","misc.subtotal","","project.report.cashFlow.income.finance","project.report.cashFlow.income.invest", "project.report.cashFlow.income.own",
 				without ? "project.report.cashFlow.income.investWithout" : "project.report.cashFlow.income.loans","project.report.cashFlow.income.loanwc","project.report.cashFlow.income.wcDonation","project.report.cashFlow.income.wcOwn","misc.subtotal"
 		}, rowNum++, sheet, report);
 		
