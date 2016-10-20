@@ -109,7 +109,7 @@ public class UserController {
 		
 		// check that password is repeated correctly
 		if ((changePassword!=null || id==-1) &!user.getPassword().equals(request.getParameter("passwordRepeat"))) {
-			result.rejectValue("password", "user.repeatedPassword");
+			result.rejectValue("password", "user.repeatedPassword.help");
 		}
 		// check that username is unique
 		if (id==-1 && dataService.getUserByUsername(user.getUsername())!=null) {

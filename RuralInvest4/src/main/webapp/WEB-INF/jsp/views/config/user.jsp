@@ -17,6 +17,7 @@
 					<div class="dataentry">
 						<tags:help text="user.password.help" title="user.password"><label><spring:message code="user.password"/></label></tags:help>
 						<form:password path="password" maxlength="20" size="20" class="text"/>
+						<form:errors path="password" cssClass="error" element="div" />
 					</div>
 					<div class="dataentry">
 						<tags:help text="user.repeatedPassword.help" title="user.repeatedPassword"><label><spring:message code="user.repeatedPassword"/></label></tags:help>
