@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>org.fao.riv</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/Library/Java/JavaVirtualMachines/jre1.8/bin/java</string>
+      <string>-cp</string>
+      <string>$INSTALL_PATH/service/RIV4-service.jar</string>
+      <string>org.fao.riv.service.Launch</string>
+      <string>$HTTP_PORT_NO</string>
+    </array>
+
+    <key>ServiceDescription</key>
+    <string>RuralInvest</string>
+
+    <key>Sockets</key>
+    <dict>
+      <key>Listeners</key>
+      <dict>
+        <key>SockServiceName</key>
+        <string>$HTTP_PORT_NO</string>
+        <key>SockType</key>
+        <string>stream</string>
+        <key>SockFamily</key>
+        <string>IPv4</string>
+      </dict>
+    </dict>
+
+    <key>UserName</key>
+    <string>root</string>
+
+    <key>Nice</key>
+    <integer>1</integer>
+
+    <key>RunAtLoad</key>
+    <true/>
+    <key>OnDemand</key>
+    <false/>
+
+    <key>StandardErrorPath</key>
+    <string>$INSTALL_PATH/logs/riv.err</string>
+    <key>StandardOutPath</key>
+    <string>$INSTALL_PATH/logs/riv.out</string>
+
+  </dict>
+</plist>

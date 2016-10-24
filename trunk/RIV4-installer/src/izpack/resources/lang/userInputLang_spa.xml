@@ -1,0 +1,29 @@
+<izpack:langpack version="5.0"
+                 xmlns:izpack="http://izpack.org/schema/langpack"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
+  <str id="tomcat" txt="Configuración de Puerto Tomcat" />
+  <str id="input.userconfig" txt="Configuración del Usuario" />
+  <str id="server.port" txt="Registre el No. de Puerto del Servidor" />
+  <str id="server.port.invalid" txt="¡Número de puerto inválido!" />
+  <str id="http.port" txt="Registre el No. de Puerto HTTP" />
+  <str id="username" txt="Nombre del usuario" />
+  <str id="pleaseWait" txt="Por favor espere..." />
+  <str id="username.description" txt="Este es el nombre del usuario a ser utilizado para acceder a RuralInvest, junto con la contraseña." />
+  <str id="username.invalid" txt="¡Nombre de usuario inválido!" />
+  <str id="password" txt="Contraseña" />
+  <str id="password.description" txt="Su contraseña es necesaria para acceder a RuralInvest. ¡No la olvide!" />
+  <str id="password.invalid" txt="Registre la misma contrasena en ambos campos." />
+  <str id="fullname" txt="Su nombre" />
+  <str id="fullname.description" txt="Este es su nombre completo."/>
+  <str id="fullname.invalid" txt="¡Nombre inválido!" />
+  <str id="organization" txt="Organización" />
+  <str id="organization.invalid" txt="¡Organización inválida!" />
+  <str id="location" txt="Localidad" />
+  <str id="location.invalid" txt="¡Localidad inválida!" />
+  <str id="telephone" txt="Teléfono" />
+  <str id="telephone.invalid" txt="¡Teléfono inválido!" />
+  <str id="email" txt="Dirección electrónica" />
+  <str id="email.invalid" txt="¡Dirección electrónica inválida!" />
+  <str id="user.warning" txt="Estos parámetros deberían ser modificados solo por usuarios con experiencia, ya que de no ser así, es mejor dejar los values default" />
+</izpack:langpack>

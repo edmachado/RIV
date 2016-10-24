@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlowFirst" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="20" bottomMargin="20" uuid="2b0da537-5d69-4f08-ad77-d1c8ab5601f7">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="40"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="opIncomesSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
+	<parameter name="imgPath" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="header" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="months" class="java.util.ArrayList" isForPrompting="false"/>
+	<parameter name="opCostsSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="totalsSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
+	<parameter name="firstYearData" class="riv.objects.ProjectFirstYear" isForPrompting="false"/>
+	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
+	<field name="projectName" class="java.lang.String"/>
+	<field name="incomeGen" class="java.lang.Boolean"/>
+	<group name="dummy_group">
+		<groupExpression><![CDATA[null]]></groupExpression>
+		<groupHeader>
+			<band height="42" splitType="Stretch">
+				<subreport isUsingCache="true">
+					<reportElement uuid="ddd36249-48a6-47e9-99c6-4b28f449f718" key="goods" positionType="Float" mode="Opaque" x="2" y="6" width="783" height="29" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
+					<subreportParameter name="formatter">
+						<subreportParameterExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter()]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="months">
+						<subreportParameterExpression><![CDATA[$P{months}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="rivConfig">
+						<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<dataSourceExpression><![CDATA[new riv.util.ReportSource($P{firstYearData}.getIncomes())]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{opIncomesSubReport}]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="32" splitType="Stretch">
+				<subreport isUsingCache="true">
+					<reportElement uuid="43c02c43-b1f2-4ff5-83d1-be3098cd378e" key="goods-2" positionType="Float" mode="Opaque" x="3" y="3" width="783" height="29" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
+					<subreportParameter name="formatter">
+						<subreportParameterExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter()]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="rivConfig">
+						<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="firstYearData">
+						<subreportParameterExpression><![CDATA[$P{firstYearData}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportExpression><![CDATA[$P{totalsSubReport}]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement uuid="b036186d-bf6c-4bbc-bff8-0efd14fdbbb1" key="subreport-1" mode="Opaque" x="3" y="4" width="778" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
+				<subreportParameter name="proName">
+					<subreportParameterExpression><![CDATA[$F{projectName}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="reportTitle">
+					<subreportParameterExpression><![CDATA[$P{title}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="proType">
+					<subreportParameterExpression><![CDATA[($F{incomeGen}.booleanValue()) ? $R{project.incomeGen} : $R{project.nonIncomeGen}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rivConfig">
+					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{header}]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Prevent"/>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<subreport isUsingCache="true">
+				<reportElement uuid="72ddd737-92a9-4bf1-b16b-f6392962663c" key="goods-1" positionType="Float" mode="Opaque" x="2" y="0" width="783" height="29" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
+				<subreportParameter name="rivConfig">
+					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new riv.util.ReportSource($P{firstYearData}.getCosts())]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{opCostsSubReport}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Prevent">
+			<subreport>
+				<reportElement uuid="b013ac96-830b-49d7-ac81-7d62e7f57c90" x="3" y="0" width="785" height="26" backcolor="#FFFFFF"/>
+				<subreportParameter name="pageNo">
+					<subreportParameterExpression><![CDATA[$V{PAGE_NUMBER}+$P{startPage}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="reportcurrency">
+					<subreportParameterExpression><![CDATA[$R{misc.report.currency} + " " + $P{rivConfig}.getSetting().getCurrencyName()]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="reportpage">
+					<subreportParameterExpression><![CDATA[$R{misc.report.page} + " "]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="reportname">
+					<subreportParameterExpression><![CDATA[$P{reportname}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{footer}]]></subreportExpression>
+			</subreport>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Prevent"/>
+	</summary>
+</jasperReport>

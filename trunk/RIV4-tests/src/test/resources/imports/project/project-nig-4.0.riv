@@ -1,0 +1,3175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_15" class="java.beans.XMLDecoder">
+ <object class="riv.objects.project.Project" id="Project0">
+  <void property="activities">
+   <string>The principal activity of the dam will be the capture, storage and provision of water for human, livestock and crop use.</string>
+  </void>
+  <void property="assets">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemAsset">
+      <void property="description">
+       <string>Embankment Materials</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="econLife">
+       <int>20</int>
+      </void>
+      <void property="exportLinkedTo">
+       <int>5</int>
+      </void>
+      <void property="maintCost">
+       <double>8.0</double>
+      </void>
+      <void property="orderBy">
+       <int>5</int>
+      </void>
+      <void property="ownResources">
+       <double>1000000.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="salvage">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>350.0</double>
+      </void>
+      <void property="unitNum">
+       <double>21000.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic metres</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemAsset">
+      <void property="description">
+       <string>Core Materials</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="econLife">
+       <int>20</int>
+      </void>
+      <void property="exportLinkedTo">
+       <int>4</int>
+      </void>
+      <void property="maintCost">
+       <double>1.0</double>
+      </void>
+      <void property="orderBy">
+       <int>4</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="salvage">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>85.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1500.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic metres</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemAsset">
+      <void property="description">
+       <string>Fixtures and fittings</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="econLife">
+       <int>10</int>
+      </void>
+      <void property="exportLinkedTo">
+       <int>1</int>
+      </void>
+      <void property="maintCost">
+       <double>250.0</double>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="salvage">
+       <double>500.0</double>
+      </void>
+      <void property="unitCost">
+       <double>5000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Set</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemAsset">
+      <void property="description">
+       <string>Training Bank</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="econLife">
+       <int>20</int>
+      </void>
+      <void property="exportLinkedTo">
+       <int>2</int>
+      </void>
+      <void property="maintCost">
+       <double>1.0</double>
+      </void>
+      <void property="orderBy">
+       <int>2</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="salvage">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>85.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1400.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic Metres</string>
+      </void>
+      <void property="yearBegin">
+       <int>4</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemAsset">
+      <void property="description">
+       <string>Spillway</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="econLife">
+       <int>20</int>
+      </void>
+      <void property="exportLinkedTo">
+       <int>3</int>
+      </void>
+      <void property="maintCost">
+       <double>1.5</double>
+      </void>
+      <void property="orderBy">
+       <int>3</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="salvage">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>150.0</double>
+      </void>
+      <void property="unitNum">
+       <double>770.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic Metres</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemAsset">
+      <void property="description">
+       <string>Fencing</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="econLife">
+       <int>5</int>
+      </void>
+      <void property="exportLinkedTo">
+       <int>0</int>
+      </void>
+      <void property="maintCost">
+       <double>1.0</double>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="salvage">
+       <double>1.0</double>
+      </void>
+      <void property="unitCost">
+       <double>20.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1500.0</double>
+      </void>
+      <void property="unitType">
+       <string>Metres</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="assetsWithout">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="assumptions">
+   <string>The most important assumptions are: (i) that the dam construction will be adequate to ensure continued functioning of the dam over a period of at least 20 years (with adequate care), and; (ii) that there will be a sufficient flow of water into the dam during the wet season to cover evaporation and anticipated useage over the dry season. Both of these key assumptions depend on the expertise of the specialists from the National Water Board, who are familiar with these types of constructions.&#13;
+&#13;
+Also of importance are the assumptions concerning the functioning of the CCA and CWUA, and in particular the work of the Water Monitor. If he does not perform his work adequately, and water use becomes disorganized, there will be the risk not only of over extraction (leaving humans and animals without water later in the season) but also an inability to collect sufficient user charges to cover the cost of maintenance and to pay the salary of the Water Monitor.</string>
+  </void>
+  <void property="beneDirectChild">
+   <int>310</int>
+  </void>
+  <void property="beneDirectMen">
+   <int>140</int>
+  </void>
+  <void property="beneDirectNum">
+   <int>160</int>
+  </void>
+  <void property="beneDirectWomen">
+   <int>170</int>
+  </void>
+  <void property="beneIndirectChild">
+   <int>640</int>
+  </void>
+  <void property="beneIndirectMen">
+   <int>420</int>
+  </void>
+  <void property="beneIndirectNum">
+   <int>410</int>
+  </void>
+  <void property="beneIndirectWomen">
+   <int>450</int>
+  </void>
+  <void property="benefDesc">
+   <string>The primary beneficiaries of the proposed project will be approximately 160 families who will be permitted to draw water from the dam in order to irrigate down-stream fields. None of the families will irrigate more than 0.6 ha, and the average will be only 0.25 ha. All direct beneficiaries are members of the village and will provide the bulk of the limited amount of manual labour required in dam construction. Irrigation water users will pay a service charge for the water used.&#13;
+Secondary beneficiaries will encompass almost the entire population of the community - some 410 families - who will be able to use the water for both human needs and livestock watering at no cost (irrigation user charges will pay all maintenance costs). Livestock rearing is an important activity in the community, and the lack of nearby watering points for cattle (the nearest perennial river is at 8 km), has been a significant problem.</string>
+  </void>
+  <void property="benefName">
+   <string>Chisamba Community Association</string>
+  </void>
+  <void property="beneficiary">
+   <object class="riv.objects.config.Beneficiary_$$_javassist_19">
+    <void property="configId">
+     <int>-3</int>
+    </void>
+    <void property="description">
+     <string>Generic beneficiary</string>
+    </void>
+   </object>
+  </void>
+  <void property="blocks">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.Block" id="Block0">
+      <void property="cycleLength">
+       <double>12.0</double>
+      </void>
+      <void property="cyclePerYear">
+       <int>1</int>
+      </void>
+      <void property="description">
+       <string>Operation of Dam</string>
+      </void>
+      <void property="incomes">
+       <void method="add">
+        <object class="riv.objects.project.BlockIncome">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="description">
+          <string>Water Charge</string>
+         </void>
+         <void property="exportLinkedTo">
+          <int>0</int>
+         </void>
+         <void property="orderBy">
+          <int>0</int>
+         </void>
+         <void property="unitCost">
+          <object class="java.math.BigDecimal">
+           <string>7.5000</string>
+          </object>
+         </void>
+         <void property="unitNum">
+          <object class="java.math.BigDecimal">
+           <string>30000.0000</string>
+          </object>
+         </void>
+         <void property="unitType">
+          <string>Cubic Metre</string>
+         </void>
+        </object>
+       </void>
+       <void method="add">
+        <object class="riv.objects.project.BlockIncome">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="description">
+          <string>Water No Charge</string>
+         </void>
+         <void property="exportLinkedTo">
+          <int>1</int>
+         </void>
+         <void property="orderBy">
+          <int>1</int>
+         </void>
+         <void property="unitCost">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitNum">
+          <object class="java.math.BigDecimal">
+           <string>30000.0000</string>
+          </object>
+         </void>
+         <void property="unitType">
+          <string>Cubic Metre</string>
+         </void>
+        </object>
+       </void>
+      </void>
+      <void property="inputs">
+       <void method="add">
+        <object class="riv.objects.project.BlockInput">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="description">
+          <string>None</string>
+         </void>
+         <void property="exportLinkedTo">
+          <int>14</int>
+         </void>
+         <void property="orderBy">
+          <int>0</int>
+         </void>
+         <void property="qtyIntern">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="transport">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitCost">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitNum">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitType">
+          <string>x</string>
+         </void>
+        </object>
+       </void>
+       <void method="add">
+        <object class="riv.objects.project.BlockInput">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="description">
+          <string>Exactly None</string>
+         </void>
+         <void property="exportLinkedTo">
+          <int>15</int>
+         </void>
+         <void property="orderBy">
+          <int>1</int>
+         </void>
+         <void property="qtyIntern">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="transport">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitCost">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitNum">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitType">
+          <string>x</string>
+         </void>
+        </object>
+       </void>
+      </void>
+      <void property="labours">
+       <void method="add">
+        <object class="riv.objects.project.BlockLabour">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="description">
+          <string>None</string>
+         </void>
+         <void property="exportLinkedTo">
+          <int>4</int>
+         </void>
+         <void property="orderBy">
+          <int>0</int>
+         </void>
+         <void property="qtyIntern">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitCost">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitNum">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitType">
+          <string>0</string>
+         </void>
+        </object>
+       </void>
+       <void method="add">
+        <object class="riv.objects.project.BlockLabour">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="description">
+          <string>None</string>
+         </void>
+         <void property="exportLinkedTo">
+          <int>5</int>
+         </void>
+         <void property="orderBy">
+          <int>1</int>
+         </void>
+         <void property="qtyIntern">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitCost">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitNum">
+          <object class="java.math.BigDecimal">
+           <string>0.0000</string>
+          </object>
+         </void>
+         <void property="unitType">
+          <string>0</string>
+         </void>
+        </object>
+       </void>
+      </void>
+      <void property="lengthUnit">
+       <int>0</int>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="patterns">
+       <void method="put">
+        <int>1</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>1</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>2</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>2</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>3</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>3</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>4</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>4</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>5</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>5</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>6</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>6</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>7</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>7</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>8</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>8</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>9</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>9</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>10</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>10</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>11</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>11</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>12</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>12</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>13</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>13</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>14</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>14</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>15</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>15</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>17</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>17</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>16</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>16</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>19</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>19</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>18</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>18</int>
+         </void>
+        </object>
+       </void>
+       <void method="put">
+        <int>20</int>
+        <object class="riv.objects.project.BlockPattern">
+         <void property="block">
+          <object idref="Block0"/>
+         </void>
+         <void property="qty">
+          <double>1.0</double>
+         </void>
+         <void property="yearNum">
+          <int>20</int>
+         </void>
+        </object>
+       </void>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="blocksWithout">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="contributions">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>6</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>9</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>17</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>11</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>18</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string></string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>5</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>14</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>15</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>20</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>12</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>4</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>10</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>4</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>7</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>12</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string></string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>20</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>7</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>9</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>6</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>14</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>10</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>5</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>17</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string></string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>15</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>18</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>11</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>3</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>3</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string></string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>13</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>19</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>8</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>a</string>
+      </void>
+      <void property="description">
+       <string>Site Management</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>16</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>8</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>16</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>19</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemContribution">
+      <void property="contribType">
+       <int>0</int>
+      </void>
+      <void property="contributor">
+       <string>b</string>
+      </void>
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="year">
+       <int>13</int>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="createdBy">
+   <string>test user (FAO)</string>
+  </void>
+  <void property="duration">
+   <int>20</int>
+  </void>
+  <void property="enviroCategory">
+   <object class="riv.objects.config.EnviroCategory_$$_javassist_22">
+    <void property="configId">
+     <int>-6</int>
+    </void>
+    <void property="description">
+     <string>generic enviro category</string>
+    </void>
+   </object>
+  </void>
+  <void property="enviroImpact">
+   <string>The project has been rated a category &apos;B&apos; as the construction will require obtaining significant quantities of construction material, the clearing of trees and other vegetation at the site of the dam and for several hundred metres upstream, as well as putting in a hard earth access road to enable the machinery to reach the dam site.&#13;
+&#13;
+However, an existing sand and gravel quarry near the river (some 6-7 km from the dam site) will be able to provide all construction materials not found on site and will not involve any additional damage to the environment. &#13;
+&#13;
+A review of the sie by a team from the university has determined that the valley in question has no rare or endangered indigenous fauna or flora, and that all vegetation is secondary; the area having been cleared in the past for livestock pasturing.</string>
+  </void>
+  <void property="exchRate">
+   <double>45.0</double>
+  </void>
+  <void property="fieldOffice">
+   <object class="riv.objects.config.FieldOffice_$$_javassist_50">
+    <void property="configId">
+     <int>-4</int>
+    </void>
+    <void property="description">
+     <string>generic field office</string>
+    </void>
+   </object>
+  </void>
+  <void property="generalWithouts">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="generals">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="justification">
+   <string>Chisamba is a small village currently totally reliant on rainfed agriculture for crop production, although there is considerable livestock raising also among community members. Water for human (and sometimes animal) consumption is drawn from deep wells, but there are only two for the whole village, and these have been known to dry up late in the dry season. &#13;
+If the wells fail it is 8 km to the nearest river to obtain water.&#13;
+A relatively steep banked valley running within one kilometer of the village is a major channel for water flows in the 4 month wet season, but is dry for most of the year. Hyrologists have determined that sufficient water flows down this valley to permit the retention of enough water to meet both human and animal consumption needs and to irrigate some 50 hectares of land, using gravity flows.</string>
+  </void>
+  <void property="labours">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemLabour">
+      <void property="description">
+       <string>Very Minor Works</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="exportLinkedTo">
+       <int>1</int>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1450.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemLabour">
+      <void property="description">
+       <string>Minor Works</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="exportLinkedTo">
+       <int>0</int>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="ownResources">
+       <double>13500.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>225.0</double>
+      </void>
+      <void property="unitNum">
+       <double>145.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="laboursWithout">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="location1">
+   <string>Central</string>
+  </void>
+  <void property="location2">
+   <string>Chismamba</string>
+  </void>
+  <void property="location3">
+   <string>Kwamberi</string>
+  </void>
+  <void property="market">
+   <string>The lack of any current irrigation water supply source for the village means that demand for the dam is very strong, even though not all villagers will be able to irrigate their fields (those who will have access were determined by the required site for the dam and the land owners/cultivators who could be supplied from that point.&#13;
+&#13;
+Demand is also expected to be strong for livestock watering from the take-off point provided at the dam, as livestock currently have to be walked 8 km each way in the dry season to be watered at the river. This has to be done at least every other day for cattle. Of the more than 400 families in the community, more than 90% have at least small stock, while 72% have one or more cattle.&#13;
+&#13;
+Demand for water for human consumption is expected to be more limited, as their are two functioning wells in the village itself. However, these can run dry, and there is strong interest, particularly on the part of the women, in having a back-up supply should these wells fail, which can happen late in the dry season.</string>
+  </void>
+  <void property="nongenLabours">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemNongenLabour">
+      <void property="description">
+       <string>test</string>
+      </void>
+      <void property="exportLinkedTo">
+       <int>3</int>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="other1">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="statePublic">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemNongenLabour">
+      <void property="description">
+       <string>Water Monitor</string>
+      </void>
+      <void property="exportLinkedTo">
+       <int>2</int>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="other1">
+       <double>4500.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="statePublic">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>4200.0</double>
+      </void>
+      <void property="unitNum">
+       <double>12.0</double>
+      </void>
+      <void property="unitType">
+       <string>1</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="nongenMaintenance">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemNongenMaintenance">
+      <void property="description">
+       <string>Site Supervision</string>
+      </void>
+      <void property="exportLinkedTo">
+       <int>12</int>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="other1">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="statePublic">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemNongenMaintenance">
+      <void property="description">
+       <string>test</string>
+      </void>
+      <void property="exportLinkedTo">
+       <int>13</int>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="other1">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="statePublic">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>test</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="nongenMaterials">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemNongenMaterials">
+      <void property="description">
+       <string>test</string>
+      </void>
+      <void property="exportLinkedTo">
+       <int>11</int>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="other1">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="statePublic">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>test</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemNongenMaterials">
+      <void property="description">
+       <string>Water Testing Supplies</string>
+      </void>
+      <void property="exportLinkedTo">
+       <int>10</int>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="other1">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="statePublic">
+       <double>600.0</double>
+      </void>
+      <void property="unitCost">
+       <double>600.0</double>
+      </void>
+      <void property="unitNum">
+       <double>4.0</double>
+      </void>
+      <void property="unitType">
+       <string>Lump Sum</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="organization">
+   <string>Oversight of the dam and its surrounding area will rest ultimately with the Chisamba Community Association, although the National Water Board will visit the site on a quarterly basis to assess the status and performance of the dam. The CCA will select and employ the Water Monitor, who will ensure appropriate and recorded usage of water for irrigation (and other purposes)and will ensure that the protective fencing is maintained and respected by all users.&#13;
+&#13;
+Management of irrigation water usage among the users will be the responsibility of the Chisamba Water Users&apos;Association (CWUA), which will arrange, in collaboration with the Water Monitor, an off-take schedule in dry season which ensures equitable treatment of all users. The CWUA will also, as necessary, negotiate any changes in the water charge with the CCA, which will nevertheless have the final decision on the amount to be char</string>
+  </void>
+  <void property="perYearContributions">
+   <boolean>true</boolean>
+  </void>
+  <void property="personnelWithouts">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="personnels">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="projCategory">
+   <object class="riv.objects.config.ProjectCategory_$$_javassist_48">
+    <void property="configId">
+     <int>-2</int>
+    </void>
+    <void property="description">
+     <string>generic NIG category</string>
+    </void>
+   </object>
+  </void>
+  <void property="projDesc">
+   <string>The objective of the project is to design, construct and operate an earth dam which will provide the required water resources for the village. The project will not include irrigation piping, which will be provided directly by the benficiaries (it was decided by the community that these costs should not be borne by the entire village), although the dam will include an off-take point for irrigation water and a separate feed to a livestock wtering trough. &#13;
+&#13;
+A separate offtake and tap for water for human consumption will be provided at the dam, but will be locked by the water monitor for most periods. Only when one or both of the village wells run dry will this tap be usable by villagers.&#13;
+&#13;
+The engineers have estimated that, if properly constructed and cared for, the dam should last at least 20 years.</string>
+  </void>
+  <void property="projectName">
+   <string>Example Case: Community Earth Dam</string>
+  </void>
+  <void property="reccCode">
+   <int>1</int>
+  </void>
+  <void property="reccDate">
+   <object class="java.sql.Timestamp">
+    <long>1262041200000</long>
+   </object>
+  </void>
+  <void property="reccDesc">
+   <string>Here i write technician justification and analysis required to explain</string>
+  </void>
+  <void property="refCosts">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Water Testing Supplies</string>
+      </void>
+      <void property="orderBy">
+       <int>10</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>600.0</double>
+      </void>
+      <void property="unitType">
+       <string>Lump Sum</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Core Materials</string>
+      </void>
+      <void property="orderBy">
+       <int>4</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>85.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic metres</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>test</string>
+      </void>
+      <void property="orderBy">
+       <int>11</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>test</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Mobilization</string>
+      </void>
+      <void property="orderBy">
+       <int>6</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>250000.0</double>
+      </void>
+      <void property="unitType">
+       <string>Contract</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Site/Basin Clearance</string>
+      </void>
+      <void property="orderBy">
+       <int>8</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>7500.0</double>
+      </void>
+      <void property="unitType">
+       <string>Day</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Site Invest &amp; Design</string>
+      </void>
+      <void property="orderBy">
+       <int>9</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>1050000.0</double>
+      </void>
+      <void property="unitType">
+       <string>Contract</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Fixtures and fittings</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>5000.0</double>
+      </void>
+      <void property="unitType">
+       <string>Set</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Site Supervision</string>
+      </void>
+      <void property="orderBy">
+       <int>12</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>10000.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>test</string>
+      </void>
+      <void property="orderBy">
+       <int>13</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>test</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>14</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="transport">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>x</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Fencing</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>20.0</double>
+      </void>
+      <void property="unitType">
+       <string>Metres</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Spillway</string>
+      </void>
+      <void property="orderBy">
+       <int>3</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>150.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic Metres</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Embankment Materials</string>
+      </void>
+      <void property="orderBy">
+       <int>5</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>350.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic metres</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Training Bank</string>
+      </void>
+      <void property="orderBy">
+       <int>2</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>85.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic Metres</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Exactly None</string>
+      </void>
+      <void property="orderBy">
+       <int>15</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="transport">
+       <double>0.0</double>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>x</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceCost">
+      <void property="description">
+       <string>Construction</string>
+      </void>
+      <void property="orderBy">
+       <int>7</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>3800.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="refIncomes">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceIncome">
+      <void property="description">
+       <string>Water No Charge</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic Metre</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceIncome">
+      <void property="description">
+       <string>Water Charge</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>7.5</double>
+      </void>
+      <void property="unitType">
+       <string>Cubic Metre</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="refLabours">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceLabour">
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>5</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceLabour">
+      <void property="description">
+       <string>Very Minor Works</string>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceLabour">
+      <void property="description">
+       <string>None</string>
+      </void>
+      <void property="orderBy">
+       <int>4</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceLabour">
+      <void property="description">
+       <string>Water Monitor</string>
+      </void>
+      <void property="orderBy">
+       <int>2</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>4200.0</double>
+      </void>
+      <void property="unitType">
+       <string>1</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceLabour">
+      <void property="description">
+       <string>test</string>
+      </void>
+      <void property="orderBy">
+       <int>3</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>0.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.reference.ReferenceLabour">
+      <void property="description">
+       <string>Minor Works</string>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>225.0</double>
+      </void>
+      <void property="unitType">
+       <string>0</string>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="requirements">
+   <string>The Water Monitor who will oversee the extraction of water for irrigation purposes has already received training as part of a series of courses run by Oxfam within the region. He will have an unpaid assistant, who would be expected to take over from him eventually.&#13;
+&#13;
+No further training is required.</string>
+  </void>
+  <void property="rivVersion">
+   <double>4.1</double>
+  </void>
+  <void property="services">
+   <object class="java.util.HashSet">
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemService">
+      <void property="description">
+       <string>Construction</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="exportLinkedTo">
+       <int>7</int>
+      </void>
+      <void property="orderBy">
+       <int>1</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>3800.0</double>
+      </void>
+      <void property="unitNum">
+       <double>60.0</double>
+      </void>
+      <void property="unitType">
+       <string>Days</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemService">
+      <void property="description">
+       <string>Site Invest &amp; Design</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="exportLinkedTo">
+       <int>9</int>
+      </void>
+      <void property="orderBy">
+       <int>3</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>1050000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Contract</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemService">
+      <void property="description">
+       <string>Site/Basin Clearance</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="exportLinkedTo">
+       <int>8</int>
+      </void>
+      <void property="orderBy">
+       <int>2</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>7500.0</double>
+      </void>
+      <void property="unitNum">
+       <double>30.0</double>
+      </void>
+      <void property="unitType">
+       <string>Day</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="riv.objects.project.ProjectItemService">
+      <void property="description">
+       <string>Mobilization</string>
+      </void>
+      <void property="donated">
+       <double>0.0</double>
+      </void>
+      <void property="exportLinkedTo">
+       <int>6</int>
+      </void>
+      <void property="orderBy">
+       <int>0</int>
+      </void>
+      <void property="ownResources">
+       <double>0.0</double>
+      </void>
+      <void property="project">
+       <object idref="Project0"/>
+      </void>
+      <void property="unitCost">
+       <double>250000.0</double>
+      </void>
+      <void property="unitNum">
+       <double>1.0</double>
+      </void>
+      <void property="unitType">
+       <string>Contract</string>
+      </void>
+      <void property="yearBegin">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="servicesWithout">
+   <object class="java.util.HashSet"/>
+  </void>
+  <void property="startupMonth">
+   <int>1</int>
+  </void>
+  <void property="status">
+   <object class="riv.objects.config.Status_$$_javassist_56">
+    <void property="configId">
+     <int>-20</int>
+    </void>
+    <void property="description">
+     <string>Proposal</string>
+    </void>
+   </object>
+  </void>
+  <void property="sustainability">
+   <string>The main source of funds for operational sustainability will be a user levy of M. 7.5/cubic metre of extraction that will be levied by the Chisamba Water Users&apos;Association (CWUA) and passed to the Chisamba Community Association. &#13;
+&#13;
+Responsibility for maintaining records of water usage will lie with the water monitor, who will ensure an ordered off-take of water which will permit metred flow to be recorded for each user or group of users.</string>
+  </void>
+  <void property="technology">
+   <string>The earth dam technology to be used for the dam is well known and established in the region, with at least three other earth dams of a similar construction within 50 kms.&#13;
+&#13;
+Due to the need for considerable earth moving and high quality compaction, however, the technology does not permit a large amount of unskilled labour; most work will be performed by bulldozers and compressors brought in by the contractors, who have previous earth dam construction experience.&#13;
+&#13;
+Nevertheless, a number of minor tasks can be undertaken by villagers, including the erection of the protective fencing (required to prevent livestock from treading and damaging the banks of the storage area or the main embankment), the provision of the separate water off-take points for the humans and livestock, and some other finishing tasks.&#13;
+&#13;
+The company to be contracted to construct the dam has agree to reduce their charge by the value of the construction materials taken from the community operated river quarry which will provide sand. This will allow the community contribution to reach just over 10%.</string>
+  </void>
+  <void property="uniqueId">
+   <array class="byte" length="16">
+    <void index="0">
+     <byte>-127</byte>
+    </void>
+    <void index="1">
+     <byte>7</byte>
+    </void>
+    <void index="2">
+     <byte>-120</byte>
+    </void>
+    <void index="3">
+     <byte>-27</byte>
+    </void>
+    <void index="4">
+     <byte>115</byte>
+    </void>
+    <void index="5">
+     <byte>-17</byte>
+    </void>
+    <void index="6">
+     <byte>17</byte>
+    </void>
+    <void index="7">
+     <byte>-28</byte>
+    </void>
+    <void index="8">
+     <byte>-116</byte>
+    </void>
+    <void index="9">
+     <byte>-56</byte>
+    </void>
+    <void index="10">
+     <byte>-63</byte>
+    </void>
+    <void index="11">
+     <byte>5</byte>
+    </void>
+    <void index="12">
+     <byte>-18</byte>
+    </void>
+    <void index="13">
+     <byte>-47</byte>
+    </void>
+    <void index="14">
+     <byte>34</byte>
+    </void>
+    <void index="15">
+     <byte>60</byte>
+    </void>
+   </array>
+  </void>
+  <void property="userCode">
+   <string></string>
+  </void>
+ </object>
+</java>

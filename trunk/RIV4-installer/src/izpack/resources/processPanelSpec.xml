@@ -1,0 +1,103 @@
+<izpack:processing version="5.0"
+				   xmlns:izpack="http://izpack.org/schema/processing"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://izpack.org/schema/processing http://izpack.org/schema/5.0/izpack-processing-5.0.xsd">
+<logfiledir>$INSTALL_PATH</logfiledir>
+	<onFail previous="false" next="false" />
+	
+	<job name="uninstalling ruralinvest3" condition="dbExists-old">
+		<os family="windows" />
+		<executefile name="$TEMP_DIRECTORY/uninstall-riv3.bat"/>
+	</job>
+	<job name="adding first user" condition="newInstallSelected">
+		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
+			<arg>$INSTALL_PATH</arg>
+			<arg>$RIV_USER_NAME</arg>
+			<arg>$RIV_FULL_NAME</arg>
+			<arg>$RIV_PASSWORD</arg>
+			<arg>$RIV_ORGANIZATION</arg>
+			<arg>$RIV_LOCATION</arg>
+			<arg>$RIV_TELEPHONE</arg>
+			<arg>$RIV_EMAIL</arg>
+			<arg>$ISO2_LANG</arg>
+			<arg>true</arg>
+		</executeclass>
+	</job>
+	<job name="retrieving migrated database" condition="!newInstallSelected">
+		<executeclass name="org.fao.riv.installer.util.MigrateDb">
+			<arg>$MIGRATED_DB</arg>
+			<arg>$INSTALL_PATH/webapp/WEB-INF/data</arg>
+		</executeclass>
+	</job>
+	<job name="upgrading sql structure" condition="!newInstallSelected">
+		<executeclass name="org.fao.riv.installer.sql.UpdateSql">
+			<arg>$INSTALL_PATH</arg>
+			<arg>$TEMP_DIRECTORY/sql.xml</arg>
+			<arg>${riv3installed}</arg>
+		</executeclass>
+	</job>
+	<job name="adding user" condition="upgradeAddsUserSelected+!newInstallSelected">
+		<executeclass name="org.fao.riv.installer.actions.FirstUserAction">
+			<arg>$INSTALL_PATH</arg>
+			<arg>$RIV_USER_NAME</arg>
+			<arg>$RIV_FULL_NAME</arg>
+			<arg>$RIV_PASSWORD</arg>
+			<arg>$RIV_ORGANIZATION</arg>
+			<arg>$RIV_LOCATION</arg>
+			<arg>$RIV_TELEPHONE</arg>
+			<arg>$RIV_EMAIL</arg>
+			<arg>$ISO2_LANG</arg>
+			<arg>false</arg>
+		</executeclass>
+	</job>
+
+	<!-- ==============
+            Windows
+         ============== -->
+	<job name="opening port" condition="!RIV4-service-exists">
+		<os family="windows" />
+		<executefile name="$TEMP_DIRECTORY/openPort.bat"/>
+	</job>
+	<job name="creating service" condition="!RIV4-service-exists">
+		<os family="windows" />
+		<executefile name="$TEMP_DIRECTORY/createService.bat">
+			<env>JAVA_HOME=$java_home</env>
+		</executefile>
+	</job>
+	<job name="starting service">
+		<os family="windows" />
+		<executefile name="$TEMP_DIRECTORY/startService.bat"/>
+	</job>
+
+	<!-- ==============
+            Mac OS X
+         ============== -->
+	<job name="preparing service" condition="!RIV4-service-exists">
+		<os family="mac" />
+		<executefile name="/bin/mkdir">
+			<arg>$INSTALL_PATH/logs</arg>
+		</executefile>
+	</job>
+	<job name="starting service">
+		<os family="mac" />
+		<executefile name="/usr/bin/sudo">
+			<arg>launchctl</arg>
+			<arg>load</arg>
+			<arg>/Library/LaunchDaemons/org.fao.riv.plist</arg>
+		</executefile>
+	</job>
+	<job name="configuring uninstaller">
+		<os family="mac" />
+		<executefile name="/usr/bin/sudo">
+			<arg>rm</arg>
+			<arg>-f</arg>
+			<arg>/-</arg>
+		</executefile>
+	</job>
+	<job name="waiting for service to startup">
+		<os family="mac" />
+		<executefile name="/bin/sleep">
+			<arg>2</arg>
+		</executefile>
+	</job>
+</izpack:processing>

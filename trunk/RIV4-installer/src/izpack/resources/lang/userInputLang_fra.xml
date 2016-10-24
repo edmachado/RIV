@@ -1,0 +1,29 @@
+<izpack:langpack version="5.0"
+                 xmlns:izpack="http://izpack.org/schema/langpack"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://izpack.org/schema/langpack http://izpack.org/schema/5.0/izpack-langpack-5.0.xsd">
+  <str id="tomcat" txt="Configuration du Port du serveur Tomcat" />
+  <str id="input.userconfig" txt="Configuration de l'utilisateur" />
+  <str id="server.port" txt="Entrez le numéro du Port" />
+  <str id="server.port.invalid" txt="Numéro de Port non valide !" />
+  <str id="http.port" txt="Entrez le numéro de Port HTTP" />
+  <str id="username" txt="nom d'utilisateur" />
+  <str id="pleaseWait" txt="attendez SVP..." />
+  <str id="username.description" txt="Vous pouvez choisir ce que vous souhaitez comme nom de l'utilisateur, il peut être plus court que votre nom complet, mais cela doit être un nom que vous retiendrez facilement car il vous servira à ouvrir votre session RuralInvest." />
+  <str id="username.invalid" txt="nom d'utilisateur invalide !" />
+  <str id="password" txt="mot de passe" />
+  <str id="password.description" txt="Votre mot de passe et votre nom d'utilisateur sont nécessaires pour ouvrir votre session RuralInvest, ne les oubliez pas sinon vous auriez à réinstaller le logiciel et vous pourriez perdre toutes vos données !" />
+  <str id="password.invalid" txt="Entrez le même mot de passe dans les deux champs." />
+  <str id="fullname" txt="votre nom" />
+  <str id="fullname.description" txt="C'est votre nom de famille et votre prénom."/>
+  <str id="fullname.invalid" txt="Nom non valide !" />
+  <str id="organization" txt="Organisation" />
+  <str id="organization.invalid" txt="Organisation non valide !" />
+  <str id="location" txt="Localisation" />
+  <str id="location.invalid" txt="Localisation non valide !" />
+  <str id="telephone" txt="Téléphone" />
+  <str id="telephone.invalid" txt="Téléphone non valide !" />
+  <str id="email" txt="courriel" />
+  <str id="email.invalid" txt="courriel non valide !" />
+  <str id="user.warning" txt="These parameters should be modified only by experienced users, otherwise leave the default values" />
+</izpack:langpack>

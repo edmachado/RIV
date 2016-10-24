@@ -1,0 +1,6 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+	<error-page>
+        <error-code>404</error-code>
+        <location>/help/404</location>
+    </error-page>
+</web-app>

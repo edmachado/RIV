@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<izpack:shortcuts xmlns:izpack="http://izpack.org/schema/shortcuts" version="5.0">
+	<programGroup defaultName="RuralInvest4" location="applications" />
+	
+	<shortcut name="RuralInvest"
+			  target="$INSTALL_PATH/bin/riv.sh"
+			  workingDirectory="$INSTALL_PATH"
+			  description="Open RuralInvest"
+			  createForAll="true"
+			  iconFile='$INSTALL_PATH/icons/riv.ico'
+			  iconIndex="0"
+			  programGroup="yes"
+			  desktop="yes"
+			  applications="no"
+			  startMenu="no"
+			  startup="no"
+			/>
+
+	<shortcut name="Software Manual"
+			  target="$INSTALL_PATH/bin/softwareManual.sh"
+			  workingDirectory="$INSTALL_PATH"
+			  description="Software Manual"
+			  createForAll="true"
+			  iconFile='$INSTALL_PATH/icons/riv.ico'
+			  iconIndex="0"
+			  programGroup="yes"
+			  desktop="no"
+			  applications="no"
+			  startMenu="no"
+			  startup="no"
+			  initialState="noShow"
+			/>
+</izpack:shortcuts>
