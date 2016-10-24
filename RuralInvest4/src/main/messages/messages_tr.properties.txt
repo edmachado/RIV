@@ -1,5 +1,20 @@
+## RIV 4.3 - phase 3
+
 project.report.cashFlow.income.sales=Satış geliri
 
+admin.welcome=RuralInvest’e Hoşgeldiniz!
+admin.firstUse=RuralInvest yazılımını kullanmadan önce, sistem yapılandırmasını kurmalısınız (ayarlar, saha ofisleri, yararlanıcılar, vb.). Bir yapılandırma dosyasını (settings.riv) içe aktararak ya da daha önce oluşturulan bir yedekten geri yükleyerek aynı işlemi yapabilirsiniz.
+admin.manualConfig.text=RuralInvest sunucu versiyonunu kullanmaktasınız, aynı zamanda
+admin.manualConfig.link=RuralInvest yapılandırmasını manuel olarak yapmak için giriniz.
+ 
+import.config.file=İçe aktarılacak yapılandırma dosyasını seçiniz.
+import.config.text=yapılandırma bilgisini (ayarlar, saha ofisleri, yararlanıcılar, vb.) bir settings.riv dosyasından içe aktarın.
+import.file=İçe aktarılacak bir dosya seçiniz.
+import.config.error=İçe aktarma işlemi başarılı olmadı. 
+ 
+# changed from previous version
+admin.download=Yedek oluşturun (bilgisayarınızda saklanacak)
+admin.download.desc= RuralInvest yapılandırmanızı ve tüm proje ve profillerinizi tek bir paket halinde kaydedin.
 
 ## RIV 4.3 - phase 2
 admin.grant.button=Ayrıcalık Sağla
@@ -23,8 +38,6 @@ user.admin=Yönetici
 settings.language.help=Bu arayüz dil ayarları, dil tercihini belirtmeyen kullanıcılar içindir. Kullanıcılar kendi arayüz dili tercihlerini, ekranın üst kısmındaki ‘Hoşgeldiniz’ bağlantısına tıklayarak değiştirebilirler.
 
 admin.page=Yönetici İşlevleri
-admin.download=Yedek İndir
-admin.download.desc=RuralInvest yapılandırmalarınızı ve tüm proje ve profillerinizi tek paket halinde indirin..
 admin.download.prepare=Yedek dosyası hazırlanıyor, lütfen bekleyiniz...
 admin.download.error=RuralInvest yedek dosyası hazırlanırken bir sorun oluştu.
 admin.restore=Yedekten geri yükle
