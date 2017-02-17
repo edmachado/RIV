@@ -496,6 +496,9 @@
                                 <exec executable="${jdk.native2ascii}">
                                     <arg line=" -encoding UTF8 '${messages.dir}/messages_mn.properties.txt' '${messages.target.dir}/messages_mn.properties'" />
                                 </exec>
+                                <exec executable="${jdk.native2ascii}">
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_sw.properties.txt' '${messages.target.dir}/messages_sw.properties'" />
+                                </exec>
 
                                 <copy file="${messages.target.dir}/messages.properties" tofile="${messages.target.dir}/messages_en.properties" />
                             </target>
