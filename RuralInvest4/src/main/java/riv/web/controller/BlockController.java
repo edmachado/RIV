@@ -106,7 +106,7 @@ public class BlockController {
     public String clone(@ModelAttribute("block") BlockBase block, HttpServletRequest request, @RequestParam(required=false) Boolean changeType) {
     	String view;
     	User u = (User) request.getAttribute("user");
-    	Project p = dataService.getProject(block.getProject().getProjectId(), 9);
+    	Project p = dataService.getProject(block.getProject().getProjectId(), 9, true);
     	if (p.isShared() || p.getTechnician().getUserId().equals(u.getUserId())) {
     		BlockBase bb = dataService.getBlock(block.getBlockId(), "all");
     		Class<? extends BlockBase> copyClass = changeType==null ? bb.getClass() : bb.getClass().isAssignableFrom(Block.class) ? BlockWithout.class : Block.class;

@@ -502,7 +502,6 @@ public Integer getLengthUnit() {
 	 * @return
 	 */
 	public BlockBase copy(Class<? extends BlockBase> newClass) {
-		//BlockBase newBlock = this.getClass()==Block.class ? new Block() : new BlockWithout();
 		BlockBase newBlock = newClass.isAssignableFrom(Block.class) ? new Block() : new BlockWithout();
 		newBlock.setCycles(cycles);
 		newBlock.setOrderBy(OrderBy);

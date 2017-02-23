@@ -997,10 +997,16 @@ public class DataRepository {
 			} 
 			if (fetchCollection.equals("input") || fetchCollection.equals("all")) {
 				Hibernate.initialize(b.getInputs());
+				for (BlockInput bi : b.getInputs()) {
+					Hibernate.initialize(bi.getDonations());
+				}
 				Hibernate.initialize(b.getProject().getRefCosts());
 			} 
 			if (fetchCollection.equals("labour")  || fetchCollection.equals("all")) {
 				Hibernate.initialize(b.getLabours());
+				for (BlockLabour bi : b.getLabours()) {
+					Hibernate.initialize(bi.getDonations());
+				}
 				Hibernate.initialize(b.getProject().getRefLabours());
 			}
 			if (fetchCollection.equals("all")) {
