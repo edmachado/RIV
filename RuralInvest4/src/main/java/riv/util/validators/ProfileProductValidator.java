@@ -15,9 +15,8 @@ public class ProfileProductValidator implements Validator {
 		String type = pp.getProfile().getIncomeGen() ? "profileProduct" : "profileActivity";
 		ValidateUtils.rejectIfEmpty(pp, "description", type+".desc", errors);
 		ValidateUtils.rejectIfEmpty(pp, "unitType", type+".prodUnit", errors);
-		ValidateUtils.rejectIfEmptyOrNegative(pp, "unitNum", type+".numUnits", errors);
+		ValidateUtils.rejectIfEmptyOrNegativeOrOverMax(pp, "unitNum", type+".numUnits", 99999.0, errors);
 		
-
 		if (pp.isCycles()) {
 			ValidateUtils.rejectIfEmptyOrNegative(pp, "cycleLength", type+".cycleLength", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(pp, "cyclePerYear", type+".cycles", errors);
