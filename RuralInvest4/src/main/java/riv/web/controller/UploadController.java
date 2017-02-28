@@ -498,6 +498,12 @@ public class UploadController implements Serializable {
 				return "error.import.wrongType";
 			} else {
 				Profile profile = (Profile)decoded;
+				// check version
+				if (profile.getRivVersion()>rivConfig.getVersion()) {
+					return "error.import.futureVersion";
+				}
+				
+				
 				upgrader.upgradeProfile(profile);
 				
 				// check if config is compatible

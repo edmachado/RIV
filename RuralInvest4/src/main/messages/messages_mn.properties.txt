@@ -1360,7 +1360,7 @@ projectBlock.chronology.production=Үйлдвэрлэл/Үйл ажиллага�
 
 projectBlock.chronology=Эхний жилийн үйлдвэрлэлийн хронологи 
 
-projectBlock.chronology.selectAll=(бүгдийг сонго)
+projectBlock.chronology.selectAll=бүгдийг сонго
 
 projectBlock.clone=Энэ блокыг хувил 
 

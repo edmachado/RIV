@@ -1,3 +1,11 @@
+## RIV 4.3.2
+error.import.futureVersion=The profile or project you are importing was created by a newer version of RuralInvest than the one you are using. Please upgrade the RuralInvest software.
+projectBlock.chronology.deselectAll=deselect all
+misc.cancel=Cancel
+
+# changed from previous version
+projectBlock.chronology.selectAll=select all
+
 ## RIV 4.3 - phase 3
 project.report.cashFlow.income.sales=Sales
 
@@ -1167,7 +1175,7 @@ projectBlock.chronology.help=Use the calendar to show months in which there is a
 projectBlock.chronology.payment=Receipt of Payment
 projectBlock.chronology.production=Production/Activity
 projectBlock.chronology=Production chronology for the first year
-projectBlock.chronology.selectAll=(select all)
+projectBlock.chronology.selectAll=select all
 projectBlock.clone=Clone this block
 projectBlock.cycleLength.help=Indicate the length of the production cycle. This may be the duration of time to grow a crop, raise an animal or make an item, but can not exceed 12 months. It can be defined by month(s), week(s), working day(s) or calendar day(s). If the activity is continuous, use a unit of time that is appropriate for the costs and sales
 projectBlock.cycleLength=Length of cycle

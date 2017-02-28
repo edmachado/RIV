@@ -349,7 +349,7 @@ project.report.summary.employment.total=Total
  
 project.without=Sans projet
 project.withWithout.remove=Vous avez choisi de ne pas avoir de blocs «avec projet » et « sans projet » pour ce projet. Les blocs « sans projet » existant seront transformés en blocs « avec projet ».
-projectBlock.chronology.selectAll=(Sélectionner tous)
+projectBlock.chronology.selectAll=sélectionner tous
  
 # for cost items that are linked to reference table items
 # the following "Link" is the verb in imperative, used for the button "Link"

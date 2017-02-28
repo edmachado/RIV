@@ -135,13 +135,13 @@ function addCommas(nStr) {
 	return x1 + x2;
 }
 
-function selectAllChron(a,b) {
+function selectAllChron(a,b, select) {
 	for (var i=0; i<12; i++) {
 		for (var x=0; x<2; x++) {
 			var id=a+'-'+i+'-'+x;
 			var square = document.getElementById(b+'-'+id);
-			square.style.backgroundColor="#e7ae0f";
-			document.getElementById("ch"+id).value="true";
+			square.style.backgroundColor=select ? "#e7ae0f" : "";
+			document.getElementById("ch"+id).value=select ? "true" : "false";
 		}	
 	}
 }

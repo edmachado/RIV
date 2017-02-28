@@ -13,12 +13,15 @@
 	</tr></thead><tbody>
 	<c:forEach var="i" begin="0" end="2">
 		<tr bgcolor="#F5F5F5" height="16">
-			<td width="230" class="noColor"><b>
+			<td width="255" class="noColor"><b>
 				<c:if test="${i==0}"><spring:message code="projectBlock.chronology.production"/></c:if>
 				<c:if test="${i==1}"><spring:message code="projectBlock.chronology.harvest"/></c:if>
 				<c:if test="${i==2}"><spring:message code="projectBlock.chronology.payment"/></c:if>
 			</b>
-			<c:if test="${edit}"><i><a href="#" onclick="selectAllChron(${i},${unique})" style="margin-left:10px;"><spring:message code="projectBlock.chronology.selectAll"/></a></i></c:if>
+			<c:if test="${edit}">
+				<a href="#" onclick="selectAllChron(${i},${unique}, true)" style="margin-left:10px;font-style:italic;"><spring:message code="projectBlock.chronology.selectAll"/></a>
+				| 
+			 	<a href="#" onclick="selectAllChron(${i},${unique}, false)" style="font-style:italic;"><spring:message code="projectBlock.chronology.deselectAll"/></a></c:if>
 			</td>
 			<c:forEach var="j" begin="0" end="11"><c:forEach var="k" begin="0" end="1">
 				<c:set var="name">${i}-${j}-${k}</c:set>
