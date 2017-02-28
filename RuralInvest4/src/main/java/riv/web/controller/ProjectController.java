@@ -392,6 +392,18 @@ public class ProjectController {
 		
 		// step-specific data for views
 		
+		// attached files
+		if ((step==1 || step==13) && p.getProjectId()!=null) {
+			long dirSize=0L;
+			List<AttachedFile> files = attachTools.getAttached(p.getProjectId(), true, false);
+			for (AttachedFile pf : files) {
+				dirSize+=pf.getLength();
+			}
+			model.addAttribute("files",files);
+			model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
+			model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
+		}
+		
 		// per-year general cost tables
 		if (step==8 && p.getIncomeGen()) {
 			model.addAttribute("generalsForTable", generalCostsForTable(p.getDuration(), p.isPerYearGeneralCosts(), p.getGenerals()));
@@ -408,17 +420,8 @@ public class ProjectController {
 			model.addAttribute("donors",donors);
 			model.addAttribute("summary",p.getDonationSummary());
 		}
-		
-		if (step==1 && p.getProjectId()!=null) {
-			long dirSize=0L;
-			List<AttachedFile> files = attachTools.getAttached(p.getProjectId(), true, false);
-			for (AttachedFile pf : files) {
-				dirSize+=pf.getLength();
-			}
-			model.addAttribute("files",files);
-			model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
-			model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
-		} else if (!p.getIncomeGen() && step==10) {
+			
+		if (!p.getIncomeGen() && step==10) {
 			// get yearly cash flow total
 			ArrayList<ProjectFinanceNongen> data = ProjectFinanceNongen.analyzeProject(p);
 			model.addAttribute("years",data);

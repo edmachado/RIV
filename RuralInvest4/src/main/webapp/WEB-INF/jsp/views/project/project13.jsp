@@ -117,8 +117,12 @@ $(function() {
 				<li><a href="javascript:showSummary('summaryCashFlow', 400, 1000);"><spring:message code="project.report.cashFlowNongen"/></a></li>
 			</c:if>
 		</ul>
-		</div>
 	</div>
+	<div>
+		<h2><spring:message code="project.step1.6" /></h2>
+		<tags:attachedFiles />	
+	</div>
+</div>
 	<div style="display:inline-block;width:45%;">
 		<h2><spring:message code="mainMenu.config.columns"/></h2>
 		<tags:projectIndicators/>

@@ -200,12 +200,12 @@ public class MainController {
 		return "redirect:../../../step1/"+id;
 	}
 	
-	@RequestMapping(value="/{type}/{id}/attach/{fileId}/{filename}")
-	public void downloadAttachedFile(@PathVariable String type, @PathVariable Integer id, @PathVariable int fileId, @PathVariable String filename, OutputStream out) {	
-		dataService.copyAttachedFileContent(fileId, out, type.equals("project"));
+	@RequestMapping(value="/{type}/{id}/attach/{fileId}/{filename}.{extension}")
+	public void downloadAttachedFile(@PathVariable String type, @PathVariable Integer id, @PathVariable int fileId, 
+			@PathVariable String filename, @PathVariable String extension, HttpServletResponse response) {// OutputStream out) {	
+		response.setHeader("Content-disposition", "attachment; filename="+filename+"."+extension);
 		try {
-			out.flush();
-	        out.close();
+			dataService.copyAttachedFileContent(fileId, response.getOutputStream(), type.equals("project"));
 		} catch (IOException e) {
 			LOG.error("Error closing output stream.",e);
 		}
