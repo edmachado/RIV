@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="footer_landscape" pageWidth="785" pageHeight="26" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="785" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="19855c00-6aff-4031-9264-6e3e3bce80ea">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="52"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="1669"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="reportname" class="java.lang.String">
 		<defaultValueExpression><![CDATA[$P{reportname}]]></defaultValueExpression>
@@ -39,6 +39,19 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reportpage}+" "+$P{pageNo}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="RetainShape" hAlign="Right" vAlign="Top" isUsingCache="false">
+				<reportElement uuid="efc9c81e-66df-493f-8c77-83e08b38cd72" key="image-1" mode="Opaque" x="673" y="0" width="112" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+				<imageExpression><![CDATA["reports/images/logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</pageFooter>
 </jasperReport>
