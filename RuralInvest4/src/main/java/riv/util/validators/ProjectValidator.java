@@ -42,6 +42,7 @@ public class ProjectValidator implements Validator {
 			if (project.getIncomeGen()) {
 				ValidateUtils.rejectIfEmptyOrNegative(project, "inflationAnnual", "project.inflationAnnual", errors);
 			}
+			ValidateUtils.rejectIfZeroOrNegative(project, "duration", "project.duration", errors);
 			Setting setting = rivConfig.getSetting();
 			Locale locale = new Locale(setting.getLang());
 			String loc1 = messageSource.getMessage("location1", new Object[0], setting.getLocation1(), locale);
