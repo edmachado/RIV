@@ -40,6 +40,9 @@ public class BlockController {
 		binder.setValidator(new BlockValidator());
 		CustomNumberEditor decimalEditor = new CustomNumberEditor(Double.class, rivConfig.getSetting().getDecimalFormat(), true);
         binder.registerCustomEditor(Double.class, "cycleLength", decimalEditor);
+        binder.registerCustomEditor(Double.class, "cyclePerYear", decimalEditor);
+        binder.registerCustomEditor(Double.class, "cycleFirstYear", decimalEditor);
+        binder.registerCustomEditor(Double.class, "cycleFirstYearIncome", decimalEditor);
 	}
 	
 	@ModelAttribute("block")
@@ -85,9 +88,9 @@ public class BlockController {
     	if (!block.isCycles()) {
     		block.setLengthUnit(0); // 0="month(s)"
     		block.setCycleLength(12.0); // 12 months = 1 year-long cycle
-    		block.setCyclePerYear(1);
-    		block.setCycleFirstYear(1);
-    		block.setCycleFirstYearIncome(1);
+    		block.setCyclePerYear(1.0);
+    		block.setCycleFirstYear(1.0);
+    		block.setCycleFirstYearIncome(1.0);
     	}
     	
     	updateProductionPattern(block, request, result);

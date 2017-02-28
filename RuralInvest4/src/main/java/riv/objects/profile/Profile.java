@@ -1014,7 +1014,7 @@ public class Profile extends Probase implements java.io.Serializable {
 			 block.setOrderBy(prod.getOrderBy());
 			 block.setUnitType(prod.getUnitType());
 			 block.setCycleLength(prod.getCycleLength());
-			 block.setCyclePerYear(prod.getCyclePerYear().intValue());
+			 block.setCyclePerYear(prod.getCyclePerYear());
 			 block.setLengthUnit(prod.getLengthUnit());
 			 proj.addBlock(block);
 		 }
@@ -1024,7 +1024,7 @@ public class Profile extends Probase implements java.io.Serializable {
 			 block.setOrderBy(prod.getOrderBy());
 			 block.setUnitType(prod.getUnitType());
 			 block.setCycleLength(prod.getCycleLength());
-			 block.setCyclePerYear(prod.getCyclePerYear().intValue());
+			 block.setCyclePerYear(prod.getCyclePerYear());
 			 block.setLengthUnit(prod.getLengthUnit());
 			 proj.addBlock(block);
 		 }

@@ -226,7 +226,7 @@ public class ProjectFinanceNongen {
 		
 		// variable costs and income
 		for (Block block : project.getBlocks()) {
-			int cycles = block.getCyclePerYear();
+			double cycles = block.getCyclePerYear();
 			for (BlockIncome inc : block.getIncomes()) {
 				for (int i=0;i<project.getDuration();i++) {
 					double prodQty = block.getPatterns().get(i+1).getQty();

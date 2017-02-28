@@ -338,7 +338,7 @@ public class FinanceMatrix {
 		}
 	
 		for (BlockWithout block : project.getBlocksWithout()) {
-			int cycles = block.getCyclePerYear();
+			double cycles = block.getCyclePerYear();
 			// BLOCK: INCOME
 			for (BlockIncome income : block.getIncomes()) {
 				for (int i=0;i<project.getDuration();i++) {
@@ -399,7 +399,7 @@ public class FinanceMatrix {
 		}
 		
 		for (Block block : project.getBlocks()) {
-			int cycles = block.getCyclePerYear();
+			double cycles = block.getCyclePerYear();
 			// BLOCK: INCOME
 			for (BlockIncome income : block.getIncomes()) {
 				for (int i=0;i<project.getDuration();i++) {

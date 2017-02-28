@@ -56,11 +56,11 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	@Column(name="CYCLE_LENGTH")
 	private Double CycleLength;
 	@Column(name="CYCLE_PER_YEAR")
-	private Integer CyclePerYear;
+	private Double CyclePerYear;
 	@Column(name="CYCLE_FIRST_YEAR")
-	private Integer cycleFirstYearCosts;
+	private Double cycleFirstYearCosts;
 	@Column(name="CYCLE_FIRST_YEAR_INCOME")
-	private Integer cycleFirstYearIncome;
+	private Double cycleFirstYearIncome;
 	@Column(name="UNIT_TYPE")	
 	private String UnitType;
 	@Column(name="CYCLES")
@@ -356,27 +356,27 @@ public Integer getLengthUnit() {
         this.CycleLength = CycleLength;
     }
     
-    public Integer getCyclePerYear () {
+    public Double getCyclePerYear () {
         return this.CyclePerYear;
     }
     
-   public void setCyclePerYear (Integer CyclePerYear) {
+   public void setCyclePerYear (Double CyclePerYear) {
         this.CyclePerYear = CyclePerYear;
     }
     
-    public void setCycleFirstYear(Integer cycleFirstYearCosts) {
+    public void setCycleFirstYear(Double cycleFirstYearCosts) {
     	this.cycleFirstYearCosts = cycleFirstYearCosts;
 	}
 	
-	public Integer getCycleFirstYear() {
+	public Double getCycleFirstYear() {
 		return cycleFirstYearCosts;
 	}
 	
-	public void setCycleFirstYearIncome(Integer cycleFirstYearIncome) {
+	public void setCycleFirstYearIncome(Double cycleFirstYearIncome) {
 		this.cycleFirstYearIncome = cycleFirstYearIncome;
 	}
 	
-	public Integer getCycleFirstYearIncome() {
+	public Double getCycleFirstYearIncome() {
 		return cycleFirstYearIncome;
 	}
 	
