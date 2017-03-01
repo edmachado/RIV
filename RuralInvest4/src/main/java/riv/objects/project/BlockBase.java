@@ -151,9 +151,9 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   sb.append(base+"unitType="+this.getUnitType()+lineSeparator);
 		   sb.append(base+"cycleLength="+rc.getSetting().getDecimalFormat().format(this.getCycleLength())+lineSeparator);
 		   sb.append(base+"lengthUnit="+rc.getLengthUnits().get(this.getLengthUnit())+lineSeparator);
-		   sb.append(base+"cyclePerYear="+this.getCyclePerYear()+lineSeparator);
-		   sb.append(base+"cycleFirstYear="+this.getCycleFirstYear()+lineSeparator);
-		   sb.append(base+"cycleFirstYearIncome="+this.getCycleFirstYearIncome()+lineSeparator);
+		   sb.append(base+"cyclePerYear="+rc.getSetting().getDecimalFormat().format(this.getCyclePerYear())+lineSeparator);
+		   sb.append(base+"cycleFirstYear="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYear())+lineSeparator);
+		   sb.append(base+"cycleFirstYearIncome="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYearIncome())+lineSeparator);
 		   sb.append(base+"cycles="+cycles+lineSeparator);
 		   
 		   for (int type=0;type<3;type++) {
