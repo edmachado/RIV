@@ -499,10 +499,9 @@ public class UploadController implements Serializable {
 			} else {
 				Profile profile = (Profile)decoded;
 				// check version
-				if (profile.getRivVersion()>rivConfig.getVersion()) {
+				if (profile.getRivVersion()!=null && profile.getRivVersion()>rivConfig.getVersion()) {
 					return "error.import.futureVersion";
 				}
-				
 				
 				upgrader.upgradeProfile(profile);
 				
@@ -519,6 +518,12 @@ public class UploadController implements Serializable {
 				return "error.import.wrongType";
 			} else {
 				Project project = (Project)decoded;
+				
+				// check version
+				if (project.getRivVersion()!=null && project.getRivVersion()>rivConfig.getVersion()) {
+					return "error.import.futureVersion";
+				}
+				
 				upgrader.upgradeProject(project);
 			
 				if (!project.isGeneric()) { 

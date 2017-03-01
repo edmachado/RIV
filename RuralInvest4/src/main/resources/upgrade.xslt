@@ -101,10 +101,37 @@
 	<xsl:template match="void[@property='monthNum']"/>
 	<xsl:template match="void[@property='chronType']"/>
 	
-	<!-- block.cycleLength changed to double -->
+	<!-- block.cycleLength and cyclePerYear changed to double -->
 	<xsl:template match="void[@property='cycleLength'][int]">
 		<xsl:variable name="int" select="int"/>
 		<void property="cycleLength">
+			<double>
+				<xsl:value-of select="$int"/>
+				<xsl:text>.0</xsl:text>
+			</double>
+		</void>
+	</xsl:template>
+	<xsl:template match="void[@property='cyclePerYear'][int]">
+		<xsl:variable name="int" select="int"/>
+		<void property="cyclePerYear">
+			<double>
+				<xsl:value-of select="$int"/>
+				<xsl:text>.0</xsl:text>
+			</double>
+		</void>
+	</xsl:template>
+	<xsl:template match="void[@property='cycleFirstYear'][int]">
+		<xsl:variable name="int" select="int"/>
+		<void property="cycleFirstYear">
+			<double>
+				<xsl:value-of select="$int"/>
+				<xsl:text>.0</xsl:text>
+			</double>
+		</void>
+	</xsl:template>
+	<xsl:template match="void[@property='cycleFirstYearIncome'][int]">
+		<xsl:variable name="int" select="int"/>
+		<void property="cycleFirstYearIncome">
 			<double>
 				<xsl:value-of select="$int"/>
 				<xsl:text>.0</xsl:text>
