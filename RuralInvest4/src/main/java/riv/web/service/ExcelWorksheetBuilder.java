@@ -478,7 +478,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 6, translate("project.report.blockDetail.incomes"), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d",sumRows[0]), Style.CURRENCY);
 		report.addFormulaCell(row, 9, String.format("J%d",sumRows[0]), Style.CURRENCY);
-		if (block.getProject().getIncomeGen()) {
+		if (incomeGen) {
 			report.addFormulaCell(row, 10, String.format("K%d",sumRows[0]), Style.CURRENCY);
 			report.addFormulaCell(row, 11, String.format("L%d",sumRows[0]), Style.CURRENCY);
 		}
@@ -487,7 +487,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 6, translate("project.report.blockDetail.costs"), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d+H%d",sumRows[1],sumRows[2]), Style.CURRENCY);
 		report.addFormulaCell(row, 9, String.format("J%d+J%d",sumRows[1],sumRows[2]), Style.CURRENCY);
-		if (block.getProject().getIncomeGen()) {
+		if (incomeGen) {
 			report.addFormulaCell(row, 10, String.format("K%d+K%d",sumRows[1],sumRows[2]), Style.CURRENCY);
 			report.addFormulaCell(row, 11, String.format("L%d+L%d",sumRows[1],sumRows[2]), Style.CURRENCY);
 		}
