@@ -465,8 +465,15 @@ input.readonly {
 	color: #999999;
     font-size: 11px;
     text-align: right;
-    padding-left:20px;}
-
+    padding-left:20px;
+}
+#cancel button  {
+	background-color: #CCCCCC;
+	padding: 10px ;
+}
+#cancel button:hover {
+	color:#005cab;
+}
 
 div.dataentry {
 	margin:0 10px 3px 0;
