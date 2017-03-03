@@ -60,6 +60,15 @@ public class BlockIncome extends BlockItem {
 			return this.getUnitNum().multiply(this.getUnitCost());
 		}
 	}
+	public BigDecimal getTotalCashIncomeWithoutTransport() {
+		if (this.getUnitNum()==null) return new BigDecimal(0);
+		return this.getUnitNum().multiply(this.getUnitCost());
+	}
+	public BigDecimal getTotalCashIncomeOnlyTransportCost() {
+		if (this.getUnitNum()==null || transport==null) return new BigDecimal(0);
+		return this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.transport);
+		
+	}
 	
 	public String testingProperties(RivConfig rc) {
 		String lineSeparator = System.getProperty("line.separator");

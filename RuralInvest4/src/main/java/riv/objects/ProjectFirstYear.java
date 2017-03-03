@@ -121,7 +121,7 @@ public class ProjectFirstYear {
 			for (BlockChron chron : block.getChrons().values()) {
 				if (chron.getChronType()==2) { activeChrons++; }
 			}
-			double unitIncome = block.getTotalCashIncome().doubleValue()*block.getCycleFirstYearIncome()*block.getPatterns().get(1).getQty()/activeChrons;
+			double unitIncome = block.getTotalCashIncomeWithoutTransport().doubleValue()*block.getCycleFirstYearIncome()*block.getPatterns().get(1).getQty()/activeChrons;
 			for (int i=0;i<12;i++) {
 				if (block.getChrons().get("2-"+i+"-0")!=null) { incFlow.getFlowData()[i] = unitIncome; }
 				if (block.getChrons().get("2-"+i+"-1")!=null) { incFlow.getFlowData()[i] = incFlow.getFlowData()[i] + unitIncome; }
@@ -137,9 +137,14 @@ public class ProjectFirstYear {
 				if (chron.getChronType()==0) activeCostChrons++;
 			}
 			double unitCost = block.getTotalCashCost().doubleValue()*block.getCycleFirstYear()*block.getPatterns().get(1).getQty()/activeCostChrons;
+			double salesTransportCost = block.getTotalCashOnlyIncomeTransportCost().doubleValue()*block.getCycleFirstYearIncome()*block.getPatterns().get(1).getQty()/activeChrons;
 			for (int i=0;i<12;i++) {
-				if (block.getChrons().get("0-"+i+"-0")!=null) costFlow.getFlowData()[i] = unitCost;
-				if (block.getChrons().get("0-"+i+"-1")!=null) costFlow.getFlowData()[i] = costFlow.getFlowData()[i] + unitCost;
+				if (block.getChrons().get("0-"+i+"-0")!=null) costFlow.getFlowData()[i] += unitCost;
+				if (block.getChrons().get("0-"+i+"-1")!=null) costFlow.getFlowData()[i] += unitCost;
+				
+				if (block.getChrons().get("1-"+i+"-0")!=null) costFlow.getFlowData()[i] += salesTransportCost;
+				if (block.getChrons().get("1-"+i+"-1")!=null) costFlow.getFlowData()[i] += salesTransportCost;
+				
 				totals[i]-=costFlow.getFlowData()[i];
 			}
 			getCosts().add(costFlow);

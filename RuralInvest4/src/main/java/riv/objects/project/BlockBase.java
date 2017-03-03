@@ -257,6 +257,21 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     	}
     	return income;
     }
+    public BigDecimal getTotalCashIncomeWithoutTransport() {
+    	BigDecimal income=new BigDecimal(0);
+    	for (BlockIncome inc:incomes) {
+    		income=income.add(inc.getTotalCashIncomeWithoutTransport());
+    	}
+    	return income;
+    }
+    public BigDecimal getTotalCashOnlyIncomeTransportCost() {
+    	BigDecimal income=new BigDecimal(0);
+    	for (BlockIncome inc:incomes) {
+    		income=income.add(inc.getTotalCashIncomeOnlyTransportCost());
+    	}
+    	return income;
+    }
+    
     /**
      * Calculates the block or activity's total cost by cycling through the input and labour collections
      * @return total cost
