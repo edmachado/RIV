@@ -69,26 +69,32 @@ public class ProfileItemController {
 			Profile p; 
 			if (type.equals("good")) {
 				p= dataService.getProfile(profileId, 4);
+				if (p==null) { return null; }
 				pi = new ProfileItemGood();
 				pi.setOrderBy(p.getGlsGoods().size());
 			} else if (type.equals("goodWithout")) {
 				p= dataService.getProfile(profileId, 4);
+				if (p==null) { return null; }
 				pi = new ProfileItemGoodWithout();
 				pi.setOrderBy(p.getGlsGoodsWithout().size());
 			} else if (type.equals("labour")) {
 				p= dataService.getProfile(profileId, 4);
+				if (p==null) { return null; }
 				pi = new ProfileItemLabour();
 				pi.setOrderBy(p.getGlsLabours().size());
 			} else if (type.equals("labourWithout")) {
 				p= dataService.getProfile(profileId, 4);
+				if (p==null) { return null; }
 				pi = new ProfileItemLabourWithout();
 				pi.setOrderBy(p.getGlsLaboursWithout().size());
 			} else if (type.equals("general")){
 				p= dataService.getProfile(profileId, 5);
+				if (p==null) { return null; }
 				pi = new ProfileItemGeneral();
 				pi.setOrderBy(p.getGlsGeneral().size());
 			} else { // general without
 				p= dataService.getProfile(profileId, 5);
+				if (p==null) { return null; }
 				pi = new ProfileItemGeneralWithout();
 				pi.setOrderBy(p.getGlsGeneralWithout().size());
 			}
@@ -99,6 +105,7 @@ public class ProfileItemController {
 	
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public String getItem(@ModelAttribute ProfileItem profileItem, Model model, HttpServletRequest request) {
+    	if (profileItem==null) { return "noProbase"; }
     	setupPageAttributes(profileItem, model, request);
     	return form(profileItem);
     }

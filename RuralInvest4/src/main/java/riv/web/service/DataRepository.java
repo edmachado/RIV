@@ -538,19 +538,19 @@ public class DataRepository {
 				.createCriteria(ProfileItem.class)
 				.add(Restrictions.eq("profItemId", id));
 		ProfileItem item = (ProfileItem) criteria.uniqueResult();
-		if (item.getClass()==ProfileItemGood.class) {
+		if (item instanceof ProfileItemGood) {
 			Hibernate.initialize(item.getProfile().getGlsGoods());
 			Hibernate.initialize(item.getProfile().getRefCosts());
-		} else if (item.getClass()==ProfileItemGoodWithout.class) {
+		} else if (item instanceof ProfileItemGoodWithout) {
 			Hibernate.initialize(item.getProfile().getGlsGoodsWithout());
 			Hibernate.initialize(item.getProfile().getRefCosts());
-		} else if (item.getClass()==ProfileItemLabour.class) {
+		} else if (item instanceof ProfileItemLabour) {
 			Hibernate.initialize(item.getProfile().getGlsLabours());
 			Hibernate.initialize(item.getProfile().getRefLabours());
-		} else if (item.getClass()==ProfileItemLabourWithout.class) {
+		} else if (item instanceof ProfileItemLabourWithout) {
 			Hibernate.initialize(item.getProfile().getGlsLaboursWithout());
 			Hibernate.initialize(item.getProfile().getRefLabours());
-		} else if (item.getClass()==ProfileItemGeneral.class) {
+		} else if (item instanceof ProfileItemGeneral) {
 			Hibernate.initialize(item.getProfile().getGlsGeneral());
 			Hibernate.initialize(item.getProfile().getRefCosts());
 		} else {
@@ -814,12 +814,14 @@ public class DataRepository {
 	public Project getProject(int id, int step) {
 		return getProject(id, step, false);
 	}
+	
 	public Project getProject(int id, int step, boolean withDonations) {
 		Criteria criteria = currentSession()
 				.createCriteria(Project.class)
 				.add(Restrictions.eq("projectId", id));
 		Project p = (Project) criteria.uniqueResult();
-
+		if (p==null) { return p; }
+		
 		if (!p.getIncomeGen()&&step==10) {withDonations=true;}
 		
 		// only populate collections necessary for the operation performed

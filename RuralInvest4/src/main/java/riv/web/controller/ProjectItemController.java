@@ -102,62 +102,76 @@ public class ProjectItemController {
 			Project p; 
 			if (type.equals("asset")) {
 				p= dataService.getProject(projectId, 7);
+				if (p==null) { return null; }
 				pi = new ProjectItemAsset();
 				pi.setOrderBy(p.getAssets().size());
 			} else if (type.equals("assetWithout")) {
 				p= dataService.getProject(projectId, 7);
+				if (p==null) { return null; }
 				pi = new ProjectItemAssetWithout();
 				pi.setOrderBy(p.getAssetsWithout().size());
 			} else if (type.equals("labour")) {
 				p= dataService.getProject(projectId, 7);
+				if (p==null) { return null; }
 				pi = new ProjectItemLabour();
 				pi.setOrderBy(p.getLabours().size());
 			} else if (type.equals("labourWithout")) {
 				p= dataService.getProject(projectId, 7);
+				if (p==null) { return null; }
 				pi = new ProjectItemLabourWithout();
 				pi.setOrderBy(p.getLaboursWithout().size());
 			} else if (type.equals("service")){
 				p= dataService.getProject(projectId, 7);
+				if (p==null) { return null; }
 				pi = new ProjectItemService();
 				pi.setOrderBy(p.getServices().size());
 			} else if (type.equals("serviceWithout")){
 				p= dataService.getProject(projectId, 7);
+				if (p==null) { return null; }
 				pi = new ProjectItemServiceWithout();
 				pi.setOrderBy(p.getServicesWithout().size());
 			} else if (type.equals("projectGeneralPersonnel")) {
 				p = dataService.getProject(projectId, 8);
+				if (p==null) { return null; }
 				pi = new ProjectItemPersonnel();
 				pi.setOrderBy(p.getPersonnels().size());
 				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
 			} else if (type.equals("projectGeneralPersonnelWithout")) {
 				p = dataService.getProject(projectId, 8);
+				if (p==null) { return null; }
 				pi = new ProjectItemPersonnelWithout();
 				pi.setOrderBy(p.getPersonnelWithouts().size());
 				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
 			} else if (type.equals("projectGeneralSupplies")) {
 				p = dataService.getProject(projectId, 8);
+				if (p==null) { return null; }
 				pi = new ProjectItemGeneral();
 				pi.setOrderBy(p.getGenerals().size());
 				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
 			} else if (type.equals("projectGeneralSuppliesWithout")) {
 				p = dataService.getProject(projectId, 8);
+				if (p==null) { return null; }
 				pi = new ProjectItemGeneralWithout();
 				pi.setOrderBy(p.getGeneralWithouts().size());
 				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
 			} else if (type.equals("nongenLabour")) {
 				p = dataService.getProject(projectId, 8);
+				if (p==null) { return null; }
 				pi = new ProjectItemNongenLabour();
 				pi.setOrderBy(p.getNongenLabours().size());
 			} else if (type.equals("nongenMaterial")) {
 				p = dataService.getProject(projectId, 8);
+				if (p==null) { return null; }
 				pi = new ProjectItemNongenMaterials();
 				pi.setOrderBy(p.getNongenMaterials().size());
 			} else if (type.equals("nongenMaintenance")) {
 				p = dataService.getProject(projectId, 8);
+				if (p==null) { return null; }
 				pi = new ProjectItemNongenMaintenance();
 				pi.setOrderBy(p.getNongenMaintenance().size());
 			} else { // contribution
 				p = dataService.getProject(projectId, 10);
+				if (p==null) { return null; }
 				pi = new ProjectItemContribution();
 				pi.setOrderBy(p.getContributions().size());
 				((HasPerYearItems<ProjectItemContributionPerYear>)pi).addYears(p.getDuration());
@@ -169,6 +183,7 @@ public class ProjectItemController {
 	
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public String getItem(@ModelAttribute ProjectItem projectItem, Model model, HttpServletRequest request) {
+    	if (projectItem==null) { return "noProbase"; }
     	setupPageAttributes(projectItem, model, request);
     	return form(projectItem);
     }

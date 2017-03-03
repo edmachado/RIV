@@ -1,7 +1,10 @@
 ## RIV 4.3.2
 error.import.futureVersion=The profile or project you are importing was created by a newer version of RuralInvest than the one you are using. Please upgrade the RuralInvest software.
+error.profileNotFound.title=Profile or project not found
+error.profileNotFound.text=The profile or project you are looking for does not exist. It may have been deleted by another user since you last accessed RuralInvest.
 projectBlock.chronology.deselectAll=deselect all
 misc.cancel=Cancel
+
 
 # changed from previous version
 projectBlock.chronology.selectAll=select all

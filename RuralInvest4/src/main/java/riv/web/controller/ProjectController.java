@@ -214,6 +214,7 @@ public class ProjectController {
 	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.GET)
 	public String getProject(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Project project, Model model, HttpServletRequest request) {
+		if (project==null) { return "noProbase"; }
 		setupPageAttributes(project, model, step, request);
 		return getView(project, step);
 	}

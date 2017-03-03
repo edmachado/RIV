@@ -142,6 +142,7 @@ public class ProfileController {
 	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.GET)
 	public String getProfile(@PathVariable Integer step, @PathVariable Integer id, @ModelAttribute Profile profile, Model model, HttpServletRequest request) {
+		if (profile==null) { return "noProbase"; }
 		setupPageAttributes(profile, model, step, request);
 		return step!=7 ? "profile/profile"+step : "reference/listRefs";
 	}
