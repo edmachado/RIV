@@ -347,6 +347,8 @@ public class ExcelWorksheetBuilder {
 			rowNum = addBlock(block, project.getIncomeGen(), report, sheet, rowNum, xlsTables);
 		}
 		autoSizeColumns(sheet, 9);
+		sheet.setColumnHidden(10, true);
+		sheet.setColumnHidden(11, true);
 	}
 	
 	private XlsTable[] blockXlsTables(ExcelWrapper report, boolean incomeGen) {
@@ -384,7 +386,9 @@ public class ExcelWorksheetBuilder {
 				.addColumn(XlsColumnType.CURRENCY, "getTransport", false)
 				.addColumn(XlsColumnType.FORMULA, "CX*(FX-GX)", true)
 				.addColumn(XlsColumnType.NONE, "", false)
-				.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX-GX)", true);
+				.addColumn(XlsColumnType.FORMULA, "(CX-DX)*(FX-GX)", true)
+				.addColumn(XlsColumnType.FORMULA, "(CX-DX)*FX", true)
+				.addColumn(XlsColumnType.FORMULA, "(CX-DX)*GX", true);
 			} else {
 				tables[0] = new XlsTable(report, incomeTitlesNIG)
 				.addColumn(XlsColumnType.TEXT, "getDescription", false)
@@ -474,12 +478,19 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 6, translate("project.report.blockDetail.incomes"), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d",sumRows[0]), Style.CURRENCY);
 		report.addFormulaCell(row, 9, String.format("J%d",sumRows[0]), Style.CURRENCY);
-
+		if (block.getProject().getIncomeGen()) {
+			report.addFormulaCell(row, 10, String.format("K%d",sumRows[0]), Style.CURRENCY);
+			report.addFormulaCell(row, 11, String.format("L%d",sumRows[0]), Style.CURRENCY);
+		}
 
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 6, translate("project.report.blockDetail.costs"), Style.LABEL);
 		report.addFormulaCell(row, 7, String.format("H%d+H%d",sumRows[1],sumRows[2]), Style.CURRENCY);
 		report.addFormulaCell(row, 9, String.format("J%d+J%d",sumRows[1],sumRows[2]), Style.CURRENCY);
+		if (block.getProject().getIncomeGen()) {
+			report.addFormulaCell(row, 10, String.format("K%d+K%d",sumRows[1],sumRows[2]), Style.CURRENCY);
+			report.addFormulaCell(row, 11, String.format("L%d+L%d",sumRows[1],sumRows[2]), Style.CURRENCY);
+		}
 
 
 		row = sheet.createRow(rowNum++);
@@ -493,6 +504,9 @@ public class ExcelWorksheetBuilder {
 			ExcelBlockLink blockLink =  block.getClass()==Block.class ? report.getBlockLinks().get(block.getBlockId()) : report.getBlockLinksWithoutProject().get(block.getBlockId());
 			blockLink.income="'"+sheet.getSheetName()+"'!$H$"+(rowNum-2);
 			blockLink.incomeCash="'"+sheet.getSheetName()+"'!$J$"+(rowNum-2);
+			blockLink.incomeCashNoTransport="'"+sheet.getSheetName()+"'!$K$"+(rowNum-2);
+			blockLink.incomeCashOnlyTransport="'"+sheet.getSheetName()+"'!$L$"+(rowNum-2);
+			
 			blockLink.cost="'"+sheet.getSheetName()+"'!$H$"+(rowNum-1);
 			blockLink.costCash="'"+sheet.getSheetName()+"'!$J$"+(rowNum-1);
 			blockLink.netIncome="'"+sheet.getSheetName()+"'!$H$"+rowNum;
@@ -559,6 +573,9 @@ public class ExcelWorksheetBuilder {
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, translate("projectBlock.chronology.harvest"));
 			chronologyMap(report, block.getChrons(), row, 1);
+			if (report.isCompleteReport()) {
+				report.getBlockLinks().get(block.getBlockId()).harvestRow=rowNum;
+			}
 			
 			row = sheet.createRow(rowNum++);
 			report.addTextCell(row, 0, translate("projectBlock.chronology.payment"));
@@ -587,6 +604,9 @@ public class ExcelWorksheetBuilder {
 				row = sheet.createRow(rowNum++);
 				report.addTextCell(row, 0, translate("projectBlock.chronology.harvest"));
 				chronologyMap(report, block.getChrons(), row, 1);
+				if (report.isCompleteReport()) {
+					report.getBlockLinksWithoutProject().get(block.getBlockId()).harvestRow=rowNum;
+				}
 				
 				row = sheet.createRow(rowNum++);
 				report.addTextCell(row, 0, translate("projectBlock.chronology.payment"));
@@ -2806,7 +2826,7 @@ public class ExcelWorksheetBuilder {
 						formula=String.format("IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
 								"*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s,0)", 
 							chronSheet, blockLink.paymentRow, blockLink.paymentRow, 
-							blockLink.incomeCash, 
+							project.getIncomeGen() ? blockLink.incomeCashNoTransport : blockLink.incomeCash, 
 							chronSheet, blockLink.paymentRow, blockLink.paymentRow,
 							chronSheet,getColumn(month*2+1), blockLink.paymentRow,
 							getColumn(month*2+2),blockLink.paymentRow,
@@ -2816,7 +2836,7 @@ public class ExcelWorksheetBuilder {
 						formula=String.format("IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
 								"*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s,0)", 
 							chronSheet, blockLink.paymentRow, blockLink.paymentRow, 
-							blockLink.incomeCash, 
+							project.getIncomeGen() ? blockLink.incomeCashNoTransport : blockLink.incomeCash, 
 							chronSheet, blockLink.paymentRow, blockLink.paymentRow,
 							chronSheet,getColumn(month*2+1), blockLink.paymentRow,
 							getColumn(month*2+2),blockLink.paymentRow,
@@ -2859,6 +2879,17 @@ public class ExcelWorksheetBuilder {
 								getColumn(month*2+2), blockLink.productionRow,
 								blockLink.qtyPerYear[0]
 							);
+						if (project.getIncomeGen()) {
+							formula = formula + String.format("+IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
+									"*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s,0)", 
+									chronSheet, blockLink.harvestRow, blockLink.harvestRow, 
+									blockLink.incomeCashOnlyTransport, 
+									chronSheet, blockLink.harvestRow, blockLink.harvestRow,
+									chronSheet,getColumn(month*2+1), blockLink.harvestRow,
+									getColumn(month*2+2),blockLink.harvestRow,
+									blockLink.qtyPerYear[0]
+									);
+						}
 					} else {
 						formula=String.format("%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s",
 								blockLink.costCash,
@@ -2868,6 +2899,18 @@ public class ExcelWorksheetBuilder {
 								blockLink.qtyPerYear[0],
 								blockLink.cyclesFirstYearProduction
 							);
+						if (project.getIncomeGen()) {
+							formula = formula + String.format("+IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
+									"*COUNTIF(%s!$%s$%d:$%s$%d,\"#\")*%s*%s,0)", 
+									chronSheet, blockLink.harvestRow, blockLink.harvestRow, 
+									blockLink.incomeCashOnlyTransport, 
+									chronSheet, blockLink.harvestRow, blockLink.harvestRow,
+									chronSheet,getColumn(month*2+1), blockLink.harvestRow,
+									getColumn(month*2+2),blockLink.harvestRow,
+									blockLink.qtyPerYear[0],
+									blockLink.cyclesFirstYearPayment
+									);
+						}
 					}
 					report.addFormulaCell(row, month+1, formula, Style.CURRENCY);
 				}

@@ -142,7 +142,9 @@ public class ProjectFirstYear {
 				if (block.getChrons().get("0-"+i+"-0")!=null) costFlow.getFlowData()[i] += unitCost;
 				if (block.getChrons().get("0-"+i+"-1")!=null) costFlow.getFlowData()[i] += unitCost;
 				
-				if (block.getChrons().get("1-"+i+"-0")!=null) costFlow.getFlowData()[i] += salesTransportCost;
+				if (block.getChrons().get("1-"+i+"-0")!=null)  {
+					costFlow.getFlowData()[i] += salesTransportCost;
+				}
 				if (block.getChrons().get("1-"+i+"-1")!=null) costFlow.getFlowData()[i] += salesTransportCost;
 				
 				totals[i]-=costFlow.getFlowData()[i];
