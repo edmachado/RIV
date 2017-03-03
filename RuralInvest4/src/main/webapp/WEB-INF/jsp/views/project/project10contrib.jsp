@@ -37,7 +37,7 @@
 			<tags:generalCostPerYear itemCode="projectContribution" />
 		</c:if>
 		
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<tags:submit cancel="../step10/${project.projectId}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 	<c:if test="${not project.perYearContributions}">
 		<tags:jscriptCalc fieldA="years0\\\.unitNum" fieldB="unitCost" fieldC="years0\\\.total" functionName="Calculate" calc="*"/>

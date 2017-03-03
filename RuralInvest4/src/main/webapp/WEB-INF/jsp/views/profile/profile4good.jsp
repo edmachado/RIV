@@ -74,7 +74,7 @@
 		<div style="display:inline-block;">
 			<tags:refItemChooser type="0" linked="${profileItem.linkedTo}" notLinked="'unitNum,donated,ownResource,econLife,salvage'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="CalculateTotal();" />
 	 	</div>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<tags:submit cancel="../step4/${profile.profileId}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 	
 <tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateExt" />

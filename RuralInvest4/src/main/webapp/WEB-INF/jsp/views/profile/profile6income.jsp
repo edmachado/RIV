@@ -91,7 +91,7 @@
 				<tags:refItemChooser type="1" linked="${profileProductItem.linkedTo}" notLinked="'unitNum'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="Calculate();" />
 			</div>
 		</c:if>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<tags:submit cancel="../step6/${profile.profileId}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 <c:if test="${profile.incomeGen}">	
 	<tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="total" fieldD="unitNum" functionName="Calculate" calc="-" calc2="*"/>

@@ -54,7 +54,7 @@
 		<div style="display:inline-block;">
 			<tags:refItemChooser type="0" linked="${profileItem.linkedTo}" notLinked="'unitNum'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="Calculate();" />
 		</div>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<tags:submit cancel="../step5/${profile.profileId}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 <tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="Calculate" calc="*"/>
 </body></html>

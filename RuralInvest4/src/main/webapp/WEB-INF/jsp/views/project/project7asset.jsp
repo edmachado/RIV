@@ -105,6 +105,7 @@
 		<div style="display:inline-block;">
 			<tags:refItemChooser type="0" linked="${projectItem.linkedTo}" notLinked="'unitNum,donated,ownResources,financed,econLife,mainCost,salvage'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="CalculateTotal();" />
 		</div>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<tags:submit cancel="../step7/${project.projectId}"><spring:message code="misc.saveItem"/></tags:submit>
+		
 	</form:form>
 </body></html>

@@ -50,7 +50,7 @@ $(function() { CalculateDonated(); CalculateTotal(); });
 		<div style="display:inline-block;">
 			<tags:refItemChooser type="0" linked="${projectItem.linkedTo}" notLinked="'unitNum,statePublic,other1'" descField="description" unitTypeField="unitType" unitCostField="unitCost" calculation="CalculateTotal();" />
 		</div>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<tags:submit cancel="../step8/${project.projectId}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 <tags:jscriptCalc fieldA="unitNum" fieldB="unitCost" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateOwn" />
 <tags:jscriptCalc fieldA="total" fieldB="donated" fieldC="ownResource" functionName="CalculateOwn" calc="-" />

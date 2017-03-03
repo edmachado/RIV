@@ -70,7 +70,7 @@
 		<div style="display:inline-block;width:45%;">
 			<tags:refItemChooser type="1" linked="${blockItem.linkedTo}" notLinked="'unitNum,ownResources,qtyIntern'" descField="description" unitTypeField="unitType" unitCostField="unitCost" transField="transport" calculation="CalculateTotal();" />
 		</div>
-	<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+	<tags:submit cancel="../step9/${project.projectId}"><spring:message code="misc.saveItem"/></tags:submit>
 </form:form>	
 <tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="total" fieldD="unitNum" functionName="CalculateTotal" calc="-" calc2="*" callWhenDone="CalculateExt" />
 <tags:jscriptCalc fieldA="unitNum" fieldB="qtyIntern" fieldC="extern" functionName="CalculateExt" calc="-" callWhenDone="CalculateTotalCash" nonCurrency="true"/>

@@ -55,6 +55,6 @@
 			<tags:generalCostPerYear itemCode="${type}" />
 		</c:if>
 		
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<tags:submit cancel="../step8/${project.projectId}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 </body></html>
