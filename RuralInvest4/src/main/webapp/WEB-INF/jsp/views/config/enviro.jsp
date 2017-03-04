@@ -11,6 +11,6 @@
 			<tags:dataentry field="description" labelKey="enviroCategory.description" size="30" maxLength="50" inputClass="text"/>
 		</fieldset>
 	 </div>
-	<tags:submit><spring:message code="enviroCategory.save"/></tags:submit>
+	<tags:submit cancel="../enviroCategory"><spring:message code="enviroCategory.save"/></tags:submit>
 </form:form>
 </body>

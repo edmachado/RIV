@@ -16,6 +16,6 @@
 			</spring:bind>
 		</fieldset>
 	 </div>
-	<tags:submit><spring:message code="projectCategory.saveCat"/></tags:submit>
+	<tags:submit cancel="../category"><spring:message code="projectCategory.saveCat"/></tags:submit>
 </form:form>
 </body>

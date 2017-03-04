@@ -4,7 +4,7 @@
 	<div align="right"><button id="${buttonId}" name="${buttonId}" onclick="${onSubmit}"><jsp:doBody/></button></div>
 	<c:if test="${not empty cancel}">
 		<div align="right" id="cancel">
-			<a href="${cancel}"><button class="submit"><spring:message code="misc.cancel"/></button></a>
+			<a class="cancel" href="${cancel}"><spring:message code="misc.cancel"/></a>
 		</div>
 	</c:if>
 </c:if>

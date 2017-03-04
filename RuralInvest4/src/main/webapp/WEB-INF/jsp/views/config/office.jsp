@@ -11,6 +11,6 @@
 			<tags:dataentry field="description" labelKey="fieldOffice.description" size="30" maxLength="50" inputClass="text"/>
 		</fieldset>
 	 </div>
-	<tags:submit><spring:message code="fieldOffice.saveOffice"/></tags:submit>
+	<tags:submit cancel="../office"><spring:message code="fieldOffice.saveOffice"/></tags:submit>
 </form:form>
 </body>

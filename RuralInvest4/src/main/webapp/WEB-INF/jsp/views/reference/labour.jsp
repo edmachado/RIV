@@ -37,6 +37,13 @@
 				</c:if>
 				<tags:dataentry field="unitCost" labelKey="reference.labour.unitCost" helpText="reference.labour.unitCost.help" currency="true" />
 			</fieldset>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<c:set var="cancelUrl">
+			<c:choose>
+				<c:when test="${not probase.project}">../step7/${probase.proId}</c:when>
+				<c:when test="${probase.incomeGen}">../step10/${probase.proId}</c:when>
+				<c:otherwise>../step11/${probase.proId}</c:otherwise>
+			</c:choose>
+		</c:set>
+		<tags:submit cancel="${cancelUrl}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 </body></html>

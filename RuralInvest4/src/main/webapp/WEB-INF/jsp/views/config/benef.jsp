@@ -11,6 +11,6 @@
 			<tags:dataentry field="description" labelKey="beneficiary.description" size="30" maxLength="50" inputClass="text"/>
 		</fieldset>
 	 </div>
-	<tags:submit><spring:message code="beneficiary.saveBenef"/></tags:submit>
+	<tags:submit cancel="../beneficiary"><spring:message code="beneficiary.saveBenef"/></tags:submit>
 </form:form>
 </body>
