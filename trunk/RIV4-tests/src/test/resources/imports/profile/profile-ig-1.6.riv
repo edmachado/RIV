@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_17" class="java.beans.XMLDecoder"> 
+ <object id="Profile0" class="riv.Profile"> 
+  <void property="benefDesc"> 
+   <string>Se pretende establecer al menos 15 unidades familiares de 5 miembros en promedio, 2 adultos y 3 niños. </string> 
+  </void> 
+  <void property="benefName"> 
+   <string>Organizaciones formales que agrupen parceleros o pequeños productores</string> 
+  </void> 
+  <void property="benefNum"> 
+   <int>75</int> 
+  </void> 
+  <void property="enviroImpact"> 
+   <string>Se tiene que eliminar la presión de la ganadería extensiva sobre las áreas que no son de vocación agrícola y ganadera.&#13;
+El proyecto tiene asociado un proyecto de reforestación y recuperación de zonas boscosas, fuentes de agua y la conservación adecuada del suelo en zonas laderosas; que aunque no son parte del Programa, si vale la pena comentar y destacar.&#13;
+&#13;
+La actividad semiestabulada requiere de una disposición adecuada de los desechos sólidos; para esto el programa incluye el uso de lombricultura y la instalación de biodigestores, lo que permite, además del manejo adecuado de desechos, reducir los costos al generar gas metano que puede ser usado como energía y abono orgánico para la pastura, o para la venta, según sea decidido por el productor.&#13;
+</string> 
+  </void> 
+  <void property="exchRate"> 
+   <double>500.0</double> 
+  </void> 
+  <void property="fieldOffice"> 
+   <object class="riv.FieldOffice"> 
+    <void property="configId"> 
+     <int>7</int> 
+    </void> 
+    <void property="description"> 
+     <string> PCDA Bamako</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="glsGeneral"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Mant Pasturas y Bco Proteína</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>640000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>costo/año</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Salarios Encargado y peón</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>215250.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>26.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>costo/mes</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Agua</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>10000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>costo/mes</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Energía</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>15000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>costo/mes</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Transportes</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>12000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>50.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>costo/semana</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Otros Servicios</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>6000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>Costo/mes</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="glsGoods"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Corral</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>25.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>175000.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>1750000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>área</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Biodigestor y Lombricario</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>5500.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>290000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>sistema</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Equipo menor</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>3.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>30000.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>585000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>grupo</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Banco de proteína</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>20.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>30000.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>300000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unidad de cultivo</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Sala de ordeño</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>25.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>17500.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>1750000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>área</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Apartos</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>150000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>8.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>aparto</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Vacas</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>8.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>100000.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>300000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>animal</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Equipo de ordeño y enfriamient</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>350000.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>3500000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>Sistema</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Pasto de corta</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>450000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>área</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="glsLabours"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProfileItemLabour"> 
+      <void property="description"> 
+       <string>Capacitación</string> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>40000.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>5.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>curso</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="incomeGen"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="location1"> 
+   <string>varias</string> 
+  </void> 
+  <void property="location2"> 
+   <string>varios</string> 
+  </void> 
+  <void property="location3"> 
+   <string>varios</string> 
+  </void> 
+  <void property="market"> 
+   <string>Para el mercado se tienen convenios con agroindustrias lácteas ubicadas en las distintas regiones sujetas de aplicación de esta metodología. Igualmente, como asociación de productores, algunos de los parceleros beneficiarios, poseen acceso a entregar la leche a la Cooperativa Dos Pinos.&#13;
+Igualmente la carne se comercializa en la subasta ganadera de cada región, teniendo el mercado alternativo en las plantas empacadoras.&#13;
+</string> 
+  </void> 
+  <void property="products"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object id="ProfileProduct0" class="riv.ProfileProduct"> 
+      <void property="cycleLength"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="cyclePerYear"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="description"> 
+       <string>Engorde de Novillos</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="profileIncomes"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductIncome"> 
+          <void property="description"> 
+           <string>Venta de novillos</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>12.50</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>500</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>400</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>Kg de carne</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileInputs"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Medicamentos</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="transport"> 
+           <object id="BigDecimal0" class="java.math.BigDecimal"> 
+            <string>0.00</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>3000.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>12</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>mes</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Suplementación</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>10000.00</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>3.75</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>saco</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileLabours"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductLabour"> 
+          <void property="description"> 
+           <string>mano de obra</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object id="BigDecimal1" class="java.math.BigDecimal"> 
+            <string>0</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal1"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>0</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="unitNum"> 
+       <double>7.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>animal</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object id="ProfileProduct1" class="riv.ProfileProduct"> 
+      <void property="cycleLength"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="cyclePerYear"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="description"> 
+       <string>Producción de leche</string> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="profileIncomes"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductIncome"> 
+          <void property="description"> 
+           <string>Venta de leche</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal1"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>240</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>kg de leche/vaca</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileInputs"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Concentrado</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal1"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>10000</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>1.25</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>saco/mes</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Medicamentos y otros</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="transport"> 
+           <object idref="BigDecimal1"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>3000</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>1</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>costo/mes</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileLabours"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductLabour"> 
+          <void property="description"> 
+           <string>mano de obra</string> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object idref="BigDecimal1"/> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal1"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>nada</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="unitNum"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>vaca</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="profileName"> 
+   <string>Programa de Producción Lechera</string> 
+  </void> 
+  <void property="projDesc"> 
+   <string>Modernización de la Producción lechera en pequeña escala&#13;
+&#13;
+Establecimiento de pasturas mejoradas. Establecimiento de bancos forrajeros y bancos de proteínas. Mejora de la tecnología de producción de pasto.&#13;
+Compra del pie de cría mejorado, y adaptado a la región, según corresponda.&#13;
+Construcción del corral y la sala de ordeño. Compra del sistema de ordeño y el tanque de enfriamiento de la leche.&#13;
+Capacitación de los parceleros y sus trabajadores, tanto en el manejo de pasturas, como en el manejo tecnificado de hatos lecheros y de doble propósito.&#13;
+&#13;
+</string> 
+  </void> 
+  <void property="reccCode"> 
+   <short>2</short> 
+  </void> 
+  <void property="reccDesc"> 
+   <string>Costos muy altos por eso no se aprueba</string> 
+  </void> 
+  <void property="uniqueId"> 
+   <array class="byte" length="16"> 
+    <void index="0"> 
+     <byte>-75</byte> 
+    </void> 
+    <void index="1"> 
+     <byte>27</byte> 
+    </void> 
+    <void index="2"> 
+     <byte>16</byte> 
+    </void> 
+    <void index="3"> 
+     <byte>125</byte> 
+    </void> 
+    <void index="4"> 
+     <byte>-16</byte> 
+    </void> 
+    <void index="5"> 
+     <byte>-53</byte> 
+    </void> 
+    <void index="6"> 
+     <byte>17</byte> 
+    </void> 
+    <void index="7"> 
+     <byte>-35</byte> 
+    </void> 
+    <void index="8"> 
+     <byte>-125</byte> 
+    </void> 
+    <void index="9"> 
+     <byte>116</byte> 
+    </void> 
+    <void index="10"> 
+     <byte>57</byte> 
+    </void> 
+    <void index="11"> 
+     <byte>29</byte> 
+    </void> 
+    <void index="12"> 
+     <byte>52</byte> 
+    </void> 
+    <void index="13"> 
+     <byte>-22</byte> 
+    </void> 
+    <void index="14"> 
+     <byte>11</byte> 
+    </void> 
+    <void index="15"> 
+     <byte>-8</byte> 
+    </void> 
+   </array> 
+  </void> 
+ </object> 
+</java> 

@@ -1,0 +1,258 @@
+<izpack:installation version="5.0"
+					 xmlns:izpack="http://izpack.org/schema/installation"
+					 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					 xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
+
+	<variables>
+		<variable name="INSTALL_GROUP" value="NewInstall"/>
+ 		<variable name="InstallationGroupPanel.sortKey.NewInstall" value="C"/>
+   		<variable name="InstallationGroupPanel.sortKey.Upgrade" value="A"/>
+   		<variable name="InstallationGroupPanel.sortKey.UpgradeAddsUser" value="B"/>
+   		<variable name="TargetPanel.dir.windows" value="${DEFAULT_INSTALL_PATH}4"/>
+        <variable name="TargetPanel.dir.mac_osx" value="/Library/RuralInvest"/>
+   		<variable name="DesktopShortcutCheckboxEnabled" value="true"/>
+   		<variable name="ShowCreateDirectoryMessage" value="false" />
+	</variables>
+	<info>
+		<appname>RuralInvest</appname>
+		<appversion>@{app.version}</appversion>
+		<authors>
+			<author name="Food and Agriculture Organization of the UN" email="TCI-Ruralinvest@fao.org" />
+		</authors>
+		<javaversion>1.6</javaversion>
+		<run-privileged />
+		<tempdir/>
+        <writeinstallationinformation>no</writeinstallationinformation>
+        <readinstallationinformation>no</readinstallationinformation>
+		 <!--<pack200/> this works but compilation takes longer -->
+	</info>
+
+	<locale>
+		<langpack iso3="eng" />
+	 	<langpack iso3="fra"/>
+		<langpack iso3="spa"/>
+		<langpack iso3="bra"/>
+		<langpack iso3="rus"/>
+		<langpack iso3="tur"/>
+	</locale>
+
+	<guiprefs width="800" height="600" resizable="no">
+		<splash>images/splash.png</splash>
+ 		<laf name="kunststoff">
+ 			<os family="windows" />
+ 			<os family="unix" />
+ 		</laf>
+		<modifier key="useHeadingPanel" value="yes" />
+	</guiprefs>
+
+	<jar src="@{izpack.staging}/custom/izpack-includes.jar" stage="install"/>
+	<jar src="@{izpack.staging}/lib/hsqldb.jar" stage="install"/>
+	<jar src="@{izpack.staging}/lib/hsqldb18.jar" stage="install"/>
+	<jar src="@{izpack.staging}/lib/commons-io.jar" stage="install"/>
+	
+	<resources>
+		<res id="LicencePanel.licence" src="resources/Licence.txt"/>
+
+		<res id="Unix_shortcutSpec.xml" src="resources/Unix_shortcutSpec.xml"/>
+		<res id="Win_shortcutSpec.xml" src="resources/Win_shortcutSpec.xml"/>
+
+		<res id="ProcessPanel.Spec.xml" src="resources/processPanelSpec.xml"/>
+		<res id="userInputSpec.xml" src="resources/userInputSpec.xml"/>
+		<res id="Installer.image" src="images/company_logo.gif" />
+		<res src="images/langselect.png" id="installer.langsel.img"/>
+		<!-- <res id="customicons.xml" src="resources/customicons.xml"/>
+		<res id="JFrameIcon.png" src="icons/riv16x16.ico"/> -->
+		
+		<!-- InfoPanel (readme.txt) -->
+		<res id="HTMLInfoPanel.info_eng" src="resources/lang/Readme_eng.html" />
+		<res id="HTMLInfoPanel.info_fra" src="resources/lang/Readme_fra.html" />
+		<res id="HTMLInfoPanel.info_bra" src="resources/lang/Readme_bra.html" />
+		<res id="HTMLInfoPanel.info_rus" src="resources/lang/Readme_rus.html" />
+		<res id="HTMLInfoPanel.info_spa" src="resources/lang/Readme_spa.html" />
+		<res id="HTMLInfoPanel.info_tur" src="resources/lang/Readme_tur.html" />
+		
+		<!-- InputPanel -->
+		<res id="userInputLang.xml_eng" src="resources/lang/userInputLang_eng.xml" />
+		<res id="userInputLang.xml_spa" src="resources/lang/userInputLang_spa.xml" />
+		<res id="userInputLang.xml_fra" src="resources/lang/userInputLang_fra.xml" />
+		<res id="userInputLang.xml_bra" src="resources/lang/userInputLang_bra.xml" />
+		<res id="userInputLang.xml_rus" src="resources/lang/userInputLang_rus.xml" />
+		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang_tur.xml" />
+		
+		<!-- Group selection -->
+		<res id="CustomLangPack.xml_eng" src="resources/lang/customLangPack_eng.xml"/>
+		<res id="CustomLangPack.xml_fra" src="resources/lang/customLangPack_fra.xml"/>
+		<res id="CustomLangPack.xml_bra" src="resources/lang/customLangPack_bra.xml"/>
+		<res id="CustomLangPack.xml_rus" src="resources/lang/customLangPack_rus.xml"/>
+		<res id="CustomLangPack.xml_spa" src="resources/lang/customLangPack_spa.xml"/>
+		<res id="CustomLangPack.xml_tur" src="resources/lang/customLangPack_tur.xml"/>
+	</resources>
+
+	<panels>
+		<panel classname="HelloPanel" />
+		<panel classname="HTMLInfoPanel">
+			<actions>
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.CollectVariablesAction"/>
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.StopServiceAction" />
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.GetJavaHomeAction" />
+				<action stage="prevalidate" classname="org.fao.riv.installer.actions.DetermineFreeHttpPortAction"/>
+			</actions>
+		</panel>
+		<panel classname="InstallationGroupPanel" condition="dbExists" />
+		<panel classname="DefaultTargetPanel" />
+		<panel classname="UserInputPanel" id="panel.newUser" condition="addNewUser"/>
+		<panel classname="InstallPanel">
+			<actions>
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.BackupRiv3Action" />
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.BackupExistingRiv4Action" />
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.RemoveExistingWebapp"/>
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.RemoveExistingUninstallEntriesAction"/>
+			</actions>
+		</panel>
+		<panel classname="ProcessPanel"/> 
+		<panel classname="ShortcutPanel"/>
+		<panel classname="SimpleFinishPanel">
+			<actions>
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.LaunchUrlAction"/>
+			</actions>
+		</panel>
+	</panels>
+	
+	<natives>
+  		<native type="izpack" name="ShellLink.dll"/>
+		<native type="izpack" name="ShellLink_x64.dll"/>
+		<native type="3rdparty" name="COIOSHelper.dll" stage="both"/>
+		<native type="3rdparty" name="COIOSHelper_x64.dll" stage="both"/>
+	</natives>
+	
+	<listeners>
+	    <listener classname="RegistryInstallerListener" stage="install"/>
+	    <listener classname="RegistryUninstallerListener" stage="uninstall"/>
+	</listeners>	
+	
+	<conditions>
+		<condition type="variable" id="dbExists-old">
+			<name>riv3installed</name>
+			<value>true</value>
+		</condition>
+		<condition type="variable" id="dbExists-new">
+			<name>riv4installed</name>
+			<value>true</value>
+		</condition>
+		<condition type="or" id="dbExists">
+			<condition type="ref" refid="dbExists-old"/>
+			<condition type="ref" refid="dbExists-new"/>
+		</condition>
+		<condition type="variable" id="RIV4-service-exists">
+			<name>riv4service</name>
+			<value>true</value>
+		</condition>
+		<condition type="packselection" id="newInstallSelected">
+ 			<name>NewInstall</name>
+		</condition>
+		<condition type="variable" id="upgradeAddsUserSelected">
+			<name>INSTALL_GROUP</name>
+			<value>UpgradeAddsUser</value>
+		</condition>
+		<condition type="or" id="addNewUser">
+			<condition type="ref" refid="newInstallSelected"/>
+			<condition type="ref" refid="upgradeAddsUserSelected"/>
+		</condition>
+	</conditions>
+
+	<packs>
+		<pack name="RuralInvest web application" required="yes" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webapp">
+			<description>The core files needed for the application</description>
+        
+        	<fileset dir="@{izpack.staging}/webapp" targetdir="$INSTALL_PATH/webapp" casesensitive="false" override="true">
+     
+        	</fileset>
+			<parsable targetfile="$INSTALL_PATH/webapp/WEB-INF/classes/application.properties"/>
+			
+			 <!-- service launcher -->
+            <file src="@{izpack.staging}/lib/RIV4-service.jar" targetdir="$INSTALL_PATH/service" override="true" />
+
+            <!-- ==============
+			    	Windows
+                 ============== -->
+            <file src="icons/riv.ico" targetdir="$INSTALL_PATH/icons" override="true" os="windows" />
+            <!-- Uninstaller for riv3 -->
+            <file src="resources/win/uninstall-riv3.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <parsable targetfile="$TEMP_DIRECTORY/uninstall-riv3.bat" os="windows"/>
+
+            <file src="resources/win/GuideRuralInvest.url" targetdir="$INSTALL_PATH" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/GuideRuralInvest.url" os="windows"/>
+
+            <file src="resources/win/startService.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <!-- removes the Windows service during uninstall  -->
+            <file src="resources/win/removeService.bat" targetdir="$INSTALL_PATH" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/removeService.bat" os="windows"/>
+            <executable targetfile="$INSTALL_PATH/removeService.bat" keep="true" os="windows" stage="uninstall" />
+
+            <!-- ==============
+			    	Mac OS X
+                 ============== -->
+			<file src="resources/osx/softwareManual.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+			<parsable targetfile="$INSTALL_PATH/bin/softwareManual.sh" os="mac"/>
+			<executable targetfile="$INSTALL_PATH/bin/softwareManual.sh" stage="never" keep="true" os="mac" />
+
+			<!--  RuralInvest.app  -->
+			<fileset dir="resources/osx/RuralInvest.app" targetdir="/Applications/RuralInvest/RuralInvest.app" override="true" os="mac" />
+			<executable targetfile="/Applications/RuralInvest/RuralInvest.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
+
+			<!--  Manuals.app  -->
+			<fileset dir="resources/osx/Manual.app" targetdir="/Applications/RuralInvest/Manual.app" override="true" os="mac" />
+			<executable targetfile="/Applications/RuralInvest/Manual.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
+
+			<!--  removes the OS X service during uninstall  -->
+			<fileset dir="resources/osx/Uninstaller.app" targetdir="/Applications/RuralInvest/Uninstaller.app" override="true" os="mac" />
+			<executable targetfile="/Applications/RuralInvest/Uninstaller.app/Contents/MacOS/applet" stage="never" keep="true" os="mac" />
+		</pack>
+
+		<pack name="Web server launcher" required="yes" condition="!RIV4-service-exists" installGroups="NewInstall,Upgrade,UpgradeAddsUser" id="pack.webserver">
+			<description>Service to run embedded web server</description>
+
+            <!-- ==============
+			    	Windows
+                 ============== -->
+            <!--  tool to create windows service -->
+            <file src="resources/win/prunsrv.exe" targetdir="$INSTALL_PATH/service" override="true" os="windows"/>
+
+            <!-- opens port during installation -->
+            <file src="resources/win/openPort.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <parsable targetfile="$TEMP_DIRECTORY/openPort.bat" os="windows"/>
+
+			<!--  creates the service during installation -->
+            <file src="resources/win/createService.bat" targetdir="$TEMP_DIRECTORY" override="true" os="windows"/>
+            <parsable targetfile="$TEMP_DIRECTORY/createService.bat" os="windows"/>
+
+            <!-- shortcut to service -->
+            <file src="resources/win/RuralInvest.url" targetdir="$INSTALL_PATH/service" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/service/RuralInvest.url" os="windows"/>
+
+            <file src="resources/win/launchUrl.bat" targetdir="$INSTALL_PATH/service" override="true" os="windows"/>
+            <parsable targetfile="$INSTALL_PATH/service/launchUrl.bat" os="windows"/>
+
+			<!-- ==============
+                    Mac OS X
+                 ============== -->
+			<file src="resources/osx/org.fao.riv.plist" targetdir="/Library/LaunchDaemons" override="true" os="mac"/>
+			<parsable targetfile="/Library/LaunchDaemons/org.fao.riv.plist" os="mac"/>
+
+			<file src="resources/osx/riv.sh" targetdir="$INSTALL_PATH/bin" override="true" os="mac"/>
+			<parsable targetfile="$INSTALL_PATH/bin/riv.sh" os="mac"/>
+			<executable targetfile="$INSTALL_PATH/bin/riv.sh" stage="never" keep="true" os="mac" />
+
+		</pack>
+ 
+		<pack name="NewInstall" required="yes" installGroups="NewInstall" id="pack.newDb">
+			<description>Installs a blank database</description>
+			<fileset dir="@{izpack.staging}/webapp/WEB-INF/data" targetdir="$INSTALL_PATH/webapp/WEB-INF/data" casesensitive="false" override="true" />
+		</pack>
+		
+		<pack name="Upgrade" required="yes" installGroups="Upgrade,UpgradeAddsUser" id="pack.upgrade">
+			<description>Update existing RuralInvest database</description>
+			<file src="resources/sql.xml" targetdir="$TEMP_DIRECTORY" override="true" />
+		</pack>
+	</packs>
+</izpack:installation>

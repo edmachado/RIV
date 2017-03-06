@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectList" pageWidth="816" pageHeight="555" orientation="Landscape" columnWidth="816" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" uuid="e58bba7b-5762-4b7e-9313-b2f49e9c9552">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="282"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
+	<parameter name="filter" class="riv.objects.FilterCriteria" isForPrompting="false"/>
+	<field name="technician.description" class="java.lang.String"/>
+	<field name="projectName" class="java.lang.String"/>
+	<field name="fieldOffice.description" class="java.lang.String"/>
+	<field name="investmentTotal" class="java.lang.Double"/>
+	<field name="investmentOwn" class="java.lang.Double"/>
+	<field name="status" class="java.lang.Integer"/>
+	<field name="enviroClass" class="java.lang.String"/>
+	<field name="investmentDonated" class="java.lang.Double"/>
+	<field name="annualEmployment" class="java.lang.Double"/>
+	<field name="annualNetIncome" class="java.lang.Double"/>
+	<field name="workingCapital" class="java.lang.Double"/>
+	<field name="npv" class="java.lang.Double"/>
+	<field name="irr" class="java.math.BigDecimal"/>
+	<field name="beneDirect" class="java.lang.Integer"/>
+	<field name="beneIndirect" class="java.lang.Integer"/>
+	<field name="userCode" class="java.lang.String"/>
+	<field name="wcOwn" class="java.lang.Double"/>
+	<field name="wcDonated" class="java.lang.Double"/>
+	<field name="wcFinanced" class="java.lang.Double"/>
+	<field name="totalCosts" class="java.lang.Double"/>
+	<field name="totalCostsOwn" class="java.lang.Double"/>
+	<field name="totalCostsDonated" class="java.lang.Double"/>
+	<field name="totalCostsFinanced" class="java.lang.Double"/>
+	<field name="npvWithDonation" class="java.lang.Double"/>
+	<field name="irrWithDonation" class="java.math.BigDecimal"/>
+	<variable name="investFinanced" class="java.lang.Double">
+		<variableExpression><![CDATA[new Double($F{investmentTotal}.doubleValue()-$F{investmentOwn}.doubleValue()-$F{investmentDonated}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="investPerDirect" class="java.lang.Double">
+		<variableExpression><![CDATA[new Double(
+$F{investmentTotal}.doubleValue()/$F{beneDirect}.doubleValue()
+)]]></variableExpression>
+	</variable>
+	<variable name="sumInvestTotal" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{investmentTotal}]]></variableExpression>
+	</variable>
+	<variable name="sumInvestOwn" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{investmentOwn}]]></variableExpression>
+	</variable>
+	<variable name="sumInvestDonated" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{investmentDonated}]]></variableExpression>
+	</variable>
+	<variable name="isIncomeGen" class="java.lang.Boolean">
+		<initialValueExpression><![CDATA[new Boolean($P{filter}.isIncomeGen())]]></initialValueExpression>
+	</variable>
+	<variable name="investPerIndirect" class="java.lang.Double">
+		<variableExpression><![CDATA[new Double(
+$F{investmentTotal}.doubleValue()/$F{beneIndirect}.doubleValue()
+)]]></variableExpression>
+	</variable>
+	<variable name="sumInvestFinanced" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{investFinanced}]]></variableExpression>
+	</variable>
+	<variable name="sumAnnualEmployment" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{annualEmployment}]]></variableExpression>
+	</variable>
+	<variable name="sumAnnualIncome" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{annualNetIncome}]]></variableExpression>
+	</variable>
+	<variable name="sumWC" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{workingCapital}]]></variableExpression>
+	</variable>
+	<variable name="sumNPV" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{npv}]]></variableExpression>
+	</variable>
+	<variable name="sumIRR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{irr}]]></variableExpression>
+	</variable>
+	<variable name="sumBeneDirect" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{beneDirect}]]></variableExpression>
+	</variable>
+	<variable name="sumBeneIndirect" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{beneIndirect}]]></variableExpression>
+	</variable>
+	<variable name="sumInvestDirect" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{investPerDirect}]]></variableExpression>
+	</variable>
+	<variable name="sumInvestIndirect" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{investPerIndirect}]]></variableExpression>
+	</variable>
+	<group name="dummy_group">
+		<groupExpression><![CDATA[$V{REPORT_COUNT}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement uuid="460bbe35-a628-4811-9a49-61526ee29bcb" key="rectangle-1" positionType="Float" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="2" width="816" height="16" forecolor="#000000" backcolor="#E5E5E5"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="6191fa87-d3a4-4084-a454-5db5cf3c9fee" key="textField-5" positionType="Float" mode="Opaque" x="0" y="3" width="129" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<box bottomPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.projectName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2fc03f38-aaa5-48f1-9e06-b508cbf2a6e7" key="textField-42" positionType="Float" mode="Opaque" x="131" y="3" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filter}.isIncomeGen()
+? $R{project.annualIncome}
+: $R{project.investPerDirect}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="9ca912b9-60fd-4f41-ac89-345ecdf0c09e" key="textField-48" positionType="Float" mode="Opaque" x="680" y="4" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[new Boolean($P{filter}.isIncomeGen())]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.npv}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="bb130f7f-f2be-484e-a238-09a15e45ac64" key="textField-49" positionType="Float" mode="Opaque" x="741" y="4" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[new Boolean($P{filter}.isIncomeGen())]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.irr}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="a93a09c8-dffd-46db-a4ad-61f4512820e5" key="textField-45" positionType="Float" mode="Opaque" x="253" y="3" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.results.workCapital.own}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="5633a958-b970-48e4-95e0-25a1f7d0fb70" key="textField-45" positionType="Float" mode="Opaque" x="314" y="2" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.results.workCapital.donated}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="34440c30-882b-453a-9360-e0fae2041a24" key="textField-45" positionType="Float" mode="Opaque" x="375" y="2" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.results.workCapital.financed}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="dab4f891-3459-4b4c-9cbd-00e835872d4d" key="textField-45" positionType="Float" mode="Opaque" x="436" y="3" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.results.totalCosts}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2119d9fd-0fa6-4798-a46a-d90191e7960e" key="textField-45" positionType="Float" mode="Opaque" x="497" y="4" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.results.totalCosts.own}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="a0e46dc7-3246-4959-825c-b86461e3cc56" key="textField-45" positionType="Float" mode="Opaque" x="558" y="3" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.results.totalCosts.donated}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="c68e41cc-1f72-4fd6-b01c-fb8dab099e6c" key="textField-45" positionType="Float" mode="Opaque" x="619" y="4" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.results.totalCosts.financed}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="8e0c588d-9534-4495-9102-ac3ead585c87" key="textField-42" positionType="Float" mode="Opaque" x="192" y="2" width="59" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filter}.isIncomeGen()
+? $R{project.results.workCapital}
+: $R{project.investPerIndirect}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement uuid="485f798c-6bcb-4a40-9eee-83b8ca8c960c" key="textField-12" mode="Opaque" x="0" y="4" width="129" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box bottomPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{projectName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2763b27e-ecd4-4ad1-a8ca-40f30c45b891" key="textField-43" mode="Opaque" x="131" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filter}.isIncomeGen()
+? $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{annualNetIncome},riv.util.CurrencyFormat.NODECIMALS)
+: $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{investmentTotal}.doubleValue()/$F{beneDirect}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="d206d98e-10b0-4139-bf1c-c96eb417d3db" key="textField-46" mode="Opaque" x="192" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filter}.isIncomeGen()
+? $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{workingCapital},riv.util.CurrencyFormat.NODECIMALS)
+: $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{investmentTotal}.doubleValue()/$F{beneIndirect}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="c2ece920-03ac-44d6-8611-af240affa7f9" key="textField-50" mode="Opaque" x="741" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($P{filter}.isIncomeGen()
+&& $F{irr}.compareTo(new BigDecimal(10))<0
+&& $F{irr}.compareTo(new BigDecimal(-10))>0)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{irr}.multiply(new BigDecimal(100.0)).compareTo(new BigDecimal(1000.0))==1 || $F{irr}.multiply(new BigDecimal(100.0)).compareTo(new BigDecimal(-1000))==-1
+? $R{misc.undefined}
+: $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{irr}.multiply(new BigDecimal(100)),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="044ab577-e7f7-49d5-9948-5264d528d0ec" key="textField-51" mode="Opaque" x="680" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[new Boolean($P{filter}.isIncomeGen())]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{npv},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="f5d9e418-5664-4cc9-8a7b-26dd145f65c8" key="textField-46" mode="Opaque" x="253" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{wcOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="87fc3c8c-89f0-44c4-bb1b-3d3ee1c33d78" key="textField-46" mode="Opaque" x="314" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{wcDonated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="6a76607b-0f16-4c3e-b46f-dfbd84519d8e" key="textField-46" mode="Opaque" x="375" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{wcFinanced},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="a1df1ea1-df48-47d5-9cd6-31e0694ca3fa" key="textField-46" mode="Opaque" x="436" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totalCosts},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="64820ab9-f127-47fb-959e-016982a844d8" key="textField-46" mode="Opaque" x="497" y="4" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totalCostsOwn},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="5d88fbac-a615-43a4-9a16-cec77dbbbd2b" key="textField-46" mode="Opaque" x="558" y="3" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totalCostsDonated},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="574535a3-d583-40e2-8630-b0571f82a8a7" key="textField-46" mode="Opaque" x="619" y="3" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[$P{filter}.isIncomeGen()]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{totalCostsFinanced},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Prevent"/>
+	</pageFooter>
+	<summary>
+		<band height="79" splitType="Stretch">
+			<line>
+				<reportElement uuid="f7b0628e-b6db-459c-97fe-660ca69c56e7" key="line-1" mode="Opaque" x="1" y="4" width="815" height="1" forecolor="#E7AE0F" backcolor="#FFFFFF"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="ed665cf3-3c6b-4855-a64e-2e8bbd224fdf" key="textField-30" mode="Opaque" x="2" y="6" width="58" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box bottomPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{misc.sum}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="f4759d16-65f6-4a6d-90db-4605e6405bb6" key="line-3" mode="Opaque" x="1" y="21" width="815" height="1" forecolor="#009900" backcolor="#FFFFFF"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="4e523846-c0e8-49ee-81de-e22836a9f139" key="textField-31" mode="Opaque" x="2" y="24" width="58" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box bottomPadding="2">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{misc.average}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="3f998ae8-6af1-4e3a-90ab-c6f309800907" key="textField-44" mode="Opaque" x="131" y="6" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[Boolean.valueOf($P{filter}.isIncomeGen())]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumAnnualIncome},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="13efb37e-919d-44e4-814e-f7e9de2e7eaa" key="textField-47" mode="Opaque" x="192" y="6" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF">
+					<printWhenExpression><![CDATA[Boolean.valueOf($P{filter}.isIncomeGen())]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumWC},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="1fd512c6-ab59-4097-9251-3ad4fdcdec1e" key="textField-74" mode="Opaque" x="131" y="24" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filter}.isIncomeGen()
+? $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumAnnualIncome}.doubleValue()/$V{REPORT_COUNT}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)
+: $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumInvestDirect}.doubleValue()/$V{REPORT_COUNT}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="55cca327-7d59-4370-a0cd-c9d656702980" key="textField-75" mode="Opaque" x="192" y="24" width="59" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{filter}.isIncomeGen()
+? $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumWC}.doubleValue()/$V{REPORT_COUNT}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)
+: $P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{sumInvestIndirect}.doubleValue()/$V{REPORT_COUNT}.doubleValue(),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="45812a94-ea04-43df-8ab2-8ad398d39e70" key="textField-69" mode="Opaque" x="4" y="54" width="188" height="13" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.report.results.total} + " " + $V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

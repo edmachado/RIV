@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_17" class="java.beans.XMLDecoder"> 
+ <object id="Profile0" class="riv.Profile"> 
+  <void property="benefDesc"> 
+   <string>It is estimated that 50 families will take part directly in the investment (comprising 68 men, 81 women and 130 children) while the entire community will be indirect beneficiaries; 190 families comprising 242 men, 286 women y 415 children.</string> 
+  </void> 
+  <void property="benefFamilies"> 
+   <int>50</int> 
+  </void> 
+  <void property="benefName"> 
+   <string>People of SRio Negro Community</string> 
+  </void> 
+  <void property="benefNum"> 
+   <int>279</int> 
+  </void> 
+  <void property="enviroImpact"> 
+   <string>The workshop would have a negative impact on the environment if no water waste treatment from the dyening operation will be installed.  Therefore, installation of waste water treatment equipment is required. </string> 
+  </void> 
+  <void property="exchRate"> 
+   <double>0.6666666666666666</double> 
+  </void> 
+  <void property="fieldOffice"> 
+   <object class="riv.FieldOffice"> 
+    <void property="configId"> 
+     <int>-4</int> 
+    </void> 
+    <void property="description"> 
+     <string>generic field office</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="generic"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="glsGeneral"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Office Supplies</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>2</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>178.4999999901825</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>per month</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Manager</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>4</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>951.99999994764</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>per/month</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Maint. sowing machines</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>3</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>1308.999999928005</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>lumpsum/year @10%</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Electricity</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>5</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>396.66666664485</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>per month</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Maint. workshop</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>872.66666661867</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>lumsum/year @2.5%</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGeneral"> 
+      <void property="description"> 
+       <string>Administrator</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>594.999999967275</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>per/month</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="glsGoods"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Sowing Machines</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>8.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>5</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>198.333333322425</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>2038.866666554529</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>6.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unit</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Dyeing Equipment</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>277.66666666666663</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>4284.0</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unit</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Water Treatment </string> 
+      </void> 
+      <void property="econLife"> 
+       <double>10.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>4</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>396.66666664485</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>5949.99999967275</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unit</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Building</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>20.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>3</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>317.33333331588</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>110.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>1 sq m</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Irons</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>8.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>2</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>51.5666666638305</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>535.4999999705475</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>3.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unit</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Working Tables</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>8.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>594.999999967275</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>8.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>unit</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemGood"> 
+      <void property="description"> 
+       <string>Office equipment</string> 
+      </void> 
+      <void property="econLife"> 
+       <double>6.0</double> 
+      </void> 
+      <void property="orderBy"> 
+       <int>6</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="salvage"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="unitCost"> 
+       <double>3569.99999980365</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>lumsum</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="glsLabours"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object class="riv.ProfileItemLabour"> 
+      <void property="description"> 
+       <string>Construction labor, Workshop</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>11.8999999993455</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>425.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>day</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object class="riv.ProfileItemLabour"> 
+      <void property="description"> 
+       <string>Construction labor, Wat.fac.</string> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="ownResource"> 
+       <double>0.0</double> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="unitCost"> 
+       <double>11.8999999993455</double> 
+      </void> 
+      <void property="unitNum"> 
+       <double>150.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>day</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="incomeGen"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="location1"> 
+   <string>Rio Negro</string> 
+  </void> 
+  <void property="location2"> 
+   <string>Sothern</string> 
+  </void> 
+  <void property="location3"> 
+   <string>Cold Mountain</string> 
+  </void> 
+  <void property="market"> 
+   <string>The buyer, a wholesaler based in the capital city, had agreed to collect completed goods from the nearest town at the end of each month.</string> 
+  </void> 
+  <void property="products"> 
+   <object class="java.util.HashSet"> 
+    <void method="add"> 
+     <object id="ProfileProduct0" class="riv.ProfileProduct"> 
+      <void property="cycleLength"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="cyclePerYear"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="description"> 
+       <string>Woman&apos;s Jacket</string> 
+      </void> 
+      <void property="lengthUnit"> 
+       <int>0</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>2</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="profileIncomes"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductIncome"> 
+          <void property="description"> 
+           <string>Woman&apos;s Jacket</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>3.966666666448499603333333355150</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>67.433333329624493256666667037550</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object id="BigDecimal0" class="java.math.BigDecimal"> 
+            <string>1</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>pcs</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileInputs"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Cloth</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>13.8833333325697486116666667430250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>1.3</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>m</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Thread, buttons</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>2.34033333320461476596666667953850</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>lumpsum</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Dye</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0.59499999996727494050000000327250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>lumpsum</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileLabours"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductLabour"> 
+          <void property="description"> 
+           <string>Labor</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct0"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>11.899999999345498810000000065450</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>2.6</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>days</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="unitNum"> 
+       <double>200.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>pcs</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object id="ProfileProduct1" class="riv.ProfileProduct"> 
+      <void property="cycleLength"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="cyclePerYear"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="description"> 
+       <string>Shirt</string> 
+      </void> 
+      <void property="lengthUnit"> 
+       <int>0</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>0</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="profileIncomes"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductIncome"> 
+          <void property="description"> 
+           <string>Shirt</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>3.966666666448499603333333355150</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>59.499999996727494050000000327250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>pcs</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileInputs"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Clouth</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>13.8833333325697486116666667430250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>1.8</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>m</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Dye</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0.59499999996727494050000000327250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>lumpsum</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Thread, buttons</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>2.1419999998821897858000000117810</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>lumsum</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileLabours"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductLabour"> 
+          <void property="description"> 
+           <string>Labor</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct1"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>11.899999999345498810000000065450</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0.85</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>days</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="unitNum"> 
+       <double>300.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>pcs</string> 
+      </void> 
+     </object> 
+    </void> 
+    <void method="add"> 
+     <object id="ProfileProduct2" class="riv.ProfileProduct"> 
+      <void property="cycleLength"> 
+       <double>1.0</double> 
+      </void> 
+      <void property="cyclePerYear"> 
+       <double>12.0</double> 
+      </void> 
+      <void property="description"> 
+       <string>Blouse</string> 
+      </void> 
+      <void property="lengthUnit"> 
+       <int>0</int> 
+      </void> 
+      <void property="orderBy"> 
+       <int>1</int> 
+      </void> 
+      <void property="profile"> 
+       <object idref="Profile0"/> 
+      </void> 
+      <void property="profileIncomes"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductIncome"> 
+          <void property="description"> 
+           <string>Blouse</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct2"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>3.966666666448499603333333355150</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>51.566666663830494843333333616950</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>pcs</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileInputs"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Dye</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>1</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct2"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0.59499999996727494050000000327250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>lumpsum</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Cloth</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct2"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>13.8833333325697486116666667430250</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>1.5</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>1 m</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object class="riv.ProfileProductInput"> 
+          <void property="description"> 
+           <string>Threads</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>2</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct2"/> 
+          </void> 
+          <void property="transport"> 
+           <object class="java.math.BigDecimal"> 
+            <string>0E-30</string> 
+           </object> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>2.0626666665532197937333333446780</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object idref="BigDecimal0"/> 
+          </void> 
+          <void property="unitType"> 
+           <string>lumpsum</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="profileLabours"> 
+       <object class="java.util.HashSet"> 
+        <void method="add"> 
+         <object class="riv.ProfileProductLabour"> 
+          <void property="description"> 
+           <string>labor</string> 
+          </void> 
+          <void property="orderBy"> 
+           <int>0</int> 
+          </void> 
+          <void property="profileProduct"> 
+           <object idref="ProfileProduct2"/> 
+          </void> 
+          <void property="unitCost"> 
+           <object class="java.math.BigDecimal"> 
+            <string>11.899999999345498810000000065450</string> 
+           </object> 
+          </void> 
+          <void property="unitNum"> 
+           <object class="java.math.BigDecimal"> 
+            <string>1.1</string> 
+           </object> 
+          </void> 
+          <void property="unitType"> 
+           <string>days</string> 
+          </void> 
+         </object> 
+        </void> 
+       </object> 
+      </void> 
+      <void property="unitNum"> 
+       <double>250.0</double> 
+      </void> 
+      <void property="unitType"> 
+       <string>psc</string> 
+      </void> 
+     </object> 
+    </void> 
+   </object> 
+  </void> 
+  <void property="profileName"> 
+   <string>Artesanal Clothing Workshop</string> 
+  </void> 
+  <void property="projDesc"> 
+   <string>The main objective of this project is to increase incomes of 50 families by creating off-farm employment.  &#13;
+&#13;
+The main activities under this project are as follows:&#13;
+&#13;
+1. Construction of the workshop;&#13;
+2. Purchase of sowing machines, irons, dyen equipment and office equipment;&#13;
+3. Hiring Workshop Manager and Accountants.&#13;
+&#13;
+All investments with the exception of the book-keeping system, would be financed through credit</string> 
+  </void> 
+  <void property="reccCode"> 
+   <short>3</short> 
+  </void> 
+  <void property="reccDesc"> 
+   <string></string> 
+  </void> 
+  <void property="refCosts"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="refIncomes"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="refLabours"> 
+   <object class="java.util.HashSet"/> 
+  </void> 
+  <void property="uniqueId"> 
+   <array class="byte" length="16"> 
+    <void index="0"> 
+     <byte>-85</byte> 
+    </void> 
+    <void index="1"> 
+     <byte>-88</byte> 
+    </void> 
+    <void index="2"> 
+     <byte>92</byte> 
+    </void> 
+    <void index="3"> 
+     <byte>20</byte> 
+    </void> 
+    <void index="4"> 
+     <byte>-26</byte> 
+    </void> 
+    <void index="5"> 
+     <byte>-108</byte> 
+    </void> 
+    <void index="6"> 
+     <byte>17</byte> 
+    </void> 
+    <void index="7"> 
+     <byte>-33</byte> 
+    </void> 
+    <void index="8"> 
+     <byte>-119</byte> 
+    </void> 
+    <void index="9"> 
+     <byte>103</byte> 
+    </void> 
+    <void index="10"> 
+     <byte>-81</byte> 
+    </void> 
+    <void index="11"> 
+     <byte>119</byte> 
+    </void> 
+    <void index="12"> 
+     <byte>-4</byte> 
+    </void> 
+    <void index="13"> 
+     <byte>-110</byte> 
+    </void> 
+    <void index="14"> 
+     <byte>127</byte> 
+    </void> 
+    <void index="15"> 
+     <byte>111</byte> 
+    </void> 
+   </array> 
+  </void> 
+ </object> 
+</java> 
