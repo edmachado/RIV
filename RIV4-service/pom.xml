@@ -122,7 +122,7 @@
 	<parent>
 		<groupId>org.fao.riv</groupId>
 		<artifactId>RIV4</artifactId>
-		<version>4.3.2</version>
+		<version>4.3.3-SNAPSHOT</version>
 		<relativePath>../RIV4/pom.xml</relativePath>
 	</parent>
 </project>
