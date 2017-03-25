@@ -51,8 +51,10 @@ $(function() {
 						<tags:dataentry field="cyclePerYear" labelKey="${prodType}.cycles" helpText="${prodType}.cycles.help" calcSignKey="units.perYear" />
 					</div>
 				</fieldset>
-		</div>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		</div>	
+		<c:set var="cancelProdId"><c:if test="${not empty profileProduct.productId}">#b${profileProduct.productId}</c:if></c:set>
+		<tags:submit cancel="../step6/${profileProduct.profile.profileId}${cancelProdId}"><spring:message code="misc.saveItem"/></tags:submit>
+	
 	</form:form>
 </body>
 </html>

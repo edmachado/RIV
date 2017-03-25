@@ -82,7 +82,8 @@ $(function() {
 			<div class="error"><form:errors path="patternsError"/></div>
 			<tags:prodPattern block="${product.block}" edit="true"/>
 		</fieldset>
-		<tags:submit><spring:message code="misc.saveItem"/></tags:submit>
+		<c:set var="cancelBlockId"><c:if test="${not empty block.blockId}">#b${block.blockId}</c:if></c:set>
+		<tags:submit cancel="../step9/${block.project.projectId}${cancelBlockId}"><spring:message code="misc.saveItem"/></tags:submit>
 	</form:form>
 </body>
 </html>
