@@ -130,7 +130,7 @@ public class FinanceMatrix {
 		lastCumulativeYear = lastNegYearAfter+1<duration ? lastNegYearAfter+1 : duration-1;
 		double paybackAfter = lastNegYearAfter+1 + (Math.abs(lastNegYearValueAfter)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario));
 		
-		return new double[]{paybackBefore,paybackAfter};
+		return new double[]{ round(paybackBefore,2), round(paybackAfter,2) };
 	}
 
 	public double getNpv(boolean withDonation, ProjectScenario scenario) {
@@ -552,6 +552,11 @@ public class FinanceMatrix {
 		    bd = bd.setScale(decimals,BigDecimal.ROUND_HALF_UP);
 		    return bd.doubleValue();
 	 }
+	private double round(double d, int scale) {
+		 BigDecimal bd = new BigDecimal(Double.toString(d));
+		    bd = bd.setScale(scale,BigDecimal.ROUND_HALF_UP);
+		    return bd.doubleValue();
+	}
 	
 	/**
 	 * Wrapper for netPresentValue(double discountRate, double[] cashFlows).  Uses array of ProjectFinanceData to a cash flow array.

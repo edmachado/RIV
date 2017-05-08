@@ -1,5 +1,6 @@
 # RIV 4.4.0
 project.report.profitability.payback=Payback (years)
+project.report.profitability.cumulative=Cumulative
 
 ## RIV 4.3.2
 error.import.futureVersion=The profile or project you are importing was created by a newer version of RuralInvest than the one you are using. Please upgrade the RuralInvest software.
