@@ -452,6 +452,9 @@ public class PdfReportCreator {
 		report.getParams().put("npvNoDonation", matrix.getNpv(false, scenario));
 		report.getParams().put("irrNoDonation", matrix.getIrr(false, scenario));
 		
+		double[] payback=matrix.getPayback(project.getDuration(), scenario);
+		report.getParams().put("paybackBefore", payback[0]);
+		report.getParams().put("paybackAfter", payback[1]);
 		
 		
 		String title;

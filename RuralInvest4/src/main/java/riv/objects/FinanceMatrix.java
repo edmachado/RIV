@@ -58,7 +58,6 @@ public class FinanceMatrix {
 	}
 	
 	protected void finalize() {
-//		LOG.debug("FinanceMatrix finalize.");
 		yearlyData.clear();
 	}
 	
@@ -91,9 +90,49 @@ public class FinanceMatrix {
 	}
 	
 	public enum ProjectScenario {
-		With, Without, Incremental
+		With(0), Without(1), Incremental(2);
+		
+		private final int value;
+		private ProjectScenario (int value) {
+			this.value=value;
+		}
+		
+		public int getValue() {
+			return value;
+		}
 	}
 	
+	public double[] getPayback(int duration, ProjectScenario scenario) {
+		int lastNegYearBefore=0;
+		double lastNegYearValueBefore=0.0;
+		double cumulativeBefore=0.0;
+		
+		int lastNegYearAfter=0;
+		double lastNegYearValueAfter=0.0;
+		double cumulativeAfter=0.0;
+		
+		for (int i=0; i<duration; i++) {
+			cumulativeBefore+=yearlyData.get(i).getNetIncomeProfitabilityBefore(scenario);
+			if (cumulativeBefore<0) { 
+				lastNegYearBefore=i; 
+				lastNegYearValueBefore=cumulativeBefore;
+			}
+			
+			cumulativeAfter+=yearlyData.get(i).getNetIncomeProfitabilityAfter(scenario);
+			if (cumulativeAfter<0) { 
+				lastNegYearAfter=i; 
+				lastNegYearValueAfter=cumulativeAfter;
+			}
+		}
+		
+		int lastCumulativeYear = lastNegYearBefore+1<duration ? lastNegYearBefore+1 : duration-1;
+		double paybackBefore = lastNegYearBefore+1 + (Math.abs(lastNegYearValueBefore)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityBefore(scenario));
+		lastCumulativeYear = lastNegYearAfter+1<duration ? lastNegYearAfter+1 : duration-1;
+		double paybackAfter = lastNegYearAfter+1 + (Math.abs(lastNegYearValueAfter)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario));
+		
+		return new double[]{paybackBefore,paybackAfter};
+	}
+
 	public double getNpv(boolean withDonation, ProjectScenario scenario) {
 		return netPresentValue(discountRate/100, yearlyData, withDonation, scenario);
 	}

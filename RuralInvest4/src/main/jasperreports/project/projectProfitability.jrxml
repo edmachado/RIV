@@ -25,6 +25,8 @@
 	</parameter>
 	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="scenario" class="riv.objects.FinanceMatrix.ProjectScenario" isForPrompting="false"/>
+	<parameter name="paybackBefore" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="paybackAfter" class="java.lang.Double" isForPrompting="false"/>
 	<field name="incSales" class="java.lang.Double"/>
 	<field name="incSalesWithout" class="java.lang.Double"/>
 	<field name="incSalvage" class="java.lang.Double"/>
@@ -146,20 +148,26 @@
 			<band height="54" splitType="Prevent">
 				<subreport>
 					<reportElement uuid="02acbb70-4346-4a8b-88ba-a6bc76bdf4e6" isPrintRepeatedValues="false" x="-84" y="0" width="650" height="50"/>
+					<subreportParameter name="paybackAfter">
+						<subreportParameterExpression><![CDATA[$P{paybackAfter}]]></subreportParameterExpression>
+					</subreportParameter>
 					<subreportParameter name="npv">
 						<subreportParameterExpression><![CDATA[$P{npv}]]></subreportParameterExpression>
-					</subreportParameter>
-					<subreportParameter name="rivConfig">
-						<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="irr">
 						<subreportParameterExpression><![CDATA[$P{irr}]]></subreportParameterExpression>
 					</subreportParameter>
-					<subreportParameter name="irrNoDonation">
-						<subreportParameterExpression><![CDATA[$P{irrNoDonation}]]></subreportParameterExpression>
+					<subreportParameter name="rivConfig">
+						<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="npvNoDonation">
 						<subreportParameterExpression><![CDATA[$P{npvNoDonation}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="irrNoDonation">
+						<subreportParameterExpression><![CDATA[$P{irrNoDonation}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="paybackBefore">
+						<subreportParameterExpression><![CDATA[$P{paybackBefore}]]></subreportParameterExpression>
 					</subreportParameter>
 					<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 						<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>

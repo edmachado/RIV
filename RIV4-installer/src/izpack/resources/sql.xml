@@ -547,6 +547,13 @@ ALTER TABLE project_block ALTER COLUMN cycle_length DECIMAL(12,4);
 -- technician as text field
 ALTER TABLE project ADD COLUMN technician_freetext VARCHAR(100);
 ALTER TABLE profile ADD COLUMN technician_freetext VARCHAR(100);
+
+-- store pay period in project_result
+ALTER TABLE PROJECT_RESULT ADD COLUMN pay_period_before DECIMAL(12,4);
+ALTER TABLE PROJECT_RESULT ADD COLUMN pay_period_after DECIMAL(12,4);
+-- pay period in project indicators
+ALTER TABLE user ADD COLUMN result_pay_period_before BOOLEAN DEFAULT FALSE;
+ALTER TABLE user ADD COLUMN result_pay_period_after BOOLEAN DEFAULT TRUE;
 	</query>
 	</version>
 </sql>

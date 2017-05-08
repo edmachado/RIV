@@ -1,5 +1,6 @@
 package riv.objects;
 
+import riv.objects.FinanceMatrix.ProjectScenario;
 
 /**
  * Contains aggregated financial data for a project, organized per year.  
@@ -49,6 +50,8 @@ public class ProjectFinanceData implements java.io.Serializable{
 	protected double workingCapitalDonation;
 	protected double workingCapitalOwn;
 	protected double loanReceived;
+	protected double cumulativeBeforeDonation;
+	protected double cumulativeAfterDonation;
 	
 	// calculated fields
 	public double getIncSalesExternal() {
@@ -71,12 +74,43 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getTotalIncomeCashFlowWithout() {
 		return incSalesWithout-incSalesInternalWithout+incSalvageWithout+costInvestDonatedWithout+costInvestOwnWithout+getCostInvestFinanceWithout();
 	}
+	
+	public double getTotalIncomeProfitability(ProjectScenario scenario) {
+		if (scenario==ProjectScenario.With) {
+			return getTotalIncomeProfitabilityWith();
+		} else if (scenario==ProjectScenario.Without) {
+			return getTotalIncomeProfitabilityWithout();
+		} else { // incremental
+			return getTotalIncomeProfitabilityWith()-getTotalIncomeProfitabilityWithout();
+		}
+	}
 
 	public double getTotalIncomeProfitabilityWith() {
 		return incSales+incSalvage+incResidual;
 	}
 	public double getTotalIncomeProfitabilityWithout() {
 		return incSalesWithout+incSalvageWithout+incResidualWithout;
+	}
+	
+	public double getCostInvestDonated(ProjectScenario scenario) {
+		if (scenario==ProjectScenario.With) {
+			return costInvestDonated;
+		} else if (scenario==ProjectScenario.Without) {
+			return costInvestDonatedWithout;
+		} else {
+			return costInvestDonated-costInvestDonatedWithout;
+		}
+	}
+	
+	public double getNetIncomeProfitabilityBefore(ProjectScenario scenario) {
+		return getTotalIncomeProfitability(scenario) - getTotalCostsProfitability(scenario);
+	}
+	public double getNetIncomeProfitabilityAfter(ProjectScenario scenario) {
+		if (scenario==ProjectScenario.With || scenario==ProjectScenario.Incremental) {
+			return getNetIncomeProfitabilityBefore(scenario)+workingCapitalDonation+getCostInvestDonated(scenario);
+		} else { // without
+			return getNetIncomeProfitabilityBefore(scenario)+getCostInvestDonated(scenario);
+		}		
 	}
 
 	public double getTotalCostsCashFlowNoFinance() {
@@ -89,6 +123,16 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getTotalCostsCashFlowWithout() {
 		return costInvestWithout+costReplaceWithout+costOperationWithout-costOperationInternalWithout
 				+costGeneralWithout-costGeneralWithoutOwn+costMaintenanceWithout;
+	}
+	
+	public double getTotalCostsProfitability(ProjectScenario scenario) {
+		if (scenario==ProjectScenario.With) {
+			return getTotalCostsProfitabilityWith();
+		} else if (scenario==ProjectScenario.Without) {
+			return getTotalCostsProfitabilityWithout();
+		} else {
+			return getTotalCostsProfitabilityWith() - getTotalCostsProfitabilityWithout();
+		}
 	}
 	public double getTotalCostsProfitabilityWith() {
 		return costOperation+costReplace+costGeneral+costMaintenance+costInvest;
@@ -219,4 +263,16 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getLoanReceived() {
 		return loanReceived;
 	}
+//	public double getCumulativeBeforeDonation() {
+//		return cumulativeBeforeDonation;
+//	}
+//	public void setCumulativeBeforeDonation(double cumulativeBeforeDonation) {
+//		this.cumulativeBeforeDonation = cumulativeBeforeDonation;
+//	}
+//	public double getCumulateiveAfterDonation() {
+//		return cumulateiveAfterDonation;
+//	}
+//	public void setCumulateiveAfterDonation(double cumulateiveAfterDonation) {
+//		this.cumulateiveAfterDonation = cumulateiveAfterDonation;
+//	}
 }
