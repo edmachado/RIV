@@ -1992,11 +1992,7 @@ public class ExcelWorksheetBuilder {
 					for (ExcelBlockLink blockLink : without ? report.getBlockLinksWithoutProject().values() : report.getBlockLinks().values()) {
 						formulaBuild.append("("+blockLink.incomeCash+"*"+blockLink.qtyPerYear[yearNum-1]);
 						if (!blockLink.noCycles) {
-//							if (yearNum==1) {
-//								formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
-//							} else {
 								formulaBuild.append("*"+blockLink.cyclesPerYear);
-//							}
 						}	
 						formulaBuild.append(")+");
 					}
@@ -2154,11 +2150,17 @@ public class ExcelWorksheetBuilder {
 				//FINANCING
 				if (!without) {
 					// wc capital
-					report.addFormulaCell(sheet.getRow(32), yearNum, String.format("%s13", col), Style.CURRENCY);
+					formula = String.format("IF(AND(%s>((%s2-1)*12),%s<((%s2-1)*12)),$B$13,0)",
+							report.getLink(ExcelLink.PROJECT_WC_PERIOD),
+							col,
+							report.getLink(ExcelLink.PROJECT_WC_PERIOD),
+							getColumn(yearNum+1)
+						);
+					report.addFormulaCell(sheet.getRow(32), yearNum, formula, Style.CURRENCY);
 	
 					// wc interest
-					formula = String.format("%s13*%s/12*%s*0.01",
-							col,
+					formula = String.format("IF(%s33<>0, %s13*%s/12*%s*0.01,0)",
+							col, col,
 							report.getLink(ExcelLink.PROJECT_WC_PERIOD),
 							report.getLink(ExcelLink.PROJECT_WC_INTEREST));
 					report.addFormulaCell(sheet.getRow(33), yearNum, formula, Style.CURRENCY);
@@ -2280,7 +2282,7 @@ public class ExcelWorksheetBuilder {
 					report.addNumericCell(sheet.getRow(9), yearNum, pfd.getCostInvestDonated(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(10), yearNum, pfd.getCostInvestOwn(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(11), yearNum, pfd.getLoanReceived(), Style.CURRENCY);
-					report.addNumericCell(sheet.getRow(12), yearNum, pfd.getWorkingCapitalCapital(), Style.CURRENCY);
+					report.addNumericCell(sheet.getRow(12), yearNum, pfd.getWorkingCapitalReceived(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(13), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(14), yearNum, pfd.getIncCapitalOwn(), Style.CURRENCY);
 					

@@ -43,6 +43,7 @@ public class ProjectFinanceData implements java.io.Serializable{
 	protected double costInvestDonatedWithout;
 	protected double workingCapitalCapital;
 	protected double workingCapitalInterest;
+	protected double workingCapitalReceived;
 	protected double loan1interest;
 	protected double loan1capital;
 	protected double loan2interest;
@@ -247,6 +248,12 @@ public class ProjectFinanceData implements java.io.Serializable{
 	}
 	public double getWorkingCapital() {
 		return workingCapitalInterest;
+	}
+	public double getWorkingCapitalReceived() {
+		return workingCapitalReceived;
+	}
+	public void setWorkingCapitalReceived(double workingCapitalReceived) {
+		this.workingCapitalReceived = workingCapitalReceived;
 	}
 	public double getLoan1interest() {
 		return loan1interest;

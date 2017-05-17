@@ -4,7 +4,7 @@
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="64"/>
+	<property name="ireport.y" value="16"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -43,12 +43,13 @@
 	<field name="costInvestOwn" class="java.lang.Double"/>
 	<field name="workingCapitalCapital" class="java.lang.Double"/>
 	<field name="incCapitalOwn" class="java.lang.Double"/>
+	<field name="workingCapitalReceived" class="java.lang.Double"/>
 	<variable name="showRowLabel" class="java.lang.Boolean">
 		<variableExpression><![CDATA[new java.lang.Boolean($F{year}.intValue()==1||($F{year}.intValue()-1)%8==0)]]></variableExpression>
 	</variable>
 	<variable name="incFinanceTotal" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{costInvestDonated}+$F{costInvestOwn}+$F{loanReceived}
-+$F{workingCapitalCapital}+$F{incCapitalDonation}+$F{incCapitalOwn}]]></variableExpression>
++$F{workingCapitalReceived}+$F{incCapitalDonation}+$F{incCapitalOwn}]]></variableExpression>
 	</variable>
 	<variable name="incMainTotal" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{incSalesExternal}+$F{incSalvage}]]></variableExpression>
@@ -1141,7 +1142,7 @@
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{workingCapitalCapital},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($F{workingCapitalReceived},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="a7a119df-15bd-4cf1-8995-948aca59946e" key="textField" positionType="Float" mode="Opaque" x="9" y="105" width="65" height="11" forecolor="#003365" backcolor="#FFFFFF">

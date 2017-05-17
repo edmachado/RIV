@@ -120,24 +120,6 @@
 			</double>
 		</void>
 	</xsl:template>
-	<xsl:template match="void[@property='cycleFirstYear'][int]">
-		<xsl:variable name="int" select="int"/>
-		<void property="cycleFirstYear">
-			<double>
-				<xsl:value-of select="$int"/>
-				<xsl:text>.0</xsl:text>
-			</double>
-		</void>
-	</xsl:template>
-	<xsl:template match="void[@property='cycleFirstYearIncome'][int]">
-		<xsl:variable name="int" select="int"/>
-		<void property="cycleFirstYearIncome">
-			<double>
-				<xsl:value-of select="$int"/>
-				<xsl:text>.0</xsl:text>
-			</double>
-		</void>
-	</xsl:template>
 	
 	<!-- block pattern changed from int to double -->
 	<xsl:template match="void[@property='qty'][int][following-sibling::void[@property='yearNum']]">
