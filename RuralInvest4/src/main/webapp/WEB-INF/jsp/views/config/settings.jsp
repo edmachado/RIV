@@ -111,7 +111,7 @@
 				<tags:dataentry field="admin1Title" labelKey="customFields.appConfig1" inputClass="text" size="50" maxLength="100" />
 				<tags:dataentry field="admin1Help" labelKey="adminText.help" inputClass="text" size="50" maxLength="500" />
 				<tags:dataentryCheckbox field="admin1Enabled" labelKey="misc.enabled" />
-				<tags:dataentry field="admin2Title" labelKey="customFields.appConfig1" inputClass="text" size="50" maxLength="100" />
+				<tags:dataentry field="admin2Title" labelKey="customFields.appConfig2" inputClass="text" size="50" maxLength="100" />
 				<tags:dataentry field="admin2Help" labelKey="adminText.help" inputClass="text" size="50" maxLength="500" />
 				<tags:dataentryCheckbox field="admin2Enabled" labelKey="misc.enabled" />
 			</fieldset>
