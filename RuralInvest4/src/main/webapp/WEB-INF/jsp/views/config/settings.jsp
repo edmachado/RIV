@@ -8,9 +8,6 @@
 		<tags:errors />
 		<form:hidden path="settingId"/>
 		<div style="width:600px;">
-<%-- 			<c:if test="${not rivConfig.complete}"> --%>
-<%-- 				<a href="import"><spring:message code="settings.firstConfigImport"/></a><br/> --%>
-<%-- 			</c:if> --%>
 			<c:if test="${rivConfig.complete}">
 				<a href="export/settings.riv" id="export">
 					<img width="16" border="0" height="16" title="<spring:message code="settings.export"/>" alt="<spring:message code="settings.export"/>" src="../img/export_riv.gif">
