@@ -1,6 +1,10 @@
 ## RIV 4.4.0
 project.report.profitability.payback=Payback (years)
 project.report.profitability.cumulative=Cumulative
+project.report.monthsAllYears=Cash flow (all years per month)
+project.report.cashFlowPerMonth.sheetname=Cash flow months
+project.report.cashFlowPerMonth.with.sheetname=Cash flow months (with)
+project.report.cashFlowPerMonth.without.sheetname=Cash flow months (without)
 
 # changed from previous version
 projectBlock.chronology=Production chronology for all years

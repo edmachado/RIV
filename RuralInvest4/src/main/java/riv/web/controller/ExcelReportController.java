@@ -395,10 +395,17 @@ public class ExcelReportController {
 					ewb.blocks(report, project, true);
 				}
 				ewb.projectParameters(report, project, result);
+				// cash flow 1st year
 				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), true);
 				if (project.isWithWithout()) {
 					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), true);
 				}
+				// cash flow month-by-month all years
+				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), false);
+				if (project.isWithWithout()) {
+					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), false);
+				}
+				
 				ewb.projectCashFlow(report, project, matrix, false);
 				if (project.isWithWithout()) {
 					ewb.projectCashFlow(report, project, matrix, true);
