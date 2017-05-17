@@ -72,24 +72,26 @@ public class SettingsController {
 //		}
 		
 		// in case decimal separator is changing... make sure decimals are parsed correctly
-		boolean decProblem=false;
-		try {
-			decProblem= setting.getDiscountRate()!=Double.parseDouble(request.getParameter("discountRate"))
-				||	setting.getExchRate()!=Double.parseDouble(request.getParameter("exchRate"));	
-		} catch (NumberFormatException e) {
-			decProblem=true;
-		}
-		if (decProblem) {
-			DecimalFormat df = setting.getDecimalFormat();
+		if (!result.hasFieldErrors("discountRate") && !result.hasFieldErrors("exchRate")) {
+			boolean decProblem=false;
 			try {
-				setting.setDiscountRate(df.parse(request.getParameter("discountRate")).doubleValue());
-			} catch (ParseException e) {
-				result.rejectValue("discountRate", "error.fieldRequired");
+				decProblem= setting.getDiscountRate()!=Double.parseDouble(request.getParameter("discountRate"))
+					||	setting.getExchRate()!=Double.parseDouble(request.getParameter("exchRate"));	
+			} catch (NumberFormatException e) {
+				decProblem=true;
 			}
-			try {
-				setting.setExchRate(df.parse(request.getParameter("exchRate")).doubleValue());
-			} catch (ParseException e) {
-				result.rejectValue("exchRate", "error.fieldRequired");
+			if (decProblem) {
+				DecimalFormat df = setting.getDecimalFormat();
+				try {
+					setting.setDiscountRate(df.parse(request.getParameter("discountRate")).doubleValue());
+				} catch (ParseException e) {
+					result.rejectValue("discountRate", "error.fieldRequired");
+				}
+				try {
+					setting.setExchRate(df.parse(request.getParameter("exchRate")).doubleValue());
+				} catch (ParseException e) {
+					result.rejectValue("exchRate", "error.fieldRequired");
+				}
 			}
 		}
 		
