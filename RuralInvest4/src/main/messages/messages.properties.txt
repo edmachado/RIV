@@ -1,6 +1,9 @@
-# RIV 4.4.0
+## RIV 4.4.0
 project.report.profitability.payback=Payback (years)
 project.report.profitability.cumulative=Cumulative
+
+# changed from previous version
+projectBlock.chronology=Production chronology for all years
 
 ## RIV 4.3.2
 error.import.futureVersion=The profile or project you are importing was created by a newer version of RuralInvest than the one you are using. Please upgrade the RuralInvest software.
@@ -1181,7 +1184,7 @@ projectBlock.chronology.harvest=Harvest/Sale
 projectBlock.chronology.help=Use the calendar to show months in which there is activity (and hence costs), production and receipt of income over the first year. The calendar will start in the month selected for project start-up in the 'General Information' screen. Remember, this chart applies to the first year only.
 projectBlock.chronology.payment=Receipt of Payment
 projectBlock.chronology.production=Production/Activity
-projectBlock.chronology=Production chronology for the first year
+#projectBlock.chronology=Production chronology for the first year
 projectBlock.chronology.selectAll=select all
 projectBlock.clone=Clone this block
 projectBlock.cycleLength.help=Indicate the length of the production cycle. This may be the duration of time to grow a crop, raise an animal or make an item, but can not exceed 12 months. It can be defined by month(s), week(s), working day(s) or calendar day(s). If the activity is continuous, use a unit of time that is appropriate for the costs and sales

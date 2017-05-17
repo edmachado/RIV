@@ -89,8 +89,8 @@ public class BlockController {
     		block.setLengthUnit(0); // 0="month(s)"
     		block.setCycleLength(12.0); // 12 months = 1 year-long cycle
     		block.setCyclePerYear(1.0);
-    		block.setCycleFirstYear(1.0);
-    		block.setCycleFirstYearIncome(1.0);
+//    		block.setCycleFirstYear(1.0);
+//    		block.setCycleFirstYearIncome(1.0);
     	}
     	
     	updateProductionPattern(block, request, result);

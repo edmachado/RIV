@@ -32,7 +32,7 @@ import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
 import riv.objects.ProfileMatrix;
 import riv.objects.ProjectFinanceNongen;
-import riv.objects.ProjectFirstYear;
+import riv.objects.ProjectMonthsInYear;
 import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.BlockBase;
@@ -486,7 +486,7 @@ public class PdfReportCreator {
 		JasperReport jrTotals = reportLoader.compileReport("/reports/project/projectCashFlowFirstTotals.jasper");
 		report.getParams().put("totalsSubReport", jrTotals);
 		
-		report.getParams().put("firstYearData", new ProjectFirstYear(project, without, rivConfig.getSetting().getDecimalLength()));
+		report.getParams().put("firstYearData",  ProjectMonthsInYear.getProjectPerMonths(project, without, rivConfig.getSetting().getDecimalLength())[0]);
 		report.getParams().put("months", months(project));
 		
 		

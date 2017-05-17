@@ -40,7 +40,7 @@ import riv.objects.FinanceMatrix.ProjectScenario;
 import riv.objects.ProfileMatrix;
 import riv.objects.ProjectFinanceData;
 import riv.objects.ProjectFinanceNongen;
-import riv.objects.ProjectFirstYear;
+import riv.objects.ProjectMonthsInYear;
 import riv.objects.config.Setting;
 import riv.objects.config.User;
 import riv.objects.profile.Profile;
@@ -767,14 +767,14 @@ public class ExcelWorksheetBuilder {
 			}
 		}
 		
-		if (block.getProject().getIncomeGen() && block.isCycles()) {
-			report.addNumericCell(row, cellNum++, block.getCycleFirstYearIncome());
-			blockLink.cyclesFirstYearPayment=String.format("'%s'!$%s$%d",sheet.getSheetName(),getColumn(9+block.getProject().getDuration()),rowNum);
-			report.addTextCell(row, cellNum++, translate("units.perYear"));
-			report.addNumericCell(row, cellNum++, block.getCycleFirstYear());
-			blockLink.cyclesFirstYearProduction=String.format("'%s'!$%s$%d",sheet.getSheetName(),getColumn(7+block.getProject().getDuration()),rowNum);
-			report.addTextCell(row, cellNum++, translate("units.perYear"));
-		}
+//		if (block.getProject().getIncomeGen() && block.isCycles()) {
+//			report.addNumericCell(row, cellNum++, block.getCycleFirstYearIncome());
+//			blockLink.cyclesFirstYearPayment=String.format("'%s'!$%s$%d",sheet.getSheetName(),getColumn(9+block.getProject().getDuration()),rowNum);
+//			report.addTextCell(row, cellNum++, translate("units.perYear"));
+//			report.addNumericCell(row, cellNum++, block.getCycleFirstYear());
+//			blockLink.cyclesFirstYearProduction=String.format("'%s'!$%s$%d",sheet.getSheetName(),getColumn(7+block.getProject().getDuration()),rowNum);
+//			report.addTextCell(row, cellNum++, translate("units.perYear"));
+//		}
 		
 		if (report.isCompleteReport()) {
 			if (block.getClass()==Block.class) {
@@ -1999,11 +1999,11 @@ public class ExcelWorksheetBuilder {
 					for (ExcelBlockLink blockLink : without ? report.getBlockLinksWithoutProject().values() : report.getBlockLinks().values()) {
 						formulaBuild.append("("+blockLink.incomeCash+"*"+blockLink.qtyPerYear[yearNum-1]);
 						if (!blockLink.noCycles) {
-							if (yearNum==1) {
-								formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
-							} else {
+//							if (yearNum==1) {
+//								formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
+//							} else {
 								formulaBuild.append("*"+blockLink.cyclesPerYear);
-							}
+//							}
 						}	
 						formulaBuild.append(")+");
 					}
@@ -2131,11 +2131,11 @@ public class ExcelWorksheetBuilder {
 					for (ExcelBlockLink blockLink : without ? report.getBlockLinksWithoutProject().values() : report.getBlockLinks().values()) {
 						formulaBuild.append("("+blockLink.costCash+"*"+blockLink.qtyPerYear[yearNum-1]);
 						if (!blockLink.noCycles) {
-							if (yearNum==1) {
-								formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
-							} else {
+//							if (yearNum==1) {
+//								formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
+//							} else {
 								formulaBuild.append("*"+blockLink.cyclesPerYear);
-							}
+//							}
 						}
 						formulaBuild.append(")+");
 					}
@@ -2446,11 +2446,11 @@ public class ExcelWorksheetBuilder {
 					for (ExcelBlockLink blockLink : report.getBlockLinks().values()) {
 						formulaBuild.append("("+blockLink.income+"*"+blockLink.qtyPerYear[yearNum-1]);
 						if (!blockLink.noCycles) {
-							if (yearNum==1) {
-								formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
-							} else {
+//							if (yearNum==1) {
+//								formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
+//							} else {
 								formulaBuild.append("*"+blockLink.cyclesPerYear);
-							}
+//							}
 						}
 						formulaBuild.append(")+");
 					}
@@ -2464,11 +2464,11 @@ public class ExcelWorksheetBuilder {
 						for (ExcelBlockLink blockLink : report.getBlockLinksWithoutProject().values()) {
 							formulaBuild.append("("+blockLink.income+"*"+blockLink.qtyPerYear[yearNum-1]);
 							if (!blockLink.noCycles) {
-								if (yearNum==1) {
-									formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
-								} else {
+//								if (yearNum==1) {
+//									formulaBuild.append("*"+blockLink.cyclesFirstYearPayment);
+//								} else {
 									formulaBuild.append("*"+blockLink.cyclesPerYear);
-								}
+//								}
 							}
 							formulaBuild.append(")+");
 						}
@@ -2527,11 +2527,11 @@ public class ExcelWorksheetBuilder {
 					for (ExcelBlockLink blockLink : report.getBlockLinks().values()) {
 						formulaBuild.append("("+blockLink.cost+"*"+blockLink.qtyPerYear[yearNum-1]);
 						if (!blockLink.noCycles) {
-							if (yearNum==1) {
-								formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
-							} else {
+//							if (yearNum==1) {
+//								formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
+//							} else {
 								formulaBuild.append("*"+blockLink.cyclesPerYear);
-							}
+//							}
 						}
 						formulaBuild.append(")+");
 					}
@@ -2547,11 +2547,11 @@ public class ExcelWorksheetBuilder {
 						for (ExcelBlockLink blockLink : report.getBlockLinksWithoutProject().values()) {
 							formulaBuild.append("("+blockLink.cost+"*"+blockLink.qtyPerYear[yearNum-1]);
 							if (!blockLink.noCycles) {
-								if (yearNum==1) {
-									formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
-								} else {
+//								if (yearNum==1) {
+//									formulaBuild.append("*"+blockLink.cyclesFirstYearProduction);
+//								} else {
 									formulaBuild.append("*"+blockLink.cyclesPerYear);
-								}
+//								}
 							}
 							formulaBuild.append(")+");
 						}
@@ -2800,10 +2800,12 @@ public class ExcelWorksheetBuilder {
 		return sheet;
 	}
 
-	public Sheet projectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result, boolean without, int decimals) {
+	public Sheet projectCashFlowFirst(ExcelWrapper report, Project project, ProjectResult result, boolean without, int decimals, boolean firstYearOnly) {
 
-		ProjectFirstYear pfy = new ProjectFirstYear(project, without, decimals);
+		ProjectMonthsInYear[] setOfMonthsInYear =  ProjectMonthsInYear.getProjectPerMonths(project, without, decimals);
 		String sheetname; String title;
+		int numBlocks = without ? project.getBlocksWithout().size() : project.getBlocks().size();
+		
 		if (!without) {
 			if (project.isWithWithout()) {
 				sheetname=translate(SheetName.PROJECT_CASH_FLOW_FIRST_WITH);
@@ -2820,36 +2822,66 @@ public class ExcelWorksheetBuilder {
 		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
 		
 		sheet.setSelected(true);
-		int rowNum=0;
-		int[] firstRows = new int[2];
+		int rowNum;
 		
 		String chronSheet = "'"+translate(SheetName.PROJECT_CHRONOLOGY)+"'";
 		
-		Row row = sheet.createRow(rowNum);
-		report.addTextCell(row, 0, title, Style.TITLE);
-
-		
-		row = sheet.createRow(++rowNum);
-		int cellNum = 0;
-		cellNum++;
-		for (String month : months(messageSource, project)) {
-			report.addTextCell(row, cellNum++, month, Style.LABEL);
-
+		// create rows in advance
+		for (int i=0; i<=13+project.getBlocks().size()*2+project.getBlocksWithout().size()*2;i++) {
+			sheet.createRow(i);
 		}
-		report.addTextCell(row, cellNum++, translate("misc.total"), Style.LABEL);
+		
+		// 1st column : labels
+		report.addTextCell(sheet.getRow(0), 0, title, Style.TITLE);
+		report.addTextCell(sheet.getRow(3), 0, translate("project.report.cashFlowFirst.operIncomes"), Style.H2);
+		rowNum=4;
+		for (BlockBase block : without ? project.getBlocksWithout() : project.getBlocks()) {
+			report.addTextCell(sheet.getRow(rowNum++), 0, block.getDescription());
+		}
+		
+		rowNum++;
+		report.addTextCell(sheet.getRow(rowNum++), 0, translate("project.report.cashFlowFirst.operCosts"), Style.H2);
+		for (BlockBase block : without ? project.getBlocksWithout() : project.getBlocks()) {
+			report.addTextCell(sheet.getRow(rowNum++), 0, block.getDescription());
+		}
+		
+		rowNum++;
+		
+		report.addTextCell(sheet.getRow(rowNum++), 0, translate("project.report.cashFlowFirst.otherCosts"), Style.H2);
+		report.addTextCell(sheet.getRow(rowNum++), 0, translate("project.report.cashFlowFirst.maint"));
+		report.addTextCell(sheet.getRow(rowNum++), 0, translate("project.report.cashFlowFirst.general"));
+		report.addTextCell(sheet.getRow(rowNum++), 0, translate("misc.subtotal"), Style.LABEL);
+		report.addTextCell(sheet.getRow(rowNum++), 0, translate("project.report.cashFlowFirst.monthFlow"), Style.LABEL);
+		report.addTextCell(sheet.getRow(rowNum++), 0, translate("project.report.cashFlowFirst.cumFlow"), Style.LABEL);
+		
+		// year and month labels
+		Row rowYears = sheet.getRow(1);
+		Row rowMonths = sheet.getRow(2);
+		int rep=0; int cellNum=1;
+		while (rep==0 || (!firstYearOnly && rep<project.getDuration())) {
+			// year label
+			if (!firstYearOnly) {
+				report.addTextCell(rowYears, cellNum, String.valueOf(rep+1), Style.LABEL);
+				mergeCells(sheet, rowYears.getRowNum(), cellNum, rowYears.getRowNum(), cellNum+11);
+			}
+			for (String month : months(messageSource, project)) {
+				// month label
+				report.addTextCell(rowMonths, cellNum++, month, Style.LABEL);
+			}
+			rep++;
+		}
+		if (firstYearOnly) {
+			report.addTextCell(rowMonths, cellNum++, translate("misc.total"), Style.LABEL);
+		}
 
-		
-		// Operation income
-		firstRows[0]=rowNum+3;
-		
+		Row row;
 		if (report.isCompleteReport()) {
-			row = sheet.createRow(++rowNum);
-			report.addTextCell(row, 0, translate("project.report.cashFlowFirst.operIncomes"), Style.H2);
+			rowNum=4;
 			
+			// operation incomes
 			for (BlockBase block : without ? project.getBlocksWithout() : project.getBlocks()) {
+				row = sheet.getRow(rowNum++);
 				ExcelBlockLink blockLink = without ? report.getBlockLinksWithoutProject().get(block.getBlockId()) : report.getBlockLinks().get(block.getBlockId());
-				row = sheet.createRow(++rowNum);
-				report.addTextCell(row, 0, block.getDescription());
 				for (int month=0;month<12;month++) {
 					String formula;
 					if (blockLink.noCycles) {
@@ -2871,33 +2903,21 @@ public class ExcelWorksheetBuilder {
 							chronSheet,getColumn(month*2+1), blockLink.paymentRow,
 							getColumn(month*2+2),blockLink.paymentRow,
 							blockLink.qtyPerYear[0],
-							blockLink.cyclesFirstYearPayment
+							blockLink.cyclesPerYear
 							);
 					}
 					report.addFormulaCell(row, month+1, formula, Style.CURRENCY);
 				}
-				report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
+				if (firstYearOnly) {
+					report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum), Style.CURRENCY);
+				}
 			}
 			
-		} else {
-			rowNum = addCashFlowRow(report, sheet, rowNum, 
-					translate("project.report.cashFlowFirst.operIncomes"), pfy.getIncomes());
-		}
-		
-		row = sheet.createRow(++rowNum);
-		
-		
-		// Operation costs
-		firstRows[1]=rowNum+2;
-		
-		if (report.isCompleteReport()) {
-			row = sheet.createRow(++rowNum);
-			report.addTextCell(row, 0, translate("project.report.cashFlowFirst.operCosts"), Style.H2);
-			
+			// operation costs
+			rowNum++;
 			for (BlockBase block : without ? project.getBlocksWithout() : project.getBlocks()) {
 				ExcelBlockLink blockLink = without ? report.getBlockLinksWithoutProject().get(block.getBlockId()) : report.getBlockLinks().get(block.getBlockId());
-				row = sheet.createRow(++rowNum);
-				report.addTextCell(row, 0, block.getDescription());
+				row = sheet.getRow(++rowNum);
 				
 				for (int month=0;month<12;month++) {
 					String formula;
@@ -2927,7 +2947,7 @@ public class ExcelWorksheetBuilder {
 								chronSheet, getColumn(month*2+1), blockLink.productionRow,
 								getColumn(month*2+2), blockLink.productionRow,
 								blockLink.qtyPerYear[0],
-								blockLink.cyclesFirstYearProduction
+								blockLink.cyclesPerYear
 							);
 						if (project.getIncomeGen()) {
 							formula = formula + String.format("+IF(COUNTIF(%s!$B$%d:$Y$%d,\"#\")>0,%s/COUNTIF(%s!$B$%d:$Y$%d,\"#\")"+
@@ -2938,8 +2958,8 @@ public class ExcelWorksheetBuilder {
 									chronSheet,getColumn(month*2+1), blockLink.harvestRow,
 									getColumn(month*2+2),blockLink.harvestRow,
 									blockLink.qtyPerYear[0],
-									blockLink.cyclesFirstYearPayment
-									);
+									blockLink.cyclesPerYear
+							);
 						}
 					}
 					report.addFormulaCell(row, month+1, formula, Style.CURRENCY);
@@ -2947,18 +2967,10 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
 			}
 			
-		} else {
-			rowNum = addCashFlowRow(report, sheet, rowNum, translate("project.report.cashFlowFirst.operCosts"), 
-				pfy.getCosts());
-		}
-		row = sheet.createRow(++rowNum);
-		
-		// Other costs	
-		row = sheet.createRow(++rowNum);
-		report.addTextCell(row, 0, translate("project.report.cashFlowFirst.otherCosts"), Style.H2);
-		
-		row = sheet.createRow(++rowNum);
-		if (report.isCompleteReport()) {
+			// other costs
+			// maintenance
+			rowNum=8+numBlocks*2;
+			row = sheet.getRow(rowNum++);
 			int firstRow = Integer.parseInt(without ? report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW) : report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
 			String sheetName = without ? report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_SHEET) : report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
 			StringBuilder formula = new StringBuilder();
@@ -2972,117 +2984,197 @@ public class ExcelWorksheetBuilder {
 				formula.insert(0, "ROUND((");
 				formula.append(")/12,"+decimals+")");
 			}
-			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", formula.toString());	
-		} else {
-			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", pfy.getMaintenanceCost());
-		}
-
-		row = sheet.createRow(++rowNum);
-		if (report.isCompleteReport()) {
+			addCashFlowOtherRow(report, row, 1, formula.toString(), firstYearOnly);
+			
+			
+			// general
+			row = sheet.getRow(rowNum++);
 			String generalSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_SHEET);
 			String generalWithoutSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_SHEET);
 			int generalYears=project.isPerYearGeneralCosts()?project.getDuration():1;
-			String formula;
+			String formulax;
 			if (!without) {
-				formula=String.format("ROUND(%s!$%s$%s/12,%d)", generalSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW), decimals);
+				formulax=String.format("ROUND(%s!$%s$%s/12,%d)", generalSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW), decimals);
 			} else {
-				formula=String.format("ROUND(%s!$%s$%s/12,%d)", generalWithoutSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW), decimals);
+				formulax=String.format("ROUND(%s!$%s$%s/12,%d)", generalWithoutSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW), decimals);
 			}
 //			String formula = String.format("ROUND(%s/12,%d)", without ? report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH) : report.getLink(ExcelLink.PROJECT_GENERAL_CASH), decimals);
-			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", formula);
+			addCashFlowOtherRow(report, row, 1, formulax, firstYearOnly);
+			
+			rowNum=14;
 		} else {
-			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", pfy.getGeneralCost());
+			for (ProjectMonthsInYear ppm : setOfMonthsInYear) {
+				if (!firstYearOnly || ppm.getYear()==1) {
+					// incomes
+					rowNum=4;
+					rowNum=addMonthFlowArrays(report, sheet, rowNum, ppm.getIncomes(), ppm.getYear(), firstYearOnly);
+					
+					// operation costs
+					rowNum=6+numBlocks;
+					rowNum=addMonthFlowArrays(report, sheet, rowNum, ppm.getCosts(), ppm.getYear(), firstYearOnly);
+					
+					
+					// other costs
+					rowNum+=2;
+					row = sheet.getRow(rowNum++);
+					addCashFlowOtherRow(report, row, (ppm.getYear()-1)*12+1, ppm.getMaintenanceCost(), firstYearOnly);
+					row = sheet.getRow(rowNum++);
+					addCashFlowOtherRow(report, row, (ppm.getYear()-1)*12+1, ppm.getGeneralCost(), firstYearOnly);
+				}
+			}
 		}
 		
-		row = sheet.createRow(++rowNum);
-		report.addTextCell(row, 0, translate("misc.subtotal"), Style.LABEL);
-		for (short i=1;i<=13; i++) {
-			report.addFormulaCell(row, i, String.format("SUM(%s%d:%s%d)",getColumn(i), rowNum-1, getColumn(i), rowNum), Style.CURRENCY);
-
+		// both complete and stand-alone
+		// subtotal
+		int subtotalColumns = firstYearOnly ? 13 : project.getDuration()*12;
+		row = sheet.getRow(rowNum++);
+		for (int i=1;i<=subtotalColumns; i++) {
+			report.addFormulaCell(row, i, String.format("SUM(%s%d:%s%d)",getColumn(i), rowNum-2, getColumn(i), rowNum-1), Style.CURRENCY);
 		}
 		
-		row = sheet.createRow(++rowNum);
-		report.addTextCell(row, 0, translate("project.report.cashFlowFirst.monthFlow"), Style.LABEL);
-		int size;
-		for (short i=1;i<=13;i++) {
-			size = without ? project.getBlocksWithout().size() : project.getBlocks().size();
-			report.addFormulaCell(row, i, String.format("SUM(%s%d:%s%d)-SUM(%s%d:%s%d)-%s%d",
-					getColumn(i),firstRows[0],getColumn(i),firstRows[0]+size-1,
-					getColumn(i),firstRows[1]+1,getColumn(i),firstRows[1]+size,
-					getColumn(i),rowNum
+		// monthly flow
+		int flowColumns = firstYearOnly ? 13 : project.getDuration()*12;
+		row = sheet.getRow(rowNum++);
+		for (short i=1;i<=flowColumns;i++) {
+			report.addFormulaCell(row, i, String.format("SUM(%s5:%s%d)-SUM(%s%d:%s%d)-%s%d",
+					getColumn(i),getColumn(i),4+numBlocks,
+					getColumn(i),7+numBlocks,getColumn(i),6+numBlocks*2,
+					getColumn(i),rowNum-1
 					),Style.CURRENCY);
 		}
-
-		row = sheet.createRow(++rowNum);
-		report.addTextCell(row, 0, translate("project.report.cashFlowFirst.cumFlow"), Style.LABEL);
+		
+		// cumulative flow
+		flowColumns = firstYearOnly ? 12 : project.getDuration()*12;
+		row = sheet.getRow(rowNum);
 		report.addFormulaCell(row, 1, String.format("B%d", rowNum), Style.CURRENCY);
-		for (short i=2;i<=12;i++) {
+		for (int i=2;i<=flowColumns;i++) {
 			report.addFormulaCell(row, i, String.format("%s%d+%s%d", getColumn(i), rowNum, getColumn(i-1), rowNum+1), Style.CURRENCY);	
 		}
+		
 		if (report.isCompleteReport()) {
 			if (!without) {
 				report.addLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL, "'"+sheet.getSheetName()+"'!$N$"+rowNum++);
 			}
 		}
 		
-		autoSizeColumns(sheet, 15);
+//		
+//		// Other costs	
+//		report.addTextCell(row, 0, translate("project.report.cashFlowFirst.otherCosts"), Style.H2);
+//		
+//		row = sheet.createRow(++rowNum);
+//		if (report.isCompleteReport()) {
+//			int firstRow = Integer.parseInt(without ? report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_ROW) : report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_ROW));
+//			String sheetName = without ? report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_WITHOUT_SHEET) : report.getLink(ExcelLink.PROJECT_INVEST_FIRSTASSET_SHEET);
+//			StringBuilder formula = new StringBuilder();
+//			for (int i=firstRow; i<firstRow+(without ? project.getAssetsWithout().size() : project.getAssets().size());i++) {
+//				formula.append(
+//					String.format("IF(%s!$M$%d=1,%s!$C$%d*%s!$J$%d,0)+",sheetName, i, sheetName, i, sheetName, i)
+//				);
+//			}
+//			if (formula.length()>0) { 
+//				formula.deleteCharAt(formula.length()-1);
+//				formula.insert(0, "ROUND((");
+//				formula.append(")/12,"+decimals+")");
+//			}
+//			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", formula.toString(), firstYearOnly);	
+//		} else {
+//			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.maint", pfy.getMaintenanceCost(), firstYearOnly);
+//		}
+//
+//		row = sheet.createRow(++rowNum);
+//		if (report.isCompleteReport()) {
+//			String generalSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_SHEET);
+//			String generalWithoutSheetName = report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_SHEET);
+//			int generalYears=project.isPerYearGeneralCosts()?project.getDuration():1;
+//			String formula;
+//			if (!without) {
+//				formula=String.format("ROUND(%s!$%s$%s/12,%d)", generalSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_TOTAL_ROW), decimals);
+//			} else {
+//				formula=String.format("ROUND(%s!$%s$%s/12,%d)", generalWithoutSheetName, getColumn(3+generalYears*3), report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_TOTAL_ROW), decimals);
+//			}
+////			String formula = String.format("ROUND(%s/12,%d)", without ? report.getLink(ExcelLink.PROJECT_GENERAL_WITHOUT_CASH) : report.getLink(ExcelLink.PROJECT_GENERAL_CASH), decimals);
+//			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", formula, firstYearOnly);
+//		} else {
+//			addCashFlowOtherRow(report, row, "project.report.cashFlowFirst.general", pfy.getGeneralCost(), firstYearOnly);
+//		}
+//		
+//		row = sheet.createRow(++rowNum);
+//		for (short i=1;i<=13; i++) {
+//			report.addFormulaCell(row, i, String.format("SUM(%s%d:%s%d)",getColumn(i), rowNum-1, getColumn(i), rowNum), Style.CURRENCY);
+//
+//		}
+//		
+//		row = sheet.createRow(++rowNum);
+//		report.addTextCell(row, 0, translate("project.report.cashFlowFirst.monthFlow"), Style.LABEL);
+//		int size;
+//		for (short i=1;i<=13;i++) {
+//			size = without ? project.getBlocksWithout().size() : project.getBlocks().size();
+//			report.addFormulaCell(row, i, String.format("SUM(%s%d:%s%d)-SUM(%s%d:%s%d)-%s%d",
+//					getColumn(i),firstRows[0],getColumn(i),firstRows[0]+size-1,
+//					getColumn(i),firstRows[1]+1,getColumn(i),firstRows[1]+size,
+//					getColumn(i),rowNum
+//					),Style.CURRENCY);
+//		}
+//
+//		row = sheet.createRow(++rowNum);
+//		report.addFormulaCell(row, 1, String.format("B%d", rowNum), Style.CURRENCY);
+//		for (short i=2;i<=12;i++) {
+//			report.addFormulaCell(row, i, String.format("%s%d+%s%d", getColumn(i), rowNum, getColumn(i-1), rowNum+1), Style.CURRENCY);	
+//		}
+//		if (report.isCompleteReport()) {
+//			if (!without) {
+//				report.addLink(ExcelLink.PROJECT_1ST_YEAR_TOTAL, "'"+sheet.getSheetName()+"'!$N$"+rowNum++);
+//			}
+//		}
+//		
+//		autoSizeColumns(sheet, 15);
 		return sheet;
 	}
-
-	private void addCashFlowOtherRow (ExcelWrapper report, Row row, String key, double[] values) {
-
-		int cellNum = 0;
-		report.addTextCell(row, cellNum++, translate(key));
-
-		for (double value : values) {
-			report.addNumericCell(row, cellNum++, value, Style.CURRENCY);
-
-		}
-		report.addFormulaCell(row, cellNum, String.format("SUM(B%d:M%d)",row.getRowNum()+1, row.getRowNum()+1), Style.CURRENCY);	
-	}
 	
-	private void addCashFlowOtherRow(ExcelWrapper report, Row row, String key, String formula) {
-		report.addTextCell(row, 0, translate(key));
-		for (int i=1;i<=12;i++) {
-			report.addFormulaCell(row,  i, formula, Style.CURRENCY);
+	private int addMonthFlowArrays(ExcelWrapper report, Sheet sheet, int rowNum, List<ProjectMonthFlow> flows,int year, boolean firstYearOnly) {
+		for (ProjectMonthFlow pmf : flows) {
+				Row row = sheet.getRow(rowNum);
+				int cellNum = (year-1)*12+1;
+				
+				for (double flowData : pmf.getFlowData()) {
+					report.addNumericCell(row, cellNum++, flowData, Style.CURRENCY);
+				}
+				
+				if (firstYearOnly) {
+					report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
+				}
+				
+				rowNum++;
 		}
-		report.addFormulaCell(row, 13, String.format("SUM(B%d:M%d)",row.getRowNum()+1, row.getRowNum()+1), Style.CURRENCY);
+		return rowNum;
 	}
-	private void addCashFlowOtherRow (ExcelWrapper report, Row row, String key, double value) {
 
+	private void addCashFlowOtherRow (ExcelWrapper report, Row row, int cellNum, double value, boolean firstYearOnly) {
 		double[] values = new double[12];
 		for (int i = 0; i < 12; i++) {
 			values[i] = value;
 		}
-		addCashFlowOtherRow(report, row, key, values);
+		addCashFlowOtherRow(report, row, cellNum, values, firstYearOnly);
+	}
+	private void addCashFlowOtherRow (ExcelWrapper report, Row row,  int cellNum, double[] values, boolean firstYearOnly) {
+		for (double value : values) {
+			report.addNumericCell(row, cellNum++, value, Style.CURRENCY);
+
+		}
+		if (firstYearOnly) {
+			report.addFormulaCell(row, cellNum, String.format("SUM(B%d:M%d)",row.getRowNum()+1, row.getRowNum()+1), Style.CURRENCY);
+		}
 	}
 	
-	/**
-	 * Add rows for Operation Income and costs
-	 * @param workbook
-	 * @param rowNum
-	 * @param message
-	 * @param months
-	 * @return new row number
-	 */
-	private int addCashFlowRow(ExcelWrapper report, Sheet sheet, int rowNum, String message, ArrayList<ProjectMonthFlow> months) {
-
-		Row row = sheet.createRow(++rowNum);	
-		int cellNum = 0;
-		report.addTextCell(row, cellNum++, message, Style.H2);
-
-		for (ProjectMonthFlow pmf : months) {
-			row = sheet.createRow(++rowNum);	cellNum = 0;
-			report.addTextCell(row, cellNum++, pmf.getDescription());
-
-			for (double flowData : pmf.getFlowData()) {
-				report.addNumericCell(row, cellNum++, flowData, Style.CURRENCY);
-			}
-			report.addFormulaCell(row, 13, writeFormula("SUM(BX:MX)", rowNum+1), Style.CURRENCY);
+	private void addCashFlowOtherRow(ExcelWrapper report, Row row, int cellNum, String formula, boolean firstYearOnly) {
+		for (int i=1;i<=12;i++) {
+			report.addFormulaCell(row,  i, formula, Style.CURRENCY);
 		}
-
-		return rowNum;
+		if (firstYearOnly) {
+			report.addFormulaCell(row, 13, String.format("SUM(B%d:M%d)",row.getRowNum()+1, row.getRowNum()+1), Style.CURRENCY);
+		}
 	}
+	
 
 	
 	private Map<Integer, String> lengthUnits() {
@@ -3205,7 +3297,7 @@ public class ExcelWorksheetBuilder {
 		rowNum++;	row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.workingCapital"), Style.H2);
 
-		int firstYearCumulativeRow = 12+project.getBlocks().size()*2;
+		int firstYearCumulativeRow = 13+project.getBlocks().size()*2;
 		String range = 
 				String.format("'%s'!$B$%d:$M$%d",
 						translate(project.isWithWithout() ? SheetName.PROJECT_CASH_FLOW_FIRST_WITH : SheetName.PROJECT_CASH_FLOW_FIRST),

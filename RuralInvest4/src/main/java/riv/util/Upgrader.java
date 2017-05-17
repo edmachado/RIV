@@ -230,20 +230,20 @@ public class Upgrader {
 		}
 		
 		// if <2.2 set block cycleFirstYearIncome
-		for (Block b : project.getBlocks()) {
-			if (b.getCycleFirstYearIncome()!=null) {
-				break;
-			} else {
-				b.setCycleFirstYearIncome(b.getCycleFirstYear());
-			}
-		}
-		for (BlockWithout b : project.getBlocksWithout()) {
-			if (b.getCycleFirstYearIncome()!=null) {
-				break;
-			} else {
-				b.setCycleFirstYearIncome(b.getCycleFirstYear());
-			}
-		}
+//		for (Block b : project.getBlocks()) {
+//			if (b.getCycleFirstYearIncome()!=null) {
+//				break;
+//			} else {
+//				b.setCycleFirstYearIncome(b.getCycleFirstYear());
+//			}
+//		}
+//		for (BlockWithout b : project.getBlocksWithout()) {
+//			if (b.getCycleFirstYearIncome()!=null) {
+//				break;
+//			} else {
+//				b.setCycleFirstYearIncome(b.getCycleFirstYear());
+//			}
+//		}
 		
 		// RIV <2.2: set status to generic
 		if (project.getStatus()==null) {

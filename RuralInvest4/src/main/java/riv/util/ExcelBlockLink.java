@@ -13,8 +13,8 @@ public class ExcelBlockLink {
 	public String qtyProfileProduct;
 	public boolean noCycles;
 	public String cyclesPerYear;
-	public String cyclesFirstYearPayment;
-	public String cyclesFirstYearProduction;
+//	public String cyclesFirstYearPayment;
+//	public String cyclesFirstYearProduction;
 	public int productionRow;
 	public int harvestRow;
 	public int paymentRow;

@@ -3,7 +3,7 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="40"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -15,7 +15,7 @@
 	<parameter name="months" class="java.util.ArrayList" isForPrompting="false"/>
 	<parameter name="opCostsSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="totalsSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
-	<parameter name="firstYearData" class="riv.objects.ProjectFirstYear" isForPrompting="false"/>
+	<parameter name="firstYearData" class="riv.objects.ProjectPerMonth" isForPrompting="false"/>
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>

@@ -61,10 +61,10 @@ $(function() {
 					<form:errors path="cycleLength" cssClass="error" element="div" />
 				</div>
 				<tags:dataentry field="cyclePerYear" labelKey="${blockType}.cyclePerYear" helpText="${blockType}.cycles.help" calcSignKey="units.perYear" />
-				<c:if test="${block.project.incomeGen}">
-					<tags:dataentry field="cycleFirstYear" labelKey="projectBlock.cycleFirstYear" helpText="projectBlock.cycleFirstYear.help" calcSignKey="units.perYear" />
-					<tags:dataentry field="cycleFirstYearIncome" labelKey="projectBlock.cycleFirstYearIncome" helpText="projectBlock.cycleFirstYearIncome.help" calcSignKey="units.perYear" />
-				</c:if>
+<%-- 				<c:if test="${block.project.incomeGen}"> --%>
+<%-- 					<tags:dataentry field="cycleFirstYear" labelKey="projectBlock.cycleFirstYear" helpText="projectBlock.cycleFirstYear.help" calcSignKey="units.perYear" /> --%>
+<%-- 					<tags:dataentry field="cycleFirstYearIncome" labelKey="projectBlock.cycleFirstYearIncome" helpText="projectBlock.cycleFirstYearIncome.help" calcSignKey="units.perYear" /> --%>
+<%-- 				</c:if> --%>
 			</div>
 			
 		</fieldset>

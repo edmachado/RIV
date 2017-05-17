@@ -29,7 +29,7 @@ public class FinanceMatrix {
 	static final Logger LOG = LoggerFactory.getLogger(FinanceMatrix.class);
 	
 	List<ProjectFinanceData> yearlyData;
-	ProjectFirstYear firstYearData;
+	ProjectMonthsInYear[] firstYearData;
 	double npvWithoutDonation;
 	double npvWithDonation;
 	double discountRate;
@@ -43,7 +43,7 @@ public class FinanceMatrix {
 		this.discountRate = discountRate;
 		this.decimals=decimals;
 		analyzeProject(project);
-		firstYearData = new ProjectFirstYear(project, false, decimals);
+		firstYearData =  ProjectMonthsInYear.getProjectPerMonths(project, false, decimals);
 		addWorkingCapital(project);
 		if ((project.getWizardStep()==null || project.getWizardStep()>11)
 				&!(project.getLoan1Interest()==null||project.getLoan1GraceInterest()==null||project.getLoan1GraceCapital()==null||project.getLoan1Duration()==null
@@ -85,7 +85,7 @@ public class FinanceMatrix {
 		return yearlyData;
 	}
 	
-	public ProjectFirstYear getFirstYearData() {
+	public ProjectMonthsInYear[] getFirstYearData() {
 		return firstYearData;
 	}
 	
@@ -192,10 +192,10 @@ public class FinanceMatrix {
 		int lastNegMonth=0;
 		Double highestNeg=0.0;		
 		for (int i=0;i<12;i++) {
-			if (firstYearData.getCumulative()[i]<0) {
+			if (firstYearData[0].getCumulative()[i]<0) {
 				lastNegMonth=i+1; // add one because i is 0-based
-				if (firstYearData.getCumulative()[i]<highestNeg) {					
-					highestNeg=firstYearData.getCumulative()[i];
+				if (firstYearData[0].getCumulative()[i]<highestNeg) {					
+					highestNeg=firstYearData[0].getCumulative()[i];
 				}
 			}
 		}
@@ -208,7 +208,7 @@ public class FinanceMatrix {
 		
 		// year 2
 		if (project.getDuration()>1) {
-			double remainingNegative = firstYearData.getCumulative()[11];
+			double remainingNegative = firstYearData[0].getCumulative()[11];
 			if (remainingNegative<0) {
 				yearlyData.get(1).workingCapitalCapital=-1*remainingNegative * yearlyData.get(1).getTotalCostsCashFlowNoFinance()/yearlyData.get(0).getTotalCostsCashFlowNoFinance();
 				yearlyData.get(1).workingCapitalInterest=yearlyData.get(1).workingCapitalCapital * wcPeriod/12 *(project.getCapitalInterest()*0.01);
@@ -382,7 +382,7 @@ public class FinanceMatrix {
 			for (BlockIncome income : block.getIncomes()) {
 				for (int i=0;i<project.getDuration();i++) {
 					// use # of cycles for first year if calculating first year
-					if (i==0) { cycles = block.getCycleFirstYearIncome(); }
+//					if (i==0) { cycles = block.getCycleFirstYearIncome(); }
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
 					//double inc=(income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getUnitNum().doubleValue()*prodQty*cycles;
@@ -401,7 +401,7 @@ public class FinanceMatrix {
 			for (BlockInput input : block.getInputs()) {
 				for (int i=0;i<project.getDuration();i++) {
 					// use # of cycles for first year if calculating first year
-					if (i==0) { cycles = block.getCycleFirstYear(); }
+//					if (i==0) { cycles = block.getCycleFirstYear(); }
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
 					double opCost=input.getTotal().multiply(new BigDecimal(prodQty*cycles)).doubleValue();
@@ -420,7 +420,7 @@ public class FinanceMatrix {
 			for (BlockLabour labour : block.getLabours()) {
 				for (int i=0;i<project.getDuration();i++) {
 					// use # of cycles for first year if calculating first year
-					if (i==0) cycles = block.getCycleFirstYear();
+//					if (i==0) cycles = block.getCycleFirstYear();
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
 					double cost=labour.getTotal().doubleValue()*prodQty*cycles;
@@ -443,7 +443,7 @@ public class FinanceMatrix {
 			for (BlockIncome income : block.getIncomes()) {
 				for (int i=0;i<project.getDuration();i++) {
 					// use # of cycles for first year if calculating first year
-					if (i==0) { cycles = block.getCycleFirstYearIncome(); }
+//					if (i==0) { cycles = block.getCycleFirstYearIncome(); }
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
 					double inc=income.getTotal().doubleValue()*prodQty*cycles;
@@ -459,7 +459,7 @@ public class FinanceMatrix {
 			for (BlockInput input : block.getInputs()) {
 				for (int i=0;i<project.getDuration();i++) {
 					// use # of cycles for first year if calculating first year
-					if (i==0) cycles = block.getCycleFirstYear();
+//					if (i==0) cycles = block.getCycleFirstYear();
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
 					double opCost=input.getTotal().doubleValue()*prodQty*cycles;
@@ -478,7 +478,7 @@ public class FinanceMatrix {
 			for (BlockLabour labour : block.getLabours()) {
 				for (int i=0;i<project.getDuration();i++) {
 					// use # of cycles for first year if calculating first year
-					if (i==0) cycles = block.getCycleFirstYear();
+//					if (i==0) cycles = block.getCycleFirstYear();
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
 					double cost=labour.getTotal().doubleValue()*prodQty*cycles;

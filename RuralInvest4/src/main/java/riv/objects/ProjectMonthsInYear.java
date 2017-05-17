@@ -16,7 +16,7 @@ import riv.objects.project.ProjectItemPersonnel;
 import riv.objects.project.ProjectItemPersonnelWithout;
 import riv.objects.project.ProjectMonthFlow;
 
-public class ProjectFirstYear {
+public class ProjectMonthsInYear {
 	private Project project;
 	private ArrayList<ProjectMonthFlow> incomes;
 	private ArrayList<ProjectMonthFlow> costs;
@@ -26,19 +26,27 @@ public class ProjectFirstYear {
 	private double[] cumulative;
 	private boolean without;
 	private int decimals;
+	private int year;
 	
-	public ProjectFirstYear(Project project, boolean without, int decimals) {
+	public static ProjectMonthsInYear[] getProjectPerMonths(Project project, boolean without, int decimals) {
+		ProjectMonthsInYear[] ppms = new ProjectMonthsInYear[project.getDuration()];
+		for (int i=0; i<project.getDuration(); i++) {
+			ppms[i]=new ProjectMonthsInYear(project, without, decimals, i+1);
+		}
+		return ppms;
+	}
+	
+	private ProjectMonthsInYear(Project project, boolean without, int decimals, int year) {
 		this.project=project;
 		this.without=without;
 		this.decimals=decimals;
+		this.year=year; // one-based
 		incomes = new ArrayList<ProjectMonthFlow>();
 		costs = new ArrayList<ProjectMonthFlow>();
 		totals=new double[12];
 		cumulative=new double[12];
 		Calculate();
 	}
-	
-	
 	
 	public List<double[]> getSummary() {
 		List<double[]> summaries = new ArrayList<double[]>();
@@ -77,31 +85,35 @@ public class ProjectFirstYear {
 		// fixed-month costs
 		if (!without) {
 			for (ProjectItemAsset ass : project.getAssets()) {
-				if (ass.getYearBegin()==1)  { maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); }
+				if (ass.getYearBegin()==year)  { 
+					maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); 
+				}
 			}
 		} else {
 			for (ProjectItemAssetWithout ass : project.getAssetsWithout()) {
-				if (ass.getYearBegin()==1)  { maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); }
+				if (ass.getYearBegin()==year)  { 
+					maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); 
+				}
 			}
 		}
 		maintenanceCost = round(maintenanceCost/12);
 		
 		if (without) {
 			for (ProjectItemGeneralWithout gen : project.getGeneralWithouts()) {
-				ProjectItemGeneralPerYear y = gen.getYears().get(0);
+				ProjectItemGeneralPerYear y = gen.getYears().get(project.isPerYearGeneralCosts() ? year-1 : 0);
 				generalCost+=round(gen.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 			for (ProjectItemPersonnelWithout per : project.getPersonnelWithouts()) {
-				ProjectItemGeneralPerYear y = per.getYears().get(0);
+				ProjectItemGeneralPerYear y = per.getYears().get(project.isPerYearGeneralCosts() ? year-1 : 0);
 				generalCost+=round(per.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 		} else {
 			for (ProjectItemGeneral gen : project.getGenerals()) {
-				ProjectItemGeneralPerYear y = gen.getYears().get(0);
+				ProjectItemGeneralPerYear y = gen.getYears().get(project.isPerYearGeneralCosts() ? year-1 : 0);
 				generalCost+=round(gen.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 			for (ProjectItemPersonnel per : project.getPersonnels()) {
-				ProjectItemGeneralPerYear y = per.getYears().get(0);
+				ProjectItemGeneralPerYear y = per.getYears().get(project.isPerYearGeneralCosts() ? year-1 : 0);
 				generalCost+=round(per.getUnitCost()*y.getUnitNum())-y.getOwnResources();
 			}
 		}
@@ -121,7 +133,7 @@ public class ProjectFirstYear {
 			for (BlockChron chron : block.getChrons().values()) {
 				if (chron.getChronType()==2) { activeChrons++; }
 			}
-			double unitIncome = block.getTotalCashIncomeWithoutTransport().doubleValue()*block.getCycleFirstYearIncome()*block.getPatterns().get(1).getQty()/activeChrons;
+			double unitIncome = block.getTotalCashIncomeWithoutTransport().doubleValue()*block.getCyclePerYear()*block.getPatterns().get(year).getQty()/activeChrons;
 			for (int i=0;i<12;i++) {
 				if (block.getChrons().get("2-"+i+"-0")!=null) { incFlow.getFlowData()[i] = unitIncome; }
 				if (block.getChrons().get("2-"+i+"-1")!=null) { incFlow.getFlowData()[i] = incFlow.getFlowData()[i] + unitIncome; }
@@ -136,8 +148,8 @@ public class ProjectFirstYear {
 			for (BlockChron chron : block.getChrons().values()) {
 				if (chron.getChronType()==0) activeCostChrons++;
 			}
-			double unitCost = block.getTotalCashCost().doubleValue()*block.getCycleFirstYear()*block.getPatterns().get(1).getQty()/activeCostChrons;
-			double salesTransportCost = block.getTotalCashOnlyIncomeTransportCost().doubleValue()*block.getCycleFirstYearIncome()*block.getPatterns().get(1).getQty()/activeChrons;
+			double unitCost = block.getTotalCashCost().doubleValue()*block.getCyclePerYear()*block.getPatterns().get(year).getQty()/activeCostChrons;
+			double salesTransportCost = block.getTotalCashOnlyIncomeTransportCost().doubleValue()*block.getCyclePerYear()*block.getPatterns().get(1).getQty()/activeChrons;
 			for (int i=0;i<12;i++) {
 				if (block.getChrons().get("0-"+i+"-0")!=null) costFlow.getFlowData()[i] += unitCost;
 				if (block.getChrons().get("0-"+i+"-1")!=null) costFlow.getFlowData()[i] += unitCost;
@@ -185,6 +197,10 @@ public class ProjectFirstYear {
 		return cumulative;
 	}
 	
+	public int getYear() {
+		return year;
+	}
+	
 	private double round(double d) {
 		 BigDecimal bd = new BigDecimal(Double.toString(d));
 		    bd = bd.setScale(decimals,BigDecimal.ROUND_HALF_UP);
@@ -192,7 +208,6 @@ public class ProjectFirstYear {
 	 }
 	
 	protected void finalize() {
-//		LOG.debug("ProjectFirstYear finalize.");
 		incomes.clear();
 		costs.clear();
 	}

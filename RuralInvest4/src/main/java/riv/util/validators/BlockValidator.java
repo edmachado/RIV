@@ -33,30 +33,30 @@ public class BlockValidator implements Validator {
 		
 		// length can't be longer than 1 year
 		if (b.isCycles() &! errors.hasFieldErrors("cycleLength")) {
-			if (b.getCyclePerYear()!=null && b.getCycleFirstYear()!=null && b.getCycleFirstYearIncome()!=null) {
+			if (b.getCyclePerYear()!=null) {// && b.getCycleFirstYear()!=null && b.getCycleFirstYearIncome()!=null) {
 				double cycleLength = 0.0; // cycle length expressed in years
 				double cycleLengthFirstYear = 0.0; // cycle length expressed in years
 				double cycleLengthFirstYearIncome = 0.0; // cycle length expressed in years
 				switch (b.getLengthUnit()) {
 					case 0:  // months
 						cycleLength=b.getCyclePerYear()*b.getCycleLength()/12.0;
-						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/12.0;
-						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/12.0;
+//						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/12.0;
+//						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/12.0;
 						break;
 					case 1: // weeks
 						cycleLength=b.getCyclePerYear()*b.getCycleLength()/52.0;
-						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/52.0;
-						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/52.0;
+//						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/52.0;
+//						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/52.0;
 						break;
 					case 2: // calendar days
 						cycleLength=b.getCyclePerYear()*b.getCycleLength()/365.0;
-						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/365.0;
-						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/365.0;
+//						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/365.0;
+//						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/365.0;
 						break;
 					case 3: // working days
 						cycleLength=b.getCyclePerYear()*b.getCycleLength()/260.0;
-						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/260.0;
-						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/260.0;
+//						cycleLengthFirstYear=b.getCycleFirstYear()*b.getCycleLength()/260.0;
+//						cycleLengthFirstYearIncome=b.getCycleFirstYearIncome()*b.getCycleLength()/260.0;
 						break;
 				}
 	

@@ -295,14 +295,15 @@ public class ExcelReportController {
 
 	@RequestMapping(value = "{id}/projectCashFlowFirst.xlsx", method = RequestMethod.GET)
 	public void projectCashFlowFirst(@PathVariable int id,
+			@RequestParam(required = false) String allYears,
 			HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
 		try {
-			ewb.projectCashFlowFirst(report, p, pr, false, rivConfig.getSetting().getDecimalLength());
+			ewb.projectCashFlowFirst(report, p, pr, false, rivConfig.getSetting().getDecimalLength(), allYears==null);
 			if (p.isWithWithout()) {
-				ewb.projectCashFlowFirst(report, p, pr, true, rivConfig.getSetting().getDecimalLength());
+				ewb.projectCashFlowFirst(report, p, pr, true, rivConfig.getSetting().getDecimalLength(), allYears==null);
 			}
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectCashFlowFirst.xlsx");
@@ -394,9 +395,9 @@ public class ExcelReportController {
 					ewb.blocks(report, project, true);
 				}
 				ewb.projectParameters(report, project, result);
-				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength());
+				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), true);
 				if (project.isWithWithout()) {
-					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength());
+					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), true);
 				}
 				ewb.projectCashFlow(report, project, matrix, false);
 				if (project.isWithWithout()) {

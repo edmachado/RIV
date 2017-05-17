@@ -57,10 +57,10 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	private Double CycleLength;
 	@Column(name="CYCLE_PER_YEAR")
 	private Double CyclePerYear;
-	@Column(name="CYCLE_FIRST_YEAR")
-	private Double cycleFirstYearCosts;
-	@Column(name="CYCLE_FIRST_YEAR_INCOME")
-	private Double cycleFirstYearIncome;
+//	@Column(name="CYCLE_FIRST_YEAR")
+//	private Double cycleFirstYearCosts;
+//	@Column(name="CYCLE_FIRST_YEAR_INCOME")
+//	private Double cycleFirstYearIncome;
 	@Column(name="UNIT_TYPE")	
 	private String UnitType;
 	@Column(name="CYCLES")
@@ -152,10 +152,10 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   sb.append(base+"cycleLength="+rc.getSetting().getDecimalFormat().format(this.getCycleLength())+lineSeparator);
 		   sb.append(base+"lengthUnit="+rc.getLengthUnits().get(this.getLengthUnit())+lineSeparator);
 		   sb.append(base+"cyclePerYear="+rc.getSetting().getDecimalFormat().format(this.getCyclePerYear())+lineSeparator);
-		   if (this.getProject().getIncomeGen()) {
-				   sb.append(base+"cycleFirstYear="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYear())+lineSeparator);
-				   sb.append(base+"cycleFirstYearIncome="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYearIncome())+lineSeparator);
-		   }
+//		   if (this.getProject().getIncomeGen()) {
+//				   sb.append(base+"cycleFirstYear="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYear())+lineSeparator);
+//				   sb.append(base+"cycleFirstYearIncome="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYearIncome())+lineSeparator);
+//		   }
 		   sb.append(base+"cycles="+cycles+lineSeparator);
 		   
 		   for (int type=0;type<3;type++) {
@@ -307,13 +307,13 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     	for (BlockPattern pat : this.getPatterns().values()) {
     		int year = pat.getYearNum();
 	    		if (year<=this.getProject().getDuration()) {
-	    		if (year==1 && this.getProject().getIncomeGen()) {
-	    			incomes[0]=getTotalIncome().doubleValue()*getCycleFirstYearIncome()*pat.getQty();
-					costs[0]=getTotalCost().doubleValue()*getCycleFirstYear()*pat.getQty();
-	    		} else {
+//	    		if (year==1 && this.getProject().getIncomeGen()) {
+//	    			incomes[0]=getTotalIncome().doubleValue()*getCycleFirstYearIncome()*pat.getQty();
+//					costs[0]=getTotalCost().doubleValue()*getCycleFirstYear()*pat.getQty();
+//	    		} else {
 	    			incomes[year-1]=getTotalIncome().doubleValue()*getCyclePerYear()*pat.getQty();
 	    			costs[year-1]=getTotalCost().doubleValue()*getCyclePerYear()*pat.getQty();
-	    		}
+//	    		}
 	    		totals[year-1]=incomes[year-1]-costs[year-1];
 	    		cumulative[year-1]=year==1 ? totals[0]:totals[year-1]+cumulative[year-2];
     		}
@@ -381,21 +381,21 @@ public Integer getLengthUnit() {
         this.CyclePerYear = CyclePerYear;
     }
     
-    public void setCycleFirstYear(Double cycleFirstYearCosts) {
-    	this.cycleFirstYearCosts = cycleFirstYearCosts;
-	}
-	
-	public Double getCycleFirstYear() {
-		return cycleFirstYearCosts;
-	}
-	
-	public void setCycleFirstYearIncome(Double cycleFirstYearIncome) {
-		this.cycleFirstYearIncome = cycleFirstYearIncome;
-	}
-	
-	public Double getCycleFirstYearIncome() {
-		return cycleFirstYearIncome;
-	}
+//    public void setCycleFirstYear(Double cycleFirstYearCosts) {
+//    	this.cycleFirstYearCosts = cycleFirstYearCosts;
+//	}
+//	
+//	public Double getCycleFirstYear() {
+//		return cycleFirstYearCosts;
+//	}
+//	
+//	public void setCycleFirstYearIncome(Double cycleFirstYearIncome) {
+//		this.cycleFirstYearIncome = cycleFirstYearIncome;
+//	}
+//	
+//	public Double getCycleFirstYearIncome() {
+//		return cycleFirstYearIncome;
+//	}
 	
 	public void setOrderBy(Integer orderBy) {
 		OrderBy = orderBy;
@@ -526,8 +526,8 @@ public Integer getLengthUnit() {
 		newBlock.setUnitType(UnitType);
 		newBlock.setCycleLength(CycleLength);
 		newBlock.setCyclePerYear(CyclePerYear);
-		newBlock.setCycleFirstYear(cycleFirstYearCosts);
-		newBlock.setCycleFirstYearIncome(cycleFirstYearIncome);
+//		newBlock.setCycleFirstYear(cycleFirstYearCosts);
+//		newBlock.setCycleFirstYearIncome(cycleFirstYearIncome);
 		newBlock.setLengthUnit(lengthUnit);
 		newBlock.setIncomes(new HashSet<BlockIncome>());
 		newBlock.setInputs(new HashSet<BlockInput>());
@@ -580,11 +580,11 @@ public Integer getLengthUnit() {
 				return false;
 		} else if (!BlockId.equals(other.BlockId))
 			return false;
-		if (cycleFirstYearCosts == null) {
-			if (other.cycleFirstYearCosts != null)
-				return false;
-		} else if (!cycleFirstYearCosts.equals(other.cycleFirstYearCosts))
-			return false;
+//		if (cycleFirstYearCosts == null) {
+//			if (other.cycleFirstYearCosts != null)
+//				return false;
+//		} else if (!cycleFirstYearCosts.equals(other.cycleFirstYearCosts))
+//			return false;
 		if (CycleLength == null) {
 			if (other.CycleLength != null)
 				return false;
