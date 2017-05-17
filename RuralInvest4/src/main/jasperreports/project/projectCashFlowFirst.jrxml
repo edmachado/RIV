@@ -15,7 +15,7 @@
 	<parameter name="months" class="java.util.ArrayList" isForPrompting="false"/>
 	<parameter name="opCostsSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="totalsSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
-	<parameter name="firstYearData" class="riv.objects.ProjectPerMonth" isForPrompting="false"/>
+	<parameter name="firstYearData" class="riv.objects.ProjectMonthsInYear" isForPrompting="false"/>
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>

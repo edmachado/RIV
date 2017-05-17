@@ -11,7 +11,7 @@
 	<style name="Arial_Normal" isDefault="true" fontName="Arial" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Bold" fontName="Arial" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="Arial_Italic" fontName="Arial" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<parameter name="firstYearData" class="riv.objects.ProjectPerMonth" isForPrompting="false"/>
+	<parameter name="firstYearData" class="riv.objects.ProjectMonthsInYear" isForPrompting="false"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
 	<variable name="otherTotal" class="java.lang.Double" resetType="None">
 		<variableExpression><![CDATA[new Double(
