@@ -77,6 +77,10 @@ public class ProjectItemAsset extends ProjectItem implements ProjectInvestment {
 			this.project = project;
 		}
 		
+		public boolean isInUse(int year) {
+			return year>=yearBegin && (replace || year<yearBegin+econLife);
+		}
+		
 		public Double getTotal() {
 			if (getUnitNum()==null || this.getUnitCost()==null) return 0.0;
 			return this.getUnitCost()*this.getUnitNum();

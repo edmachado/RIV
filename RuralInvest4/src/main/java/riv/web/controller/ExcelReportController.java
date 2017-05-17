@@ -400,11 +400,6 @@ public class ExcelReportController {
 				if (project.isWithWithout()) {
 					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), true);
 				}
-				// cash flow month-by-month all years
-				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), false);
-				if (project.isWithWithout()) {
-					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), false);
-				}
 				
 				ewb.projectCashFlow(report, project, matrix, false);
 				if (project.isWithWithout()) {
@@ -421,6 +416,15 @@ public class ExcelReportController {
 				ewb.projectSustainability(report, project, result);
 			}
 			ewb.projectRecommendation(report, project);
+			
+			// cash flow month-by-month all years
+			if (project.getIncomeGen()) {
+				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), false);
+				if (project.isWithWithout()) {
+					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), false);
+				}
+			}
+			
 			summary.setSelected(true);
 
 			response.setHeader("Content-disposition",

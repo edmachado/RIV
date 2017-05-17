@@ -190,30 +190,25 @@ public class FinanceMatrix {
 	
 	private void addWorkingCapital(Project project) {
 		int lastNegMonth=0;
-		Double highestNeg=0.0;		
-		for (int i=0;i<12;i++) {
-			if (firstYearData[0].getCumulative()[i]<0) {
-				lastNegMonth=i+1; // add one because i is 0-based
-				if (firstYearData[0].getCumulative()[i]<highestNeg) {					
-					highestNeg=firstYearData[0].getCumulative()[i];
+		Double highestNeg=0.0;
+		Double cumulative=0.0;
+		for (int year=0;year<project.getDuration();year++) {
+			for (int i=0;i<12;i++) {
+				cumulative+=firstYearData[year].getTotals()[i];
+				if (cumulative<0) {
+					lastNegMonth=(year*12)+i+1; // add one because i is 0-based
+					if (cumulative<highestNeg) {					
+						highestNeg=cumulative;
+					}
 				}
 			}
 		}
-		wcPeriod = lastNegMonth==0 ? 0 : lastNegMonth>10 ? 12 : lastNegMonth+2; // month of highest negative +2, not to exceed 12 
+		wcPeriod = lastNegMonth==0 ? 0 : lastNegMonth+2; // month of highest negative +2 
 		wcValue = round(highestNeg*-1);
 		
 		// year 1
 		yearlyData.get(0).workingCapitalCapital=wcValue-project.getCapitalDonate()-project.getCapitalOwn();
 		yearlyData.get(0).workingCapitalInterest=yearlyData.get(0).workingCapitalCapital*wcPeriod/12*(project.getCapitalInterest()*0.01);
-		
-		// year 2
-		if (project.getDuration()>1) {
-			double remainingNegative = firstYearData[0].getCumulative()[11];
-			if (remainingNegative<0) {
-				yearlyData.get(1).workingCapitalCapital=-1*remainingNegative * yearlyData.get(1).getTotalCostsCashFlowNoFinance()/yearlyData.get(0).getTotalCostsCashFlowNoFinance();
-				yearlyData.get(1).workingCapitalInterest=yearlyData.get(1).workingCapitalCapital * wcPeriod/12 *(project.getCapitalInterest()*0.01);
-			}
-		}
 	}
 	
 	private void addLoanAmortization(Project project) {

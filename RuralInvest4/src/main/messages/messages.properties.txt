@@ -1,6 +1,7 @@
 ## RIV 4.4.0
 project.report.profitability.payback=Payback (years)
 project.report.profitability.cumulative=Cumulative
+project.report.profitability.lastNeg=Last negative year
 project.report.monthsAllYears=Cash flow (all years per month)
 project.report.cashFlowPerMonth.sheetname=Cash flow months
 project.report.cashFlowPerMonth.with.sheetname=Cash flow months (with)

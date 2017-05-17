@@ -23,7 +23,6 @@ public class ProjectMonthsInYear {
 	private double maintenanceCost;
 	private double generalCost;
 	private double[] totals;
-	private double[] cumulative;
 	private boolean without;
 	private int decimals;
 	private int year;
@@ -44,7 +43,6 @@ public class ProjectMonthsInYear {
 		incomes = new ArrayList<ProjectMonthFlow>();
 		costs = new ArrayList<ProjectMonthFlow>();
 		totals=new double[12];
-		cumulative=new double[12];
 		Calculate();
 	}
 	
@@ -76,7 +74,6 @@ public class ProjectMonthsInYear {
 		summaries.add(maint);
 		summaries.add(gen);
 		summaries.add(totals);
-		summaries.add(cumulative);
 		
 		return summaries;
 	}
@@ -85,13 +82,13 @@ public class ProjectMonthsInYear {
 		// fixed-month costs
 		if (!without) {
 			for (ProjectItemAsset ass : project.getAssets()) {
-				if (ass.getYearBegin()==year)  { 
+				if (ass.isInUse(year))  { 
 					maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); 
 				}
 			}
 		} else {
 			for (ProjectItemAssetWithout ass : project.getAssetsWithout()) {
-				if (ass.getYearBegin()==year)  { 
+				if (ass.isInUse(year))  { 
 					maintenanceCost += round(ass.getMaintCost()*ass.getUnitNum()); 
 				}
 			}
@@ -135,8 +132,11 @@ public class ProjectMonthsInYear {
 			}
 			double unitIncome = block.getTotalCashIncomeWithoutTransport().doubleValue()*block.getCyclePerYear()*block.getPatterns().get(year).getQty()/activeChrons;
 			for (int i=0;i<12;i++) {
-				if (block.getChrons().get("2-"+i+"-0")!=null) { incFlow.getFlowData()[i] = unitIncome; }
-				if (block.getChrons().get("2-"+i+"-1")!=null) { incFlow.getFlowData()[i] = incFlow.getFlowData()[i] + unitIncome; }
+				if (block.getChrons().get("2-"+i+"-0")!=null && block.getChrons().get("2-"+i+"-1")!=null) { // both month segments selected
+					incFlow.getFlowData()[i] = unitIncome*2;
+				} else if (block.getChrons().get("2-"+i+"-0")!=null || block.getChrons().get("2-"+i+"-1")!=null) { // only one month segment selected
+					incFlow.getFlowData()[i] = unitIncome;
+				}
 				totals[i]+=incFlow.getFlowData()[i];
 			}
 			getIncomes().add(incFlow);
@@ -145,11 +145,13 @@ public class ProjectMonthsInYear {
 			ProjectMonthFlow costFlow = new ProjectMonthFlow();
 			costFlow.setDescription(block.getDescription());
 			int activeCostChrons = 0;
+			int activeIncomeTranspChrons=0;
 			for (BlockChron chron : block.getChrons().values()) {
 				if (chron.getChronType()==0) activeCostChrons++;
+				if (chron.getChronType()==1) activeIncomeTranspChrons++;
 			}
 			double unitCost = block.getTotalCashCost().doubleValue()*block.getCyclePerYear()*block.getPatterns().get(year).getQty()/activeCostChrons;
-			double salesTransportCost = block.getTotalCashOnlyIncomeTransportCost().doubleValue()*block.getCyclePerYear()*block.getPatterns().get(1).getQty()/activeChrons;
+			double salesTransportCost = block.getTotalCashOnlyIncomeTransportCost().doubleValue()*block.getCyclePerYear()*block.getPatterns().get(year).getQty()/activeIncomeTranspChrons;
 			for (int i=0;i<12;i++) {
 				if (block.getChrons().get("0-"+i+"-0")!=null) costFlow.getFlowData()[i] += unitCost;
 				if (block.getChrons().get("0-"+i+"-1")!=null) costFlow.getFlowData()[i] += unitCost;
@@ -163,15 +165,15 @@ public class ProjectMonthsInYear {
 			}
 			getCosts().add(costFlow);
 		}
-		
-		// cumulative
-		cumulative[0]=totals[0];
-		for (int i=1;i<12; i++) {
-			cumulative[i]=cumulative[i-1]+totals[i];
-		}
 	}
 	
-	
+	public double getCumulative(int month) { // zero-based
+		double cum=0.0;
+		for (int i=0;i<=month;i++) {
+			cum+=totals[i];
+		}
+		return cum;
+	}
 
 	public ArrayList<ProjectMonthFlow> getIncomes() {
 		return incomes;
@@ -191,10 +193,6 @@ public class ProjectMonthsInYear {
 
 	public double[] getTotals() {
 		return totals;
-	}
-
-	public double[] getCumulative() {
-		return cumulative;
 	}
 	
 	public int getYear() {

@@ -62,7 +62,7 @@ public class BlockIncome extends BlockItem {
 	}
 	public BigDecimal getTotalCashIncomeWithoutTransport() {
 		if (this.getUnitNum()==null) return new BigDecimal(0);
-		return this.getUnitNum().multiply(this.getUnitCost());
+		return this.getUnitNum().subtract(this.getQtyIntern()).multiply(this.getUnitCost());
 	}
 	public BigDecimal getTotalCashIncomeOnlyTransportCost() {
 		if (this.getUnitNum()==null || transport==null) return new BigDecimal(0);

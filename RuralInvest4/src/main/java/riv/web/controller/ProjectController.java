@@ -450,7 +450,7 @@ public class ProjectController {
 				model.addAttribute("cashFlowSummaryWithout",matrix.getSummary(true, ProjectScenario.Without));
 			}
 			
-			model.addAttribute("firstYear", matrix.getFirstYearData()[0].getCumulative());
+//			model.addAttribute("firstYear", matrix.getFirstYearData()[0].getCumulative());
 			model.addAttribute("firstYearSummary",matrix.getFirstYearData()[0].getSummary());
 			
 		} else if (!p.getIncomeGen() && (step==12 || step==13)) {

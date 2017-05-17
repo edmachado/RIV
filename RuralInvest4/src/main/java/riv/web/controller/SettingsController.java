@@ -99,10 +99,11 @@ public class SettingsController {
 			return "config/settings";
 		} else {
 			try { // Save in db
-				if (!tempLogo.isEmpty()) {
+				if (tempLogo.isEmpty() && setting.getOrgLogo()==null) {
 					setting.setOrgLogo(FileUtils.readFileToByteArray(new File(servletContext.getRealPath("/img/spacer.gif"))));
+				} else if (!tempLogo.isEmpty()) {
+					setting.setOrgLogo(tempLogo.getBytes());
 				}
-				setting.setOrgLogo(tempLogo.getBytes());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

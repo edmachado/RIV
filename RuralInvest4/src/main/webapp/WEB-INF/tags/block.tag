@@ -44,16 +44,6 @@
 					  			<tags:help title="${blockType}.cyclePerYear" text="${blockType}.cycles.help"><label><spring:message code="${blockType}.cyclePerYear"/></label></tags:help>
 					  			<span id="${unique}cyclePerYear"><tags:formatDecimal value="${blockEntry.cyclePerYear}"/></span> <spring:message code="units.perYear"/>
 					  		</div>
-					  		<c:if test="${project.incomeGen}">
-						  		<div class="dataentry">
-						  			<tags:help title="${blockType}.cycleFirstYear" text="${blockType}.cycleFirstYear.help"><label><spring:message code="${blockType}.cycleFirstYear"/></label></tags:help>
-						  			<span id="${unique}cycleFirstYear"><tags:formatDecimal value="${blockEntry.cycleFirstYear}"/></span> <spring:message code="units.perYear"/>
-						  		</div>
-						  		<div class="dataentry">
-						  			<tags:help title="${blockType}.cycleFirstYearIncome" text="${blockType}.cycleFirstYearIncome.help"><label><spring:message code="${blockType}.cycleFirstYearIncome"/></label></tags:help>
-										<span id="${unique}cycleFirstYearIncome"><tags:formatDecimal value="${blockEntry.cycleFirstYearIncome}"/></span> <spring:message code="units.perYear"/>
-						  		</div>
-							</c:if>
 						</c:if>
 				  	</div>
 				  	

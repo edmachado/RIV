@@ -18,8 +18,6 @@ public class BlockValidator implements Validator {
 			if (b.isCycles()) {
 				ValidateUtils.rejectIfEmptyOrNegative(b, "cycleLength", "projectBlock.cycleLength", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(b, "cyclePerYear", "projectBlock.cyclePerYear", errors);
-				ValidateUtils.rejectIfEmptyOrNegative(b, "cycleFirstYear", "projectBlock.cycleFirstYear", errors);
-				ValidateUtils.rejectIfEmptyOrNegative(b, "cycleFirstYearIncome", "projectBlock.cycleFirstYearIncome", errors);
 			}
 			// chronology validated in controller
 		} else {

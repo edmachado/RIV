@@ -30,10 +30,10 @@
             	<legend>
             		<tags:help title="project.workingCapital" text="project.workingCapital.help"><spring:message code="project.workingCapital"/></tags:help>
             	</legend>
-            	<div class="dataentry">
-            		<label><a href="javascript:showSummary('summaryWc',300,1000);"><img height="11" border="0" width="11" vspace="2" src="<%=request.getContextPath()%>/img/help.gif"> 
-            		<spring:message code="project.workingCapital.how"/></a></label>
-				</div>	
+<!--             	<div class="dataentry"> -->
+<%--             		<label><a href="javascript:showSummary('summaryWc',300,1000);"><img height="11" border="0" width="11" vspace="2" src="<%=request.getContextPath()%>/img/help.gif">  --%>
+<%--             		<spring:message code="project.workingCapital.how"/></a></label> --%>
+<!-- 				</div>	 -->
             	<tags:dataentry field="wcAmountRequired" labelKey="project.amtRequired" helpText="project.amtRequired.help" calculated="true" currency="true"/>
            		<tags:dataentry field="wcAmountFinanced" labelKey="project.amtFinanced" helpText="project.amtFinanced.help"  calculated="true" currency="true" />
            		<tags:dataentry field="wcFinancePeriod" labelKey="project.period" helpText="project.period.help"  calculated="true" calcSignKey="units.months" />
