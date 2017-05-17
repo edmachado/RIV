@@ -1,5 +1,6 @@
 package riv.web.controller;
  
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -8,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +67,9 @@ public class SettingsController {
 		boolean access = u.isAdministrator() && rivConfig.isAdmin();
 		if (!access) { return "config/settings"; }
 		
-		if (setting.getOrgLogo()==null && tempLogo.getSize()==0) {
-			result.reject("error.logo");
-		}
+//		if (setting.getOrgLogo()==null && tempLogo.getSize()==0) {
+//			result.reject("error.logo");
+//		}
 		
 		// in case decimal separator is changing... make sure decimals are parsed correctly
 		boolean decProblem=false;
@@ -94,12 +96,13 @@ public class SettingsController {
 		if (result.hasErrors()) {
 			return "config/settings";
 		} else {
-			if (!tempLogo.isEmpty()) {
-				try { // Save in db
-					setting.setOrgLogo(tempLogo.getBytes());
-				} catch (IOException e) {
-					e.printStackTrace();
+			try { // Save in db
+				if (!tempLogo.isEmpty()) {
+					setting.setOrgLogo(FileUtils.readFileToByteArray(new File(servletContext.getRealPath("/img/spacer.gif"))));
 				}
+				setting.setOrgLogo(tempLogo.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 			
 			dataService.storeAppSetting(setting);
