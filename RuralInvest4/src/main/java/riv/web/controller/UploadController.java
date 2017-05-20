@@ -33,8 +33,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import riv.objects.config.AppConfig1;
 import riv.objects.config.AppConfig2;
@@ -85,6 +87,8 @@ public class UploadController implements Serializable {
 		filename=null;
 		return "upload";
 	}
+	
+	
 	
 	@RequestMapping(value="/{type}/import/confirm", method=RequestMethod.POST)
 	public String confirm(@PathVariable String type, HttpServletRequest request) {
@@ -335,6 +339,28 @@ public class UploadController implements Serializable {
 		boolean complete = allowComplete!=null && allowComplete==true;
 		return processUpload(mpf.getBytes(), type, model, user, complete, locale);
 	}
+	
+
+	
+//	@Override
+//	public @ResponseBody
+//	ModelAndView resolveException(HttpServletRequest arg0,
+//	        HttpServletResponse arg1, Object arg2, Exception exception) {
+//	    ModelAndView modelview = new ModelAndView();
+//	        String errorMessage = "";
+//	        if (exception instanceof MaxUploadSizeExceededException) {
+////	            errorMessage =  String.format("El tamaño del fichero debe ser menor de  %s", UnitConverter.convertBytesToStringRepresentation(((MaxUploadSizeExceededException) exception)
+////	                    .getMaxUploadSize()));
+//
+//	        } else {
+//	            errorMessage = "Unexpected error: " + exception.getMessage();
+//	        }
+////	        saveError(arg0, errorMessage);
+//	        modelview = new ModelAndView();
+////	        modelview.setViewName("redirect:" + getRedirectUrl());
+//	    }
+//	    return modelview;
+//	}
 	
 	private String getDecoded(byte[] bytes, String type) {
 		String result=null;

@@ -31,7 +31,7 @@ import riv.objects.project.ProjectFile;
 public class AttachTools implements Serializable {
 	private static final long serialVersionUID = -6816402803334737761L;
 	static final Logger LOG = LoggerFactory.getLogger(AttachTools.class);
-	public static final long dirSizeLimit = 3145728;
+	public static final long dirSizeLimit = 5242880;
 	
 	@Autowired
 	DataService dataService;

@@ -21,7 +21,7 @@ function checkFile() {
 		<input type="file" name="file" id="file" /><br/><br/>
 		
 		<spring:message code="attach.used"/>: ${dirSize}<br/>
-		<spring:message code="attach.free"/>: ${freeSpace} / 3 Mb
+		<spring:message code="attach.free"/>: ${freeSpace} / 5.0 Mb
 		<tags:submit><spring:message code="import.import"/></tags:submit>
 	</form:form>
 </body></html>

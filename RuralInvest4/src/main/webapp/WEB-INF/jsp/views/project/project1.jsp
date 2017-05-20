@@ -149,7 +149,6 @@ $( "#radioShared" ).buttonset();
 				</div>	
 				<c:if test="${project.incomeGen}">
 					<div class="dataentry">
-<%-- 						<input name="oldWithWithout" type="hidden" value="${project.withWithout}"/> --%>
 						<tags:help text="project.withWithout.help" title="project.withWithout"></tags:help>
 						<spring:message code="project.withWithoutMessage" />
 						<div id="radioWithWithout">
@@ -217,7 +216,7 @@ $( "#radioShared" ).buttonset();
 				<legend>
 					<tags:help title="project.step1.6" text="project.step1.6.help">vi. <spring:message code="project.step1.6" /></tags:help> 
 				</legend>
-				<tags:attachedFiles />
+				<tags:attachedFiles edit="true" />
 			</fieldset>
 			<c:if test="${empty project.projectId}">
 				<fieldset>

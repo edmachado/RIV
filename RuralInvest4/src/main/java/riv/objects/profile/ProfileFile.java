@@ -39,7 +39,7 @@ public class ProfileFile extends AttachedFile implements Serializable {
 	private long length;
 	
 	@Lob
-	@Column(name="CONTENT", length = 3145728)
+	@Column(name="CONTENT", length = 5242880)
 	@Basic(fetch = FetchType.LAZY)
 	private Blob content;
 	

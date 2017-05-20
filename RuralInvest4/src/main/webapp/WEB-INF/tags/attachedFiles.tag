@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
+<%@ attribute name="edit" %>
 <c:if test="${empty project.projectId}">
 	<div class="dataentry"><spring:message code="attach.newProject"/></div>
 </c:if>
@@ -11,15 +12,15 @@
 				<display:column style="text-align:${left};">
 					<a href="../${project.projectId}/attach/${row.id}/${row.filename}" target="_blank">${row.filename}</a>
 				</display:column>
-				<c:if test="${accessOK}">
+				<c:if test="${not empty edit and accessOK}">
 					<display:column media="html">
 						<a href="../${project.projectId}/attach/${row.id}/delete"><img src="../../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 				</c:if>
 			</display:table>
 		</div>
-		<spring:message code="attach.free"/>: ${freeSpace} / 3.0 Mb<br/>
-		<c:if test="${accessOK}">
+		<spring:message code="attach.free"/>: ${freeSpace} / 5.0 Mb<br/>
+		<c:if test="${not empty edit and accessOK}">
 			<b><a id="attachFile" href="../${project.projectId}/attach"><spring:message code="attach.new"/></a></b>
 		</c:if>
 	</div>

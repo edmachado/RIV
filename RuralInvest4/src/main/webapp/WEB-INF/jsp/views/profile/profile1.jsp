@@ -170,7 +170,7 @@ $( "#radioShared" ).buttonset();
 								</c:if>
 							</display:table>
 						</div>
-						<spring:message code="attach.free"/>: ${freeSpace} / 3.0 Mb<br/>
+						<spring:message code="attach.free"/>: ${freeSpace} / 5.0 Mb<br/>
 						<c:if test="${accessOK}">
 							<b><a id="attachFile" href="../${profile.profileId}/attach"><spring:message code="attach.new"/></a></b>
 						</c:if>
