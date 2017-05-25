@@ -420,9 +420,9 @@ public class ExcelReportController {
 			// cash flow month-by-month all years
 			if (project.getIncomeGen()) {
 				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), false);
-				if (project.isWithWithout()) {
-					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), false);
-				}
+//				if (project.isWithWithout()) {
+//					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), false);
+//				}
 			}
 			
 			summary.setSelected(true);

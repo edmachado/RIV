@@ -243,7 +243,7 @@ public class FinanceMatrix {
 	
 		yearlyData.get(0).workingCapitalReceived=wcValue-project.getCapitalDonate()-project.getCapitalOwn();
 		yearlyData.get(wcYear).workingCapitalCapital=yearlyData.get(0).workingCapitalReceived;
-		yearlyData.get(wcYear).workingCapitalInterest=yearlyData.get(wcYear).workingCapitalCapital*wcPeriodAvg/12*((project.getCapitalInterest()-project.getInflationAnnual())*0.01);
+		yearlyData.get(wcYear).workingCapitalInterest=round(yearlyData.get(wcYear).workingCapitalCapital*wcPeriodAvg/12*((project.getCapitalInterest()-project.getInflationAnnual())*0.01));
 	}
 	
 	private void addLoanAmortization(Project project) {

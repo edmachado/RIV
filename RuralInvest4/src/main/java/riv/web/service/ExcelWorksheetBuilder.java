@@ -3027,7 +3027,7 @@ public class ExcelWorksheetBuilder {
 			report.addTextCell(wf3, 0, "Weight factor 3");
 			
 			String wcPeriod;
-			String wcPeriodAvg;
+//			String wcPeriodAvg;
 			String wcRequired;
 			
 			if (report.isCompleteReport()) {
@@ -3055,7 +3055,7 @@ public class ExcelWorksheetBuilder {
 				formula = String.format("ROUND(AVERAGE(INDIRECT(CONCATENATE(\"B%d:\"&ADDRESS(%d,B%d+1)))),2)", 
 						rowCumulative+4, rowCumulative+4,rowNum-1);
 				report.addFormulaCell(row, 1, formula);
-				wcPeriodAvg = "$B$"+rowNum;
+//				wcPeriodAvg = "$B$"+rowNum;
 			}
 			
 			for (int i=1;i<=flowColumns;i++) {
