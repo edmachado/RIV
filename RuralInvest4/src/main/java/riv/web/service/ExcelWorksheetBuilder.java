@@ -3003,10 +3003,66 @@ public class ExcelWorksheetBuilder {
 		
 		// cumulative flow
 		flowColumns = firstYearOnly ? 12 : project.getDuration()*12;
-		row = sheet.getRow(rowNum);
-		report.addFormulaCell(row, 1, String.format("B%d", rowNum), Style.CURRENCY);
+		row = sheet.getRow(rowNum++);
+		report.addFormulaCell(row, 1, String.format("B%d", rowNum-1), Style.CURRENCY);
 		for (int i=2;i<=flowColumns;i++) {
-			report.addFormulaCell(row, i, String.format("%s%d+%s%d", getColumn(i), rowNum, getColumn(i-1), rowNum+1), Style.CURRENCY);	
+			report.addFormulaCell(row, i, String.format("%s%d+%s%d", getColumn(i), rowNum-1, getColumn(i-1), rowNum), Style.CURRENCY);	
+		}
+		
+		// 
+		if (!firstYearOnly) {
+			String formula1; String formula2; String formula3; String col;
+			int rowCumulative = rowNum; 
+			int rowNumWf1 = ++rowNum+1;
+			Row wf1 = sheet.createRow(rowNum++);
+			report.addTextCell(wf1, 0, "Weight factor 1");
+			
+			Row wf2 = sheet.createRow(rowNum++);
+			report.addTextCell(wf2, 0, "Weight factor 2");
+			
+			Row wf3 = sheet.createRow(rowNum++);
+			report.addTextCell(wf3, 0, "Weight factor 3");
+			
+			String wcPeriod;
+			String wcRequired;
+			
+			if (report.isCompleteReport()) {
+				wcPeriod = report.getLink(ExcelLink.PROJECT_WC_PERIOD);
+				wcRequired = report.getLink(ExcelLink.PROJECT_WC_REQUIRED);
+			} else {
+				rowNum++;
+				row = sheet.createRow(rowNum++);
+				report.addTextCell(row, 0, translate("project.amtRequired"));
+				
+				row = sheet.createRow(rowNum++);
+				report.addTextCell(row, 0, translate("project.capitalDonate"));
+				
+				row = sheet.createRow(rowNum++);
+				report.addTextCell(row, 0, translate("project.capitalOwn"));
+				
+				row = sheet.createRow(rowNum++);
+				report.addTextCell(row, 0, translate("project.amtFinanced"));
+				wcRequired = "$B$"+rowNum;
+				
+				row = sheet.createRow(rowNum++);
+				report.addTextCell(row, 0, translate("project.period"));
+				
+				row = sheet.createRow(rowNum++);
+				report.addTextCell(row, 0, "AVERAGE PERIOD");
+				wcPeriod = "$B$"+rowNum;
+				
+			}
+			
+			for (int i=1;i<=flowColumns;i++) {
+				col = getColumn(i);
+				formula1 = String.format("-IF(%s%d<0,%s%d/%s,0)", col, rowCumulative, col, rowCumulative, wcRequired);
+				formula2 = i==1 ? String.format("IF(COLUMN()-1<=%s,%s%d,0)", wcPeriod, col, rowNumWf1) : String.format("IF(COLUMN()-1<=%s,MAX(%s%d,%s%d),0)", wcPeriod, getColumn(i-1), rowNumWf1+1, col, rowNumWf1);
+				formula3 = String.format("ROUND((%s-COLUMN()+2)*%s%d,2)", wcPeriod, col, rowNumWf1+1);
+						
+				report.addFormulaCell(wf1, i, formula1, Style.PERCENT);
+				report.addFormulaCell(wf2, i, formula2, Style.PERCENT);
+				report.addFormulaCell(wf3, i, formula3);
+			}
 		}
 		
 		autoSizeColumns(sheet, firstYearOnly ? 15 : project.getDuration()*12 + 3);
@@ -3116,6 +3172,8 @@ public class ExcelWorksheetBuilder {
 
 	public Sheet projectParameters(ExcelWrapper report, Project project, ProjectResult result) {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_PARAMETERS));
+		
+		String cashFlowMonthsSheet = translate(project.isWithWithout() ? SheetName.PROJECT_CASH_FLOW_MONTHS_WITH : SheetName.PROJECT_CASH_FLOW_MONTHS);
 
 		sheet.setSelected(true);
 		int rowNum=0;
@@ -3183,18 +3241,20 @@ public class ExcelWorksheetBuilder {
 		// =IF(COUNTIF(x,"<0"), IF(MATCH(2,1/MMULT(1,-(x<0)))>9,12,MATCH(2,1/MMULT(1,-(x<0)))+2),0)
 		String range = 
 				String.format("'%s'!$B$%d:$%s$%d",
-						translate(project.isWithWithout() ? SheetName.PROJECT_CASH_FLOW_MONTHS_WITH : SheetName.PROJECT_CASH_FLOW_MONTHS),
+						cashFlowMonthsSheet,
 						firstYearCumulativeRow, 
 						getColumn(12*project.getDuration()), firstYearCumulativeRow);
 		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.amtRequired"));
-		if (report.isCompleteReport()) {
-			
-					
+		if (report.isCompleteReport()) {		
 			String formula = 
 				"IF(MIN("+range+")<0,MIN("+range+")*-1,0)";	
 			report.addFormulaCell(row, 1, formula, Style.CURRENCY);
+
+			if (report.isCompleteReport()) {
+				report.addLink(ExcelLink.PROJECT_WC_REQUIRED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
+			}
 		} else {
 			report.addNumericCell(row, 1, result.getWorkingCapital(), Style.CURRENCY);
 		}
@@ -3208,6 +3268,22 @@ public class ExcelWorksheetBuilder {
 			report.addLink(ExcelLink.PROJECT_WC_PERIOD, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		} else {
 			report.addNumericCell(row, 1, result.getWcPeriod());
+		}
+		report.addTextCell(row, 2, translate("units.months"));
+		
+		// average loan duration
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.periodAvg"));
+		if (report.isCompleteReport()) {
+			String formula = 
+					String.format("ROUND(AVERAGE(INDIRECT(CONCATENATE(\"'%s'!$B$%d:\"&ADDRESS(%d,B24+1)))),2)",
+							cashFlowMonthsSheet, firstYearCumulativeRow+4,
+									firstYearCumulativeRow+4
+						);	
+			report.addFormulaCell(row, 1, formula);
+			report.addLink(ExcelLink.PROJECT_WC_PERIOD_AVG, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
+		} else {
+//			report.addNumericCell(row, 1, result.getWc);
 		}
 		report.addTextCell(row, 2, translate("units.months"));
 		
