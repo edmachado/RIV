@@ -2756,18 +2756,18 @@ public class ExcelWorksheetBuilder {
 		ProjectMonthsInYear[] setOfMonthsInYear =  ProjectMonthsInYear.getProjectPerMonths(project, without, decimals);
 		String sheetname; String titlePart1; String title;
 		int numBlocks = without ? project.getBlocksWithout().size() : project.getBlocks().size();
-		titlePart1 = firstYearOnly ? translate("project.report.cashFlowFirst") : translate("project.report.monthsAllYears");
+		titlePart1 = firstYearOnly ? translate("project.report.cashFlowFirst") : translate("project.report.workingcapital");
 		
 		if (!without) {
 			if (project.isWithWithout()) {
-				sheetname=translate(firstYearOnly ? SheetName.PROJECT_CASH_FLOW_FIRST_WITH : SheetName.PROJECT_CASH_FLOW_MONTHS_WITH);
+				sheetname=translate(firstYearOnly ? SheetName.PROJECT_CASH_FLOW_FIRST_WITH : SheetName.PROJECT_CASH_FLOW_MONTHS);
 				title=titlePart1 + " " + translate("project.with");
 			} else {
 				sheetname=translate(firstYearOnly ? SheetName.PROJECT_CASH_FLOW_FIRST : SheetName.PROJECT_CASH_FLOW_MONTHS);
 				title=titlePart1;
 			}
 		} else {
-			sheetname=translate(firstYearOnly ? SheetName.PROJECT_CASH_FLOW_FIRST_WITHOUT : SheetName.PROJECT_CASH_FLOW_MONTHS_WITHOUT);
+			sheetname=translate(SheetName.PROJECT_CASH_FLOW_FIRST_WITHOUT);
 			title=titlePart1 + " " + translate("project.without");
 		}
 		Sheet sheet = report.getWorkbook().createSheet(sheetname);
@@ -3178,7 +3178,7 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectParameters(ExcelWrapper report, Project project, ProjectResult result) {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_PARAMETERS));
 		
-		String cashFlowMonthsSheet = translate(project.isWithWithout() ? SheetName.PROJECT_CASH_FLOW_MONTHS_WITH : SheetName.PROJECT_CASH_FLOW_MONTHS);
+		String cashFlowMonthsSheet = translate(SheetName.PROJECT_CASH_FLOW_MONTHS);
 
 		sheet.setSelected(true);
 		int rowNum=0;
@@ -4380,9 +4380,7 @@ enum SheetName {
 	PROJECT_ACTIVITIES("project.report.activityDetail.sheetname"),
 	PROJECT_PARAMETERS("project.report.parameters.sheetname"),
 	
-	PROJECT_CASH_FLOW_MONTHS("project.report.cashFlowPerMonth.sheetname"),
-	PROJECT_CASH_FLOW_MONTHS_WITH("project.report.cashFlowPerMonth.with.sheetname"),
-	PROJECT_CASH_FLOW_MONTHS_WITHOUT("project.report.cashFlowPerMonth.without.sheetname"),
+	PROJECT_CASH_FLOW_MONTHS("project.report.workingcapital.sheetname"),
 	
 	PROJECT_CASH_FLOW_FIRST("project.report.cashFlowFirst.sheetname"),
 	PROJECT_CASH_FLOW_FIRST_WITH("project.report.cashFlowFirst.with.sheetname"),

@@ -2,15 +2,19 @@
 project.report.profitability.payback=Payback (years)
 project.report.profitability.cumulative=Cumulative
 project.report.profitability.lastNeg=Last negative year
-project.report.monthsAllYears=Cash flow (all years per month)
-project.report.cashFlowPerMonth.sheetname=Cash flow months
-project.report.cashFlowPerMonth.with.sheetname=Cash flow months (with)
-project.report.cashFlowPerMonth.without.sheetname=Cash flow months (without)
+project.report.workingcapital=Working capital
+project.report.workingcapital.sheetname=Working capital
 project.periodAvg=Average loan duration
 project.periodAvg.help=Help text for 'average loan duration'
 
-# changed from previous version
+# changed from previous versions
 projectBlock.chronology=Production chronology for all years
+
+project.workingCapital.how=How is working capital estimated?
+project.workingCapital.explain=Working capital is determined by the monthly cash flow. The value of the working capital loan is the largest monthly negative cumulative balance, while the length of the loan (financing period) is two months after the last month with a negative cumulative balance. In order to take into account the interest more fairly, a "weighted system" is used to calculate an "average loan duration", which is used in calculating the amount of interest paid on the working capital loan. For details see the following report:
+#project.amtRequired.explain=The largest negative value
+project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
+
 
 ## RIV 4.3.2
 error.import.futureVersion=The profile or project you are importing was created by a newer version of RuralInvest than the one you are using. Please upgrade the RuralInvest software.
@@ -199,10 +203,6 @@ profile.withWithout.remove=You are choosing to not have "with" and "without proj
 projectContribution.contributor.help=The contributing organization (NGO, association, government agency)
 projectContribution.yearlyFlow.help=Income minus costs for each year of the project.
 
-project.workingCapital.how=How is first year working capital estimated?
-project.workingCapital.explain=Working capital for the first year is determined by the cumulative monthly cash flow for the first year. 
-project.amtRequired.explain=The largest negative value
-
 project.report.wcCalculation=Working Capital calculation
 project.report.summaryTables=Summary tables
 project.report.summary.income=Income
@@ -241,7 +241,6 @@ project.recommendation.seeReports=For summaries and reports useful in evaluating
 
 # Changed from previous versions
 project.amtRequired.help=The amount of working capital required is the amount necessary to cover all operating costs until income is sufficient. It is automatically estimated by RuralInvest.
-project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
 profile.report.title=Reports
 
 ### RIV4.0

@@ -302,7 +302,7 @@ public class ExcelReportController {
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.projectCashFlowFirst(report, p, pr, false, rivConfig.getSetting().getDecimalLength(), allYears==null);
-			if (p.isWithWithout()) {
+			if (p.isWithWithout() && allYears==null) {
 				ewb.projectCashFlowFirst(report, p, pr, true, rivConfig.getSetting().getDecimalLength(), allYears==null);
 			}
 			response.setHeader("Content-disposition",
