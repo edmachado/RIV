@@ -2164,10 +2164,11 @@ public class ExcelWorksheetBuilder {
 					report.addFormulaCell(sheet.getRow(32), yearNum, formula, Style.CURRENCY);
 	
 					// wc interest
-					formula = String.format("IF(%s33<>0, %s13*%s/12*%s*0.01,0)",
-							col, col,
-							report.getLink(ExcelLink.PROJECT_WC_PERIOD),
-							report.getLink(ExcelLink.PROJECT_WC_INTEREST));
+					formula = String.format("IF(%s33<>0, B13*%s/12*(%s-%s)*0.01,0)",
+							col,
+							report.getLink(ExcelLink.PROJECT_WC_PERIOD_AVG),
+							report.getLink(ExcelLink.PROJECT_WC_INTEREST),
+							report.getLink(ExcelLink.PROJECT_INFLATION));
 					report.addFormulaCell(sheet.getRow(33), yearNum, formula, Style.CURRENCY);
 					
 					// primary capital
@@ -2784,6 +2785,8 @@ public class ExcelWorksheetBuilder {
 		
 		// 1st column : labels
 		report.addTextCell(sheet.getRow(0), 0, title, Style.TITLE);
+		mergeCells(sheet, 0, 0, 0, 12);
+		
 		report.addTextCell(sheet.getRow(3), 0, translate("project.report.cashFlowFirst.operIncomes"), Style.H2);
 		rowNum=4;
 		for (BlockBase block : without ? project.getBlocksWithout() : project.getBlocks()) {
@@ -3024,6 +3027,7 @@ public class ExcelWorksheetBuilder {
 			report.addTextCell(wf3, 0, "Weight factor 3");
 			
 			String wcPeriod;
+			String wcPeriodAvg;
 			String wcRequired;
 			
 			if (report.isCompleteReport()) {
@@ -3033,24 +3037,25 @@ public class ExcelWorksheetBuilder {
 				rowNum++;
 				row = sheet.createRow(rowNum++);
 				report.addTextCell(row, 0, translate("project.amtRequired"));
-				
-				row = sheet.createRow(rowNum++);
-				report.addTextCell(row, 0, translate("project.capitalDonate"));
-				
-				row = sheet.createRow(rowNum++);
-				report.addTextCell(row, 0, translate("project.capitalOwn"));
-				
-				row = sheet.createRow(rowNum++);
-				report.addTextCell(row, 0, translate("project.amtFinanced"));
+				String formula = String.format("IF(MIN(B%d:%s%d)<0,MIN(B%d:%s%d)*-1,0)", 
+						rowCumulative, getColumn(flowColumns), rowCumulative,
+						rowCumulative, getColumn(flowColumns), rowCumulative);
+				report.addFormulaCell(row, 1, formula, Style.CURRENCY);
 				wcRequired = "$B$"+rowNum;
 				
 				row = sheet.createRow(rowNum++);
 				report.addTextCell(row, 0, translate("project.period"));
-				
-				row = sheet.createRow(rowNum++);
-				report.addTextCell(row, 0, "AVERAGE PERIOD");
+				formula = String.format("IF(%s>0, MATCH(2,1/MMULT(1,-(B%d:%s%d<0)))+2, 0)", 
+						wcRequired, rowCumulative, getColumn(flowColumns), rowCumulative);
+				report.addFormulaCell(row, 1, formula);
 				wcPeriod = "$B$"+rowNum;
 				
+				row = sheet.createRow(rowNum++);
+				report.addTextCell(row, 0, translate("project.periodAvg"));
+				formula = String.format("ROUND(AVERAGE(INDIRECT(CONCATENATE(\"B%d:\"&ADDRESS(%d,B%d+1)))),2)", 
+						rowCumulative+4, rowCumulative+4,rowNum-1);
+				report.addFormulaCell(row, 1, formula);
+				wcPeriodAvg = "$B$"+rowNum;
 			}
 			
 			for (int i=1;i<=flowColumns;i++) {
@@ -3238,7 +3243,6 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("project.workingCapital"), Style.H2);
 
 		int firstYearCumulativeRow = 13+project.getBlocks().size()*2;
-		// =IF(COUNTIF(x,"<0"), IF(MATCH(2,1/MMULT(1,-(x<0)))>9,12,MATCH(2,1/MMULT(1,-(x<0)))+2),0)
 		String range = 
 				String.format("'%s'!$B$%d:$%s$%d",
 						cashFlowMonthsSheet,
@@ -3283,7 +3287,7 @@ public class ExcelWorksheetBuilder {
 			report.addFormulaCell(row, 1, formula);
 			report.addLink(ExcelLink.PROJECT_WC_PERIOD_AVG, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		} else {
-//			report.addNumericCell(row, 1, result.getWc);
+			report.addNumericCell(row, 1, result.getWcPeriodAvg());
 		}
 		report.addTextCell(row, 2, translate("units.months"));
 		
@@ -3311,7 +3315,7 @@ public class ExcelWorksheetBuilder {
 
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.amtFinanced"));
-		report.addFormulaCell(row, 1, "B23-B26-B27", Style.CURRENCY);
+		report.addFormulaCell(row, 1, "B23-B27-B28", Style.CURRENCY);
 		if (report.isCompleteReport()) {
 			report.addLink(ExcelLink.PROJECT_WC_FINANCED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		}

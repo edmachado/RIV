@@ -223,6 +223,8 @@ public class Project extends Probase implements java.io.Serializable {
 	private Double wcAmountRequired;
 	@Transient
 	private int wcFinancePeriod;
+	@Transient
+	private Double wcFinancePeriodAvg;
 	
 
 	@OneToMany(mappedBy="project", orphanRemoval=true, cascade = CascadeType.ALL)
@@ -348,6 +350,13 @@ public class Project extends Probase implements java.io.Serializable {
 		} else {
 			return  wcAmountRequired-capitalDonate+capitalOwn;
 		}
+	}
+	
+	public Double getWcFinancePeriodAvg() {
+		return wcFinancePeriodAvg;
+	}
+	public void setWcFinancePeriodAvg(double avg) {
+		this.wcFinancePeriodAvg=avg;
 	}
 
 /**
@@ -2304,6 +2313,7 @@ public double getInvestmentTotal() {
 			// add working capital
 			pr.setWorkingCapital(matrix.getWcValue());
 			pr.setWcPeriod(matrix.getWcPeriod());
+			pr.setWcPeriodAvg(matrix.getWcPeriodAvg());
 			pr.setWcOwn(this.getCapitalOwn());
 			pr.setWcDonated(this.getCapitalDonate());
 			pr.setWcFinanced(matrix.getWcValue()-this.getCapitalDonate()-this.getCapitalOwn());
@@ -2319,8 +2329,6 @@ public double getInvestmentTotal() {
 				}
 			}
 			pr.setNegativeYears(yearsNeg);
-			
-			//finData.clear();
 		} else { // NON INCOME GENERATING
 			for (ProjectItemAsset asset : this.getAssets()) {
 				investTotal += asset.getUnitNum()*asset.getUnitCost();

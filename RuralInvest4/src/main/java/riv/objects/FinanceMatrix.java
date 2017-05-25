@@ -37,6 +37,7 @@ public class FinanceMatrix {
 	BigDecimal irrWithoutDonation;
 	BigDecimal irrWithDonation;
 	int wcPeriod;
+	double wcPeriodAvg;
 	double wcValue;
 	
 	public FinanceMatrix(Project project, double discountRate, int decimals) {
@@ -63,6 +64,9 @@ public class FinanceMatrix {
 	
 	public int getWcPeriod() {
 		return wcPeriod;
+	}
+	public double getWcPeriodAvg() {
+		return wcPeriodAvg;
 	}
 	public double getWcValue() {
 		return wcValue;
@@ -193,10 +197,10 @@ public class FinanceMatrix {
 		Double highestNeg=0.0;
 		Double cumulative=0.0;
 		for (int year=0;year<project.getDuration();year++) {
-			for (int i=0;i<12;i++) {
-				cumulative+=firstYearData[year].getTotals()[i];
+			for (int month=0;month<12;month++) {
+				cumulative+=firstYearData[year].getTotals()[month];
 				if (cumulative<0) {
-					lastNegMonth=(year*12)+i+1; // add one because i is 0-based
+					lastNegMonth=(year*12)+month+1; // add one because i is 0-based
 					if (cumulative<highestNeg) {					
 						highestNeg=cumulative;
 					}
@@ -206,12 +210,40 @@ public class FinanceMatrix {
 		
 		// wc received in year 1 and paid when cumulative is positive
 		wcPeriod = lastNegMonth==0 ? 0 : (lastNegMonth+2) > project.getDuration()*12 ? project.getDuration()*12 : lastNegMonth+2; // month of highest negative +2 
+		int wcYear = ((Double)(Math.ceil(((double)wcPeriod)/12)-1)).intValue();
 		wcValue = round(highestNeg*-1);
-		Double wcYear = Math.ceil(((double)wcPeriod)/12)-1;
+		
+		// calculate average period
+		cumulative=0.0; int i=0; 
+		double[] factor2=new double[wcPeriod];
+		double[] factor3=new double[wcPeriod];
+		
+		while (i<wcPeriod) {
+			int year = i/12;
+			int month = i-year*12;
+			cumulative+=firstYearData[year].getTotals()[month];
+			double factor=-1*cumulative/wcValue;
+			
+			if (i==0) {
+				factor2[0] = cumulative<0 ? factor : 0;
+			} else {
+				factor2[i] = (cumulative>0 || factor<=factor2[i-1]) ? factor2[i-1] : factor;
+			}
+
+			factor3[i]=round((wcPeriod-i)*factor2[i],2);
+			i++;
+		}
+		
+		// take avg (could be integrated into above, but done separately to facilitate debugging
+		double sum = 0.0;
+		for (i=0;i<wcPeriod;i++) {
+			sum+=factor3[i];
+		}
+		wcPeriodAvg = round(sum/wcPeriod,2);
 	
 		yearlyData.get(0).workingCapitalReceived=wcValue-project.getCapitalDonate()-project.getCapitalOwn();
-		yearlyData.get(wcYear.intValue()).workingCapitalCapital=yearlyData.get(0).workingCapitalReceived;
-		yearlyData.get(wcYear.intValue()).workingCapitalInterest=yearlyData.get(wcYear.intValue()).workingCapitalCapital*wcPeriod/12*(project.getCapitalInterest()*0.01);
+		yearlyData.get(wcYear).workingCapitalCapital=yearlyData.get(0).workingCapitalReceived;
+		yearlyData.get(wcYear).workingCapitalInterest=yearlyData.get(wcYear).workingCapitalCapital*wcPeriodAvg/12*((project.getCapitalInterest()-project.getInflationAnnual())*0.01);
 	}
 	
 	private void addLoanAmortization(Project project) {

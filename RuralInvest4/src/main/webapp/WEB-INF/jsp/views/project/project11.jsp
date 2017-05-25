@@ -37,6 +37,7 @@
             	<tags:dataentry field="wcAmountRequired" labelKey="project.amtRequired" helpText="project.amtRequired.help" calculated="true" currency="true"/>
            		<tags:dataentry field="wcAmountFinanced" labelKey="project.amtFinanced" helpText="project.amtFinanced.help"  calculated="true" currency="true" />
            		<tags:dataentry field="wcFinancePeriod" labelKey="project.period" helpText="project.period.help"  calculated="true" calcSignKey="units.months" />
+           		<tags:dataentry field="wcFinancePeriodAvg" labelKey="project.periodAvg" helpText="project.periodAvg.help"  calculated="true" calcSignKey="units.months" />
            		<tags:dataentry field="capitalInterest" labelKey="project.capitalInterest" helpText="project.capitalInterest.help" inputClass="num" calcSign="%"/>
        			<tags:dataentry field="capitalDonate" labelKey="project.capitalDonate" helpText="project.capitalDonate.help" currency="true" onmouseout="CalcFinance()"/>
        			<tags:dataentry field="capitalOwn" labelKey="project.capitalOwn" helpText="project.capitalOwn.help" currency="true" onmouseout="CalcFinance()"/>	

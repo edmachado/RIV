@@ -7,6 +7,7 @@ project.report.cashFlowPerMonth.sheetname=Cash flow months
 project.report.cashFlowPerMonth.with.sheetname=Cash flow months (with)
 project.report.cashFlowPerMonth.without.sheetname=Cash flow months (without)
 project.periodAvg=Average loan duration
+project.periodAvg.help=Help text for 'average loan duration'
 
 # changed from previous version
 projectBlock.chronology=Production chronology for all years

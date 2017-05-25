@@ -91,6 +91,8 @@ public class ProjectResult implements java.io.Serializable {
 	private double wcFinanced;
 	@Column(name="WC_PERIOD")
 	private int wcPeriod;
+	@Column(name="WC_PERIOD_AVG")
+	private double wcPeriodAvg;
 	@Column(name="NEGATIVE_YEARS")
 	private int negativeYears;
 	
@@ -266,10 +268,15 @@ public class ProjectResult implements java.io.Serializable {
 	public int getWcPeriod() {
 		return wcPeriod;
 	}
-
-
 	public void setWcPeriod(int wcPeriod) {
 		this.wcPeriod = wcPeriod;
+	}
+	
+	public double getWcPeriodAvg() {
+		return wcPeriodAvg;
+	}
+	public void setWcPeriodAvg(double wcPeriodAvg) {
+		this.wcPeriodAvg = wcPeriodAvg;
 	}
 
 

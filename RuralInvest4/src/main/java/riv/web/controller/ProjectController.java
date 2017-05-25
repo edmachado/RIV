@@ -110,6 +110,7 @@ public class ProjectController {
 		sb.append("result.costFinance="+cf.formatCurrency(pr.getTotalCostsFinanced(), CurrencyFormat.ALL)+lineSeparator);
 		
 		sb.append("step11.period="+pr.getWcPeriod()+lineSeparator);
+		sb.append("step11.periodAvg="+pr.getWcPeriodAvg()+lineSeparator);
 		sb.append("step11.amtRequired="+cf.formatCurrency(pr.getWorkingCapital(), CurrencyFormat.ALL)+lineSeparator);
 		sb.append("step11.amtFinanced="+cf.formatCurrency(pr.getWcFinanced(), CurrencyFormat.ALL)+lineSeparator);
 
@@ -429,18 +430,21 @@ public class ProjectController {
 		} else if (p.getIncomeGen() && (step==11 || step==12 || step==13)) {
 			FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 			
-			int period; double amount;
+			int period; double amount; double periodAvg;
 			if (p.getWizardStep()==null) {
 				ProjectResult pr = dataService.getProjectResult(p.getProjectId());
 				period = pr.getWcPeriod();
 				amount = pr.getWorkingCapital();
+				periodAvg = pr.getWcPeriodAvg();
 				model.addAttribute("result",pr);	
 			} else {
 				period = matrix.getWcPeriod();
+				periodAvg = matrix.getWcPeriodAvg();
 				amount= matrix.getWcValue();
 			}
 			p.setWcFinancePeriod(period);
 			p.setWcAmountRequired(amount);
+			p.setWcFinancePeriodAvg(periodAvg);
 			
 			if (step==12 || step==13) {
 				model.addAttribute("profitabilitySummary", matrix.getSummary(false, ProjectScenario.Incremental));
