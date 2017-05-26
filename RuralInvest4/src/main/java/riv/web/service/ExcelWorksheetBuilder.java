@@ -3165,11 +3165,11 @@ public class ExcelWorksheetBuilder {
 		report.addBigTextCell(sheet, rowNum++, translate("project.justification"), project.getReccDesc());
 
 		
-		rowNum += rowNum+2;
-		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, cellNum, translate("project.report.recommendation.signature"), Style.LABEL);
-		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, cellNum, project.getTechnician().getDescription());
+//		rowNum += rowNum+2;
+//		row = sheet.createRow(rowNum++);
+//		report.addTextCell(row, cellNum, translate("project.report.recommendation.signature"), Style.LABEL);
+//		row = sheet.createRow(rowNum++);
+//		report.addTextCell(row, cellNum, project.getTechnician().getDescription());
 		
 		return sheet;
 		
