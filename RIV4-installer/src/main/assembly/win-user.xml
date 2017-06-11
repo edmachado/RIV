@@ -23,13 +23,13 @@
 				<exclude>**/.gitignore</exclude>
 			</excludes>
 		</fileSet>
-<!-- 		<fileSet> -->
-<!-- 			<directory>${izpack.dir}/resources/win</directory> -->
-<!-- 			<outputDirectory>/</outputDirectory> -->
-<!-- 			<includes> -->
-<!-- 				<include>setup.exe</include> -->
-<!-- 			</includes> -->
-<!-- 		</fileSet> -->
+		<fileSet>
+			<directory>${izpack.dir}/resources/win</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>setup.exe</include>
+			</includes>
+		</fileSet>
 	</fileSets>
 	<files>
 		<file>
