@@ -113,10 +113,10 @@
                                     <includes>
                                         <include>**/*</include>
                                     </includes>
-<!--                                     <excludes> -->
-<!--                                         <exclude>setup.bat</exclude> -->
-<!--                                         <exclude>**/.gitignore</exclude> -->
-<!--                                     </excludes> -->
+                                    <excludes>
+                                        <exclude>setup.bat</exclude>
+                                        <exclude>**/.gitignore</exclude>
+                                    </excludes>
                                 </resource>
                             </resources>
                         </configuration>
@@ -248,8 +248,8 @@
                             <!-- base for relative paths in izpack descriptor -->
                             <baseDir>${izpack.dir}</baseDir>
                             <installFile>${izpack.dir}/install.xml</installFile>
-                            <outputDirectory>${cd}</outputDirectory>
-                            <finalName>install-RuralInvest</finalName>
+                            <outputDirectory>${cd}/lib</outputDirectory>
+                            <finalName>riv</finalName>
                         </configuration>
                     </execution>
                 </executions>
