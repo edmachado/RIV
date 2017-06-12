@@ -547,7 +547,8 @@ public class PdfReportCreator {
 	public ReportWrapper projectParameters(Project project, ProjectResult pr, int startPage) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectParameters.jasper", false, project, "projectParameters.pdf", startPage);
 		report.getParams().put("financePrd", pr.getWcPeriod());
-		report.getParams().put("amtRequired", pr.getWcFinanced());
+		report.getParams().put("amtRequired", pr.getWorkingCapital());
+		report.getParams().put("financePrdAvg", pr.getWcPeriodAvg());
 		report.getParams().put("investTotal", pr.getInvestmentFinanced());
 		report.getParams().put("reportname", "H: "+translate("project.report.parameters"));
 		

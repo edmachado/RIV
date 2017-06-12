@@ -2164,11 +2164,11 @@ public class ExcelWorksheetBuilder {
 					report.addFormulaCell(sheet.getRow(32), yearNum, formula, Style.CURRENCY);
 	
 					// wc interest
-					formula = String.format("IF(%s33<>0, B13*%s/12*(%s-%s)*0.01,0)",
+					formula = String.format("IF(%s33<>0, B13*(%s-%s)*0.01/12*%s,0)",
 							col,
-							report.getLink(ExcelLink.PROJECT_WC_PERIOD_AVG),
 							report.getLink(ExcelLink.PROJECT_WC_INTEREST),
-							report.getLink(ExcelLink.PROJECT_INFLATION));
+							report.getLink(ExcelLink.PROJECT_INFLATION),
+							report.getLink(ExcelLink.PROJECT_WC_PERIOD_AVG));
 					report.addFormulaCell(sheet.getRow(33), yearNum, formula, Style.CURRENCY);
 					
 					// primary capital
