@@ -24,7 +24,7 @@
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="footer" class="net.sf.jasperreports.engine.JasperReport"/>
 	<parameter name="startPage" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="financePrdAvg" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="financePrdAvg" class="java.lang.Double" isForPrompting="false"/>
 	<field name="projectName" class="java.lang.String"/>
 	<field name="incomeGen" class="java.lang.Boolean"/>
 	<field name="loan1Interest" class="java.lang.Double"/>
