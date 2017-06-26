@@ -130,9 +130,16 @@ public class FinanceMatrix {
 		}
 		
 		int lastCumulativeYear = lastNegYearBefore+1<duration ? lastNegYearBefore+1 : duration-1;
-		double paybackBefore = lastNegYearBefore+1 + (Math.abs(lastNegYearValueBefore)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityBefore(scenario));
+		double paybackBefore = 
+				yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityBefore(scenario)==0.0 
+				? lastNegYearBefore+1
+				: lastNegYearBefore+1 + (Math.abs(lastNegYearValueBefore)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityBefore(scenario));
+		
 		lastCumulativeYear = lastNegYearAfter+1<duration ? lastNegYearAfter+1 : duration-1;
-		double paybackAfter = lastNegYearAfter+1 + (Math.abs(lastNegYearValueAfter)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario));
+		double paybackAfter = 
+				yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario)==0.0
+				? lastNegYearAfter+1
+				: lastNegYearAfter+1 + (Math.abs(lastNegYearValueAfter)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario));
 		
 		return new double[]{ round(paybackBefore,2), round(paybackAfter,2) };
 	}
