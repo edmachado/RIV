@@ -14,8 +14,8 @@
 				<c:set var="htmlId">${type}<c:if test="${without}">Without</c:if></c:set>
 				<display:table list="${costs.get(year)}" id="row" cellspacing="0" cellpadding="0" export="false" htmlId="${htmlId}Table${year}"> 
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
-					<display:column titleKey="${type}.description" property="parent.description" sortable="true" style="text-align:${left};" headerClass="left"/>
-					<display:column titleKey="${type}.unitType" sortable="true" style="text-align:${left};" headerClass="left">
+					<display:column titleKey="${type}.description" property="parent.description" style="text-align:${left};" headerClass="left"/><%-- sortable="true" --%> 
+					<display:column titleKey="${type}.unitType" style="text-align:${left};" headerClass="left"><%-- sortable="true" --%>
 						<c:if test="${not fn:contains(type,'Personnel') }">
 							${row.parent.unitType}
 						</c:if>
@@ -29,16 +29,16 @@
 					<display:column titleKey="${type}.unitCost"><%-- sortable="true" sortProperty="unitCost"> --%>
 						<tags:formatCurrency value="${row.parent.unitCost}"/>
 					</display:column>
-					<display:column titleKey="${type}.unitNum" sortProperty="unitNum" sortable="true">
+					<display:column titleKey="${type}.unitNum" sortProperty="unitNum"><%-- sortable="true" --%>
 						<tags:formatDecimal value="${row.unitNum}"/>
 					</display:column>
-					<display:column titleKey="${type}.totalCost" sortable="true" sortProperty="total">
+					<display:column titleKey="${type}.totalCost"><%-- sortable="true" sortProperty="total" --%>
 						<tags:formatCurrency value="${row.total}"/><c:set var="genTotal" value="${genTotal+row.total}"/>
 					</display:column>
-					<display:column titleKey="${type}.ownResources" sortable="true" sortProperty="ownResources">
+					<display:column titleKey="${type}.ownResources"><%-- sortable="true" sortProperty="ownResources" --%>
 						<tags:formatCurrency value="${row.ownResources}"/><c:set var="genOwn" value="${genOwn+row.ownResources}"/>
 					</display:column>
-					<display:column titleKey="${type}.external" sortable="true" sortProperty="external">
+					<display:column titleKey="${type}.external"><%-- sortable="true" sortProperty="external" --%>
 						<tags:formatCurrency value="${row.external}"/>
 					</display:column>
 					<display:column title="&nbsp;">
