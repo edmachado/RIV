@@ -363,9 +363,6 @@ projectContribution.yearlyFlow.help=Receita menos custos totais para cada ano do
 project.workingCapital.how=Como é estimado o capital de giro para o primeiro ano?
 
 project.workingCapital.explain=O capital de giro necessário durante o primeiro ano é estimado a partir do fluxo de caixa mensal acumulado para o primeiro ano.
-
-project.amtRequired.explain=O maior valor negativo
-
 project.report.wcCalculation=Cálculo do capital de giro
 
 project.report.summaryTables=Tabelas

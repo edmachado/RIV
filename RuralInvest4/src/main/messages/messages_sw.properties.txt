@@ -1,3 +1,20 @@
+## RIV 4.4.0
+project.report.profitability.payback= Malipo (Miaka)
+project.report.profitability.cumulative= Jumlishi
+project.report.profitability.lastNeg= Mwaka hasi wa mwisho
+project.report.workingcapital=Mtaji Endeshaji
+project.report.workingcapital.sheetname=Mtaji Endeshaji
+project.periodAvg=Wastani wa muda wa mkopo
+project.periodAvg.help="Wastani wa muda wa mkopo" ni kipengele cha marekebisho ya muda wa mkopo uliokadiriwa. Kwa kuwa muda uliokadiriwa wa mkopo unazingatia mwezi wa mwisho wenye salio jumlishi hasi la mtiririko wa fedha, na kiasi kadiriwa cha mtaji endeshaji ni kiasi hasi kikubwa zaidi cha mtiririko wa fedha, riba inayotafutwa kwa kutumia parameta hizo mbili imetiwa chumvi. Kurekebisha hili, tunatumia mbadala wastani wa muda wa mkopo ambao unazingatia mtririko wa fedha wa mwezi kwa kila mmweizi hadi tifikie muda wa mkopo wa kukadiria. Mbadala wa kuzalisha uzani wa wastani wa kiasi cha mtaji endeshaji, tunatengeneza uzani wa wastani wa muda wa mkopo – matokea ni sawa kwa kuangalia riba iliyozalishwa.
+misc.moreDetails=Kwa taarifa zaidi angalia ripoti ifuatayo:
+
+# changed from previous versions
+projectBlock.chronology= Wendo wa uzalishaji kwa miaka yote
+project.workingCapital.how=Jinsi mtaji endeshaji unakadiriwa?
+project.workingCapital.explain=Mtaji endeshaji untafutwa kwa mtiririko wa fedha wa kila mwezi. Kiasi cha mkopo wa mtaji endeshaji ni kiasi hasi kikubwa zaidi cha salio jumlishi la mwezi, wakati muda wa mkopo kipindi cha mahitaji ya fedha) ni miezi miwili baada ya mwezi wa wisho wenye salio jumlishi hasi. Ili kuweza kuzingatia riba kwa haki zaidi, "Mfumo wa uzani" unatumika kutafuta "wastani wa muda wa mkopo", utakaotumika kutafuta kiasi cha riba cha kulipa kwenye mkopo wa mtaji endeshaji.
+project.period.help=Idadi ya miezi ambayo gharama zinazidi mapato ongeza miezi miwili.
+
+
 ## RIV 4.3 - phase 3
 project.report.cashFlow.income.sales=Mauzo
 
@@ -176,7 +193,6 @@ projectContribution.yearlyFlow.help=Mapato kutoa gharama kwa kila mwaka wa mradi
 
 project.workingCapital.how=Mtaji endeshaji kwa mwaka wa kwanza unakadiriwa vipi?
 project.workingCapital.explain=Mtaji endeshaji Kwa mwaka wa kwanza utatokana na mjumliko wa mtiririko pesa wa mwezi kwa mwaka wa kwanza.
-project.amtRequired.explain=Thamani kubwa ya hasi
 
 project.report.wcCalculation=Hesabu ya mtaji endeshaji
 project.report.summaryTables=Majedwali ya muhtasari

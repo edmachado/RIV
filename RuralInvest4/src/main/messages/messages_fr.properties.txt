@@ -55,7 +55,6 @@ error.perYearCost.requiredNonNegative=Année {0}, {1}: ce champs ne peut être n
 mainMenu.help.terms=Référence aux termes financiers
 mainMenu.inProgress=En cours
  
-project.amtRequired.explain=Valeur negative la plus grande 
 project.donor.noDelete=Un donateur ne peut être supprimé si le projet a des donations ou des contributions venant de cette source.
  
 project.general.method.confirm=Vous êtes sur le point d’appliquer tous les coûts généraux de la première année à toutes les années du projet. Les détails pour les autres années seront perdues. Voulez-vous continuer ?

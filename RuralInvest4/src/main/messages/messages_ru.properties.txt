@@ -185,7 +185,6 @@ projectContribution.yearlyFlow.help=Доход за вычетом всех за
 
 project.workingCapital.how=Как оценивается рабочий капитал на первый год?
 project.workingCapital.explain=Рабочий капитал первого года рассчитывается путем суммирования ежемесячных денежных потоков первого года. 
-project.amtRequired.explain=Самое большое отрицательное значение 
 
 project.report.wcCalculation=Расчет рабочего капитала 
 project.report.summaryTables=Сводные таблицы 

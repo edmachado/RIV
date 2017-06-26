@@ -171,7 +171,6 @@ projectContribution.yearlyFlow.help=Gelir eksi her yıl için proje maliyetleri.
 
 project.workingCapital.how=İlk yılın işletme sermayesi nasıl hesaplanır?
 project.workingCapital.explain=İlk yıl için işletme sermayesi, ilk yılın aylık birikimli nakit akışı ile belirlenir. 
-project.amtRequired.explain=En büyük negatif değer
 
 project.report.wcCalculation=İşletme sermayesi hesaplama
 project.report.summaryTables=Özet tablolar

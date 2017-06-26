@@ -5,15 +5,14 @@ project.report.profitability.lastNeg=Last negative year
 project.report.workingcapital=Working capital
 project.report.workingcapital.sheetname=Working capital
 project.periodAvg=Average loan duration
-project.periodAvg.help=Help text for 'average loan duration'
+project.periodAvg.help=The "average loan duration" is a correction factor of the estimated loan duration. Since the estimated loan duration is based on the last month of negative cumulative cash flow, and the estimated amount of working capital is the largest cumulative negative cash flow, the interest calculated on those two parameters is overestimated. To correct this, we utilize instead an average loan duration which is based on the monthly cumulative cash flow for each month until we reach the estimated loan duration. Instead of generating a weighted average on the working capital amount, we generate a weighted average of the loan duration – the result is the same in terms of interest generated.
+misc.moreDetails=For details see the following report: 
 
 # changed from previous versions
 projectBlock.chronology=Production chronology for all years
-
 project.workingCapital.how=How is working capital estimated?
-project.workingCapital.explain=Working capital is determined by the monthly cash flow. The value of the working capital loan is the largest monthly negative cumulative balance, while the length of the loan (financing period) is two months after the last month with a negative cumulative balance. In order to take into account the interest more fairly, a "weighted system" is used to calculate an "average loan duration", which is used in calculating the amount of interest paid on the working capital loan. For details see the following report:
-#project.amtRequired.explain=The largest negative value
-project.period.help=The number of months in which costs exceed income plus two months (not exceeding one year).
+project.workingCapital.explain=Working capital is determined by the monthly cash flow. The value of the working capital loan is the largest monthly negative cumulative balance, while the length of the loan (financing period) is two months after the last month with a negative cumulative balance. In order to take into account the interest more fairly, a "weighted system" is used to calculate an "average loan duration", which is used in calculating the amount of interest paid on the working capital loan. 
+project.period.help=The number of months in which costs exceed income plus two months.
 
 
 ## RIV 4.3.2

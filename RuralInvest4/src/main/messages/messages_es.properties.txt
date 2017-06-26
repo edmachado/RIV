@@ -195,7 +195,6 @@ projectContribution.yearlyFlow.help=Ingreso menos costo total para cada año del
  
 project.workingCapital.how=¿Cómo se estima el capital de trabajo para el primer año?
 project.workingCapital.explain=El capital de trabajo para el primer año es determinado por el flujo de caja acumulado del primer año.
-project.amtRequired.explain=El mayor valor negativo
  
 project.report.wcCalculation=Cálculo de capital de trabajo
 project.report.summaryTables=Tablas resumen
