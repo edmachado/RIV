@@ -1,3 +1,19 @@
+## RIV 4.4.0
+project.report.profitability.payback=Período en que se repaga la inversión (años)
+project.report.profitability.cumulative=Acumulativo
+project.report.profitability.lastNeg=Último año con flujo negativo
+project.report.workingcapital=Capital de trabajo
+project.report.workingcapital.sheetname=Capital de trabajo
+project.periodAvg=Duración promedio del préstamo
+project.periodAvg.help=La “duración promedio del préstamo” es un factor de corrección de la duración estimada del préstamo. Ya que la duración estimada del préstamo está basada en el último mes de flujo de efectivo negativo, y el monto estimado de capital de trabajo es el mayor flujo de efectivo acumulado negativo, el interés calculado sobre esos dos parámetros es sobreestimado. Para corregir esto, utilizamos la duración promedio del préstamo, la cual está basada en el flujo de efectivo acumulativo mensual para cada mes, hasta que alcancemos la duración estimada del préstamo. En lugar de generar un promedio ponderado del monto de capital de trabajo, generamos un promedio ponderado de la duración del préstamo – el resultado es el mismo en términos de intereses devengados.
+ 
+misc.moreDetails=Para mayores detalles, ver el siguiente informe:
+ 
+# changed from previous versions
+projectBlock.chronology=Cronología de producción para todos los años
+project.workingCapital.how=¿Cómo se estima el capital de trabajo?
+project.workingCapital.explain=El capital de trabajo está determinado por el flujo de efectivo mensual. El monto o valor del capital de trabajo es el mayor flujo neto acumulado negativo, mientras que la duración del préstamo (período de financiamiento)es el último flujo neto mensual negativo más dos meses. Para contabilizar intereses de una manera más justa, un “sistema ponderado” es utilizado para calcular la “duración promedio del préstamo”, el cual es utilizado para calcular el interés pagado por el préstamo de capital de trabajo.
+project.period.help=Número de meses en los cuales los costos exceden los ingresos, más dos meses.
 project.report.cashFlow.income.sales=Ingresos por ventas
 
 
@@ -192,10 +208,7 @@ import.excel.error.noWithout=El proyecto en el cual está trabajando incluye un 
 #RIV4.1 B
 projectContribution.contributor.help=La organización contribuyente (ONG, asociación, entidad de gobierno)
 projectContribution.yearlyFlow.help=Ingreso menos costo total para cada año del proyecto.
- 
-project.workingCapital.how=¿Cómo se estima el capital de trabajo para el primer año?
-project.workingCapital.explain=El capital de trabajo para el primer año es determinado por el flujo de caja acumulado del primer año.
- 
+
 project.report.wcCalculation=Cálculo de capital de trabajo
 project.report.summaryTables=Tablas resumen
 project.report.summaryTables.info=Para información más detallada, ver
@@ -235,7 +248,6 @@ project.report.blockDetail.totalPerUnitNoCycle=Totales por unidad
 project.recommendation.seeReports=Para resúmenes e informes útiles para evaluar y recomendar, vea
  
 project.amtRequired.help=El monto de capital de trabajo requerido es el monto necesario para cubrir todos los costos operativos hasta que los ingresos sean suficientes para cubrirlos. Este monto es estimado automáticamente por RuralInvest.
-project.period.help=El número de meses durante los cuales los costos exceden a los ingresos, mas dos meses  (sin exceder un año).
 profile.report.title=Informes
 
 # Translator: La longitud máxima del nombre de una hoja en Excel es de 31 caracteres,
@@ -1170,7 +1182,6 @@ projectBlock.chronology.harvest=Cosecha/Venta
 projectBlock.chronology.help=Utilice el calendario para mostrar los meses en los cuales hay actividad (y por lo tanto costos), producción e ingresos el primer año. El calendario comenzará en el mes seleccionado para el inicio del proyecto en la pantalla sobre 'Información general'. Recuerde, este cronograma solo se aplica al primer año.
 projectBlock.chronology.payment=Pago de ventas
 projectBlock.chronology.production=Producción/Actividad
-projectBlock.chronology=Cronología de la producción del primer año
 projectBlock.chronology.selectAll=seleccione todo
 projectBlock.clone=Reproducir este bloque
 projectBlock.cycleLength.help=Indique la duración del ciclo de producción. Éste puede ser el tiempo de un cultivo desde su preparación y siembra hasta la cosecha, el tiempo de crecimiento de un animal o de fabricación de un artículo. Puede ser definido por mes(es), seman(as), día(s) de trabajo o día(s) calendario. Si la actividad es continua, utilice una unidad del tiempo que sea apropiada para estimar los costos e ingresos.

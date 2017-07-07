@@ -1,5 +1,18 @@
-﻿
+﻿## RIV 4.4.0
+project.report.profitability.payback=Retorno (anos)
+project.report.profitability.cumulative=Cumulativo
+project.report.profitability.lastNeg=Último ano negativo 
+project.report.workingcapital=Capital de giro
+project.report.workingcapital.sheetname=Capital de giro
+project.periodAvg=Duração media do empréstimo
+project.periodAvg.help=A "duração média do empréstimo" é um fator de correção da duração estimada do empréstimo. Uma vez que a duração estimada do empréstimo é baseada no último mês de fluxo de caixa cumulativo negativo e o montante estimado de capital de giro é o maior valor cumulativo do fluxo de caixa, o interesse calculado sobre esses dois parâmetros é superestimado. Para corrigir isso, utilizamos uma duração média do empréstimo, que é baseada no fluxo de caixa acumulado mensal de cada mês até atingir a duração estimada do empréstimo. Em vez de gerar uma média ponderada no valor do capital de giro, geramos uma média ponderada da duração do empréstimo - o resultado é o mesmo em termos de interesse gerado.
+misc.moreDetails=Para detaches osha o relatório seguinte: 
 
+# changed from previous versions
+projectBlock.chronology=Produção cronológica para todos os anos
+project.workingCapital.how=Como está estimate o capital de giro?
+project.workingCapital.explain=O capital de giro é determinado pelo fluxo de caixa mensal. O valor do empréstimo de capital de giro é o maior saldo cumulativo negativo mensal, enquanto a duração do empréstimo (período de financiamento) é de dois meses após o último mês com um saldo cumulativo negativo. Para ter em conta os juros de forma mais justa, um "sistema ponderado" é usado para calcular uma "duração média do empréstimo", que é usada no cálculo do valor dos juros pagos para o empréstimo de capital de giro.
+project.period.help=Número de meses durante os quais os custos superam as receitas, mais dois meses
 
 
 

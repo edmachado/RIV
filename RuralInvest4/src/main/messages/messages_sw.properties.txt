@@ -98,7 +98,6 @@ misc.noDeleteGeneric=Kategoria ya Generic haiwezi kufutwa
 misc.noDeleteCategory=Kipengee hiki hakiwezi kufutwa kwa sababu kwa sasa kinarejewa na Taswira ya mradi au mradi.
 export.search=Hamisha matokeo ya utafutaji 
 import.excel.error.noData=Data inatarajiwa kwa ajili ya seli {0}. Tafadhali rekebisha data na jaribu tena.
-import.excel.error.noTable=Jedwali linalohitajika linakosekana katika safuu {0}. Hakikisha kwamba faili unalotumia ni la kiolezo cha RuralInvest Excel sahihi. 
 import.excel.error.selectList=Seli {0}: data katika Menyu uliyo teua ni batili. Tafadhali rekebisha data na jaribu tena
 
 # changed from previous versions
@@ -191,9 +190,6 @@ profile.withWithout.remove=Unachagua kuwa "na" na "bila mradi" bidhaa kwa ajili 
 projectContribution.contributor.help=Shirika linalochangia (NGO, jumuiya, wakala wa serikali)
 projectContribution.yearlyFlow.help=Mapato kutoa gharama kwa kila mwaka wa mradi.
 
-project.workingCapital.how=Mtaji endeshaji kwa mwaka wa kwanza unakadiriwa vipi?
-project.workingCapital.explain=Mtaji endeshaji Kwa mwaka wa kwanza utatokana na mjumliko wa mtiririko pesa wa mwezi kwa mwaka wa kwanza.
-
 project.report.wcCalculation=Hesabu ya mtaji endeshaji
 project.report.summaryTables=Majedwali ya muhtasari
 project.report.summary.income=Mapato
@@ -232,7 +228,6 @@ project.recommendation.seeReports=Kwa muhtasari na ripoti muhimu katika kutathmi
 
 # Changed from previous versions
 project.amtRequired.help=Kiasi cha mtaji endeshaji unaohitajika ni kiasi muhimu kufidia uendeshaji na gharama zote mpaka mapato ya kutosha yatakapopatikana. Inakadiriwa otomatiki na RuralInvest. 
-project.period.help=Idadi ya miezi ambayo gharama  zitazidi mapato ongeza na miezi miwili (kisichozidi mwaka mmoja).
 profile.report.title=Ripoti
 
 ### RIV4.0
@@ -296,7 +291,6 @@ project.report.cashFlowFirst.sheetname=Mtiririko wa fedha Mwaka 1
 project.report.cashFlow.sheetname=Mtiririko wa fedha
 project.report.profitability.sheetname=Faida
 project.report.contributions.sheetname=Michango
-project.report.recommendation.sheetname=Mapendekezo
 project.report.results.sheetname=Miradi
 project.report.cashFlowNongen.sheetname=Uendelevu
 
@@ -850,7 +844,6 @@ project.activities.help=Elezea shughuli kubwa au mambo ya mradi yaliyopendekezwa
 
 project.amtFinanced.help=Kiasi cha kukopa ni sawa na mtaji endeshaji unaohitajika pungufu ya michango yoyote au ruzuku iliyopokelewa.
 project.amtFinanced=Kiasi cha kukopa
-project.amtRequired.help=Kiasi cha mtaji endeshaji unaohitajika ni kiasi muhimu kufidia gharama zote za uendeshaji mpaka mapato yaanze kupatikana ya kutosha. Inakadiriwa otomatiki na RuralInvest.
 project.amtRequired=Kiasi kinachohitajika
 project.annualEmployment.help=Kielelezo cha makadirio ya ajira ya mwaka (ikioneshwa katika mtu/miaka) mara baada ya shughuli za mradi kufika skeli iliyokadiriwa.
 project.annualEmployment=Ajira kwa mwaka
@@ -1154,8 +1147,6 @@ projectActivity.cycleLength=Urefu wa mzunguko
 projectActivity.cyclePerYear=Mizunguko
 projectActivity.cycles.help=Fafanua idadi ya mizunguko kwa mwaka. Kama mzunguko una muda wa mwezi 1 na ni endelevu, kutakuwa na mizunguko 12 kwa mwaka
 projectActivity.delete=Futa shughuli
-projectActivity.desc=Maelezo ya shughuli
-#projectActivity.edit=Hariri shughuli
 projectActivity.name.help=Eleza kwa kifupi shughuli ambayo itatokea mara baada ya uwekezaji kukamilika na mradi huo kuanza utendaji.
 projectActivity.name=Shughuli
 projectActivity.pattern.help=Kama idadi ya vizio vya shughuli kwa mzunguko vitabadilika baada ya muda, Fafanua idadi ya vizio kwa mzunguko juu ya kipindi cha mradi kinachochambuliwa (mfano kama katika jambo la shule, kizio ni mwanafunzi, inaweza kukadiriwa kuwa idadi ya wanafunzi itaongezeka kadri muda unavyoenda)
@@ -1180,7 +1171,6 @@ projectBlock.chronology.harvest=Mavuno/Mauzo
 projectBlock.chronology.help=Tumia kalenda ya kuonyesha miezi ambayo kuna shughuli (na hivyo kuna gharama), uzalishaji na upokeaji wa mapato mwaka kwanza. Kalenda huanza kwenye mwezi uliochaguliwa kwa mradi kuanza katika kiwamba cha  'Taarifa za jumla'. Kumbuka, chati hii inatumika kwa mwaka wa kwanza tu.
 projectBlock.chronology.payment=Kupokea malipo
 projectBlock.chronology.production=Uzalishaji/shughuli
-projectBlock.chronology=Wendo wa uzalishaji kwa mwaka wa kwanza
 projectBlock.chronology.selectAll=teua yote
 projectBlock.clone=Clone fungu hili
 projectBlock.cycleLength.help=Onyesha urefu wa mzunguko wa uzalishaji. Hii inaweza kuwa urefu wa muda wa kulima, kukuza mnyama au kutengeneza bidhaa, lakini haitakiwi kuzidi miezi 12. Inaweza kufafanuliwa kwa mwezi, juma (majuma), siku za kazi au siku za kalenda. Kama shughuli ni endelevu, tumia kizio cha muda ambacho ni mwafaka kwa gharama na mauzo
