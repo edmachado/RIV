@@ -65,8 +65,8 @@ public class CollectVariablesAction implements PanelAction {
 		if (jarBase!=null) {
 			System.out.println("jarBase: "+jarBase);
 //			windows jar is in main folder, macos in /lib
-//			String subPath = OS.isWindows() ? "/lib/av.riv" : "/av.riv";
-			String isAdmin=String.valueOf(new File(new File(jarBase).getParent()+"/.av.riv").exists());
+			String subPath = OS.isWindows() ? "/lib/av.riv" : "/av.riv";
+			String isAdmin=String.valueOf(new File(new File(jarBase).getParent()+subPath).exists());
 			System.out.println("isAdmin:"+isAdmin);
 			iData.setVariable("IS_ADMIN", isAdmin);
 		}
