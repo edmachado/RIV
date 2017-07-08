@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import riv.objects.AttachedFile;
 import riv.objects.FilterCriteria;
@@ -34,6 +36,7 @@ import riv.objects.profile.Profile;
 import riv.objects.project.Project;
 import riv.util.validators.ProfileValidator;
 import riv.web.config.RivConfig;
+import riv.web.config.RivLocaleResolver;
 import riv.web.editors.AppConfigEditor;
 import riv.web.service.AttachTools;
 import riv.web.service.DataService;
@@ -53,6 +56,8 @@ public class ProfileController {
 	FilterCriteria filter;
 	@Autowired
 	AttachTools attachTools;
+	@Autowired
+	private RivLocaleResolver localeResolver;
 	
 	@InitBinder("profile")
 	protected void initBinder(WebDataBinder binder, @PathVariable Integer step, HttpServletRequest request) {
@@ -149,6 +154,7 @@ public class ProfileController {
 	
 	@RequestMapping(value="/step{step}/{id}", method=RequestMethod.POST)
 	public String saveProfile(@PathVariable Integer step, @PathVariable Integer id, HttpServletRequest request,
+			@RequestParam(required=false) Boolean quickAnalysis, 
 			@Valid @ModelAttribute Profile profile, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			setupPageAttributes(profile, model, step, request);
@@ -170,6 +176,16 @@ public class ProfileController {
 			} else if (profile.getWizardStep()==null && step==1) { // only step 1 affects profileResult
 				calculateResult=true;
 			}
+			
+			// quick analysis (no qualitative analysis)
+			if(quickAnalysis!=null) {
+				if (step==1) {
+					setQuickAnalysis(profile, localeResolver.resolveLocale(request));
+					profile.setWizardStep(4);
+					step=3;
+				}
+			}
+			
 			dataService.storeProfile(profile, calculateResult);
 			
 			return "redirect:../step"+(step+1)+"/"+profile.getProfileId();
@@ -200,6 +216,17 @@ public class ProfileController {
 		if (step==9) {
 			model.addAttribute("result",dataService.getProfileResult(p.getProfileId()));
 		}
-		
+	}
+	
+	private void setQuickAnalysis(Profile profile, Locale locale) {
+		String skip=messageSource.getMessage("project.quickAnalysis",new Object[]{},locale);
+		profile.setBenefName(skip);
+		profile.setBenefDesc(skip);
+		profile.setProjDesc(skip);
+		profile.setEnviroImpact(skip);
+		profile.setMarket(skip);
+		if (!profile.getIncomeGen()) {
+			profile.setSourceFunds(skip);
+		}
 	}
 }

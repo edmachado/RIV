@@ -93,6 +93,7 @@ $( "#radioShared" ).buttonset();
 				<tags:dataentry field="location2" label="${rivConfig.setting.location2}" inputClass="text" size="20" maxLength="50" />
 				<tags:dataentry field="location3" label="${rivConfig.setting.location3}" inputClass="text" size="20" maxLength="50" />
 			</fieldset>
+			<br/><br/>
 		</div> <!-- end left div -->
 		<div class="float:right"> <!-- right div -->
 			<fieldset>
@@ -177,7 +178,14 @@ $( "#radioShared" ).buttonset();
 					</div>
 				</c:if>
 			</fieldset>
-		
+			<c:if test="${empty profile.profileId}">
+				<fieldset>
+					<legend><spring:message code="project.quickAnalysis"/></legend>
+					<div class="dataentry">
+						<input type="checkbox" name="quickAnalysis" value="true"> <spring:message code="project.quickAnalysis"/> 
+					</div>
+				</fieldset>
+			</c:if>
 		
 		</div> <!-- end right div -->
 		<br style="clear:both;"/>
