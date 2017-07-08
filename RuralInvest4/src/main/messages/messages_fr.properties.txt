@@ -1,3 +1,19 @@
+## RIV4.4
+project.report.profitability.payback=Nombre d’années nécessaires pour couvrir l’investissement (années)
+project.report.profitability.cumulative=Cumulé
+project.report.profitability.lastNeg=Dernière année négative
+project.report.workingcapital=Fonds de roulement
+project.report.workingcapital.sheetname=Fonds de roulement
+project.periodAvg=Durée moyenne du crédit
+project.periodAvg.help=La “durée moyenne du crédit” est un facteur correctif de la durée estimée du crédit. Puisque la durée estimée du crédit est basée sur le dernier mois de flux de trésorerie cumulé négatif, et que le montant estimé du fonds de roulement est le montant le plus élevé du flux de trésorerie cumulé négatif,  l’intérêt calculé sur ces deux paramètres est surestimé. Pour le corriger, RuralInvest utilise à la place la durée moyenne du crédit qui est basée sur le flux de trésorerie mensuel cumulé jusqu’à atteindre la durée du crédit estimée. Au lieu de générer une moyenne pondérée sur le fonds de roulement, le logiciel génère une moyenne pondérée de la durée du crédit. Le résultat est le même en termes d’intérêt généré.
+misc.moreDetails=Pour les détails, voir le rapport suivant
+
+# changed from previous versions
+projectBlock.chronology=Chronologie de production pour toutes les années
+project.workingCapital.how=Comment le fonds de roulement est-il estimé ?
+project.workingCapital.explain=Le fonds de roulement est déterminé par le flux de trésorerie mensuel. La valeur du crédit pour le fonds de roulement est le plus grand montant du flux cumulé négatif, alors que la durée du crédit (période de financement) est calculée pour inclure deux mois après le dernier mois avec solde négatif cumulé. Afin de prendre en compte plus justement les intérêts, un « système de pondération » est utilisé pour calculer une « durée moyenne du crédit », qui est utilisée dans le calcul de l’intérêt payé sur le fonds de roulement.
+project.period.help=Nombre de mois durant lesquels les coûts excèdent les revenus, plus deux mois (sans excéder une année)
+
 project.report.cashFlow.income.sales=Ventes
 
 
@@ -62,8 +78,6 @@ project.general.method.perYear.help=Avec “l’approche par année”, les coû
 project.general.method.perYear=Par année
 project.general.method.simplified.help=Avec “l’approche simplifiée”, les coûts généraux sont les mêmes pour chaque année du projet
 project.general.method.simplified=Simplifié
- 
-project.workingCapital.explain=Le besoin en fonds de roulement pour la première année est déterminé par le flux de trésorerie mensuel cumulé pour la première année. 
  
 # changed from previous versions
 # "Completed" as in "projects or profiles that have been completed", rather than "In progress"
@@ -192,8 +206,6 @@ import.excel.error.noWithout=Le projet sur lequel vous travaillez inclue un scen
 projectContribution.contributor.help=L’organisation donatrice (ONG, agence gouvernementale, projet, etc.)
 projectContribution.yearlyFlow.help=Revenus moins les coûts pour chaque annnée-projet  
 
-project.workingCapital.how=Comment est estimé le fonds de roulement pour la première année
- 
 project.report.wcCalculation=Calcul du besoin en fonds de roulement
 project.report.summaryTables=Tableaux résumés
  
@@ -234,7 +246,6 @@ project.recommendation.seeReports=Pour les résumés et rapports utiles aux fins
  
 # Changed from previous versions
 project.amtRequired.help=Le besoin en fonds de roulement requis est le montant nécessaire pour couvrir tous les dépenses opérationnelles jusqu’à ce que les revenus soient suffisants. Il est calculé automatiquement par Rural Invest.
-project.period.help=Nombre de mois durant lesquels les dépenses excèdent les revenus, plus deux mois (avec un maximum de douze mois).
 profile.report.title=Rapports
  
 ### RIV4.0
@@ -1183,7 +1194,6 @@ projectBlock.chronology.harvest=Récolte/vente
 projectBlock.chronology.help=Utiliser le calendrier pour indiquer les mois pendant lesquels il y aura une activité (donc des coûts), une récolte/vente et des paiements (donc des recettes) au cours de la première année.  Le calendrier commencera le mois sélectionné pour le début du projet (voir l'écran "Généralités"). Rappelez-vous que ce tableau ne s'applique qu'à la première année. PS dans le cas d'un bloc "sans projet" cette chronologie est indicative et n'est pas utilisée pour les calculs.
 projectBlock.chronology.payment=Paiement
 projectBlock.chronology.production=Production/activité
-projectBlock.chronology=Chronologie de la production pour la première année
 projectBlock.clone=Copier ce bloc
 projectBlock.cycleLength.help=Indiquer la durée du cycle de production. Le cycle correspond au temps nécessaire pour faire pousser une récolte, élever un animal ou réaliser un produit ; mais ne doit pas dépasser 12 mois. Si l'activité est continue, choisir pour cycle une période de temps qui permettra d'estimer facilement les dépenses et les recettes (par exemple le mois).
 projectBlock.cycleLength=Durée du cycle

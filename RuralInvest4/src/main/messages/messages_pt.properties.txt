@@ -372,10 +372,6 @@ import.excel.error.noWithout=O projecto no qual está a trabalhar distingue entr
 projectContribution.contributor.help=Organização doadora (ONG, associação, agência do governo)
 
 projectContribution.yearlyFlow.help=Receita menos custos totais para cada ano do projecto.
-
-project.workingCapital.how=Como é estimado o capital de giro para o primeiro ano?
-
-project.workingCapital.explain=O capital de giro necessário durante o primeiro ano é estimado a partir do fluxo de caixa mensal acumulado para o primeiro ano.
 project.report.wcCalculation=Cálculo do capital de giro
 
 project.report.summaryTables=Tabelas
@@ -443,9 +439,6 @@ project.recommendation.seeReports=Para resumos e relatórios úteis durante a av
 # Changed from previous versions
 
 project.amtRequired.help=A quantidade de capital de giro necessária é o valor que cobrirá todos os custos operativos até que as receitas acumuladas o possam fazer. É calculado automaticamente pelo RuralInvest.
-
-project.period.help=Número de meses nos quais os custos excedem as receitas mais dois meses (nunca excede um ano).
-
 profile.report.title=Relatórios
 
 
@@ -2375,9 +2368,6 @@ projectBlock.chronology.help=Utilize o calendário para indicar os meses durante
 projectBlock.chronology.payment=Recibos de pagamentos
 
 projectBlock.chronology.production=Produção/Actividade
-
-projectBlock.chronology=Cronologia da produção para o primeiro ano
-
 projectBlock.clone=Clonar este bloco
 
 projectBlock.cycleLength.help=Indique a duração do ciclo de produção. Este pode ser o tempo necessário para que uma cultura cresça, criar um animal ou produzir um item, mas não pode exceder 12 meses. Se a actividade é contínua, utilize uma unidade de tempo que seja apropriada para os custos e receitas.

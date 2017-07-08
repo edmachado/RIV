@@ -8,6 +8,15 @@ project.periodAvg=Wastani wa muda wa mkopo
 project.periodAvg.help="Wastani wa muda wa mkopo" ni kipengele cha marekebisho ya muda wa mkopo uliokadiriwa. Kwa kuwa muda uliokadiriwa wa mkopo unazingatia mwezi wa mwisho wenye salio jumlishi hasi la mtiririko wa fedha, na kiasi kadiriwa cha mtaji endeshaji ni kiasi hasi kikubwa zaidi cha mtiririko wa fedha, riba inayotafutwa kwa kutumia parameta hizo mbili imetiwa chumvi. Kurekebisha hili, tunatumia mbadala wastani wa muda wa mkopo ambao unazingatia mtririko wa fedha wa mwezi kwa kila mmweizi hadi tifikie muda wa mkopo wa kukadiria. Mbadala wa kuzalisha uzani wa wastani wa kiasi cha mtaji endeshaji, tunatengeneza uzani wa wastani wa muda wa mkopo – matokea ni sawa kwa kuangalia riba iliyozalishwa.
 misc.moreDetails=Kwa taarifa zaidi angalia ripoti ifuatayo:
 
+error.import.futureVersion=Wasifu wamradi au mradi unaleta iliundwa na toleo jipya la RuralInvest kuliko unanalotumia sasa. Tafadhali Pandisha daraja programu RuralInvest.
+error.profileNotFound.text=Wasifu wamradi au mradi unaoutazaamia haupo. Na inaweza ikawa imefutwa na mtumiaji mwingine tangu mwisho kutumika kwa RuralInvest. 
+error.profileNotFound.title= Wasfu wa mradi au mradi haukupatikana 
+manual.guide= Mwongozo wa mtumiaji wa programu
+misc.cancel=Katisha Katisha
+profile.clone=Clone umbo hili
+project.technology=Teknolojia itayo tumika
+projectBlock.chronology.deselectAll= kubatilisha chaguo kwa vyote.
+
 # changed from previous versions
 projectBlock.chronology= Wendo wa uzalishaji kwa miaka yote
 project.workingCapital.how=Jinsi mtaji endeshaji unakadiriwa?
