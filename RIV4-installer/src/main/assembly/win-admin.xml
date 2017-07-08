@@ -40,8 +40,8 @@
 		</file>
 		<file>
 			<source>${izpack.dir}/resources/av.riv</source>
-			<outputDirectory>/</outputDirectory>
-			<destName>.av.riv</destName>
+			<outputDirectory>lib</outputDirectory>
+			<destName>av.riv</destName>
 		</file>
 		<file>
 			<source>${izpack.dir}/jre/jre-8u66-windows-i586.exe</source>

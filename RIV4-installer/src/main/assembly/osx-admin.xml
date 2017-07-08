@@ -35,7 +35,7 @@
 		<file>
 			<source>${izpack.dir}/resources/av.riv</source>
 			<outputDirectory>lib</outputDirectory>
-			<destName>.av.riv</destName>
+			<destName>av.riv</destName>
 		</file>
 		<file>
 			<source>${izpack.dir}/jre/jre1.8.tbz</source>
