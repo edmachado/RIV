@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>RuralInvest software installation guide</title>
+<link rel="SHORTCUT ICON" href="style/riv.ico"/>
+<link rel="stylesheet" href="style/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+<script language="javascript" src="style/jquery-1.9.1.js" type="text/javascript"></script>
+<script language="javascript" src="style/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<style type="text/css">
+ <!--
+ * {padding:0;margin:0;}
+ body { background-color: #E7AE0F; }
+ div { margin: 20px 30px; }
+ p { 
+ 	margin-bottom:15px; 
+ 	font-size: 1em;
+ }
+ h1 { font-family: "Trebuchet MS","Lucida Grande",Arial,sans-serif; }
+ h2, p { font-family: Arial,Helvetica,sans-serif; }
+ #top img { padding:3px; margin-bottom:5px; background-color:#fff; }
+ #tabs { width:800px; margin:0 30px 30px 30px; }
+ #tabs div { padding:30px; background-color:#fff;}
+ #tabs div ul { margin-left:30px; }
+ #tabs ul { margin:0; }
+ #tabs a { color:#1C94C4; text-decoration:none; }
+ #tabs a:hover { text-decoration:underline; }
+ -->
+ </style>
+ <script>
+$(function() {
+	$("#tabs").tabs();
+});
+</script>
+</head>
+<body>
+
+<div id="top">
+	<img src="style/logo40.gif" border="0" />
+	<h1>RuralInvest software installation guide</h1>
+</div>
+
+<div>
+<h2>Welcome to RuralInvest</h2>
+<p>In order to install correctly please follow the instructions below.</p>
+
+<h2>Permissions and privileges</h2>
+<p>Root/administrator privileges are necessary for installing RuralInvest. If you do not have admin rights on your machine, please ask your administrator to run
+the installer. Note that after installation, only user-level privileges are necessary to use RuralInvest.</p>
+</div>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#winos"><span>Windows</span></a></li>
+		<li><a href="#macos"><span>MacOS</span></a></li>
+		<li><a href="#problems"><span>Common problems</span></a></li>
+	</ul>
+	<div id="winos">
+		<ol>
+		<li>
+		<p>Install RuralInvest by double-clicking the file "install-RuralInvest.jar".</p>
+		</li>
+		
+		<li>
+		<p>If the following message appears, it means that you need to install Java before continuing.
+		<br/><img src="style/java-no.png"/><br/><br/>
+		In that case, go to the "jre" folder and double-click "jre.exe" to install Java. Upon completion, you may be prompted to verify Java: it is not necessary to actually do so and you may close the window.
+		<br/><img src="style/java-verify.png"/>
+		</p>
+		<p>At this point, install RuralInvest by double-clicking the file "install-RuralInvest.jar" and proceed.</p>
+		</li>
+		
+		<li>
+		<p>If you see the below message, choose "Yes" to continue the installation.
+		<br/><img src="style/java-allow.png"/>
+		</p>
+		</li>
+		
+		<li>
+		<p>
+		You will then see the following window. Choose the most convenient language, click "OK", and follow the instructions. (The window may appear behind other windows that are already open. You may need to minimize or close other windows to see it.)
+		<br/><img src="style/riv-windows.png"/>
+		</p>
+		</li>
+		</ol>
+	</div>
+
+	<div id="macos">
+		<p>Install RuralInvest by double-clicking the file "Install". You will be prompted to confirm your username and password, or the username and password of the admin account.
+		<br/><img src="style/riv-mac-access.png"/></p>
+		
+		<p>After which, you will see the following window. It may take a minute, so please be patient. Then, simply choose the most convenient language, click "OK", and follow the instructions.
+		<br/><img src="style/riv-mac.png"/>
+		</p>
+	</div>
+	
+	<div id="problems">
+			
+	</div>
+</div>
+
+</body>
+</html>
