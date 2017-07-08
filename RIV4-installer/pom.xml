@@ -79,25 +79,25 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
-                    <execution>
-                        <id>make ftp index</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/distro-ftp</directory>
-                                    <filtering>true</filtering>
-                                    <includes>
-                                        <include>**/*.html</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
+<!--                     <execution> -->
+<!--                         <id>make ftp index</id> -->
+<!--                         <phase>generate-resources</phase> -->
+<!--                         <goals> -->
+<!--                             <goal>copy-resources</goal> -->
+<!--                         </goals> -->
+<!--                         <configuration> -->
+<!--                             <outputDirectory>${project.build.directory}</outputDirectory> -->
+<!--                             <resources> -->
+<!--                                 <resource> -->
+<!--                                     <directory>${basedir}/src/distro-ftp</directory> -->
+<!--                                     <filtering>true</filtering> -->
+<!--                                     <includes> -->
+<!--                                         <include>**/*.html</include> -->
+<!--                                     </includes> -->
+<!--                                 </resource> -->
+<!--                             </resources> -->
+<!--                         </configuration> -->
+<!--                     </execution> -->
                     <execution>
                         <id>prepare-cd</id>
                         <phase>generate-resources</phase>
@@ -249,7 +249,7 @@
                             <baseDir>${izpack.dir}</baseDir>
                             <installFile>${izpack.dir}/install.xml</installFile>
                             <outputDirectory>${cd}</outputDirectory>
-                            <finalName>install-RuralInvest</finalName>
+                            <finalName>riv</finalName>
                         </configuration>
                     </execution>
                 </executions>

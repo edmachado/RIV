@@ -14,7 +14,7 @@
 			<outputDirectory>/</outputDirectory>
 			<excludes>
 				<exclude>**/.gitignore</exclude>
-				<exclude>install-RuralInvest.jar</exclude>
+				<exclude>riv.jar</exclude>
 			</excludes>
 		</fileSet>
 		<fileSet>
@@ -29,13 +29,13 @@
 	</fileSets>
 	<files>
 		<file>
-			<source>${project.build.directory}/CD/install-RuralInvest.jar</source>
+			<source>${project.build.directory}/CD/riv.jar</source>
 			<outputDirectory>lib</outputDirectory>
-			<destName>riv.jar</destName>
 		</file>
 		<file>
 			<source>${izpack.dir}/resources/av.riv</source>
 			<outputDirectory>lib</outputDirectory>
+			<destName>.av.riv</destName>
 		</file>
 		<file>
 			<source>${izpack.dir}/jre/jre1.8.tbz</source>
