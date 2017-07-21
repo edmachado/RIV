@@ -538,6 +538,9 @@ UPDATE user SET owner=TRUE WHERE administrator=TRUE;
 	</version>
 	<version number="4.4">
 	<query>
+-- fix bug of ig generals and nig contributions past yr 1 in simple mode
+DELETE FROM project_item_per_year WHERE unit_num IS NULL;
+
 -- project block cycle lengths as decimals
 ALTER TABLE project_block ALTER COLUMN cycle_per_year DECIMAL(12,4);
 ALTER TABLE project_block ALTER COLUMN cycle_first_year DECIMAL(12,4);

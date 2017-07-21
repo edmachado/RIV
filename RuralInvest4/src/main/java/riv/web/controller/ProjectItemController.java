@@ -135,25 +135,29 @@ public class ProjectItemController {
 				if (p==null) { return null; }
 				pi = new ProjectItemPersonnel();
 				pi.setOrderBy(p.getPersonnels().size());
-				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
+				int d = p.isPerYearGeneralCosts() ? p.getDuration() : 1;
+				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(d);
 			} else if (type.equals("projectGeneralPersonnelWithout")) {
 				p = dataService.getProject(projectId, 8);
 				if (p==null) { return null; }
 				pi = new ProjectItemPersonnelWithout();
 				pi.setOrderBy(p.getPersonnelWithouts().size());
-				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
+				int d = p.isPerYearGeneralCosts() ? p.getDuration() : 1;
+				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(d);
 			} else if (type.equals("projectGeneralSupplies")) {
 				p = dataService.getProject(projectId, 8);
 				if (p==null) { return null; }
 				pi = new ProjectItemGeneral();
 				pi.setOrderBy(p.getGenerals().size());
-				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
+				int d = p.isPerYearGeneralCosts() ? p.getDuration() : 1;
+				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(d);
 			} else if (type.equals("projectGeneralSuppliesWithout")) {
 				p = dataService.getProject(projectId, 8);
 				if (p==null) { return null; }
 				pi = new ProjectItemGeneralWithout();
 				pi.setOrderBy(p.getGeneralWithouts().size());
-				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(p.getDuration());
+				int d = p.isPerYearGeneralCosts() ? p.getDuration() : 1;
+				((HasPerYearItems<ProjectItemGeneralPerYear>)pi).addYears(d);
 			} else if (type.equals("nongenLabour")) {
 				p = dataService.getProject(projectId, 8);
 				if (p==null) { return null; }
@@ -174,7 +178,8 @@ public class ProjectItemController {
 				if (p==null) { return null; }
 				pi = new ProjectItemContribution();
 				pi.setOrderBy(p.getContributions().size());
-				((HasPerYearItems<ProjectItemContributionPerYear>)pi).addYears(p.getDuration());
+				int d = p.isPerYearContributions() ? p.getDuration() : 1;
+				((HasPerYearItems<ProjectItemContributionPerYear>)pi).addYears(d);
 			}
 			pi.setProject(p);
 		}

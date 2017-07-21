@@ -218,6 +218,7 @@ public class FinanceMatrix {
 		// wc received in year 1 and paid when cumulative is positive
 		wcPeriod = lastNegMonth==0 ? 0 : (lastNegMonth+2) > project.getDuration()*12 ? project.getDuration()*12 : lastNegMonth+2; // month of highest negative +2 
 		int wcYear = ((Double)(Math.ceil(((double)wcPeriod)/12)-1)).intValue();
+		if (wcYear<0) { wcYear=0; }
 		wcValue = round(highestNeg*-1);
 		
 		// calculate average period
@@ -246,11 +247,13 @@ public class FinanceMatrix {
 		for (i=0;i<wcPeriod;i++) {
 			sum+=factor3[i];
 		}
-		wcPeriodAvg = round(sum/wcPeriod,2);
+		wcPeriodAvg = wcPeriod==0 ? wcPeriod : round(sum/wcPeriod,2);
 	
 		yearlyData.get(0).workingCapitalReceived=wcValue-project.getCapitalDonate()-project.getCapitalOwn();
 		yearlyData.get(wcYear).workingCapitalCapital=yearlyData.get(0).workingCapitalReceived;
-		yearlyData.get(wcYear).workingCapitalInterest=round(yearlyData.get(wcYear).workingCapitalCapital*wcPeriodAvg/12*((project.getCapitalInterest()-project.getInflationAnnual())*0.01));
+		if (wcPeriod>0) {
+			yearlyData.get(wcYear).workingCapitalInterest=round(yearlyData.get(wcYear).workingCapitalCapital*wcPeriodAvg/12*((project.getCapitalInterest()-project.getInflationAnnual())*0.01));
+		}
 	}
 	
 	private void addLoanAmortization(Project project) {
