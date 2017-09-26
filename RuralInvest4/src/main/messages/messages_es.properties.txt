@@ -8,6 +8,12 @@ project.periodAvg=Duración promedio del préstamo
 project.periodAvg.help=La “duración promedio del préstamo” es un factor de corrección de la duración estimada del préstamo. Ya que la duración estimada del préstamo está basada en el último mes de flujo de efectivo negativo, y el monto estimado de capital de trabajo es el mayor flujo de efectivo acumulado negativo, el interés calculado sobre esos dos parámetros es sobreestimado. Para corregir esto, utilizamos la duración promedio del préstamo, la cual está basada en el flujo de efectivo acumulativo mensual para cada mes, hasta que alcancemos la duración estimada del préstamo. En lugar de generar un promedio ponderado del monto de capital de trabajo, generamos un promedio ponderado de la duración del préstamo – el resultado es el mismo en términos de intereses devengados.
  
 misc.moreDetails=Para mayores detalles, ver el siguiente informe:
+
+error.import.futureVersion=El perfil o Proyecto que usted está importando fue creado con una version de RuralInvest más nueva de la que usted tiene. Le sugerimos que actualice su software de RuralInvest.
+error.profileNotFound.text=El perfil o Proyecto que usted busca no existe. Pudo haber sido eliminado por otro usuario después de su último acceso a RuralInvest.
+error.profileNotFound.title=Perfil o Proyecto no fue encontrado
+misc.cancel=Eliminar
+projectBlock.chronology.deselectAll=anular la selección de todo
  
 # changed from previous versions
 projectBlock.chronology=Cronología de producción para todos los años

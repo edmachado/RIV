@@ -8,6 +8,12 @@ project.periodAvg=Durée moyenne du crédit
 project.periodAvg.help=La “durée moyenne du crédit” est un facteur correctif de la durée estimée du crédit. Puisque la durée estimée du crédit est basée sur le dernier mois de flux de trésorerie cumulé négatif, et que le montant estimé du fonds de roulement est le montant le plus élevé du flux de trésorerie cumulé négatif,  l’intérêt calculé sur ces deux paramètres est surestimé. Pour le corriger, RuralInvest utilise à la place la durée moyenne du crédit qui est basée sur le flux de trésorerie mensuel cumulé jusqu’à atteindre la durée du crédit estimée. Au lieu de générer une moyenne pondérée sur le fonds de roulement, le logiciel génère une moyenne pondérée de la durée du crédit. Le résultat est le même en termes d’intérêt généré.
 misc.moreDetails=Pour les détails, voir le rapport suivant
 
+error.import.futureVersion= Le profil ou le projet que vous avez voulez importera été créé avec une version de RuralInvest plus récente que celle-ci. Actulisez votre logiciel.
+error.profileNotFound.text= Le profil ou le projet que vous cherchez n'existe pas. Il a pu être effacé par un autre utilisateur depuis la dernière fois que vous avez utilisé RuralInvest
+error.profileNotFound.title=Profil ou projet non trouvé 
+misc.cancel=Annuller
+projectBlock.chronology.deselectAll=Tout déselectionner
+
 # changed from previous versions
 projectBlock.chronology=Chronologie de production pour toutes les années
 project.workingCapital.how=Comment le fonds de roulement est-il estimé ?

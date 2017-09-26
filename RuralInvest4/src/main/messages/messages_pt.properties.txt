@@ -8,6 +8,12 @@ project.periodAvg=Duração media do empréstimo
 project.periodAvg.help=A "duração média do empréstimo" é um fator de correção da duração estimada do empréstimo. Uma vez que a duração estimada do empréstimo é baseada no último mês de fluxo de caixa cumulativo negativo e o montante estimado de capital de giro é o maior valor cumulativo do fluxo de caixa, o interesse calculado sobre esses dois parâmetros é superestimado. Para corrigir isso, utilizamos uma duração média do empréstimo, que é baseada no fluxo de caixa acumulado mensal de cada mês até atingir a duração estimada do empréstimo. Em vez de gerar uma média ponderada no valor do capital de giro, geramos uma média ponderada da duração do empréstimo - o resultado é o mesmo em termos de interesse gerado.
 misc.moreDetails=Para detaches osha o relatório seguinte: 
 
+error.import.futureVersion=O anteprojeto ou projeto que seleccionou para ser importado foi criado numa versão mais recente do RuralInvest do que a presente. Por favor actualize a sua versão.
+error.profileNotFound.text=O anteprojeto ou projeto que procura não existe. Poderá ter sido eliminado por outro utilizador deste a última vez que utilizou o RuralInvest.
+error.profileNotFound.title=Anteprojeto ou projeto não encontrado
+misc.cancel=Cancelar
+projectBlock.chronology.deselectAll=Retirar todas as selecções
+
 # changed from previous versions
 projectBlock.chronology=Produção cronológica para todos os anos
 project.workingCapital.how=Como está estimate o capital de giro?
