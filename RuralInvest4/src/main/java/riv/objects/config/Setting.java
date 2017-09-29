@@ -45,7 +45,7 @@ public class Setting implements java.io.Serializable {
 	@Transient
 	private byte[] userLogo; // for importing from older XML Serialization
 	@Column(name="LANG")
-	@Size(max=2)
+	@Size(max=5)
 	@NotEmpty
 	private String lang;
 	@Column(name="CURRENCY_NAME")

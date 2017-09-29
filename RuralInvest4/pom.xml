@@ -485,7 +485,10 @@
                                     <arg line=" -encoding UTF8 '${messages.dir}/messages_tr.properties.txt' '${messages.target.dir}/messages_tr.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
-                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_pt.properties.txt' '${messages.target.dir}/messages_pt.properties'" />
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_pt_BR.properties.txt' '${messages.target.dir}/messages_pt_BR.properties'" />
+                                </exec>
+                                <exec executable="${jdk.native2ascii}">
+                                    <arg line=" -encoding UTF8 '${messages.dir}/messages_pt_PT.properties.txt' '${messages.target.dir}/messages_pt_PT.properties'" />
                                 </exec>
                                 <exec executable="${jdk.native2ascii}">
                                     <arg line=" -encoding UTF8 '${messages.dir}/messages_ru.properties.txt' '${messages.target.dir}/messages_ru.properties'" />

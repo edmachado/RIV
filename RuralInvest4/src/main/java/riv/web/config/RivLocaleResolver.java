@@ -29,10 +29,19 @@ public class RivLocaleResolver implements LocaleResolver {
 			} else {
 				lang="en";
 			}
-			request.setAttribute("pageLocale", new Locale(lang));
+			request.setAttribute("pageLocale", getLocaleFromLangString(lang));
 			request.setAttribute("lang", lang);
 		}
 		return (Locale)request.getAttribute("pageLocale");
+	}
+	
+	private Locale getLocaleFromLangString(String lang) {
+		if (lang.contains("-")) {
+			String[] langRegion = lang.split("-");
+			return new Locale(langRegion[0],langRegion[1]);
+		} else {
+			return new Locale(lang);
+		}
 	}
 
 	public void setLocale(HttpServletRequest request, HttpServletResponse response,
