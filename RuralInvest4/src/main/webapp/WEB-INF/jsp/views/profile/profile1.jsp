@@ -178,14 +178,14 @@ $( "#radioShared" ).buttonset();
 					</div>
 				</c:if>
 			</fieldset>
-<%-- 			<c:if test="${empty profile.profileId}"> --%>
-<!-- 				<fieldset> -->
-<%-- 					<legend><spring:message code="project.quickAnalysis"/></legend> --%>
-<!-- 					<div class="dataentry"> -->
-<%-- 						<input type="checkbox" name="quickAnalysis" value="true"> <spring:message code="project.quickAnalysis"/>  --%>
-<!-- 					</div> -->
-<!-- 				</fieldset> -->
-<%-- 			</c:if> --%>
+			<c:if test="${empty profile.profileId}">
+				<fieldset>
+					<legend><spring:message code="project.quickAnalysis"/></legend>
+					<div class="dataentry">
+						<input type="checkbox" name="quickAnalysis" value="true"> <spring:message code="project.quickAnalysis"/> 
+					</div>
+				</fieldset>
+			</c:if>
 		
 		</div> <!-- end right div -->
 		<br style="clear:both;"/>
