@@ -243,11 +243,13 @@ public class UploadController implements Serializable {
 				MultipartFile file=request.getFile(itr.next());
 				ByteArrayInputStream bais= new ByteArrayInputStream(file.getBytes());
 				ZipEntry entry;
-				//TODO confirm is a zip file
+				boolean isEmpty = true;
+
 				ZipInputStream zis = new ZipInputStream(bais);
 				
 				// get files
 				while ((entry = zis.getNextEntry()) != null) {
+					isEmpty=false;
 					File f = File.createTempFile(entry.getName(), "riv");
 					os=new FileOutputStream(f);
 					IOUtils.copy(zis, os);
@@ -261,6 +263,18 @@ public class UploadController implements Serializable {
 				}
 				zis.close();
 				zis=null;
+				
+				if (isEmpty) { // if no files check if it's a plain (non-zip) settings
+					getDecoded(file.getBytes(), "config");
+					if (decoded instanceof RivConfig ) { // it's a settings file
+						File f = File.createTempFile("foo", "riv");
+						f.createNewFile();
+						FileOutputStream fos = new FileOutputStream(f);
+						fos.write(file.getBytes());
+					    fos.close(); 
+						settings = f;	
+					}
+				}
 				
 				// confirm that settings are correct before deleting current data
 				if (settings==null || getDecoded(FileUtils.readFileToByteArray(settings), "config")!=null) {
@@ -339,28 +353,6 @@ public class UploadController implements Serializable {
 		boolean complete = allowComplete!=null && allowComplete==true;
 		return processUpload(mpf.getBytes(), type, model, user, complete, locale);
 	}
-	
-
-	
-//	@Override
-//	public @ResponseBody
-//	ModelAndView resolveException(HttpServletRequest arg0,
-//	        HttpServletResponse arg1, Object arg2, Exception exception) {
-//	    ModelAndView modelview = new ModelAndView();
-//	        String errorMessage = "";
-//	        if (exception instanceof MaxUploadSizeExceededException) {
-////	            errorMessage =  String.format("El tamaño del fichero debe ser menor de  %s", UnitConverter.convertBytesToStringRepresentation(((MaxUploadSizeExceededException) exception)
-////	                    .getMaxUploadSize()));
-//
-//	        } else {
-//	            errorMessage = "Unexpected error: " + exception.getMessage();
-//	        }
-////	        saveError(arg0, errorMessage);
-//	        modelview = new ModelAndView();
-////	        modelview.setViewName("redirect:" + getRedirectUrl());
-//	    }
-//	    return modelview;
-//	}
 	
 	private String getDecoded(byte[] bytes, String type) {
 		String result=null;
