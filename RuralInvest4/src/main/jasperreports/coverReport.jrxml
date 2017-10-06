@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverReport" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="coverReport" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="20" bottomMargin="20" uuid="62888092-c698-43bb-bd0a-2151f93f49f6">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<reportFont name="Arial_Normal" isDefault="true" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Bold" isDefault="false" fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Italic" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Arial_Normal" isDefault="true" fontName="Arial" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Arial_Bold" fontName="Arial" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Arial_Italic" fontName="Arial" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="header" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="imgPath" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="rivConfig" class="riv.web.config.RivConfig" isForPrompting="false"/>
-	
 	<parameter name="proType" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="incomeGen" class="java.lang.Boolean" isForPrompting="false"/>
 	<parameter name="reportname" class="java.lang.String" isForPrompting="false"/>
@@ -28,6 +30,7 @@
 	<parameter name="reportnameK" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="reportnameL" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="projectName" class="java.lang.String"/>
+	<parameter name="reportnameM" class="java.lang.String" isForPrompting="false"/>
 	<field name="incomeGen" class="java.lang.Boolean"/>
 	<group name="dummy_group">
 		<groupExpression><![CDATA[$V{REPORT_COUNT}]]></groupExpression>
@@ -44,7 +47,7 @@
 	<title>
 		<band height="36" splitType="Stretch">
 			<subreport isUsingCache="true">
-				<reportElement key="subreport-1" mode="Opaque" x="1" y="5" width="539" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="48e284ed-5122-4dfc-a452-61a7f9db277d" key="subreport-1" mode="Opaque" x="1" y="5" width="539" height="31" forecolor="#000000" backcolor="#FFFFFF"/>
 				<subreportParameter name="rivConfig">
 					<subreportParameterExpression><![CDATA[$P{rivConfig}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -54,12 +57,9 @@
 				<subreportParameter name="reportTitle">
 					<subreportParameterExpression><![CDATA[""]]></subreportParameterExpression>
 				</subreportParameter>
-				
-				
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[$P{proType}]]></subreportParameterExpression>
 				</subreportParameter>
-				
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -67,7 +67,7 @@
 					<subreportParameterExpression><![CDATA[($F{incomeGen}.booleanValue()) ? $P{imgPath}+"/dotigpf.gif" : $P{imgPath}+"/nig.gif"]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{header}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{header}]]></subreportExpression>
 			</subreport>
 		</band>
 	</title>
@@ -77,105 +77,112 @@
 	<detail>
 		<band height="583" splitType="Stretch">
 			<textField>
-				<reportElement x="1" y="10" width="536" height="20" forecolor="#000000"/>
+				<reportElement uuid="789ac8ab-707e-47da-80a3-8ef5d89fa7f2" style="Arial_Bold" x="1" y="10" width="536" height="20" forecolor="#000000"/>
 				<textElement textAlignment="Center">
-					<font reportFont="Arial_Bold" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportname}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="80" width="395" height="20"/>
+				<reportElement uuid="c37be0a5-5cdb-43bd-ba2d-432c588a36c5" style="Arial_Normal" x="142" y="80" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="100" width="395" height="20"/>
+				<reportElement uuid="8809c4ff-4630-4e5a-b47e-8084b0287bab" style="Arial_Normal" x="142" y="100" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameB}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameB}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="120" width="395" height="20"/>
+				<reportElement uuid="1f1478fa-404b-40f6-bc51-fb5ff1cb1cb8" style="Arial_Normal" x="142" y="120" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameC}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameC}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="140" width="395" height="20"/>
+				<reportElement uuid="162960c9-e44b-44da-922a-058a146edd92" style="Arial_Normal" x="142" y="140" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameD}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameD}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="160" width="395" height="20"/>
+				<reportElement uuid="3c8799fb-ebc3-43f4-8e62-3d3e54b0630d" style="Arial_Normal" x="142" y="160" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="180" width="395" height="20"/>
+				<reportElement uuid="f90f2203-d2d1-4ccd-89d4-62fe21d638ad" style="Arial_Normal" x="142" y="180" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameF}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameF}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="200" width="395" height="20"/>
+				<reportElement uuid="ff1b2a04-618f-47df-bd12-5b9e7206fd98" style="Arial_Normal" x="142" y="200" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameG}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameG}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="220" width="395" height="20"/>
+				<reportElement uuid="1505cdfd-2b7d-48d1-a48e-a961649ca926" style="Arial_Normal" x="142" y="220" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameH}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameH}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="240" width="395" height="20"/>
+				<reportElement uuid="eedb6a3c-0372-417b-ae70-f3cbfc6ee5fc" style="Arial_Normal" x="142" y="240" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameI}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="260" width="395" height="20"/>
+				<reportElement uuid="0226756b-dbfa-4a4c-b6c5-3670ae43950b" style="Arial_Normal" x="142" y="260" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameJ}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameJ}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="280" width="395" height="20"/>
+				<reportElement uuid="f2c83168-9456-4dd6-a665-1156b3fd339a" style="Arial_Normal" x="142" y="280" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameK}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameK}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="300" width="395" height="20"/>
+				<reportElement uuid="109f8890-2163-4276-89bc-24b73df13499" style="Arial_Normal" x="142" y="300" width="395" height="20"/>
 				<textElement>
-					<font reportFont="Arial_Normal" isBold="false"/>
+					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{reportnameL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{reportnameL}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="1" y="0" width="538" height="583" forecolor="#CCCCCC"/>
+				<reportElement uuid="3243a1be-93ad-418a-8316-875d3f856f82" mode="Transparent" x="1" y="0" width="538" height="583" forecolor="#CCCCCC"/>
 			</rectangle>
 			<textField>
-				<reportElement x="1" y="38" width="536" height="20"/>
+				<reportElement uuid="2f1c5146-a030-4ec9-8129-4c888e94977d" style="Arial_Bold" x="1" y="38" width="536" height="20"/>
 				<textElement textAlignment="Center">
-					<font reportFont="Arial_Bold" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{projectName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{projectName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="53596daa-71a9-4956-a694-b3ac6b29d369" style="Arial_Normal" x="142" y="320" width="395" height="20"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{reportnameM}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

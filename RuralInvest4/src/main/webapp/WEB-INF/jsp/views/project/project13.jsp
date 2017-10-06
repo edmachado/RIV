@@ -81,6 +81,11 @@ $(function() {
 				<spring:message code="project.report.cashFlowFirst"/>
 			</li>
 			<li>
+				<a href="../../report/${project.projectId}/projectAmortization.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
+				<a id="xls_cash_flow" href="../../report/${project.projectId}/projectAmortization.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a> - 
+				<spring:message code="project.report.amortization.title"/>
+			</li>
+			<li>
 				<a href="../../report/${project.projectId}/projectCashFlow.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
 				<a id="xls_cash_flow" href="../../report/${project.projectId}/projectCashFlow.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a> - 
 				<spring:message code="project.report.cashFlow"/>

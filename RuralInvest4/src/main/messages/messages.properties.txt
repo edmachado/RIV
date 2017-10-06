@@ -3,7 +3,7 @@ project.loan.paymentsPerYear=Payments per year
 project.loan.paymentsPerYear.help=...
 project.loan.periods=payment period(s)
 project.loan.perPeriod=per payment period
-project.report.amortization.title=Amortization loan
+project.report.amortization.title=Loan amortization
 project.report.amortization.period=Period
 
 project.report.amortization.total=Total payment

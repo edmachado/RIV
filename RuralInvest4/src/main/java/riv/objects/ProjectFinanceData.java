@@ -270,16 +270,4 @@ public class ProjectFinanceData implements java.io.Serializable{
 	public double getLoanReceived() {
 		return loanReceived;
 	}
-//	public double getCumulativeBeforeDonation() {
-//		return cumulativeBeforeDonation;
-//	}
-//	public void setCumulativeBeforeDonation(double cumulativeBeforeDonation) {
-//		this.cumulativeBeforeDonation = cumulativeBeforeDonation;
-//	}
-//	public double getCumulateiveAfterDonation() {
-//		return cumulateiveAfterDonation;
-//	}
-//	public void setCumulateiveAfterDonation(double cumulateiveAfterDonation) {
-//		this.cumulateiveAfterDonation = cumulateiveAfterDonation;
-//	}
 }

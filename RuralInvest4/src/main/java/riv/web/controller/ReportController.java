@@ -154,6 +154,18 @@ public class ReportController {
 		reportCreator.export(response, report);
 	}
 	
+	@RequestMapping(value="{id}/projectAmortization.pdf", method=RequestMethod.GET)
+	public void amortization(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+		Project p = dataService.getProject(id, -1);
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
+		ReportWrapper loan1 = reportCreator.projectAmortization(p, 0, matrix, true);
+		ReportWrapper loan2 = reportCreator.projectAmortization(p, loan1.getJp().getPages().size(), matrix, false);
+		ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+		reports.add(loan1);
+		reports.add(loan2);
+		concatReports(reports, response, "amortization.pdf");
+	}
+	
 	@RequestMapping(value="{id}/projectCashFlow.pdf", method=RequestMethod.GET)
 	public void projectCashFlow(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);

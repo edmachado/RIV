@@ -355,6 +355,15 @@ public class PdfReportCreator {
 				page+=cffWithout.getJp().getPages().size();
 				reports.add(cffWithout);
 			}
+			
+			ReportWrapper loan1 = projectAmortization(project, page, matrix, true);
+			page+=loan1.getJp().getPages().size();
+			reports.add(loan1);
+			ReportWrapper loan2 = projectAmortization(project, page, matrix, false);
+			page+=loan2.getJp().getPages().size();
+			reports.add(loan2);
+			
+			
 			ReportWrapper cf = projectCashFlow(project, page, matrix, false);
 			page=page+cf.getJp().getPages().size();
 			reports.add(cf);
@@ -401,9 +410,10 @@ public class PdfReportCreator {
 			report.getParams().put("reportnameG", "G: "+translate("project.report.blockDetail"));
 			report.getParams().put("reportnameH", "H: "+translate("project.report.parameters"));
 			report.getParams().put("reportnameI", "I: "+translate("project.report.cashFlowFirst"));
-			report.getParams().put("reportnameJ", "J: "+translate("project.report.cashFlow"));
-			report.getParams().put("reportnameK", "K: "+translate("project.report.profitability"));
-			report.getParams().put("reportnameL", "L: "+translate("project.report.recommendation"));
+			report.getParams().put("reportnameJ", "J: "+translate("project.report.amortization.title"));
+			report.getParams().put("reportnameK", "K: "+translate("project.report.cashFlow"));
+			report.getParams().put("reportnameL", "L: "+translate("project.report.profitability"));
+			report.getParams().put("reportnameM", "M: "+translate("project.report.recommendation"));
 			report.getParams().put("proType", translate("project.incomeGen"));
 		} else {
 			report.getParams().put("reportnameA", "A: "+translate("project.report.summary"));
@@ -469,7 +479,7 @@ public class PdfReportCreator {
 		} else { // incremental
 			title=translate("project.report.profitability") + " "+translate("project.incremental");
 		}
-		report.getParams().put("reportname", "K: "+translate("project.report.profitability"));
+		report.getParams().put("reportname", "M: "+translate("project.report.profitability"));
 		report.getParams().put("title", title);
 		
 		runReport(report);
@@ -521,6 +531,22 @@ public class PdfReportCreator {
 		return report;
 	}
 	
+	public ReportWrapper projectAmortization(Project project, int startPage, FinanceMatrix matrix, boolean loan1) {
+		ReportWrapper report = new ReportWrapper("/reports/project/projectAmortization.jasper", true, loan1 ? matrix.getLoan1() : matrix.getLoan2(), "projectAmortization.pdf", startPage);
+		
+		report.getParams().put("projectName", project.getProjectName());
+		report.getParams().put("incomeGen", project.getIncomeGen());
+		report.getParams().put("isLoan1", loan1);
+		report.getParams().put("periodsPerYear", loan1 ? project.getLoan1PaymentsPerYear() : project.getLoan2PaymentsPerYear());
+		
+		report.getParams().put("title",translate("project.report.amortization.title") + ": " + (loan1 ? translate("project.loan1") : translate("project.loan2")));
+		report.getParams().put("reportname", "J: "+translate("project.report.amortization.title"));
+		
+		runReport(report);
+		return report;
+		
+	}
+	
 	public ReportWrapper projectCashFlow(Project project, int startPage, FinanceMatrix matrix, boolean without) {
 		ReportWrapper report = new ReportWrapper(without ? "/reports/project/projectCashFlowWithout.jasper" : "/reports/project/projectCashFlow.jasper", true, matrix.getYearlyData(), "projectCashFlow.pdf", startPage);
 		
@@ -538,7 +564,7 @@ public class PdfReportCreator {
 			title=translate("project.report.cashFlow") + " "+translate("project.without");
 		}
 		report.getParams().put("title", title);
-		report.getParams().put("reportname", "J: "+translate("project.report.cashFlow"));
+		report.getParams().put("reportname", "K: "+translate("project.report.cashFlow"));
 		
 		runReport(report);
 		return report;

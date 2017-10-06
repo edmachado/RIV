@@ -29,6 +29,8 @@ public class FinanceMatrix {
 	static final Logger LOG = LoggerFactory.getLogger(FinanceMatrix.class);
 	
 	List<ProjectFinanceData> yearlyData;
+	private List<Amortization> loan1;
+	private List<Amortization> loan2;
 	ProjectMonthsInYear[] firstYearData;
 	double npvWithoutDonation;
 	double npvWithDonation;
@@ -93,6 +95,14 @@ public class FinanceMatrix {
 		return firstYearData;
 	}
 	
+	public List<Amortization> getLoan1() {
+		return loan1;
+	}
+
+	public List<Amortization> getLoan2() {
+		return loan2;
+	}
+
 	public enum ProjectScenario {
 		With(0), Without(1), Incremental(2);
 		
@@ -256,47 +266,116 @@ public class FinanceMatrix {
 		}
 	}
 	
+	public class Amortization {
+		private int year;
+		private int period;
+		private double capital;
+		private double interest;
+		
+		public Amortization(int year, int period) {
+			this.year=year; this.period=period;
+		}
+		
+		public int getYear() { return year; }
+		public int getPeriod() { return period; }
+		
+		
+		
+		public double getTotal() {
+			return capital+interest;
+		}
+
+		public double getCapital() {
+			return capital;
+		}
+
+		public void setCapital(double capital) {
+			this.capital = capital;
+		}
+
+		public double getInterest() {
+			return interest;
+		}
+
+		public void setInterest(double interest) {
+			this.interest = interest;
+		}
+	}
+	
 	private void addLoanAmortization(Project project) {
 		double loan1amt = project.getInvestmentTotal()-project.getLoan2Amt();
-		double loan1interest=(project.getLoan1Interest()-project.getInflationAnnual())*.01;
-		double loan2interest=(project.getLoan2Interest()-project.getInflationAnnual())*.01;
+		double loan1interest=(project.getLoan1Interest()-project.getInflationAnnual())/project.getLoan1PaymentsPerYear()*.01;
+		double loan2interest=(project.getLoan2Interest()-project.getInflationAnnual())/project.getLoan2PaymentsPerYear()*.01;
+		
 		// LOAN 1
+		loan1 = new ArrayList<Amortization>(project.getDuration()*project.getLoan1PaymentsPerYear());
+		for (int i=0; i<project.getDuration(); i++) {
+			for (int x=0; x<project.getLoan1PaymentsPerYear(); x++) {
+				getLoan1().add(new Amortization(i+1, i*project.getLoan1PaymentsPerYear()+x+1));
+			}
+		}
+		
 		// calculate accumulation of interest during interest grace period
 		// that is: increase amount of loan principle
-		loan1amt = loan1amt*Math.pow(1+loan1interest,project.getLoan1GraceInterest());
+		loan1amt = loan1amt*Math.pow(1+loan1interest,project.getLoan1GraceInterest()*project.getLoan1PaymentsPerYear());
 		
 		// calculate interest during capital grace period
 		if (project.getLoan1GraceInterest()<project.getLoan1GraceCapital()) {
-			for (int i=project.getLoan1GraceInterest();i<project.getLoan1GraceCapital();i++) {
-				yearlyData.get(i).loan1interest=loan1amt*loan1interest;
+			for (int i=project.getLoan1GraceInterest()*project.getLoan1PaymentsPerYear();i<project.getLoan1GraceCapital()*project.getLoan1PaymentsPerYear();i++) {
+				getLoan1().get(i).setInterest(loan1amt*loan1interest);
 			}
 		}
+		
 		// calculate interest and capital payments from first year after capital grace period ends
-		for (int i=0;i<project.getLoan1Duration()-project.getLoan1GraceCapital();i++) {
-			double[] payments = payments(loan1interest, (double)i+1, (double)project.getLoan1Duration()-project.getLoan1GraceCapital(), loan1amt, 0.0);
-			int year=project.getLoan1GraceCapital()+i;
-			yearlyData.get(year).loan1capital=payments[0];
-			yearlyData.get(year).loan1interest=payments[1];
+		for (int i=0;i<project.getLoan1Duration()*project.getLoan1PaymentsPerYear()-project.getLoan1GraceCapital()*project.getLoan1PaymentsPerYear();i++) {
+			double[] payments = payments(loan1interest, (double)i+1, (double)project.getLoan1Duration()*project.getLoan1PaymentsPerYear()-project.getLoan1GraceCapital()*project.getLoan1PaymentsPerYear(), loan1amt, 0.0);
+			int period=project.getLoan1GraceCapital()*project.getLoan1PaymentsPerYear()+i;
+			getLoan1().get(period).setCapital(payments[0]);
+			getLoan1().get(period).setInterest(payments[1]);
 		}
+		
+		// aggregate by year
+		for (int i=0; i<project.getDuration(); i++) {
+			for (int x=0; x<project.getLoan1PaymentsPerYear(); x++) {
+				yearlyData.get(i).loan1capital+=getLoan1().get(i*project.getLoan1PaymentsPerYear()+x).getCapital();
+				yearlyData.get(i).loan1interest+=getLoan1().get(i*project.getLoan1PaymentsPerYear()+x).getInterest();
+			}
+		}
+		
 		// LOAN 2
+		loan2 = new ArrayList<Amortization>(project.getDuration()*project.getLoan2PaymentsPerYear());
+		for (int i=0; i<project.getDuration(); i++) {
+			for (int x=0; x<project.getLoan2PaymentsPerYear(); x++) {
+				getLoan2().add(new Amortization(i+1, i*project.getLoan2PaymentsPerYear()+x+1));
+			}
+		}
+		
 		// calculate accumulation of interest during interest grace period
 		// that is: increase amount of loan principle
-		double loan2amt = project.getLoan2Amt()*Math.pow(1+loan2interest,project.getLoan2GraceInterest());
+		double loan2amt = project.getLoan2Amt()*Math.pow(1+loan2interest,project.getLoan2GraceInterest()*project.getLoan2PaymentsPerYear());
 		
 		// calculate interest during capital grace period
 		if (project.getLoan2GraceInterest()<project.getLoan2GraceCapital()) {
-			for (int i=project.getLoan2GraceInterest();i<project.getLoan2GraceCapital();i++) {
-				int year = i+project.getLoan2InitPeriod()-1;
-				yearlyData.get(year).loan2interest=loan2amt*loan2interest;
+			for (int i=project.getLoan2GraceInterest()*project.getLoan2PaymentsPerYear();i<project.getLoan2GraceCapital()*project.getLoan2PaymentsPerYear();i++) {
+				getLoan2().get(i-1+project.getLoan2InitPeriod()*project.getLoan2PaymentsPerYear())
+					.setInterest(loan2amt*loan2interest);
 			}
 		}
 		// calculate interest and capital payments from first year after capital grace period ends
-		for (int i=0;i<project.getLoan2Duration()-project.getLoan2GraceCapital();i++) {
-			int year = project.getLoan2GraceCapital()+i-1+project.getLoan2InitPeriod();
-				if (year<=yearlyData.size()) { //if (yearlyData.size()<year) { 
-				double[] payments = payments(loan2interest, (double)i+1, (double)project.getLoan2Duration()-project.getLoan2GraceCapital(), loan2amt, 0.0);
-				yearlyData.get(year).loan2capital=payments[0];
-				yearlyData.get(year).loan2interest=payments[1];
+		for (int i=0;i<project.getLoan2Duration()*project.getLoan2PaymentsPerYear()-project.getLoan2GraceCapital()*project.getLoan2PaymentsPerYear();i++) {
+			int period = (project.getLoan2GraceCapital()-1)*project.getLoan2PaymentsPerYear()+i+project.getLoan2InitPeriod()*project.getLoan2PaymentsPerYear();
+			if (period<=getLoan2().size()) { 
+				double[] payments = payments(loan2interest, (double)i+1, (double)project.getLoan2Duration()*project.getLoan2PaymentsPerYear()-project.getLoan2GraceCapital()*project.getLoan2PaymentsPerYear(), loan2amt, 0.0);
+				getLoan2().get(period).setCapital(payments[0]);
+				getLoan2().get(period).setInterest(payments[1]);
+			}
+		}
+		
+		// aggregate by year
+		for (int i=0; i<project.getDuration(); i++) {
+			for (int x=0; x<project.getLoan2PaymentsPerYear(); x++) {
+				yearlyData.get(i).loan2capital+=getLoan2().get(i*project.getLoan2PaymentsPerYear()+x).getCapital();
+				yearlyData.get(i).loan2interest+=getLoan2().get(i*project.getLoan2PaymentsPerYear()+x).getInterest();
 			}
 		}
 	}
