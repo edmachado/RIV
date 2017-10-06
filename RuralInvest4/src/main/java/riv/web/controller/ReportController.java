@@ -155,7 +155,7 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value="{id}/projectAmortization.pdf", method=RequestMethod.GET)
-	public void amortization(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+	public void projectAmortization(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ReportWrapper loan1 = reportCreator.projectAmortization(p, 0, matrix, true);
@@ -163,7 +163,7 @@ public class ReportController {
 		ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
 		reports.add(loan1);
 		reports.add(loan2);
-		concatReports(reports, response, "amortization.pdf");
+		concatReports(reports, response, "projectAmortization.pdf");
 	}
 	
 	@RequestMapping(value="{id}/projectCashFlow.pdf", method=RequestMethod.GET)

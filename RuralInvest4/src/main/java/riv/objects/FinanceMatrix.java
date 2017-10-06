@@ -357,7 +357,7 @@ public class FinanceMatrix {
 		// calculate interest during capital grace period
 		if (project.getLoan2GraceInterest()<project.getLoan2GraceCapital()) {
 			for (int i=project.getLoan2GraceInterest()*project.getLoan2PaymentsPerYear();i<project.getLoan2GraceCapital()*project.getLoan2PaymentsPerYear();i++) {
-				getLoan2().get(i-1+project.getLoan2InitPeriod()*project.getLoan2PaymentsPerYear())
+				getLoan2().get(i+(project.getLoan2InitPeriod()-1)*project.getLoan2PaymentsPerYear())
 					.setInterest(loan2amt*loan2interest);
 			}
 		}
