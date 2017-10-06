@@ -249,6 +249,25 @@ public class ExcelReportController {
 			report.getWorkbook().dispose();
 		}
 	}
+	
+	@RequestMapping(value = "{id}/projectAmortization.xlsx", method = RequestMethod.GET)
+	public void projectAmortization(@PathVariable int id, HttpServletResponse response) throws IOException {
+		Project p = dataService.getProject(id, -1);
+		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
+		ExcelWrapper report = ewb.create();
+		try {
+			ewb.projectAmortization(report, p, matrix);
+			response.setHeader("Content-disposition",
+					"attachment; filename=projectAmortization.xlsx");
+			report.getWorkbook().write(response.getOutputStream());
+		} catch (IOException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			report.getWorkbook().dispose();
+		}
+	}
 
 	@RequestMapping(value = "{id}/projectCashFlow.xlsx", method = RequestMethod.GET)
 	public void projectCashFlow(@PathVariable int id,
@@ -400,6 +419,8 @@ public class ExcelReportController {
 				if (project.isWithWithout()) {
 					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), true);
 				}
+				
+				ewb.projectAmortization(report, project, matrix);
 				
 				ewb.projectCashFlow(report, project, matrix, false);
 				if (project.isWithWithout()) {
