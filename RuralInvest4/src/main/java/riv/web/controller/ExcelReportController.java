@@ -256,7 +256,8 @@ public class ExcelReportController {
 		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ExcelWrapper report = ewb.create();
 		try {
-			ewb.projectAmortization(report, p, matrix);
+			ewb.projectAmortization(report, p, matrix, true);
+			ewb.projectAmortization(report, p, matrix, false);
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectAmortization.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
@@ -420,7 +421,8 @@ public class ExcelReportController {
 					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), true);
 				}
 				
-				ewb.projectAmortization(report, project, matrix);
+				ewb.projectAmortization(report, project, matrix, true);
+				ewb.projectAmortization(report, project, matrix, false);
 				
 				ewb.projectCashFlow(report, project, matrix, false);
 				if (project.isWithWithout()) {

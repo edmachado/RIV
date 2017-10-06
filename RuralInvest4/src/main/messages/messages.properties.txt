@@ -1,3 +1,32 @@
+## RIV 4.4 BIS
+project.loan.paymentsPerYear=Payments per year
+project.loan.paymentsPerYear.help=...
+project.loan.periods=payment period(s)
+project.loan.perPeriod=per payment period
+project.report.amortization.title=Amortization loan
+project.report.amortization.period=Period
+
+project.report.amortization.total=Total payment
+project.report.amortization.capital=Capital payment
+project.report.amortization.interest=Interest payment
+project.report.amortization.capitalDuringGrace=Initial capital when grace on interest
+project.report.amortization.interestDuringGrace=Interest during grace for interest
+project.report.amortization.interestDuringGraceCapital=Interest when grace on capital
+
+# changed from earlier version
+project.loan.interest=Interest rate (%)
+
+# removed from earlier version
+project.report.cashFlow.loan1.total=
+project.report.cashFlow.loan1.capitalDuringGrace=
+project.report.cashFlow.loan1.interestDuringGrace=
+project.report.cashFlow.loan1.interestDuringGraceCapital=
+project.report.cashFlow.loan2.total=
+project.report.cashFlow.loan2.capitalDuringGrace=
+project.report.cashFlow.loan2.interestDuringGrace=
+project.report.cashFlow.loan2.interestDuringGraceCapital=
+
+
 ## RIV 4.4.0
 project.report.profitability.payback=Payback (years)
 project.report.profitability.cumulative=Cumulative
@@ -318,14 +347,6 @@ import.generic.info=This project or profile has been converted to USD and will b
 import.generic.confirm=Please confirm the exchange rate from USD:
 project.report.cashFlow.loanRecieved=Loan(s) received
 project.report.cashFlow.invest=Investment
-project.report.cashFlow.loan1.total=Primary total payment
-project.report.cashFlow.loan1.capitalDuringGrace=Primary initial capital when grace on interest
-project.report.cashFlow.loan1.interestDuringGrace=Primary interest during grace for interest
-project.report.cashFlow.loan1.interestDuringGraceCapital=Primary interest when grace on capital
-project.report.cashFlow.loan2.total=Secondary total payment
-project.report.cashFlow.loan2.capitalDuringGrace=Secondary initial capital when grace on interest
-project.report.cashFlow.loan2.interestDuringGrace=Secondary interest during grace for interest
-project.report.cashFlow.loan2.interestDuringGraceCapital=Secondary interest when grace on capital
 
 project.report.cashFlow.financing=Financing payments
 
@@ -946,7 +967,6 @@ project.loan.graceCapital=Grace period - capital
 project.loan.graceInterest.help=The period of the loan (in years) during which no interest payments are made. All deferred interest is added to the loan amount, so the total amount to be paid will increase, and have to be repaid over a shorter time period (loan period less grace period)
 project.loan.graceInterest=Grace period - interest
 project.loan.interest.help=The interest rate applied to primary loans will be specified by the institution proving the credit funds. Do not enter a rate that is different from this
-project.loan.interest=Annual interest rate
 project.loan1.help=The primary loan will often be the only loan financing received by a project
 project.loan1=Primary loan
 project.loan1Duration=Loan duration

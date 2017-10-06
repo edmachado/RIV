@@ -1882,30 +1882,21 @@ public class ExcelWorksheetBuilder {
 		return rowStart+titles.length+1;
 	}
 	
-	public Sheet projectAmortization(ExcelWrapper report, Project project, FinanceMatrix matrix) {
-		// TEST
-		project.setPaymentsPerYear(2);
-		
+	public Sheet projectAmortization(ExcelWrapper report, Project project, FinanceMatrix matrix, boolean loan1) {
 		// helper links to line numbers for loan amortization calculation
-		final int loan1Total=4;
-		final int loan1Capital=5;
-		final int loan1Interest=6;
-		final int loan1InterestCapital=7;
-		final int loan1InterestDuringGrace=8;
-		final int loan1InterestAfterGrace=9;
-		final int loan2Total=11;
-		final int loan2Capital=12;
-		final int loan2Interest=13;
-		final int loan2InterestCapital=14;
-		final int loan2InterestDuringGrace=15;
-		final int loan2InterestAfterGrace=16;
+		final int loanTotal=4;
+		final int loanCapital=5;
+		final int loanInterest=6;
+		final int loanInterestCapital=7;
+		final int loanInterestDuringGrace=8;
+		final int loanInterestAfterGrace=9;
 		
-		String title="LOAN AMORTIZATION";
+		String title=translate("project.report.amortization.title") + (loan1 ? " 1" : " 2");
 		Sheet sheet = report.getWorkbook().createSheet(title);
 		sheet.setSelected(true);
 		
 		List<ProjectFinanceData> data = matrix.getYearlyData();
-		int payPerYear = project.getPaymentsPerYear();
+		int payPerYear = loan1 ? project.getLoan1PaymentsPerYear() : project.getLoan2PaymentsPerYear();
 		
 		// setup header and row titles
 		int rowNum=0;
@@ -1917,13 +1908,12 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(rowYear, 0, translate("projectBlock.pattern.years"), Style.LABEL);
 		
 		Row rowPeriod = sheet.createRow(rowNum++);
-		report.addTextCell(rowPeriod, 0, "PAYMENT PERIOD", Style.LABEL);
+		report.addTextCell(rowPeriod, 0, translate("project.report.amortization.period"), Style.LABEL);
 		
 		// hidden rows for loan amortization calculations
-		rowNum=loan1Total;
+		rowNum=loanTotal;
 		if (report.isCompleteReport()) {
-			for (String s : new String[] {"project.report.cashFlow.loan1.total","project.report.cashFlow.priCapital", "project.report.cashFlow.priInterest","project.report.cashFlow.loan1.capitalDuringGrace","project.report.cashFlow.loan1.interestDuringGrace","project.report.cashFlow.loan1.interestDuringGraceCapital",
-							"","project.report.cashFlow.loan2.total","project.report.cashFlow.secCapital", "project.report.cashFlow.secInterest","project.report.cashFlow.loan2.capitalDuringGrace","project.report.cashFlow.loan2.interestDuringGrace","project.report.cashFlow.loan2.interestDuringGraceCapital",}) {
+			for (String s : new String[] {"project.report.amortization.total","project.report.amortization.capital", "project.report.amortization.interest","project.report.amortization.capitalDuringGrace","project.report.amortization.interestDuringGrace","project.report.amortization.interestDuringGraceCapital"}) {
 				row = sheet.createRow(rowNum++);
 				report.addTextCell(row, 0, translate(s));
 			}
@@ -1946,108 +1936,96 @@ public class ExcelWorksheetBuilder {
 		// data
 		payPeriod=0; String col;
 		String formula;
-		String paramAnnualInfl = "Parameters!$B$4/2";
-		String paramLoan1Infl = "Parameters!$B$8/2";
-		String paramLoan1Duration = "Parameters!$B$9*2";
-		String paramLoan1GraceCapital = "Parameters!$B$10*2";
-		String paramLoan1GraceInterest = "Parameters!$B$11*2";
-		String paramLoan2Infl = "Parameters!$B$16/2";
-		String paramLoan2Duration = "Parameters!$B$17*2";
-		String paramLoan2GraceCapital = "Parameters!$B$18*2";
-		String paramLoan2GraceInterest = "Parameters!$B$19*2";
-		String paramLoan2Year = "Parameters!$B$20*2";
+		String paramLoanPeriods = loan1 ? report.getLink(ExcelLink.PROJECT_LOAN1_PAYMENTS_PER_YEAR) : report.getLink(ExcelLink.PROJECT_LOAN2_PAYMENTS_PER_YEAR);
+		String paramAnnualInfl =report.getLink(ExcelLink.PROJECT_INFLATION)+"/"+paramLoanPeriods;
+		String paramLoanAmt = loan1 ? report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT) : report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT);
+		String paramLoanInterest = loan1 ? report.getLink(ExcelLink.PROJECT_LOAN1_RATE) : report.getLink(ExcelLink.PROJECT_LOAN2_RATE);
+		String paramLoanDuration = loan1 ? report.getLink(ExcelLink.PROJECT_LOAN1_DURATION) : report.getLink(ExcelLink.PROJECT_LOAN2_DURATION);
+		String paramLoanGraceCapital = loan1 ? report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL) : report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL) ;
+		String paramLoanGraceInterest = loan1 ? report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST)  : report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST);
+		String paramLoan2Year = report.getLink(ExcelLink.PROJECT_LOAN2_YEAR);
 		
 		for (int y=0;y<project.getDuration();y++) {
-			for (int per=0;per<project.getPaymentsPerYear();per++) {
+			for (int per=0;per<payPerYear;per++) {
 				payPeriod++;
 				col = getColumn(payPeriod);
 				
-				// loan 1 total payment
-				formula = String.format("IF(%s3<=%s,0,IF(%s3>%s,0,PMT((%s-%s)/100,%s-%s,-MAX(%s%d,Parameters!$B$7),0)))", 
-					 col, paramLoan1GraceCapital, col, paramLoan1Duration, paramLoan1Infl, paramAnnualInfl,
-					 paramLoan1Duration, paramLoan1GraceCapital, col, loan1InterestCapital+1
+				// total payment
+				formula = String.format("IF(%s3<=%s,0,IF(%s3>%s,0,PMT((%s-%s)/100,%s-%s,-MAX(%s%d,%s),0)))", 
+					 col, 
+					 loan1 ? paramLoanGraceCapital : paramLoanGraceCapital+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods, 
+					 col, 
+					 loan1 ? paramLoanDuration : paramLoanDuration+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods, 
+					 paramLoanInterest, paramAnnualInfl,
+					 paramLoanDuration, paramLoanGraceCapital, 
+					 col, loanInterestCapital+1, paramLoanAmt
 				);
-				report.addFormulaCell(sheet.getRow(loan1Total), payPeriod, formula, Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(loanTotal), payPeriod, formula, Style.CURRENCY);
 				
-				// loan 1 capital
-				formula = String.format("IF(%s3<=%s,0,IF(%s3>%s,0,PPMT((%s-%s)/100,%s3-%s,%s-%s,-MAX(%s%d,Parameters!$B$7),0)))", 
-					col, paramLoan1GraceCapital, col, paramLoan1Duration, paramLoan1Infl, 
-					paramAnnualInfl, col, paramLoan1GraceCapital, paramLoan1Duration, paramLoan1GraceCapital,
-					col, loan1InterestCapital+1
+				// capital
+				formula = String.format("IF(%s3<=%s,0,IF(%s3>%s,0,PPMT((%s-%s)/100,%s3-%s,%s-%s,-MAX(%s%d,%s),0)))", 
+					col, 
+					loan1 ? paramLoanGraceCapital : paramLoanGraceCapital+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods, 
+					col, 
+					loan1 ? paramLoanDuration : paramLoanDuration+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods, 
+					
+					paramLoanInterest, paramAnnualInfl, 
+					
+					col, 
+					loan1 ? paramLoanGraceCapital : paramLoanGraceCapital+"-("+paramLoan2Year+"-1)*"+paramLoanPeriods, 
+					
+					paramLoanDuration, paramLoanGraceCapital,
+					
+					col, loanInterestCapital+1, paramLoanAmt
 				);
-				report.addFormulaCell(sheet.getRow(loan1Capital), payPeriod, formula, Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(loanCapital), payPeriod, formula, Style.CURRENCY);
 				
-				// loan 1 interest
+				// interest
 				formula = String.format("%s%d-%s%d+IF(%s3<=%s,0,%s%d)", 
-						col, loan1Total+1, col, loan1Capital+1, col, 
-						paramLoan1GraceInterest, col, loan1InterestAfterGrace+1
+						col, loanTotal+1, col, loanCapital+1, col, 
+						loan1 ? paramLoanGraceInterest : paramLoanGraceInterest+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods, 
+						col, loanInterestAfterGrace+1
 				);
-				report.addFormulaCell(sheet.getRow(loan1Interest), payPeriod, formula, Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(loanInterest), payPeriod, formula, Style.CURRENCY);
 				
-				// loan 1 initial capital grace on interest
-				formula = payPeriod==1 ? "Parameters!$B$7" : 
-					String.format("%s%d+%s%d", 
-							getColumn(payPeriod-1), loan1InterestCapital+1, getColumn(payPeriod-1), loan1InterestDuringGrace+1);
-				report.addFormulaCell(sheet.getRow(loan1InterestCapital), payPeriod, formula, Style.CURRENCY);
+				// initial capital grace on interest
+				formula = String.format("IF(%s3<%s,0,IF(%s3=%s,%s,IF(%s3<=%s,%s8+%s9,0)))", 
+					col, loan1 ? "1" : "("+paramLoan2Year+"-1)*"+paramLoanPeriods+"+1",
+					col, 
+					loan1 ? "1" : "("+paramLoan2Year+"-1)*"+paramLoanPeriods+"+1",
+					paramLoanAmt,
+					col,
+					loan1 ? paramLoanDuration : paramLoanDuration+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods,
+					getColumn(payPeriod-1), getColumn(payPeriod-1)
+					);	
+				report.addFormulaCell(sheet.getRow(loanInterestCapital), payPeriod, formula, Style.CURRENCY);
 				
-				//  loan 1 interest grace for interest
-				formula = String.format("IF(%s3<=%s,%s%d*(%s-%s)/100,0)",
-					col, paramLoan1GraceInterest, 
-					col, loan1InterestCapital+1,
-					paramLoan1Infl, paramAnnualInfl
+				//  interest grace for interest
+				formula = String.format("IF(%s3<%s,0,IF(%s3<=%s,%s8*(%s-%s)/100,0))",
+					col,
+					loan1 ? "1" : "("+paramLoan2Year+"-1)*"+paramLoanPeriods+"+1",
+					col, 
+					loan1 ? paramLoanGraceInterest : paramLoanGraceInterest+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods, 
+					col, 
+					paramLoanInterest,
+					paramAnnualInfl
+//					loanInterestCapital+1,
+//					paramLoanInterest, paramAnnualInfl
 				);
-				report.addFormulaCell(sheet.getRow(loan1InterestDuringGrace), payPeriod, formula, Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(loanInterestDuringGrace), payPeriod, formula, Style.CURRENCY);
 				
-				// loan 1 interest grace on capital
-				formula = String.format("IF(%s%d>0,0,IF(%s3<=%s,%s%d*(%s-%s)/100,0))", 
-						col, loan1InterestDuringGrace+1, col, paramLoan1GraceCapital, col, loan1InterestCapital+1,
-						paramLoan1Infl, paramAnnualInfl
+				// interest grace on capital
+				formula = String.format("IF(%s9>0,0,IF(%s3<=%s,%s8*(%s-%s)/100,0))", 
+						col, col, 
+						loan1 ? paramLoanGraceCapital : paramLoanGraceCapital+"+("+paramLoan2Year+"-1)*"+paramLoanPeriods,
+						col, 
+						paramLoanInterest, 
+						paramAnnualInfl
+						
+//						loanInterestDuringGrace+1, col, paramLoanGraceCapital, col, loanInterestCapital+1,
+//						paramLoanInterest, paramAnnualInfl
 				);
-				report.addFormulaCell(sheet.getRow(loan1InterestAfterGrace), payPeriod, formula, Style.CURRENCY);
-				
-				
-				// loan 2 total payment
-				formula = String.format("IF(%s3<=%s,0,IF(%s3>%s,0,PMT((%s-%s)/100,%s-%s,-MAX(%s%d,Parameters!$B$7),0)))", 
-					 col, paramLoan2GraceCapital, col, paramLoan2Duration, paramLoan2Infl, paramAnnualInfl,
-					 paramLoan2Duration, paramLoan2GraceCapital, col, loan2InterestCapital+1
-				);
-				report.addFormulaCell(sheet.getRow(loan2Total), payPeriod, formula, Style.CURRENCY);
-				
-				// loan 2 capital
-				formula = String.format("IF(%s3<=%s,0,IF(%s3>%s,0,PPMT((%s-%s)/100,%s3-%s,%s-%s,-MAX(%s%d,Parameters!$B$7),0)))", 
-					col, paramLoan2GraceCapital, col, paramLoan2Duration, paramLoan2Infl, 
-					paramAnnualInfl, col, paramLoan2GraceCapital, paramLoan2Duration, paramLoan2GraceCapital,
-					col, loan2InterestCapital+1
-				);
-				report.addFormulaCell(sheet.getRow(loan2Capital), payPeriod, formula, Style.CURRENCY);
-				
-				// loan 2 interest
-				formula = String.format("%s%d-%s%d+IF(%s3<=%s,0,%s%d)", 
-						col, loan2Total+1, col, loan2Capital+1, col, 
-						paramLoan2GraceInterest, col, loan2InterestAfterGrace+1
-				);
-				report.addFormulaCell(sheet.getRow(loan2Interest), payPeriod, formula, Style.CURRENCY);
-				
-				// loan 2 initial capital grace on interest
-				formula = payPeriod==1 ? "Parameters!$B$15" : 
-					String.format("%s%d+%s%d", 
-							getColumn(payPeriod-1), loan2InterestCapital+1, getColumn(payPeriod-1), loan2InterestDuringGrace+1);
-				report.addFormulaCell(sheet.getRow(loan2InterestCapital), payPeriod, formula, Style.CURRENCY);
-				
-				//  loan 2 interest grace for interest
-				formula = String.format("IF(%s3<=%s,%s%d*(%s-%s)/100,0)",
-					col, paramLoan2GraceInterest, 
-					col, loan2InterestCapital+1,
-					paramLoan2Infl, paramAnnualInfl
-				);
-				report.addFormulaCell(sheet.getRow(loan2InterestDuringGrace), payPeriod, formula, Style.CURRENCY);
-				
-				// loan 2 interest grace on capital
-				formula = String.format("IF(%s%d>0,0,IF(%s3<=%s,%s%d*(%s-%s)/100,0))", 
-						col, loan2InterestDuringGrace+1, col, paramLoan2GraceCapital, col, loan2InterestCapital+1,
-						paramLoan2Infl, paramAnnualInfl
-				);
-				report.addFormulaCell(sheet.getRow(loan2InterestAfterGrace), payPeriod, formula, Style.CURRENCY);
+				report.addFormulaCell(sheet.getRow(loanInterestAfterGrace), payPeriod, formula, Style.CURRENCY);
 			}
 		}
 		
@@ -2056,19 +2034,12 @@ public class ExcelWorksheetBuilder {
 	
 	public Sheet projectCashFlow(ExcelWrapper report, Project project, FinanceMatrix matrix, boolean without) {
 		// helper links to line numbers for loan amortization calculation
-		final int loan1Total=48;
-		final int loan1Capital=49;
-		final int loan1Interest=50;
-		final int loan1InterestCapital=51;
-		final int loan1InterestDuringGrace=52;
-		final int loan1InterestAfterGrace=53;
-		final int loan2Total=55;
-		final int loan2Capital=56;
-		final int loan2Interest=57;
-		final int loan2InterestCapital=58;
-		final int loan2InterestDuringGrace=59;
-		final int loan2InterestAfterGrace=60;
+		final String loan1Sheet=translate("project.report.amortization.title") + " 1";
+		final String loan2Sheet=translate("project.report.amortization.title") + " 2";
 		
+		final int loanCapital=6;
+		final int loanInterest=7;
+
 		List<ProjectFinanceData> data = matrix.getYearlyData();
 		
 		String sheetname;
@@ -2137,16 +2108,6 @@ public class ExcelWorksheetBuilder {
 					: translate("project.report.cashFlow.profitAfter"));
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.report.cashFlow.cumulative"));
-		
-		// hidden rows for loan amortization calculations
-		rowNum=loan1Total-1;
-		if (report.isCompleteReport() && !without) {
-			for (String s : new String[] {"project.report.cashFlow.loan1.total","project.report.cashFlow.priCapital", "project.report.cashFlow.priInterest","project.report.cashFlow.loan1.capitalDuringGrace","project.report.cashFlow.loan1.interestDuringGrace","project.report.cashFlow.loan1.interestDuringGraceCapital",
-							"","project.report.cashFlow.loan2.total","project.report.cashFlow.secCapital", "project.report.cashFlow.secInterest","project.report.cashFlow.loan2.capitalDuringGrace","project.report.cashFlow.loan2.interestDuringGrace","project.report.cashFlow.loan2.interestDuringGraceCapital",}) {
-				row = sheet.createRow(rowNum++);
-				report.addTextCell(row, 0, translate(s));
-			}
-		}
 		
 		int[] labels = {3,8,20,25,31};
 		for (int i : labels) {
@@ -2344,110 +2305,26 @@ public class ExcelWorksheetBuilder {
 					report.addFormulaCell(sheet.getRow(33), yearNum, formula, Style.CURRENCY);
 					
 					// primary capital
-					report.addFormulaCell(sheet.getRow(34), yearNum, col+loan1Capital, Style.CURRENCY);
+					formula = String.format("SUM('%s'!%s%d:%s%d)",
+							loan1Sheet, getColumn((yearNum-1)*project.getLoan1PaymentsPerYear()+1), loanCapital, 
+							getColumn((yearNum-1)*project.getLoan1PaymentsPerYear()+project.getLoan1PaymentsPerYear()), loanCapital);
+					report.addFormulaCell(sheet.getRow(34), yearNum, formula, Style.CURRENCY);
 					// primary interest
-					report.addFormulaCell(sheet.getRow(35), yearNum, col+loan1Interest, Style.CURRENCY);
+					formula = String.format("SUM('%s'!%s%d:%s%d)",
+							loan1Sheet, getColumn((yearNum-1)*project.getLoan1PaymentsPerYear()+1), loanInterest, 
+							getColumn((yearNum-1)*project.getLoan1PaymentsPerYear()+project.getLoan1PaymentsPerYear()), loanInterest);
+					report.addFormulaCell(sheet.getRow(35), yearNum, formula, Style.CURRENCY);
 					// secondary capital
-					formula = String.format("IF(%s2<%s,0,LOOKUP(%s2-%s+1,B2:%s2,B%d:%s%d))",
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR),
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR),
-							getColumn(project.getDuration()), 
-							loan2Capital, getColumn(project.getDuration()), loan2Capital);
+					formula = String.format("SUM('%s'!%s%d:%s%d)",
+							loan2Sheet, getColumn((yearNum-1)*project.getLoan2PaymentsPerYear()+1), loanCapital, 
+							getColumn((yearNum-1)*project.getLoan2PaymentsPerYear()+project.getLoan2PaymentsPerYear()), loanCapital);
 					report.addFormulaCell(sheet.getRow(36), yearNum, formula, Style.CURRENCY);
 					// secondary interest
-					formula = String.format("IF(%s2<%s,0,LOOKUP(%s2-%s+1,B2:%s2,B%d:%s%d))",
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR), 
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_YEAR),
-							getColumn(project.getDuration()), 
-							loan2Interest, getColumn(project.getDuration()), loan2Interest);
+					formula = String.format("SUM('%s'!%s%d:%s%d)",
+							loan2Sheet, getColumn((yearNum-1)*project.getLoan2PaymentsPerYear()+1), loanInterest, 
+							getColumn((yearNum-1)*project.getLoan2PaymentsPerYear()+project.getLoan2PaymentsPerYear()), loanInterest);
 					report.addFormulaCell(sheet.getRow(37), yearNum, formula, Style.CURRENCY);
-					
-					// HELPER ROWS FOR LOAN AMORTIZATION CALCULATIONS
-					// financing helper rows
-					// primary loan
-					// primary total payment
-					formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PMT((%s-%s)/100,%s-%s,-MAX(%s%d,%s),0)))",
-							col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL), col,
-							report.getLink(ExcelLink.PROJECT_LOAN1_DURATION),
-							report.getLink(ExcelLink.PROJECT_LOAN1_RATE), report.getLink(ExcelLink.PROJECT_INFLATION),
-							report.getLink(ExcelLink.PROJECT_LOAN1_DURATION), report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-							col,loan1InterestCapital,report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT)
-							);
-					report.addFormulaCell(sheet.getRow(loan1Total-1), yearNum, formula, Style.CURRENCY);
-					// primary capital
-					formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PPMT((%s-%s)/100,%s2-%s,%s-%s,-MAX(%s%d,%s),0)))",
-							col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL), col,
-							report.getLink(ExcelLink.PROJECT_LOAN1_DURATION), report.getLink(ExcelLink.PROJECT_LOAN1_RATE),
-							report.getLink(ExcelLink.PROJECT_INFLATION), col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-							report.getLink(ExcelLink.PROJECT_LOAN1_DURATION),report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-							col, loan1InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT));
-					report.addFormulaCell(sheet.getRow(loan1Capital-1), yearNum, formula, Style.CURRENCY);
-					// primary interest
-					formula = String.format("%s%d-%s%d+IF(%s2<=%s,0,%s%d)",
-							col,loan1Total,col,loan1Capital, col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST),col, loan1InterestAfterGrace);
-					report.addFormulaCell(sheet.getRow(loan1Interest-1), yearNum, formula, Style.CURRENCY);
-					// primary initial capital when grace on interest
-					formula = yearNum==1 ? report.getLink(ExcelLink.PROJECT_LOAN1_AMOUNT) : 
-						String.format("%s%d+%s%d", getColumn(yearNum-1),loan1InterestCapital, getColumn(yearNum-1), loan1InterestDuringGrace);
-					report.addFormulaCell(sheet.getRow(loan1InterestCapital-1), yearNum, formula, Style.CURRENCY);
-					// primary interest during grace for interest
-					formula = String.format("IF(%s2<=%s,%s%d*(%s-%s)/100,0)",
-							col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST), col, loan1InterestCapital, 
-							report.getLink(ExcelLink.PROJECT_LOAN1_RATE), report.getLink(ExcelLink.PROJECT_INFLATION));
-					report.addFormulaCell(sheet.getRow(loan1InterestDuringGrace-1), yearNum, formula, Style.CURRENCY);
-					// primary interest when grace on capital
-					formula = String.format("IF(%s%d>0,0,IF(%s2<=%s,%s%d*(%s-%s)/100,0))",
-							col, loan1InterestDuringGrace, col, report.getLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL),
-							col, loan1InterestCapital,report.getLink(ExcelLink.PROJECT_LOAN1_RATE), report.getLink(ExcelLink.PROJECT_INFLATION));
-					report.addFormulaCell(sheet.getRow(loan1InterestAfterGrace-1), yearNum, formula, Style.CURRENCY);
-					
-					// secondary loan
-					// secondary total payment
-					formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PMT((%s-%s)/100,%s-%s,-MAX(%s%d,%s),0)))",
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), 
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), 
-							report.getLink(ExcelLink.PROJECT_LOAN2_RATE), report.getLink(ExcelLink.PROJECT_INFLATION), 
-							report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), 
-							col, loan2InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT));
-					report.addFormulaCell(sheet.getRow(loan2Total-1), yearNum, formula, Style.CURRENCY);
-					
-					// secondary capital
-					formula = String.format("IF(%s2<=%s,0,IF(%s2>%s,0,PPMT((%s-%s)/100,%s2-%s,%s-%s,-MAX(%s%d,%s),0)))",
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL), col,
-							report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), report.getLink(ExcelLink.PROJECT_LOAN2_RATE),
-							report.getLink(ExcelLink.PROJECT_INFLATION), col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
-							report.getLink(ExcelLink.PROJECT_LOAN2_DURATION), report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
-							col, loan2InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT));
-					report.addFormulaCell(sheet.getRow(loan2Capital-1), yearNum, formula, Style.CURRENCY);
-					
-					// secondary interest
-					formula = String.format("%s%d-%s%d+IF(%s2<=%s,0,%s%d)",
-							col, loan2Total, col, loan2Capital, col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST),
-							col, loan2InterestAfterGrace);
-					report.addFormulaCell(sheet.getRow(loan2Interest-1), yearNum, formula, Style.CURRENCY);
-					
-					// secondary interest capital when grace on interest
-					formula = yearNum==1 ? report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT) : 
-						String.format("%s%d+%s%d", getColumn(yearNum-1),loan2InterestCapital, getColumn(yearNum-1), loan2InterestDuringGrace);
-					report.addFormulaCell(sheet.getRow(loan2InterestCapital-1), yearNum, formula, Style.CURRENCY);
-					
-					// secondary interest during grace for interest
-					formula = String.format("IF(%s2<=%s,%s%d*(%s-%s)/100,0)",
-							col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST), col, loan2InterestCapital,
-									report.getLink(ExcelLink.PROJECT_LOAN2_RATE),
-									report.getLink(ExcelLink.PROJECT_INFLATION));
-					report.addFormulaCell(sheet.getRow(loan2InterestDuringGrace-1), yearNum, formula, Style.CURRENCY);
-					
-					// secondary interest when grace on capital
-					formula = String.format("IF(%s%d>0,0,IF(%s2<=%s,%s%d*(%s-%s)/100,0))",
-							col, loan2InterestDuringGrace, col, report.getLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL),
-							col, loan2InterestCapital, report.getLink(ExcelLink.PROJECT_LOAN2_RATE),
-							report.getLink(ExcelLink.PROJECT_INFLATION));
-					report.addFormulaCell(sheet.getRow(loan2InterestAfterGrace-1), yearNum, formula, Style.CURRENCY);
-					
-					for (int r = loan1Total-1; r<loan2InterestAfterGrace; r++) {
-						sheet.getRow(r).setZeroHeight(true);
-					}
+		
 				}
 			} else {
 				ProjectFinanceData pfd = data.get(yearNum-1);
@@ -2484,9 +2361,6 @@ public class ExcelWorksheetBuilder {
 					report.addNumericCell(sheet.getRow(9), yearNum, pfd.getCostInvestDonatedWithout(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(10), yearNum, pfd.getCostInvestOwnWithout(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(11), yearNum, pfd.getCostInvestFinanceWithout(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(12), yearNum, pfd.getWorkingCapitalCapital(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(13), yearNum, pfd.getIncCapitalDonation(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(14), yearNum, pfd.getIncCapitalOwn(), Style.CURRENCY);
 					
 					report.addNumericCell(sheet.getRow(21), yearNum, pfd.getCostInvestWithout(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(22), yearNum, pfd.getCostReplaceWithout(), Style.CURRENCY);
@@ -2494,13 +2368,6 @@ public class ExcelWorksheetBuilder {
 					report.addNumericCell(sheet.getRow(26), yearNum, pfd.getCostOperationWithout()-pfd.getCostOperationInternalWithout(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(27), yearNum, pfd.getCostGeneralWithout()-pfd.getCostGeneralWithoutOwn(), Style.CURRENCY);
 					report.addNumericCell(sheet.getRow(28), yearNum, pfd.getCostMaintenanceWithout(), Style.CURRENCY);
-					
-//					report.addNumericCell(sheet.getRow(32), yearNum, pfd.getWorkingCapitalCapital(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(33), yearNum, pfd.getWorkingCapital(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(34), yearNum, pfd.getLoan1capital(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(35), yearNum, pfd.getLoan1interest(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(36), yearNum, pfd.getLoan2capital(), Style.CURRENCY);
-//					report.addNumericCell(sheet.getRow(37), yearNum, pfd.getLoan2interest(), Style.CURRENCY);
 				}
 			}
 			
@@ -3377,30 +3244,33 @@ public class ExcelWorksheetBuilder {
 		
 		row = sheet.createRow(rowNum++);
 		if (report.isCompleteReport()) {
-			String loan1amt = report.getLink(ExcelLink.PROJECT_INVEST_FINANCED)+"-B15";
+			report.addLink(ExcelLink.PROJECT_LOAN2_AMOUNT, "'"+sheet.getSheetName()+"'!$B$16");
+			
+			String loan1amt = report.getLink(ExcelLink.PROJECT_INVEST_FINANCED)+"-"+report.getLink(ExcelLink.PROJECT_LOAN2_AMOUNT);
 			rowNum = addLoans(report, sheet, rowNum, translate("project.loan1"), 0.0, loan1amt, project.getLoan1Interest(), 
-					project.getLoan1Duration(),	project.getLoan1GraceCapital(), project.getLoan1GraceInterest());
+					project.getLoan1Duration(),	project.getLoan1GraceCapital(), project.getLoan1GraceInterest(), project.getLoan1PaymentsPerYear());
 			report.addLink(ExcelLink.PROJECT_LOAN1_AMOUNT, "'"+sheet.getSheetName()+"'!$B$7");
-			report.addLink(ExcelLink.PROJECT_LOAN1_RATE, "'"+sheet.getSheetName()+"'!$B$8");
-			report.addLink(ExcelLink.PROJECT_LOAN1_DURATION, "'"+sheet.getSheetName()+"'!$B$9");
-			report.addLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$B$10");
-			report.addLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$B$11");
+			report.addLink(ExcelLink.PROJECT_LOAN1_RATE, "'"+sheet.getSheetName()+"'!$D$8");
+			report.addLink(ExcelLink.PROJECT_LOAN1_DURATION, "'"+sheet.getSheetName()+"'!$D$9");
+			report.addLink(ExcelLink.PROJECT_LOAN1_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$D$10");
+			report.addLink(ExcelLink.PROJECT_LOAN1_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$D$11");
+			report.addLink(ExcelLink.PROJECT_LOAN1_PAYMENTS_PER_YEAR, "'"+sheet.getSheetName()+"'!$B$12");
 		} else {
 			rowNum = addLoans(report, sheet, rowNum, translate("project.loan1"), project.getInvestmentTotal()-project.getLoan2Amt(), null, project.getLoan1Interest(), 
-				project.getLoan1Duration(),	project.getLoan1GraceCapital(), project.getLoan1GraceInterest());
+				project.getLoan1Duration(),	project.getLoan1GraceCapital(), project.getLoan1GraceInterest(), project.getLoan1PaymentsPerYear());
 		}
 		
 		row = sheet.createRow(rowNum++);
 
 		row = sheet.createRow(rowNum++);
 		rowNum = addLoans(report, sheet, rowNum, translate("project.loan2"), project.getLoan2Amt(), null,  project.getLoan2Interest(), 
-				project.getLoan2Duration(), project.getLoan2GraceCapital(), project.getLoan2GraceInterest());
+				project.getLoan2Duration(), project.getLoan2GraceCapital(), project.getLoan2GraceInterest(), project.getLoan2PaymentsPerYear());
 		if (report.isCompleteReport()) {
-			report.addLink(ExcelLink.PROJECT_LOAN2_AMOUNT, "'"+sheet.getSheetName()+"'!$B$15");
-			report.addLink(ExcelLink.PROJECT_LOAN2_RATE, "'"+sheet.getSheetName()+"'!$B$16");
-			report.addLink(ExcelLink.PROJECT_LOAN2_DURATION, "'"+sheet.getSheetName()+"'!$B$17");
-			report.addLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$B$18");
-			report.addLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$B$19");
+			report.addLink(ExcelLink.PROJECT_LOAN2_RATE, "'"+sheet.getSheetName()+"'!$D$17");
+			report.addLink(ExcelLink.PROJECT_LOAN2_DURATION, "'"+sheet.getSheetName()+"'!$D$18");
+			report.addLink(ExcelLink.PROJECT_LOAN2_GRACE_CAPITAL, "'"+sheet.getSheetName()+"'!$D$19");
+			report.addLink(ExcelLink.PROJECT_LOAN2_GRACE_INTEREST, "'"+sheet.getSheetName()+"'!$D$20");
+			report.addLink(ExcelLink.PROJECT_LOAN2_PAYMENTS_PER_YEAR, "'"+sheet.getSheetName()+"'!$B$21");
 		}
 		
 		row = sheet.createRow(rowNum++);
@@ -3495,11 +3365,14 @@ public class ExcelWorksheetBuilder {
 	}
 	
 	private int addLoans(ExcelWrapper report, Sheet sheet, int rowNum, String title, double amount, String amountFormula, double interest, 
-			int duration, int graceCapital, int graceInterest) {
+			int duration, int graceCapital, int graceInterest, int periodsPerYear) {
 		Row row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, title, Style.H2);
 
 		String years = translate("units.years");
+		String periods = translate("project.loan.periods");
+		String perYear = translate("units.perYear");
+		
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.loan.amount"));
 		if (amountFormula==null) {
@@ -3510,19 +3383,30 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.loan.interest"));
 		report.addNumericCell(row, 1, interest,Style.CURRENCY);
-		report.addTextCell(row, 2, "%");
+		report.addTextCell(row, 2, perYear);
+		report.addFormulaCell(row,  3,  "B"+rowNum+"/B"+(rowNum+4), Style.CURRENCYUSD);
+		report.addTextCell(row, 4, translate("project.loan.perPeriod"));
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.loan.duration"));
 		report.addNumericCell(row, 1, duration);
 		report.addTextCell(row, 2, years);
+		report.addFormulaCell(row,  3,  "B"+rowNum+"*B"+(rowNum+3));
+		report.addTextCell(row, 4, periods);
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.loan.graceCapital"));
 		report.addNumericCell(row, 1, graceCapital);
 		report.addTextCell(row, 2, years);
+		report.addFormulaCell(row,  3,  "B"+rowNum+"*B"+(rowNum+2));
+		report.addTextCell(row, 4, periods);
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.loan.graceInterest"));
 		report.addNumericCell(row, 1, graceInterest);
 		report.addTextCell(row, 2, years);
+		report.addFormulaCell(row,  3,  "B"+rowNum+"*B"+(rowNum+1));
+		report.addTextCell(row, 4, periods);
+		row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, translate("project.loan.paymentsPerYear"));
+		report.addNumericCell(row, 1, periodsPerYear);
 		
 		return rowNum;
 	}

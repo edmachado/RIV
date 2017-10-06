@@ -181,7 +181,8 @@ public class ProjectValidator implements Validator {
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalInterest", "project.capitalInterest", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalDonate", "project.capitalDonate", errors);
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalOwn", "project.capitalOwn", errors);
-				
+				ValidateUtils.rejectIfEmptyOrNegativeOrOverMax(project, "loan1PaymentsPerYear", "project.loan.paymentsPerYear", 12.0, errors);
+				ValidateUtils.rejectIfEmptyOrNegativeOrOverMax(project, "loan2PaymentsPerYear", "project.loan.paymentsPerYear", 12.0, errors);
 				
 				if (project.getLoan1GraceInterest()!=null && project.getLoan1GraceCapital()!=null
 						&& project.getLoan1GraceInterest()>project.getLoan1GraceCapital()) {

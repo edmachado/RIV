@@ -563,6 +563,13 @@ ALTER TABLE project_result ADD COLUMN wc_period_avg DECIMAL(12,4);
 
 -- language can be 5 characters
 ALTER TABLE setting ALTER COLUMN lang VARCHAR(5);
+
+-- loan payments per year (loan amortization)
+ALTER TABLE project ADD COLUMN loan1_payments_per_year INT;
+ALTER TABLE project ADD COLUMN loan2_payments_per_year INT;
+UPDATE project SET loan1_payments_per_year=1;
+UPDATE project SET loan2_payments_per_year=1;
+
 	</query>
 	</version>
 </sql>

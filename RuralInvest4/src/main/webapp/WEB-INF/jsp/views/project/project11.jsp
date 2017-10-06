@@ -24,6 +24,8 @@
 					<tags:dataentry field="loan1GraceInterest" labelKey="project.loan.graceInterest"
 						helpText="project.loan.graceInterest.help"
 						calcSignKey="units.years" />
+					<tags:dataentry field="loan1PaymentsPerYear" labelKey="project.loan.paymentsPerYear"
+						helpText="project.loan.paymentsPerYear.help" />
 			</fieldset>
 			
 			<fieldset>
@@ -54,6 +56,8 @@
 	   		<tags:dataentry field="loan2Duration" labelKey="project.loan.duration" helpText="project.loan.duration.help" calcSignKey="units.years" />
 	   		<tags:dataentry field="loan2GraceCapital" labelKey="project.loan.graceCapital" helpText="project.loan.graceCapital.help" calcSignKey="units.years" />
 	   		<tags:dataentry field="loan2GraceInterest" labelKey="project.loan.graceInterest" helpText="project.loan.graceInterest.help" calcSignKey="units.years" />
+			<tags:dataentry field="loan2PaymentsPerYear" labelKey="project.loan.paymentsPerYear"
+				helpText="project.loan.paymentsPerYear.help" />
 			<tags:projYear field="loan2InitPeriod" labelKey="project.loan2InitPeriod" helpText="project.loan2InitPeriod.help" />
 		</fieldset>
 	</div>

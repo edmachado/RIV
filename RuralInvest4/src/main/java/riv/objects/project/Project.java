@@ -177,8 +177,8 @@ public class Project extends Probase implements java.io.Serializable {
 	 private Integer loan1GraceCapital;
 	@Column(name="LOAN1_GRACE_INTEREST")
 	private Integer loan1GraceInterest;
-	@Transient // change to @Column(name="PAYMENTS_PER_YEAR")
-	private Integer paymentsPerYear;
+	@Column(name="LOAN1_PAYMENTS_PER_YEAR")
+	private Integer loan1PaymentsPerYear;
 	@Column(name="LOAN2_AMT")
 	private Double loan2Amt;
 	@Column(name="LOAN2_INTEREST")
@@ -191,8 +191,8 @@ public class Project extends Probase implements java.io.Serializable {
 	private Integer loan2GraceInterest;
 	@Column(name="LOAN2_INIT_PERIOD")
 	private Integer loan2InitPeriod;
-//	@Transient // change to @Column(name="LOAN2_PER_YEAR")
-//	private Integer loan2PerYear;
+	@Column(name="LOAN2_PAYMENTS_PER_YEAR")
+	private Integer loan2PaymentsPerYear;
 	@Column(name="INFLATION_ANNUAL")
 	private Double inflationAnnual;
 	@Column(name="CAPITAL_INTEREST")
@@ -833,12 +833,12 @@ public double getInvestmentTotal() {
         this.loan1GraceInterest = Loan1GraceInterest;
     }
     
-    public Integer getPaymentsPerYear() {
-		return paymentsPerYear;
+    public Integer getLoan1PaymentsPerYear() {
+		return loan1PaymentsPerYear;
 	}
 
-	public void setPaymentsPerYear(Integer paymentsPerYear) {
-		this.paymentsPerYear = paymentsPerYear;
+	public void setLoan1PaymentsPerYear(Integer paymentsPerYear) {
+		this.loan1PaymentsPerYear = paymentsPerYear;
 	}
 
 	public Double getLoan2Amt () {
@@ -888,13 +888,13 @@ public double getInvestmentTotal() {
         this.loan2InitPeriod = Loan2InitPeriod;
     }
     
-//    public Integer getLoan2PerYear() {
-//	return loan2PerYear;
-//}
-//
-//public void setLoan2PerYear(Integer loan2PerYear) {
-//	this.loan2PerYear = loan2PerYear;
-//}
+   public Integer getLoan2PaymentsPerYear() {
+		return loan2PaymentsPerYear;
+	}
+
+	public void setLoan2PaymentsPerYear(Integer paymentsPerYear) {
+		this.loan2PaymentsPerYear = paymentsPerYear;
+	}
 
 	public Double getInflationAnnual () {
         return this.inflationAnnual;
