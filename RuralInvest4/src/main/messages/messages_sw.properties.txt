@@ -314,14 +314,6 @@ import.generic.info=Mradi huu au taswira hii imegeuzwa kwenda USD na zitageuzwa 
 import.generic.confirm=Tafadhali thibitisha kiwango cha fedha kutoka USD:
 project.report.cashFlow.loanRecieved=Mkopo(mikopo) iliyopokelewa
 project.report.cashFlow.invest=Uwekezaji
-project.report.cashFlow.loan1.total=Jumla ya malipo ya awali
-project.report.cashFlow.loan1.capitalDuringGrace=Mtaji wa awali wakati neema imetolewa juu ya riba
-project.report.cashFlow.loan1.interestDuringGrace=Riba ya awali wakati wa neema kwa ajili ya riba 
-project.report.cashFlow.loan1.interestDuringGraceCapital=Riba ya awali wakati neema kwenye mtaji wa kuendeshea biashara
-project.report.cashFlow.loan2.total=Malipo ya jumla ya mkopo wa Sekondari
-project.report.cashFlow.loan2.capitalDuringGrace=Mtaji sekondari wa kuanzia wakati neema imetolewa juu ya riba
-project.report.cashFlow.loan2.interestDuringGrace=Riba ya sekondari wakati wa neema ya riba 
-project.report.cashFlow.loan2.interestDuringGraceCapital=Riba ya sekondari wakati neema kwenye mtaji wa kuendeshea biashara
 
 project.report.cashFlow.financing=Malipo ya fedha kwa ajili ya mkopo
 

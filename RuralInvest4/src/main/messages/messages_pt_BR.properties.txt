@@ -535,22 +535,6 @@ project.report.cashFlow.loanRecieved=Empréstimo(s) recebido(s)
 
 project.report.cashFlow.invest=Investimento
 
-project.report.cashFlow.loan1.total=Pagamento total do empréstimo base
-
-project.report.cashFlow.loan1.capitalDuringGrace=Capital inicial do empréstimo base quando existe período de graça para os juros
-
-project.report.cashFlow.loan1.interestDuringGrace=Juros do empréstimo base durante o período de graça para juros
-
-project.report.cashFlow.loan1.interestDuringGraceCapital=Juros do empréstimo base quando há período de graça para o capital
-
-project.report.cashFlow.loan2.total=Pagamento total do empréstimo secundário
-
-project.report.cashFlow.loan2.capitalDuringGrace=Capital inicial do empréstimo secundário quando existe período de graça para os juros
-
-project.report.cashFlow.loan2.interestDuringGrace=Juros do empréstimo secundário durante o período de graça para juros
-
-project.report.cashFlow.loan2.interestDuringGraceCapital=Juros do empréstimo secundário quando há período de graça para o capital
-
 project.report.cashFlow.financing=Pagamento da dívida
 
 beneficiary.delete=Apagar beneficiário

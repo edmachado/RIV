@@ -337,14 +337,6 @@ import.generic.info=Энэ төсөл эсвэл хураангуй нь ам.д
 import.generic.confirm=Ам.долларын ханшийг баталгаажуулна уу:
 project.report.cashFlow.loanRecieved=Авсан зээл
 project.report.cashFlow.invest=Хөрөнгө оруулалт
-project.report.cashFlow.loan1.total=Анхны нийт төлбөр
-project.report.cashFlow.loan1.capitalDuringGrace=Хүүгээс чөлөөлөгдөх үеийн анхдагч эхлэлийн капитал
-project.report.cashFlow.loan1.interestDuringGrace=Хүүгээс чөлөөлөгдөх үеийн үндсэн зээлийн хүү
-project.report.cashFlow.loan1.interestDuringGraceCapital=Капиталын төлбөр хийгдэхгүй үеийн үндсэн зээлийн хүү
-project.report.cashFlow.loan2.total=Нэмэлт зээлийн нийт төлбөр
-project.report.cashFlow.loan2.capitalDuringGrace=Хүүгээс чөлөөлөгдөх үеийн нэмэлт эхлэлийн капитал
-project.report.cashFlow.loan2.interestDuringGrace=Хүүгээс чөлөөлөгдөх үеийн нэмэлт зээлийн хүү
-project.report.cashFlow.loan2.interestDuringGraceCapital=Капиталын төлбөргүй нэмэлт зээлийн хүү
 
 project.report.cashFlow.financing=Төлбөрийг санхүүжүүлэх 
 

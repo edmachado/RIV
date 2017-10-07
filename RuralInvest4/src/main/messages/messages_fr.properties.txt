@@ -108,14 +108,6 @@ import.excel.error.selectList=Cellule {0}: les données choisies dans le menu de
 # RIV4.2
 project.report.production.nonGen=Profil d'activité
 
-project.report.cashFlow.loan1.capitalDuringGrace=Capital restant dû durant la période de grâce (premier prêt) 
-project.report.cashFlow.loan1.interestDuringGrace=Intérêts accumulés durant la période de grâce sur les intérêts (premier prêt)
-project.report.cashFlow.loan1.interestDuringGraceCapital=Intérêts payés durant la période de grâce sur le capital (premier prêt)
-project.report.cashFlow.loan1.total=Annuité (premier prêt)
-project.report.cashFlow.loan2.capitalDuringGrace=Capital restant dû durant la période de grâce (second prêt) 
-project.report.cashFlow.loan2.interestDuringGrace=Intérêts accumulés durant la période de grâce sur les intérêts (second prêt)
-project.report.cashFlow.loan2.interestDuringGraceCapital=Intérêts payés durant la période de grâce sur le capital (second prêt)
-project.report.cashFlow.loan2.total=Annuité (second prêt)
 project.report.cashFlow.loanRecieved=Prêts reçus
 project.report.cashFlow.wcCapital=Capital prêt fonds de roulement
 

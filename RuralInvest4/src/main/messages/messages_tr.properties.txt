@@ -303,14 +303,6 @@ import.generic.info=Bu proje profili USD kuruna çevrilmiştir ve sizin RuralInv
 import.generic.confirm=Lütfen USD döviz kurunu onaylayın:
 project.report.cashFlow.loanRecieved=Alınan Kredi(ler)
 project.report.cashFlow.invest=Yatırım
-project.report.cashFlow.loan1.total=Birinci toplam ödeme
-project.report.cashFlow.loan1.capitalDuringGrace=Yatırım için ödemesiz süreçte birinci başlangıç sermaye
-project.report.cashFlow.loan1.interestDuringGrace=Yatırım için ödemesiz süreçte Birinci yatırım
-project.report.cashFlow.loan1.interestDuringGraceCapital=Sermaye için ödemesiz süreçte birincil yatırım
-project.report.cashFlow.loan2.total=İkincil toplam ödeme
-project.report.cashFlow.loan2.capitalDuringGrace=Yatırım için ödemesiz süreçte ikincil başlangıç sermaye
-project.report.cashFlow.loan2.interestDuringGrace=Yatırım için ödemesiz süreçte ikincil yatırım 
-project.report.cashFlow.loan2.interestDuringGraceCapital=Sermaye için ödemesiz süreçte ikincil yatırım
 
 project.report.cashFlow.financing=Finansman ödemeleri
 
