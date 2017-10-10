@@ -76,13 +76,13 @@ $(function() {
 				<spring:message code="project.report.parameters"/>
 			</li>
 			<li>
-				<a href="../../report/${project.projectId}/projectCashFlowFirst.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
-				<a id="xls_cash_flow_first" href="../../report/${project.projectId}/projectCashFlowFirst.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a> - 
-				<spring:message code="project.report.cashFlowFirst"/>
+				<a href="../../report/${project.projectId}/projectWorkingCapital.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
+				<a id="xls_working_capital" href="../../report/${project.projectId}/projectWorkingCapital.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a> - 
+				<spring:message code="project.report.workingcapital"/>
 			</li>
 			<li>
 				<a href="../../report/${project.projectId}/projectAmortization.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> PDF</a>
-				<a id="xls_cash_flow" href="../../report/${project.projectId}/projectAmortization.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a> - 
+				<a id="xls_amortization" href="../../report/${project.projectId}/projectAmortization.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0">${space}Excel</a> - 
 				<spring:message code="project.report.amortization.title"/>
 			</li>
 			<li>

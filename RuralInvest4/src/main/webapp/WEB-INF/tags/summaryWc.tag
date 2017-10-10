@@ -6,6 +6,8 @@
 	</p>
 	<p>
 		<spring:message code="misc.moreDetails"/><br/>
-		<a href="../../report/${project.projectId}/projectCashFlowFirst.xlsx?allYears=true" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0"> <spring:message code="project.report.workingcapital"/> </a>
+		<a href="../../report/${project.projectId}/projectWorkingCapital.xlsx" target="_blank"><img src="../../img/xls.gif" alt="Excel" title="Excel" border="0"> <spring:message code="project.report.workingcapital"/> </a>
+		<br/>
+		<a href="../../report/${project.projectId}/projectWorkingCapital.pdf" target="_blank"><img src="../../img/pdf.gif" alt="PDF" title="PDF" border="0"> <spring:message code="project.report.workingcapital"/> </a>
 	</p>
 </div>

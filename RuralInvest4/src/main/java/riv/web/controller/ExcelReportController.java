@@ -313,20 +313,20 @@ public class ExcelReportController {
 		}
 	}
 
-	@RequestMapping(value = "{id}/projectCashFlowFirst.xlsx", method = RequestMethod.GET)
-	public void projectCashFlowFirst(@PathVariable int id,
-			@RequestParam(required = false) String allYears,
+	@RequestMapping(value = "{id}/projectWorkingCapital.xlsx", method = RequestMethod.GET)
+	public void projectWorkingCapital(@PathVariable int id,
+//			@RequestParam(required = false) String allYears,
 			HttpServletResponse response) throws IOException {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
 		try {
-			ewb.projectCashFlowFirst(report, p, pr, false, rivConfig.getSetting().getDecimalLength(), allYears==null);
-			if (p.isWithWithout() && allYears==null) {
-				ewb.projectCashFlowFirst(report, p, pr, true, rivConfig.getSetting().getDecimalLength(), allYears==null);
+			ewb.projectWorkingCapital(report, p, pr, false, rivConfig.getSetting().getDecimalLength());
+			if (p.isWithWithout()) {
+				ewb.projectWorkingCapital(report, p, pr, true, rivConfig.getSetting().getDecimalLength());
 			}
 			response.setHeader("Content-disposition",
-					"attachment; filename=projectCashFlowFirst.xlsx");
+					"attachment; filename=projectWorkingCapital.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
 		} catch (IOException e) {
 			throw e;
@@ -415,10 +415,10 @@ public class ExcelReportController {
 					ewb.blocks(report, project, true);
 				}
 				ewb.projectParameters(report, project, result);
-				// cash flow 1st year
-				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), true);
+				// working capital
+				ewb.projectWorkingCapital(report, project, result, false, rivConfig.getSetting().getDecimalLength());
 				if (project.isWithWithout()) {
-					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), true);
+					ewb.projectWorkingCapital(report, project, result, true, rivConfig.getSetting().getDecimalLength());
 				}
 				
 				ewb.projectAmortization(report, project, matrix, true);
@@ -439,14 +439,6 @@ public class ExcelReportController {
 				ewb.projectSustainability(report, project, result);
 			}
 			ewb.projectRecommendation(report, project);
-			
-			// cash flow month-by-month all years
-			if (project.getIncomeGen()) {
-				ewb.projectCashFlowFirst(report, project, result, false, rivConfig.getSetting().getDecimalLength(), false);
-//				if (project.isWithWithout()) {
-//					ewb.projectCashFlowFirst(report, project, result, true, rivConfig.getSetting().getDecimalLength(), false);
-//				}
-			}
 			
 			summary.setSelected(true);
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import riv.objects.FinanceMatrix;
 import riv.objects.FinanceMatrix.ProjectScenario;
 import riv.objects.ProfileMatrix;
+import riv.objects.ProjectMonthsInYear;
 import riv.objects.profile.Profile;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectResult;
@@ -189,19 +190,31 @@ public class ReportController {
 		reportCreator.export(response, report);
 	}
 	
-	@RequestMapping(value="{id}/projectCashFlowFirst.pdf", method=RequestMethod.GET)
-	public void projectCashFlowFirst(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="{id}/projectWorkingCapital.pdf", method=RequestMethod.GET)
+	public void projectWorkingCapital(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
-		ReportWrapper with = reportCreator.projectCashFlowFirst(p, 0, false);
-		if (!p.isWithWithout()) {
-			reportCreator.export(response, with);
-		} else {
-			ReportWrapper without = reportCreator.projectCashFlowFirst(p, 0, true);
-			ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+		ProjectResult pr = dataService.getProjectResult(id);
+		
+		ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
+		int page=0;
+		
+		ProjectMonthsInYear[] monthsWith = ProjectMonthsInYear.getProjectPerMonths(p, false, rivConfig.getSetting().getDecimalLength());
+		for (int i=1;i<=p.getDuration();i++) {
+			ReportWrapper with = reportCreator.projectWorkingCapital(p, pr, monthsWith, page, false, i);
+			page+=with.getJp().getPages().size();
 			reports.add(with);
-			reports.add(without);
-			concatReports(reports, response, "projectCashFlowFirst.pdf");
 		}
+		
+		if (p.isWithWithout()) {
+			ProjectMonthsInYear[] monthsWithout = ProjectMonthsInYear.getProjectPerMonths(p, true, rivConfig.getSetting().getDecimalLength());
+			for (int i=1;i<=p.getDuration();i++) {
+				ReportWrapper without = reportCreator.projectWorkingCapital(p, pr, monthsWithout, page, true, i);
+				page+=without.getJp().getPages().size();
+				reports.add(without);
+			}
+		}
+			
+		concatReports(reports, response, "projectWorkingCapital.pdf");
 	}
 	
 	@RequestMapping(value="{id}/projectProfitability.pdf", method=RequestMethod.GET)

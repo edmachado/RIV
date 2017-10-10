@@ -347,13 +347,21 @@ public class PdfReportCreator {
 			ReportWrapper params = projectParameters(project, pr, page);
 			page=page+params.getJp().getPages().size();
 			reports.add(params);
-			ReportWrapper cff = projectCashFlowFirst(project, page, false);
-			page=page+cff.getJp().getPages().size();
-			reports.add(cff);
-			if (project.isWithWithout()) {
-				ReportWrapper cffWithout = projectCashFlowFirst(project, page, true);
-				page+=cffWithout.getJp().getPages().size();
-				reports.add(cffWithout);
+			
+			ProjectMonthsInYear[] monthsWith = ProjectMonthsInYear.getProjectPerMonths(project, false, rivConfig.getSetting().getDecimalLength());
+			for (int i=1;i<=project.getDuration();i++) {
+				ReportWrapper wcWith = projectWorkingCapital(project, pr, monthsWith, page, false, i);
+				page=page+wcWith.getJp().getPages().size();
+				reports.add(wcWith);
+			}
+			
+			ProjectMonthsInYear[] monthsWithout = ProjectMonthsInYear.getProjectPerMonths(project, true, rivConfig.getSetting().getDecimalLength());
+			for (int i=1;i<=project.getDuration();i++) {
+				if (project.isWithWithout()) {
+					ReportWrapper wcWithout = projectWorkingCapital(project, pr, monthsWithout, page, true, i);
+					page+=wcWithout.getJp().getPages().size();
+					reports.add(wcWithout);
+				}
 			}
 			
 			ReportWrapper loan1 = projectAmortization(project, page, matrix, true);
@@ -409,7 +417,7 @@ public class PdfReportCreator {
 			report.getParams().put("reportnameF", "F: "+translate("project.report.chronology"));
 			report.getParams().put("reportnameG", "G: "+translate("project.report.blockDetail"));
 			report.getParams().put("reportnameH", "H: "+translate("project.report.parameters"));
-			report.getParams().put("reportnameI", "I: "+translate("project.report.cashFlowFirst"));
+			report.getParams().put("reportnameI", "I: "+translate("project.report.workingcapital"));
 			report.getParams().put("reportnameJ", "J: "+translate("project.report.amortization.title"));
 			report.getParams().put("reportnameK", "K: "+translate("project.report.cashFlow"));
 			report.getParams().put("reportnameL", "L: "+translate("project.report.profitability"));
@@ -486,33 +494,49 @@ public class PdfReportCreator {
 		return report;
 	}
 	
-	public ReportWrapper projectCashFlowFirst(Project project, int startPage, boolean without) {
-		ReportWrapper report = new ReportWrapper("/reports/project/projectCashFlowFirst.jasper", true, project, "projectCashFlowFirst.pdf", startPage);
+	public ReportWrapper projectWorkingCapital(Project project, ProjectResult pr, ProjectMonthsInYear[] months, int startPage, boolean without, int year) {
+		ReportWrapper report = new ReportWrapper("/reports/project/projectWorkingCapital.jasper", true, project, "projectWorkingCapital.pdf", startPage);
 		
-		JasperReport jrIncome = reportLoader.compileReport("/reports/project/projectCashFlowFirstOpIncomes.jasper");
+		JasperReport jrIncome = reportLoader.compileReport("/reports/project/projectWorkingCapitalOpIncomes.jasper");
 		report.getParams().put("opIncomesSubReport", jrIncome);
-		JasperReport jrCosts = reportLoader.compileReport("/reports/project/projectCashFlowFirstOpCosts.jasper");
+		JasperReport jrCosts = reportLoader.compileReport("/reports/project/projectWorkingCapitalOpCosts.jasper");
 		report.getParams().put("opCostsSubReport", jrCosts);
-		JasperReport jrTotals = reportLoader.compileReport("/reports/project/projectCashFlowFirstTotals.jasper");
+		JasperReport jrTotals = reportLoader.compileReport("/reports/project/projectWorkingCapitalTotals.jasper");
 		report.getParams().put("totalsSubReport", jrTotals);
 		
-		report.getParams().put("firstYearData",  ProjectMonthsInYear.getProjectPerMonths(project, without, rivConfig.getSetting().getDecimalLength())[0]);
+		
+		ProjectMonthsInYear.getProjectPerMonths(project, without, rivConfig.getSetting().getDecimalLength());
+		report.getParams().put("firstYearData",  months[year-1]);
 		report.getParams().put("months", months(project));
+		report.getParams().put("year", year);
 		
-		
+		// show final data
+		if (!without && year==project.getDuration()) {
+			report.getParams().put("showInfo", true);
+			if (pr!=null) {
+				report.getParams().put("amtRequired", pr.getWorkingCapital());
+				report.getParams().put("period", pr.getWcPeriod());
+				report.getParams().put("periodAvg", pr.getWcPeriodAvg());
+			} else {
+				FinanceMatrix matrix = new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength()); 
+				report.getParams().put("amtRequired", matrix.getWcValue());
+				report.getParams().put("period", matrix.getWcPeriod());
+				report.getParams().put("periodAvg", matrix.getWcPeriodAvg());
+			}
+		}
 		
 		String title;
 		if (!without) {
 			if (project.isWithWithout()) {
-				title=translate("project.report.cashFlowFirst") + " "+translate("project.with");
+				title=translate("project.report.workingcapital") + " "+translate("project.with");
 			} else {
-				title=translate("project.report.cashFlowFirst");
+				title=translate("project.report.workingcapital");
 			}
 		} else { // without
-			title=translate("project.report.cashFlowFirst") + " "+translate("project.without");
+			title=translate("project.report.workingcapital") + " "+translate("project.without");
 		}
 		report.getParams().put("title", title);
-		report.getParams().put("reportname", "I: "+translate("project.report.cashFlowFirst"));
+		report.getParams().put("reportname", "I: "+translate("project.report.workingcapital"));
 		
 		runReport(report);
 		return report;

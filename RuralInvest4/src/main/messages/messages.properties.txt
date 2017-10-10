@@ -13,18 +13,20 @@ project.report.amortization.capitalDuringGrace=Initial capital when grace on int
 project.report.amortization.interestDuringGrace=Interest during grace for interest
 project.report.amortization.interestDuringGraceCapital=Interest when grace on capital
 
+
+project.report.workingcapital.sheetname=Working Capital
+project.report.workingcapital.with.sheetname=Working Capital (with)
+project.report.workingcapital.without.sheetname=Working Capital (w.out)
+
+
 # changed from earlier version
 project.loan.interest=Interest rate (%)
 
 # removed from earlier version
-project.report.cashFlow.loan1.total=
-project.report.cashFlow.loan1.capitalDuringGrace=
-project.report.cashFlow.loan1.interestDuringGrace=
-project.report.cashFlow.loan1.interestDuringGraceCapital=
-project.report.cashFlow.loan2.total=
-project.report.cashFlow.loan2.capitalDuringGrace=
-project.report.cashFlow.loan2.interestDuringGrace=
-project.report.cashFlow.loan2.interestDuringGraceCapital=
+#project.report.cashFlowFirst.with.sheetname=Cash Flow 1st yr (with)
+#project.report.cashFlowFirst.without.sheetname=Cash Flow 1st yr (w.out)
+#project.report.cashFlowFirst.sheetname=Cash Flow 1st yr
+#project.report.cashFlowFirst=Cash flow (first year)
 
 
 ## RIV 4.4.0
@@ -195,8 +197,6 @@ project.report.cashFlow.without.sheetname=Cash flow (w.out)
 project.report.profitability.with.sheetname=Profitability (with)
 project.report.profitability.without.sheetname=Profitability (w.out)
 project.report.profitability.incremental.sheetname=Profitability (incr)
-project.report.cashFlowFirst.with.sheetname=Cash Flow 1st yr (with)
-project.report.cashFlowFirst.without.sheetname=Cash Flow 1st yr (w.out)
 profile.report.preliminary.with.sheetname=Analysis (with)
 profile.report.preliminary.without.sheetname=Analysis (w.out)
 profile.report.preliminary.incremental.sheetname=Analysis (incr)
@@ -328,7 +328,6 @@ project.report.blockDetail.with.sheetname=Blocks (with)
 project.report.blockDetail.without.sheetname=Blocks (w.out)
 project.report.activityDetail.sheetname=Activities
 project.report.parameters.sheetname=Parameters
-project.report.cashFlowFirst.sheetname=Cash Flow 1st yr
 project.report.cashFlow.sheetname=Cash Flow
 project.report.profitability.sheetname=Profitability
 project.report.contributions.sheetname=Contributions
@@ -1033,7 +1032,7 @@ project.report.cashFlowFirst.operCosts=Operation costs
 project.report.cashFlowFirst.operIncomes=Operation income
 project.report.cashFlowFirst.otherCosts=Other costs
 project.report.cashFlowFirst.personal=Personal
-project.report.cashFlowFirst=Cash flow (first year)
+
 project.report.cashFlowNongen.contributions=Contributions
 project.report.cashFlowNongen.contributionsGeneral=Contributions to general costs
 project.report.cashFlowNongen.costs=Costs
