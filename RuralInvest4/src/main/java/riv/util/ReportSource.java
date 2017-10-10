@@ -9,20 +9,25 @@ import java.util.Map;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
+import net.sf.jasperreports.engine.JRRewindableDataSource;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
 
 @SuppressWarnings("rawtypes")
-public class ReportSource implements JRDataSource {
+public class ReportSource implements JRRewindableDataSource {
 	protected HashMap fieldsToIdxMap=new HashMap();
 	protected Iterator iterator;
 	protected Object currentValue;
+	Collection collection;
+	Map map;
 	
 	public ReportSource(Collection list) {
+		this.collection=list;
 		this.iterator = list.iterator();
 	}
 	public ReportSource(Map list) {
+		this.map=list;
 		this.iterator = list.values().iterator();
 	}
 	
@@ -74,6 +79,17 @@ public class ReportSource implements JRDataSource {
 		currentValue = iterator.hasNext() ? iterator.next() : null;
 		return currentValue != null;
 	}
+	public Object callMoveFirst() throws JRException {
+		this.moveFirst();
+		return null;
+	}
+	public void moveFirst() throws JRException {
+		if (collection!=null) {
+			this.iterator = collection.iterator();
+		} else if (map!=null) {
+			this.iterator=map.values().iterator();
+		}
+	}
 
 	public Object getFieldValue(JRField field) throws JRException {
 		return nestedFieldValue(currentValue, field.getName());
@@ -91,5 +107,6 @@ public class ReportSource implements JRDataSource {
 			return before+uni+convertHtmlToUnicode(after);
 		}
 	}
+	
 
 }

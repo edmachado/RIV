@@ -23,13 +23,12 @@
 	<parameter name="qtysSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
 	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="blocksSubReport" class="net.sf.jasperreports.engine.JasperReport" isForPrompting="false"/>
-	<parameter name="blocks" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="blocks" class="riv.util.ReportSource" isForPrompting="false"/>
 	<parameter name="duration" class="java.lang.Integer" isForPrompting="false"/>
 	<field name="qtys" class="java.lang.Object"/>
 	<field name="year" class="java.lang.Integer"/>
-	<variable name="title" class="java.lang.String">
-		<variableExpression><![CDATA[]]></variableExpression>
-		<initialValueExpression><![CDATA[$P{incomeGen} ? $R{project.report.production} : $R{project.report.production.nonGen}]]></initialValueExpression>
+	<variable name="varBlocks" class="java.lang.Object" resetType="Page">
+		<variableExpression><![CDATA[$P{blocks}.callMoveFirst()]]></variableExpression>
 	</variable>
 	<pageHeader>
 		<band height="38">
@@ -41,9 +40,9 @@
 				<subreportParameter name="reportTitle">
 					<subreportParameterExpression><![CDATA[$P{withWithout}
     ? $P{without}
-        ? $V{title} + " " + $R{project.without}
-        : $V{title} + " " + $R{project.with}
-    : $V{title}]]></subreportParameterExpression>
+        ? ($P{incomeGen} ? $R{project.report.production} : $R{project.report.production.nonGen}) + " " + $R{project.without}
+        : ($P{incomeGen} ? $R{project.report.production} : $R{project.report.production.nonGen}) + " " + $R{project.with}
+    : ($P{incomeGen} ? $R{project.report.production} : $R{project.report.production.nonGen})]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="proType">
 					<subreportParameterExpression><![CDATA[$P{incomeGen} ? $R{project.incomeGen} : $R{project.nonIncomeGen}]]></subreportParameterExpression>
@@ -83,6 +82,7 @@
 			<line>
 				<reportElement uuid="92a92772-2823-43a5-b0d5-1170cd2bd29b" key="line-1" positionType="FixRelativeToBottom" mode="Opaque" x="0" y="20" width="37" height="1" forecolor="#000000" backcolor="#FFFFFF">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<printWhenExpression><![CDATA[($V{PAGE_NUMBER}-1)*15+$V{COLUMN_NUMBER}<=$P{duration}]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
@@ -102,7 +102,7 @@
 					<font fontName="Arial" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($P{incomeGen}.booleanValue())
+				<textFieldExpression><![CDATA[$P{incomeGen}
 ? $R{projectBlock.name}
 : $R{projectActivity.name}]]></textFieldExpression>
 			</textField>

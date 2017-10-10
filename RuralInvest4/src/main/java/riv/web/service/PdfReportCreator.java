@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRRewindableDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -738,6 +739,7 @@ public class PdfReportCreator {
 		report.getParams().put("blocksSubReport", jrBlocks);
 		
 		report.getParams().put("blocks", new ReportSource(blocks));
+		
 		report.getParams().put("without", without);
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());

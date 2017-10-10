@@ -3,7 +3,7 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="94"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -28,13 +28,6 @@
 	<field name="withProject" class="java.lang.Boolean"/>
 	<field name="lengthUnit" class="java.lang.Integer"/>
 	<field name="cycles" class="java.lang.Boolean"/>
-	<variable name="title" class="java.lang.String">
-		<variableExpression><![CDATA[]]></variableExpression>
-		<initialValueExpression><![CDATA[$P{incomeGen} ? $R{project.report.production} : $R{project.report.production.nonGen}]]></initialValueExpression>
-	</variable>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField pattern="###0.00" isBlankWhenNull="false">
@@ -99,10 +92,4 @@
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>
