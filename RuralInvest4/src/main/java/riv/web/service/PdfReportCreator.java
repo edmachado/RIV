@@ -2,11 +2,13 @@ package riv.web.service;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -689,12 +691,53 @@ public class PdfReportCreator {
 		return report;
 	}
 	
+	public class PatternsPerYear {
+		int year;
+		List<PatternQty> qtys;
+		public List getQtys() {
+			return qtys;
+		}
+		public int getYear() {
+			return year;
+		}
+		public PatternsPerYear (int year, List<PatternQty> qs) {
+			this.year=year;
+			qtys=qs;
+		}
+	} 
+	public class PatternQty {
+		private double qty;
+		public PatternQty(double q) {
+			this.qty=q;
+		}
+		public double getQty() {
+			return qty;
+		}
+	}
+	
+	
 	public ReportWrapper projectProduction(Project project, int startPage, boolean without) {
-		ReportWrapper report = new ReportWrapper("/reports/project/projectProduction.jasper", true, without ? project.getBlocksWithout() : project.getBlocks(), "projectProduction.pdf", startPage);
+		Set<? extends BlockBase> blocks = without ? project.getBlocksWithout() : project.getBlocks();
 		
-		JasperReport jrSupplies = reportLoader.compileReport("/reports/project/projectProductionYears.jasper");
-		report.getParams().put("yearsSubReport", jrSupplies);
+		List<PatternsPerYear> patternsPerYear = new ArrayList<PatternsPerYear>(project.getDuration());
 		
+		for (int i=0;i<project.getDuration();i++) {
+			ArrayList<PatternQty> patterns = new ArrayList<PatternQty>(blocks.size());
+			for (BlockBase b : blocks) {
+				patterns.add(new PatternQty(b.getPatterns().get(i+1).getQty()));
+			}
+			patternsPerYear.add(new PatternsPerYear(i+1,patterns));
+		}
+		
+		ReportWrapper report = new ReportWrapper("/reports/project/projectProductionYears.jasper", true, patternsPerYear, "projectProduction.pdf", startPage);
+		
+		JasperReport jrQtys = reportLoader.compileReport("/reports/project/projectProductionQtys.jasper");
+		report.getParams().put("qtysSubReport", jrQtys);
+		
+		JasperReport jrBlocks = reportLoader.compileReport("/reports/project/projectProductionBlocks.jasper");
+		report.getParams().put("blocksSubReport", jrBlocks);
+		
+		report.getParams().put("blocks", new ReportSource(blocks));
 		report.getParams().put("without", without);
 		report.getParams().put("projectName", project.getProjectName());
 		report.getParams().put("incomeGen", project.getIncomeGen());
