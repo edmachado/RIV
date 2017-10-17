@@ -9,7 +9,7 @@
 			<fieldset>
 				<legend>i. <spring:message code="mainMenu.config.columns"/></legend>
 				<div class="dataentry"><spring:message code="settings.projectResults"/></div>
-				<tags:dataentryCheckbox field="resultTechnician" labelKey="project.technician" />
+				<tags:dataentryCheckbox field="resultTechnician" labelKey="project.user" />
 				<tags:dataentryCheckbox field="resultFieldOffice" labelKey="project.fieldOffice" />
 				<tags:dataentryCheckbox field="resultStatus" labelKey="project.status" />
 				<tags:dataentryCheckbox field="resultProjectCategory" labelKey="project.category" />

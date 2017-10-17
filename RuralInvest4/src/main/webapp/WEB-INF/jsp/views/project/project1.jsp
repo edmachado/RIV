@@ -108,19 +108,18 @@ $( "#radioShared" ).buttonset();
 				</c:if>
 								
 				<div class="dataentry">
-					<label><tags:help text="project.createdBy.help"><spring:message code="project.createdBy"/></tags:help></label>
-				 	${project.createdBy}
-				</div>
-				
-				<div class="dataentry">
 					<label><tags:help text="project.creationDate.help" title="project.creationDate"><spring:message code="project.creationDate"/></tags:help></label>
 					<fmt:formatDate value="${project.prepDate}" type="both" pattern="dd/MM/yy HH:mm" />
 				</div>
+				<tags:dataentry field="createdBy" labelKey="project.creationDate" helpTitle="project.creationDate" helpText="project.creationDate.help" inputClass="text" size="20" maxLength="100"/>
+				
 
 				<div class="dataentry">
-					<label><spring:message code="project.lastUpdate"/></label>
+					<label><tags:help text="project.lastUpdate.help" title="project.lastUpdate"><spring:message code="project.lastUpdate"/></tags:help></label>
 				 	<fmt:formatDate value="${project.lastUpdate}" type="both" pattern="dd/MM/yy HH:mm" />
 				</div>
+				<tags:dataentry field="lastUpdateBy" labelKey="project.lastUpdateBy" helpTitle="project.lastUpdateBy" helpText="project.lastUpdateBy.help" inputClass="text" size="20" maxLength="100"/>
+				
 			</fieldset>
 			
 			<fieldset>
@@ -175,27 +174,10 @@ $( "#radioShared" ).buttonset();
   				<legend>
   					<tags:help title="project.step1.4" text="project.step1.4.help">iv. <spring:message code="project.step1.4"/></tags:help>
   				</legend>
-			    <div class="dataentry">
-			    	<label><spring:message code="user.name"/></label>
-			    	${project.technician.description}
-			    </div>
-			   <div class="dataentry">
-			    	<label><spring:message code="user.organization"/></label>
-			    	${project.technician.organization}
-			    </div>
-			    <div class="dataentry">
-			    	<label><spring:message code="user.email"/></label>
-			    	${project.technician.email}
-			    </div>
-			    <div class="dataentry">
-			    	<label><spring:message code="user.telephone"/></label>
-			    	${project.technician.telephone}
-			    </div>
-			    <div class="dataentry">
-			    	<label><spring:message code="user.location"/></label>
-			    	${project.technician.location}
-			    </div>
-			</fieldset>
+  				<div class="dataentry">
+  					<a href="../../config/user/${project.technician.userId}"><b>${project.technician.description} (${project.technician.organization})</b></a>	
+  				</div> 
+  			</fieldset>
 			
 			<fieldset>
               	<legend>

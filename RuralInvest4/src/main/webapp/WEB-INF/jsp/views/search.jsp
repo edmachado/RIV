@@ -49,7 +49,7 @@
 			</div>
 			<div class="filter-body" style="background-color:#E1E1E1">
 				<div>
-					<spring:message code="project.technician"/><br/>
+					<spring:message code="project.user"/><br/>
 					<form:select path="users" multiple="true" size="4">
 						<form:options items="${users}" itemValue="userId" itemLabel="description"/>
 					</form:select>

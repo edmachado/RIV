@@ -103,11 +103,11 @@ public class ExcelWorksheetBuilder {
 		setColumnWidth(sheet, 0, 200);
 		String[] colTitles = filter.isIncomeGen() ?
 			new String[] // Income generating
-		    {"profile.profileName", "profile.technician", "profile.fieldOffice", "profile.benefNum", "profile.investTotal", 
+		    {"profile.profileName", "profile.user", "profile.fieldOffice", "profile.benefNum", "profile.investTotal", 
 				"profile.investOwn", "profile.investExt", "profile.incomeAfterAnnual", "profile.yearsToRecover"
 		    } :
 	    	new String[] // Non income generating
-		    {"profile.profileName", "profile.technician", "profile.fieldOffice", "profile.benefNum", "profile.investTotal", 
+		    {"profile.profileName", "profile.user", "profile.fieldOffice", "profile.benefNum", "profile.investTotal", 
 				"profile.investOwn", "profile.investExt", "profile.investmentPerBenef", "profile.costPerBenef"
 		    };
 	    // data
@@ -161,7 +161,7 @@ public class ExcelWorksheetBuilder {
 			ArrayList<String> titles = new ArrayList<String>();
 			titles.add("project.projectName");
 			titles.add("project.userCode");
-			titles.add("project.technician");
+			titles.add("project.user");
 			titles.add("project.fieldOffice");
 			titles.add("project.status");
 			titles.add("project.category");
@@ -192,7 +192,7 @@ public class ExcelWorksheetBuilder {
 			colTitles=titles.toArray(new String[titles.size()]);
 		} else { 
 			colTitles = new String[] // Non income generating
-  		    {"project.projectName","project.userCode","project.technician","project.fieldOffice", "project.status", "project.enviroCat", "project.investTotal", 
+  		    {"project.projectName","project.userCode","project.user","project.fieldOffice", "project.status", "project.enviroCat", "project.investTotal", 
   				"project.investOwn", "project.investExt", "project.investCredit.nongen", "project.annualEmployment", 
   				"project.investPerDirect", "project.investPerIndirect",
   				"project.benefs.direct", "project.benefs.indirect"
@@ -3488,7 +3488,7 @@ public class ExcelWorksheetBuilder {
 	// Technician
 		row = sheet.createRow(rowNum++);	row = sheet.createRow(rowNum++);
 		User user = profile.getTechnician();
-		report.addTextCell(row, 0, translate("profile.technician"), Style.H2);
+		report.addTextCell(row, 0, translate("profile.user"), Style.H2);
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("user.description"), Style.LABEL);
 		report.addTextCell(row, 1, user.getDescription());

@@ -571,6 +571,10 @@ ALTER TABLE project ADD COLUMN loan2_payments_per_year INT;
 UPDATE project SET loan1_payments_per_year=1;
 UPDATE project SET loan2_payments_per_year=1;
 
+-- "created by" for profiles and projects
+ALTER TABLE PROJECT ADD COLUMN last_update_by VARCHAR(100);
+ALTER TABLE PROFILE ADD COLUMN last_update_by VARCHAR(100);
+
 	</query>
 	</version>
 </sql>

@@ -282,7 +282,7 @@ $F{investmentTotal}.doubleValue()/$F{beneIndirect}.doubleValue()
 					<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{project.technician}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{project.user}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

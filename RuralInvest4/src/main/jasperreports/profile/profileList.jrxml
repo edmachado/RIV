@@ -135,7 +135,7 @@ $F{investmentTotal}.doubleValue()/$F{benefNum}.doubleValue()
 					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$R{profile.technician}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$R{profile.user}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="904f5b61-d0bb-48b9-9024-2749e39bd875" key="textField-7" positionType="Float" mode="Opaque" x="305" y="3" width="57" height="14" forecolor="#003365" backcolor="#E5E5E5"/>

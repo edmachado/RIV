@@ -59,7 +59,7 @@ $(function() {
 						<td id="result_profileName" style="text-align:left;">${result.profileName}</td>
 					</tr>
 					<tr>
-						<td><spring:message code="profile.technician"/></td>
+						<td><spring:message code="profile.user"/></td>
 						<td id="result_technician" style="text-align:left;">${result.technician.description}</td>
 					</tr>
 					<tr>

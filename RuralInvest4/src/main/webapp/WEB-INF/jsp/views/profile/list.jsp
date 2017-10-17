@@ -23,7 +23,7 @@ $("#confirmDelete").dialog({
 			<display:table name="results" export="false" id="row" pagesize="${user.pageSize}" requestURI="" cellspacing="0" cellpadding="0" htmlId="results">
 				<tags:pagingProperties/>
 				<display:column titleKey="profile.profileName" property="profileName" sortable="true" style="text-align:left;" headerClass="left"/>
-				<display:column titleKey="profile.technician" property="technician.description" sortable="true" style="text-align:left" headerClass="left"/>
+				<display:column titleKey="profile.user" property="technician.description" sortable="true" style="text-align:left" headerClass="left"/>
 				<display:column titleKey="profile.status" sortProperty="status.description" sortable="true" style="text-align:left" headerClass="left">
 					<tags:appConfigDescription ac="${row.status}"/>
 				</display:column>

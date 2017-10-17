@@ -11,7 +11,7 @@
 						<td class="left" id="result_userCode">${result.userCode}</td>
 					</tr>
 					<tr>
-						<td><spring:message code="project.technician"/></td>
+						<td><spring:message code="project.user"/></td>
 						<td class="left" id="result_technician">${result.technician.description}</td>
 					</tr>
 					<tr>

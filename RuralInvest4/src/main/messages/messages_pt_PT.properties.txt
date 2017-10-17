@@ -1538,9 +1538,6 @@ profile.step6=actividades
 profile.step8=Recomendações
 
 profile.step9=Resumo e Relatórios
-
-profile.technician=Técnico
-
 profile.upgrade=Converter para projecto
 
 profile.yearsToRecover=Número de anos necessários para recuperar o investimento
@@ -2266,11 +2263,6 @@ project.sustainability.nongen.help=A menos que os pagamentos feitos pelos utiliz
 project.sustainability.nongen=Sustentabilidade do projecto (financiamentos)
 
 project.sustainability=Sustentabilidade do projecto
-
-project.technician.help=O técnico responsável por este projecto.
-
-project.technician=Técnico
-
 project.technology.help=Se o projecto utiliza qualquer tipo de tecnologia (p. ex. equipamento, protocolos de produção), descreva-a e indique se a tecnologia é familiar aos proponentes. Há possibilidades de reparação e manutenção na zona? 
 
 project.technology=Tecnologia que será usada

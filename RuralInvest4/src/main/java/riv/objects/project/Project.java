@@ -120,6 +120,8 @@ public class Project extends Probase implements java.io.Serializable {
 	@DateTimeFormat(iso=ISO.DATE)
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date lastUpdate;
+	@Column(name="LAST_UPDATE_BY")
+	private String lastUpdateBy;
 	@Column(name="CREATED_BY")
 	private String createdBy;
 	private String location1;
@@ -518,6 +520,14 @@ public double getInvestmentTotal() {
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
+	public String getLastUpdateBy() {
+		return lastUpdateBy;
+	}
+
+	public void setLastUpdateBy(String lastUpdateBy) {
+		this.lastUpdateBy = lastUpdateBy;
+	}
+
 	public String getLocation1 () {
         return this.location1;
     }

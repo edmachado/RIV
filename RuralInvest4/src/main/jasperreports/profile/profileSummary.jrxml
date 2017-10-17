@@ -107,7 +107,7 @@
 						<font fontName="Arial" pdfFontName="arial.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$R{profile.technician}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{profile.user}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
 					<reportElement uuid="a55d4e65-9927-4005-95fd-f8cefa4b3611" key="textField-27" mode="Opaque" x="191" y="22" width="304" height="16" forecolor="#000000" backcolor="#FFFFFF"/>

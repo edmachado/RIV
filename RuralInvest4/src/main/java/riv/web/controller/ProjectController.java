@@ -181,6 +181,8 @@ public class ProjectController {
 			p.setExchRate(rivConfig.getSetting().getExchRate());
 			p.setPrepDate(new Date());
 			p.setCreatedBy(u.getDescription() + " ("+u.getOrganization()+")");
+			p.setLastUpdate(p.getPrepDate());
+			p.setLastUpdateBy(u.getDescription() + " ("+u.getOrganization()+")");
 			p.setFieldOffice(rivConfig.getFieldOffices().get(-4));
 			p.setBeneficiary(rivConfig.getBeneficiaries().get(-3));
 			p.setEnviroCategory(rivConfig.getEnviroCategories().get(-6));

@@ -27,7 +27,7 @@
 				<display:column style="text-align:left" headerClass="left" titleKey="project.userCode" property="userCode" sortable="true"/>
 				
 				<c:if test="${user.resultTechnician}"><c:set var="cols" value="${cols+1}"/>
-					<display:column style="text-align:left; ${tech}" headerClass="left" titleKey="project.technician" property="technician.description" sortable="true"/>
+					<display:column style="text-align:left; ${tech}" headerClass="left" titleKey="project.user" property="technician.description" sortable="true"/>
 				</c:if>
 				
 				<c:if test="${user.resultFieldOffice}"><c:set var="cols" value="${cols+1}"/>

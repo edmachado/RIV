@@ -13,16 +13,35 @@ project.report.amortization.capitalDuringGrace=Initial capital when grace on int
 project.report.amortization.interestDuringGrace=Interest during grace for interest
 project.report.amortization.interestDuringGraceCapital=Interest when grace on capital
 
-
 project.report.workingcapital.sheetname=Working Capital
 project.report.workingcapital.with.sheetname=Working Capital (with)
 project.report.workingcapital.without.sheetname=Working Capital (w.out)
 
+project.lastUpdateBy=Last updated by
+project.lastUpdateBy.help=The last use to update the project.
+profile.lastUpdateBy=Last updated by
+profile.lastUpdateBy.help=The last use to update the profile.
+project.user=User
+profile.user=User
 
 # changed from earlier version
 project.loan.interest=Interest rate (%)
 
+profile.createdBy.help=The user who originally created the profile.
+project.createdBy.help=The user who originally created the project.
+
+profile.step1.3=User
+profile.step1.3.help=The user (in this RuralInvest instance) who manages this profile, and who decides if the profile may be shared (all users can modify it) or not (only they can modify it).
+project.step1.4=User
+project.step1.4.help=The user (in this RuralInvest instance) who manages this project, and who decides if the project may be shared (all users can modify it) or not (only they can modify it).
+
+user.description.help=Your full name, to appear in connection with profiles and projects in RuralInvest.
+
+
 # removed from earlier version
+#project.technician=Technician
+#project.technician.help=The technician responsible for this project.
+
 #project.report.cashFlowFirst.with.sheetname=Cash Flow 1st yr (with)
 #project.report.cashFlowFirst.without.sheetname=Cash Flow 1st yr (w.out)
 #project.report.cashFlowFirst.sheetname=Cash Flow 1st yr
@@ -641,7 +660,6 @@ profile.clone.help=Cloning permits the copying of a profile which can then be mo
 profile.clone=Clone this profile
 profile.costPerBenef=Annual cost per beneficiary
 profile.createdBy=Created by
-profile.createdBy.help=The technician who originally created the profile.
 profile.creationDate=Creation date
 profile.demand.help=Describe what is known about the demand for the service or product which will be provided by the project. Why is it not being provided already? What are people doing without it? How do you know that there is demand?
 profile.demand=Anticipated demand
@@ -725,8 +743,6 @@ profile.status=Status
 profile.status.help=Help text for profile status
 profile.step1.1=General Information
 profile.step1.2=Location
-profile.step1.3.help=If you are creating a profile, this section should show your details. If it is not correct, you must update 'Users' under the Configuration option in Home. You may also have entered RuralInvest using someone else's logon.
-profile.step1.3=Technician
 profile.step1.4.help=Select yes if you wish other users to be able to add to or modify this profile. If you select no, they will be able to view, but not change, this profile.
 profile.step1.4=Sharing
 profile.step1=General Information
@@ -739,7 +755,6 @@ profile.step6=Products
 profile.step7=Reference items
 profile.step8=Recommendations
 profile.step9=Summary & Reports
-profile.technician=Technician
 profile.upgrade=Convert to project
 profile.yearsToRecover=Years to recover investment
 profile.withWithoutMessage=Does this profile distinguish between products "with" and "without" project?
@@ -919,7 +934,6 @@ project.clone.help=Cloning permits the copying of a project which can then be mo
 project.clone=Clone this project
 project.costPerBenef=Annual cost per beneficiary
 project.createdBy=Created by
-project.createdBy.help=The technician who originally created the project.
 project.creationDate.help=Date this project was initially created
 project.creationDate=Creation date
 project.demand.help=Describe what is known about the demand for the service or product which will be provided by the project. Why is it not being provided already? What are people doing without it? How do you know that there is demand?
@@ -1133,8 +1147,6 @@ project.step1.2.help=Information is required regarding project location, accordi
 project.step1.2=Location
 project.step1.3.help=A project must usually distinguish between 'with project'and 'without project' blocks if it is an addition or modification of an existing activity. In this case, the 'without project' blocks describe the current situation, while the 'with project' blocks describe the situation after project investment. The computer then subtracts without-project figures from with-project figures to give the incremental costs and returns.
 project.step1.3=Type and status
-project.step1.4.help=If you are creating the proposal, these fields should show your information. If the data is incorrect or the fields blank, you must close the proposal and verify (a) that you are logged on to the system in your name, and (b) that you have correctly filled out the 'technician' field in the 'Configuration' section.
-project.step1.4=Technician
 project.step1.5.help=Select 'yes' if you wish other technicians to be able to modify this project. If you select 'no' other users will be able to read but not modify the project file
 project.step1.5=Sharing
 project.step10.nongen=Contributions
@@ -1162,8 +1174,7 @@ project.sustainability.help=Information is required regarding sustainability (en
 project.sustainability.nongen.help=Unless user charges are very substantial, once in operation the project will require additional regular resources to keep functioning and meet costs. Where will these resources come from? What guarantees exist that the assumed sources of funds (community, local government, charities etc.) will meet their obligations?
 project.sustainability.nongen=Operational sustainability (source of funds)
 project.sustainability=Operational sustainability
-project.technician.help=The technician responsible for this project.
-project.technician=Technician
+
 project.technology.help=If the project will utilise any form of technology (e.g. machinery or equipment), describe it and note whether the technology is familiar to the applicants. Are there repair or maintenance facilities available in the area?
 project.technology=Technology to be utilised
 project.userCode.help=This field need be completed only if your agency requires an internal code for sorting projects. Whether completed or not, the computer will automatically assign an internal RuralInvest code which it will use to identify the project 
@@ -1661,7 +1672,6 @@ user.addUser=Add user
 user.administrator=Admin
 user.changePassword=Change username and password
 user.delete.warn=Deleting a user means that his or her projects and profiles will also be deleted.  Would you like to continue?
-user.description.help=The name of the technician who will be using the RuralInvest system
 user.description=Name
 user.email.help=If you have an e-mail address, enter it here
 user.email=E-mail

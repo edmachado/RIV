@@ -6,7 +6,7 @@
 		<div style="width:500px">
 			<tags:errors/>
 			<fieldset>
-				<legend><spring:message code="user.addUser"/></legend> 
+				<legend><spring:message code="user.title"/></legend> 
 				<c:if test="${accessOK and not empty user.userId}">
 					<div class="dataentry">
 					<a id="changeUser" href="${user.userId}?changePassword" class="button">&nbsp;<spring:message code="user.changePassword"/>&nbsp;</a>

@@ -355,7 +355,7 @@
 						<font isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$R{project.technician}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$R{project.user}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="32814d88-c2a1-4f9e-83c6-26ef97c97026" key="textField-92" style="Arial_Normal" positionType="Float" mode="Opaque" x="213" y="233" width="314" height="16" forecolor="#003365" backcolor="#FFFFFF"/>

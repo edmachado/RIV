@@ -20,7 +20,7 @@ $("#confirmDelete").dialog({
 				<display:table name="results" requestURI="" id="row" pagesize="${user.pageSize}" export="false" cellspacing="0" cellpadding="0" htmlId="results">
 					<display:setProperty name="basic.msg.empty_list"><spring:message code="misc.noItems"/></display:setProperty>
 					<display:column titleKey="project.projectName" property="projectName" sortable="true" style="text-align:left" headerClass="left" />
-<%-- 					<display:column titleKey="project.technician" property="technician.description" sortable="true" style="text-align:left" headerClass="left"/> --%>
+<%-- 					<display:column titleKey="project.user" property="technician.description" sortable="true" style="text-align:left" headerClass="left"/> --%>
 					<display:column titleKey="project.creationDate" sortable="true" sortProperty="prepDate" style="text-align:center;" headerClass="centered">
 						<fmt:formatDate value="${row.prepDate}" type="both" pattern="dd/MM/yy HH:mm"/>
 					</display:column>
