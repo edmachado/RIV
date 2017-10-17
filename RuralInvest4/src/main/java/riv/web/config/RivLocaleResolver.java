@@ -37,7 +37,7 @@ public class RivLocaleResolver implements LocaleResolver {
 	
 	private Locale getLocaleFromLangString(String lang) {
 		if (lang.contains("-")) {
-			String[] langRegion = lang.split("-");
+			String[] langRegion = lang.split("_");
 			return new Locale(langRegion[0],langRegion[1]);
 		} else {
 			return new Locale(lang);

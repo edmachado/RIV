@@ -561,8 +561,9 @@ ALTER TABLE user ADD COLUMN result_pay_period_after BOOLEAN DEFAULT TRUE;
 -- wc period avg in project_result
 ALTER TABLE project_result ADD COLUMN wc_period_avg DECIMAL(12,4);
 
--- language can be 5 characters
+-- language can be 5 characters (and previous pt now default to pt_PT)
 ALTER TABLE setting ALTER COLUMN lang VARCHAR(5);
+UPDATE user SET lang='pt_PT' WHERE lang='pt';
 
 -- loan payments per year (loan amortization)
 ALTER TABLE project ADD COLUMN loan1_payments_per_year INT;
