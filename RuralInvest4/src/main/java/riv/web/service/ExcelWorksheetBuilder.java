@@ -2828,7 +2828,7 @@ public class ExcelWorksheetBuilder {
 				sheetname=translate(SheetName.PROJECT_WORKING_CAPITAL_WITH);
 				title=titlePart1 + " " + translate("project.with");
 			} else {
-				sheetname=translate(SheetName.PROJECT_CASH_FLOW_MONTHS);
+				sheetname=translate(SheetName.PROJECT_WORKING_CAPITAL);
 				title=titlePart1;
 			}
 		} else {
@@ -3228,13 +3228,6 @@ public class ExcelWorksheetBuilder {
 
 		rowNum++;	
 		report.addBigTextCell(sheet, rowNum++, translate("project.justification"), project.getReccDesc());
-
-		
-//		rowNum += rowNum+2;
-//		row = sheet.createRow(rowNum++);
-//		report.addTextCell(row, cellNum, translate("project.report.recommendation.signature"), Style.LABEL);
-//		row = sheet.createRow(rowNum++);
-//		report.addTextCell(row, cellNum, project.getTechnician().getDescription());
 		
 		return sheet;
 		
@@ -3244,8 +3237,8 @@ public class ExcelWorksheetBuilder {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_PARAMETERS));
 		
 		String cashFlowMonthsSheet = project.isWithWithout() 
-				? translate(SheetName.PROJECT_CASH_FLOW_MONTHS) + " " + translate("project.with")
-				: translate(SheetName.PROJECT_CASH_FLOW_MONTHS);
+				? translate(SheetName.PROJECT_WORKING_CAPITAL_WITH)
+				: translate(SheetName.PROJECT_WORKING_CAPITAL);
 
 		sheet.setSelected(true);
 		int rowNum=0;
@@ -3337,7 +3330,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("project.period"));
 		if (report.isCompleteReport()) {
 			String formula = 
-					"IF(B23>0, MATCH(2,1/MMULT(1,-("+range+"<0)))+2, 0)";	
+					"IF(B25>0, MATCH(2,1/MMULT(1,-("+range+"<0)))+2, 0)";	
 			report.addFormulaCell(row, 1, formula);
 			report.addLink(ExcelLink.PROJECT_WC_PERIOD, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		} else {
@@ -3350,7 +3343,7 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("project.periodAvg"));
 		if (report.isCompleteReport()) {
 			String formula = 
-					String.format("ROUND(AVERAGE(INDIRECT(CONCATENATE(\"'%s'!$B$%d:\"&ADDRESS(%d,B24+1)))),2)",
+					String.format("ROUND(AVERAGE(INDIRECT(CONCATENATE(\"'%s'!$B$%d:\"&ADDRESS(%d,B26+1)))),2)",
 							cashFlowMonthsSheet, firstYearCumulativeRow+4,
 									firstYearCumulativeRow+4
 						);	
@@ -3385,7 +3378,7 @@ public class ExcelWorksheetBuilder {
 
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.amtFinanced"));
-		report.addFormulaCell(row, 1, "B23-B27-B28", Style.CURRENCY);
+		report.addFormulaCell(row, 1, "B25-B29-B30", Style.CURRENCY);
 		if (report.isCompleteReport()) {
 			report.addLink(ExcelLink.PROJECT_WC_FINANCED, "'"+sheet.getSheetName()+"'!$B$"+rowNum);
 		}
@@ -4463,9 +4456,6 @@ enum SheetName {
 	PROJECT_BLOCKS_WITHOUT("project.report.blockDetail.without.sheetname"),
 	PROJECT_ACTIVITIES("project.report.activityDetail.sheetname"),
 	PROJECT_PARAMETERS("project.report.parameters.sheetname"),
-	
-	PROJECT_CASH_FLOW_MONTHS("project.report.workingcapital.sheetname"),
-	
 	PROJECT_WORKING_CAPITAL("project.report.workingcapital.sheetname"),
 	PROJECT_WORKING_CAPITAL_WITH("project.report.workingcapital.with.sheetname"),
 	PROJECT_WORKING_CAPITAL_WITHOUT("project.report.workingcapital.without.sheetname"),
