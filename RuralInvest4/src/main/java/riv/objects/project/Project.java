@@ -834,7 +834,7 @@ public double getInvestmentTotal() {
     }
     
     public Integer getLoan1PaymentsPerYear() {
-		return loan1PaymentsPerYear;
+		return loan1PaymentsPerYear==null?1:loan1PaymentsPerYear;
 	}
 
 	public void setLoan1PaymentsPerYear(Integer paymentsPerYear) {
@@ -889,7 +889,7 @@ public double getInvestmentTotal() {
     }
     
    public Integer getLoan2PaymentsPerYear() {
-		return loan2PaymentsPerYear;
+		return loan2PaymentsPerYear==null?1:loan2PaymentsPerYear;
 	}
 
 	public void setLoan2PaymentsPerYear(Integer paymentsPerYear) {
