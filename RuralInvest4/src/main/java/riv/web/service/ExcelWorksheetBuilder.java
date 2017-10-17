@@ -3243,7 +3243,9 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectParameters(ExcelWrapper report, Project project, ProjectResult result) {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_PARAMETERS));
 		
-		String cashFlowMonthsSheet = translate(SheetName.PROJECT_CASH_FLOW_MONTHS);
+		String cashFlowMonthsSheet = project.isWithWithout() 
+				? translate(SheetName.PROJECT_CASH_FLOW_MONTHS) + " " + translate("project.with")
+				: translate(SheetName.PROJECT_CASH_FLOW_MONTHS);
 
 		sheet.setSelected(true);
 		int rowNum=0;
