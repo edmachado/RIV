@@ -79,10 +79,10 @@
 <tags:jscriptCalc fieldA="unitCost" fieldB="unitNum" fieldC="total" functionName="CalculateTotal" calc="*" callWhenDone="CalculateExt" />
 <tags:jscriptCalc fieldA="unitNum" fieldB="qtyIntern" fieldC="extern" functionName="CalculateExt" calc="-" callWhenDone="CalculateTotalCash"  nonCurrency="true" />
 <c:if test="${project.incomeGen}">
-	<tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="totalCash" fieldD="extern" functionName="CalculateTotalCash" calc="+" calc2="*" />
+	<tags:jscriptCalc fieldA="unitCost" fieldB="extern" fieldC="totalCash" functionName="CalculateTotalCash" calc="*" />
 </c:if>
 <c:if test="${not project.incomeGen}">
-	<tags:jscriptCalc fieldA="unitCost" fieldB="transport" fieldC="totalCash" fieldD="extern" fieldE="donated" functionName="CalculateTotalCash" calc="+" calc2="*" calc3="-" />
+	<tags:jscriptCalc fieldA="unitCost" fieldB="extern" fieldC="totalCash" fieldD="donated" functionName="CalculateTotalCash" calc="*" calc2="-" />
 </c:if>
 </body>
 </html>
