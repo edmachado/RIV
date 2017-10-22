@@ -12,7 +12,7 @@
 	<input type="hidden" name="linkedToId" id="linkedToId" value="${initLinkedTo}"/>
 	<div id="divnotlinked" style="display:none;">
 		<p><spring:message code="reference.item.linked.no"/></p>
-		<b><a href="javascript:openReference();"><spring:message code="reference.item.link"/></a></b>
+		<b><a id="open-ref-link" href="javascript:openReference();"><spring:message code="reference.item.link"/></a></b>
 		<br/><br/>
 		<spring:message code="reference.item.link.or"/>
 		<br/><br/>
