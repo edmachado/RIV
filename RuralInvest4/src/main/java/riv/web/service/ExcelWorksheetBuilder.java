@@ -1208,7 +1208,7 @@ public class ExcelWorksheetBuilder {
 		.addColumn(XlsColumnType.NUMERIC, "getYearBegin", false);
 		
 		if (report.isCompleteReport()) {
-			String salvage = "IF(AND(ISNUMBER(CX),ISNUMBER(IX),ISNUMBER(KX),ISNUMBER(MX)), IF(AND((OR(exact(LX,\"#\"),@3=MX+IX)),@3<>MX,MOD(@3-MX,IX)=0), CX*KX, 0), 0)";
+			String salvage = "IF(AND(ISNUMBER(CX),ISNUMBER(IX),IX>0,ISNUMBER(KX),ISNUMBER(MX)), IF(AND((OR(exact(LX,\"#\"),@3=MX+IX)),@3<>MX,MOD(@3-MX,IX)=0), CX*KX, 0), 0)";
 			for (int i=0;i<project.getDuration();i++) {
 				assetsTable.addColumn(XlsColumnType.FORMULA, salvage, true);
 			}
@@ -1224,7 +1224,7 @@ public class ExcelWorksheetBuilder {
 			for (int i=0;i<project.getDuration();i++) {
 				assetsTable.addColumn(XlsColumnType.FORMULA, investmentCost, true);
 			}
-			String investmentReplace = "IF(AND(ISNUMBER(CX),ISNUMBER(DX),ISNUMBER(IX),ISNUMBER(MX)), IF(AND(exact(LX,\"#\"),@3>MX,MOD(@3-MX,IX)=0), CX*DX, 0), 0)";
+			String investmentReplace = "IF(AND(ISNUMBER(CX),ISNUMBER(DX),ISNUMBER(IX),IX>0,ISNUMBER(MX)), IF(AND(exact(LX,\"#\"),@3>MX,MOD(@3-MX,IX)=0), CX*DX, 0), 0)";
 			for (int i=0;i<project.getDuration();i++) {
 				assetsTable.addColumn(XlsColumnType.FORMULA, investmentReplace, true);
 			}
