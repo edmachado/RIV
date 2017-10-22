@@ -1084,13 +1084,23 @@ public double getInvestmentTotal() {
 	
 	public void setWithWithout(boolean withWithout) {
 		this.withWithout = withWithout;
-		if (!this.withWithout && blocksWithout!=null) { // convert without blocks to with blocks
-			for (BlockWithout bw : blocksWithout) {
-				Block newB = (Block)bw.copy(Block.class);
-				newB.setOrderBy(blocks.size());
-				addBlock(newB);
+		
+		// no "without" scenario: remove "without data"
+		if (!this.withWithout) {
+			if (blocksWithout!=null) { // convert without blocks to with blocks
+				for (BlockWithout bw : blocksWithout) {
+					Block newB = (Block)bw.copy(Block.class);
+					newB.setOrderBy(blocks.size());
+					addBlock(newB);
+				}
+				blocksWithout.clear();
 			}
-		}
+			generalWithouts.clear();
+			personnelWithouts.clear();
+			assetsWithout.clear();
+			laboursWithout.clear();
+			servicesWithout.clear();
+		} 
 	}
 	
 	public boolean isWithWithout() {

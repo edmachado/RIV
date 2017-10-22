@@ -847,6 +847,11 @@ public class DataRepository {
 			Hibernate.initialize(p.getAssets());
 			Hibernate.initialize(p.getLabours());
 			Hibernate.initialize(p.getServices());
+		}
+		
+		if (step==-1 || step==1 || step==7 || step==12 || step==13
+				|| (!p.getIncomeGen()&&step==10) || (p.getIncomeGen()&&step==11)
+				) {
 			Hibernate.initialize(p.getAssetsWithout());
 			Hibernate.initialize(p.getLaboursWithout());
 			Hibernate.initialize(p.getServicesWithout());
@@ -880,6 +885,7 @@ public class DataRepository {
 				Hibernate.initialize(b.getYears());
 			}
 		}
+		
 		if (!p.getIncomeGen() && (step==-1 || step==8 || step==10 || step==12 || step==13)) {
 			Hibernate.initialize(p.getNongenLabours());
 			Hibernate.initialize(p.getNongenMaintenance());

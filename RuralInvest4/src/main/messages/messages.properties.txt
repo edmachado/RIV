@@ -37,6 +37,11 @@ project.step1.4.help=The user (in this RuralInvest instance) who manages this pr
 
 user.description.help=Your full name, to appear in connection with profiles and projects in RuralInvest.
 
+project.withWithout="With project" and "Without project" scenarios
+project.withWithout.remove=When removing the "without project" scenario, any existing "without project" blocks will be considered as "with project". Existing "without project" general costs and investment costs, rather, will be deleted.
+project.withWithoutMessage=Does this project consider a "with" and "without" situation?
+project.withWithout.help=Including a "without project" scenario allows you to compare the investment project against any existing costs, operation and production.
+
 
 # removed from earlier version
 #project.technician=Technician
@@ -393,8 +398,6 @@ error.unknown.log=Please provide the following file to help them understand the 
 # "Link" as a verb in the imperative...
 reference.item.link.imperative=Link
 user.language=Language
-project.withWithout.remove=You are choosing to not have "with" and "without project" blocks for this project. Any blocks that are currently "without project" will be changed to "with project".
-#profile.withWithout.remove=You are choosing to not have "with" and "without project" products for this project. Any products that are currently "without project" will be changed to "with project".
 project.with=(With project)
 project.without=(Without project)
 attach.newProfile=You may attach an external file to this profile in this section once step 1 has been saved.
@@ -1179,9 +1182,6 @@ project.technology.help=If the project will utilise any form of technology (e.g.
 project.technology=Technology to be utilised
 project.userCode.help=This field need be completed only if your agency requires an internal code for sorting projects. Whether completed or not, the computer will automatically assign an internal RuralInvest code which it will use to identify the project 
 project.userCode=User code
-project.withWithout="With" and "Without" blocks
-project.withWithout.help=When changing this option from distinguishing between "with" and "without" blocks to not distinguishing, all existing blocks will be considered "with" project.
-project.withWithoutMessage=Does this project consider a "with" and "without" situation?
 project.workingCapital=Working capital
 project.workingCapital.help=Working capital represents the funds needed for the operation of the project, once initiated
 project.yearsToRecover=Years to recover investment
