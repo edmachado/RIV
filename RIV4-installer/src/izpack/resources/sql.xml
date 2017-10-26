@@ -575,6 +575,54 @@ UPDATE project SET loan2_payments_per_year=1;
 ALTER TABLE PROJECT ADD COLUMN last_update_by VARCHAR(100);
 ALTER TABLE PROFILE ADD COLUMN last_update_by VARCHAR(100);
 
+--weighted qualitative analysis
+ALTER TABLE project ADD COLUMN proj_desc_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN benef_desc_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN justification_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN activities_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN technology_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN requirements_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN sustainability_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN market_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN enviro_impact_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN organization_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN assumptions_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN source_funds_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN admin_misc1_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN admin_misc2_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN admin_misc3_qualitative SMALLINT;
+
+ALTER TABLE setting ADD COLUMN qualitative_proj_desc_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_proj_desc_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_benef_desc_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_benef_desc_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_justification_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_justification_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_activities_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_activities_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_technology_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_technology_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_requirements_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_requirements_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_sustainability_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_sustainability_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_market_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_market_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_enviro_impact_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_enviro_impact_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_organization_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_organization_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_assumptions_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_assumptions_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_source_funds_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_source_funds_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_admin_misc1_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_admin_misc1_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_admin_misc2_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_admin_misc2_weight SMALLINT DEFAULT 5;
+ALTER TABLE setting ADD COLUMN qualitative_admin_misc3_enabled BOOLEAN DEFAULT false;
+ALTER TABLE setting ADD COLUMN qualitative_admin_misc3_weight SMALLINT DEFAULT 5;
+
 	</query>
 	</version>
 </sql>

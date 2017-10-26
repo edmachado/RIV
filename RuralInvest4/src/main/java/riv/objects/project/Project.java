@@ -132,10 +132,14 @@ public class Project extends Probase implements java.io.Serializable {
 	@Size(max=10000)
 	@Column(name="BENEF_DESC")
 	private String benefDesc;
+	@Column(name="BENEF_DESC_QUALITATIVE")
+	private Short benefDescQualitative;
 	private Integer duration;
 	@Size(max=10000)
 	@Column(name="PROJ_DESC")
 	private String projDesc;
+	@Column(name="PROJ_DESC_QUALITATIVE")
+	private Short projDescQualitative;
 	@Column(name="BENE_DIRECT_NUM")
 	private Integer beneDirectNum;
 	@Column(name="BENE_DIRECT_MEN")
@@ -154,23 +158,41 @@ public class Project extends Probase implements java.io.Serializable {
 	private Integer beneIndirectChild;
 	@Size(max=10000)
 	private String justification;
+	@Column(name="JUSTIFICATION_QUALITATIVE")
+	private Short justificationQualitative;
 	@Size(max=10000)
 	private String activities;
+	@Column(name="ACTIVITIES_QUALITATIVE")
+	private Short activitiesQualitative;
 	@Size(max=10000)
 	private String technology;
+	@Column(name="TECHNOLOGY_QUALITATIVE")
+	private Short technologyQualitative;
 	@Size(max=10000)
 	private String requirements;
+	@Column(name="REQUIREMENTS_QUALITATIVE")
+	private Short requirementsQualitative;
 	@Size(max=10000)
 	private String sustainability;
+	@Column(name="SUSTAINABILITY_QUALITATIVE")
+	private Short sustainabilityQualitative;
 	@Size(max=10000)
 	private String market;
+	@Column(name="MARKET_QUALITATIVE")
+	private Short marketQualitative;
 	@Size(max=10000)
 	@Column(name="ENVIRO_IMPACT")
 	private String enviroImpact;
+	@Column(name="ENVIRO_IMPACT_QUALITATIVE")
+	private Short enviroImpactQualitative;
 	@Size(max=10000)
 	private String organization;
+	@Column(name="ORGANIZATION_QUALITATIVE")
+	private Short organizationQualitative;
 	@Size(max=10000)
 	private String assumptions;
+	@Column(name="ASSUMPTIONS_QUALITATIVE")
+	private Short assumptionsQualitative;
 	@Column(name="LOAN1_INTEREST")
 	private Double loan1Interest;
 	@Column(name="LOAN1_DURATION")
@@ -219,12 +241,17 @@ public class Project extends Probase implements java.io.Serializable {
 	
 	@Column(name="ADMIN_MISC1")
 	private String adminMisc1;
+	@Column(name="ADMIN_MISC1_QUALITATIVE")
+	private Short adminMisc1Qualitative;
 	@Column(name="ADMIN_MISC2")
 	private String adminMisc2;
+	@Column(name="ADMIN_MISC2_QUALITATIVE")
+	private Short adminMisc2Qualitative;
 	@Column(name="ADMIN_MISC3")
 	private String adminMisc3;
+	@Column(name="ADMIN_MISC3_QUALITATIVE")
+	private Short adminMisc3Qualitative;
 	
-
 	@Transient
 	private Double wcAmountRequired;
 	@Transient
@@ -232,7 +259,6 @@ public class Project extends Probase implements java.io.Serializable {
 	@Transient
 	private Double wcFinancePeriodAvg;
 	
-
 	@OneToMany(mappedBy="project", orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	private Set<Donor> donors = new HashSet<Donor>();
@@ -564,7 +590,15 @@ public double getInvestmentTotal() {
         this.benefDesc = BenefDesc;
     }
     
-    public EnviroCategory getEnviroCategory () {
+    public Short getBenefDescQualitative() {
+	return benefDescQualitative;
+}
+
+public void setBenefDescQualitative(Short benefDescQualitative) {
+	this.benefDescQualitative = benefDescQualitative;
+}
+
+	public EnviroCategory getEnviroCategory () {
         return enviroCategory;
     }
     
@@ -669,7 +703,15 @@ public double getInvestmentTotal() {
         this.projDesc = ProjDesc;
     }
     
-    public Integer getBeneDirectNum () {
+    public Short getProjDescQualitative() {
+	return projDescQualitative;
+}
+
+public void setProjDescQualitative(Short projDescQualitative) {
+	this.projDescQualitative = projDescQualitative;
+}
+
+	public Integer getBeneDirectNum () {
         return this.beneDirectNum;
     }
     
@@ -740,7 +782,15 @@ public double getInvestmentTotal() {
         this.justification = Justification;
     }
     
-    public String getActivities () {
+    public Short getJustificationQualitative() {
+	return justificationQualitative;
+}
+
+public void setJustificationQualitative(Short justificationQualitative) {
+	this.justificationQualitative = justificationQualitative;
+}
+
+	public String getActivities () {
         return this.activities;
     }
     
@@ -748,7 +798,15 @@ public double getInvestmentTotal() {
         this.activities = Activities;
     }
     
-    public String getTechnology () {
+    public Short getActivitiesQualitative() {
+	return activitiesQualitative;
+}
+
+public void setActivitiesQualitative(Short activitiesQualitative) {
+	this.activitiesQualitative = activitiesQualitative;
+}
+
+	public String getTechnology () {
         return this.technology;
     }
     
@@ -756,7 +814,15 @@ public double getInvestmentTotal() {
         this.technology = Technology;
     }
     
-    public String getRequirements () {
+    public Short getTechnologyQualitative() {
+	return technologyQualitative;
+}
+
+public void setTechnologyQualitative(Short technologyQualitative) {
+	this.technologyQualitative = technologyQualitative;
+}
+
+	public String getRequirements () {
         return this.requirements;
     }
     
@@ -764,7 +830,15 @@ public double getInvestmentTotal() {
         this.requirements = Requirements;
     }
     
-    public String getSustainability () {
+    public Short getRequirementsQualitative() {
+	return requirementsQualitative;
+}
+
+public void setRequirementsQualitative(Short requirementsQualitative) {
+	this.requirementsQualitative = requirementsQualitative;
+}
+
+	public String getSustainability () {
         return this.sustainability;
     }
     
@@ -772,7 +846,15 @@ public double getInvestmentTotal() {
         this.sustainability = Sustainability;
     }
     
-    public String getMarket () {
+    public Short getSustainabilityQualitative() {
+	return sustainabilityQualitative;
+}
+
+public void setSustainabilityQualitative(Short sustainabilityQualitative) {
+	this.sustainabilityQualitative = sustainabilityQualitative;
+}
+
+	public String getMarket () {
         return this.market;
     }
     
@@ -780,7 +862,15 @@ public double getInvestmentTotal() {
         this.market = Market;
     }
     
-    public String getEnviroImpact () {
+    public Short getMarketQualitative() {
+	return marketQualitative;
+}
+
+public void setMarketQualitative(Short marketQualitative) {
+	this.marketQualitative = marketQualitative;
+}
+
+	public String getEnviroImpact () {
         return this.enviroImpact;
     }
     
@@ -788,7 +878,15 @@ public double getInvestmentTotal() {
         this.enviroImpact = EnviroImpact;
     }
     
-    public String getOrganization () {
+    public Short getEnviroImpactQualitative() {
+	return enviroImpactQualitative;
+}
+
+public void setEnviroImpactQualitative(Short enviroImpactQualitative) {
+	this.enviroImpactQualitative = enviroImpactQualitative;
+}
+
+	public String getOrganization () {
         return this.organization;
     }
     
@@ -796,7 +894,15 @@ public double getInvestmentTotal() {
         this.organization = Organization;
     }
     
-    public String getAssumptions () {
+    public Short getOrganizationQualitative() {
+	return organizationQualitative;
+}
+
+public void setOrganizationQualitative(Short organizationQualitative) {
+	this.organizationQualitative = organizationQualitative;
+}
+
+	public String getAssumptions () {
         return this.assumptions;
     }
     
@@ -804,7 +910,15 @@ public double getInvestmentTotal() {
         this.assumptions = Assumptions;
     }
     
-//    public String getCategoryOther () {
+public Short getAssumptionsQualitative() {
+	return assumptionsQualitative;
+}
+
+public void setAssumptionsQualitative(Short assumptionsQualitative) {
+	this.assumptionsQualitative = assumptionsQualitative;
+}
+
+	//    public String getCategoryOther () {
 //        return this.categoryOther;
 //    }
 //    
@@ -1280,12 +1394,28 @@ public double getInvestmentTotal() {
 	public String getAdminMisc1() {
 		return adminMisc1;
 	}
+	public Short getAdminMisc1Qualitative() {
+		return adminMisc1Qualitative;
+	}
+
+	public void setAdminMisc1Qualitative(Short adminMisc1Qualitative) {
+		this.adminMisc1Qualitative = adminMisc1Qualitative;
+	}
+
 	public void setAdminMisc2(String adminMisc2) {
 		this.adminMisc2 = adminMisc2;
 	}
 	public String getAdminMisc2() {
 		return adminMisc2;
 	}
+	public Short getAdminMisc2Qualitative() {
+		return adminMisc2Qualitative;
+	}
+
+	public void setAdminMisc2Qualitative(Short adminMisc2Qualitative) {
+		this.adminMisc2Qualitative = adminMisc2Qualitative;
+	}
+
 	public void setAdminMisc3(String adminMisc3) {
 		this.adminMisc3 = adminMisc3;
 	}
@@ -1295,6 +1425,14 @@ public double getInvestmentTotal() {
 	
 	
 	
+	public Short getAdminMisc3Qualitative() {
+		return adminMisc3Qualitative;
+	}
+
+	public void setAdminMisc3Qualitative(Short adminMisc3Qualitative) {
+		this.adminMisc3Qualitative = adminMisc3Qualitative;
+	}
+
 	public Integer getBeneDirectTotal() {
 		return (beneDirectChild==null || beneDirectMen==null || beneDirectWomen==null) ? null : beneDirectChild+beneDirectMen+beneDirectWomen;
 	}

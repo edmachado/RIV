@@ -181,6 +181,82 @@ public class Setting implements java.io.Serializable {
 	private boolean adminMisc3Multiline;
 	@Column(name="ADMIN_MISC3_ENABLED")
 	private boolean adminMisc3Enabled;
+	
+	@Column(name="QUALITATIVE_PROJ_DESC_ENABLED")
+	private boolean qualProjDescEnabled;
+	@Column(name="QUALITATIVE_PROJ_DESC_WEIGHT")
+	private Short qualProjDescWeight;
+	
+	@Column(name="QUALITATIVE_BENEF_DESC_ENABLED")
+	private boolean qualBenefDescEnabled;
+	@Column(name="QUALITATIVE_BENEF_DESC_WEIGHT")
+	private Short qualBenefDescWeight;
+	
+	@Column(name="QUALITATIVE_JUSTIFICATION_ENABLED")
+	private boolean qualJustificationEnabled;
+	@Column(name="QUALITATIVE_JUSTIFICATION_WEIGHT")
+	private Short qualJustificationWeight;
+	
+	@Column(name="QUALITATIVE_ACTIVITIES_ENABLED")
+	private boolean qualActivitiesEnabled;
+	@Column(name="QUALITATIVE_ACTIVITIES_WEIGHT")
+	private Short qualActivitiesWeight;
+	
+	@Column(name="QUALITATIVE_TECHNOLOGY_ENABLED")
+	private boolean qualTechnologyEnabled;
+	@Column(name="QUALITATIVE_TECHNOLOGY_WEIGHT")
+	private Short qualTechnologyWeight;
+
+	@Column(name="QUALITATIVE_REQUIREMENTS_ENABLED")
+	private boolean qualRequirementsEnabled;
+	@Column(name="QUALITATIVE_REQUIREMENTS_WEIGHT")
+	private Short qualRequirementsWeight;
+
+	@Column(name="QUALITATIVE_SUSTAINABILITY_ENABLED")
+	private boolean qualSustainabilityEnabled;
+	@Column(name="QUALITATIVE_SUSTAINABILITY_WEIGHT")
+	private Short qualSustainabilityWeight;
+
+	@Column(name="QUALITATIVE_MARKET_ENABLED")
+	private boolean qualMarketEnabled;
+	@Column(name="QUALITATIVE_MARKET_WEIGHT")
+	private Short qualMarketWeight;
+
+	@Column(name="QUALITATIVE_ENVIRO_IMPACT_ENABLED")
+	private boolean qualEnviroImpactEnabled;
+	@Column(name="QUALITATIVE_ENVIRO_IMPACT_WEIGHT")
+	private Short qualEnviroImpactWeight;
+
+	@Column(name="QUALITATIVE_ORGANIZATION_ENABLED")
+	private boolean qualOrganizationEnabled;
+	@Column(name="QUALITATIVE_ORGANIZATION_WEIGHT")
+	private Short qualOrganizationWeight;
+
+	@Column(name="QUALITATIVE_ASSUMPTIONS_ENABLED")
+	private boolean qualAssumptionsEnabled;
+	@Column(name="QUALITATIVE_ASSUMPTIONS_WEIGHT")
+	private Short qualAssumptionsWeight;
+
+	@Column(name="QUALITATIVE_SOURCE_FUNDS_ENABLED")
+	private boolean qualSourceFundsEnabled;
+	@Column(name="QUALITATIVE_SOURCE_FUNDS_WEIGHT")
+	private Short qualSourceFundsWeight;
+
+	@Column(name="QUALITATIVE_ADMIN_MISC1_ENABLED")
+	private boolean qualAdminMisc1Enabled;
+	@Column(name="QUALITATIVE_ADMIN_MISC1_WEIGHT")
+	private Short qualAdminMisc1Weight;
+
+	@Column(name="QUALITATIVE_ADMIN_MISC2_ENABLED")
+	private boolean qualAdminMisc2Enabled;
+	@Column(name="QUALITATIVE_ADMIN_MISC2_WEIGHT")
+	private Short qualAdminMisc2Weight;
+
+	@Column(name="QUALITATIVE_ADMIN_MISC3_ENABLED")
+	private boolean qualAdminMisc3Enabled;
+	@Column(name="QUALITATIVE_ADMIN_MISC3_WEIGHT")
+	private Short qualAdminMisc3Weight;
+	
 
 	// methods
 	public CurrencyFormatter getCurrencyFormatter() {
@@ -596,6 +672,186 @@ public class Setting implements java.io.Serializable {
 		return adminMisc3Enabled;
 	}
 	
+	public boolean isQualProjDescEnabled() {
+		return qualProjDescEnabled;
+	}
+	public void setQualProjDescEnabled(boolean qualProjDescEnabled) {
+		this.qualProjDescEnabled = qualProjDescEnabled;
+	}
+	public Short getQualProjDescWeight() {
+		return qualProjDescWeight;
+	}
+	public void setQualProjDescWeight(Short qualProjDescWeight) {
+		this.qualProjDescWeight = qualProjDescWeight;
+	}
+	public boolean isQualBenefDescEnabled() {
+		return qualBenefDescEnabled;
+	}
+	public void setQualBenefDescEnabled(boolean qualBenefDescEnabled) {
+		this.qualBenefDescEnabled = qualBenefDescEnabled;
+	}
+	public Short getQualBenefDescWeight() {
+		return qualBenefDescWeight;
+	}
+	public void setQualBenefDescWeight(Short qualBenefDescWeight) {
+		this.qualBenefDescWeight = qualBenefDescWeight;
+	}
+	public boolean isQualJustificationEnabled() {
+		return qualJustificationEnabled;
+	}
+	public void setQualJustificationEnabled(boolean qualJustificationEnabled) {
+		this.qualJustificationEnabled = qualJustificationEnabled;
+	}
+	public Short getQualJustificationWeight() {
+		return qualJustificationWeight;
+	}
+	public void setQualJustificationWeight(Short qualJustificationWeight) {
+		this.qualJustificationWeight = qualJustificationWeight;
+	}
+	public boolean isQualActivitiesEnabled() {
+		return qualActivitiesEnabled;
+	}
+	public void setQualActivitiesEnabled(boolean qualActivitiesEnabled) {
+		this.qualActivitiesEnabled = qualActivitiesEnabled;
+	}
+	public Short getQualActivitiesWeight() {
+		return qualActivitiesWeight;
+	}
+	public void setQualActivitiesWeight(Short qualActivitiesWeight) {
+		this.qualActivitiesWeight = qualActivitiesWeight;
+	}
+	public boolean isQualTechnologyEnabled() {
+		return qualTechnologyEnabled;
+	}
+	public void setQualTechnologyEnabled(boolean qualTechnologyEnabled) {
+		this.qualTechnologyEnabled = qualTechnologyEnabled;
+	}
+	public Short getQualTechnologyWeight() {
+		return qualTechnologyWeight;
+	}
+	public void setQualTechnologyWeight(Short qualTechnologyWeight) {
+		this.qualTechnologyWeight = qualTechnologyWeight;
+	}
+	public boolean isQualRequirementsEnabled() {
+		return qualRequirementsEnabled;
+	}
+	public void setQualRequirementsEnabled(boolean qualRequirementsEnabled) {
+		this.qualRequirementsEnabled = qualRequirementsEnabled;
+	}
+	public Short getQualRequirementsWeight() {
+		return qualRequirementsWeight;
+	}
+	public void setQualRequirementsWeight(Short qualRequirementsWeight) {
+		this.qualRequirementsWeight = qualRequirementsWeight;
+	}
+	public boolean isQualSustainabilityEnabled() {
+		return qualSustainabilityEnabled;
+	}
+	public void setQualSustainabilityEnabled(boolean qualSustainabilityEnabled) {
+		this.qualSustainabilityEnabled = qualSustainabilityEnabled;
+	}
+	public Short getQualSustainabilityWeight() {
+		return qualSustainabilityWeight;
+	}
+	public void setQualSustainabilityWeight(Short qualSustainabilityWeight) {
+		this.qualSustainabilityWeight = qualSustainabilityWeight;
+	}
+	public boolean isQualMarketEnabled() {
+		return qualMarketEnabled;
+	}
+	public void setQualMarketEnabled(boolean qualMarketEnabled) {
+		this.qualMarketEnabled = qualMarketEnabled;
+	}
+	public Short getQualMarketWeight() {
+		return qualMarketWeight;
+	}
+	public void setQualMarketWeight(Short qualMarketWeight) {
+		this.qualMarketWeight = qualMarketWeight;
+	}
+	public boolean isQualEnviroImpactEnabled() {
+		return qualEnviroImpactEnabled;
+	}
+	public void setQualEnviroImpactEnabled(boolean qualEnviroImpactEnabled) {
+		this.qualEnviroImpactEnabled = qualEnviroImpactEnabled;
+	}
+	public Short getQualEnviroImpactWeight() {
+		return qualEnviroImpactWeight;
+	}
+	public void setQualEnviroImpactWeight(Short qualEnviroImpactWeight) {
+		this.qualEnviroImpactWeight = qualEnviroImpactWeight;
+	}
+	public boolean isQualOrganizationEnabled() {
+		return qualOrganizationEnabled;
+	}
+	public void setQualOrganizationEnabled(boolean qualOrganizationEnabled) {
+		this.qualOrganizationEnabled = qualOrganizationEnabled;
+	}
+	public Short getQualOrganizationWeight() {
+		return qualOrganizationWeight;
+	}
+	public void setQualOrganizationWeight(Short qualOrganizationWeight) {
+		this.qualOrganizationWeight = qualOrganizationWeight;
+	}
+	public boolean isQualAssumptionsEnabled() {
+		return qualAssumptionsEnabled;
+	}
+	public void setQualAssumptionsEnabled(boolean qualAssumptionsEnabled) {
+		this.qualAssumptionsEnabled = qualAssumptionsEnabled;
+	}
+	public Short getQualAssumptionsWeight() {
+		return qualAssumptionsWeight;
+	}
+	public void setQualAssumptionsWeight(Short qualAssumptionsWeight) {
+		this.qualAssumptionsWeight = qualAssumptionsWeight;
+	}
+	public boolean isQualSourceFundsEnabled() {
+		return qualSourceFundsEnabled;
+	}
+	public void setQualSourceFundsEnabled(boolean qualSourceFundsEnabled) {
+		this.qualSourceFundsEnabled = qualSourceFundsEnabled;
+	}
+	public Short getQualSourceFundsWeight() {
+		return qualSourceFundsWeight;
+	}
+	public void setQualSourceFundsWeight(Short qualSourceFundsWeight) {
+		this.qualSourceFundsWeight = qualSourceFundsWeight;
+	}
+	public boolean isQualAdminMisc1Enabled() {
+		return qualAdminMisc1Enabled;
+	}
+	public void setQualAdminMisc1Enabled(boolean qualAdminMisc1Enabled) {
+		this.qualAdminMisc1Enabled = qualAdminMisc1Enabled;
+	}
+	public Short getQualAdminMisc1Weight() {
+		return qualAdminMisc1Weight;
+	}
+	public void setQualAdminMisc1Weight(Short qualAdminMisc1Weight) {
+		this.qualAdminMisc1Weight = qualAdminMisc1Weight;
+	}
+	public boolean isQualAdminMisc2Enabled() {
+		return qualAdminMisc1Enabled;
+	}
+	public void setQualAdminMisc2Enabled(boolean enabled) {
+		this.qualAdminMisc1Enabled = enabled;
+	}
+	public Short getQualAdminMisc2Weight() {
+		return qualAdminMisc1Weight;
+	}
+	public void setQualAdminMisc2Weight(Short weight) {
+		this.qualAdminMisc1Weight = weight;
+	}
+	public boolean isQualAdminMisc3Enabled() {
+		return qualAdminMisc1Enabled;
+	}
+	public void setQualAdminMisc3Enabled(boolean enabled) {
+		this.qualAdminMisc1Enabled = enabled;
+	}
+	public Short getQualAdminMisc3Weight() {
+		return qualAdminMisc1Weight;
+	}
+	public void setQualAdminMisc3Weight(Short weight) {
+		this.qualAdminMisc1Weight = weight;
+	}
 	public Setting copy() {
 		Setting s = new Setting(this.settingId);
 		s.setAdmin1Enabled(admin1Enabled);
