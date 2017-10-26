@@ -182,6 +182,9 @@ public class Setting implements java.io.Serializable {
 	@Column(name="ADMIN_MISC3_ENABLED")
 	private boolean adminMisc3Enabled;
 	
+	@Column(name="QUALITATIVE_ENABLED")
+	private boolean qualitativeEnabled;
+	
 	@Column(name="QUALITATIVE_PROJ_DESC_ENABLED")
 	private boolean qualProjDescEnabled;
 	@Column(name="QUALITATIVE_PROJ_DESC_WEIGHT")
@@ -236,11 +239,6 @@ public class Setting implements java.io.Serializable {
 	private boolean qualAssumptionsEnabled;
 	@Column(name="QUALITATIVE_ASSUMPTIONS_WEIGHT")
 	private Short qualAssumptionsWeight;
-
-	@Column(name="QUALITATIVE_SOURCE_FUNDS_ENABLED")
-	private boolean qualSourceFundsEnabled;
-	@Column(name="QUALITATIVE_SOURCE_FUNDS_WEIGHT")
-	private Short qualSourceFundsWeight;
 
 	@Column(name="QUALITATIVE_ADMIN_MISC1_ENABLED")
 	private boolean qualAdminMisc1Enabled;
@@ -580,6 +578,12 @@ public class Setting implements java.io.Serializable {
 		this.adminMisc1Title = adminMisc1Title;
 	}
 
+	public boolean isQualitativeEnabled() {
+		return qualitativeEnabled;
+	}
+	public void setQualitativeEnabled(boolean qualitativeEnabled) {
+		this.qualitativeEnabled = qualitativeEnabled;
+	}
 	public String getAdminMisc1Title() {
 		return adminMisc1Title;
 	}
@@ -804,18 +808,6 @@ public class Setting implements java.io.Serializable {
 	public void setQualAssumptionsWeight(Short qualAssumptionsWeight) {
 		this.qualAssumptionsWeight = qualAssumptionsWeight;
 	}
-	public boolean isQualSourceFundsEnabled() {
-		return qualSourceFundsEnabled;
-	}
-	public void setQualSourceFundsEnabled(boolean qualSourceFundsEnabled) {
-		this.qualSourceFundsEnabled = qualSourceFundsEnabled;
-	}
-	public Short getQualSourceFundsWeight() {
-		return qualSourceFundsWeight;
-	}
-	public void setQualSourceFundsWeight(Short qualSourceFundsWeight) {
-		this.qualSourceFundsWeight = qualSourceFundsWeight;
-	}
 	public boolean isQualAdminMisc1Enabled() {
 		return qualAdminMisc1Enabled;
 	}
@@ -900,6 +892,37 @@ public class Setting implements java.io.Serializable {
 		s.setOrgLogo(orgLogo);
 		s.setOrgName(orgName);
 		s.setThousandSeparator(thousandSeparator);
+		
+		s.setQualitativeEnabled(qualitativeEnabled);
+		s.setQualActivitiesEnabled(qualActivitiesEnabled);
+		s.setQualActivitiesWeight(qualActivitiesWeight);
+		s.setQualAdminMisc1Enabled(qualAdminMisc1Enabled);
+		s.setQualAdminMisc1Weight(qualAdminMisc1Weight);
+		s.setQualAdminMisc2Enabled(qualAdminMisc1Enabled);
+		s.setQualAdminMisc2Weight(qualAdminMisc1Weight);
+		s.setQualAdminMisc3Enabled(qualAdminMisc1Enabled);
+		s.setQualAdminMisc3Weight(qualAdminMisc1Weight);
+		s.setQualAssumptionsEnabled(qualAssumptionsEnabled);
+		s.setQualAssumptionsWeight(qualAssumptionsWeight);
+		s.setQualBenefDescEnabled(qualBenefDescEnabled);
+		s.setQualBenefDescWeight(qualBenefDescWeight);
+		s.setQualEnviroImpactEnabled(qualEnviroImpactEnabled);
+		s.setQualEnviroImpactWeight(qualEnviroImpactWeight);
+		s.setQualJustificationEnabled(qualJustificationEnabled);
+		s.setQualJustificationWeight(qualJustificationWeight);
+		s.setQualMarketEnabled(qualMarketEnabled);
+		s.setQualMarketWeight(qualMarketWeight);
+		s.setQualOrganizationEnabled(qualOrganizationEnabled);
+		s.setQualOrganizationWeight(qualOrganizationWeight);
+		s.setQualProjDescEnabled(qualProjDescEnabled);
+		s.setQualProjDescWeight(qualProjDescWeight);
+		s.setQualRequirementsEnabled(qualRequirementsEnabled);
+		s.setQualRequirementsWeight(qualRequirementsWeight);
+		s.setQualSustainabilityEnabled(qualSustainabilityEnabled);
+		s.setQualSustainabilityWeight(qualSustainabilityWeight);
+		s.setQualTechnologyEnabled(qualTechnologyEnabled);
+		s.setQualTechnologyWeight(qualTechnologyWeight);
+		
 		return s;
 	}
 }

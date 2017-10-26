@@ -4,6 +4,14 @@ function showSummary(summary, h, w) {
 	});
 };
 
+function stellate(field, stars) {
+	$('#'+field).val(stars);
+	for (i=1;i<=5;i++) {
+		img = i<=stars ? "../../img/star2.gif" : "../../img/star1.gif";
+		$('#'+field+'Star'+i).attr('src', img);
+	}
+}
+
 function randomPhoto(src, begin, end) {
 	var d = new Date();
 	var seconds = d.getSeconds(); 

@@ -255,6 +255,10 @@ public class DataService implements UserDetailsService, Serializable {
 	public void deleteProject(Project p) {
 		repo.deleteProject(p);
 	}
+	
+	public void updateQualitativeAnalysis(int id, double qa) {
+		repo.updateQualitativeAnalysis(id, qa);
+	}
 	public void storeProjectResult(int id) {
 		repo.storeProjectResult(id);
 	}

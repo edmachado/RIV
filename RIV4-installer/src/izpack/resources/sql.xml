@@ -576,21 +576,21 @@ ALTER TABLE PROJECT ADD COLUMN last_update_by VARCHAR(100);
 ALTER TABLE PROFILE ADD COLUMN last_update_by VARCHAR(100);
 
 --weighted qualitative analysis
-ALTER TABLE project ADD COLUMN proj_desc_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN benef_desc_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN justification_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN activities_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN technology_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN requirements_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN sustainability_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN market_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN enviro_impact_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN organization_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN assumptions_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN source_funds_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN admin_misc1_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN admin_misc2_qualitative SMALLINT;
-ALTER TABLE project ADD COLUMN admin_misc3_qualitative SMALLINT;
+ALTER TABLE project ADD COLUMN proj_desc_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN benef_desc_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN justification_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN activities_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN technology_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN requirements_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN sustainability_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN market_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN enviro_impact_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN organization_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN assumptions_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN source_funds_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN admin_misc1_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN admin_misc2_qualitative SMALLINT DEFAULT 3 NOT NULL;
+ALTER TABLE project ADD COLUMN admin_misc3_qualitative SMALLINT DEFAULT 3 NOT NULL;
 
 ALTER TABLE setting ADD COLUMN qualitative_proj_desc_enabled BOOLEAN DEFAULT false;
 ALTER TABLE setting ADD COLUMN qualitative_proj_desc_weight SMALLINT DEFAULT 5;
@@ -622,6 +622,10 @@ ALTER TABLE setting ADD COLUMN qualitative_admin_misc2_enabled BOOLEAN DEFAULT f
 ALTER TABLE setting ADD COLUMN qualitative_admin_misc2_weight SMALLINT DEFAULT 5;
 ALTER TABLE setting ADD COLUMN qualitative_admin_misc3_enabled BOOLEAN DEFAULT false;
 ALTER TABLE setting ADD COLUMN qualitative_admin_misc3_weight SMALLINT DEFAULT 5;
+
+ALTER TABLE setting ADD COLUMN qualitative_enabled BOOLEAN DEFAULT false;
+
+ALTER TABLE project_result ADD COLUMN qualitative DECIMAL(4,2);
 
 	</query>
 	</version>

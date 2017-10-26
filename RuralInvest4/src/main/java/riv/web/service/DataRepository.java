@@ -1233,6 +1233,13 @@ public class DataRepository {
 			storeProfileResult((Integer)p);
 		}
 	}
+	
+	public void updateQualitativeAnalysis(int id, double qa) {
+		Query q = currentSession().createQuery("update ProjectResult pr SET qualitative=:qualitative WHERE id=:id");
+		q.setInteger("id", id);
+		q.setDouble("qualitative", qa);
+		q.executeUpdate();
+	}
 
 	public void storeProjectResult(int id) {
 		Project project = getProject(id, -1);

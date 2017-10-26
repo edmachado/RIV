@@ -130,7 +130,35 @@
 				<tags:dataentry field="adminMisc3Title" labelKey="adminText.title" inputClass="text" size="50" maxLength="100" />
 				<tags:dataentry field="adminMisc3Help" labelKey="adminText.help" inputClass="text" size="50" maxLength="500" />
 				<tags:dataentryCheckbox field="adminMisc3Enabled" labelKey="misc.enabled" />
-		</fieldset>
+			</fieldset>
+			
+			<fieldset class="fieldset">
+				<legend>
+					<tags:help text="qualitativeAnalysis.help" title="qualitativeAnalysis">x. <spring:message code="qualitativeAnalysis"/></tags:help>
+				</legend>
+				<tags:dataentryCheckbox field="qualitativeEnabled" labelKey="misc.enabled" />
+				<div id="qualitative"><tags:table>
+					<table cellspacing="0" cellpadding="0">
+						<tr><th class="left"><spring:message code="qualitativeAnalysis.field"/></th><th><spring:message code="misc.enabled"/></th><th><spring:message code="qualitativeAnalysis.weight"/></th></tr>
+						<tags:qualSettings description="project.justification" weightField="qualJustificationWeight" enabledField="qualJustificationEnabled"/>
+						<tags:qualSettings description="project.projectDescription" weightField="qualProjDescWeight" enabledField="qualProjDescEnabled"/>
+						<tags:qualSettings description="project.activities" weightField="qualActivitiesWeight" enabledField="qualActivitiesEnabled"/>
+						<tags:qualSettings description="project.technology" weightField="qualTechnologyWeight" enabledField="qualTechnologyEnabled"/>
+						<tags:qualSettings description="project.requirements" weightField="qualRequirementsWeight" enabledField="qualRequirementsEnabled"/>
+						<tags:qualSettings description="project.sustainability" weightField="qualSustainabilityWeight" enabledField="qualSustainabilityEnabled"/>
+						<tags:qualSettings description="project.enviroImpact" weightField="qualEnviroImpactWeight" enabledField="qualEnviroImpactEnabled"/>
+						<tags:qualSettings description="project.market" weightField="qualMarketWeight" enabledField="qualMarketEnabled"/>
+						<tags:qualSettings description="project.organization" weightField="qualOrganizationWeight" enabledField="qualOrganizationEnabled"/>
+						<tags:qualSettings description="project.assumptions" weightField="qualAssumptionsWeight" enabledField="qualAssumptionsEnabled"/>
+						
+						<tags:qualSettings description="adminText.1" weightField="qualAdminMisc1Weight" enabledField="qualAdminMisc1Enabled"/>
+						<tags:qualSettings description="adminText.2" weightField="qualAdminMisc2Weight" enabledField="qualAdminMisc2Enabled"/>
+						<tags:qualSettings description="adminText.3" weightField="qualAdminMisc3Weight" enabledField="qualAdminMisc3Enabled"/>
+								
+					</table>
+				</tags:table></div>
+					
+			</fieldset>
 		</div>
 		<tags:submit><spring:message code="settings.saveSettings"/></tags:submit>
 	</form:form>

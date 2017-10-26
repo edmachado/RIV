@@ -4,9 +4,15 @@
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
 	
-	<tags:textbox field="justification" multiline="true" helpText="project.justification.help" helpTitle="project.justification">i. <spring:message code="project.justification"/></tags:textbox>
-	<tags:textbox field="projDesc" multiline="true" helpText="project.projectDescription.help" helpTitle="project.projectDescription">ii. <spring:message code="project.projectDescription"/></tags:textbox>
-	<tags:textbox field="activities" multiline="true" helpText="project.activities.help" helpTitle="project.activities">iii. <spring:message code="project.activities"/></tags:textbox>
+	<tags:textbox field="justification" multiline="true" helpText="project.justification.help" helpTitle="project.justification"
+		qualitativeEnabled="${rivConfig.setting.qualJustificationEnabled}" qualitativeValue="${project.justificationQualitative}" qualitativeField="justificationQualitative">
+		i. <spring:message code="project.justification"/></tags:textbox>
+	<tags:textbox field="projDesc" multiline="true" helpText="project.projectDescription.help" helpTitle="project.projectDescription"
+		qualitativeEnabled="${rivConfig.setting.qualProjDescEnabled}" qualitativeValue="${project.projDescQualitative}" qualitativeField="projDescQualitative">
+		ii. <spring:message code="project.projectDescription"/></tags:textbox>
+	<tags:textbox field="activities" multiline="true" helpText="project.activities.help" helpTitle="project.activities"
+		qualitativeEnabled="${rivConfig.setting.qualActivitiesEnabled}" qualitativeValue="${project.activitiesQualitative}" qualitativeField="activitiesQualitative">
+		iii. <spring:message code="project.activities"/></tags:textbox>
 	<c:if test="${rivConfig.setting.adminMisc1Enabled}">
 		<fieldset>
 			<legend><tags:help noKey="true" title="${rivConfig.setting.adminMisc1Title}" text="${rivConfig.setting.adminMisc1Help}">${rivConfig.setting.adminMisc1Title}</tags:help></legend>

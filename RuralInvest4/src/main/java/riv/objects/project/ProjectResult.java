@@ -95,6 +95,8 @@ public class ProjectResult implements java.io.Serializable {
 	private double wcPeriodAvg;
 	@Column(name="NEGATIVE_YEARS")
 	private int negativeYears;
+	@Column
+	private double qualitative;
 	
 	// for downloading
 	public String getDownloadName() throws UnsupportedEncodingException {
@@ -287,6 +289,16 @@ public class ProjectResult implements java.io.Serializable {
 
 	public void setNegativeYears(int negativeYears) {
 		this.negativeYears = negativeYears;
+	}
+
+
+	public double getQualitative() {
+		return qualitative;
+	}
+
+
+	public void setQualitative(double qualitative) {
+		this.qualitative = qualitative;
 	}
 
 

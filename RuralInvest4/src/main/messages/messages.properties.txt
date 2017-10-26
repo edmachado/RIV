@@ -24,6 +24,13 @@ profile.lastUpdateBy.help=The last use to update the profile.
 project.user=User
 profile.user=User
 
+qualitativeAnalysis=Qualitative analysis
+qualitativeAnalysis.help=HELP TEXT HERE
+qualitativeAnalysis.field=Field
+qualitativeAnalysis.weight=Weight
+
+
+
 # changed from earlier version
 project.loan.interest=Interest rate (%)
 

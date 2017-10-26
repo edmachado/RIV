@@ -133,13 +133,13 @@ public class Project extends Probase implements java.io.Serializable {
 	@Column(name="BENEF_DESC")
 	private String benefDesc;
 	@Column(name="BENEF_DESC_QUALITATIVE")
-	private Short benefDescQualitative;
+	private short benefDescQualitative=3;
 	private Integer duration;
 	@Size(max=10000)
 	@Column(name="PROJ_DESC")
 	private String projDesc;
 	@Column(name="PROJ_DESC_QUALITATIVE")
-	private Short projDescQualitative;
+	private short projDescQualitative=3;
 	@Column(name="BENE_DIRECT_NUM")
 	private Integer beneDirectNum;
 	@Column(name="BENE_DIRECT_MEN")
@@ -159,40 +159,40 @@ public class Project extends Probase implements java.io.Serializable {
 	@Size(max=10000)
 	private String justification;
 	@Column(name="JUSTIFICATION_QUALITATIVE")
-	private Short justificationQualitative;
+	private short justificationQualitative=3;
 	@Size(max=10000)
 	private String activities;
 	@Column(name="ACTIVITIES_QUALITATIVE")
-	private Short activitiesQualitative;
+	private short activitiesQualitative=3;
 	@Size(max=10000)
 	private String technology;
 	@Column(name="TECHNOLOGY_QUALITATIVE")
-	private Short technologyQualitative;
+	private short technologyQualitative=3;
 	@Size(max=10000)
 	private String requirements;
 	@Column(name="REQUIREMENTS_QUALITATIVE")
-	private Short requirementsQualitative;
+	private short requirementsQualitative=3;
 	@Size(max=10000)
 	private String sustainability;
 	@Column(name="SUSTAINABILITY_QUALITATIVE")
-	private Short sustainabilityQualitative;
+	private short sustainabilityQualitative=3;
 	@Size(max=10000)
 	private String market;
 	@Column(name="MARKET_QUALITATIVE")
-	private Short marketQualitative;
+	private short marketQualitative=3;
 	@Size(max=10000)
 	@Column(name="ENVIRO_IMPACT")
 	private String enviroImpact;
 	@Column(name="ENVIRO_IMPACT_QUALITATIVE")
-	private Short enviroImpactQualitative;
+	private short enviroImpactQualitative=3;
 	@Size(max=10000)
 	private String organization;
 	@Column(name="ORGANIZATION_QUALITATIVE")
-	private Short organizationQualitative;
+	private short organizationQualitative=3;
 	@Size(max=10000)
 	private String assumptions;
 	@Column(name="ASSUMPTIONS_QUALITATIVE")
-	private Short assumptionsQualitative;
+	private short assumptionsQualitative=3;
 	@Column(name="LOAN1_INTEREST")
 	private Double loan1Interest;
 	@Column(name="LOAN1_DURATION")
@@ -242,15 +242,15 @@ public class Project extends Probase implements java.io.Serializable {
 	@Column(name="ADMIN_MISC1")
 	private String adminMisc1;
 	@Column(name="ADMIN_MISC1_QUALITATIVE")
-	private Short adminMisc1Qualitative;
+	private short adminMisc1Qualitative=3;
 	@Column(name="ADMIN_MISC2")
 	private String adminMisc2;
 	@Column(name="ADMIN_MISC2_QUALITATIVE")
-	private Short adminMisc2Qualitative;
+	private short adminMisc2Qualitative=3;
 	@Column(name="ADMIN_MISC3")
 	private String adminMisc3;
 	@Column(name="ADMIN_MISC3_QUALITATIVE")
-	private Short adminMisc3Qualitative;
+	private short adminMisc3Qualitative=3;
 	
 	@Transient
 	private Double wcAmountRequired;
@@ -406,17 +406,6 @@ public double getInvestmentTotal() {
 		investTotal+=ser.getUnitCost()*ser.getUnitNum()-ser.getOwnResources()-ser.getDonated();
 	return investTotal;
 }
-
-//	public Map<Integer, SortedSet<ProjectItemContribution>> getContributionsByYear() {
-//		Map<Integer, SortedSet<ProjectItemContribution>> contribsByYear = new HashMap<Integer, SortedSet<ProjectItemContribution>>();
-//		for (int i=1; i<=duration; i++) {
-//			contribsByYear.put(i, new TreeSet<ProjectItemContribution>());
-//		}
-//		for (ProjectItemContribution contrib : contributions) {
-//			contribsByYear.get(contrib.getYear()).add(contrib);
-//		} 
-//		return contribsByYear;
-//	}
 
     // Constructors
 	/** default constructor */
@@ -918,13 +907,6 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	this.assumptionsQualitative = assumptionsQualitative;
 }
 
-	//    public String getCategoryOther () {
-//        return this.categoryOther;
-//    }
-//    
-//   public void setCategoryOther (String CategoryOther) {
-//        this.categoryOther = CategoryOther;
-//    }
     public Double getLoan1Interest () {
         return this.loan1Interest;
     }
@@ -2529,6 +2511,8 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 		pr.setInvestmentOwn(investOwn);
 		pr.setInvestmentDonated(investDonated);
 		
+		pr.setQualitative(this.getQualitativeAnalysis(setting));
+		
 		return pr;
 	}
 	
@@ -2554,6 +2538,70 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
     	list.add(totals);
     	list.add(cumulative);
 		return list;
+	}
+	
+	public double getQualitativeAnalysis(Setting setting) {
+		int totalPossible=0; int score=0;
+		
+		if (setting.isQualitativeEnabled()) {
+			if (setting.isQualActivitiesEnabled()) {
+				totalPossible+=setting.getQualActivitiesWeight()*5;
+				score+=setting.getQualActivitiesWeight()*this.activitiesQualitative;
+			}
+			
+			if (setting.isQualAdminMisc1Enabled()) {
+				totalPossible+=setting.getQualAdminMisc1Weight()*5;
+				score+=setting.getQualAdminMisc1Weight()*this.adminMisc1Qualitative;
+			}
+			if (setting.isQualAdminMisc2Enabled()) {
+				totalPossible+=setting.getQualAdminMisc2Weight()*5;
+				score+=setting.getQualAdminMisc2Weight()*this.adminMisc2Qualitative;
+			}
+			if (setting.isQualAdminMisc3Enabled()) {
+				totalPossible+=setting.getQualAdminMisc3Weight()*5;
+				score+=setting.getQualAdminMisc3Weight()*this.adminMisc3Qualitative;
+			}
+			
+			
+			if (setting.isQualBenefDescEnabled()) {
+				totalPossible+=setting.getQualBenefDescWeight()*5;
+				score+=setting.getQualBenefDescWeight()*this.benefDescQualitative;
+			}
+			if (setting.isQualEnviroImpactEnabled()) {
+				totalPossible+=setting.getQualEnviroImpactWeight()*5;
+				score+=setting.getQualEnviroImpactWeight()*this.enviroImpactQualitative;
+			}
+			if (setting.isQualJustificationEnabled()) {
+				totalPossible+=setting.getQualJustificationWeight()*5;
+				score+=setting.getQualJustificationWeight()*this.justificationQualitative;
+			}
+			if (setting.isQualMarketEnabled()) {
+				totalPossible+=setting.getQualMarketWeight()*5;
+				score+=setting.getQualMarketWeight()*this.marketQualitative;
+			}
+			if (setting.isQualOrganizationEnabled()) {
+				totalPossible+=setting.getQualOrganizationWeight()*5;
+				score+=setting.getQualOrganizationWeight()*this.organizationQualitative;
+			}
+			if (setting.isQualProjDescEnabled()) {
+				totalPossible+=setting.getQualProjDescWeight()*5;
+				score+=setting.getQualProjDescWeight()*this.projDescQualitative;
+			}
+			if (setting.isQualRequirementsEnabled()) {
+				totalPossible+=setting.getQualRequirementsWeight()*5;
+				score+=setting.getQualRequirementsWeight()*this.requirementsQualitative;
+			}
+			if (!incomeGen && setting.isQualSustainabilityEnabled()) {
+				totalPossible+=setting.getQualSustainabilityWeight()*5;
+				score+=setting.getQualSustainabilityWeight()*this.sustainabilityQualitative;
+			}
+			if (setting.isQualTechnologyEnabled()) {
+				totalPossible+=setting.getQualTechnologyWeight()*5;
+				score+=setting.getQualTechnologyWeight()*this.technologyQualitative;
+			}
+		}
+		
+		return totalPossible==0.0 ? 0.0 : new Double(score/totalPossible*100).intValue();
 	}
 
 	@Override

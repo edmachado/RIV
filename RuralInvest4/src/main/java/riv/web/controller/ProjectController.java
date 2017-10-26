@@ -305,6 +305,11 @@ public class ProjectController {
 					|| (!project.getIncomeGen() && step==10)
 				);
 			dataService.storeProject(project, calculateResult);
+			
+			// should qualitative analysis be updated?
+			if (project.getWizardStep()==null && (step==3 || step==4 || step==5 || step==6)) {
+				dataService.updateQualitativeAnalysis(project.getProjectId(), project.getQualitativeAnalysis(rivConfig.getSetting()));
+			}
 			 
 			return "redirect:../step"+(step+1)+"/"+project.getProjectId();
 		}

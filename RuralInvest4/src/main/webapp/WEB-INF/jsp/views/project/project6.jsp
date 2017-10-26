@@ -4,8 +4,12 @@
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
 	
-	<tags:textbox field="organization" multiline="true" helpText="project.organization.help" helpTitle="project.organization"><spring:message code="project.organization"/></tags:textbox>
-	<tags:textbox field="assumptions" multiline="true" helpText="project.assumptions.help" helpTitle="project.assumptions"><spring:message code="project.assumptions"/></tags:textbox>
+	<tags:textbox field="organization" multiline="true" helpText="project.organization.help" helpTitle="project.organization"
+		qualitativeEnabled="${rivConfig.setting.qualOrganizationEnabled}" qualitativeValue="${project.organizationQualitative}" qualitativeField="organizationQualitative">
+		<spring:message code="project.organization"/></tags:textbox>
+	<tags:textbox field="assumptions" multiline="true" helpText="project.assumptions.help" helpTitle="project.assumptions"
+		qualitativeEnabled="${rivConfig.setting.qualAssumptionsEnabled}" qualitativeValue="${project.assumptionsQualitative}" qualitativeField="assumptionsQualitative">
+		<spring:message code="project.assumptions"/></tags:textbox>
 	
 	<tags:submit><spring:message code="misc.goto"/> <spring:message code="project.step7"/></tags:submit>
 	

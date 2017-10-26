@@ -46,6 +46,12 @@
 							<td class="left" id="result_appConfig2"><tags:appConfigDescription ac="${result.appConfig2}"/></td>
 						</tr>
 					</c:if>
+					<c:if test="${rivConfig.setting.qualitativeEnabled}">
+						<tr>
+							<td><spring:message code="qualitativeAnalysis"/></td>
+							<td class="left" id="result_qualitative"><tags:appConfigDescription ac="${result.qualitative}"/></td>
+						</tr>
+					</c:if>
 					<tr>
 						<td><spring:message code="project.investTotal"/></td>
 						<td id="result_investTotal"><tags:formatCurrency value="${result.investmentTotal}"/></td>
