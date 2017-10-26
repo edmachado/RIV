@@ -199,7 +199,7 @@
 				</display:column>
 				<display:column title="&nbsp;" media="html">
 					<c:if test="${row.shared==true || row.technician.userId==user.userId }">
-					<a onclick="confirmDelete('../project/step1/${row.projectId}/delete');"> <img src="../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" title="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
+					<a onclick="confirmDelete('../project/step-1/${row.projectId}/delete');"> <img src="../img/delete.gif" alt="<spring:message code="misc.deleteItem"/>" title="<spring:message code="misc.deleteItem"/>" width="16" height="16" border="0"></a>
 					</c:if>
 				</display:column>
 				<display:footer>
