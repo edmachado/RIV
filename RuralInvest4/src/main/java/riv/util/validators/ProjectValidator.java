@@ -202,14 +202,15 @@ public class ProjectValidator implements Validator {
 					project.getLoan2Duration()>project.getDuration()-project.getLoan2InitPeriod()+1)
 						errors.rejectValue("loan2Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");	
 				
-				
-				// calculate the working capital fields and validate them
-				FinanceMatrix matrix = new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
-				project.setWcFinancePeriod(matrix.getWcPeriod());
-				project.setWcAmountRequired(matrix.getWcValue());
-				ValidateUtils.rejectIfNegative(project, "wcAmountRequired", "project.amtRequired", errors);
-				ValidateUtils.rejectIfNegative(project, "wcAmountFinanced", "project.amtFinanced", errors, rivConfig.getSetting().getDecimalLength());
-				ValidateUtils.rejectIfNegative(project, "wcFinancePeriod", "project.period", errors);
+				if (!errors.hasErrors()) {
+					// calculate the working capital fields and validate them
+					FinanceMatrix matrix = new FinanceMatrix(project, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
+					project.setWcFinancePeriod(matrix.getWcPeriod());
+					project.setWcAmountRequired(matrix.getWcValue());
+					ValidateUtils.rejectIfNegative(project, "wcAmountRequired", "project.amtRequired", errors);
+					ValidateUtils.rejectIfNegative(project, "wcAmountFinanced", "project.amtFinanced", errors, rivConfig.getSetting().getDecimalLength());
+					ValidateUtils.rejectIfNegative(project, "wcFinancePeriod", "project.period", errors);
+				}
 			}
 			break;
 		}
