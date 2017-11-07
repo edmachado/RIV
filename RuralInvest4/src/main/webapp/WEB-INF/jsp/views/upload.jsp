@@ -20,6 +20,7 @@ function checkFile() {
 	<spring:message code="import.info"/><br/><br/>
 	<input name="file" id="file" type="file" />
 	<input type="hidden" name="allowComplete"/>
+	<sec:csrfInput />
 	<tags:submit><spring:message code="import.import"/></tags:submit>
 </form>
 </body></html>

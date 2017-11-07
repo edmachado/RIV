@@ -12,7 +12,10 @@ function deleteDonor(donorId) {
 function editDonor() {
 	url = '../donor/'+$('#donor-id').val();
 	if ($('#donor-id').val()==-1) { url = url+'?projectId='+projId; } 
+	var headers = {};
+	headers[csrfHeader] = csrfToken;
 	$.ajax({ url: url, type:"POST", dataType: 'json',
+		headers: headers,
 		data: { description: $('#donor-description').val(), contribType:$('#donor-contribType').val() },
 		 success: function( data, textStatus, jqXHR ) {
 			loadDonors();

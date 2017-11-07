@@ -11,12 +11,12 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value="/styles/style-ie8.css"/>" />
 	<![endif]-->
 </head>
-<body  onload='document.login.j_username.focus();'>
+<body  onload='document.login.username.focus();'>
 
 <table width="750" border="0" cellspacing="0" cellpadding="0">
   <tr><td width="1"><img src="img/spacer.gif" width="1" height="1" alt=""/></td>
     <td width="347" align="left" valign="top" bgcolor="#F5F5F5">
-    	<form name="login" action="j_spring_security_check" method="post"> 
+    	<form name="login" action="login" method="post"> <sec:csrfInput />
 			<table border="0" cellspacing="0" cellpadding="2">
 			  <tr><td colspan="3" valign="top" align="left"><br> <img src="img/logo40.gif" width="320" height="46" hspace="6" alt="<spring:message code="ruralInvest"/>"><br><br><br></td></tr>
 		      <tr> 
@@ -26,13 +26,13 @@
 		      <tr> 
 		        <td><img src="img/spacer.gif" width="4" height="1" alt=""></td>
 		        <td><spring:message code="login.username"/></td>
-		        <td><input type="text" name="j_username" id="j_username" size="30"/></td>
+		        <td><input type="text" name="username" id="username" size="30"/></td>
 		        <td/>
 		      </tr>
 		      <tr> 
 		        <td><img src="img/spacer.gif" width="4" height="1" alt=""/></td>
 		        <td><spring:message code="login.password"/></td>	
-		        <td><input type="password" name="j_password" id="j_password" size="30"/></td>
+		        <td><input type="password" name="password" id="password" size="30"/></td>
 		        <td/>
 		      </tr>
 		      <c:if test="${not empty param.error}"><tr><td/><td colspan="3"><font style="color:red"><spring:message code="login.incorrect"/></font></td></tr></c:if>

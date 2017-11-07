@@ -133,6 +133,10 @@ width:100%;
 padding:8px 10px 10px 20px;
 }
 
+#logout-form {
+	display:inline;
+}
+
 #login-demo {
 	width:740px; text-align:justify; padding:10px;
 }

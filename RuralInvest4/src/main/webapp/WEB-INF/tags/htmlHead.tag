@@ -9,7 +9,11 @@
 	<!--[if lt IE 9]>
 	<link rel="stylesheet" type="text/css" href="<c:url value="/styles/style-ie8.css"/>" />
 	<![endif]-->
-	<script>$(function() { 
+	<sec:csrfMetaTags />
+	<script>
+	var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+	var csrfToken = $("meta[name='_csrf']").attr("content");
+	$(function() { 
 		$( document ).tooltip(); 
 		$('input.curlabel').focus( function(){ $(this).next('input').focus(); });
 		$("#confirmDelete").dialog({

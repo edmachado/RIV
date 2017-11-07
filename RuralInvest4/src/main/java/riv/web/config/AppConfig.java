@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
@@ -32,6 +33,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Import({RepositoryConfig.class})
 @ImportResource({"classpath:springapp-security.xml"})
 @EnableCaching
+@EnableWebSecurity
 @Configuration
 public class AppConfig extends WebMvcConfigurerAdapter {
 	@Autowired
