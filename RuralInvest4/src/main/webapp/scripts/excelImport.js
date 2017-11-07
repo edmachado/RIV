@@ -54,7 +54,10 @@ function setupFileUploader(isRestore) {
 	var endpoint = submitUrlBase+uploadBlockId;
 	$('#jquery-wrapped-fine-uploader').fineUploader({
       request: {
-        endpoint: endpoint
+        endpoint: endpoint,
+        customHeaders: {
+            "X-CSRF-Token": csrfToken
+          }
       },
       multiple: false,
       button: $("#uploader-button"),

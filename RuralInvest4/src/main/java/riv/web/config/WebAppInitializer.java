@@ -22,9 +22,9 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.util.WebAppRootListener;
 import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
-import ch.qos.logback.ext.spring.web.LogbackConfigListener;
-
 import com.opensymphony.module.sitemesh.filter.PageFilter;
+
+import ch.qos.logback.ext.spring.web.LogbackConfigListener;
 
 @SuppressWarnings("deprecation")
 public class WebAppInitializer implements WebApplicationInitializer {
@@ -72,8 +72,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			FilterRegistration.Dynamic urlRewrite = servletContext.addFilter("UrlRewriteFilter", new UrlRewriteFilter());
 		   			urlRewrite.setInitParameter("confPath","/WEB-INF/urlrewrite.xml");
 		   			urlRewrite.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
-		   
-		   FilterRegistration.Dynamic secFilter = servletContext.addFilter("securityFilter", new DelegatingFilterProxy());
+		     			
+		   	FilterRegistration.Dynamic secFilter = servletContext.addFilter("securityFilter", new DelegatingFilterProxy());
 				   secFilter.setInitParameter("targetBeanName", "springSecurityFilterChain");
 				   secFilter.addMappingForUrlPatterns(null, true, "/*");
 				   

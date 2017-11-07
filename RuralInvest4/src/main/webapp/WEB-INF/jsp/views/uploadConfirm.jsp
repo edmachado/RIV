@@ -2,6 +2,7 @@
 <head><title>Import</title><c:set var="accessOK" value="true" scope="request"/></head>
 <body>
 <form id="form" name="form" method="post" action="import/confirm">
+	<sec:csrfInput />
 	<div><b>${filename}</b></div>
 	<c:if test="${not empty exists}">
 		<div id="confirmOverwrite" style="margin:10px 0;">
