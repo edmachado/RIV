@@ -2541,7 +2541,7 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	}
 	
 	public double getQualitativeAnalysis(Setting setting) {
-		int totalPossible=0; int score=0;
+		double totalPossible=0.0; double score=0.0;
 		
 		if (setting.isQualitativeEnabled()) {
 			if (setting.isQualActivitiesEnabled()) {
@@ -2601,7 +2601,7 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 			}
 		}
 		
-		return totalPossible==0.0 ? 0.0 : new Double(score/totalPossible*100).intValue();
+		return totalPossible==0.0 ? 0.0 : score/totalPossible;
 	}
 
 	@Override

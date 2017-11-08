@@ -49,7 +49,7 @@
 					<c:if test="${rivConfig.setting.qualitativeEnabled}">
 						<tr>
 							<td><spring:message code="qualitativeAnalysis"/></td>
-							<td class="left" id="result_qualitative"><tags:appConfigDescription ac="${result.qualitative}"/></td>
+							<td id="result_qualitative"><fmt:formatNumber type = "percent" value = "${result.qualitative}" /></td>
 						</tr>
 					</c:if>
 					<tr>
