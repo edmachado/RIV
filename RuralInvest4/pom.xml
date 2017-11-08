@@ -104,16 +104,25 @@
 <!--             <name>SpringSource Milestone Repository</name> -->
 <!--             <url>http://repo.springsource.org/milestone</url> -->
 <!--         </repository> -->
-	<repository> 
-        <id>repository.spring.release</id> 
-        <name>Spring GA Repository</name> 
-        <url>http://repo.spring.io/release</url> 
-    </repository>
-        <repository>
-            <id>central</id>
-            <url>http://repo1.maven.org/maven2/</url>
-        </repository>
+<!-- 	<repository>  -->
+<!--         <id>repository.spring.release</id>  -->
+<!--         <name>Spring GA Repository</name>  -->
+<!--         <url>http://repo.spring.io/release</url>  -->
+<!--     </repository> -->
+<!--         <repository> -->
+<!--             <id>central</id> -->
+<!--             <url>http://repo1.maven.org/maven2/</url> -->
+<!--         </repository> -->
+	<repository>
+		<id>central</id>
+		<url>http://central.maven.org/maven2</url>
+	</repository>
+	<repository>
+		<id>repo</id>
+		<url>http://repo.maven.apache.org/maven2</url>
+	</repository>
     </repositories>
+    
 
 
     <dependencies>
