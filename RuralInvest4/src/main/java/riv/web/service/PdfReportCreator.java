@@ -453,7 +453,7 @@ public class PdfReportCreator {
 	
 	public ReportWrapper projectRecommendation(Project project, int startPage) {
 		ReportWrapper report = new ReportWrapper("/reports/project/projectRecommendation.jasper", false, project, "projectRecommendation.pdf", startPage);
-		String reportletter = project.getIncomeGen() ? "L: " : "I: ";
+		String reportletter = project.getIncomeGen() ? "M: " : "I: ";
 		report.getParams().put("reportname", reportletter+translate("project.report.recommendation"));
 		runReport(report);
 		return report;
@@ -490,7 +490,7 @@ public class PdfReportCreator {
 		} else { // incremental
 			title=translate("project.report.profitability") + " "+translate("project.incremental");
 		}
-		report.getParams().put("reportname", "M: "+translate("project.report.profitability"));
+		report.getParams().put("reportname", "L: "+translate("project.report.profitability"));
 		report.getParams().put("title", title);
 		
 		runReport(report);
