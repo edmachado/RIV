@@ -54,14 +54,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	 }
 	 
 	 @Bean
-//	 public MultipartResolver multipartResolver() {
 	 public CommonsMultipartResolver filterMultipartResolver(){
-//		 StandardServletMultipartResolver mr = new StandardServletMultipartResolver();
 		 CommonsMultipartResolver mr = new CommonsMultipartResolver();
 		 mr.setMaxUploadSize(5242880);
 		 return mr;
 	 }
-	 
 
 	 @Bean(name="cacheManager")
 	 public SimpleCacheManager cacheManager() {

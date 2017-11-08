@@ -67,7 +67,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 				      new CharacterEncodingFilter());
 				   fr.setInitParameter("encoding", "UTF-8");
 				   fr.setInitParameter("forceEncoding", "true");
-				   fr.addMappingForUrlPatterns(null, true, "/*");
+				   fr.addMappingForUrlPatterns(null, false, "/*");
 				   
 			FilterRegistration.Dynamic urlRewrite = servletContext.addFilter("UrlRewriteFilter", new UrlRewriteFilter());
 		   			urlRewrite.setInitParameter("confPath","/WEB-INF/urlrewrite.xml");
