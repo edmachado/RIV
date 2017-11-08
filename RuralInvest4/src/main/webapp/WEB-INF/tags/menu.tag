@@ -58,7 +58,6 @@
 		href="${ctx}/config/indicators" id="gotoIndicators"><spring:message code="mainMenu.config.columns"/></a><c:if test="${rivConfig.setting.admin1Enabled}"><a 
 		href="${ctx}/config/appConfig1" id="gotoAppConfig1">${rivConfig.setting.admin1Title}</a></c:if><c:if test="${rivConfig.setting.admin2Enabled}"><a 
 		href="${ctx}/config/appConfig2" id="gotoAppConfig2">${rivConfig.setting.admin2Title}</a></c:if><u>&nbsp;</u></span>
-<%-- 		<c:if test="${user.administrator}"><a --%>
-<%-- 		href="${ctx}/config/import" id="gotoImportSettings"><spring:message code="mainMenu.import"/></a></c:if><u>&nbsp;</u></span> --%>
+		<a style="display:none;" id="import-config" href="${ctx}/config/import"></a>
 	</div>
 </div>

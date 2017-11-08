@@ -342,9 +342,9 @@ public class UploadController implements Serializable {
 		Locale locale=rivLocaleResolver.resolveLocale(request);
 		
 		// config import moved to own function
-		if (type.equals("config")) {
-			return "redirect:../home";
-		}
+//		if (type.equals("config")) {
+//			return "redirect:../home";
+//		}
 		
 		User user = (User)request.getAttribute("user");
 		
