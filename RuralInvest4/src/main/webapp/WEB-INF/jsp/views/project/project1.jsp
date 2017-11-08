@@ -111,7 +111,7 @@ $( "#radioShared" ).buttonset();
 					<label><tags:help text="project.creationDate.help" title="project.creationDate"><spring:message code="project.creationDate"/></tags:help></label>
 					<fmt:formatDate value="${project.prepDate}" type="both" pattern="dd/MM/yy HH:mm" />
 				</div>
-				<tags:dataentry field="createdBy" labelKey="project.creationDate" helpTitle="project.creationDate" helpText="project.creationDate.help" inputClass="text" size="20" maxLength="100"/>
+				<tags:dataentry field="createdBy" labelKey="project.createdBy" helpTitle="project.createdBy" helpText="project.createdBy.help" inputClass="text" size="20" maxLength="100"/>
 				
 
 				<div class="dataentry">
