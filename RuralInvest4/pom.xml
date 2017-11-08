@@ -94,16 +94,21 @@
     </profiles>
 
     <repositories>
-        <repository>
-            <id>springsource-repo</id>
-            <name>SpringSource Repository</name>
-            <url>http://repo.springsource.org/release</url>
-        </repository>
-        <repository>
-            <id>repository.springsource.milestone</id>
-            <name>SpringSource Milestone Repository</name>
-            <url>http://repo.springsource.org/milestone</url>
-        </repository>
+<!--         <repository> -->
+<!--             <id>springsource-repo</id> -->
+<!--             <name>SpringSource Repository</name> -->
+<!--             <url>http://repo.springsource.org/release</url> -->
+<!--         </repository> -->
+<!--         <repository> -->
+<!--             <id>repository.springsource.milestone</id> -->
+<!--             <name>SpringSource Milestone Repository</name> -->
+<!--             <url>http://repo.springsource.org/milestone</url> -->
+<!--         </repository> -->
+	<repository> 
+        <id>repository.spring.release</id> 
+        <name>Spring GA Repository</name> 
+        <url>http://repo.spring.io/release</url> 
+    </repository>
         <repository>
             <id>central</id>
             <url>http://repo1.maven.org/maven2/</url>
