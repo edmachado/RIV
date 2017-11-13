@@ -3079,6 +3079,7 @@ public class ExcelWorksheetBuilder {
 		
 		// 
 //		if (!firstYearOnly) {
+		if (!without) {
 			String formula1; String formula2; String formula3; String col;
 			int rowCumulative = rowNum; 
 			int rowNumWf1 = ++rowNum+1;
@@ -3133,9 +3134,16 @@ public class ExcelWorksheetBuilder {
 				report.addFormulaCell(wf2, i, formula2, Style.PERCENT);
 				report.addFormulaCell(wf3, i, formula3);
 			}
-//		}
+			
+			int extra = without ? project.getBlocksWithout().size()*2 : project.getBlocks().size()*2;
+			int firstWeightRow = 14+extra;
+			for (int i=firstWeightRow;i<=firstWeightRow+2;i++) {
+				sheet.getRow(i).setZeroHeight(true);
+			}
+		}
 		
 		autoSizeColumns(sheet, project.getDuration()*12 + 3);
+		
 		return sheet;
 	}
 	
