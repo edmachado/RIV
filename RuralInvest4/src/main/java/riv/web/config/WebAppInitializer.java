@@ -82,6 +82,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			rivFilter.addMappingForUrlPatterns(null, true, "/config/*");
 			rivFilter.addMappingForUrlPatterns(null, true, "/profile/*");
 			rivFilter.addMappingForUrlPatterns(null, true, "/project/*");
+			rivFilter.addMappingForUrlPatterns(null, true, "/profileToProject/*");
 			rivFilter.addMappingForUrlPatterns(null, true, "/search/*");
 			rivFilter.addMappingForUrlPatterns(null, true, "/report/*");
 			rivFilter.addMappingForUrlPatterns(null, true, "/home");
@@ -92,6 +93,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/config/*");
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/profile/*");
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/project/*");
+			siteMeshFilter.addMappingForUrlPatterns(null, true, "/profileToProject/*");
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/search/*");
 			siteMeshFilter.addMappingForUrlPatterns(null, true, "/help/*");
 			
@@ -99,6 +101,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/config/*");
 			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/profile/*");
 			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/project/*");
+			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/profileToProject/*");
 			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/search/*");
 			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/help/*");
 	}

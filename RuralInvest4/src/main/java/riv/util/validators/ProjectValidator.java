@@ -134,13 +134,23 @@ public class ProjectValidator implements Validator {
 			String noTableError = project.getIncomeGen() ? "error.blockNoTable" : "error.activityNoTable";
 			if (project.getBlocks().size()==0) {
 				errors.rejectValue("blocks", noBlockError, noBlockErrorText);
-			} else { // check block's tables
+			} else { // check block's chronology, prod pattern and tables
 				for (Block block : project.getBlocks()) {
+					if (project.getIncomeGen() && block.getChrons().size()==0) {
+						errors.reject("error.block.noChronology", 
+								new Object[] {block.getDescription()}, "\""+block.getDescription()+"\": specify chronology");
+					}
+					if (block.getPatterns().size()==0) {
+						errors.reject(project.getIncomeGen() ? "error.block.noPattern" : "error.activity.noPattern", 
+								new Object[] {block.getDescription()}, "\""+block.getDescription()+"\": specify production/activity pattern");
+					}
+					
 					if (block.getIncomes().size()==0) {
-						if (project.getIncomeGen())
+						if (project.getIncomeGen()) {
 							ValidateUtils.rejectBlockEmptyTable(block.getDescription(), "Income", "projectBlockIncome", noTableError, errors);
-						else
+						} else {
 							ValidateUtils.rejectBlockEmptyTable(block.getDescription(), "User charge", "projectActivityCharge", noTableError, errors);
+						}
 					}
 					if (block.getInputs().size()==0)
 						ValidateUtils.rejectBlockEmptyTable(block.getDescription(), "Input", "projectBlockInput", noTableError, errors);
@@ -148,6 +158,11 @@ public class ProjectValidator implements Validator {
 						ValidateUtils.rejectBlockEmptyTable(block.getDescription(), "Labour", "projectBlockLabour", noTableError, errors);					
 				}
 				for (BlockWithout block : project.getBlocksWithout()) {
+					if (block.getPatterns().size()==0) {
+						errors.reject(project.getIncomeGen() ? "error.block.noPattern" : "error.activity.noPattern", 
+								new Object[] {block.getDescription()}, "\""+block.getDescription()+"\": specify production/activity pattern");
+					}
+					
 					if (block.getIncomes().size()==0) {
 						if (project.getIncomeGen())
 							ValidateUtils.rejectBlockEmptyTable(block.getDescription(), "Income", "projectBlockIncome", noTableError, errors);

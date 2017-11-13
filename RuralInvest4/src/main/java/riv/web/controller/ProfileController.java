@@ -126,10 +126,11 @@ public class ProfileController {
 		User u = (User) request.getAttribute("user");
 		Project proj = dataService.getProfile(id, -1).convertToProject();
 		proj.setTechnician(u);
+		proj.setCreatedBy(u.getDescription() + " ("+u.getOrganization()+")");
 		proj.setDuration(rivConfig.getSetting().getMaxDuration());
 		dataService.storeProject(proj, false);
 		attachTools.copyAttached(profile, proj);
-		return "redirect:../../../project/step1/"+proj.getProjectId();
+		return "redirect:../../../profileToProject/step1/"+proj.getProjectId();
 	}
 	
 	@RequestMapping(value="step{step}/{id}/delete", method=RequestMethod.GET)

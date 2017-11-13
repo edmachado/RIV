@@ -12,6 +12,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.Errors;
 
+import riv.objects.OrderByable;
+
 /**
  * @author barzecharya
  *
@@ -55,39 +57,6 @@ public class ValidateUtils {
 			}
 		}
 	}
-	
-//	private static Long getMaxFromAnnotation(Object bean, String fieldName) {
-//		Long max=null;
-//		try {
-//			Field field = bean.getClass().getDeclaredField(fieldName);
-//			if (field.getType().equals(String.class)) {
-//				Max maxAnnotation = field.getAnnotation(Max.class);
-//				max = maxAnnotation.value();
-//			}
-//		} catch (Exception ex) {
-//			try {
-//				Field field = bean.getClass().getSuperclass().getDeclaredField(fieldName);
-//				Max maxAnnotation = field.getAnnotation(Max.class);
-//				max = maxAnnotation.value();
-//			} catch (Exception ex2) {;}	
-//		}
-//		return max;
-//	}
-//	
-//	private static void enforceMax(Object bean, String fieldName, String fieldCode, Errors errors) {
-//		if (errors.getFieldError(fieldName)==null) { // don't enforce if field already flagged as error
-//			Long max = getMaxFromAnnotation(bean, fieldName);
-//			if (max!=null) {
-//				Double propertyValue=null;
-//				try {
-//					propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
-//				} catch (Exception e) {	; }
-//				if (propertyValue>max) {
-//					errors.rejectValue(fieldName, "error.max", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode}),String.valueOf(max)}, "\""+fieldName+"\" is required");
-//				}
-//			}
-//		}
-//	}
 	
 	public static void rejectIfEmpty(Object bean, String fieldName, String fieldCode, Errors errors) {
 		Object propertyValue=null;
@@ -140,6 +109,37 @@ public class ValidateUtils {
 		    return bd.doubleValue();
 	 }
 	
+	public static void rejectIfEmptyOrNegativeInSet(OrderByable bean, String setName, String fieldName, String fieldCode, Errors errors) {
+		String errorField = setName+"["+bean.getOrderBy()+"]."+fieldName;
+		double propertyValue=0;
+		try {
+			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
+		} catch (Exception e) {	
+			errors.rejectValue(errorField, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
+			return;
+		}
+		if (propertyValue < 0) {
+			errors.rejectValue(errorField, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" must be non-negative");
+		}
+	}
+	
+	public static boolean rejectChildValueIfEmptyOrNegativeInSet(Object bean, int childKey, String fieldName, String fieldCode, String parentFieldName, Errors errors) {
+		double propertyValue;
+		try {
+			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
+		} catch (Exception e) {
+			errors.rejectValue(parentFieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" is required");
+			return true;
+		}
+		if (propertyValue < 0) {
+			errors.rejectValue(parentFieldName, "error.requiredNonNegative", new Object[] {new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" cannot be negative");
+		}
+		
+		return false;
+	}
+	
+	
+	
 	public static void rejectIfEmptyOrNegativeOrOverMax(Object bean, String fieldName, String fieldCode, Double max, Errors errors) {
 		double propertyValue=0;
 		try {
@@ -176,9 +176,6 @@ public class ValidateUtils {
 		return false;
 	}
 	
-	/**
-	 * @return true if error
-	 */
 	public static boolean rejectMapValueIfEmptyOrNegative(@SuppressWarnings("rawtypes") Map map, String mapName, Object key, String fieldName, Errors errors) {
 		double propertyValue=0;
 		try {

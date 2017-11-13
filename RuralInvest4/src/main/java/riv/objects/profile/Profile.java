@@ -42,14 +42,22 @@ import riv.objects.project.BlockWithout;
 import riv.objects.project.Donor;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
+import riv.objects.project.ProjectItemAssetWithout;
 import riv.objects.project.ProjectItemContribution;
 import riv.objects.project.ProjectItemGeneral;
+import riv.objects.project.ProjectItemGeneralFromProfile;
+import riv.objects.project.ProjectItemGeneralFromProfileWithout;
 import riv.objects.project.ProjectItemLabour;
+import riv.objects.project.ProjectItemLabourFromProfile;
+import riv.objects.project.ProjectItemLabourFromProfileWithout;
 import riv.objects.project.ProjectItemNongenLabour;
 import riv.objects.project.ProjectItemNongenMaintenance;
 import riv.objects.project.ProjectItemNongenMaterials;
 import riv.objects.project.ProjectItemPersonnel;
 import riv.objects.project.ProjectItemService;
+import riv.objects.project.BlockIncome;
+import riv.objects.project.BlockInput;
+import riv.objects.project.BlockLabour;
 import riv.objects.reference.ReferenceCost;
 import riv.objects.reference.ReferenceIncome;
 import riv.objects.reference.ReferenceLabour;
@@ -949,8 +957,6 @@ public class Profile extends Probase implements java.io.Serializable {
 
 		 return newProf;
 	 }
-
-	 
 	 
 	 public Project convertToProject() {
 		 Project proj = new Project();
@@ -967,6 +973,11 @@ public class Profile extends Probase implements java.io.Serializable {
 		 proj.setRefCosts(new HashSet<ReferenceCost>());
 		 proj.setRefIncomes(new HashSet<ReferenceIncome>());
 		 proj.setRefLabours(new HashSet<ReferenceLabour>());
+		 proj.setLaboursFromProfile(new HashSet<ProjectItemLabourFromProfile>());
+		 proj.setLaboursFromProfileWithout(new HashSet<ProjectItemLabourFromProfileWithout>());
+		 proj.setGeneralsFromProfile(new HashSet<ProjectItemGeneralFromProfile>());
+		 proj.setGeneralsFromProfileWithout(new HashSet<ProjectItemGeneralFromProfileWithout>());
+		 
 		 proj.setBlocks(new HashSet<Block>());
 		 proj.setBlocksWithout(new HashSet<BlockWithout>());
 
@@ -974,6 +985,10 @@ public class Profile extends Probase implements java.io.Serializable {
 		 proj.setUniqueId(UUIDGenerator.getInstance().generateTimeBasedUUID().toByteArray());
 		 proj.setWizardStep(1);
 		 proj.setPrepDate(new Date());
+		 
+		 //TODO use enum
+		 proj.setProfileUpgrade(1);
+		 
 		 // step 1
 		 proj.setProjectName(this.getProfileName());
 		 proj.setExchRate(this.exchRate);
@@ -985,6 +1000,7 @@ public class Profile extends Probase implements java.io.Serializable {
 		 proj.setLocation2(this.location2);
 		 proj.setLocation3(this.location3);
 		 proj.setWithWithout(this.withWithout);
+		 
 		 // step 2
 		 proj.setBenefDesc(this.benefDesc);
 		 proj.setBenefName(this.benefName);
@@ -1004,9 +1020,92 @@ public class Profile extends Probase implements java.io.Serializable {
 		 proj.setEnviroImpact(this.enviroImpact);
 
 		 // add investment costs
+		 // goods
+		 for (ProfileItemGood i : this.glsGoods) {
+			 ProjectItemAsset a = new ProjectItemAsset();
+			 a.setDescription(i.getDescription());
+			 a.setUnitType(i.getUnitType());
+			 a.setUnitNum(i.getUnitNum());
+			 a.setUnitCost(i.getUnitCost());
+			 a.setOwnResources(i.getOwnResource());
+			 a.setEconLife(i.getEconLife().intValue());
+			 a.setSalvage(i.getSalvage());
+			 a.setReplace(false);
+			 a.setProject(proj);
+			 a.setOrderBy(proj.getAssets().size());
+			 a.setYearBegin(1);
+			 proj.getAssets().add(a);
+		 }
+		 
+		 if (this.getWithWithout()) {
+			 for (ProfileItemGoodWithout i : this.glsGoodsWithout) {
+				 ProjectItemAssetWithout a = new ProjectItemAssetWithout();
+				 a.setDescription(i.getDescription());
+				 a.setUnitType(i.getUnitType());
+				 a.setUnitNum(i.getUnitNum());
+				 a.setUnitCost(i.getUnitCost());
+				 a.setOwnResources(i.getOwnResource());
+				 a.setEconLife(i.getEconLife().intValue());
+				 a.setSalvage(i.getSalvage());
+				 a.setReplace(false);
+				 a.setProject(proj);
+				 a.setOrderBy(proj.getAssetsWithout().size());
+				 a.setYearBegin(1);
+				 proj.getAssetsWithout().add(a);
+			 }
+		 }
+		 
+		 for (ProfileItemLabour i : this.glsLabours) {
+			 ProjectItemLabourFromProfile x = new ProjectItemLabourFromProfile();
+			 x.setDescription(i.getDescription());
+			 x.setUnitType(i.getUnitType());
+			 x.setUnitNum(i.getUnitNum());
+			 x.setUnitCost(i.getUnitCost());
+			 x.setOwnResources(i.getOwnResource());
+			 x.setYearBegin(1);
+			 x.setOrderBy(proj.getLaboursFromProfile().size());
+			 x.setProject(proj);
+			 proj.getLaboursFromProfile().add(x);
+		 }
+		 
+		 if (this.getWithWithout()) {
+			 for (ProfileItemLabourWithout i : this.glsLaboursWithout) {
+				 ProjectItemLabourFromProfileWithout x = new ProjectItemLabourFromProfileWithout();
+				 x.setDescription(i.getDescription());
+				 x.setUnitType(i.getUnitType());
+				 x.setUnitNum(i.getUnitNum());
+				 x.setUnitCost(i.getUnitCost());
+				 x.setOwnResources(i.getOwnResource());
+				 x.setYearBegin(1);
+				 x.setOrderBy(proj.getLaboursFromProfileWithout().size());
+				 x.setProject(proj);
+				 proj.getLaboursFromProfileWithout().add(x);
+			 }
+		 }
 
 		 // add general costs
-
+		 for (ProfileItemGeneral i : this.glsGeneral) {
+			 ProjectItemGeneralFromProfile g = new ProjectItemGeneralFromProfile();
+			 g.setDescription(i.getDescription());
+			 g.setUnitType(i.getUnitType());
+			 g.setUnitNum(i.getUnitNum());
+			 g.setUnitCost(i.getUnitCost());
+			 g.setOrderBy(proj.getGeneralsFromProfile().size());
+			 g.setProject(proj);
+			 proj.getGeneralsFromProfile().add(g);
+		 }
+		 
+		 for (ProfileItemGeneralWithout i : this.glsGeneralWithout) {
+			 ProjectItemGeneralFromProfileWithout g = new ProjectItemGeneralFromProfileWithout();
+			 g.setDescription(i.getDescription());
+			 g.setUnitType(i.getUnitType());
+			 g.setUnitNum(i.getUnitNum());
+			 g.setUnitCost(i.getUnitCost());
+			 g.setOrderBy(proj.getGeneralsFromProfileWithout().size());
+			 g.setProject(proj);
+			 proj.getGeneralsFromProfileWithout().add(g);
+		 }
+		 
 		 // add products
 		 for (ProfileProduct prod : products) {
 			 Block block = new Block();
@@ -1017,6 +1116,41 @@ public class Profile extends Probase implements java.io.Serializable {
 			 block.setCyclePerYear(prod.getCyclePerYear());
 			 block.setLengthUnit(prod.getLengthUnit());
 			 proj.addBlock(block);
+			 
+			 for (ProfileProductIncome i : prod.getProfileIncomes()) {
+				 BlockIncome bi = new BlockIncome();
+				 bi.setDescription(i.getDescription());
+				 bi.setUnitType(i.getUnitType());
+				 bi.setUnitNum(i.getUnitNum());
+				 bi.setUnitCost(i.getUnitCost());
+				 bi.setTransport(i.getTransport());
+				 bi.setQtyIntern(new BigDecimal(0));
+				 bi.setOrderBy(block.getIncomes().size());
+				 block.addIncome(bi);
+			 }
+			 
+			 for (ProfileProductInput i : prod.getProfileInputs()) {
+				 BlockInput bi = new BlockInput();
+				 bi.setDescription(i.getDescription());
+				 bi.setUnitType(i.getUnitType());
+				 bi.setUnitNum(i.getUnitNum());
+				 bi.setUnitCost(i.getUnitCost());
+				 bi.setTransport(i.getTransport());
+				 bi.setQtyIntern(new BigDecimal(0));
+				 bi.setOrderBy(block.getInputs().size());
+				 block.addInput(bi);
+			 }
+			 
+			 for (ProfileProductLabour i : prod.getProfileLabours()) {
+				 BlockLabour bi = new BlockLabour();
+				 bi.setDescription(i.getDescription());
+				 bi.setUnitType(i.getUnitType());
+				 bi.setUnitNum(i.getUnitNum());
+				 bi.setUnitCost(i.getUnitCost());
+				 bi.setQtyIntern(new BigDecimal(0));
+				 bi.setOrderBy(block.getLabours().size());
+				 block.addLabour(bi);
+			 }
 		 }
 		 for (ProfileProductWithout prod : productsWithout) {
 			 BlockWithout block = new BlockWithout();
@@ -1027,6 +1161,41 @@ public class Profile extends Probase implements java.io.Serializable {
 			 block.setCyclePerYear(prod.getCyclePerYear());
 			 block.setLengthUnit(prod.getLengthUnit());
 			 proj.addBlock(block);
+			 
+			 for (ProfileProductIncome i : prod.getProfileIncomes()) {
+				 BlockIncome bi = new BlockIncome();
+				 bi.setDescription(i.getDescription());
+				 bi.setUnitType(i.getUnitType());
+				 bi.setUnitNum(i.getUnitNum());
+				 bi.setUnitCost(i.getUnitCost());
+				 bi.setTransport(i.getTransport());
+				 bi.setQtyIntern(new BigDecimal(0));
+				 bi.setOrderBy(block.getIncomes().size());
+				 block.addIncome(bi);
+			 }
+			 
+			 for (ProfileProductInput i : prod.getProfileInputs()) {
+				 BlockInput bi = new BlockInput();
+				 bi.setDescription(i.getDescription());
+				 bi.setUnitType(i.getUnitType());
+				 bi.setUnitNum(i.getUnitNum());
+				 bi.setUnitCost(i.getUnitCost());
+				 bi.setTransport(i.getTransport());
+				 bi.setQtyIntern(new BigDecimal(0));
+				 bi.setOrderBy(block.getInputs().size());
+				 block.addInput(bi);
+			 }
+			 
+			 for (ProfileProductLabour i : prod.getProfileLabours()) {
+				 BlockLabour bi = new BlockLabour();
+				 bi.setDescription(i.getDescription());
+				 bi.setUnitType(i.getUnitType());
+				 bi.setUnitNum(i.getUnitNum());
+				 bi.setUnitCost(i.getUnitCost());
+				 bi.setQtyIntern(new BigDecimal(0));
+				 bi.setOrderBy(block.getLabours().size());
+				 block.addLabour(bi);
+			 }
 		 }
 
 		 // reference table

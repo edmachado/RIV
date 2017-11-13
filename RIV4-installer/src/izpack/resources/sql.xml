@@ -627,6 +627,9 @@ ALTER TABLE setting ADD COLUMN qualitative_enabled BOOLEAN DEFAULT false;
 
 ALTER TABLE project_result ADD COLUMN qualitative DECIMAL(4,2);
 
+-- upgrade from profile to project
+ALTER TABLE project ADD COLUMN profile_upgrade INT;
+
 	</query>
 	</version>
 </sql>

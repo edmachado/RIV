@@ -12,6 +12,14 @@ function stellate(field, stars) {
 	}
 }
 
+function removeText(element){	
+    var newElement = $('<' + element[0].nodeName + '/>');
+    element.children().each(function(){
+        newElement.append(this);
+    });
+    element.replaceWith(newElement);
+}
+
 function randomPhoto(src, begin, end) {
 	var d = new Date();
 	var seconds = d.getSeconds(); 

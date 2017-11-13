@@ -27,9 +27,10 @@ $("#confirmDelete").dialog({
 					<display:column titleKey="project.lastUpdate" sortable="true" sortProperty="lastUpdate" style="text-align:center;" headerClass="centered">
 						<fmt:formatDate value="${row.lastUpdate}" type="both" pattern="dd/MM/yy HH:mm" />
 					</display:column>			
-					
 					<display:column title="&nbsp;" media="html">
-						<a href="../project/step1/${row.projectId}"><img src="../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" title="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
+						<c:if test="${not empty row.profileUpgrade}"><c:set var="href">../profileToProject/step${row.profileUpgrade}/${row.projectId}</c:set></c:if>
+						<c:if test="${empty row.profileUpgrade}"><c:set var="href">../project/step1/${row.projectId}</c:set></c:if>
+						<a href="${href}"><img src="../img/edit.png" alt="<spring:message code="misc.viewEditItem"/>" title="<spring:message code="misc.viewEditItem"/>" width="16" height="16" border="0"/></a>
 					</display:column>
 					<display:column title="&nbsp;" media="html">
 						<c:if test="${row.shared==true || row.technician.userId==user.userId }">

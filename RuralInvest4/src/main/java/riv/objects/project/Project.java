@@ -108,6 +108,8 @@ public class Project extends Probase implements java.io.Serializable {
 	private Double rivVersion;
 	@Column(name="WIZARD_STEP")
 	private Integer wizardStep;
+	@Column(name="PROFILE_UPGRADE")
+	private Integer profileUpgrade;
 	@Column(name="EXCH_RATE")
 	private Double ExchRate;
 	@Column(name="WITH_WITHOUT")
@@ -338,7 +340,28 @@ public class Project extends Probase implements java.io.Serializable {
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='7'")
 	private Set<ProjectItemPersonnelWithout> personnelWithouts = new HashSet<ProjectItemPersonnelWithout>();
+	
+	@OneToMany(mappedBy="project", targetEntity=ProjectItemLabourFromProfile.class, orphanRemoval=true, cascade = CascadeType.ALL)
+	@OrderBy("ORDER_BY")
+	@Where(clause="class='14'")
+	private Set<ProjectItemLabourFromProfile> laboursFromProfile = new HashSet<ProjectItemLabourFromProfile>();
 
+	@OneToMany(mappedBy="project", targetEntity=ProjectItemLabourFromProfileWithout.class, orphanRemoval=true, cascade = CascadeType.ALL)
+	@OrderBy("ORDER_BY")
+	@Where(clause="class='15'")
+	private Set<ProjectItemLabourFromProfileWithout> laboursFromProfileWithout = new HashSet<ProjectItemLabourFromProfileWithout>();
+
+	@OneToMany(mappedBy="project", targetEntity=ProjectItemGeneralFromProfile.class, orphanRemoval=true, cascade = CascadeType.ALL)
+	@OrderBy("ORDER_BY")
+	@Where(clause="class='16'")
+	private Set<ProjectItemGeneralFromProfile> generalsFromProfile = new HashSet<ProjectItemGeneralFromProfile>();
+
+	@OneToMany(mappedBy="project", targetEntity=ProjectItemGeneralFromProfileWithout.class, orphanRemoval=true, cascade = CascadeType.ALL)
+	@OrderBy("ORDER_BY")
+	@Where(clause="class='17'")
+	private Set<ProjectItemGeneralFromProfileWithout> generalsFromProfileWithout = new HashSet<ProjectItemGeneralFromProfileWithout>();
+	
+	
 	@OneToMany(mappedBy="project", targetEntity=ReferenceCost.class, orphanRemoval=true, cascade = CascadeType.ALL)
 	@OrderBy("ORDER_BY")
 	@Where(clause="class='0'")
@@ -505,6 +528,14 @@ public double getInvestmentTotal() {
 	
 	public Integer getWizardStep() {
 		return wizardStep;
+	}
+
+	public Integer getProfileUpgrade() {
+		return profileUpgrade;
+	}
+
+	public void setProfileUpgrade(Integer profileUpgrade) {
+		this.profileUpgrade = profileUpgrade;
 	}
 
 	public Double getExchRate () {
@@ -1301,6 +1332,7 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	}
 	public void addReferenceCost(ReferenceCost item) {
 		item.setProject(this);
+		item.setProfile(null);
 		refCosts.add(item);
 	}
 	public void setRefIncomes(Set<ReferenceIncome> refIncomes) {
@@ -1311,6 +1343,7 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	}
 	public void addReferenceIncome(ReferenceIncome item) {
 		item.setProject(this);
+		item.setProfile(null);
 		refIncomes.add(item);
 	}
 	public void setRefLabours(Set<ReferenceLabour> refLabours) {
@@ -1321,8 +1354,42 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	}
 	public void addReferenceLabour(ReferenceLabour item) {
 		item.setProject(this);
+		item.setProfile(null);
 		refLabours.add(item);
 	}
+	
+	public Set<ProjectItemLabourFromProfile> getLaboursFromProfile() {
+		return laboursFromProfile;
+	}
+
+	public void setLaboursFromProfile(Set<ProjectItemLabourFromProfile> laboursFromProfile) {
+		this.laboursFromProfile = laboursFromProfile;
+	}
+	
+	public Set<ProjectItemLabourFromProfileWithout> getLaboursFromProfileWithout() {
+		return laboursFromProfileWithout;
+	}
+
+	public void setLaboursFromProfileWithout(Set<ProjectItemLabourFromProfileWithout> laboursFromProfileWithout) {
+		this.laboursFromProfileWithout = laboursFromProfileWithout;
+	}
+
+	public Set<ProjectItemGeneralFromProfile> getGeneralsFromProfile() {
+		return generalsFromProfile;
+	}
+
+	public void setGeneralsFromProfile(Set<ProjectItemGeneralFromProfile> generalsFromProfile) {
+		this.generalsFromProfile = generalsFromProfile;
+	}
+
+	public Set<ProjectItemGeneralFromProfileWithout> getGeneralsFromProfileWithout() {
+		return generalsFromProfileWithout;
+	}
+
+	public void setGeneralsFromProfileWithout(Set<ProjectItemGeneralFromProfileWithout> generalsFromProfileWithout) {
+		this.generalsFromProfileWithout = generalsFromProfileWithout;
+	}
+
 	public void setReccCode(Integer reccCode) {
 		this.reccCode = reccCode;
 	}
@@ -2603,6 +2670,8 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 		
 		return totalPossible==0.0 ? 0.0 : score/totalPossible;
 	}
+	
+	public enum ProfileUpgradeStep { ASSETS, ASSETS_WITHOUT, INVEST_LABOUR, INVEST_LABOUR_WITHOUT, BLOCKS, BLOCKS_WITHOUT }
 
 	@Override
 	public int hashCode() {

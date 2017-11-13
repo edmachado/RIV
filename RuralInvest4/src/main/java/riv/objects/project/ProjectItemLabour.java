@@ -137,8 +137,12 @@ public class ProjectItemLabour extends ProjectItem implements ProjectInvestment 
 	   item.setYearBegin(YearBegin);
 	   item.setOrderBy(this.getOrderBy());
 	   
-	   for (Integer donorOrder : donations.keySet()) {
-		  item.getDonations().put(donorOrder, donations.get(donorOrder));
+	   if (donations==null) {
+		   donations=new HashMap<Integer,Double>();
+	   } else {
+		   for (Integer donorOrder : donations.keySet()) {
+			  item.getDonations().put(donorOrder, donations.get(donorOrder));
+		   }
 	   }
 	   return item;
  }

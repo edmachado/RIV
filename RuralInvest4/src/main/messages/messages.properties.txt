@@ -1,3 +1,20 @@
+
+## RIV4.4 PROFILE TO PROJECT
+profileToProject=Convert profile to project
+profileToProject.text=In order to convert a profile to a project some data must be reviewed and corrected. The following steps will guide you through this process.
+profileToProject.asset=For each asset, please specify 1) the maintenance cost, 2) whether the asset is replaced at the end of its economic life, and 3) the year of the project in which the investment is made.
+profileToProject.investLabour=Investment: labour / services
+profileToProject.investLabour.text=Please drag each of the investment labour costs (in the first table) to either the "Labour" or "Professional services" table. For labour costs, you will need to choose the unit type from the menu. Please also specify the year of the project in which the investment is made.
+profileToProject.generalLabour=General costs: supplies / personnel
+profileToProject.generalLabour.text=Please drag each of the general labour costs (in the first table) to either the "Supplies & services" or "Personnel" tables. For personnel costs, you will need to choose the unit type from the menu.
+profileToProject.blocks=For each production block, please select the unit type of the labour costs from the menu, correcting the units used and unit cost if necessary. 
+profileToProject.complete=Please complete the operation
+profileToProject.complete.text=Please drag all the items from the first table before continuing.
+
+error.block.noChronology=Block "{0}": Please edit the block and specify the production chronology.
+error.block.noPattern=Block "{0}": Please edit the block and specify the production pattern.
+error.activity.noPattern=Activity "{0}": Please edit the activity and specify the activity pattern.
+
 ## RIV 4.4 BIS
 project.loan.paymentsPerYear=Payments per year
 project.loan.paymentsPerYear.help=...
@@ -67,7 +84,7 @@ project.report.profitability.lastNeg=Last negative year
 project.report.workingcapital=Working capital
 project.report.workingcapital.sheetname=Working capital
 project.periodAvg=Average loan duration
-project.periodAvg.help=The "average loan duration" is a correction factor of the estimated loan duration. Since the estimated loan duration is based on the last month of negative cumulative cash flow, and the estimated amount of working capital is the largest cumulative negative cash flow, the interest calculated on those two parameters is overestimated. To correct this, we utilize instead an average loan duration which is based on the monthly cumulative cash flow for each month until we reach the estimated loan duration. Instead of generating a weighted average on the working capital amount, we generate a weighted average of the loan duration – the result is the same in terms of interest generated.
+project.periodAvg.help=The "average loan duration" is a correction factor of the estimated loan duration. Since the estimated loan duration is based on the last month of negative cumulative cash flow, and the estimated amount of working capital is the largest cumulative negative cash flow, the interest calculated on those two parameters is overestimated. To correct this, we utilize instead an average loan duration which is based on the monthly cumulative cash flow for each month until we reach the estimated loan duration. Instead of generating a weighted average on the working capital amount, we generate a weighted average of the loan duration \u2013 the result is the same in terms of interest generated.
 misc.moreDetails=For details see the following report: 
 
 # changed from previous versions
@@ -136,7 +153,7 @@ admin.restore.button=Choose a backup file
 user.admin=Administrator
 
 # changed from previous version
-settings.language.help=This sets the interface language for users who have not indicated a preferred language. Users can change their own interface language by clicking on the ‘Welcome’ link at the top of the screen.
+settings.language.help=This sets the interface language for users who have not indicated a preferred language. Users can change their own interface language by clicking on the \u2018Welcome\u2019 link at the top of the screen.
 
 
 

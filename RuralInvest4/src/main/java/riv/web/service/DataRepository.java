@@ -857,6 +857,13 @@ public class DataRepository {
 			Hibernate.initialize(p.getServicesWithout());
 		}
 		
+		if (step==-1) {
+			Hibernate.initialize(p.getLaboursFromProfile());
+			Hibernate.initialize(p.getLaboursFromProfileWithout());
+			Hibernate.initialize(p.getGeneralsFromProfile());
+			Hibernate.initialize(p.getGeneralsFromProfileWithout());
+		}
+		
 		if (step==-1 || step==7 || step==8 || step==13 
 				|| ((p.getIncomeGen() && step==10) || (!p.getIncomeGen() && step==11))) {
 			Hibernate.initialize(p.getRefCosts());

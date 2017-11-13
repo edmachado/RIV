@@ -25,7 +25,7 @@ var titleConfig="<spring:message code='import.config'/>";
 </head>
 <body>
 
-<c:if test="${user.administrator}"><h2><a id="reset" style="display:none;" href="reset">Reset RuralInvest</a></h2></c:if>
+<c:if test="${user.administrator}"><h2><a id="reset" style="display:none;" href="reset">.</a></h2></c:if>
 
 <c:if test="${not rivConfig.complete}">
 	<div id="welcome">

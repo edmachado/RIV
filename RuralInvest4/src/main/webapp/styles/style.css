@@ -622,3 +622,7 @@ span.pagelinks { display:block; }
 #welcome h1 { color:#005cab; margin-bottom:20px; }
 #welcome a { color: #ebaf01; }
 #welcome a:hover { text-decoration: underline; }
+
+#profToProject { background-color:#fff;padding:10px 20px 20px 20px;margin-right:20px;border: 1px solid #e7ae0f; }
+#profToProject h2 { font-size: 16px; color:#005cab; margin-bottom:20px; }
+#profToProject p { font-size:12px; }

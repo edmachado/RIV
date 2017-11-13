@@ -23,7 +23,7 @@
 			<div class="inactive">
 				<label><span>${stepNum}</span></label>
 				<c:choose>
-					<c:when test="${wizardStep != '' && wizardStep<i+1 }">
+					<c:when test="${wizardStep==-1 || (wizardStep != '' && wizardStep<i+1) }">
 						<span>${title}</span>
 					</c:when>
 					<c:otherwise>

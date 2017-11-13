@@ -125,8 +125,12 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 	   item.setYearBegin(yearBegin);
 	   item.setOrderBy(getOrderBy());
 	   
-	   for (Integer donorOrder : donations.keySet()) {
-		  item.getDonations().put(donorOrder, donations.get(donorOrder));
+	   if (donations==null) {
+		   donations=new HashMap<Integer,Double>();
+	   } else {
+		   for (Integer donorOrder : donations.keySet()) {
+			  item.getDonations().put(donorOrder, donations.get(donorOrder));
+		   }
 	   }
 	   return item;
 	}

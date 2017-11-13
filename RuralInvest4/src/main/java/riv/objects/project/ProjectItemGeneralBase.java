@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -20,6 +21,15 @@ import riv.web.config.RivConfig;
 @Entity
 public abstract class ProjectItemGeneralBase extends HasPerYearItems<ProjectItemGeneralPerYear> {
 	private static final long serialVersionUID = 1L;
+	
+	@Transient
+	private Double unitNumJson;
+	public Double getUnitNumJson() {
+		return unitNumJson;
+	}
+	public void setUnitNumJson(Double i) {
+		this.unitNumJson=i;
+	}
 	
 	@OneToMany(mappedBy="parent", orphanRemoval=true, cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@MapKey(name="year")
