@@ -228,6 +228,7 @@ public class ProfileToProjectController {
 						ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
 						py.setYear(0);
 						py.setUnitNum(l.getUnitNumJson());
+						py.setOwnResources(0.0);
 						py.setParent(l);
 						l.getYears().put(0, py);
 						ProjectItemGeneralWithout l2 = l.copy();
@@ -240,6 +241,7 @@ public class ProfileToProjectController {
 						ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
 						py.setYear(0);
 						py.setUnitNum(s.getUnitNumJson());
+						py.setOwnResources(0.0);
 						py.setParent(s);
 						s.getYears().put(0, py);
 						ProjectItemPersonnelWithout s2 = s.copy();

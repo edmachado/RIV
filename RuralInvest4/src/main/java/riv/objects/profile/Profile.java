@@ -1091,6 +1091,7 @@ public class Profile extends Probase implements java.io.Serializable {
 			 g.setUnitNum(i.getUnitNum());
 			 g.setUnitCost(i.getUnitCost());
 			 g.setOrderBy(proj.getGeneralsFromProfile().size());
+			 g.setOwnResources(0.0);
 			 g.setProject(proj);
 			 proj.getGeneralsFromProfile().add(g);
 		 }
@@ -1101,6 +1102,7 @@ public class Profile extends Probase implements java.io.Serializable {
 			 g.setUnitType(i.getUnitType());
 			 g.setUnitNum(i.getUnitNum());
 			 g.setUnitCost(i.getUnitCost());
+			 g.setOwnResources(0.0);
 			 g.setOrderBy(proj.getGeneralsFromProfileWithout().size());
 			 g.setProject(proj);
 			 proj.getGeneralsFromProfileWithout().add(g);

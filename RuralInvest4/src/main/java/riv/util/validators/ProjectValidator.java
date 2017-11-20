@@ -158,11 +158,14 @@ public class ProjectValidator implements Validator {
 						ValidateUtils.rejectBlockEmptyTable(block.getDescription(), "Labour", "projectBlockLabour", noTableError, errors);					
 				}
 				for (BlockWithout block : project.getBlocksWithout()) {
+					if (project.getIncomeGen() && block.getChrons().size()==0) {
+						errors.reject("error.block.noChronology", 
+								new Object[] {block.getDescription()}, "\""+block.getDescription()+"\": specify chronology");
+					}
 					if (block.getPatterns().size()==0) {
 						errors.reject(project.getIncomeGen() ? "error.block.noPattern" : "error.activity.noPattern", 
 								new Object[] {block.getDescription()}, "\""+block.getDescription()+"\": specify production/activity pattern");
 					}
-					
 					if (block.getIncomes().size()==0) {
 						if (project.getIncomeGen())
 							ValidateUtils.rejectBlockEmptyTable(block.getDescription(), "Income", "projectBlockIncome", noTableError, errors);
