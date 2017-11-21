@@ -65,8 +65,7 @@ public class ProfileXls extends WebTest {
 		deletePros(false, true);
 		importProfile(ImportFile.ProfileIgV40, "igpf_no", false, false, "T3st Irrigation project");
 		
-		//TODO: enable turkish when translations are complete
-		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr"
+		String[] langs = {"en","es","fr","ru","pt","mn","ar","tr"};
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
 			setLanguage(lang);
@@ -79,8 +78,7 @@ public class ProfileXls extends WebTest {
 		deletePros(false, false);
 		importProfile(ImportFile.ProfileNig16, "nigpf", false, true, "Community Health Centre");
 		
-		//TODO: enable turkish when translations are complete
-		String[] langs = {"en","es","fr","ru","pt","mn","ar"};//,"tr""};
+		String[] langs = {"en","es","fr","ru","pt","mn","ar","tr"};
 		for (String lang : langs) {
 			System.out.println("testing "+lang);
 			setLanguage(lang);

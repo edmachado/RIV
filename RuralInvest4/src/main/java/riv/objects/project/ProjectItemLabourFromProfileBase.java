@@ -85,13 +85,12 @@ public abstract class ProjectItemLabourFromProfileBase extends ProjectItem {
 
 	@Override
 	public String testingProperties(RivConfig rivConfig) {
-		// TODO Auto-generated method stub
+		// should not be necessary
 		return null;
 	}
 
 	@Override
 	public void convertCurrency(Double exchange, int scale) {
-		// TODO Auto-generated method stub
-		
+		// should not be necessary
 	}
 }

@@ -21,7 +21,6 @@ public class GetJavaHomeAction implements PanelAction {
 
 	@Override
 	public void initialize(PanelActionConfiguration arg0) {
-		// TODO Auto-generated method stub
 	}
 	
 }

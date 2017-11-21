@@ -23,7 +23,7 @@ public class ProjectItemLabourFromProfile extends ProjectItemLabourFromProfileBa
 
 	@Override
 	public ProjectItem copy() {
-		// TODO Auto-generated method stub
+		// should not be necessary
 		return null;
 	}
 

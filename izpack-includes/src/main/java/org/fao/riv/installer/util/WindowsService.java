@@ -17,7 +17,6 @@ public class WindowsService {
             try {
                 Runtime.getRuntime().exec(cmd);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace(System.out);
             }
             try {

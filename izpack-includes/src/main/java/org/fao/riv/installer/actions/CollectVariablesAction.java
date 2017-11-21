@@ -59,7 +59,6 @@ public class CollectVariablesAction implements PanelAction {
 		try {
 			jarBase = getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (jarBase!=null) {

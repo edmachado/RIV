@@ -10,8 +10,6 @@ import riv.objects.project.BlockWithout;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectItemAsset;
 import riv.objects.project.ProjectItemAssetWithout;
-import riv.objects.project.ProjectItemGeneral;
-import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
 import riv.objects.project.ProjectItemNongenLabour;
