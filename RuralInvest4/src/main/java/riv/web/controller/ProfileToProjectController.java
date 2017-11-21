@@ -38,6 +38,9 @@ import riv.objects.project.ProjectItemGeneralPerYear;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
+import riv.objects.project.ProjectItemNongenLabour;
+import riv.objects.project.ProjectItemNongenMaintenance;
+import riv.objects.project.ProjectItemNongenMaterials;
 import riv.objects.project.ProjectItemPersonnel;
 import riv.objects.project.ProjectItemPersonnelWithout;
 import riv.objects.project.ProjectItemService;
@@ -120,9 +123,9 @@ public class ProfileToProjectController {
 		} else if (step<5) {
 			return "profileToProject/labourInvest";
 		} else if (step<7) {
-			return "profileToProject/labourGeneral";
+			return project.getIncomeGen() ? "profileToProject/labourGeneral" : "profileToProject/labourGeneralNongen";
 		} else {
-			return project.getIncomeGen() ? "profileToProject/blocks" : "profileToProject/activities";
+			return "profileToProject/blocks";
 		}
 	}
 	
@@ -131,6 +134,7 @@ public class ProfileToProjectController {
 			@Valid Project project, BindingResult result, Model model, 
 			@RequestParam(required=false) String labourData, @RequestParam(required=false) String serviceData,
 			@RequestParam(required=false) String generalData, @RequestParam(required=false) String personnelData,
+			@RequestParam(required=false) String inputData, 
             final RedirectAttributes redirectAttributes) {
 		
 		if (step==3) {
@@ -182,7 +186,7 @@ public class ProfileToProjectController {
 				}
 				validator.validate(project, result);
 			}
-		} else if (step==5) {
+		} else if (step==5 && project.getIncomeGen()) {
 			if (generalData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
 				try {
@@ -219,7 +223,7 @@ public class ProfileToProjectController {
 				
 				validator.validate(project, result);
 			}
-		} else if (step==6) {
+		} else if (step==6 && project.getIncomeGen()) {
 			if (generalData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
 				try {
@@ -249,6 +253,38 @@ public class ProfileToProjectController {
 						project.addPersonnelWithout(s2);
 					}
 					project.getGeneralsFromProfileWithout().clear();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				validator.validate(project, result);
+			}
+		} else if (step==5 &! project.getIncomeGen()) {
+			if (generalData!=null) {
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					List<ProjectItemNongenMaintenance> maints = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(inputData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemNongenMaintenance>>(){});
+					for (ProjectItemNongenMaintenance l : maints) {
+						ProjectItemNongenMaintenance l2 = l.copy();
+						l2.setOrderBy(project.getNongenMaintenance().size());
+						project.addNongenMaintenance(l2);
+					}
+					
+					List<ProjectItemNongenLabour> ls = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(labourData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemNongenLabour>>(){});
+					for (ProjectItemNongenLabour l : ls) {
+						ProjectItemNongenLabour l2 = l.copy();
+						l2.setOrderBy(project.getNongenLabours().size());
+						project.addNongenLabour(l2);
+					}
+					
+					List<ProjectItemNongenMaterials> mats = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(generalData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemNongenMaterials>>(){});
+					for (ProjectItemNongenMaterials l : mats) {
+						ProjectItemNongenMaterials l2 = l.copy();
+						l2.setOrderBy(project.getNongenMaterials().size());
+						project.addNongenMaterial(l2);
+					}
+					
+					project.getGeneralsFromProfile().clear();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

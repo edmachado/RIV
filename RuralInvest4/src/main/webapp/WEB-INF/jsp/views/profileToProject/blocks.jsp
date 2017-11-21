@@ -17,7 +17,8 @@ $(function () {
 <form:form name="form" method="post" modelAttribute="project">
 	<tags:errors />
 	
-	<tags:profToProj message="profileToProject.blocks" />
+	<c:if test="${project.incomeGen}"><tags:profToProj message="profileToProject.blocks" /></c:if>
+	<c:if test="${not project.incomeGen}"><tags:profToProj message="profileToProject.activities" /></c:if>
 	
 	<c:if test="${project.profileUpgrade eq 7}">
 		<c:set var="tableSource" value="${project.blocks}"/>

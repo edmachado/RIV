@@ -14,6 +14,7 @@ import riv.objects.project.ProjectItemGeneral;
 import riv.objects.project.ProjectItemGeneralWithout;
 import riv.objects.project.ProjectItemLabour;
 import riv.objects.project.ProjectItemLabourWithout;
+import riv.objects.project.ProjectItemNongenLabour;
 import riv.objects.project.ProjectItemPersonnel;
 import riv.objects.project.ProjectItemPersonnelWithout;
 import riv.web.config.RivConfig;
@@ -69,15 +70,24 @@ public class ProjectCollectionValidator implements Validator {
 				}			
 				break;
 			case 5:
-				for (ProjectItemPersonnel g : project.getPersonnels()) {
-					ValidateUtils.rejectIfEmptyOrNegativeInSet(g, "personnels", "unitCost", "projectGeneralPersonnel.unitCost", errors);
-					ValidateUtils.rejectChildValueIfEmptyOrNegativeInSet(g.getYears().get(0), 0, "unitNum", "projectGeneralPersonnel.unitNum", "personnels["+g.getOrderBy()+"].years[0].unitNum", errors);
+				if (project.getIncomeGen()) {
+					for (ProjectItemPersonnel g : project.getPersonnels()) {
+						ValidateUtils.rejectIfEmptyOrNegativeInSet(g, "personnels", "unitCost", "projectGeneralPersonnel.unitCost", errors);
+						ValidateUtils.rejectChildValueIfEmptyOrNegativeInSet(g.getYears().get(0), 0, "unitNum", "projectGeneralPersonnel.unitNum", "personnels["+g.getOrderBy()+"].years[0].unitNum", errors);
+					}
+				} else {
+					for (ProjectItemNongenLabour l : project.getNongenLabours()) {
+						ValidateUtils.rejectIfEmptyOrNegativeInSet(l, "nongenLabours", "unitNum", "projectNongenLabour.unitNum", errors);
+						ValidateUtils.rejectIfEmptyOrNegativeInSet(l, "nongenLabours", "unitCost", "projectNongenLabour.unitCost", errors);
+					}
 				}
 				break;
 			case 6:
-				for (ProjectItemPersonnelWithout g : project.getPersonnelWithouts()) {
-					ValidateUtils.rejectIfEmptyOrNegativeInSet(g, "personnelWithouts", "unitCost", "projectGeneralPersonnel.unitCost", errors);
-					ValidateUtils.rejectChildValueIfEmptyOrNegativeInSet(g.getYears().get(0), 0, "unitNum", "projectGeneralPersonnel.unitNum", "personnelWithouts["+g.getOrderBy()+"].years[0].unitNum", errors);
+				if (project.getIncomeGen()) {
+					for (ProjectItemPersonnelWithout g : project.getPersonnelWithouts()) {
+						ValidateUtils.rejectIfEmptyOrNegativeInSet(g, "personnelWithouts", "unitCost", "projectGeneralPersonnel.unitCost", errors);
+						ValidateUtils.rejectChildValueIfEmptyOrNegativeInSet(g.getYears().get(0), 0, "unitNum", "projectGeneralPersonnel.unitNum", "personnelWithouts["+g.getOrderBy()+"].years[0].unitNum", errors);
+					}
 				}
 				break;
 			case 7:

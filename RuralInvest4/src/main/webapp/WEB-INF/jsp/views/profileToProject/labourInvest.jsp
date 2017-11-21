@@ -28,7 +28,9 @@
 input.invalid { border:1px solid red; }
 span.inline_invalid { display:none; } 
 #LabourTable td:nth-child(2) { text-decoration: line-through; }
+<c:if test="${fn:length(tableSource) gt 0}">
 #submit { background-color:#cccccc; }
+</c:if>
 /* #submit.notYet { background-color: red; } */
 	</style>
 	<script>
@@ -86,6 +88,7 @@ $(document).ready(function() {
             				if (this.text==oldType) {
             					removeText($(tr).find('td:eq(1)'));
             					$(tr).find('td:eq(1) select').val(this.value);
+            					$(tr).find('td:eq(1)').css('text-align','left');
             				}
             			});
             			

@@ -1,33 +1,10 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
 <html><head><title><spring:message code="profileToProject.generalLabour"/></title>
-	<c:if test="${project.profileUpgrade eq 5}">
-		<c:set var="tableSource" value="${project.generalsFromProfile}"/>
-		<c:set var="generalSource" value="${project.generals}"/>
-		<c:set var="generalSourceName" value="generals"/>
-		<c:set var="personnelSource" value="${project.personnels}"/>
-		<c:set var="personnelSourceName" value="personnels"/>
-		<c:if test="${project.withWithout}">
-			<c:set var="generalTitle"><spring:message code="projectGeneralSupplies"/> <spring:message code="project.with"/></c:set>
-			<c:set var="personnelTitle"><spring:message code="projectGeneralPersonnel"/> <spring:message code="project.with"/></c:set>
-		</c:if>
-		<c:if test="${not project.withWithout}">
-			<c:set var="generalTitle"><spring:message code="projectGeneralSupplies"/></c:set>
-			<c:set var="personnelTitle"><spring:message code="projectGeneralPersonnel"/></c:set>
-		</c:if>
-	</c:if>
-	<c:if test="${project.profileUpgrade eq 6}">
-		<c:set var="tableSource" value="${project.generalsFromProfileWithout}"/>
-		<c:set var="generalSource" value="${project.generalWithouts}"/>
-		<c:set var="generalSourceName" value="generalWithouts"/>
-		<c:set var="generalTitle"><spring:message code="projectGeneralSupplies"/> <spring:message code="project.without"/></c:set>
-		<c:set var="personnelSource" value="${project.personnelWithouts}"/>
-		<c:set var="personnelSourceName" value="personnelWithouts"/>
-		<c:set var="personnelTitle"><spring:message code="projectGeneralPersonnel"/> <spring:message code="project.without"/></c:set>
-	</c:if>
+	<c:set var="tableSource" value="${project.generalsFromProfile}"/>
 	<style>
 input.invalid { border:1px solid red; }
 span.inline_invalid { display:none; } 
-#PersonnelTable td:nth-child(2) { text-decoration: line-through; }
+#LabourTable td:nth-child(2) { text-decoration: line-through; }
 <c:if test="${fn:length(tableSource) gt 0}">
 #submit { background-color:#cccccc; }
 </c:if>
@@ -46,8 +23,9 @@ $(document).ready(function() {
 	$(document).ready(function() {
 	$("#lab tbody").addClass('connectedSortable');
 	$("#GeneralTable tbody").addClass('connectedSortable');
-	$("#PersonnelTable tbody").addClass('connectedSortable');
-    $( "#lab tbody, #GeneralTable tbody, #PersonnelTable tbody" )
+	$("#LabourTable tbody").addClass('connectedSortable');
+	$("#InputTable tbody").addClass('connectedSortable');
+    $( "#lab tbody, #GeneralTable tbody, #LabourTable tbody, #InputTable tbody" )
         .sortable({
             connectWith: ".connectedSortable",
             items: "> tr",
@@ -69,7 +47,7 @@ $(document).ready(function() {
        				);
         		}
             	
-            	if (table=='GeneralTable') {
+            	if (table=='GeneralTable' || table=='InputTable') {
 	            	if ($(tr).find('td:eq(1) select').length>0) { // remove input fields 
 	            		var unitType = $(tr).find('td:eq(1) option:selected').text();
 	            		$(tr).find('td:eq(1)').html(unitType);
@@ -79,7 +57,7 @@ $(document).ready(function() {
             			$(tr).find('td:eq(3)').html(unitCost);
 	//            	} else { // no need to add input fields         		
 	            	}
-            	} else { // personnel 
+            	} else { // labour 
             		if ($(tr).find('td:eq(1) select').length==0) { // add input fields
             			var oldType = $(tr).find('td:eq(1)').text().trim();
             			$(tr).find('td:eq(1)').append('<select name="unitType"><option value="0"><spring:message code="units.pyears"/></option><option value="1"><spring:message code="units.pmonths"/></option><option value="2"><spring:message code="units.pweeks"/></option><option value="3"><spring:message code="units.pdays"/></option></select>');
@@ -101,8 +79,11 @@ $(document).ready(function() {
             	$(ui.item).parent().children("tr.empty").css('display','none');
             },
             stop: function(event, ui) {
-            	if ($("#PersonnelTable tbody tr:not(.empty)").length==0) {
-            		$("#PersonnelTable tbody tr.empty").css('display','block');
+            	if ($("#InputTable tbody tr:not(.empty)").length==0) {
+            		$("#InputTable tbody tr.empty").css('display','block');
+            	}
+            	if ($("#LabourTable tbody tr:not(.empty)").length==0) {
+            		$("#LabourTable tbody tr.empty").css('display','block');
             	}
             	if($("#GeneralTable tbody tr:not(.empty)").length==0) {
             		$("#GeneralTable tbody tr.empty").css('display','block');
@@ -126,28 +107,42 @@ function collectAndSend() {
 		return false;
 	}
 	
+	var input = [];
+	var labour = [];
 	var general = [];
-	var personnel = [];
 	
-	$("#PersonnelTable tbody tr").each(function() {
+	$("#InputTable tbody tr").each(function() {
 		if ($(this).find('td').length>1) {
-			personnel.push({
+			input.push({
+				"description": 	$(this).find('td:eq(0)').text().trim(),
+				"unitType" : $(this).find('td:eq(1)').text().trim(),
+				"unitNum" : $(this).find('td:eq(2)').text().trim(),
+				"unitCost" : formatToNum($(this).find('td:eq(3)').text().trim()),
+			});
+		}
+	});
+	
+	inputData.value=encodeURIComponent(JSON.stringify(input));
+	
+	$("#LabourTable tbody tr").each(function() {
+		if ($(this).find('td').length>1) {
+			labour.push({
 				"description": 	$(this).find('td:eq(0)').text().trim(),
 				"unitType" : $(this).find('td:eq(1) option:selected').val(),
-				"unitNumJson" : $(this).find('td:eq(2) input').val(),
+				"unitNum" : $(this).find('td:eq(2) input').val(),
 				"unitCost" : formatToNum($(this).find('td:eq(3) input').val())
 			});
 		}
 	});
 	
-	personnelData.value=encodeURIComponent(JSON.stringify(personnel));
+	labourData.value=encodeURIComponent(JSON.stringify(labour));
 	
 	$("#GeneralTable tbody tr").each(function() {
 		if ($(this).find('td').length>1) {
 			general.push({
 				"description": 	$(this).find('td:eq(0)').text().trim(),
 				"unitType" : $(this).find('td:eq(1)').text().trim(),
-				"unitNumJson" : $(this).find('td:eq(2)').text().trim(),
+				"unitNum" : $(this).find('td:eq(2)').text().trim(),
 				"unitCost" : formatToNum($(this).find('td:eq(3)').text().trim()),
 			});
 		}
@@ -162,67 +157,78 @@ function collectAndSend() {
 <form:form name="form" method="post" modelAttribute="project" >
 	<tags:errors />
 	
-	<tags:profToProj message="profileToProject.generalLabour.text" />
+	<tags:profToProj message="profileToProject.generalLabourNongen.text" />
 	
 	<c:if test="${fn:length(tableSource) gt 0}">
 		<input type="hidden" name="generalData" id="generalData" />
-		<input type="hidden" name="personnelData" id="personnelData" />
+		<input type="hidden" name="labourData" id="labourData" />
+		<input type="hidden" name="inputData" id="inputData" />
 	
 		<tags:table>
-			<display:table list="${tableSource}" id="lab" requestURI="" cellspacing="0" cellpadding="0"
-					 export="false">
+			<display:table list="${tableSource}" id="lab" requestURI="" cellspacing="0" cellpadding="0" export="false">
 				<display:setProperty name="basic.empty.showtable">true</display:setProperty>
-				<display:column titleKey="projectInvestLabour.description" property="description" style="text-align:left;" headerClass="left"/>
-				<display:column titleKey="projectInvestLabour.unitType" property="unitType" style="text-align:left;" headerClass="left"/>
-				<display:column titleKey="projectInvestLabour.unitNum">
+				<display:column titleKey="projectNongenInput.description" property="description" style="text-align:left;" headerClass="left"/>
+				<display:column titleKey="projectNongenInput.unitType" property="unitType" style="text-align:left;" headerClass="left"/>
+				<display:column titleKey="projectNongenInput.unitNum">
 					<tags:formatDecimal value="${lab.unitNum}"/>
 				</display:column>
-				<display:column titleKey="projectInvestLabour.unitCost">
+				<display:column titleKey="projectNongenInput.unitCost">
 					<tags:formatCurrency value="${lab.unitCost}"/>
 				</display:column>
 			</display:table>
 		</tags:table>
 	</c:if>
 
-	<tags:table title="${generalTitle }">
-		<display:table list="${generalSource}" id="sup" requestURI="" cellspacing="0" cellpadding="0"
-			 export="false" htmlId="GeneralTable">
+	<tags:table titleKey="projectNongenInput">
+		<display:table list="${project.nongenMaterials}" id="sup" requestURI="" cellspacing="0" cellpadding="0"
+			 export="false" htmlId="InputTable">
 			<display:setProperty name="basic.empty.showtable">true</display:setProperty>
-			<display:column titleKey="projectGeneralSupplies.description" property="description" style="text-align:${left};" headerClass="left"/>
-			<display:column titleKey="projectGeneralSupplies.unitType" property="unitType" style="text-align:left;" headerClass="left"/>
-			<display:column titleKey="projectGeneralSupplies.unitNum">
-				<tags:formatDecimal value="${sup.years[(1).intValue()].unitNum}"/>
+			<display:column titleKey="projectNongenInput.description" property="description" style="text-align:${left};" headerClass="left"/>
+			<display:column titleKey="projectNongenInput.unitType" property="unitType" style="text-align:left;" headerClass="left"/>
+			<display:column titleKey="projectNongenInput.unitNum">
+				<tags:formatDecimal value="${sup.unitNum}"/>
 			</display:column>
-			<display:column titleKey="projectGeneralSupplies.unitCost">
+			<display:column titleKey="projectNongenInput.unitCost">
 				<tags:formatCurrency value="${sup.unitCost}"/>
 			</display:column>
 		</display:table>
 	</tags:table>
 
-	<tags:table title="${personnelTitle}">
-		<display:table list="${personnelSource}" id="per" requestURI="" cellspacing="0" cellpadding="0"
-			 export="false" htmlId="PersonnelTable">
+	<tags:table titleKey="projectNongenLabour">
+		<display:table list="${project.nongenLabours}" id="per" requestURI="" cellspacing="0" cellpadding="0"
+			 export="false" htmlId="LabourTable">
 			<display:setProperty name="basic.empty.showtable">true</display:setProperty>
-			<display:column titleKey="projectGeneralPersonnel.description" property="description" style="text-align:${left};" headerClass="left"/>
-			<display:column titleKey="projectGeneralPersonnel.unitType" style="text-align:${left};" headerClass="left">
-				<tags:formSelectLabour path="${personnelSourceName}[${per_rowNum -1}].unitType" />
+			<display:column titleKey="projectNongenLabour.description" property="description" style="text-align:${left};" headerClass="left"/>
+			<display:column titleKey="projectNongenLabour.unitType" style="text-align:${left};" headerClass="left">
+				<tags:formSelectLabour path="nongenLabours[${per_rowNum -1}].unitType" />
 			</display:column>
-			<display:column titleKey="projectGeneralPersonnel.unitNum" >
-				<form:input path="${personnelSourceName}[${per_rowNum -1}].years[0].unitNum" cssErrorClass="invalid" style="text-align:right" size="11" maxLength="11" />
-	            <form:errors path="${personnelSourceName}[${per_rowNum -1}].years[0].unitNum" cssClass="inline_invalid" />
+			<display:column titleKey="projectNongenLabour.unitNum" >
+				<form:input path="nongenLabours[${per_rowNum -1}].unitNum" cssErrorClass="invalid" style="text-align:right" size="11" maxLength="11" />
+	            <form:errors path="nongenLabours[${per_rowNum -1}].unitNum" cssClass="inline_invalid" />
 			</display:column>
-			<display:column titleKey="projectGeneralPersonnel.unitCost">
-				<form:input path="${personnelSourceName}[${per_rowNum -1}].unitCost" cssErrorClass="invalid" onkeyup="javascript:commasKeyup(this);" style="text-align:right" size="11" maxLength="11" />
-	            <form:errors path="${personnelSourceName}[${per_rowNum -1}].unitCost" cssClass="inline_invalid" />
+			<display:column titleKey="projectNongenLabour.unitCost">
+				<form:input path="nongenLabours[${per_rowNum -1}].unitCost" cssErrorClass="invalid" onkeyup="javascript:commasKeyup(this);" style="text-align:right" size="11" maxLength="11" />
+	            <form:errors path="nongenLabours[${per_rowNum -1}].unitCost" cssClass="inline_invalid" />
 			</display:column>
 		</display:table>
 	</tags:table>
 	
-	<c:choose>
-		<c:when test="${project.profileUpgrade eq 5 and project.withWithout and fn:length(project.generalsFromProfileWithout) gt 0}"><c:set var="gotolabel"><spring:message code="misc.goto"/> <spring:message code="project.without"/></c:set></c:when>
-		<c:otherwise><c:set var="gotolabel"><spring:message code="misc.goto"/> <spring:message code="project.step9"/></c:set></c:otherwise>
-	</c:choose>
+	<tags:table titleKey="projectNongenGeneral">
+		<display:table list="${project.nongenMaintenance}" id="gen" requestURI="" cellspacing="0" cellpadding="0"
+			 export="false" htmlId="GeneralTable">
+			<display:setProperty name="basic.empty.showtable">true</display:setProperty>
+			<display:column titleKey="projectNongenGeneral.description" property="description" style="text-align:${left};" headerClass="left"/>
+			<display:column titleKey="projectNongenGeneral.unitType" property="unitType" style="text-align:left;" headerClass="left"/>
+			<display:column titleKey="projectNongenGeneral.unitNum">
+				<tags:formatDecimal value="${gen.unitNum}"/>
+			</display:column>
+			<display:column titleKey="projectNongenGeneral.unitCost">
+				<tags:formatCurrency value="${gen.unitCost}"/>
+			</display:column>
+		</display:table>
+	</tags:table>
 	
+	<c:set var="gotolabel"><spring:message code="misc.goto"/> <spring:message code="project.step9"/></c:set>
 	<c:if test="${fn:length(tableSource) gt 0}">
 		<tags:submit onSubmit="return collectAndSend();">${gotolabel}</tags:submit>
 	</c:if>

@@ -5,9 +5,11 @@ profileToProject.text=In order to convert a profile to a project some data must 
 profileToProject.asset=For each asset, please specify 1) the maintenance cost, 2) whether the asset is replaced at the end of its economic life, and 3) the year of the project in which the investment is made.
 profileToProject.investLabour=Investment: labour / services
 profileToProject.investLabour.text=Please drag each of the investment labour costs (in the first table) to either the "Labour" or "Professional services" table. For labour costs, you will need to choose the unit type from the menu. Please also specify the year of the project in which the investment is made.
-profileToProject.generalLabour=General costs: supplies / personnel
+profileToProject.generalLabour=General costs
 profileToProject.generalLabour.text=Please drag each of the general labour costs (in the first table) to either the "Supplies & services" or "Personnel" tables. For personnel costs, you will need to choose the unit type from the menu.
+profileToProject.generalLabourNongen.text=Please drag each of the general labour costs (in the first table) to either the "Inputs/materials", "Labour" or "General costs/maintenance" tables. For labour costs, you will need to choose the unit type from the menu.
 profileToProject.blocks=For each production block, please select the unit type of the labour costs from the menu, correcting the units used and unit cost if necessary. 
+profileToProject.activities=For each activity, please select the unit type of the labour costs from the menu, correcting the units used and unit cost if necessary. 
 profileToProject.complete=Please complete the operation
 profileToProject.complete.text=Please drag all the items from the first table before continuing.
 
