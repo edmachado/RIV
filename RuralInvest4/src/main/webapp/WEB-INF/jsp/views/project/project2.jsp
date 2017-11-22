@@ -53,7 +53,9 @@ function cType(type) {
 		<tags:dataentry field="beneIndirectNum" labelKey="project.benefFamilies"/>
 	</fieldset>	
 	
-	<tags:textbox field="benefDesc" multiline="true" helpText="project.benefDesc.help" helpTitle="project.benefDesc">iv. <spring:message code="project.benefDesc"/></tags:textbox>
+	<tags:textbox field="benefDesc" multiline="true" helpText="project.benefDesc.help" helpTitle="project.benefDesc"
+	qualitativeEnabled="${rivConfig.setting.qualBenefDescEnabled}" qualitativeValue="${project.benefDescQualitative}" qualitativeField="justificationQualitative">
+		iv. <spring:message code="project.benefDesc"/></tags:textbox>
 	
 	
 	<fieldset style="display:inline-block;width:47%;padding-left:10px">

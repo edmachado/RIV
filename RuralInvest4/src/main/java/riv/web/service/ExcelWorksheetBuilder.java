@@ -883,7 +883,7 @@ public class ExcelWorksheetBuilder {
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.benefName"));
 		report.addTextCell(row, 2, project.getBenefName());
-		rowNum = report.addBigTextCell(sheet, rowNum++,translate("project.benefDesc"), project.getBenefDesc());
+		rowNum = addBigTextCell(report, sheet, rowNum++,translate("project.benefDesc"), project.getBenefDesc(), project.getBenefDescQualitative(), rivConfig.getSetting().isQualBenefDescEnabled());
 
 		
 		rowNum++;	row = sheet.createRow(rowNum++);
@@ -918,28 +918,28 @@ public class ExcelWorksheetBuilder {
 		report.addNumericCell(row, 3, project.getBeneIndirectNum());
 		
 		rowNum++;
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.justification"), project.getJustification());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.justification"), project.getJustification(), project.getJustificationQualitative(), rivConfig.getSetting().isQualJustificationEnabled());
 		
 		rowNum++;	
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.projectDescription"), project.getProjDesc());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.projectDescription"), project.getProjDesc(), project.getProjDescQualitative(), rivConfig.getSetting().isQualProjDescEnabled());
 
 		rowNum++;	
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.activities"), project.getActivities());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.activities"), project.getActivities(), project.getActivitiesQualitative(), rivConfig.getSetting().isQualActivitiesEnabled());
 
 		rowNum++;	
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.technology"), project.getTechnology());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.technology"), project.getTechnology(), project.getTechnologyQualitative(), rivConfig.getSetting().isQualTechnologyEnabled());
 
 		rowNum++;
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.requirements"), project.getRequirements());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.requirements"), project.getRequirements(), project.getRequirementsQualitative(), rivConfig.getSetting().isQualRequirementsEnabled());
 
 		if (!project.getIncomeGen()) {
 			rowNum++;	
-			rowNum= report.addBigTextCell(sheet, rowNum, translate("project.sustainability.nongen"), project.getSustainability());
+			rowNum= addBigTextCell(report, sheet, rowNum, translate("project.sustainability.nongen"), project.getSustainability(), project.getSustainabilityQualitative(), rivConfig.getSetting().isQualSustainabilityEnabled());
 
 		}
 		
 		rowNum++;
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.enviroImpact"), project.getEnviroImpact());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.enviroImpact"), project.getEnviroImpact(), project.getEnviroImpactQualitative(), rivConfig.getSetting().isQualEnviroImpactEnabled());
 
 		rowNum++;
 		String label;
@@ -948,14 +948,28 @@ public class ExcelWorksheetBuilder {
 		} else {
 			label = "project.demand";
 		}
-		rowNum= report.addBigTextCell(sheet, rowNum, translate(label), project.getMarket());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate(label), project.getMarket(), project.getMarketQualitative(), rivConfig.getSetting().isQualMarketEnabled());
 
 		rowNum++;
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.organization"), project.getOrganization());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.organization"), project.getOrganization(), project.getOrganizationQualitative(), rivConfig.getSetting().isQualOrganizationEnabled());
 
 		rowNum++;
-		rowNum= report.addBigTextCell(sheet, rowNum, translate("project.assumptions"), project.getAssumptions());
+		rowNum= addBigTextCell(report, sheet, rowNum, translate("project.assumptions"), project.getAssumptions(), project.getAssumptionsQualitative(), rivConfig.getSetting().isQualAssumptionsEnabled());
 		return sheet;
+	}
+	
+	private int addBigTextCell(ExcelWrapper report, Sheet sheet, int rowNum, String title, String text, Short stars, boolean showStars) {
+		Row row = sheet.createRow(rowNum++);
+		report.addTextCell(row, 0, title, Style.H2);
+		if (showStars) {
+			report.addTextCell(row, 2, translate("qualitativeAnalysis.report.stars"), Style.LABEL_RIGHT);
+			report.addTextCell(row, 3, stars+"/5");
+		}
+		row = sheet.createRow(rowNum++);
+		row.getSheet().addMergedRegion(new CellRangeAddress(row.getRowNum(), row.getRowNum(), 0, 4));
+		report.addTextCell(row, 0, text, Style.BIGTEXT);
+		row.setHeight((short)(row.getHeight()*8)); 
+		return rowNum;
 	}
 	
 	public Sheet projectGeneralDetailNongen(ExcelWrapper report, Project project, boolean template) {
@@ -3235,7 +3249,7 @@ public class ExcelWorksheetBuilder {
 			report.addTextCell(row, cellNum, sdf.format(project.getReccDate()));
 
 		rowNum++;	
-		report.addBigTextCell(sheet, rowNum++, translate("project.justification"), project.getReccDesc());
+		addBigTextCell(report, sheet, rowNum++, translate("project.recc.justification"), project.getReccDesc(), null, false);
 		
 		return sheet;
 		
@@ -3517,12 +3531,12 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, translate("profile.beneficiaries"), Style.H2);
 		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, profile.getBenefName());
-		rowNum=report.addBigTextCell(sheet, rowNum++, translate("profile.benefDesc"), profile.getBenefDesc());
+		rowNum=addBigTextCell(report, sheet, rowNum++, translate("profile.benefDesc"), profile.getBenefDesc(), null, false);
 		
 
 		
 	//	Objective and Major Activities
-		rowNum=report.addBigTextCell(sheet, rowNum++, translate("profile.objective"),profile.getProjDesc());
+		rowNum=addBigTextCell(report, sheet, rowNum++, translate("profile.objective"),profile.getProjDesc(), null, false);
 		
 	//	Anticipated market
 		String title;
@@ -3531,10 +3545,10 @@ public class ExcelWorksheetBuilder {
 		} else {
 			title = "profile.demand";
 		}
-		rowNum=report.addBigTextCell(sheet, rowNum++, translate(title), profile.getMarket());
+		rowNum=addBigTextCell(report, sheet, rowNum++, translate(title), profile.getMarket(), null, false);
 		
 	//	Environmental impact		
-		rowNum=report.addBigTextCell(sheet, rowNum++, translate("profile.envirImpact"), profile.getEnviroImpact());
+		rowNum=addBigTextCell(report, sheet, rowNum++, translate("profile.envirImpact"), profile.getEnviroImpact(), null, false);
 		
 		return sheet;
 		
@@ -4412,7 +4426,7 @@ public class ExcelWorksheetBuilder {
 
 		rowNum++;	
 		
-		rowNum=report.addBigTextCell(sheet, rowNum, translate("profile.justification"), profile.getReccDesc());
+		rowNum=addBigTextCell(report, sheet, rowNum, translate("profile.justification"), profile.getReccDesc(), null, false);
 
 		
 		row = sheet.createRow(rowNum++);

@@ -47,7 +47,7 @@ qualitativeAnalysis=Qualitative analysis
 qualitativeAnalysis.help=HELP TEXT HERE
 qualitativeAnalysis.field=Field
 qualitativeAnalysis.weight=Weight
-
+qualitativeAnalysis.report.stars=stars:
 
 
 # changed from earlier version

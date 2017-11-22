@@ -13,7 +13,6 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
@@ -53,17 +52,6 @@ public class ExcelWrapper {
 		sheet.addValidationData(dv);
 		
 		return addTextCell(row, cellNum, options.get(value));
-	}
-	
-	
-	public int addBigTextCell(Sheet sheet, int rowNum, String title, String text) {
-		Row row = sheet.createRow(rowNum++);
-		addTextCell(row, 0, title, Style.H2);
-		row = sheet.createRow(rowNum++);
-		row.getSheet().addMergedRegion(new CellRangeAddress(row.getRowNum(), row.getRowNum(), 0, 4));
-		addTextCell(row, 0, text, Style.BIGTEXT);
-		row.setHeight((short)(row.getHeight()*8)); 
-		return rowNum;
 	}
 	
 	public void addTextCells(Row row, int cellNumMin, int cellNumMax) {
@@ -148,7 +136,7 @@ public class ExcelWrapper {
 	
 
 	public enum Style {
-		NORMAL, TITLE, H2, LABEL, CURRENCY, CURRENCYUSD, DATE, PERCENT, BIGTEXT, CENTERED, HIDDEN;
+		NORMAL, TITLE, H2, LABEL, LABEL_RIGHT, CURRENCY, CURRENCYUSD, DATE, PERCENT, BIGTEXT, CENTERED, HIDDEN;
 	}
 	
 	private void buildCellStyles(String currencyPattern) {
@@ -163,6 +151,13 @@ public class ExcelWrapper {
 		font.setBoldweight(Font.BOLDWEIGHT_BOLD);
 		styleLabel.setFont(font);
 		styles.put(Style.LABEL, styleLabel);
+		
+		CellStyle styleLabelRight = workbook.createCellStyle();
+		styleLabelRight.setAlignment(CellStyle.ALIGN_RIGHT);
+		Font fontLabelRight = workbook.createFont();
+		fontLabelRight.setBoldweight(Font.BOLDWEIGHT_BOLD);
+		styleLabelRight.setFont(fontLabelRight);
+		styles.put(Style.LABEL_RIGHT, styleLabelRight);
 		
 		CellStyle title = workbook.createCellStyle();
 		Font fontTitle = workbook.createFont();

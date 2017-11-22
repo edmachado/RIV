@@ -182,8 +182,8 @@ public class Setting implements java.io.Serializable {
 	@Column(name="ADMIN_MISC3_ENABLED")
 	private boolean adminMisc3Enabled;
 	
-	@Column(name="QUALITATIVE_ENABLED")
-	private boolean qualitativeEnabled;
+//	@Column(name="QUALITATIVE_ENABLED")
+//	private boolean qualitativeEnabled;
 	
 	@Column(name="QUALITATIVE_PROJ_DESC_ENABLED")
 	private boolean qualProjDescEnabled;
@@ -578,12 +578,12 @@ public class Setting implements java.io.Serializable {
 		this.adminMisc1Title = adminMisc1Title;
 	}
 
-	public boolean isQualitativeEnabled() {
-		return qualitativeEnabled;
-	}
-	public void setQualitativeEnabled(boolean qualitativeEnabled) {
-		this.qualitativeEnabled = qualitativeEnabled;
-	}
+//	public boolean isQualitativeEnabled() {
+//		return qualitativeEnabled;
+//	}
+//	public void setQualitativeEnabled(boolean qualitativeEnabled) {
+//		this.qualitativeEnabled = qualitativeEnabled;
+//	}
 	public String getAdminMisc1Title() {
 		return adminMisc1Title;
 	}
@@ -844,6 +844,14 @@ public class Setting implements java.io.Serializable {
 	public void setQualAdminMisc3Weight(Short weight) {
 		this.qualAdminMisc1Weight = weight;
 	}
+	
+	public boolean hasQualitativeFields(boolean incomeGen) {
+		return qualBenefDescEnabled || qualProjDescEnabled || qualJustificationEnabled || qualActivitiesEnabled 
+				|| qualTechnologyEnabled || qualAssumptionsEnabled || qualEnviroImpactEnabled
+				|| qualRequirementsEnabled || qualMarketEnabled || qualOrganizationEnabled 
+				|| (!incomeGen && qualSustainabilityEnabled);
+	}
+	
 	public Setting copy() {
 		Setting s = new Setting(this.settingId);
 		s.setAdmin1Enabled(admin1Enabled);
@@ -893,7 +901,7 @@ public class Setting implements java.io.Serializable {
 		s.setOrgName(orgName);
 		s.setThousandSeparator(thousandSeparator);
 		
-		s.setQualitativeEnabled(qualitativeEnabled);
+//		s.setQualitativeEnabled(qualitativeEnabled);
 		s.setQualActivitiesEnabled(qualActivitiesEnabled);
 		s.setQualActivitiesWeight(qualActivitiesWeight);
 		s.setQualAdminMisc1Enabled(qualAdminMisc1Enabled);

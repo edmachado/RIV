@@ -307,7 +307,7 @@ public class ProjectController {
 			dataService.storeProject(project, calculateResult);
 			
 			// should qualitative analysis be updated?
-			if (project.getWizardStep()==null && (step==3 || step==4 || step==5 || step==6)) {
+			if (project.getWizardStep()==null && (step>=2 && step<=6)) {
 				dataService.updateQualitativeAnalysis(project.getProjectId(), project.getQualitativeAnalysis(rivConfig.getSetting()));
 			}
 			 

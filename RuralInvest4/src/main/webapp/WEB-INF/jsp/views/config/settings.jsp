@@ -136,12 +136,13 @@
 				<legend>
 					<tags:help text="qualitativeAnalysis.help" title="qualitativeAnalysis">x. <spring:message code="qualitativeAnalysis"/></tags:help>
 				</legend>
-				<tags:dataentryCheckbox field="qualitativeEnabled" labelKey="misc.enabled" />
+<%-- 				<tags:dataentryCheckbox field="qualitativeEnabled" labelKey="misc.enabled" /> --%>
 				<div id="qualitative"><tags:table>
 					<table cellspacing="0" cellpadding="0">
 						<tr><th class="left"><spring:message code="qualitativeAnalysis.field"/></th><th><spring:message code="misc.enabled"/></th><th><spring:message code="qualitativeAnalysis.weight"/></th></tr>
 						<tags:qualSettings description="project.justification" weightField="qualJustificationWeight" enabledField="qualJustificationEnabled"/>
 						<tags:qualSettings description="project.projectDescription" weightField="qualProjDescWeight" enabledField="qualProjDescEnabled"/>
+						<tags:qualSettings description="project.benefDesc" weightField="qualBenefDescWeight" enabledField="qualBenefDescEnabled"/>
 						<tags:qualSettings description="project.activities" weightField="qualActivitiesWeight" enabledField="qualActivitiesEnabled"/>
 						<tags:qualSettings description="project.technology" weightField="qualTechnologyWeight" enabledField="qualTechnologyEnabled"/>
 						<tags:qualSettings description="project.requirements" weightField="qualRequirementsWeight" enabledField="qualRequirementsEnabled"/>

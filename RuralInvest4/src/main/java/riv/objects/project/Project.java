@@ -2610,12 +2610,7 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	public double getQualitativeAnalysis(Setting setting) {
 		double totalPossible=0.0; double score=0.0;
 		
-		if (setting.isQualitativeEnabled()) {
-			if (setting.isQualActivitiesEnabled()) {
-				totalPossible+=setting.getQualActivitiesWeight()*5;
-				score+=setting.getQualActivitiesWeight()*this.activitiesQualitative;
-			}
-			
+//		if (setting.isQualitativeEnabled()) {
 			if (setting.isQualAdminMisc1Enabled()) {
 				totalPossible+=setting.getQualAdminMisc1Weight()*5;
 				score+=setting.getQualAdminMisc1Weight()*this.adminMisc1Qualitative;
@@ -2629,30 +2624,26 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 				score+=setting.getQualAdminMisc3Weight()*this.adminMisc3Qualitative;
 			}
 			
-			
-			if (setting.isQualBenefDescEnabled()) {
-				totalPossible+=setting.getQualBenefDescWeight()*5;
-				score+=setting.getQualBenefDescWeight()*this.benefDescQualitative;
-			}
-			if (setting.isQualEnviroImpactEnabled()) {
-				totalPossible+=setting.getQualEnviroImpactWeight()*5;
-				score+=setting.getQualEnviroImpactWeight()*this.enviroImpactQualitative;
-			}
 			if (setting.isQualJustificationEnabled()) {
 				totalPossible+=setting.getQualJustificationWeight()*5;
 				score+=setting.getQualJustificationWeight()*this.justificationQualitative;
 			}
-			if (setting.isQualMarketEnabled()) {
-				totalPossible+=setting.getQualMarketWeight()*5;
-				score+=setting.getQualMarketWeight()*this.marketQualitative;
-			}
-			if (setting.isQualOrganizationEnabled()) {
-				totalPossible+=setting.getQualOrganizationWeight()*5;
-				score+=setting.getQualOrganizationWeight()*this.organizationQualitative;
-			}
 			if (setting.isQualProjDescEnabled()) {
 				totalPossible+=setting.getQualProjDescWeight()*5;
 				score+=setting.getQualProjDescWeight()*this.projDescQualitative;
+			}
+			if (setting.isQualBenefDescEnabled()) {
+				totalPossible+=setting.getQualBenefDescWeight()*5;
+				score+=setting.getQualBenefDescWeight()*this.benefDescQualitative;
+			}
+			
+			if (setting.isQualActivitiesEnabled()) {
+				totalPossible+=setting.getQualActivitiesWeight()*5;
+				score+=setting.getQualActivitiesWeight()*this.activitiesQualitative;
+			}
+			if (setting.isQualTechnologyEnabled()) {
+				totalPossible+=setting.getQualTechnologyWeight()*5;
+				score+=setting.getQualTechnologyWeight()*this.technologyQualitative;
 			}
 			if (setting.isQualRequirementsEnabled()) {
 				totalPossible+=setting.getQualRequirementsWeight()*5;
@@ -2662,11 +2653,25 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 				totalPossible+=setting.getQualSustainabilityWeight()*5;
 				score+=setting.getQualSustainabilityWeight()*this.sustainabilityQualitative;
 			}
-			if (setting.isQualTechnologyEnabled()) {
-				totalPossible+=setting.getQualTechnologyWeight()*5;
-				score+=setting.getQualTechnologyWeight()*this.technologyQualitative;
+			
+			if (setting.isQualEnviroImpactEnabled()) {
+				totalPossible+=setting.getQualEnviroImpactWeight()*5;
+				score+=setting.getQualEnviroImpactWeight()*this.enviroImpactQualitative;
 			}
-		}
+			if (setting.isQualMarketEnabled()) {
+				totalPossible+=setting.getQualMarketWeight()*5;
+				score+=setting.getQualMarketWeight()*this.marketQualitative;
+			}
+			if (setting.isQualOrganizationEnabled()) {
+				totalPossible+=setting.getQualOrganizationWeight()*5;
+				score+=setting.getQualOrganizationWeight()*this.organizationQualitative;
+			}
+			if (setting.isQualAssumptionsEnabled()) {
+				totalPossible+=setting.getQualAssumptionsWeight()*5;
+				score+=setting.getQualAssumptionsWeight()*this.assumptionsQualitative;
+			}
+			
+//		}
 		
 		return totalPossible==0.0 ? 0.0 : score/totalPossible;
 	}
