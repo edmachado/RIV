@@ -67,10 +67,6 @@ public class SettingsController {
 		boolean access = u.isAdministrator() && rivConfig.isAdmin();
 		if (!access) { return "config/settings"; }
 		
-//		if (setting.getOrgLogo()==null && tempLogo.getSize()==0) {
-//			result.reject("error.logo");
-//		}
-		
 		// in case decimal separator is changing... make sure decimals are parsed correctly
 		if (!result.hasFieldErrors("discountRate") && !result.hasFieldErrors("exchRate")) {
 			boolean decProblem=false;
@@ -108,17 +104,36 @@ public class SettingsController {
 				e.printStackTrace();
 			}
 			
+			Setting oldSetting = rivConfig.getSetting();
+			boolean qualitativeChanged = setting.isQualActivitiesEnabled()!=oldSetting.isQualActivitiesEnabled() || setting.isQualAdminMisc1Enabled()!=oldSetting.isQualAdminMisc1Enabled()
+					|| setting.isQualAdminMisc2Enabled()!=oldSetting.isQualAdminMisc2Enabled() || setting.isQualAdminMisc3Enabled()!=oldSetting.isQualAdminMisc3Enabled()
+					|| setting.isQualAssumptionsEnabled()!=oldSetting.isQualAssumptionsEnabled() || setting.isQualBenefDescEnabled()!=oldSetting.isQualBenefDescEnabled()
+					|| setting.isQualEnviroImpactEnabled()!=oldSetting.isQualEnviroImpactEnabled() || setting.isQualJustificationEnabled()!=oldSetting.isQualJustificationEnabled()
+					|| setting.isQualMarketEnabled()!=oldSetting.isQualMarketEnabled() || setting.isQualOrganizationEnabled()!=oldSetting.isQualOrganizationEnabled()
+					|| setting.isQualProjDescEnabled()!=oldSetting.isQualProjDescEnabled() || setting.isQualRequirementsEnabled()!=oldSetting.isQualRequirementsEnabled()
+					|| setting.isQualSustainabilityEnabled()!=oldSetting.isQualSustainabilityEnabled() || setting.isQualTechnologyEnabled()!=oldSetting.isQualTechnologyEnabled()
+					
+					|| setting.getQualActivitiesWeight()!=oldSetting.getQualActivitiesWeight() || setting.getQualAdminMisc1Weight()!=oldSetting.getQualAdminMisc1Weight()
+					|| setting.getQualAdminMisc2Weight()!=oldSetting.getQualAdminMisc2Weight() || setting.getQualAdminMisc3Weight()!=oldSetting.getQualAdminMisc3Weight()
+					|| setting.getQualAssumptionsWeight()!=oldSetting.getQualAssumptionsWeight() || setting.getQualBenefDescWeight()!=oldSetting.getQualBenefDescWeight()
+					|| setting.getQualEnviroImpactWeight()!=oldSetting.getQualEnviroImpactWeight() || setting.getQualJustificationWeight()!=oldSetting.getQualJustificationWeight()
+					|| setting.getQualMarketWeight()!=oldSetting.getQualMarketWeight() || setting.getQualOrganizationWeight()!=oldSetting.getQualOrganizationWeight()
+					|| setting.getQualProjDescWeight()!=oldSetting.getQualProjDescWeight() || setting.getQualRequirementsWeight()!=oldSetting.getQualRequirementsWeight()
+					|| setting.getQualSustainabilityWeight()!=oldSetting.getQualSustainabilityWeight() || setting.getQualTechnologyWeight()!=oldSetting.getQualTechnologyWeight()
+					;
+			boolean discountChanged = !setting.getDiscountRate().equals(oldSetting.getDiscountRate());
+			
 			dataService.storeAppSetting(setting);
 			setting.refreshCurrencyFormatter();
 			boolean refreshAppConfigs = !request.getParameter("exLang").equals(setting.getLang());
 			rivConfig.setSetting(dataService.getAppSetting(), refreshAppConfigs);
 			
-			// if discount has changed, recalculate indicators
-			if (request.getParameter("exDiscountRate")!=null &! request.getParameter("exDiscountRate").isEmpty()) {
-				Double exDiscountRate =  Double.parseDouble(request.getParameter("exDiscountRate"));
-				if (!exDiscountRate.equals(setting.getDiscountRate())) {
-					dataService.recalculateCompletedProjects();
-				}
+			
+			if (discountChanged) { // if discount has changed, recalculate indicators
+				dataService.recalculateCompletedProjects();
+			}
+			if (qualitativeChanged) { // only update qualitative analysis
+				dataService.recalculateCompletedQualitativeAnalysis(setting);
 			}
 		}
 		return "redirect:settings";

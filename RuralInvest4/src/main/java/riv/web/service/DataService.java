@@ -324,6 +324,9 @@ public class DataService implements UserDetailsService, Serializable {
 	public void recalculateCompletedProjects() {
 		repo.recalculateCompletedProjects();
 	}
+	public void recalculateCompletedQualitativeAnalysis(Setting setting) {
+		repo.recalculateCompletedQualitativeAnalysis(setting);
+	}
 	public void recalculateCompletedProfiles() {
 		repo.recalculateCompletedProfiles();
 	}

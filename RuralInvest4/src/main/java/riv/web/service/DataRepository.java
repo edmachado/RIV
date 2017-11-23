@@ -1233,6 +1233,15 @@ public class DataRepository {
 		}
 	}
 	
+	public void recalculateCompletedQualitativeAnalysis(Setting setting) {
+		Query q = currentSession().createQuery("select p.projectId from Project p where wizardStep is null");
+		for (Object o : q.list()) {
+			Project p = getProject((Integer)o, 3);
+			updateQualitativeAnalysis(p.getProjectId(), p.getQualitativeAnalysis(setting));
+			
+		}
+	}
+	
 	public void recalculateCompletedProfiles() {
 		Query q = currentSession()
 				.createQuery("select p.profileId from Profile p where wizardStep is null");
