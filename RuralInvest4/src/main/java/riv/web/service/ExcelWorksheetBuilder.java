@@ -1458,14 +1458,18 @@ public class ExcelWorksheetBuilder {
 	// Category
 		row = sheet.createRow(rowNum++);	row = sheet.createRow(rowNum++);	
 		report.addTextCell(row, 0, translate("project.category"), Style.H2);
-
-		row = sheet.createRow(rowNum++);
-		report.addTextCell(row, 0, project.getProjCategory().getDescription());
-
-		
+		report.addTextCell(row, 1, project.getProjCategory().getDescription());
+	
+	// Qualitative analysis
+		if (setting.hasQualitativeFields(project.getIncomeGen())) {
+			row = sheet.createRow(rowNum++);
+			report.addTextCell(row, 0, translate("qualitativeAnalysis"), Style.H2);
+			report.addNumericCell(row, 1, pr.getQualitative(), Style.PERCENT);
+		}
 	//Generated employment
 		cellNum = 3;
-		row = sheet.createRow(rowNum++);	row = sheet.createRow(rowNum++);
+		rowNum++;	
+		row = sheet.createRow(rowNum++);
 		report.addTextCell(row, 0, translate("project.report.summary.employment"), Style.H2);
 
 		row = sheet.createRow(rowNum++);	startRow = rowNum;
