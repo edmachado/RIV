@@ -63,11 +63,11 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		      throw new IllegalStateException("'springapp' cannot be mapped to '/' under Tomcat versions <= 7.0.14");
 		   }
 		   
-		   FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter",  
-				      new CharacterEncodingFilter());
-				   fr.setInitParameter("encoding", "UTF-8");
-				   fr.setInitParameter("forceEncoding", "true");
-				   fr.addMappingForUrlPatterns(null, false, "/*");
+//		   FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter",  
+//				      new CharacterEncodingFilter());
+//				   fr.setInitParameter("encoding", "UTF-8");
+//				   fr.setInitParameter("forceEncoding", "true");
+//				   fr.addMappingForUrlPatterns(null, false, "/*");
 				   
 			FilterRegistration.Dynamic urlRewrite = servletContext.addFilter("UrlRewriteFilter", new UrlRewriteFilter());
 		   			urlRewrite.setInitParameter("confPath","/WEB-INF/urlrewrite.xml");
