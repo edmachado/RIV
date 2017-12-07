@@ -630,6 +630,9 @@ ALTER TABLE project_result ADD COLUMN qualitative DECIMAL(4,2);
 -- upgrade from profile to project
 ALTER TABLE project ADD COLUMN profile_upgrade INT;
 
+-- make username longer 
+ALTER TABLE user ALTER COLUMN username VARCHAR(60);
+
 	</query>
 	</version>
 </sql>
