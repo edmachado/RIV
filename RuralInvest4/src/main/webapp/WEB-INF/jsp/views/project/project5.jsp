@@ -1,5 +1,13 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<html><head><title><spring:message code="project.step5"/></title></head>
+<html><head><title><spring:message code="project.step5"/></title>
+<script>
+$(function() {
+	$('#sustainabilityQualitative, #enviroImpactQualitative, #marketQualitative').barrating({
+      theme: 'css-stars'
+    });
+});
+</script>
+</head>
 <body>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />

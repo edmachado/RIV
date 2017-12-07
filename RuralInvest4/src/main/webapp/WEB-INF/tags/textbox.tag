@@ -10,13 +10,13 @@
 	</legend>
 	<div class="dataentry">
 		<c:if test="${qualitativeEnabled}">
-			<c:forEach var="i" begin="1" end="5">
-				<img id="${qualitativeField}Star${i}" onclick="stellate('${qualitativeField}',${i})"
-				<c:if test="${i le qualitativeValue}">src="../../img/star2.gif"</c:if>
-				<c:if test="${i gt qualitativeValue}">src="../../img/star1.gif"</c:if>
-				>
-			</c:forEach>
-		 <form:hidden id="${qualitativeField}" path="${qualitativeField}" />
+			<form:select path="${qualitativeField}">
+				<form:option value="1"></form:option>
+				<form:option value="2"></form:option>
+				<form:option value="3"></form:option>
+				<form:option value="4"></form:option>
+				<form:option value="5"></form:option>
+			</form:select>
 		 <br/>
 		</c:if>
 		<c:choose>

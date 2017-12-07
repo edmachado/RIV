@@ -3,6 +3,10 @@
 <script>
 $(function() {
 	loadDonors();
+    
+	$('#benefDescQualitative').barrating({
+      theme: 'css-stars'
+    });
 });
 var statePub="<spring:message code='project.donor.statePublic'/>";
 var viewEdit="<spring:message code='misc.viewEditItem'/>";
@@ -18,7 +22,7 @@ function cType(type) {
 	return "<spring:message code='projectContribution.contribType.beneficiary'/>";
 }
 </script>
-<script language="javascript" src="<c:url value="/scripts/donors.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/scripts/donors.js"/>" type="text/javascript"></script>
 </head>
 <body>
 <form:form name="form" method="post" commandName="project">
@@ -54,7 +58,7 @@ function cType(type) {
 	</fieldset>	
 	
 	<tags:textbox field="benefDesc" multiline="true" helpText="project.benefDesc.help" helpTitle="project.benefDesc"
-	qualitativeEnabled="${rivConfig.setting.qualBenefDescEnabled}" qualitativeValue="${project.benefDescQualitative}" qualitativeField="justificationQualitative">
+	qualitativeEnabled="${rivConfig.setting.qualBenefDescEnabled}" qualitativeValue="${project.benefDescQualitative}" qualitativeField="benefDescQualitative">
 		iv. <spring:message code="project.benefDesc"/></tags:textbox>
 	
 	
