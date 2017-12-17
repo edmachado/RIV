@@ -32,9 +32,10 @@ project.report.amortization.capitalDuringGrace=Initial capital when grace on int
 project.report.amortization.interestDuringGrace=Interest during grace for interest
 project.report.amortization.interestDuringGraceCapital=Interest when grace on capital
 
-project.report.workingcapital.sheetname=Working Capital
-project.report.workingcapital.with.sheetname=Working Capital (with)
-project.report.workingcapital.without.sheetname=Working Capital (w.out)
+# translator: the below three items cannot exceed 31 characters each! They are names of sheets in Excel
+project.report.workingcapital.sheetname=Monthly Cash Flow
+project.report.workingcapital.with.sheetname=Monthly Cash Flow (with)
+project.report.workingcapital.without.sheetname=Monthly Cash Flow (w.out)
 
 project.lastUpdateBy=Last updated by
 project.lastUpdateBy.help=The last use to update the project.
@@ -44,7 +45,7 @@ project.user=User
 profile.user=User
 
 qualitativeAnalysis=Qualitative analysis
-qualitativeAnalysis.help=HELP TEXT HERE
+qualitativeAnalysis.help=Add a 1-5 star rating to selected text fields. Based on the weight given to each field, an analysis indicator is calculated for the project.
 qualitativeAnalysis.field=Field
 qualitativeAnalysis.weight=Weight
 qualitativeAnalysis.report.stars=stars:
