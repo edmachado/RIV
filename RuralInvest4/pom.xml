@@ -52,8 +52,8 @@
                         <configuration>
                             <outputDirectory>${war.dir}/WEB-INF/classes/reports</outputDirectory>
                             <sourceDirectory>${reports.target.dir}</sourceDirectory>
-                            <maven.compiler.source>1.6</maven.compiler.source>
-  							<maven.compiler.target>1.6</maven.compiler.target>
+                            <maven.compiler.source>1.8</maven.compiler.source>
+  							<maven.compiler.target>1.8</maven.compiler.target>
                         </configuration>
                         <executions>
                             <execution>
@@ -438,7 +438,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>animal-sniffer-maven-plugin</artifactId>
-                <version>1.13</version>
+                <version>1.16</version>
                 <configuration>
                     <signature>
                         <groupId>org.codehaus.mojo.signature</groupId>

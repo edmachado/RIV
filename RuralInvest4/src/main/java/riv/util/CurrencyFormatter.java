@@ -68,17 +68,18 @@ public class CurrencyFormatter {
 		return format;
 	}
 	
-	public String formatCurrency(double value, CurrencyFormat format) {
-		switch (format) {
-			case ALL:return dfAll.format(value);
-			case NODECIMALS:return dfNoDec.format(value);
-			case NOTHOUSANDS:return dfNoThou.format(value);
-			case INTEGER:return dfInteger.format(value);
-			default: return "";
-		}
-	}
 	public String formatCurrency(Double value, CurrencyFormat format) {
-		return value.isNaN() || value.isInfinite() ? "error" : formatCurrency(value.doubleValue(), format);
+		if (value.isNaN() || value.isInfinite()) { 
+			return "error"; 
+		} else {
+			switch (format) {
+				case ALL:return dfAll.format(value);
+				case NODECIMALS:return dfNoDec.format(value);
+				case NOTHOUSANDS:return dfNoThou.format(value);
+				case INTEGER:return dfInteger.format(value);
+				default: return "";
+			}
+		}
 	}
 	public String formatCurrency(Integer value, CurrencyFormat format) {
 		return formatCurrency(value.intValue(), format);
@@ -88,3 +89,5 @@ public class CurrencyFormatter {
 	}
 
 }
+
+	
