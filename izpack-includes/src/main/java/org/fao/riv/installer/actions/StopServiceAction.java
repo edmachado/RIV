@@ -9,6 +9,7 @@ import org.fao.riv.installer.OS;
 import org.fao.riv.installer.util.WindowsService;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class StopServiceAction implements PanelAction {
 
@@ -30,14 +31,16 @@ public class StopServiceAction implements PanelAction {
             if (iData.getVariable("riv4service").equals("true")) {
                 try {
                     Runtime.getRuntime().exec("launchctl unload /Library/LaunchDaemons/org.fao.riv.plist");
-                    Thread.sleep(1500);
                 } catch (IOException e) {
-                    e.printStackTrace(System.out);
-                } catch (InterruptedException e) {
                     e.printStackTrace(System.out);
                 }
             }
         }
+        try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			e.printStackTrace(System.out);
+		}
     }
 
     @Override
