@@ -673,7 +673,7 @@ demo.version=BEM-VINDO EM RURALINVEST
 
 demo.para1=Um site de demonstração RuralInvest em línea foi criado para proporcionar a todos os interessados na parte software da metodologia a possibilidade de descobrir e testa-lo.
 
-demo.para2=Para entrar no sofware, digita <b>Visitante-pt</b>  como nome de usuário e senha. Se você quiser criar os seus próprios casos de projetos (ver abaixo), você pode criar os seus próprios nome de usuário e senha. Para fazer isso, é preciso conectar-se como Visitante, e logo ir em "Configuração" e "Usuários". Escolha "Adicionar Usuário" e preencha os detalhes adicionais necessários. É importante que você não esqueça o seu nome de usuário e senha, já que não guardamos copia.
+demo.para2=Para entrar no sofware, digita <b>Visitante-pt-BR</b>  como nome de usuário e senha. Se você quiser criar os seus próprios casos de projetos (ver abaixo), você pode criar os seus próprios nome de usuário e senha. Para fazer isso, é preciso conectar-se como Visitante, e logo ir em "Configuração" e "Usuários". Escolha "Adicionar Usuário" e preencha os detalhes adicionais necessários. É importante que você não esqueça o seu nome de usuário e senha, já que não guardamos copia.
 
 demo.para3=Para tornar a experiência mais útil, temos incluído como exemplo alguns casos de projetos para cada categoria principal coberto pelo software RuralInvest: 
 
@@ -689,9 +689,9 @@ demo.examples.2=à direita do nome de cada caso. <b>Nota:</b> para distinguir en
 
 demo.create=Se você quer criar o seu próprio caso, escolha "Criar Novo", em qualquer categoria e comece à preencher as seções com as informações necessárias. <b>Nota:</b> O site de demonstração RuralInvest é limpo o último dia de cada mês e cada caso que você criou desaparecerá nesse momento. Se você quiser fazer uma cópia dos relatórios decorrentes dos seus casos, tem que descaregar eles nas seções “Resumo e Relatórios" de cada caso que voce criou. <b>Note:</b> Os relatórios só podem ser gerados para os casos completos.
 
-demo.username=Visitante-pt
+demo.username=Visitante-pt-BR
 
-demo.password=Visitante-pt
+demo.password=Visitante-pt-BR
 
 error.maxLoanLength=A duração do empréstimo não pode ser superior à duração máxima do projeto.
 

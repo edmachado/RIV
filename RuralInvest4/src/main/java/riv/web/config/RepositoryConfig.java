@@ -28,10 +28,7 @@ public class RepositoryConfig {
     @Value("${hibernate.show_sql}")		private String hibernateShowSql;
     @Value("${hibernate.hbm2ddl.auto}")	private String hibernateHbm2ddlAuto;
     @Value("${hibernate.autocommit}")	private String hibernateAutocommit;
-        
-
-//	@Autowired
-//	private ServletContext servletContext;
+ 
 	
     @Bean
     public DataSource getDataSource() {

@@ -54,8 +54,8 @@
 </script>
 <c:if test="${rivConfig.demo}">
 <script>
-	$('#j_username').val('<spring:message code="demo.username"/>');
-	$('#j_password').val('<spring:message code="demo.password"/>');
+	$('#username').val('<spring:message code="demo.username"/>');
+	$('#password').val('<spring:message code="demo.password"/>');
 </script>
 	<div id="login-demo">
 		<center>
@@ -63,8 +63,10 @@
 			<option value="en"<c:if test="${pageLang eq 'en'}"> selected</c:if>>English</option>
 			<option value="es"<c:if test="${pageLang eq 'es'}"> selected</c:if>>Español</option>
 			<option value="fr"<c:if test="${pageLang eq 'fr'}"> selected</c:if>>Français</option>
+			<option value="sw"<c:if test="${pageLang eq 'sw'}"> selected</c:if>>Kiswahili</option>
 			<option value="mn"<c:if test="${pageLang eq 'mn'}"> selected</c:if>>Монгол</option>
-			<option value="pt"<c:if test="${pageLang eq 'pt'}"> selected</c:if>>Português</option>
+			<option value="pt_BR"<c:if test="${pageLang eq 'pt_BR'}"> selected</c:if>>Português (Brasil)</option>
+			<option value="pt_PT"<c:if test="${pageLang eq 'pt_PT'}"> selected</c:if>>Português (Portugal)</option>
 			<option value="ru"<c:if test="${pageLang eq 'ru'}"> selected</c:if>>Русский</option>
 			<option value="tr"<c:if test="${pageLang eq 'tr'}"> selected</c:if>>Türkçe</option>
 			<option value="ar"<c:if test="${pageLang eq 'ar'}"> selected</c:if>>العربية</option>
