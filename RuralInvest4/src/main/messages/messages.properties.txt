@@ -28,9 +28,10 @@ project.report.amortization.period=Period
 project.report.amortization.total=Total payment
 project.report.amortization.capital=Capital payment
 project.report.amortization.interest=Interest payment
-project.report.amortization.capitalDuringGrace=Initial capital when grace on interest
-project.report.amortization.interestDuringGrace=Interest during grace for interest
-project.report.amortization.interestDuringGraceCapital=Interest when grace on capital
+project.report.amortization.capitalDuringGrace=Initial capital when there is grace on interest payments
+project.report.amortization.interestDuringGrace=Interest during grace period for interest payments
+project.report.amortization.interestDuringGraceCapital=Interest when there is grace on capital payments
+
 
 # translator: the below three items cannot exceed 31 characters each! They are names of sheets in Excel
 project.report.workingcapital.sheetname=Monthly Cash Flow
@@ -45,7 +46,7 @@ project.user=User
 profile.user=User
 
 qualitativeAnalysis=Qualitative analysis
-qualitativeAnalysis.help=Add a 1-5 star rating to selected text fields. Based on the weight given to each field, an analysis indicator is calculated for the project.
+qualitativeAnalysis.help=Add a 1-5 star rating to selected text fields. Based on the weight given to each field, a qualitative analysis indicator is calculated for the project.
 qualitativeAnalysis.field=Field
 qualitativeAnalysis.weight=Weight
 qualitativeAnalysis.report.stars=stars:
@@ -58,16 +59,16 @@ profile.createdBy.help=The user who originally created the profile.
 project.createdBy.help=The user who originally created the project.
 
 profile.step1.3=User
-profile.step1.3.help=The user (in this RuralInvest instance) who manages this profile, and who decides if the profile may be shared (all users can modify it) or not (only they can modify it).
+profile.step1.3.help= In this RuralInvest instance, the user who manages this profile, and who decides if: the profile may be shared (and all users can modify it); or not shared (and only they can modify it).
 project.step1.4=User
-project.step1.4.help=The user (in this RuralInvest instance) who manages this project, and who decides if the project may be shared (all users can modify it) or not (only they can modify it).
+project.step1.4.help=In this RuralInvest instance, the user who manages this project, and who decides if: the project may be shared (and all users can modify it); or not shared (and only they can modify it).
 
 user.description.help=Your full name, to appear in connection with profiles and projects in RuralInvest.
 
 project.withWithout="With project" and "Without project" scenarios
 project.withWithout.remove=When removing the "without project" scenario, any existing "without project" blocks will be considered as "with project". Existing "without project" general costs and investment costs, rather, will be deleted.
-project.withWithoutMessage=Does this project consider a "with" and "without" situation?
-project.withWithout.help=Including a "without project" scenario allows you to compare the investment project against any existing costs, operation and production.
+project.withWithoutMessage=Does this project consider a "with project" and "without project" situation?
+project.withWithout.help=Including a "without project" scenario allows you to compare the investment project against the situation with any existing investment and operation costs, and existing production.
 
 
 # removed from earlier version
@@ -525,7 +526,7 @@ error.benefRequired=There must be at least one direct beneficiary.
 error.block.cyclesPerFirstYear=The total number of cycles (first year) cannot exceed one year.
 error.block.cyclesPerFirstYearIncome=The total number of payment cycles (first year) cannot exceed one year.
 error.block.cyclesPerYear=The total number of cycles cannot exceed one year.
-error.blockNoTable=Block "{0}": Table "{1}" cannot be empty
+	=Block "{0}": Table "{1}" cannot be empty
 error.durationExceeds=The duration exceeds the maximum length set in the software configuration.
 error.import.logoTooBig=The maximum size for an image is 70 kb.
 error.import.noBeneficiary=The project contains a beneficiary that is not part of the configuration. Only projects based on the same configuration may be imported.

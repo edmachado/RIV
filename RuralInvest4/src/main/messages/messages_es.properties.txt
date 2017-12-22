@@ -1,3 +1,71 @@
+## RIV4.4 PROFILE TO PROJECT 
+profileToProject=Convertir perfil en proyecto 
+profileToProject.text=Para convertir un perfil a un proyecto, algunos datos deben ser revisados ​​y corregidos. Los siguientes pasos lo guiarán a través de este proceso. 
+profileToProject.asset=Para cada activo, especifique 1) el costo de mantenimiento, 2) si el activo se reemplaza al final de su vida económica, y 3) el año del proyecto en el que se realiza la inversión. 
+
+profileToProject.investLabour=Inversión: trabajo / servicios 
+profileToProject.investLabour.text=Arrastre y coloque cada uno de los costos de mano de obra para inversión (en la primera tabla) en la tabla "Mano de obra" o "Servicios profesionales". Para costos de mano de obra, deberá elegir el tipo de unidad del menú. Especifique también el año del proyecto en el que se realiza la inversión. 
+profileToProject.generalLabour=Costos generales 
+profileToProject.generalLabour.text=Arrastre y coloque cada uno de los costos generales de mano de obra (en la primera tabla) a las tablas "Materiales y servicios" o "Personal". Para los costos de personal, deberá elegir el tipo de unidad del menú. 
+profileToProject.generalLabourNongen.text=Arrastre y coloque cada uno de los costos generales de mano de obra (en la primera tabla) a las tablas "Insumos o materiales", "Mano de obra" o "Costos generales y mantenimiento". Para costos de mano de obra, deberá elegir el tipo de unidad del menú. 
+profileToProject.blocks=Para cada bloque de producción, seleccione el tipo de unidad de los costos de mano de obra del menú, corrigiendo las unidades utilizadas y el costo unitario si es necesario. 
+profileToProject.activities=Para cada actividad, seleccione el tipo de unidad de los costos de mano de obra del menú, corrigiendo las unidades utilizadas y el costo unitario si es necesario. 
+profileToProject.complete=Por favor complete la operación 
+profileToProject.complete.text=Arrastre y coloque todos los elementos de la primera tabla antes de continuar. 
+
+error.block.noChronology=Bloque "{0}": edite el bloque y especifique la cronología de producción. 
+error.block.noPattern=Bloque "{0}": edite el bloque y especifique el patrón de producción. 
+error.activity.noPattern=Actividad "{0}": edite la actividad y especifique el patrón de actividad. 
+
+## RIV 4.4 BIS 
+project.loan.paymentsPerYear=Pagos por año 
+project.loan.paymentsPerYear.help=El número de pagos del préstamo por año. 
+project.loan.periods=período(s) de pago 
+project.loan.perPeriod=por período de pago 
+
+project.report.amortization.title=Amortización del préstamo 
+project.report.amortization.period=Período 
+project.report.amortization.total=Pago total 
+project.report.amortization.capital=Pago de capital 
+project.report.amortization.interest=Pago de intereses 
+project.report.amortization.capitalDuringGrace=capital inicial cuando hay gracia para pago de intereses 
+project.report.amortization.interestDuringGrace=Interés durante el período de gracia para pago de intereses 
+project.report.amortization.interestDuringGraceCapital=Interés cuando hay gracia para pago de capital 
+
+# translator: ¡los tres elementos siguientes no pueden exceder los 31 caracteres cada uno! Son nombres de hojas separadas en Excel 
+project.report.workingcapital.sheetname=Flujo de efectivo mensual 
+project.report.workingcapital.with.sheetname=Flujo efectivo mensual (con) 
+project.report.workingcapital.without.sheetname=Flujo efectivo mensual (sin) 
+
+project.lastUpdateBy=Última actualización por 
+project.lastUpdateBy.help=La última persona en actualizar el proyecto. 
+profile.lastUpdateBy=Última actualización por 
+profile.lastUpdateBy.help=La última persona en actualizar el perfil. 
+project.user=Usuario 
+profile.user=Usuario 
+
+qualitativeAnalysis=Análisis cualitativo 
+qualitativeAnalysis.help=Agregar una calificación de 1 a 5 estrellas a los campos de texto seleccionados. En función del peso otorgado a cada campo, se calcula un indicador del análisis cualitativo para el proyecto. 
+qualitativeAnalysis.field=Campo 
+qualitativeAnalysis.weight=Peso 
+qualitativeAnalysis.report.stars=Estrellas: 
+
+# cambiado de la versión anterior 
+project.loan.interest=Tasa de interés (%) 
+profile.createdBy.help=La persona que originalmente creó el perfil. 
+project.createdBy.help=La persona que originalmente creó el proyecto. 
+
+profile.step1.3=Usuario 
+profile.step1.3.help=En esta instancia de RuralInvest, el usuario que administra este perfil, y quien decide si: el perfil puede ser compartido (para que todos los usuarios puedan modificarlo); o no sea compartido (para que solo ellos puedan modificarlo). 
+project.step1.4=Usuario 
+project.step1.4.help En esta instancia de RuralInvest, el usuario que administra este proyecto, y quien decide si: el proyecto puede ser compartido (para que todos los usuarios puedan modificarlo); o no sea compartido (para que solo ellos puedan modificarlo). 
+user.description.help=Su nombre completo, para que aparezca en relación con los perfiles y proyectos en RuralInvest. 
+
+project.withWithout=Escenarios "Con proyecto" y "Sin proyecto" 
+project.withWithout.remove=Al eliminar el escenario "sin proyecto", cualquier bloque existente "sin proyecto" se considerará como "con proyecto". Los costos generales y los costos de inversión "sin proyecto" se eliminarán. 
+project.withWithoutMessage=¿Este proyecto considera una situación "con proyecto" y "sin proyecto"? 
+project.withWithout.help=La inclusión de un escenario "sin proyecto" le permite comparar el proyecto de inversión contra la situación con cualquier costo existente de inversión y operación así como su producción existente. 
+
 ## RIV 4.4.0
 project.report.profitability.payback=Período en que se repaga la inversión (años)
 project.report.profitability.cumulative=Acumulativo
@@ -343,7 +411,6 @@ error.unknown.log=Por favor envíe el siguiente archivo al equipo de RuralInvest
 # Translator: The following is "link", a verb in the imperative... It's used in the pop-up windows when you link a profile or project cost item to a existing item from the "reference items" tables.
 reference.item.link.imperative=Enlazar
 user.language=Lenguaje
-project.withWithout.remove= Seleccionó el no considerar bloques “con” y “sin proyecto”. Todos los bloques actualmente clasificados como “sin proyecto” serán reclasificados como bloques “con proyecto”.
 profile.withWithout.remove= Seleccionó el no considerar productos “con” y “sin proyecto”. Todos los productos actualmente clasificados como “sin proyecto” serán reclasificados como productos “con proyecto”.
 project.with=(con proyecto)
 project.without=(sin proyecto)
@@ -629,7 +696,6 @@ profile.clone.help=El reproducir permite copiar un perfil que se pueda modificar
 profile.clone=Reproducir éste perfil
 profile.costPerBenef=Costo anual por beneficiario
 profile.createdBy=Creado por
-profile.createdBy.help=El nombre del(la) técnico quien creara originalmente el perfil.
 profile.creationDate=Crear una fecha
 profile.demand.help=Describa que se conoce acerca de la demanda para el servicio o producto que serán proporcionados por el proyecto. ¿Por qué no se está proporcionando ya? ¿Qué estan haciendo las personas sin él? ¿Como se sabe que hay demanda?
 profile.demand=Demanda prevista
@@ -711,8 +777,6 @@ profile.sourceFunds.help=Describa cualquier fuente de fondos prevista para la op
 profile.sourceFunds=Fuente de fondos
 profile.step1.1=Información general
 profile.step1.2=Localización
-profile.step1.3.help=Si está creando un perfil, esta sección debe mostrar su información personal. Si no es así, debe actualizar 'Usuarios' bajo la opción de Configuración en el inicio. Usted pudo también haber entrado en RuralInvest usando la conexión de otra persona.  
-profile.step1.3=Técnico
 profile.step1.4.help=Seleccione 'SI' si desea que a otros usuarios les sea posible agregar información o modificar este perfil. Si selecciona 'NO', los usuarios podrán solo ver, pero no podrán cambiar éste perfil. 
 profile.step1.4=Compartir
 profile.step1=Información general
@@ -902,7 +966,6 @@ project.clone.help=Esta acción permite copiar un proyecto que se pueda modifica
 project.clone=Reproduzca este proyecto
 project.costPerBenef=Costo anual por beneficiario
 project.createdBy=Creado por 
-project.createdBy.help=El nombre del(la) técnico quien creara originalmente el proyecto.
 project.creationDate.help=Fecha en que este proyecto fue creado
 project.creationDate=Fecha de creación
 project.demand.help=Describa qué se sabe sobre la demanda del servicio o del producto que será proporcionado por el proyecto. ¿Por qué no se ofrece actualmente? ¿Qué hace la gente sin ellos? ¿Cómo se sabe que hay demanda?
@@ -944,7 +1007,6 @@ project.loan.graceCapital=Período de gracia - capital
 project.loan.graceInterest.help=El período del préstamo (en años) durante el cual no se realizan pagos de interés. Todo interés diferido es añadido al capital principal del préstamo, por lo que el monto total a pagar se incrmenta y debe ser repagado durante un período de amortización más corto (período de duración del préstamo menos el período de gracia).
 project.loan.graceInterest=Período de gracia - interés
 project.loan.interest.help=La tasa de interés aplicada a los préstamos primarios será especificada por la institución que aprueba los fondos del crédito. No incorpore una tasa que sea diferente a esta.
-project.loan.interest=Tasa de interés anual
 project.loan1.help=El préstamo primario será a menudo el único financiamiento de préstamo recibido por un proyecto.
 project.loan1=Préstamo primario
 project.loan1Duration=Duración del préstamo
@@ -1102,8 +1164,6 @@ project.step1.2.help=Se trata de proporcionar información sobre la localizació
 project.step1.2=Localización
 project.step1.3.help=Un proyecto se debe distinguir generalmente entre bloques 'con proyecto' y 'sin proyecto', si es una adición o una modificación de una actividad existente. En este caso, los bloques 'sin proyecto' describen la situación actual, mientras que los bloques 'con proyecto' describen la situación después de la ejecución de la inversión del proyecto. La computadora después resta el resultado de los bloques 'sin proyecto' del resultado de los bloques 'con proyecto' para calcular los costos y beneficios incrementales.
 project.step1.3=Tipo y etapa
-project.step1.4.help=Si usted está creando la propuesta de proyecto, estos campos deben mostrar su información personal. Si los datos son incorrectos o los espacios están en blanco, usted debe cerrar la propuesta y verifique (a) que sea registrado su nombre en el sistema y (b) que usted ha completado correctamente el campo del 'técnico' en la sección de la 'configuración'.
-project.step1.4=Técnico
 project.step1.5.help=Seleccione 'SI' si usted desea que otros técnicos puedan modificar este proyecto. Si usted selecciona 'NO' otros usuarios pueden leer pero no modificar el archivo del proyecto.
 project.step1.5=Compartir
 project.step10=Rubros de referencia
@@ -1136,8 +1196,6 @@ project.technology=Tecnología que se utilizará
 project.userCode.help=Este campo debe ser completado solamente si su agencia requiere un código interno para clasificar proyectos. Si está completado o no, la computadora asignará un código interno de RuralInvest que se utilizará para identificar el proyecto.
 project.userCode=Código del usuario
 project.withWithout=Bloques "sin" y "con" proyecto
-project.withWithout.help=Cuando cambie esta opción de distinguir entre bloques "con" y "sin" proyecto a no distinguir entre ellos, todos los bloques serán considerados bloques "con" proyecto.
-project.withWithoutMessage=¿Éste proyecto distingue entre bloques de producción "sin" y "con"proyecto?
 project.workCapital=Capital de trabajo
 project.workingCapital.help=El capital de trabajo representa los fondos necesarios para la operación del proyecto, una vez que esté haya iniciado.
 project.workingCapital=Capital de trabajo
@@ -1615,7 +1673,6 @@ user.addUser=Agregar usuario
 user.administrator=Administrador
 user.changePassword=Cambiar usuario y contraseña
 user.delete.warn=El borrar un usuario implica que sus perfiles y proyectos serán borrados también.  ¿Desea usted continuar? 
-user.description.help=El nombre del técnico que utilizará el sistema de RuralInvest
 user.description=Nombre
 user.email.help=Si usted tiene una dirección de correo electrónico, escríbala aquí
 user.email=Correo electrónico

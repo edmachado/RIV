@@ -669,7 +669,7 @@ project.report.profitability.donations.netAfter=Receita líquida depois da doaç
 
 demo.welcome=BEM-VINDO EM RURALINVEST
 
-demo.version=BEM-VINDO EM RURALINVEST
+demo.version=Versão
 
 demo.para1=Um site de demonstração RuralInvest em línea foi criado para proporcionar a todos os interessados na parte software da metodologia a possibilidade de descobrir e testa-lo.
 
