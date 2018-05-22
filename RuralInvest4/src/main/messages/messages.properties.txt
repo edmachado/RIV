@@ -22,9 +22,9 @@ project.loan.paymentsPerYear=Payments per year
 project.loan.paymentsPerYear.help=...
 project.loan.periods=payment period(s)
 project.loan.perPeriod=per payment period
+
 project.report.amortization.title=Loan amortization
 project.report.amortization.period=Period
-
 project.report.amortization.total=Total payment
 project.report.amortization.capital=Capital payment
 project.report.amortization.interest=Interest payment
@@ -526,7 +526,7 @@ error.benefRequired=There must be at least one direct beneficiary.
 error.block.cyclesPerFirstYear=The total number of cycles (first year) cannot exceed one year.
 error.block.cyclesPerFirstYearIncome=The total number of payment cycles (first year) cannot exceed one year.
 error.block.cyclesPerYear=The total number of cycles cannot exceed one year.
-	=Block "{0}": Table "{1}" cannot be empty
+error.blockNoTable=Block "{0}": Table "{1}" cannot be empty
 error.durationExceeds=The duration exceeds the maximum length set in the software configuration.
 error.import.logoTooBig=The maximum size for an image is 70 kb.
 error.import.noBeneficiary=The project contains a beneficiary that is not part of the configuration. Only projects based on the same configuration may be imported.

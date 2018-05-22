@@ -58,7 +58,7 @@ project.createdBy.help=La persona que originalmente creó el proyecto.
 profile.step1.3=Usuario 
 profile.step1.3.help=En esta instancia de RuralInvest, el usuario que administra este perfil, y quien decide si: el perfil puede ser compartido (para que todos los usuarios puedan modificarlo); o no sea compartido (para que solo ellos puedan modificarlo). 
 project.step1.4=Usuario 
-project.step1.4.help En esta instancia de RuralInvest, el usuario que administra este proyecto, y quien decide si: el proyecto puede ser compartido (para que todos los usuarios puedan modificarlo); o no sea compartido (para que solo ellos puedan modificarlo). 
+project.step1.4.help=En esta instancia de RuralInvest, el usuario que administra este proyecto, y quien decide si: el proyecto puede ser compartido (para que todos los usuarios puedan modificarlo); o no sea compartido (para que solo ellos puedan modificarlo). 
 user.description.help=Su nombre completo, para que aparezca en relación con los perfiles y proyectos en RuralInvest. 
 
 project.withWithout=Escenarios "Con proyecto" y "Sin proyecto" 
@@ -71,7 +71,7 @@ project.report.profitability.payback=Período en que se repaga la inversión (a�
 project.report.profitability.cumulative=Acumulativo
 project.report.profitability.lastNeg=Último año con flujo negativo
 project.report.workingcapital=Capital de trabajo
-project.report.workingcapital.sheetname=Capital de trabajo
+#project.report.workingcapital.sheetname=Capital de trabajo
 project.periodAvg=Duración promedio del préstamo
 project.periodAvg.help=La “duración promedio del préstamo” es un factor de corrección de la duración estimada del préstamo. Ya que la duración estimada del préstamo está basada en el último mes de flujo de efectivo negativo, y el monto estimado de capital de trabajo es el mayor flujo de efectivo acumulado negativo, el interés calculado sobre esos dos parámetros es sobreestimado. Para corregir esto, utilizamos la duración promedio del préstamo, la cual está basada en el flujo de efectivo acumulativo mensual para cada mes, hasta que alcancemos la duración estimada del préstamo. En lugar de generar un promedio ponderado del monto de capital de trabajo, generamos un promedio ponderado de la duración del préstamo – el resultado es el mismo en términos de intereses devengados.
  
@@ -376,7 +376,7 @@ import.generic.info=Este proyecto o perfil ha sido convertido a USD y será conv
 import.generic.confirm=Por favor confirme el tipo de cambio en relación con USD:
 project.report.cashFlow.loanRecieved=Préstamo(s) recibidos
 project.report.cashFlow.invest=Inversión
-roject.report.cashFlow.financing=Pagos por financiamiento
+project.report.cashFlow.financing=Pagos por financiamiento
 error.block.cyclesPerFirstYearIncome=El número total de ciclos de pago (en primer año) no puede exeder un año.
 error.import.logoTooBig=La dimensión máxima de una imagen es 70 kb.
 error.import.notImage=El logo debe ser una imagen jpeg ó gif.
@@ -1195,7 +1195,7 @@ project.technology.help=Si el proyecto utiliza alguna forma de tecnología (e.g.
 project.technology=Tecnología que se utilizará
 project.userCode.help=Este campo debe ser completado solamente si su agencia requiere un código interno para clasificar proyectos. Si está completado o no, la computadora asignará un código interno de RuralInvest que se utilizará para identificar el proyecto.
 project.userCode=Código del usuario
-project.withWithout=Bloques "sin" y "con" proyecto
+#project.withWithout=Bloques "sin" y "con" proyecto
 project.workCapital=Capital de trabajo
 project.workingCapital.help=El capital de trabajo representa los fondos necesarios para la operación del proyecto, una vez que esté haya iniciado.
 project.workingCapital=Capital de trabajo
