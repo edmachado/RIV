@@ -76,7 +76,7 @@ public class AppConfigController {
 		return form(type);
 	}
 	
-	@RequestMapping(value="/{type}/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/{type}/{id}", method=RequestMethod.POST) //, consumes="text/plain"
 	public String updateAppConfig(@PathVariable String type, @Valid @ModelAttribute AppConfig appConfig, BindingResult result, HttpServletRequest request) {
 		User u = (User)request.getAttribute("user");
 		boolean access = u.isAdministrator() && rivConfig.isAdmin();

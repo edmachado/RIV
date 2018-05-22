@@ -15,6 +15,7 @@
 			#tabs ul { margin:0; }
 			div.dataentry { font-size:11px;}
 		</style>
+		<tags:excelImportHead submitUrl="../../import/project/block/"/>
 	</head>
 <body>
 <form:form name="form" method="post" commandName="project">

@@ -42,7 +42,9 @@ function showYear(year) {
 	selectedYear=year;
 	$('#yearBox'+year).toggleClass('selected',true);
 }
-</script></head>
+</script>
+<tags:excelImportHead submitUrl="../../import/project/contribution/${project.projectId}"/>
+</head>
 <body>
 <form:form id="contribForm" name="form" method="post" commandName="project">
 	<tags:errors />

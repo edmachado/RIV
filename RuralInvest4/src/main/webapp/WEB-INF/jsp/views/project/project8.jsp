@@ -52,6 +52,7 @@ function showYear(year) {
 }
 </script>
 <style>#tabs ul { margin:0; }</style>
+<tags:excelImportHead submitUrl="../../import/project/general/${project.projectId}"/>
 </head>
 <body>
 <form:form name="form" id="form" method="post" commandName="project">

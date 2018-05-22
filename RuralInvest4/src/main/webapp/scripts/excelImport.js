@@ -1,13 +1,14 @@
+var uploader;
 $(document).ready(function () {
-	$('#uploader-button').button();
-	
 	$("#importExcel").click(function() { 
-		setupFileUploader();
+		if (uploader==null) {
+			setupFileUploader();
+		}
+		uploader.setEndpoint(submitUrlBase);
 		$("#upload-dialog").dialog("open");
 	}); 
 	
-	
-	 $("#upload-dialog").dialog({ 
+	$("#upload-dialog").dialog({ 
 		 autoOpen: false, 
 		 height: 400, 
 		 width: 550, 
@@ -15,82 +16,96 @@ $(document).ready(function () {
 		 buttons: { 
 			 Cancel: function() { 
 				 $( this ).dialog( "close" );
-				 $('#uploader-button').show();
 			 } 
-		 }, 
-		 close: function() { 
-			 $('#uploader-button').show(); 
-		} 
-	 }); 
+		 },
+		close: function() {
+			 $('#uploader-error').hide();
+		},
+		open: function() { 
+			 uploader.cancelAll();
+			 uploader.clearStoredFiles();
+		}
+	 });
 });
 
 function uploadConfig() {
+	submitUrlBase='admin/import';
+	$("#qq-form").attr("action",submitUrlBase);
 	$('#uploader-error').hide();
 	$("#upload-dialog").dialog('option', 'title', titleConfig);
 	$('#upload-description').text(uploadDescConfig);
 	$('#upload-fail').text(uploadFailConfig);
-	submitUrlBase='admin/import';
-	setupFileUploader(true);
+	if (uploader==null) { 
+		setupFileUploader(true);
+	}
+	uploader.setEndpoint(submitUrlBase);
 	$("#upload-dialog").dialog("open");
 }
 
 function uploadRestore() {
+	submitUrlBase='admin/restore';
+	$("#qq-form").attr("action",submitUrlBase);
 	$('#uploader-error').hide();
 	$("#upload-dialog").dialog('option', 'title', titleRestore);
 	$('#upload-description').text(uploadDescRestore);
 	$('#upload-fail').text(uploadFailRestore);
-	submitUrlBase='admin/restore';
-	setupFileUploader(true);
+	if (uploader==null) {
+		setupFileUploader(true);
+	}
+	uploader.setEndpoint(submitUrlBase);
 	$("#upload-dialog").dialog("open");
 }
 
 function uploadBlock(blockId) {
 	uploadBlockId=blockId;
-	setupFileUploader();
+	$("#qq-form").attr("action",$("#qq-form").attr("action")+"/"+blockId);
+	if (uploader==null) {
+		setupFileUploader();
+	}
+	uploader.setEndpoint(submitUrlBase+uploadBlockId);
 	$("#upload-dialog").dialog("open");
 }
 
 function setupFileUploader(isRestore) {
-	var endpoint = submitUrlBase+uploadBlockId;
-	$('#jquery-wrapped-fine-uploader').fineUploader({
-      request: {
-        endpoint: endpoint,
-        customHeaders: {
-            "X-CSRF-Token": csrfToken
-          }
-      },
-      multiple: false,
-      button: $("#uploader-button"),
-      validation: {
-    	 allowedExtensions: isRestore ? ['riv'] : ['xlsx'],
-    	  sizeLimit: isRestore 
-    	  		? 1024000
-    	  		: 51200 // 500 kB = 500 * 1024 bytes 
-    			
-		}
-      ,
-      failedUploadTextDisplay: {
-    	  mode:'none'
-      }
-    }).on('error', function (event, id, name, reason) {
-    	$('#uploader-error-message').text(reason);
-    	$('#uploader-error').show();
-    	$('#uploader-button').show();
-    }).on('complete', isRestore 
-    		? function(event, id, name, responseJSON) { if (responseJSON.success) { window.location.href='../home'; } } 
-    		: function (event, id, name, responseJSON) {
-		    	if (responseJSON.success) {
-		    		if (uploadBlockId!='') {
-		    			window.location.href=window.location.href.split('#')[0]+'#b'+uploadBlockId;
-		    		}
-		    		location.reload(true);
-				}
-    }).on('showMessage', function (event, id, name, message) {
-    	$('#uploader-error-message').text(message);
-    	$('#uploader-error').show();
-    	$('#uploader-button').show();
-    }).on('submit', function(event, id, name) {
-    	$('#uploader-error').hide();
-    	$('#uploader-button').hide();
-    });
+//		var endpoint = submitUrlBase+uploadBlockId;
+		uploader = new qq.FineUploader({
+            element: document.getElementById("uploader"),
+            multiple: false,
+            request: {
+//                endpoint: endpoint,
+                customHeaders: { "X-CSRF-Token": csrfToken }
+            },
+            form: {
+            	autoUpload: true
+            },
+            validation: {
+           	 allowedExtensions: isRestore ? ['riv'] : ['xlsx'],
+           	  sizeLimit: isRestore 
+           	  		? 1024000
+           	  		: 51200 // 500 kB = 500 * 1024 bytes 
+            },
+            disableCancelForFormUploads: true,
+           text: { fileInputTitle: '' },
+           retry: { showButton: false },
+           failedUploadTextDisplay: { mode:'none' },
+           callbacks: {
+                onError: function(id, name, errorReason, xhr) {
+                	$('#uploader-error-message').text(errorReason);
+        	    	$('#uploader-error').show();
+                },
+                onSubmit: function(id, name) {
+                	$('#uploader-error').hide();
+                },
+                onComplete: isRestore 
+        		? function(id, name, responseJSON) { if (responseJSON.success) { window.location.href='../home'; } } 
+        		: function(id, name, responseJSON) {
+                	if (responseJSON.success) {
+    		    		if (uploadBlockId!='') {
+    		    			window.location.href=window.location.href.split('#')[0]+'#b'+uploadBlockId;
+    		    		}
+    		    		location.reload(true);
+    				}
+                } 
+            }
+        });
 }

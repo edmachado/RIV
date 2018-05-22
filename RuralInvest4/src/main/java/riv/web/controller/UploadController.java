@@ -189,7 +189,7 @@ public class UploadController implements Serializable {
 		return "uploadConfirm";
 	}
 	
-	@RequestMapping(value="/config/admin/import", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value="/config/admin/import", method=RequestMethod.POST, consumes="multipart/form-data", produces="application/json;charset=UTF-8")
 	public @ResponseBody String importConfig(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
 		Locale locale=rivLocaleResolver.resolveLocale(request);
 		
@@ -220,7 +220,7 @@ public class UploadController implements Serializable {
 		}
 	}
 	
-	@RequestMapping(value="/config/admin/restore", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value="/config/admin/restore", method=RequestMethod.POST, consumes="multipart/form-data", produces="application/json;charset=UTF-8")
 	public @ResponseBody String importBackup(Model model, MultipartHttpServletRequest request, HttpServletResponse response) {
 		Locale locale=rivLocaleResolver.resolveLocale(request);
 		

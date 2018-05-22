@@ -10,6 +10,7 @@ $(function() {
 		} </c:if>
 });
 </script>
+<tags:excelImportHead submitUrl="../../import/profile/product/"/>
 </head>
 <body>
 <form:form name="form" method="post" commandName="profile">

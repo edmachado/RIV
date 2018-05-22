@@ -76,7 +76,7 @@ public class ExcelImportController {
 	@Autowired
 	private MessageSource messageSource;
 	
-	@RequestMapping(value="/import/project/{type}/{id}", method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	@RequestMapping(value="/import/project/{type}/{id}", method=RequestMethod.POST, consumes="multipart/form-data", produces="application/json;charset=UTF-8")
 	public @ResponseBody String projectImport(@PathVariable Integer id,@PathVariable String type, MultipartHttpServletRequest request, HttpServletResponse response) {
 		Iterator<String> itr =  request.getFileNames();
 		MultipartFile mpf = request.getFile(itr.next());

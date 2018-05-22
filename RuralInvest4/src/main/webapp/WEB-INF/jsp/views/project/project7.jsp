@@ -8,6 +8,7 @@ $(function() {
 });
 </script>
 <style>#tabs ul { margin:0; }</style>
+<tags:excelImportHead submitUrl="../../import/project/invest/${project.projectId}"/>
 </head>
 <body>
 <form:form name="form" method="post" commandName="project">

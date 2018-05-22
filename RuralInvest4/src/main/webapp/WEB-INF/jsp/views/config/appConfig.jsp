@@ -12,7 +12,7 @@
 <html><head><title>${title}</title></head>
 <body>
 <form:form name="form" commandName="appConfig" method="post">
-	<form:hidden path="configId"/>
+	<form:hidden path="configId"/><sec:csrfMetaTags />
 	<tags:errors />
 	<div style="width:500px;">
 	    <fieldset>

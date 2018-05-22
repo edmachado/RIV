@@ -2,8 +2,8 @@
 <c:set var="menuType" value="admin" scope="request"/><c:set var="currentStep" value="1" scope="request"/>
 <html><head><title><spring:message code="admin.page"/></title>
 <script language="javascript" src="../scripts/jquery.fileDownload.js" type="text/javascript"></script>
-<link href="../styles/fineuploader-3.9.0-3.min.css" rel="stylesheet"/>
-<script src="../scripts/all.fineuploader-3.9.0-3.min.js"></script>
+<link href="../styles/uploader/fine-uploader.min.css" rel="stylesheet"/>
+<script src="../scripts/fine-uploader.min.js"></script>
 <script src="../scripts/excelImport.js"></script>
 <script>
 $(document).on("click", "a.fileDownloadSimpleRichExperience", function () {
@@ -22,6 +22,7 @@ var uploadFailConfig="<spring:message code='import.config.error'/>";
 var titleRestore="<spring:message code='admin.restore'/>";
 var titleConfig="<spring:message code='import.config'/>";
 </script>
+<tags:excelImportHead submitUrl="admin/restore"/>
 </head>
 <body>
 
@@ -59,18 +60,16 @@ var titleConfig="<spring:message code='import.config'/>";
 	<p><spring:message code="admin.download.desc"/></p>
 </c:if>
 
-
-
-<div id="upload-dialog">
+<div id="upload-dialog" title="<spring:message code="import.importExcel"/>">
 	<p id="upload-description"><spring:message code="admin.restore.desc"/></p>
-	<div id="uploader-button"><spring:message code="import.file"/></div><%--<spring:message code="admin.restore.button"/> --%>
-	<div id="jquery-wrapped-fine-uploader"></div>
 	<div id="uploader-error" style="display:none;">
-		<div class="alert alert-error"><h3 id="upload-fail"></h3>
-			<div id="uploader-error-message"></div>
-		</div>
+	<div class="alert alert-error" style="margin-bottom:0"><h3 id="upload-fail"></h3>
+		<div id="uploader-error-message"></div>
 	</div>
+	</div>
+	<div id="uploader"></div>
 </div>
-<form id="upload-test-form" action="admin/import" method="post" enctype="multipart/form-data"></form>
-<form id="restore-test-form" action="admin/restore" method="post" enctype="multipart/form-data"></form>
+<form id="qq-form" name="qq-form" method="post" enctype="multipart/form-data">
+<sec:csrfInput />
+</form>
 </body></html>

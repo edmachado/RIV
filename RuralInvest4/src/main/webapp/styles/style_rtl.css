@@ -581,6 +581,8 @@ li.qq-upload-fail {
 	color:#E44F3C !important;
 	background-color: #FAF5F5 !important;
 }
+button.qq-upload-retry, button.qq-upload-cancel { display:none;}
+div.qq-upload-button { margin-top:10px;background-color:#eee;color:#555}
 
 .ui-buttonset label {
 	width:100px !important;

@@ -1,5 +1,7 @@
 <%@ page pageEncoding="UTF-8"%><%@ include file="/WEB-INF/jsp/inc/include.jsp" %>
-<html><head><title><spring:message code="project.step8"/></title></head>
+<html><head><title><spring:message code="project.step8"/></title>
+<tags:excelImportHead submitUrl="../../import/project/generalNongen/${project.projectId}"/>
+</head>
 <body>
 <form:form name="form" method="post" commandName="project">
 	<tags:errors />
