@@ -82,7 +82,7 @@ public class CurrencyFormatter {
 		}
 	}
 	public String formatCurrency(Integer value, CurrencyFormat format) {
-		return formatCurrency(value.intValue(), format);
+		return formatCurrency(value.doubleValue(), format);
 	}
 	public String formatCurrency(BigDecimal value, CurrencyFormat format) {
 		return formatCurrency(value.doubleValue(), format);

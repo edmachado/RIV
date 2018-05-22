@@ -1521,15 +1521,8 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	
 	public double getAnnualEmploymentInvestment() {
 		double employment=0.0;
-		
-		if (!incomeGen) {
-			for (ProjectItemNongenLabour lab : nongenLabours) {
-				employment+=employPerType(lab.getUnitNum(), 1.0, lab.getUnitType());
-			}
-		} else {
-			for (ProjectItemLabour lab : labours) {
-				employment+=employPerType(lab.getUnitNum(), 1.0, lab.getUnitType());
-			}
+		for (ProjectItemLabour lab : labours) {
+			employment+=employPerType(lab.getUnitNum(), 1.0, lab.getUnitType());
 		}
 		return employment;
 	}

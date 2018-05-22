@@ -3,7 +3,7 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="856"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -807,7 +807,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(0),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[0],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="5dde52c6-d135-4195-8e15-f1d1878dcc3c" key="textField-160" style="Arial_Normal" mode="Opaque" x="204" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -821,7 +821,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(1),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[1],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="e16f421c-ed51-41dc-929c-27f9055bce06" key="textField-161" style="Arial_Normal" mode="Opaque" x="250" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -835,7 +835,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(2),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[2],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="a6b27cd5-52a2-471c-9893-f5d7a235fa2d" key="textField-162" style="Arial_Normal" mode="Opaque" x="296" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -849,7 +849,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(3),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[3],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="bab84187-623e-4c94-991d-91518cd135ea" key="textField-163" style="Arial_Normal" mode="Opaque" x="342" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -863,7 +863,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(4),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[4],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="ad4879a2-d19f-4399-8db0-59f1fdfedce7" key="textField-164" style="Arial_Normal" mode="Opaque" x="388" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -877,7 +877,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(5),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[5],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="74b9a863-d83c-482b-afd1-4395b894eeb3" key="textField-165" style="Arial_Normal" mode="Opaque" x="434" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -891,7 +891,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(6),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[6],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="dff540b7-f5f4-4d73-9c8c-7e50a3bc5fb2" key="textField-166" style="Arial_Normal" mode="Opaque" x="480" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -905,7 +905,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(7),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[7],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="7892e0f0-0e6d-46e0-b004-2d23b9695f05" key="textField-167" style="Arial_Normal" mode="Opaque" x="526" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -919,7 +919,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(8),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[8],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="9fff456b-fe46-4d44-9eb3-98610237368c" key="textField-168" style="Arial_Normal" mode="Opaque" x="572" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -933,7 +933,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(9),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[9],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="0d5034db-27a3-4f2f-9c23-8a1c4ad0e3d6" key="textField-169" style="Arial_Normal" mode="Opaque" x="664" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -947,7 +947,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(11),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[11],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="c03a8b29-ff51-416e-b171-87ab4ac1a3aa" key="textField-170" style="Arial_Normal" mode="Opaque" x="618" y="80" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
@@ -961,7 +961,7 @@ $P{firstYearData}.getMaintenanceCost()
 					<font size="8" pdfFontName="arial.ttf" isPdfEmbedded="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulative(10),riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{firstYearData}.getCumulatives()[10],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>

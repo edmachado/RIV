@@ -3,8 +3,8 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1743"/>
+	<property name="ireport.x" value="405"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -675,8 +675,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{benefDescQualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{benefDescQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -824,8 +823,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{assumptionsQualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{assumptionsQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="70a1ea2b-93b1-46bd-a95d-6db81b580e79" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="98" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -857,8 +855,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{organizationQualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{organizationQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="71af359f-f6e8-4d7c-8d7d-7937755ac79d" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="61" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -890,8 +887,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{marketQualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{marketQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="8e074f23-7df5-4fba-b0cd-22dc7fc8dda7" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="28" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -923,8 +919,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{enviroImpactQualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{enviroImpactQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="cf9b93ab-2b00-4f5b-9e56-e5a92a2a202b" key="textField-72" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="148" width="524" height="6" forecolor="#003365" backcolor="#E5E5E5">
@@ -1036,8 +1031,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{adminMisc1Qualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{adminMisc1Qualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="c4d39536-f039-4e84-a894-3453b77072a2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="156" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -1069,8 +1063,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{adminMisc2Qualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{adminMisc2Qualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="b3faaebf-4503-4da0-beb0-1774743b6f1b" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="180" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -1102,8 +1095,7 @@
 						<font size="10" isBold="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{adminMisc3Qualitative} + "/5"
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{adminMisc3Qualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 					<reportElement uuid="155745f1-b428-4830-856b-84c31ce0d2e2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="202" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -1189,8 +1181,7 @@
 					<font size="10" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{activitiesQualitative} + "/5"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{activitiesQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="c5b8e859-a31e-4f1f-aea8-df20bb752e05" key="textField-58" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="238" width="524" height="15" forecolor="#003365" backcolor="#E5E5E5"/>
@@ -1714,8 +1705,7 @@
 					<font size="10" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{sustainabilityQualitative} + "/5"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sustainabilityQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="cc39b20f-260c-4bbf-aa35-57d7a44f10e8" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="254" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -1747,8 +1737,7 @@
 					<font size="10" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{requirementsQualitative} + "/5"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{requirementsQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="6927e246-01a7-4991-b022-4ea2272b72c5" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="218" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -1780,8 +1769,7 @@
 					<font size="10" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{technologyQualitative} + "/5"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{technologyQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="78dec97b-6a98-474d-bb92-ea39491343f2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="152" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -1797,8 +1785,7 @@
 					<font size="10" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{projDescQualitative} + "/5"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{projDescQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
 				<reportElement uuid="fdef48dd-36d5-40dd-aa72-52dd72dd4471" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="152" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
@@ -1846,8 +1833,7 @@
 					<font size="10" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{justificationQualitative} + "/5"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{justificationQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

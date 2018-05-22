@@ -24,7 +24,7 @@
 	<variable name="month3" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[new Double(((double[])$F{flowData})[2])]]></variableExpression>
 	</variable>
-	<variable name="month4" class="java.lang.Double">
+	<variable name="month4" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[new Double(((double[])$F{flowData})[3])]]></variableExpression>
 	</variable>
 	<variable name="month5" class="java.lang.Double" calculation="Sum">

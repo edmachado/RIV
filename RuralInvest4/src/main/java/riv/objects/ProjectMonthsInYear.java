@@ -23,6 +23,7 @@ public class ProjectMonthsInYear {
 	private double maintenanceCost;
 	private double generalCost;
 	private double[] totals;
+	private double[] cumulatives;
 	private boolean without;
 	private int decimals;
 	private int year;
@@ -30,12 +31,13 @@ public class ProjectMonthsInYear {
 	public static ProjectMonthsInYear[] getProjectPerMonths(Project project, boolean without, int decimals) {
 		ProjectMonthsInYear[] ppms = new ProjectMonthsInYear[project.getDuration()];
 		for (int i=0; i<project.getDuration(); i++) {
-			ppms[i]=new ProjectMonthsInYear(project, without, decimals, i+1);
+			double cumulativeStart = i==0 ? 0 : ppms[i-1].getCumulatives()[11];
+			ppms[i]=new ProjectMonthsInYear(project, without, decimals, i+1, cumulativeStart);
 		}
 		return ppms;
 	}
 	
-	private ProjectMonthsInYear(Project project, boolean without, int decimals, int year) {
+	private ProjectMonthsInYear(Project project, boolean without, int decimals, int year, double cumulativeStart) {
 		this.project=project;
 		this.without=without;
 		this.decimals=decimals;
@@ -43,6 +45,8 @@ public class ProjectMonthsInYear {
 		incomes = new ArrayList<ProjectMonthFlow>();
 		costs = new ArrayList<ProjectMonthFlow>();
 		totals=new double[12];
+		setCumulatives(new double[12]);
+		getCumulatives()[0]=cumulativeStart;
 		Calculate();
 	}
 	
@@ -165,15 +169,23 @@ public class ProjectMonthsInYear {
 			}
 			getCosts().add(costFlow);
 		}
+		
+		for (int i=0;i<12;i++) {
+			if (i==0) {
+				getCumulatives()[i]+=totals[i];
+			} else {
+				getCumulatives()[i]=getCumulatives()[i-1]+totals[i];
+			}
+		}	
 	}
 	
-	public double getCumulative(int month) { // zero-based
-		double cum=0.0;
-		for (int i=0;i<=month;i++) {
-			cum+=totals[i];
-		}
-		return cum;
-	}
+//	public double getCumulative(int month) { // zero-based
+//		double cum=0.0;
+//		for (int i=0;i<=month;i++) {
+//			cum+=totals[i];
+//		}
+//		return cum;
+//	}
 
 	public ArrayList<ProjectMonthFlow> getIncomes() {
 		return incomes;
@@ -195,6 +207,14 @@ public class ProjectMonthsInYear {
 		return totals;
 	}
 	
+	public double[] getCumulatives() {
+		return cumulatives;
+	}
+
+	public void setCumulatives(double[] cumulatives) {
+		this.cumulatives = cumulatives;
+	}
+
 	public int getYear() {
 		return year;
 	}

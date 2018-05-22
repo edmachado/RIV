@@ -440,6 +440,9 @@ public class ExcelReportController {
 			}
 			ewb.projectRecommendation(report, project);
 			
+			for (int i=1; i<report.getWorkbook().getNumberOfSheets(); i++) {
+				report.getWorkbook().getSheetAt(i).setSelected(false);
+			}
 			summary.setSelected(true);
 
 			response.setHeader("Content-disposition",
@@ -629,6 +632,11 @@ public class ExcelReportController {
 				ewb.profilePrelimAnalysis(report, p, ProjectScenario.Incremental, matrix);
 			}
 			ewb.profileRecommendation(report, p);
+			
+			for (int i=1; i<report.getWorkbook().getNumberOfSheets(); i++) {
+				report.getWorkbook().getSheetAt(i).setSelected(false);
+			}
+			
 			response.setHeader("Content-disposition",
 					"attachment; filename=profileComplete.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
