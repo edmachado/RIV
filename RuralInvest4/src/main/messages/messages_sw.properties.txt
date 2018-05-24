@@ -1,9 +1,73 @@
+## RIV4.4 PROFILE TO PROJECT
+profileToProject=Geuza Taswira kuwa Mradi
+profileToProject.text=Ili kuweza kugeuza taswira kuwa mradi baadhi ya taarifa zinatakiwa kuangaliwa upya na kurekebishwa. Hatua zinazofuata zitakuongoza katika utaratibu huu.
+profileToProject.asset=Kwa kila mali, tafadhali bainisha 1) gharama za matengenezo, 2 kama mali itatakiwa kubalishwa ikifika mwisho wa Maisha yake ya kichumi, na 3) mwaka ambao uwekezaji utakuwa unafanyika.
+profileToProject.investLabour=Uwekezaji: Nguvukazi / Huduma
+profileToProject.investLabour.text= Tafadhali buruta kila gharama ya nguvukazi ya uwekezaji(kwenye jedwali la kwanza) kwenda kwa ama jedwali la "Nguvukazi" au la "Huduma za Kitaalam". Kwa gharama za nguvukazi, utahitajika kuchagua aina ya kizio kutoka kwenye menyu. Tafadhali pia bainisha mwaka ambao uwekezaji utakua unafanyika.
+profileToProject.generalLabour=Gharama za Jumla
+profileToProject.generalLabour.text=Tafadhali buruta kila aina ya gharama za jumla (kwenye jedwali la kwanza) kwenda kwa ama jedwali la "Vifaa & Huduma" au la "Wafanyakazi". Kwa gharama za wafanyakazi, utahitajika kuchagua aina ya kizio kutoka kwenye menyu.
+profileToProject.generalLabourNongen.text= Tafadhali buruta kila aina ya gharama za jumla (kwenye jedwali la kwanza) kwenda kwa ama jedwali la "Pembejeo au Malighafi", la "nguvukazi", au "Gharama za Jumla au Matengenezo". Kwa gharama za nguvukazi, utahitajika kuchagua aina ya kizio kutoka kwenye menyu.
+profileToProject.blocks=Kwa kila fungu la uzalishaji, tafadhali changua aina ya kizio cha gharama za nguvukazi kutoka katika menyu, sahihisha idadi ya vizio vilivyotumika na gharama kwa kila kizio kama ni muhimu. 
+profileToProject.activities=Kwa kila shughuli, tafadhali chagua aina ya kizio cha gharama ya nguvukazi kutoka katika menyu, sahihisha idadi ya vizio vilivyotumika na gharama kwa kila kizio kama ni muhimu.
+profileToProject.complete= Tafadhali kamilisha uendeshaji
+profileToProject.complete.text= Tafadhali Buruta vipengele vyote katika jedwali la kwanza kabla ya kuendelea
+error.block.noChronology=Fungu "{0}": Tafadhali hariri fungu na bainisha wendo wa uzalishaji.
+error.block.noPattern=Fungu "{0}": Tafadhali hariri fungu na bainisha mpangilio wa uzalishaji.
+error.activity.noPattern=Shughuli "{0}": Tafadhali hariri Shughuli na bainisha mpangilio wa uzalishaji.
+
+## RIV 4.4 BIS
+project.loan.paymentsPerYear=Malipo kwa mwaka
+project.loan.paymentsPerYear.help=Idadi ya malipo ya mkopo yatakayofanyika ndani ya mwaka.
+project.loan.periods=Kipindi/Vipindi vya malipo
+project.loan.perPeriod= kwa kipindi cha malipo
+project.report.amortization.title=Ulipaji wa Mkopo
+project.report.amortization.period=Kipindi
+project.report.amortization.total=Jumla ya malipo
+project.report.amortization.capital=Malipo ya Kianzio
+project.report.amortization.interest=Malipo ya riba
+project.report.amortization.capitalDuringGrace=Kianzio cha awali wakati kuna neema kwenye malipo ya riba.
+project.report.amortization.interestDuringGrace=Riba wakati kuna neema ya malipo ya riba.
+project.report.amortization.interestDuringGraceCapital= Riba wakati kuna neema ya malipo ya kianzio.
+
+# translator: the below three items cannot exceed 31 characters each! They are names of separate sheets in Excel
+project.report.workingcapital.sheetname=Mtiririko wa fedha kwa mwezi
+project.report.workingcapital.with.sheetname= Mtiririko wa fedha kwa mwezi(Na Mradi)
+project.report.workingcapital.without.sheetname= Mtiririko wa fedha kwa mwezi(Bila Mradi)
+project.lastUpdateBy= Ilisasaishwa mwisho na
+project.lastUpdateBy.help=Mtu wa mwisho kusahihisha mradi.
+profile.lastUpdateBy= Ilisasaishwa mwisho na
+profile.lastUpdateBy.help=Mtu wa mwisho kusahihisha taswira.
+project.user= Mtumiaji
+profile.user= Mtumiaji
+qualitativeAnalysis= Uchambuzi wa Maelezo
+qualitativeAnalysis.help=Ongeza makadirio kwa nyota 1-5 katika kipengele kilichochaguliwa. Kwa kuzingatia uzito uliowekwa kwa kila kipengele, kiashiria cha uchambuzi wa maelezo kitakokotolewa kwa mradi.
+qualitativeAnalysis.field=Kipengele
+qualitativeAnalysis.weight=Uzito
+qualitativeAnalysis.report.stars=Nyota:
+
+
+# changed from earlier version
+project.loan.interest= Kiwango cha riba (%)
+
+profile.createdBy.help=Mtu amabaye awali alitengeneza Taswira.
+project.createdBy.help=Mtu amabaye awali alitengeneza Mradi.
+
+profile.step1.3=Mtumiaji
+profile.step1.3.help= Katika RuralInvest hii, mtumiaji amabaye anasimamia taswira hii, na ambaye anaamua kama: taswira hii itatoa ugawizi (na watumiaji wengine wote wakaweza kuhariri taswra hii); au isitoe ugawizi (yani yeye tu ndiye ataweza kuhariri).
+project.step1.4=Mtumiaji
+project.step1.4.help= Katika RuralInvest hii, mtumiaji amabaye anasimamia mradi huu, na ambaye anaamua kama: mradi huu utatoa ugawizi (na watumiaji wengine wote wakaweza kuhariri mradi huu); au usitoe ugawizi (yani yeye tu ndiye ataweza kuhariri).
+user.description.help=Jina lako Kamili, litaonekana kuhusiana na taswira na miradi katika RuralInvest.
+project.withWithout=Hali ya "Na mradi" na "Bila Mradi"
+project.withWithout.remove=Ukiondoa Hali ya "Bila Mradi", Kwa kila fungu la "Bila Mradi" lililopo litachukuliwa kama "Na mradi". Na kwa kila gharama za jumla na uwekezaji za "bila mradi" hizo zitafutwa.
+project.withWithoutMessage=Je, mradi huu unazingatia hali ya "Na mradi" na "Bila Mradi"?
+project.withWithout.help=Ukijumuisha hali ya "bila mradi" inakuruhusu wewe kulinganisha mradi ukifanyika na hali iliyopo sasa kwenye gharma za uwekezaji, gharama za uendeshaji na hali ya uzalishaji.
+
 ## RIV 4.4.0
 project.report.profitability.payback= Malipo (Miaka)
 project.report.profitability.cumulative= Jumlishi
 project.report.profitability.lastNeg= Mwaka hasi wa mwisho
 project.report.workingcapital=Mtaji Endeshaji
-project.report.workingcapital.sheetname=Mtaji Endeshaji
+#project.report.workingcapital.sheetname=Mtaji Endeshaji
 project.periodAvg=Wastani wa muda wa mkopo
 project.periodAvg.help="Wastani wa muda wa mkopo" ni kipengele cha marekebisho ya muda wa mkopo uliokadiriwa. Kwa kuwa muda uliokadiriwa wa mkopo unazingatia mwezi wa mwisho wenye salio jumlishi hasi la mtiririko wa fedha, na kiasi kadiriwa cha mtaji endeshaji ni kiasi hasi kikubwa zaidi cha mtiririko wa fedha, riba inayotafutwa kwa kutumia parameta hizo mbili imetiwa chumvi. Kurekebisha hili, tunatumia mbadala wastani wa muda wa mkopo ambao unazingatia mtririko wa fedha wa mwezi kwa kila mmweizi hadi tifikie muda wa mkopo wa kukadiria. Mbadala wa kuzalisha uzani wa wastani wa kiasi cha mtaji endeshaji, tunatengeneza uzani wa wastani wa muda wa mkopo – matokea ni sawa kwa kuangalia riba iliyozalishwa.
 misc.moreDetails=Kwa taarifa zaidi angalia ripoti ifuatayo:
@@ -341,7 +405,7 @@ error.unknown.log=Tafadhali toa faili ifuatayo ili kuwasaidia kuelewa tatizo:
 # "Link" as a verb in the imperative...
 reference.item.link.imperative=Kiungo
 user.language=Lugha
-project.withWithout.remove=Unachagua kuwa mafungu ya "na" na "bila mradi" kwa ajili ya mradi huu.Mafungu yote ambayo kwa sasa ni"bila mradi" yatabadilishwa kwa "na mradi". 
+#project.withWithout.remove=Unachagua kuwa mafungu ya "na" na "bila mradi" kwa ajili ya mradi huu.Mafungu yote ambayo kwa sasa ni"bila mradi" yatabadilishwa kwa "na mradi". 
 #profile.withWithout.remove=Unachagua kuwa "na" na "bila mradi" bidhaa kwa ajili ya mradi huu. Bidhaa yoyote ambayo sasa ni "bila mradi" itabadilishwa kuwa "na mradi".
 project.with=(Na mradi)
 project.without=(Bila Mradi)
@@ -608,7 +672,6 @@ profile.beneficiaries=Walengwa
 profile.clone.help=Cloning inakuruhusu kunakili taswira ambayo inaweza kurekebishwa kisha kuunda mradi sawa lakini tofauti. Unaruhusu watumiaji kuepuka kurudia kuingiza tena kiasi kikubwa cha data zenye kufanana wakati wa kuunda mradi unaofanana.
 profile.costPerBenef=Gharama kwa mwaka kwa kila mlengwa
 profile.createdBy=imeundwa na
-profile.createdBy.help=Mtaalamu ambaye awali aliandaa Taswira ya mradi.
 profile.creationDate=Tarehe ya kuundwa 
 profile.demand.help=Kueleza kile kinachojulikana kuhusu mahitaji ya huduma au bidhaa ambazo zitatolewa na mradi. Kwa nini haijawa ikitolewa tayari? Watu wanafanya nini kabla ya mradi? Unajuaje kwamba kuna mahitaji?
 profile.demand=Mahitaji yanayotarajiwa
@@ -692,8 +755,6 @@ profile.status=Hali
 profile.status.help=Hariri msaada kwa ajili ya hali ya taswira
 profile.step1.1=Taarifa za jumla
 profile.step1.2=Mahali
-profile.step1.3.help=Kama unaunda taswira, sehemu hii inapaswa kuonyesha maelezo yako. Kama sio sahihi, lazima usasishe 'Watumiaji' chini ya chaguo la usanidi nyumbani. Inaweza kuwa umeingia kwenye RuralInvest kwa kutumia fungua ya mtu mwingine.
-profile.step1.3=Fundi
 profile.step1.4.help=Teua ndio ukipenda watumiaji wengine kuweza kuongeza au kubadilishamaelezo mafupi haya. Ukiteua Hapana, watakuwa na uwezo wa kuona, lakini si kubadili, Taswira hii.
 profile.step1.4=Ugawizi
 profile.step1=Taarifa za jumla
@@ -884,7 +945,6 @@ project.clone.help=Cloning inaruhusu kunakili mradi ambao unaweza kurekebishwa k
 project.clone=Clone mradi huu
 project.costPerBenef=Gharama kwa mwaka kwa mlengwa
 project.createdBy=Umeundwa na
-project.createdBy.help=Fundi ambaye awali aliunda mradi huu.
 project.creationDate.help=Tarehe ya awali ambayo mradi huu uliundwa
 project.creationDate=Tarehe ya kuundwa
 project.demand.help=Eleza kile kinachojulikana kuhusu mahitaji ya huduma au bidhaa ambazo zitatolewa na mradi. Kwa nini hazitolewi sasa? Watu wanafanya nini bila ya hivyo? Unajuaje kwamba kuna mahitaji?
@@ -931,7 +991,6 @@ project.loan.graceCapital=Kipindi cha neema - Kiasi cha mkopo
 project.loan.graceInterest.help=Muda wa mkopo (katika miaka) wakati ambao Hakuna malipo yatafanywa kwa ajili ya riba. Riba yoyote iliyohairishwa kulipwa itaongezwa kwenye kiwango cha mkopo, hivyo kiasi jumla cha kulipwa kitaongezeka, na kupaswa kulipwa kwa kipindi kifupi (kipindi cha mkopo pungufu ya kipindi cha neema)
 project.loan.graceInterest=Kipindi cha neema- Riba
 project.loan.interest.help=Kiwango cha riba kwa mikopo ya msingi kitatolowa na taasisi husika iliyotoa fedha ya mikopo. Usiingize kiwango ambacho ni tofauti na hicho.
-project.loan.interest=Riba kwa mwaka
 project.loan1.help=Mkopo msingi mara nyingi huwa wa ni mkopo pekee uliopokelewa kwa ajili ya mradi
 project.loan1=Mkopo msingi
 project.loan1Duration=Kipindi cha Mkopo
@@ -1099,8 +1158,6 @@ project.step1.2.help=Taarifa inahitajika kuhusu mahali pa mradi, kulingana na mg
 project.step1.2=Mahali
 project.step1.3.help=Mradi lazima kwa kawaida hutofautishe kati ya 'na mradi' na 'bila mradi' kama ni nyongeza au uboreshaji wa shughuli zilizopo. Katika hali hiyo, fungu la 'bila mradi' litaelezea hali ya sasa, wakati fungu la 'na mradi wa' litaelezea hali baada ya uwekezaji wa mradi. Tarakilishi itatoa takwimu za ìbila ya mradiî kutoka kwenywe takwimu za ìna mradiî ili kupata ongezeko la gharama na faida.
 project.step1.3=Aina na hali
-project.step1.4.help=Kama unatengeneza pendekezo la mradi, sehemu hizi lazima zitaonesha taarifa zako. Kama data si sahihi au sehemu ipo tupu, lazima ufunge pendekezo la mradi na thibitisha (a) kwamba umeingia kwenye mfumo katika jina lako, na (b) kwamba umeweza kujaza kwa usahihi sehemu ya 'fundi' kwenye sehemu ya 'Usanidi'.
-project.step1.4=Fundi
 project.step1.5.help=Teua 'ndio' kama unapenda mafundi wengine waweze kurekebisha mradi huu. Kama utateua 'hapana' watumiaji wengine wataweza kusoma lakini si kubadilisha faili la mradi
 project.step1.5=Ugawizi
 project.step10.nongen=Michango
@@ -1131,9 +1188,6 @@ project.sustainability=Uendelevu wa uendeshaji
 project.technology.help=Kama mradi utatumia aina yoyote ya teknolojia (k.m. mashine au vifaa), elezea na onesha kama teknolojia inafahamika kwa muombaji. Kuna vituo vya kukarabati au matengenezo katika eneo hilo?
 project.userCode.help=kisehemu hiki kinahitajika kukamilishwa tu kama wakala wako anahitaji msimbo wa ndani kwa ajili ya kupanga miradi. Kama itakamilishwa au sio, tarakilishi itapangia otomatiki msimbo wa ndani wa RuralInvest ambao utatumia kutambua mradi
 project.userCode=Msimbo wa mtumiaji
-project.withWithout=Mafungu ya "Na mradi" and "Bila Mradi"
-project.withWithout.help=Unapotaka kubadili chaguo hili kutoka kutofautisha kati ya mafungu ya "na mradi" na "bila mradi" kwenda kutotofautisha, Mafungu yote yaliyopo yatazingatia "na" mradi.
-project.withWithoutMessage=Je, mradi huu unazingatia hali ya "na mradi" na "bila mradi"?
 project.workingCapital=Mtaji Endeshaji
 project.workingCapital.help=Mtaji endeshaji unawakilisha fedha zinazohitajika kwa ajili ya uendeshaji wa mradi, ukishaanzishwa.
 project.yearsToRecover=Miaka ya kurudisha uwekezaji
@@ -1621,7 +1675,6 @@ user.addUser=Ongeza mtumiaji
 user.administrator=Msimamizi
 user.changePassword=Badilisha jina la mtumiaji na neo la siri
 user.delete.warn=Kufuta mtumiaji inamaanisha kwamba Uchambuzi wa kiundani na kiufupi wa miradi yake yote itafutwa pia.  Je, ungependa kuendelea?
-user.description.help=Jina la fundi ambaye atakuwa akitumia mfumo wa RuralInvest
 user.description=Jina
 user.email.help=Kama una anuani ya barua pepe, Ingiza hapa
 user.email=Barua pepe
