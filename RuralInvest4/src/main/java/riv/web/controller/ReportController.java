@@ -373,10 +373,13 @@ public class ReportController {
                 	throw new RuntimeException(e);
             } catch (Exception e) {
 				//String mess = e.getMessage();
-			} finally {
-				copier.close();
-				document.close();
 			}
+		}
+		if (copier!=null) {
+			copier.close();
+		}
+		if (document!=null) {
+			document.close();
 		}
 	}
 }
