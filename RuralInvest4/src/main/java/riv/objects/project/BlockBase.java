@@ -115,6 +115,9 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     }
     
     public void projectDurationChanged() {
+    	if (patterns==null) { // could not happen because Hibernate will instantiate it. only for Sonar
+    		return;
+    	}
     	if (patterns.size()==0 || patterns.size()==getProject().getDuration()) { 
     		// do nothing
     	} else if (patterns.size()>getProject().getDuration()) {
@@ -147,15 +150,10 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 		   String lineSeparator = System.getProperty("line.separator");
 		   String base="step9."+getPropertiesType()+"."+(this.getOrderBy()+1)+".";
 		   sb.append(base+"description="+this.getDescription()+lineSeparator);
-//		   sb.append(base+"withoutProject="+(this.getClass().isAssignableFrom(BlockWithout.class)?"true":"false")+lineSeparator);
 		   sb.append(base+"unitType="+this.getUnitType()+lineSeparator);
 		   sb.append(base+"cycleLength="+rc.getSetting().getDecimalFormat().format(this.getCycleLength())+lineSeparator);
 		   sb.append(base+"lengthUnit="+rc.getLengthUnits().get(this.getLengthUnit())+lineSeparator);
 		   sb.append(base+"cyclePerYear="+rc.getSetting().getDecimalFormat().format(this.getCyclePerYear())+lineSeparator);
-//		   if (this.getProject().getIncomeGen()) {
-//				   sb.append(base+"cycleFirstYear="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYear())+lineSeparator);
-//				   sb.append(base+"cycleFirstYearIncome="+rc.getSetting().getDecimalFormat().format(this.getCycleFirstYearIncome())+lineSeparator);
-//		   }
 		   sb.append(base+"cycles="+cycles+lineSeparator);
 		   
 		   for (int type=0;type<3;type++) {

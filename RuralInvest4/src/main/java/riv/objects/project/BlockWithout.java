@@ -42,6 +42,10 @@ public class BlockWithout extends BlockBase {
 		return hash;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		return super.equals(o);
+	}
 
 	public int compareTo(OrderByable i) {
 		if (this==i) return 0;

@@ -184,6 +184,8 @@ public class XlsImportTable<E extends OrderByable> {
 					value = cell.getStringCellValue();
 				} catch (IllegalStateException e) {
 					throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+				} catch (NullPointerException e) {
+					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 				}
 				
 				boolean found=false;
@@ -205,6 +207,8 @@ public class XlsImportTable<E extends OrderByable> {
 					value = cell.getNumericCellValue();
 				} catch (IllegalStateException e) {
 					throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+				} catch (NullPointerException e) {
+					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 				}
 			
 				if (column.property.equals("donations(0)")) {
@@ -220,10 +224,14 @@ public class XlsImportTable<E extends OrderByable> {
 					setObjectProperty(item, column.property, value);
 				}
 			} else { // string cell
-				if (cell.getCellType()==Cell.CELL_TYPE_NUMERIC) { // just in case, convert numeric value to string
-					setObjectProperty(item, column.property, String.valueOf(cell.getNumericCellValue()));
-				} else {
-					setObjectProperty(item, column.property, cell.getStringCellValue());
+				try {
+					if (cell.getCellType()==Cell.CELL_TYPE_NUMERIC) { // just in case, convert numeric value to string
+						setObjectProperty(item, column.property, String.valueOf(cell.getNumericCellValue()));
+					} else {
+						setObjectProperty(item, column.property, cell.getStringCellValue());
+					}
+				} catch (NullPointerException e) {
+					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 				}
 			}
 			columnNum++; 

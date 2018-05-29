@@ -369,11 +369,14 @@ public class ReportController {
 	                page = copier.getImportedPage(reader, i);
 	                copier.addPage(page);
 	            }
-			} catch (Exception e) {
+			} catch (NullPointerException e) {
+                	throw new RuntimeException(e);
+            } catch (Exception e) {
 				//String mess = e.getMessage();
+			} finally {
+				copier.close();
+				document.close();
 			}
 		}
-		copier.close();
-		document.close();
 	}
 }

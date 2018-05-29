@@ -160,4 +160,10 @@ public abstract class ReferenceItem  implements Serializable, OrderByable, HasPr
 			return false;
 		return true;
 	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
 }

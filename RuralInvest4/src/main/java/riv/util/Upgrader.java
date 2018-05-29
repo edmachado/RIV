@@ -411,6 +411,8 @@ public class Upgrader {
 				transformer.transform(in, new StreamResult(baos));
 			} catch (TransformerException e) {
 				LOG.error("Error transforming xsl.",e);
+			} catch (NullPointerException ne) {
+				LOG.error("Error getTemplates() is null.", ne);
 			}
 			byte[] bytes = baos.toByteArray();
 			baos.close();

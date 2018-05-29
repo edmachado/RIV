@@ -169,6 +169,11 @@ public class ReferenceCost extends ReferenceItem {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 
 	@Override
 	public Probase getProbase() {

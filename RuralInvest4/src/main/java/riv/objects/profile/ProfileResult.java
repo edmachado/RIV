@@ -194,6 +194,11 @@ public class ProfileResult implements Serializable {
 		return (generalCost+operCost)/benefNum;
 	}
 
+	@Override
+	public int hashCode() {
+		return this.hashCode();
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */

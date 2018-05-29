@@ -86,6 +86,8 @@ public class AttachTools implements Serializable {
 					fis.close();
 					f.delete();
 					baos.close();
+				} catch (NullPointerException ne) {
+					LOG.error("Null pointer exception.",ne);
 				} catch (Exception e) {
 					LOG.error("Problem closing file connection.",e);
 				}
@@ -240,24 +242,21 @@ public class AttachTools implements Serializable {
   *            the file to test.
   * @return
   */
- public static boolean isZipFile(File f) {
- 
-  boolean isZip = true;
-  byte[] buffer = new byte[MAGIC.length];
-  try {
-   RandomAccessFile raf = new RandomAccessFile(f, "r");
-   raf.readFully(buffer);
-   for (int i = 0; i < MAGIC.length; i++) {
-    if (buffer[i] != MAGIC[i]) {
-     isZip = false;
-     break;
-    }
-   }
-   raf.close();
-  } catch (Throwable e) {
-   isZip = false;
-  }
-  return isZip;
- }
+ 	public static boolean isZipFile(File f) {
+ 		boolean isZip = true;
+ 		byte[] buffer = new byte[MAGIC.length];
+ 		try (RandomAccessFile raf = new RandomAccessFile(f, "r")) {
+ 			raf.readFully(buffer);
+ 			for (int i = 0; i < MAGIC.length; i++) {
+ 				if (buffer[i] != MAGIC[i]) {
+					isZip = false;
+					break;
+				}
+ 			}
+ 		} catch (Throwable e) {
+ 			isZip = false;
+ 		}
+ 		return isZip;
+ 	}
 }
  

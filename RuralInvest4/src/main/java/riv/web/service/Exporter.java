@@ -68,74 +68,88 @@ public class Exporter {
 		}
 	}
 	
+	private void exportPros (FilterCriteria fc, File f, boolean project, boolean ig) {
+		try (FileOutputStream os = new FileOutputStream(f)) { 
+			
+			if (project && ig) {
+				fc.setObjType("igpj");
+			} else if (project &! ig) {
+				fc.setObjType("nigpj");
+			} else if (!project && ig) {
+				fc.setObjType("igpf");
+			} else if (!project &! ig) {
+				fc.setObjType("nigpf");
+			}
+			if (project) {
+				List<ProjectResult> projects = dataService.getProjectResults(fc);
+				batchExportProjects(projects, false, os);
+			} else {
+				List<ProfileResult> profiles = dataService.getProfileResults(fc);
+				batchExportProfiles(profiles, false, os);
+			}
+		} catch (Exception e) {
+			
+		}
+	}
 	public void exportBackup(OutputStream out) {
 		FilterCriteria fc = new FilterCriteria();
 		fc.setFreeText("");
-		FileOutputStream os=null;
+//		FileOutputStream os=null;
 		ByteArrayOutputStream baos=null;
+//		List<ProjectResult> projects;
+//		List<ProfileResult> profiles;
+		File[] files = new File[4];
+		
 		try {
 			// ig projects
-			File fIgProjects = File.createTempFile("ig-projects.",".zip"); 
-			os = new FileOutputStream(fIgProjects);
-			fc.setObjType("igpj");
-			List<ProjectResult> projects = dataService.getProjectResults(fc);
-			batchExportProjects(projects, false, os);
-			os.close();
-			os.flush();
-			
+			files[0] = File.createTempFile("ig-projects.",".zip");
+			exportPros(fc, files[0], true, true);
+				
 			// add nig projects
-			File fNigProjects = File.createTempFile("nig-projects.",".zip");
-			os = new FileOutputStream(fNigProjects);
-			fc.setObjType("nigpj");
-			projects = dataService.getProjectResults(fc);
-			batchExportProjects(projects, false, os);
-			os.close();
-			os.flush();
-			
+			files[1] = File.createTempFile("nig-projects.",".zip");
+			exportPros(fc, files[1], true, false);
+				
 			// ig profiles
-			File fIgProfiles = File.createTempFile("ig-profiles.",".zip"); 
-			os = new FileOutputStream(fIgProfiles);
-			fc.setObjType("igpf");
-			List<ProfileResult> profiles = dataService.getProfileResults(fc);
-			batchExportProfiles(profiles, false, os);
-			os.close();
-			os.flush();
-			
+			files[2] = File.createTempFile("ig-profiles.",".zip"); 
+			exportPros(fc, files[2], false, true);
+				
 			// nig profiles
-			File fNigProfiles = File.createTempFile("nig-profiles.",".zip"); 
-			os = new FileOutputStream(fNigProfiles);
-			fc.setObjType("nigpf");
-			profiles = dataService.getProfileResults(fc);
-			batchExportProfiles(profiles, false, os);
-			os.close();
-			os.flush();
+			files[3] = File.createTempFile("nig-profiles.",".zip"); 
+			exportPros(fc, files[3], false, false);
+		} catch (IOException e) {
+			throw new RuntimeException("Cannot create temp files", e);
+		} 
 			
-			// create outer zip file
-			ZipArchiveOutputStream zos = new ZipArchiveOutputStream(new BufferedOutputStream(out));
-			zos.setCreateUnicodeExtraFields(ZipArchiveOutputStream.UnicodeExtraFieldPolicy.ALWAYS);
-			addFileToZip(fIgProjects, zos);
-			addFileToZip(fNigProjects, zos);
-			addFileToZip(fIgProfiles, zos);
-			addFileToZip(fNigProfiles, zos);
+		// create outer zip file
+		ZipArchiveOutputStream zos = new ZipArchiveOutputStream(new BufferedOutputStream(out));
+		zos.setCreateUnicodeExtraFields(ZipArchiveOutputStream.UnicodeExtraFieldPolicy.ALWAYS);
+		addFileToZip(files[0], zos);
+		addFileToZip(files[1], zos);
+		addFileToZip(files[2], zos);
+		addFileToZip(files[3], zos);
+	
+		// settings
+		baos = new ByteArrayOutputStream();
+		exportConfig(baos);
+		addByteArrayToZip(baos.toByteArray(), "settings.riv", zos);	
 		
-			// settings
-			baos = new ByteArrayOutputStream();
-			exportConfig(baos);
-			addByteArrayToZip(baos.toByteArray(), "settings.riv", zos);
-		
-			fIgProjects.delete();
-			fNigProjects.delete();
-			fIgProfiles.delete();
-			fNigProfiles.delete();
-			
+		try {
 			zos.finish();
 			zos.close();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			LOG.error("Error",e);
+			throw new RuntimeException("Error creating zip file", e);
 		} finally {
-			os=null; baos=null;
+//			os=null; 
+			baos=null;
+			files[0].delete();
+			files[1].delete();
+			files[2].delete();
+			files[3].delete();
 			System.gc();
 		}
+		
+		System.gc();
 	}
 	
 	public void batchExportProjects(List<ProjectResult> projects, boolean isGeneric, OutputStream out) {
