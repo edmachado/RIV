@@ -1,9 +1,81 @@
+
+
+## RIV4.4 PROFILE TO PROJECT
+profileToProject=Profili projeye dönüştür
+profileToProject.text=Bir profili projeye dönüştürmek için bazı veriler gözden geçirilmeli ve düzeltilmelidir Aşağıdaki adımlar size bu süreçte rehberlik edecektir.
+profileToProject.asset=Her varlık için sırasıyla bilgileri giriniz 1) bakım maliyeti, 2) varlığın ekonomik ömrünün sonunda değiştirilip değiştirilmeyeceği, ve 3) projenin hangi yılında yatırım yapıldığı.
+profileToProject.investLabour=Yatırım: iş gücü / hizmet
+profileToProject.investLabour.text=Her bir yatırım işçilik maliyetini (ilk tablodaki) “İş Gücü” ya da “Profesyonel Hizmetler” tablosuna sürükleyin. İş gücü (işçilik) maliyetleri için, menüden birim türünü seçmeniz gerekmektedir. Ayrıca projeye yatırımın hangi yılda yapıldığını belirtiniz.
+profileToProject.generalLabour=Genel Maliyetler
+profileToProject.generalLabour.text= Her bir genel işçilik maliyetini (ilk tablodaki) "Malzemeler ve Hizmetler" ya da "Personel" tablolarına sürükleyiniz. Personel maliyetleri için, menüden birim türünü seçmeniz gerekmektedir.
+profileToProject.generalLabourNongen.text= Her bir genel işçilik maliyetini (ilk tablodaki) "Girdiler/malzemeler", "İşçilik" ya da "Genel Maliyetler/Bakım" tablolarına sürükleyiniz. İşçilik maliyetleri için, menüden birim türünü seçmeniz gerekir.
+profileToProject.blocks= Her bir üretim bloğu için, menüden işçilik maliyetlerinin birim türünü seçiniz, gerekiyorsa kullanılan birimi ve birim maliyetini de düzeltiniz. 
+profileToProject.activities=Her bir faaliyet için, menüden işçilik maliyetlerinin birim türünü seçiniz, gerekiyorsa kullanılan birimi ve birim maliyetini de düzeltiniz.
+profileToProject.complete=Lütfen işlemi tamamlayınız.
+profileToProject.complete.text=Devam etmeden önce lütfen ilk tablodaki tüm öğeleri sürükleyiniz.
+
+error.block.noChronology=Blok "{0}": Lütfen bloğu düzenleyin ve üretim kronolojisini belirtiniz.
+error.block.noPattern=Blok "{0}": Lütfen bloğu düzenleyin ve üretim desenini belirtiniz.
+error.activity.noPattern=Faaliyet "{0}": Lütfen etkinliği düzenleyin ve etkinlik modelini belirleyin.
+
+## RIV 4.4 BIS
+project.loan.paymentsPerYear=Yıllık ödemeler,
+project.loan.paymentsPerYear.help=Yıllık olarak yapılacak kredi ödemelerinin sayısı.
+project.loan.periods=ödeme dönemleri
+project.loan.perPeriod=ödeme dönemi başına
+project.report.amortization.title=Kredi amortismanı
+project.report.amortization.period=Dönem
+
+project.report.amortization.total=Toplam ödeme
+project.report.amortization.capital=Anapara ödemesi
+project.report.amortization.interest=Faiz ödemesi
+project.report.amortization.capitalDuringGrace=Faiz ödemelerinde ödemesiz dönem bulunduğunda başlangıç sermayesi
+project.report.amortization.interestDuringGrace=Faiz ödemelerinde ödemesiz dönem faizi
+project.report.amortization.interestDuringGraceCapital=Anapara ödemeleri ödemesiz dönem faizi
+
+# translator: the below three items cannot exceed 31 characters each! They are names of separate sheets in Excel
+project.report.workingcapital.sheetname=Aylık Nakit Akışı
+project.report.workingcapital.with.sheetname= Aylık Nakit Akışı (dahil)
+project.report.workingcapital.without.sheetname=Aylık Nakit Akışı (hariç)
+
+project.lastUpdateBy=Son güncelleme
+project.lastUpdateBy.help=Projeyi güncelleyen son kişi.
+profile.lastUpdateBy=Son güncelleme
+profile.lastUpdateBy.help=Profili güncelleyen son kişi
+project.user=Kullanıcı
+profile.user=Kullanıcı
+
+qualitativeAnalysis=Nitel analiz
+qualitativeAnalysis.help=Seçilen metin bölümlerine 1-5 yıldız ile derecelendirin. Her alandaki ağırlığa bağlı olarak, proje için niteliksel bir analiz göstergesi hesaplanır.
+qualitativeAnalysis.field=Saha
+qualitativeAnalysis.weight=Ağırlık
+qualitativeAnalysis.report.stars=yıldızlar:
+
+
+# changed from earlier version
+project.loan.interest=Faiz oranı (%)
+
+profile.createdBy.help=Profili oluşturan ilk kişi.
+project.createdBy.help=Projeyi oluşturan ilk kişi.
+
+profile.step1.3=Kullanıcı
+profile.step1.3.help=Bu RuralInvest örneğinde , bu profili yöneten ve profilin paylaşılabilir (tüm kullanıcılar tarafından değiştirilebilir); ya da paylaşılamayacağı (sadece kullanıcı değişiklik yapabilir) kararlarını veren kullanıcıdır.
+project.step1.4=Kullanıcı
+project.step1.4.help= Bu RuralInvest örneğinde , bu projeyi yöneten ve projenin paylaşılabilir (tüm kullanıcılar tarafından değiştirilebilir); ya da paylaşılamayacağı (sadece kullanıcı değişiklik yapabilir) kararlarını veren kullanıcıdır.
+
+user.description.help=RuralInvest yazılımında profil ve projelerle bağlantılı olarak görünecek tam adınız.
+
+project.withWithout="Dahil proje" ve "Hariç proje" senaryoları
+project.withWithout.remove=”Hariç proje” (projesiz) senaryosunu kaldırırken, mevcut tüm “hariç proje” blokları “dahil proje” (projeli) olarak kabul edilecektir. Var olan “hariç proje” genel maliyetleri ve yatırım maliyetleri silinecektir.
+project.withWithoutMessage=Bu proje “dahil proje” ve “hariç proje” durumlarını öngörüyor mu?
+project.withWithout.help=”Hariç Proje” senaryosu, yatırım projesi ile var olan tüm yatırım ve işletme maliyetleri, mevcut üretim durumlarını karşılaştırmanıza olanak verir.
+
 ## RIV 4.4
 project.report.profitability.payback=Geri Ödeme (Yıllar)
 project.report.profitability.cumulative=Birikimli
 project.report.profitability.lastNeg=Son Negatif Yıl
 project.report.workingcapital=İşletme Sermayesi
-project.report.workingcapital.sheetname=İşletme Sermayesi
+#project.report.workingcapital.sheetname=İşletme Sermayesi
 project.periodAvg=Ortalama Kredi Süresi
 project.periodAvg.help=”Ortalama Kredi Süresi”, tahmini kredi süresinin bir düzeltme faktörüdür. Tahmini borç süresi, negatif birikimli nakit akışının son ayına dayandığından, ve işletme sermayesinin tahmini tutarı en büyük negatif birikimli nakit akışı olduğundan, faizin hesaplandığı bu iki parametre tahmin edilenden fazla hesaplanır.Bunu düzeltmek için, tahmini kredi süresine ulaşana kadar her ayın aylık birikimli nakit akışına dayanan ortalama bir kredi süresinden yararlanıyoruz.İşletme sermayesi tutarı üzerinde ağırlıklı ortalama üretmek yerine, kredi süresinin ağırlıklı ortalaması üretilmektedir – sonuç oluşan faiz açısından da aynıdır.
 misc.moreDetails=Ayrıntılar için takip eden rapora bakınız: 
@@ -457,9 +529,6 @@ project.step10=Referans öğeler
 project.step11.nongen=Referans Öğeler
 project.with=(With proje)
 project.without=(Without proje)
-project.withWithout.help="with" ve "without" blokları ayrımı yap seçeneğini ayrım yapma olarak değiştirdiğiniz zaman, varolan tüm bloklar "with" projesi olarak kabul edilecektir.
-project.withWithout.remove=Bu proje için "with" ve "without proje" blokları bulundurmama seçimini yapıyorsunuz. Şu andaki tüm "without proje" blokları "with proje" olarak değiştirilecektir.
-project.withWithout="With" ve "Without" blokları
 projectCategory.both=En az bir gelir sağlayan kategori ve bir gelir sağlamayan kategori gereklidir.
 projectCategory.delete.warn=Ürün kategorisini silmek RuralInvest sürümünü diğerleri ile uyumsuz hale getirebilir. Bu proje kategorisini kullanan projeleri içe aktaramaz ve dışa aktardığınız bu ayarları faydalanıcı kategorisine sahip başka bilgisayarlara aktarmak mümkün olmayacaktır. Lütfen bu fonksiyonu sadece hata kontrol ederken ilk kez yapılandırma ayarlarını kurduğunuz zaman, bu ayarları ya da herhangi bir profili veya projeyi başka bilgisayarlara aktarmadan önce kullanınız. Devam etmek istiyor musunuz?
 projectCategory.delete=Ürün kategorisini sil
@@ -684,7 +753,6 @@ user.name=Ad
 user.saveUser=Kullanıcıyı kaydet
 user.addUser=Kullanıcı ekle
 user.description=Tanım
-user.description.help=Tanım için yardım yazısı
 user.username=Kullanıcı adı
 user.username.help=Kullanıcı adı için yardım yazısı
 user.password=Şifre
@@ -803,8 +871,6 @@ profile.nonIncomeGen=Gelir sağlamayan profil (:)
 profile.step1=Genel bilgi
 profile.step1.1=Genel bilgi
 profile.step1.2=Yer
-profile.step1.3=Teknisyen
-profile.step1.3.help=Eğer bir profil oluşturuyorsanız, bu bölüm ayrıntılarınızı göstermelidir. Doğru değilse; Ana Sayfa'da, Şekillendir seçeneğinin altındaki 'Kullanıcılar'ı güncellemeniz gerekir. RuralInvest'e başka birisinin hesabını kullanarak girmiş de olabilirsiniz.
 profile.step1.4=Paylaşım
 profile.step1.4.help=Diğer kullanıcıların bu profile ekleme veya değişiklik yapabilmelerini istiyorsanız Evet'i seçin. Hayır'ı seçerseniz, bu profili inceleyebilirler ama değiştiremezler.
 profile.step2=Tanım
@@ -834,7 +900,7 @@ profile.benefDesc=Yararlanıcıların tanımı
 profile.benefDesc.help=Gruplar için, yararlanıcıların birlikte çalıştıkları süre, daha önce herhangi proje veya ortak çalışmada bulunup bulunmadıkları, resmi bir yapılarının (örn: Başkan, Haznedar, Sekreter vb.) ve yasal bir statüye sahip olup olmadıklarını açıklayın. Bütün başvuranlar için, genel faaliyetleri, gelir seviyeleri ve servetleri hakkında bilgi verin.
 profile.benefFamilies=Aileler
 profile.createdBy= Tarafından oluşturulmuştur 
-profile.createdBy.help= Aslen profili oluşturan teknisyen.
+#profile.createdBy.help= Aslen profili oluşturan teknisyen.
 profile.sourceFunds=Fonların kaynağı
 profile.sourceFunds.help=Tamamlandığı zaman, yatırımın işletilmesi için beklenen fon kaynaklarını (örn: personel maaşları, bakım, malzeme) açıklayın; kullanıcı aidatları, halkın katkısı, hükümet yardımı ve STK'ler dahil olmak üzere.
 profile.objective=Amaç ve Ana Faaliyetler
@@ -1025,8 +1091,6 @@ project.step1.2=Yer
 project.step1.2.help=Yer için yardım yazısı
 project.step1.3=Tür ve durum
 project.step1.3.help=Eğer durum, mevcut bir faaliyete ekleme yapılması veya bunun değiştirilmesi ise; bir proje, genellikle “bloklu” veya “bloksuz” arasında ayrım yapabilmelidir. Bu durumda, “bloksuz”, şu anki durumu; “bloklu” ise proje yatırımından sonraki durumu tarif etmektedir. Sonra, bilgisayar artan maliyetler ve kazançları hesaplamak için “blokludan” “bloksuzu” çıkartır. 
-project.step1.4=Teknisyen
-project.step1.4.help=Teklifi oluşturuyorsanız, bu alanlar bilgilerinizi göstermelidir. Eğer veri yanlış veya alanlar boş ise; teklifi kapatmanız ve (a) sisteme kendi adınız ile giriş yaptığınızı ve (b) 'Şekillendir' bölümündeki 'Teknisyen' alanını doğru olarak doldurduğunuzu teyit etmeniz gerekir.
 project.step1.5=Paylaşım
 project.step1.5.help=Diğer teknisyenlerin bu projeyi değiştirebilmelerini istiyorsanız 'Evet'i seçin.
 project.step2.2=Doğrudan yararlanıcılar
@@ -1070,7 +1134,6 @@ project.benefType=Yararlanıcı
 project.benefType.help=Sağlanan seçeneklerden birini seçin.
 project.enviroCat=Çevre kategorisi
 project.enviroCat.help=Sağlanan seçeneklerden birini seçiniz
-project.withWithoutMessage=Bu proje “üretim bloklu” ve “üretim bloksuz” arasında ayrım yapmakta mıdır?
 project.sharingMessage=Diğer kullanıcıların bu projeyi değiştirmesine izin vermek ister misiniz?
 project.benefName=Yararlanıcı grup veya kişi
 project.benefName.help=Yararlanıcı grup veya kişi için yardım yazısı
@@ -1110,7 +1173,6 @@ project.assumptions.help=Ana varsayımlar ve riskler için yardım yazısı
 project.capitalOwn=Kendi kaynakları
 project.capitalOwn.help=Eğer başvuranlar işletme sermaye gereklerine kendi kaynaklarından katılabilirlerse, miktarı burada belirtiniz. 
 project.createdBy=Tarafından oluşturulmuştur
-project.createdBy.help=Aslen projeyi oluşturan teknisyen.
 project.sourceFunds=Sermaye kaynağı (yatırım ve işletme için)
 project.sourceFunds.help=Sermaye kaynağı (yatırım ve işletme için) için yardım yazısı
 project.loan1=Birincil kredi borcu
@@ -1119,7 +1181,7 @@ project.loan2=İkincil kredi borcu
 project.loan2.help=İkincil kredi borcu için yardım
 project.loan.amount=Miktar
 project.loan.amount.help=Miktar için yardım yazısı
-project.loan.interest=Yıllık faiz oranı
+#project.loan.interest=Yıllık faiz oranı
 project.loan.interest.help=Yıllık faiz oranı için yardım yazısı
 project.loan.duration=Kredi borcu süresi
 project.loan.duration.help=Kredi borcu süresi için yardım yazısı
