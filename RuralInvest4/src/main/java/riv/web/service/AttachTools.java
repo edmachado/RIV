@@ -253,7 +253,7 @@ public class AttachTools implements Serializable {
 					break;
 				}
  			}
- 		} catch (Throwable e) {
+ 		} catch (Exception e) {
  			isZip = false;
  		}
  		return isZip;
