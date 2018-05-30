@@ -198,8 +198,9 @@ public class ReportController {
 		ArrayList<ReportWrapper> reports = new ArrayList<ReportWrapper>();
 		int page=0;
 		
+		int years = (pr.getWcPeriod()-1)/12+1;
 		ProjectMonthsInYear[] monthsWith = ProjectMonthsInYear.getProjectPerMonths(p, false, rivConfig.getSetting().getDecimalLength());
-		for (int i=1;i<=p.getDuration();i++) {
+		for (int i=1;i<=years;i++) {
 			ReportWrapper with = reportCreator.projectWorkingCapital(p, pr, monthsWith, page, false, i);
 			page+=with.getJp().getPages().size();
 			reports.add(with);
