@@ -208,11 +208,10 @@ public class ReportController {
 		
 		if (p.isWithWithout()) {
 			ProjectMonthsInYear[] monthsWithout = ProjectMonthsInYear.getProjectPerMonths(p, true, rivConfig.getSetting().getDecimalLength());
-//			for (int i=1;i<=p.getDuration();i++) {
-				ReportWrapper without = reportCreator.projectWorkingCapital(p, pr, monthsWithout, page, true, 1);
-				page+=without.getJp().getPages().size();
-				reports.add(without);
-//			}
+			//	only show year 1
+			ReportWrapper without = reportCreator.projectWorkingCapital(p, pr, monthsWithout, page, true, 1);
+			page+=without.getJp().getPages().size();
+			reports.add(without);
 		}
 			
 		concatReports(reports, response, "projectWorkingCapital.pdf");

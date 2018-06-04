@@ -349,19 +349,20 @@ public class PdfReportCreator {
 			reports.add(params);
 			
 			ProjectMonthsInYear[] monthsWith = ProjectMonthsInYear.getProjectPerMonths(project, false, rivConfig.getSetting().getDecimalLength());
-			for (int i=1;i<=project.getDuration();i++) {
+			// only years needed to show working capital
+			int years = (pr.getWcPeriod()-1)/12+1;
+			for (int i=1;i<=years;i++) {
 				ReportWrapper wcWith = projectWorkingCapital(project, pr, monthsWith, page, false, i);
 				page=page+wcWith.getJp().getPages().size();
 				reports.add(wcWith);
 			}
 			
 			ProjectMonthsInYear[] monthsWithout = ProjectMonthsInYear.getProjectPerMonths(project, true, rivConfig.getSetting().getDecimalLength());
-			for (int i=1;i<=project.getDuration();i++) {
-				if (project.isWithWithout()) {
-					ReportWrapper wcWithout = projectWorkingCapital(project, pr, monthsWithout, page, true, i);
-					page+=wcWithout.getJp().getPages().size();
-					reports.add(wcWithout);
-				}
+			// only first year			
+			if (project.isWithWithout()) {
+				ReportWrapper wcWithout = projectWorkingCapital(project, pr, monthsWithout, page, true, 1);
+				page+=wcWithout.getJp().getPages().size();
+				reports.add(wcWithout);
 			}
 			
 			ReportWrapper loan1 = projectAmortization(project, page, matrix, true);
