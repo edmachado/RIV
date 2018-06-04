@@ -1,4 +1,47 @@
-﻿
+﻿## RIV4.4 PROFILE TO PROJECT
+profileToProject=Conversão do perfil em projeto
+profileToProject.text=Para converter um perfil em projeto, alguns dados precisam ser revistos e corrigidos. As etapas seguintes guiam esse processo
+profileToProject.asset=Para cada elemento, por favor precise 1) o custo de manutenção, 2) se o elemento deve ser subsituido no fim da sua vida econômica, e 3) o ano do projeto quando o investimento vai ser feito.
+profileToProject.investLabour=Investissemento: mão de obra / serviços
+profileToProject.investLabour.text=Por favor, arraste cada um dos custos de mão-de-obra de investimento (no primeiro quadro) até os quadros  «Mão de obra» ou «Serviços profissionais ». Para os custos de mão de obra, escolha a unidade no menu. Por favor precise também o ano durante o qual o investimento vai ser feito.
+profileToProject.generalLabour=Custos gerais
+profileToProject.generalLabour.text=Por favor arraste cada um dos custos gerais de mão de obra (no primeiro quadro) até os quadros  «Bens e serviços» ou «Funcionários» Para os custos de mão de obra, você deve escolher a unidade no menu. Por favor precise também o ano durante o qual o investimento vai ser feito.
+profileToProject.generalLabourNongen.text=Por favor arraste cada um dos custos gerais de mão de obra (no primeiro quadro) até os quadros  «Insumos materiais» ou «Custos gerais/manutenção». Para os custos de mão de obra, você deve escolher a unidade no menu. Por favor precise também o ano durante o qual o investimento vai ser feito.
+profileToProject.blocks= Para cada bloco, por favor escolha a unidade de custos de mão de obra no menu, corrigindo as unidades e os custos unitários se necessário.
+profileToProject.activities=Para cada atividade, por favor escolha a unidade de custos de mão de obra no menu, corrigindo as unidades e os custos unitários se necessário.
+profileToProject.complete=Por favor complete a operação
+profileToProject.complete.text=Por favor retire todos os elementos do primeiro quadro antes de continuar.
+
+error.block.noChronology=Block "{0}": Por favor, editar de novo o bloco e precisar a cronologia da produção.
+error.block.noPattern=Block "{0}": Por favor, editar de novo o bloco e precisar o perfil da produção.
+error.activity.noPattern=Activity "{0}":Por favor, editar de novo o bloco e precisar o calendário das atividades.
+
+## RIV 4.4 BIS
+project.loan.paymentsPerYear=Pagamentos por ano
+project.loan.periods=período(s) de pagamento
+project.loan.perPeriod=por período de pagamento
+
+project.report.amortization.title=Amortização do empréstimo
+project.report.amortization.period=Período
+project.report.amortization.total=Pagamento total
+project.report.amortization.capital=Pagamento do capital
+project.report.amortization.interest=Pagamento dos juros
+project.report.amortization.capitalDuringGrace=Capital inicial quando há um período de carência sobre pagamentos de juros
+project.report.amortization.interestDuringGrace=Juros durante o período de carência sobre o pagamento de juros
+project.report.amortization.interestDuringGraceCapital=Juros quando há um período de carência sobre o pagamento do capital
+
+project.lastUpdateBy=Última atualização por
+project.lastUpdateBy.help=Último usuário que atualizou o projeto
+profile.lastUpdateBy=Última atualização por
+profile.lastUpdateBy.help=Último usuário que atualizou o perfil (anteprojeto)
+project.user=Usuário
+profile.user=Usuário
+
+qualitativeAnalysis=Análise qualitativa
+qualitativeAnalysis.help=Adicione uma classificação de 1 a 5 estrelas para o texto selecionado. Dependendo do peso atribuído a cada texto, um indicador de análise qualitativa é calculado para o projeto.
+qualitativeAnalysis.field=Campo
+qualitativeAnalysis.weight=Peso
+qualitativeAnalysis.report.stars=estrelas:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												
 
 
 

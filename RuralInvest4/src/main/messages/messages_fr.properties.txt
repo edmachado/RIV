@@ -1,3 +1,45 @@
+
+## RIV4.4 PROFILE TO PROJECT
+profileToProject=Conversion de profil à projet
+profileToProject.text=Afin de convertir un profil en projet, certaines données doivent être revues et corrigées. Les étapes suivantes vous guident dans ce processus
+profileToProject.asset=Pour chaque élément, svp précisez 1) le coût de maintenance, 2) si l'élément est remplacé à la fin de sa vie économique, et 3) l'année du projet à laquelle l'investissement est réalisé.
+profileToProject.investLabour=Investissement: main d'œuvre / services
+profileToProject.investLabour.text=SVP déplacer chacun des coûts de main d''œuvre d'investissement (dans le premier tableau) vers les tableaux «Main d''œuvre» ou bien «Services professionels ». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
+profileToProject.generalLabour=Coûts généraux
+profileToProject.generalLabour.text=SVP déplacer chacun des coûts généraux de main d'œuvre (dans le premier tableau) vers les tableaux «Biens et services» ou bien «Personnel». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
+profileToProject.generalLabourNongen.text=SVP déplacer chacun des coûts généraux de main d'œuvre (dans le premier tableau) vers les tableaux «Intrants/matériels» ou bien «Coûts généraux/maintenance». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
+profileToProject.blocks= Pour chaque block, svp choisir l'unité des coûts de main d'œuvre dans le menu, en corrigeant les unités et les coûts unitaires si nécessaire.
+profileToProject.activities=Pour chaque activité, svp choisir l'unité des coûts de main d'œuvre dans le menu, en corrigeant les unités et les coûts unitaires si nécessaire.
+profileToProject.complete=SVP compléter l'opération
+profileToProject.complete.text=SVP déplacer tous les éléments du premier tableau avant de continuer.
+error.block.noChronology=Block "{0}": SVP rouvrir le block et préciser la chronologie de la production.
+error.block.noPattern=Block "{0}": SVP rouvrir le block et préciser le profil de production.
+error.activity.noPattern=Activity "{0}": SVP rouvrir le block et préciser le calendrier d'activités.
+
+## RIV 4.4 BIS
+project.loan.paymentsPerYear=Paiements par an
+project.loan.periods=période(s) de paiement
+project.loan.perPeriod=par période de paiement
+project.report.amortization.title=Amortissement de l'emprunt
+project.report.amortization.period=Période
+project.report.amortization.total=Paiement total
+project.report.amortization.capital=Paiment du capital
+project.report.amortization.interest=Paiement des intérêts
+project.report.amortization.capitalDuringGrace=Capital initial quand il y a une période de grâce sur les paiements des intérêts
+project.report.amortization.interestDuringGrace=Intérêts durant la période de grâce sur le paiement des intérêts
+project.report.amortization.interestDuringGraceCapital=Intérêts quand il y une la période de grâce sur le paiement du capital
+project.lastUpdateBy=Dernière actualisation par
+project.lastUpdateBy.help=Dernier utilisateur à actualiser le projet
+profile.lastUpdateBy=Dernière actualisation par
+profile.lastUpdateBy.help=Dernier utilisateur à actualiser le profil
+project.user=Utilisateur
+profile.user=Utilisateur
+qualitativeAnalysis=Analysis qualitative
+qualitativeAnalysis.help=Ajouter une évaluation de 1 à 5 étoiles pour le texte sélectionné. En fonction du poids donné à chaque texte, un indicateur d'analyse qualitative est calculé pour le projet.
+qualitativeAnalysis.field=Champ
+qualitativeAnalysis.weight=Poids
+qualitativeAnalysis.report.stars=étoiles:
+
 ## RIV4.4
 project.report.profitability.payback=Nombre d’années nécessaires pour couvrir l’investissement (années)
 project.report.profitability.cumulative=Cumulé
