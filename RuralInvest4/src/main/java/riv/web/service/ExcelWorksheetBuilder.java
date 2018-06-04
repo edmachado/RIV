@@ -1912,7 +1912,9 @@ public class ExcelWorksheetBuilder {
 		
 		String title=loan1 ? translate("project.loan1") : translate("project.loan2");
 		Sheet sheet = report.getWorkbook().createSheet(title);
-		sheet.setSelected(true);
+		if (loan1) {
+			sheet.setSelected(true);
+		}
 		
 		int payPerYear = loan1 ? project.getLoan1PaymentsPerYear() : project.getLoan2PaymentsPerYear();
 		

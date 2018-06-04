@@ -1,10 +1,10 @@
 ## RIV4.4 2018
-
 error.import.riv=Not a recognizable .riv file. The file may be corrupt.
 
 #changed since previous version
 project.loan.paymentsPerYear.help=The number of payments the lender requires for loan repayment each year of loan. (e.g. '4' if loan is to be paid quarterly, '12' if loan is to be paid monthly.)
 project.report.workingcapital=Monthly cash flow
+
 
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Convert profile to project
@@ -26,7 +26,6 @@ error.activity.noPattern=Activity "{0}": Please edit the activity and specify th
 
 ## RIV 4.4 BIS
 project.loan.paymentsPerYear=Payments per year
-project.loan.paymentsPerYear.help=...
 project.loan.periods=payment period(s)
 project.loan.perPeriod=per payment period
 

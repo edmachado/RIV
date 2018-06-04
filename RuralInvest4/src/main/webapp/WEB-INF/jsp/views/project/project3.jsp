@@ -25,6 +25,16 @@ $(function() {
 		<fieldset>
 			<legend><tags:help noKey="true" title="${rivConfig.setting.adminMisc1Title}" text="${rivConfig.setting.adminMisc1Help}">${rivConfig.setting.adminMisc1Title}</tags:help></legend>
 			<div class="dataentry">
+				<c:if test="${rivConfig.setting.qualAdminMisc1Enabled}">
+					<form:select path="project.qualAdminMisc1Weight">
+						<form:option value="1"></form:option>
+						<form:option value="2"></form:option>
+						<form:option value="3"></form:option>
+						<form:option value="4"></form:option>
+						<form:option value="5"></form:option>
+					</form:select>
+					 <br/>
+				</c:if>
 				<form:textarea path="adminMisc1" cols="98" rows="15" />
 			</div>
 		</fieldset>
@@ -33,6 +43,16 @@ $(function() {
 		<fieldset>
 			<legend><tags:help noKey="true" title="${rivConfig.setting.adminMisc2Title}" text="${rivConfig.setting.adminMisc2Help}">${rivConfig.setting.adminMisc2Title}</tags:help></legend>
 			<div class="dataentry">
+				<c:if test="${rivConfig.setting.qualAdminMisc2Enabled}">
+					<form:select path="${project.qualAdminMisc2Weight}">
+						<form:option value="1"></form:option>
+						<form:option value="2"></form:option>
+						<form:option value="3"></form:option>
+						<form:option value="4"></form:option>
+						<form:option value="5"></form:option>
+					</form:select>
+					 <br/>
+				</c:if>
 				<form:textarea path="adminMisc2" cols="98" rows="15" />
 			</div>
 		</fieldset>
@@ -41,6 +61,16 @@ $(function() {
 		<fieldset>
 			<legend><tags:help noKey="true" title="${rivConfig.setting.adminMisc3Title}" text="${rivConfig.setting.adminMisc3Help}">${rivConfig.setting.adminMisc3Title}</tags:help></legend>
 			<div class="dataentry">
+				<c:if test="${rivConfig.setting.qualAdminMisc3Enabled}">
+					<form:select path="${project.qualAdminMisc3Weight}">
+						<form:option value="1"></form:option>
+						<form:option value="2"></form:option>
+						<form:option value="3"></form:option>
+						<form:option value="4"></form:option>
+						<form:option value="5"></form:option>
+					</form:select>
+					 <br/>
+				</c:if>
 				<form:textarea path="adminMisc3" cols="98" rows="15" />
 			</div>
 		</fieldset>

@@ -821,28 +821,28 @@ public class Setting implements java.io.Serializable {
 		this.qualAdminMisc1Weight = qualAdminMisc1Weight;
 	}
 	public boolean isQualAdminMisc2Enabled() {
-		return qualAdminMisc1Enabled;
+		return qualAdminMisc2Enabled;
 	}
 	public void setQualAdminMisc2Enabled(boolean enabled) {
-		this.qualAdminMisc1Enabled = enabled;
+		this.qualAdminMisc2Enabled = enabled;
 	}
 	public Short getQualAdminMisc2Weight() {
-		return qualAdminMisc1Weight;
+		return qualAdminMisc2Weight;
 	}
 	public void setQualAdminMisc2Weight(Short weight) {
-		this.qualAdminMisc1Weight = weight;
+		this.qualAdminMisc2Weight = weight;
 	}
 	public boolean isQualAdminMisc3Enabled() {
-		return qualAdminMisc1Enabled;
+		return qualAdminMisc3Enabled;
 	}
 	public void setQualAdminMisc3Enabled(boolean enabled) {
-		this.qualAdminMisc1Enabled = enabled;
+		this.qualAdminMisc3Enabled = enabled;
 	}
 	public Short getQualAdminMisc3Weight() {
-		return qualAdminMisc1Weight;
+		return qualAdminMisc3Weight;
 	}
 	public void setQualAdminMisc3Weight(Short weight) {
-		this.qualAdminMisc1Weight = weight;
+		this.qualAdminMisc3Weight = weight;
 	}
 	
 	public boolean hasQualitativeFields(boolean incomeGen) {
@@ -906,10 +906,10 @@ public class Setting implements java.io.Serializable {
 		s.setQualActivitiesWeight(qualActivitiesWeight);
 		s.setQualAdminMisc1Enabled(qualAdminMisc1Enabled);
 		s.setQualAdminMisc1Weight(qualAdminMisc1Weight);
-		s.setQualAdminMisc2Enabled(qualAdminMisc1Enabled);
-		s.setQualAdminMisc2Weight(qualAdminMisc1Weight);
-		s.setQualAdminMisc3Enabled(qualAdminMisc1Enabled);
-		s.setQualAdminMisc3Weight(qualAdminMisc1Weight);
+		s.setQualAdminMisc2Enabled(qualAdminMisc2Enabled);
+		s.setQualAdminMisc2Weight(qualAdminMisc2Weight);
+		s.setQualAdminMisc3Enabled(qualAdminMisc3Enabled);
+		s.setQualAdminMisc3Weight(qualAdminMisc3Weight);
 		s.setQualAssumptionsEnabled(qualAssumptionsEnabled);
 		s.setQualAssumptionsWeight(qualAssumptionsWeight);
 		s.setQualBenefDescEnabled(qualBenefDescEnabled);
