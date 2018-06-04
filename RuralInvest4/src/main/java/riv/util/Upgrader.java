@@ -403,14 +403,12 @@ public class Upgrader {
 	 * @return Updated XML source
 	 * @throws IOException 
 	 */
-	public byte[] upgradeXml(byte[] source) throws IOException {
+	public byte[] upgradeXml(byte[] source) throws IOException, TransformerException {
 			Source in=new StreamSource(new ByteArrayInputStream(source));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			try {
 				Transformer transformer = getTemplates().newTransformer();
 				transformer.transform(in, new StreamResult(baos));
-			} catch (TransformerException e) {
-				LOG.error("Error transforming xsl.",e);
 			} catch (NullPointerException ne) {
 				LOG.error("Error getTemplates() is null.", ne);
 			}

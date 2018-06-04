@@ -17,6 +17,7 @@ import java.util.zip.ZipInputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -357,20 +358,27 @@ public class UploadController implements Serializable {
 		try {
 			containingFile = bytes;
 			byte[] rivFile =  attachTools.getFileFromZip(containingFile, 0);
-			rivFile = upgrader.upgradeXml(rivFile);
-			
-			// get object from uploaded file
-			ByteArrayInputStream bais= new ByteArrayInputStream(rivFile);				
-			XMLDecoder decoder = new XMLDecoder(bais);
 			try {
-				decoded = decoder.readObject();
-			} catch (Exception ex) {
-				if (type.equals("config")) { result="error.import.notSettings"; }
-				else { result="error.import.wrongType"; }
-			} finally {
-				rivFile=null;
-				decoder.close();
-				bais.close();
+				rivFile = upgrader.upgradeXml(rivFile);
+			} catch (TransformerException e) {
+				LOG.error("Error transforming xsl.",e);
+				result = "error.import.riv";
+			}
+			
+			if (result==null) {
+				// get object from uploaded file
+				ByteArrayInputStream bais= new ByteArrayInputStream(rivFile);				
+				XMLDecoder decoder = new XMLDecoder(bais);
+				try {
+					decoded = decoder.readObject();
+				} catch (Exception ex) {
+					if (type.equals("config")) { result="error.import.notSettings"; }
+					else { result="error.import.wrongType"; }
+				} finally {
+					rivFile=null;
+					decoder.close();
+					bais.close();
+				}
 			}
 		} catch (Exception e) {
 			result="error.import.notARivFile";
