@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.io.StringWriter;
 
 public class WindowsService {
-	public static boolean riv3Exists = isServiceExist("RuralInvest");
-	public static boolean riv4Exists = isServiceExist("RuralInvest4");
+	public static final boolean riv3Exists = isServiceExist("RuralInvest");
+	public static final boolean riv4Exists = isServiceExist("RuralInvest4");
 	
 	private static final String REGQUERY_UTIL = "reg query \"HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\";
 

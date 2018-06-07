@@ -3888,7 +3888,6 @@ public class ExcelWorksheetBuilder {
 			return m.invoke(o, new Object[0]).toString();
 		} catch (Exception e) {
 			Log.warn("Couldn't get field data when writing table.", e);
-			e.printStackTrace();
 			return null;
 		}
 	}

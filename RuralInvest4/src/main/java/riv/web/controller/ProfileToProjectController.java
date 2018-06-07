@@ -158,7 +158,7 @@ public class ProfileToProjectController {
 					
 					project.getLaboursFromProfile().clear();
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.error("Exception upgrading in step 3", e);
 				}
 			}
 			validator.validate(project, result);
@@ -184,7 +184,7 @@ public class ProfileToProjectController {
 					project.getLaboursFromProfileWithout().clear();
 					
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.error("Exception upgrading in step 4", e);
 				}
 				validator.validate(project, result);
 			}
@@ -221,7 +221,7 @@ public class ProfileToProjectController {
 					
 					project.getGeneralsFromProfile().clear();
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.error("Exception upgrading in step 5", e);
 				}
 				
 				validator.validate(project, result);
@@ -258,7 +258,7 @@ public class ProfileToProjectController {
 					}
 					project.getGeneralsFromProfileWithout().clear();
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.error("Exception upgrading in step 6", e);
 				}
 				
 				validator.validate(project, result);
@@ -292,7 +292,7 @@ public class ProfileToProjectController {
 					
 					project.getGeneralsFromProfile().clear();
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.error("Exception upgrading in step 5 n-i-g", e);
 				}
 				
 				validator.validate(project, result);

@@ -101,7 +101,7 @@ public class SettingsController {
 					setting.setOrgLogo(tempLogo.getBytes());
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("IOException saving logo in settings to db", e);
 			}
 			
 			Setting oldSetting = rivConfig.getSetting();
