@@ -160,8 +160,8 @@ public class ReferenceCost extends ReferenceItem {
 		if (getClass() != obj.getClass())
 			return false;
 		ReferenceCost other = (ReferenceCost) obj;
-		if (!super.equals(other))
-			return false;
+//		if (!super.equals(other))
+//			return false;
 		if (transport == null) {
 			if (other.transport != null)
 				return false;

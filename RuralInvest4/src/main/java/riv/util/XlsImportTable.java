@@ -171,69 +171,71 @@ public class XlsImportTable<E extends OrderByable> {
 		while (columnNum<columns.size()) {
 			 column = columns.get(columnNum);
 			 Cell cell = row.getCell(column.column);
-			 if (cell==null &! column.isBoolean) { // check that cell isn't null, except for boolean
-				throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-			 }
-			 
 			 if (column.isBoolean) {
 				 boolean yes = cell!=null && cell.getCellType()!=Cell.CELL_TYPE_BLANK;
 				 setObjectProperty(item, column.property, yes);
-			 } else if (column.isSelect) {
-				Object value;
-				try {
-					value = cell.getStringCellValue();
-				} catch (IllegalStateException e) {
-					throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-				} catch (NullPointerException e) {
-					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-				}
-				
-				boolean found=false;
-				if (column.options.get(value)!=null) {
-					value=column.options.get(value);
-					found=true;
-				}
-				if (!found) {
-					throw ExcelImportException.createExcelException(ErrorType.NOT_IN_LIST, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-				}
-				
-				setObjectProperty(item, column.property, value);
-			} else if (column.isNumeric) {
-				if (cell.getCellType()==Cell.CELL_TYPE_BLANK) {
-					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-				}
-				double value;
-				try {
-					value = cell.getNumericCellValue();
-				} catch (IllegalStateException e) {
-					throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-				} catch (NullPointerException e) {
-					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-				}
-			
-				if (column.property.equals("donations(0)")) {
-					((riv.objects.HasDonations)item).getDonations().put(0, value);
-				} else if (column.isPerYear) {
-					HasPerYearItems<PerYearItem> hpy = (HasPerYearItems<PerYearItem>)item;
-					if (hpy.getYears().isEmpty()) {
-						hpy.addYears(column.totalYears);
+			 } else {
+				if (cell==null) {
+					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale()); 	
+				} else if (column.isSelect) {
+					Object value;
+					try {
+						value = cell.getStringCellValue();
+					} catch (IllegalStateException e) {
+						throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+					} 
+//					catch (NullPointerException e) {
+//						throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+//					}
+					
+					boolean found=false;
+					if (column.options.get(value)!=null) {
+						value=column.options.get(value);
+						found=true;
 					}
-					PerYearItem pyi = hpy.getYears().get(column.year);
-					setObjectProperty(pyi, column.property, value);
-				} else {
+					if (!found) {
+						throw ExcelImportException.createExcelException(ErrorType.NOT_IN_LIST, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+					}
+					
 					setObjectProperty(item, column.property, value);
-				}
-			} else { // string cell
-				try {
-					if (cell.getCellType()==Cell.CELL_TYPE_NUMERIC) { // just in case, convert numeric value to string
-						setObjectProperty(item, column.property, String.valueOf(cell.getNumericCellValue()));
-					} else {
-						setObjectProperty(item, column.property, cell.getStringCellValue());
+				} else if (column.isNumeric) {
+					if (cell.getCellType()==Cell.CELL_TYPE_BLANK) {
+						throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 					}
-				} catch (NullPointerException e) {
-					throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+					double value;
+					try {
+						value = cell.getNumericCellValue();
+					} catch (IllegalStateException e) {
+						throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+					} 
+//					catch (NullPointerException e) {
+//						throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+//					}
+				
+					if (column.property.equals("donations(0)")) {
+						((riv.objects.HasDonations)item).getDonations().put(0, value);
+					} else if (column.isPerYear) {
+						HasPerYearItems<PerYearItem> hpy = (HasPerYearItems<PerYearItem>)item;
+						if (hpy.getYears().isEmpty()) {
+							hpy.addYears(column.totalYears);
+						}
+						PerYearItem pyi = hpy.getYears().get(column.year);
+						setObjectProperty(pyi, column.property, value);
+					} else {
+						setObjectProperty(item, column.property, value);
+					}
+				} else { // string cell
+//					try {
+						if (cell.getCellType()==Cell.CELL_TYPE_NUMERIC) { // just in case, convert numeric value to string
+							setObjectProperty(item, column.property, String.valueOf(cell.getNumericCellValue()));
+						} else {
+							setObjectProperty(item, column.property, cell.getStringCellValue());
+						}
+//					} catch (NullPointerException e) {
+//						throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
+//					}
 				}
-			}
+			 }
 			columnNum++; 
 		}
 		return item;

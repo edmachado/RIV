@@ -403,15 +403,11 @@ public class Upgrader {
 	 * @return Updated XML source
 	 * @throws IOException 
 	 */
-	public byte[] upgradeXml(byte[] source) throws IOException, TransformerException {
+	public byte[] upgradeXml(byte[] source) throws IOException, TransformerException, NullPointerException {
 			Source in=new StreamSource(new ByteArrayInputStream(source));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			try {
-				Transformer transformer = getTemplates().newTransformer();
-				transformer.transform(in, new StreamResult(baos));
-			} catch (NullPointerException ne) {
-				LOG.error("Error getTemplates() is null.", ne);
-			}
+			Transformer transformer = getTemplates().newTransformer();
+			transformer.transform(in, new StreamResult(baos));
 			byte[] bytes = baos.toByteArray();
 			baos.close();
 			return bytes;

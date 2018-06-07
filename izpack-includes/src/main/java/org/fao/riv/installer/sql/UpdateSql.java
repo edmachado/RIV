@@ -44,10 +44,11 @@ public class UpdateSql  {
 	}
 	
 	private boolean migrateDb(AbstractUIProcessHandler uih) {
+		// close well with hsqldb 1.8
+		System.out.println("Closing well with HSQLDB 1.8");
+		Statement stmt=null;
 		try {
-			// close well with hsqldb 1.8
-			System.out.println("Closing well with HSQLDB 1.8");
-			Statement stmt=connection.createStatement();
+			stmt=connection.createStatement();
 			stmt.execute("SHUTDOWN SCRIPT");
 			stmt.close();
 			connection.close();
@@ -68,6 +69,8 @@ public class UpdateSql  {
 		} catch (SQLException e) {
 			logError(uih, e);
 			return false;
+		} finally {
+			try { stmt.close(); } catch (Exception e) { /* ignored */ }
 		}
 	}
 	
@@ -116,6 +119,7 @@ public class UpdateSql  {
 					stmt.close();
 					current=3.0;
 				} catch (Exception e) { } 
+			// BUG FIX: new install of 4.1 mistakenly registered as 4.0
 			} else if (Double.compare(current, 4.0)==0) {
 				try {
 					Statement stmt = connection.createStatement();
@@ -206,11 +210,14 @@ public class UpdateSql  {
 		try {
 			if (connection != null && !connection.isClosed()) {
 				System.out.println("Closing open connection");
-				Statement stmt = connection.createStatement();
+				Statement stmt = null;
+				try {
+					stmt = connection.createStatement();
 					stmt.execute("SHUTDOWN COMPACT");
-					stmt.close();
-					connection.close();
-
+				} finally {
+					try { stmt.close(); } catch (Exception e) { /* ignored */ }
+					try { connection.close(); } catch (Exception e) { /* ignored */ }
+				}
 				new File(String.format("%s/webapp/WEB-INF/data/riv.lck", installPath)).delete();
 			}
 		} catch (Exception e) {

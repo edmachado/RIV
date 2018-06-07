@@ -140,15 +140,16 @@ public class ProfileToProjectController {
 		if (step==3) {
 			if (labourData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
-				try {
-					List<ProjectItemLabour> ls = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(labourData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemLabour>>(){});
+				try (ByteArrayInputStream bais1 = new ByteArrayInputStream(URLDecoder.decode(labourData, "UTF-8").getBytes("UTF-8"));
+						ByteArrayInputStream bais2 = new ByteArrayInputStream(URLDecoder.decode(serviceData, "UTF-8").getBytes("UTF-8"))) {
+					List<ProjectItemLabour> ls = mapper.readValue(bais1,  new TypeReference<List<ProjectItemLabour>>(){});
 					for (ProjectItemLabour l : ls) {
 						ProjectItemLabour l2 = l.copy();
 						l2.setOrderBy(project.getLabours().size());
 						project.addLabour(l2);
 					}
 					
-					List<ProjectItemService> ss = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(serviceData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemService>>(){});
+					List<ProjectItemService> ss = mapper.readValue(bais2,  new TypeReference<List<ProjectItemService>>(){});
 					for (ProjectItemService s : ss) {
 						ProjectItemService s2 = s.copy();
 						s2.setOrderBy(project.getServices().size());
@@ -164,15 +165,16 @@ public class ProfileToProjectController {
 		} else if (step==4) {
 			if (labourData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
-				try {
-					List<ProjectItemLabourWithout> ls = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(labourData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemLabourWithout>>(){});
+				try (ByteArrayInputStream bais1 = new ByteArrayInputStream(URLDecoder.decode(labourData, "UTF-8").getBytes("UTF-8"));
+						ByteArrayInputStream bais2 = new ByteArrayInputStream(URLDecoder.decode(serviceData, "UTF-8").getBytes("UTF-8"))) {
+					List<ProjectItemLabourWithout> ls = mapper.readValue(bais1,  new TypeReference<List<ProjectItemLabourWithout>>(){});
 					for (ProjectItemLabourWithout l : ls) {
 						ProjectItemLabourWithout l2 = l.copy();
 						l2.setOrderBy(project.getLaboursWithout().size());
 						project.addLabourWithout(l2);
 					}
 					
-					List<ProjectItemServiceWithout> ss = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(serviceData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemServiceWithout>>(){});
+					List<ProjectItemServiceWithout> ss = mapper.readValue(bais2,  new TypeReference<List<ProjectItemServiceWithout>>(){});
 					for (ProjectItemServiceWithout s : ss) {
 						ProjectItemServiceWithout s2 = s.copy();
 						s2.setOrderBy(project.getServicesWithout().size());
@@ -189,8 +191,9 @@ public class ProfileToProjectController {
 		} else if (step==5 && project.getIncomeGen()) {
 			if (generalData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
-				try {
-					List<ProjectItemGeneral> ls = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(generalData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemGeneral>>(){});
+				try (ByteArrayInputStream bais1 = new ByteArrayInputStream(URLDecoder.decode(generalData, "UTF-8").getBytes("UTF-8"));
+						ByteArrayInputStream bais2 = new ByteArrayInputStream(URLDecoder.decode(personnelData, "UTF-8").getBytes("UTF-8"))) {
+					List<ProjectItemGeneral> ls = mapper.readValue(bais1,  new TypeReference<List<ProjectItemGeneral>>(){});
 					for (ProjectItemGeneral l : ls) {
 						ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
 						py.setYear(0);
@@ -203,7 +206,7 @@ public class ProfileToProjectController {
 						project.addGeneral(l2);
 					}
 					
-					List<ProjectItemPersonnel> ss = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(personnelData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemPersonnel>>(){});
+					List<ProjectItemPersonnel> ss = mapper.readValue(bais2,  new TypeReference<List<ProjectItemPersonnel>>(){});
 					for (ProjectItemPersonnel s : ss) {
 						ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
 						py.setYear(0);
@@ -226,8 +229,9 @@ public class ProfileToProjectController {
 		} else if (step==6 && project.getIncomeGen()) {
 			if (generalData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
-				try {
-					List<ProjectItemGeneralWithout> ls = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(generalData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemGeneralWithout>>(){});
+				try (ByteArrayInputStream bais1 = new ByteArrayInputStream(URLDecoder.decode(generalData, "UTF-8").getBytes("UTF-8"));
+						ByteArrayInputStream bais2 = new ByteArrayInputStream(URLDecoder.decode(personnelData, "UTF-8").getBytes("UTF-8"))) {
+					List<ProjectItemGeneralWithout> ls = mapper.readValue(bais1,  new TypeReference<List<ProjectItemGeneralWithout>>(){});
 					for (ProjectItemGeneralWithout l : ls) {
 						ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
 						py.setYear(0);
@@ -240,7 +244,7 @@ public class ProfileToProjectController {
 						project.addGeneralWithout(l2);
 					}
 					
-					List<ProjectItemPersonnelWithout> ss = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(personnelData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemPersonnelWithout>>(){});
+					List<ProjectItemPersonnelWithout> ss = mapper.readValue(bais2,  new TypeReference<List<ProjectItemPersonnelWithout>>(){});
 					for (ProjectItemPersonnelWithout s : ss) {
 						ProjectItemGeneralPerYear py = new ProjectItemGeneralPerYear();
 						py.setYear(0);
@@ -262,22 +266,24 @@ public class ProfileToProjectController {
 		} else if (step==5 &! project.getIncomeGen()) {
 			if (generalData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
-				try {
-					List<ProjectItemNongenMaintenance> maints = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(inputData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemNongenMaintenance>>(){});
+				try (ByteArrayInputStream bais1 = new ByteArrayInputStream(URLDecoder.decode(inputData, "UTF-8").getBytes("UTF-8"));
+						ByteArrayInputStream bais2 = new ByteArrayInputStream(URLDecoder.decode(labourData, "UTF-8").getBytes("UTF-8"));
+						ByteArrayInputStream bais3 = new ByteArrayInputStream(URLDecoder.decode(generalData, "UTF-8").getBytes("UTF-8"));) {
+					List<ProjectItemNongenMaintenance> maints = mapper.readValue(bais1,  new TypeReference<List<ProjectItemNongenMaintenance>>(){});
 					for (ProjectItemNongenMaintenance l : maints) {
 						ProjectItemNongenMaintenance l2 = l.copy();
 						l2.setOrderBy(project.getNongenMaintenance().size());
 						project.addNongenMaintenance(l2);
 					}
 					
-					List<ProjectItemNongenLabour> ls = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(labourData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemNongenLabour>>(){});
+					List<ProjectItemNongenLabour> ls = mapper.readValue(bais2,  new TypeReference<List<ProjectItemNongenLabour>>(){});
 					for (ProjectItemNongenLabour l : ls) {
 						ProjectItemNongenLabour l2 = l.copy();
 						l2.setOrderBy(project.getNongenLabours().size());
 						project.addNongenLabour(l2);
 					}
 					
-					List<ProjectItemNongenMaterials> mats = mapper.readValue(new ByteArrayInputStream(URLDecoder.decode(generalData, "UTF-8").getBytes("UTF-8")),  new TypeReference<List<ProjectItemNongenMaterials>>(){});
+					List<ProjectItemNongenMaterials> mats = mapper.readValue(bais3,  new TypeReference<List<ProjectItemNongenMaterials>>(){});
 					for (ProjectItemNongenMaterials l : mats) {
 						ProjectItemNongenMaterials l2 = l.copy();
 						l2.setOrderBy(project.getNongenMaterials().size());

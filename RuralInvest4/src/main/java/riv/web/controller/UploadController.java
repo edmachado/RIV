@@ -363,6 +363,9 @@ public class UploadController implements Serializable {
 			} catch (TransformerException e) {
 				LOG.error("Error transforming xsl.",e);
 				result = "error.import.riv";
+			} catch (NullPointerException e) {
+				LOG.error("Error transforming xsl.",e);
+				result = "error.import.riv";
 			}
 			
 			if (result==null) {

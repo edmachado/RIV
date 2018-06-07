@@ -115,9 +115,9 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     }
     
     public void projectDurationChanged() {
-    	if (patterns==null) { // could not happen because Hibernate will instantiate it. only for Sonar
-    		return;
-    	}
+//    	if (patterns==null) { // could not happen because Hibernate will instantiate it. only for Sonar
+//    		return;
+//    	}
     	if (patterns.size()==0 || patterns.size()==getProject().getDuration()) { 
     		// do nothing
     	} else if (patterns.size()>getProject().getDuration()) {
