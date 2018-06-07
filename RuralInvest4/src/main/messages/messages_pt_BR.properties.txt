@@ -2,7 +2,7 @@
 profileToProject=Conversão do perfil em projeto
 profileToProject.text=Para converter um perfil em projeto, alguns dados precisam ser revistos e corrigidos. As etapas seguintes guiam esse processo
 profileToProject.asset=Para cada elemento, por favor precise 1) o custo de manutenção, 2) se o elemento deve ser subsituido no fim da sua vida econômica, e 3) o ano do projeto quando o investimento vai ser feito.
-profileToProject.investLabour=Investissemento: mão de obra / serviços
+profileToProject.investLabour=Investimento: mão de obra / serviços
 profileToProject.investLabour.text=Por favor, arraste cada um dos custos de mão-de-obra de investimento (no primeiro quadro) até os quadros  «Mão de obra» ou «Serviços profissionais ». Para os custos de mão de obra, escolha a unidade no menu. Por favor precise também o ano durante o qual o investimento vai ser feito.
 profileToProject.generalLabour=Custos gerais
 profileToProject.generalLabour.text=Por favor arraste cada um dos custos gerais de mão de obra (no primeiro quadro) até os quadros  «Bens e serviços» ou «Funcionários» Para os custos de mão de obra, você deve escolher a unidade no menu. Por favor precise também o ano durante o qual o investimento vai ser feito.
@@ -12,9 +12,9 @@ profileToProject.activities=Para cada atividade, por favor escolha a unidade de 
 profileToProject.complete=Por favor complete a operação
 profileToProject.complete.text=Por favor retire todos os elementos do primeiro quadro antes de continuar.
 
-error.block.noChronology=Block "{0}": Por favor, editar de novo o bloco e precisar a cronologia da produção.
-error.block.noPattern=Block "{0}": Por favor, editar de novo o bloco e precisar o perfil da produção.
-error.activity.noPattern=Activity "{0}":Por favor, editar de novo o bloco e precisar o calendário das atividades.
+error.block.noChronology=Bloco "{0}": Por favor, editar de novo o bloco e precisar a cronologia da produção.
+error.block.noPattern=Bloco "{0}": Por favor, editar de novo o bloco e precisar o perfil da produção.
+error.activity.noPattern=Atividade "{0}":Por favor, editar de novo o bloco e precisar o calendário das atividades.
 
 ## RIV 4.4 BIS
 project.loan.paymentsPerYear=Pagamentos por ano
@@ -41,10 +41,34 @@ qualitativeAnalysis=Análise qualitativa
 qualitativeAnalysis.help=Adicione uma classificação de 1 a 5 estrelas para o texto selecionado. Dependendo do peso atribuído a cada texto, um indicador de análise qualitativa é calculado para o projeto.
 qualitativeAnalysis.field=Campo
 qualitativeAnalysis.weight=Peso
-qualitativeAnalysis.report.stars=estrelas:																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												
+qualitativeAnalysis.report.stars=estrelas:
 
+error.import.futureVersion=O perfil ou o projeto que você quer importar foi criado com uma versão mais recente do RuralInvest da sua versão. Por favor faça a atualização do software.
+error.profileNotFound.text=O perfil ou o projeto que você procura não existe. Talvez foi cancelado por outro usuário desde a última vez que você usou o RuralInvest.
+error.profileNotFound.title=Perfil ou projeto não encontrado. 
+misc.cancel=Cancelar
+misc.moreDetails= Para detalhes, consulte os seguintes relatórios: 
+project.loan.paymentsPerYear.help= O número de pagamentos que o credor exige para o pagamento do empréstimo a cada ano do empréstimo. (por exemplo, '4' se o empréstimo for pago trimestralmente, '12' se o empréstimo for pago mensalmente.) 
+project.periodAvg.help= A "duração média do empréstimo" é um fator de correção da duração estimada do empréstimo. Como a duração estimada do empréstimo é baseada no último mês de fluxo de caixa acumulado negativo, e o montante estimado de capital de giro é o maior fluxo de caixa acumulado negativo, os juros calculados sobre esses dois parâmetros são superestimados. Para corrigir isso, utilizamos uma duração média de empréstimo que é baseada no fluxo de caixa acumulado mensal para cada mês até atingirmos a duração estimada do empréstimo. Em vez de gerar uma média ponderada no valor do capital de giro, geramos uma média ponderada da duração do empréstimo - o resultado é o mesmo em termos de juros gerados. 
+project.periodAvg= Duração média do empréstimo 
+project.report.profitability.cumulative=Cumulativo
+project.report.profitability.lastNeg=Último ano negativo
+project.report.profitability.payback=Payback (anos)
+project.report.workingcapital=Fluxo de caixa mensal 
+projectBlock.chronology.deselectAll= desmarcar todos
 
+# the below three lines can be maximum 31 characters each (Excel rules)
+project.report.workingcapital.sheetname=Fluxo de caixa mensal 
+project.report.workingcapital.with.sheetname=Fluxo de caixa mensal (com)
+project.report.workingcapital.without.sheetname=Fluxo de caixa mensal(sem)
 
+# changed from earlier versions
+project.loan.interest=Taxa de juros (%)
+
+profile.createdBy.help=O usuário que originalmente criou o perfil. 
+project.createdBy.help=O usuário que originalmente criou o projeto. 
+
+profile.step1.3=Usuário																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											
 
 
 ## RIV 4.3 - phase 3
@@ -945,12 +969,8 @@ manual.description=Os manuais que descrevendo a abordagem e a metodologia utiliz
 manual.description.2=Todos os manuais e guias podem ser descarregados para o computador do utilizador em formato pdf. As tabelas para recolha de dados de campo para construção de anteprojetos (módulo 2) são disponibilizadas em arquivos Word. É recomendável que estas tabelas sejam utilizadas como guia pelo pessoal encarregue de construir os anteprojetos, mas que os dados do anteprojeto sejam inicialmente escritos em quadros ou folhas de papel-cenário (folhas de papel de grande dimensão) numa parede, para que os dados sejam claramente visualizados pelos proponentes.
 
 project.createdBy=Elaborado por
-
-project.createdBy.help=Técnico que deu origem ao documento.
-
 profile.createdBy=Elaborado por
 
-profile.createdBy.help=Técnico que deu origem ao anteprojeto.
 
 export.download=Exportar dados
 
@@ -1546,8 +1566,6 @@ profile.step1.2=Localização
 
 profile.step1.3.help=Se está criando um anteprojeto, esta seção deve mostrar a sua informação pessoal. Se não está correta, deve actualizá-la em "Usuários", na opção "Configuração" na "Página inicial". Também se pode dar o caso de ter acedido ao RuralInvest utilizando a ligação de um outro utilizador.  
 
-profile.step1.3=Técnico
-
 profile.step1.4.help=selecione "Sim" se deseja que outros utilizadores possam adicionar informação ou modificar este anteprojeto. Se selecionar "Não" os outros utilizadores poderão visualizar a informação mas não poderão alterar este anteprojeto. 
 
 profile.step1.4=Compartilhar
@@ -1977,7 +1995,7 @@ project.loan.graceInterest=Período de graça - juros
 
 project.loan.interest.help=A taxa de juro aplicada ao empréstimo é definida pela instituição que aprova o crédito. Não registe uma taxa de juro que seja diferente desta.
 
-project.loan.interest=Taxa de juro anual
+#project.loan.interest=Taxa de juro anual
 
 project.loan1.help=O empréstimo base será, frequentemente, o único financiamento recebido por um projeto.
 

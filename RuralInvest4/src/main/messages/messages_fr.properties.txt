@@ -1,25 +1,26 @@
-
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Conversion de profil à projet
-profileToProject.text=Afin de convertir un profil en projet, certaines données doivent être revues et corrigées. Les étapes suivantes vous guident dans ce processus
+profileToProject.text=Afin de convertir un profil en projet, certaines données doivent être revues et corrigées. Les étapes suivantes vous guident dans ce processus.
 profileToProject.asset=Pour chaque élément, svp précisez 1) le coût de maintenance, 2) si l'élément est remplacé à la fin de sa vie économique, et 3) l'année du projet à laquelle l'investissement est réalisé.
 profileToProject.investLabour=Investissement: main d'œuvre / services
-profileToProject.investLabour.text=SVP déplacer chacun des coûts de main d''œuvre d'investissement (dans le premier tableau) vers les tableaux «Main d''œuvre» ou bien «Services professionels ». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
+profileToProject.investLabour.text=SVP déplacer chacun des coûts de main d'œuvre d'investissement (du premier tableau) vers les tableaux «Main d''œuvre» ou bien «Services professionels ». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
 profileToProject.generalLabour=Coûts généraux
-profileToProject.generalLabour.text=SVP déplacer chacun des coûts généraux de main d'œuvre (dans le premier tableau) vers les tableaux «Biens et services» ou bien «Personnel». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
-profileToProject.generalLabourNongen.text=SVP déplacer chacun des coûts généraux de main d'œuvre (dans le premier tableau) vers les tableaux «Intrants/matériels» ou bien «Coûts généraux/maintenance». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
+profileToProject.generalLabour.text=SVP déplacer chacun des coûts généraux de main d'œuvre (du premier tableau) vers les tableaux «Biens et services» ou bien «Personnel». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
+profileToProject.generalLabourNongen.text=SVP déplacer chacun des coûts généraux de main d'œuvre (du premier tableau) vers les tableaux «Intrants/matériels» ou bien «Coûts généraux/maintenance». Pour les coût de main d'œuvre, vous devrez choisir l'unité dans le menu. SVP précisez également l'année à laquelle sera réalisé l'investissement.
 profileToProject.blocks= Pour chaque block, svp choisir l'unité des coûts de main d'œuvre dans le menu, en corrigeant les unités et les coûts unitaires si nécessaire.
 profileToProject.activities=Pour chaque activité, svp choisir l'unité des coûts de main d'œuvre dans le menu, en corrigeant les unités et les coûts unitaires si nécessaire.
 profileToProject.complete=SVP compléter l'opération
 profileToProject.complete.text=SVP déplacer tous les éléments du premier tableau avant de continuer.
+
 error.block.noChronology=Block "{0}": SVP rouvrir le block et préciser la chronologie de la production.
 error.block.noPattern=Block "{0}": SVP rouvrir le block et préciser le profil de production.
-error.activity.noPattern=Activity "{0}": SVP rouvrir le block et préciser le calendrier d'activités.
+error.activity.noPattern=Activité "{0}": SVP rouvrir le block et préciser le calendrier d'activités.
 
 ## RIV 4.4 BIS
 project.loan.paymentsPerYear=Paiements par an
 project.loan.periods=période(s) de paiement
 project.loan.perPeriod=par période de paiement
+
 project.report.amortization.title=Amortissement de l'emprunt
 project.report.amortization.period=Période
 project.report.amortization.total=Paiement total
@@ -28,24 +29,44 @@ project.report.amortization.interest=Paiement des intérêts
 project.report.amortization.capitalDuringGrace=Capital initial quand il y a une période de grâce sur les paiements des intérêts
 project.report.amortization.interestDuringGrace=Intérêts durant la période de grâce sur le paiement des intérêts
 project.report.amortization.interestDuringGraceCapital=Intérêts quand il y une la période de grâce sur le paiement du capital
+
 project.lastUpdateBy=Dernière actualisation par
 project.lastUpdateBy.help=Dernier utilisateur à actualiser le projet
 profile.lastUpdateBy=Dernière actualisation par
 profile.lastUpdateBy.help=Dernier utilisateur à actualiser le profil
 project.user=Utilisateur
 profile.user=Utilisateur
+
 qualitativeAnalysis=Analysis qualitative
 qualitativeAnalysis.help=Ajouter une évaluation de 1 à 5 étoiles pour le texte sélectionné. En fonction du poids donné à chaque texte, un indicateur d'analyse qualitative est calculé pour le projet.
 qualitativeAnalysis.field=Champ
 qualitativeAnalysis.weight=Poids
 qualitativeAnalysis.report.stars=étoiles:
 
+# changed from earlier version
+project.loan.interest=Taux d'intérête (%)
+profile.createdBy.help=Utilisateur qui a créé ce profil.
+project.createdBy.help= Utilisateur qui a créé ce projet.
+profile.step1.3=Utilisateur
+profile.step1.3.help= Dans ce cas, l'utilisateur qui gère ce profil, et qui décide: si le profil peut être partagé (et tous les utilisateurs peuvent le modifier); ou non (seul lui/elle peut le modifier).
+project.step1.4=Utilisateur
+project.step1.4.help= Dans ce cas, l'utilisateur qui gère ce projet, et qui décide: si le projet peut être partagé (et tous les utilisateurs peuvent le modifier); ou non (seul lui/elle peut le modifier).
+user.description.help=Vore nom complet, tel qu'il apparaîtra en référence dans vos profils et projets.
+project.withWithout=Scénarii "Avec projet" et "Sans projet" 
+project.withWithout.remove=Lors de l'annulation d'un scénario "sans projet", tout block "sans projet" éventuellement existant sera intégré au scénario "avec projet" . Tout coût d'investissement ou coût général éventuellement existant dans le scénario "sans projet" sera au contraire effacé.
+project.withWithoutMessage=Ce projet considère une situation "avec projet" et "sans projet"?
+project.withWithout.help=Inclure un scénario "sans projet" vous permet de comparer le projet d'investissement avec une situation actuelle de production avec les investissements et les coûts d'opération y afférant.
+
+# the following can be no more than 31 characters
+project.report.workingcapital.with.sheetname=Flux mensuel trésorerie (avec)
+project.report.workingcapital.without.sheetname=Flux mensuel trésorerie (sans)
+
 ## RIV4.4
 project.report.profitability.payback=Nombre d’années nécessaires pour couvrir l’investissement (années)
 project.report.profitability.cumulative=Cumulé
 project.report.profitability.lastNeg=Dernière année négative
-project.report.workingcapital=Fonds de roulement
-project.report.workingcapital.sheetname=Fonds de roulement
+project.report.workingcapital=Flux mensuel trésorerie
+project.report.workingcapital.sheetname=Flux mensuel trésorerie
 project.periodAvg=Durée moyenne du crédit
 project.periodAvg.help=La “durée moyenne du crédit” est un facteur correctif de la durée estimée du crédit. Puisque la durée estimée du crédit est basée sur le dernier mois de flux de trésorerie cumulé négatif, et que le montant estimé du fonds de roulement est le montant le plus élevé du flux de trésorerie cumulé négatif,  l’intérêt calculé sur ces deux paramètres est surestimé. Pour le corriger, RuralInvest utilise à la place la durée moyenne du crédit qui est basée sur le flux de trésorerie mensuel cumulé jusqu’à atteindre la durée du crédit estimée. Au lieu de générer une moyenne pondérée sur le fonds de roulement, le logiciel génère une moyenne pondérée de la durée du crédit. Le résultat est le même en termes d’intérêt généré.
 misc.moreDetails=Pour les détails, voir le rapport suivant
@@ -398,7 +419,6 @@ project.report.cashFlow.invest=Investissement
 project.report.summary.employment.total=Total
  
 project.without=Sans projet
-project.withWithout.remove=Vous avez choisi de ne pas avoir de blocs «avec projet » et « sans projet » pour ce projet. Les blocs « sans projet » existant seront transformés en blocs « avec projet ».
 projectBlock.chronology.selectAll=sélectionner tous
  
 # for cost items that are linked to reference table items
@@ -672,7 +692,6 @@ profile.clone.help=Cette fonction permet de copier un avant-projet. La copie peu
 profile.clone=Copier cet avant-projet
 profile.costPerBenef=Coût de fonctionnement annuel par bénéficiaire
 profile.createdBy=Créé par 
-profile.createdBy.help=Technicien qui a créé initialement l'avant-projet.
 profile.creationDate=Date de création
 profile.demand.help=Décrire ce que l'on sait de la demande pour le service ou de produit qui sera fourni par le projet. Pourquoi ce produit ou service n'est-il pas déjà disponible ? Que font les populations en son absence ? Comment sait-on qu'il existe une demande ?
 profile.demand=Demande prévue
@@ -756,8 +775,6 @@ profile.status=Etat d’avant-projet
 profile.status.help= Les avant-projets suivent un cycle de projet qui démarre par l'état de « proposition ». Ils sont considérés comme « approuvés » seulement une fois le financement accordé.
 profile.step1.1=Généralités
 profile.step1.2=Localisation
-profile.step1.3.help=Si vous créez un avant-projet, cette section doit afficher vos coordonnées. Si celles-ci sont erronées, mettez-les à jour dans la section "Utilisateurs" de la page d'Accueil. Il se peut également que vous soyez entré dans RuralInvest en utilisant la connexion d'un autre utilisateur.
-profile.step1.3=Technicien
 profile.step1.4.help=Sélectionnez "oui" si vous souhaitez que les autres utilisateurs puissent compléter cet avant-projet ou le modifier. Si vous sélectionnez "non", ils pourront consulter l'avant-projet mais pas le modifier.
 profile.step1.4=Partage
 profile.step1=Généralités
@@ -944,7 +961,6 @@ project.clone.help=Cette fonction permet de copier un projet. La copie peut alor
 project.clone=Copier ce projet
 project.costPerBenef=Coût annuel par bénéficiaire
 project.createdBy=Créé par 
-project.createdBy.help=Technicien qui a créé initialement le projet.
 project.creationDate.help=Date à laquelle cette proposition de projet a initialement été créée.
 project.creationDate=Date de création
 project.demand.help=Décrire ce que l'on sait de la demande pour le service ou produit qui sera fourni par le projet. Pourquoi ce produit ou service n'est-il pas déjà disponible ? Que font les populations en son absence ? Comment sait-on qu'il existe une demande ?
@@ -991,7 +1007,7 @@ project.loan.graceCapital=Période de grâce - capital
 project.loan.graceInterest.help=période en début de prêt durant laquelle il n'y a pas d'interet payé. Les intérêts  sont en fait  ajoutés au montant du prêt qui va donc augmenter. L'inclusion d'une période de grâce entrainera  une augmentation des paiements annuels
 project.loan.graceInterest=Période de grâce - intérêts
 project.loan.interest.help=Le taux d'intérêt appliqué au premier prêt sera spécifié par l'institution de crédit. Ne pas saisir un taux différent de celui-ci. Entrez le taux d'intérêt nominal (payé par le bénéficiaire), le taux d'intérêt réel étant calculé automatiquement par le logiciel.
-project.loan.interest=Taux d'intérêt annuel
+#project.loan.interest=Taux d'intérêt annuel
 project.loan1.help=Le premier prêt est souvent le seul prêt nécessaire.
 project.loan1=Premier prêt
 project.loan1Duration=Durée du prêt
@@ -1156,8 +1172,6 @@ project.step1.2.help=Texte d'aide pour la localisation
 project.step1.2=Localisation
 project.step1.3.help=Une proposition de projet doit en général distinguer les situations "avec" et "sans" projet si elle vise à étendre ou à modifier une activité déjà existante. Dans ce cas, il convient de distinguer des blocs "sans" projet (qui correspondent souvent à la situation actuelle) et des blocs "avec" projet (situation après investissement). L'ordinateur soustrait les résultats financiers obtenus dans la situation "sans" projet à ceux de la situation "avec" projet pour quantifier l'impact de l'investissement (augmentation des dépenses et des recettes).
 project.step1.3=Type et etat d'avancement du projet
-project.step1.4.help=Si vous créez une proposition de projet, cette section doit afficher vos coordonnées. Si celles-ci sont erronées, mettez-les à jour dans la section "Utilisateurs" de la page d'Accueil (domaine du "technicien" dans la section "Configuration"). Il se peut également que vous soyez entré dans RuralInvest en utilisant la connexion d'un autre utilisateur. 
-project.step1.4=Technicien
 project.step1.5.help=Sélectionner "oui" si vous souhaitez que d'autres techniciens puissent modifier ce projet. Si vous sélectionnez "non", d'autres utilisateurs pourront consulter ce projet mais pas le modifier.
 project.step1.5=Partage
 project.step10=Références
@@ -1189,9 +1203,6 @@ project.technology.help=Si le projet prévoit de faire recours à des technologi
 project.technology=Technologies à utiliser
 project.userCode.help=Ce champ doit être complété seulement si votre organisation a besoin d'un code pour différencier les projets formulés. Que ce code existe ou pas, l'ordinateur attribuera automatiquement un code RuralInvest, qui sera utilisé pour identifier le projet.
 project.userCode=Code du projet
-project.withWithout=Blocs avec ou sans projet
-project.withWithout.help=Lorsque vous changez cette option afin de pouvoir distinguer des blocs "sans" projet (pour une activité existante) de blocs "avec" projet, tous les blocs existants sont considérés comme des blocs "avec" projet.
-project.withWithoutMessage=Est-ce que ce projet fait la distinction entre une situation "avec" et "sans" projet et donc entre des blocs de production "avec" et "sans" projet ?
 project.workCapital=Fonds de roulement
 project.workingCapital.help=Le fonds de roulement correspond aux fonds nécessaires pour que le projet soit immédiatement opérationnel.
 project.workingCapital=Fonds de roulement
@@ -1678,7 +1689,6 @@ user.addUser=Ajouter un utilisateur
 user.administrator=Administrateur
 user.changePassword=Modifier le nom d'utilisateur et le mot de passe
 user.delete.warn=Effacer un utilisateur effacera aussi tous les avant-proejts ou projets qu'il a créé. Etes vous sûr de vouloir continuer ?
-user.description.help=Nom du technicien qui utilisera le système RuralInvest
 user.description=Nom
 user.email.help=Si vous avez une adresse électronique, entrez-là ici.
 user.email=Courriel
