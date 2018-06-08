@@ -50,7 +50,11 @@ public class FinanceMatrix {
 		addWorkingCapital(project);
 		if ((project.getWizardStep()==null || project.getWizardStep()>11)
 				&& !(project.getLoan1Interest()==null||project.getLoan1GraceInterest()==null||project.getLoan1GraceCapital()==null||project.getLoan1Duration()==null
-				||project.getLoan2Amt()==null||project.getLoan2Interest()==null||project.getLoan2GraceInterest()==null||project.getLoan2GraceCapital()==null||project.getLoan2Duration()==null)
+				||project.getLoan2Amt()==null||project.getLoan2Interest()==null||project.getLoan2GraceInterest()==null||project.getLoan2GraceCapital()==null||project.getLoan2Duration()==null
+				||project.getLoan1Duration()>project.getDuration()||project.getLoan2Duration()+project.getLoan2InitPeriod()-1>project.getDuration()
+				||project.getLoan1GraceCapital()>project.getDuration()||project.getLoan1GraceInterest()>project.getDuration()
+				||project.getLoan2GraceCapital()+project.getLoan2InitPeriod()-1>project.getDuration()||project.getLoan1GraceInterest()+project.getLoan2InitPeriod()-1>project.getDuration()
+				||project.getLoan1PaymentsPerYear()<1||project.getLoan2PaymentsPerYear()<1)
 		) {
 			addLoanAmortization(project);
 			npvWithoutDonation = getNpv(false, ProjectScenario.Incremental);

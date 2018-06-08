@@ -220,12 +220,30 @@ public class ProjectValidator implements Validator {
 				
 				// calculated values
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
-				if (project.getLoan1Duration()!=null && 
-						project.getLoan1Duration()>project.getDuration())
+				
+				if (!errors.hasFieldErrors("loan1Duration")) { 
+					if (project.getLoan1Duration()>project.getDuration()) {
 							errors.rejectValue("loan1Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");
-				if (project.getLoan2Duration()!=null && project.getLoan2InitPeriod()!=null &&
-					project.getLoan2Duration()>project.getDuration()-project.getLoan2InitPeriod()+1)
-						errors.rejectValue("loan2Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");	
+					} 
+					if (!errors.hasFieldErrors("loan1GraceCapital") && project.getLoan1GraceCapital()>project.getDuration()) {
+						errors.rejectValue("loan1GraceCapital", "error.loan.pastProjectDuration", "Cannot exceed project duration");
+					}
+					if (!errors.hasFieldErrors("loan1GraceInterest") && project.getLoan1GraceInterest()>project.getDuration()) {
+						errors.rejectValue("loan1GraceInterest", "error.loan.pastProjectDuration", "Cannot exceed project duration");
+					}
+				}
+				
+				if (!errors.hasFieldErrors("loan2Duration")) { 
+					if (project.getLoan2Duration()+project.getLoan2InitPeriod()-1>project.getDuration()) {
+							errors.rejectValue("loan2Duration", "error.loanTooLong", "The loan cannot extend beyond the end of the project");	
+					}
+					if (!errors.hasFieldErrors("loan2GraceCapital") && project.getLoan2GraceCapital()+project.getLoan2InitPeriod()-1>project.getDuration()) {
+						errors.rejectValue("loan2GraceCapital", "error.loan.pastProjectDuration", "Cannot exceed project duration");
+					}
+					if (!errors.hasFieldErrors("loan2GraceInterest") && project.getLoan2GraceInterest()+project.getLoan2InitPeriod()-1>project.getDuration()) {
+						errors.rejectValue("loan2GraceInterest", "error.loan.pastProjectDuration", "Cannot exceed project duration");
+					}
+				}
 				
 				if (!errors.hasErrors()) {
 					// calculate the working capital fields and validate them
