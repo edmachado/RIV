@@ -204,7 +204,7 @@ public class Project extends Probase implements java.io.Serializable {
 	@Column(name="LOAN1_GRACE_INTEREST")
 	private Integer loan1GraceInterest;
 	@Column(name="LOAN1_PAYMENTS_PER_YEAR")
-	private Integer loan1PaymentsPerYear;
+	private Integer loan1PaymentsPerYear=1;
 	@Column(name="LOAN2_AMT")
 	private Double loan2Amt;
 	@Column(name="LOAN2_INTEREST")
@@ -218,7 +218,7 @@ public class Project extends Probase implements java.io.Serializable {
 	@Column(name="LOAN2_INIT_PERIOD")
 	private Integer loan2InitPeriod;
 	@Column(name="LOAN2_PAYMENTS_PER_YEAR")
-	private Integer loan2PaymentsPerYear;
+	private Integer loan2PaymentsPerYear=1;
 	@Column(name="INFLATION_ANNUAL")
 	private Double inflationAnnual;
 	@Column(name="CAPITAL_INTEREST")

@@ -303,7 +303,12 @@ public class FinanceMatrix {
 	}
 	
 	private void addLoanAmortization(Project project) {
-		if (project.getLoan1PaymentsPerYear()<1||project.getLoan2PaymentsPerYear()<1) return;
+		if (project.getLoan1PaymentsPerYear()==0) {
+			return;
+		}
+		if (project.getLoan2PaymentsPerYear()==0 && project.getLoan2Amt()>0) {
+			return;
+		}
 		
 		double loan1amt = project.getInvestmentTotal()-project.getLoan2Amt();
 		double loan1interest=(project.getLoan1Interest()-project.getInflationAnnual())/project.getLoan1PaymentsPerYear()*.01;

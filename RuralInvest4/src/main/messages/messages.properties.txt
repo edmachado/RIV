@@ -3,7 +3,6 @@ error.import.riv=Not a recognizable .riv file. The file may be corrupt.
 
 #changed since previous version
 project.loan.paymentsPerYear.help=The number of payments the lender requires for loan repayment each year of loan. (e.g. '4' if loan is to be paid quarterly, '12' if loan is to be paid monthly.)
-project.report.workingcapital=Monthly cash flow
 
 
 ## RIV4.4 PROFILE TO PROJECT
@@ -91,7 +90,7 @@ project.withWithout.help=Including a "without project" scenario allows you to co
 project.report.profitability.payback=Payback (years)
 project.report.profitability.cumulative=Cumulative
 project.report.profitability.lastNeg=Last negative year
-#project.report.workingcapital=Working capital
+project.report.workingcapital=Working capital
 project.report.workingcapital.sheetname=Working capital
 project.periodAvg=Average loan duration
 project.periodAvg.help=The "average loan duration" is a correction factor of the estimated loan duration. Since the estimated loan duration is based on the last month of negative cumulative cash flow, and the estimated amount of working capital is the largest cumulative negative cash flow, the interest calculated on those two parameters is overestimated. To correct this, we utilize instead an average loan duration which is based on the monthly cumulative cash flow for each month until we reach the estimated loan duration. Instead of generating a weighted average on the working capital amount, we generate a weighted average of the loan duration \u2013 the result is the same in terms of interest generated.

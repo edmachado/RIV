@@ -2066,11 +2066,11 @@ public class ExcelWorksheetBuilder {
 					col = getColumn(payPeriod);
 					
 					// capital
-					double value = loan.get(payPeriod-1).getCapital();
+					double value = (loan==null) ? 0.0 : loan.get(payPeriod-1).getCapital();
 					report.addNumericCell(sheet.getRow(loanCapital), payPeriod, value, Style.CURRENCY);
 					
 					// interest
-					value = loan.get(payPeriod-1).getInterest();
+					value = loan==null ? 0.0 : loan.get(payPeriod-1).getInterest();
 					report.addNumericCell(sheet.getRow(loanInterest), payPeriod, value, Style.CURRENCY);
 				}
 			}
