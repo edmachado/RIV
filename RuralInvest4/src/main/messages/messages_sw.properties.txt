@@ -1,3 +1,6 @@
+
+project.report.workingcapital=Mtiririko wa fedha kwa mwezi
+
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Geuza Taswira kuwa Mradi
 profileToProject.text=Ili kuweza kugeuza taswira kuwa mradi baadhi ya taarifa zinatakiwa kuangaliwa upya na kurekebishwa. Hatua zinazofuata zitakuongoza katika utaratibu huu.
@@ -31,8 +34,8 @@ project.report.amortization.interestDuringGraceCapital= Riba wakati kuna neema y
 
 # translator: the below three items cannot exceed 31 characters each! They are names of separate sheets in Excel
 project.report.workingcapital.sheetname=Mtiririko wa fedha kwa mwezi
-project.report.workingcapital.with.sheetname= Mtiririko wa fedha kwa mwezi(Na Mradi)
-project.report.workingcapital.without.sheetname= Mtiririko wa fedha kwa mwezi(Bila Mradi)
+project.report.workingcapital.with.sheetname=Mtiririko wa fedha kwa mwezi(Na Mradi)
+project.report.workingcapital.without.sheetname=Mtiririko wa fedha kwa mwezi(Bila Mradi)
 project.lastUpdateBy= Ilisasaishwa mwisho na
 project.lastUpdateBy.help=Mtu wa mwisho kusahihisha mradi.
 profile.lastUpdateBy= Ilisasaishwa mwisho na
@@ -66,7 +69,6 @@ project.withWithout.help=Ukijumuisha hali ya "bila mradi" inakuruhusu wewe kulin
 project.report.profitability.payback= Malipo (Miaka)
 project.report.profitability.cumulative= Jumlishi
 project.report.profitability.lastNeg= Mwaka hasi wa mwisho
-project.report.workingcapital=Mtaji Endeshaji
 #project.report.workingcapital.sheetname=Mtaji Endeshaji
 project.periodAvg=Wastani wa muda wa mkopo
 project.periodAvg.help="Wastani wa muda wa mkopo" ni kipengele cha marekebisho ya muda wa mkopo uliokadiriwa. Kwa kuwa muda uliokadiriwa wa mkopo unazingatia mwezi wa mwisho wenye salio jumlishi hasi la mtiririko wa fedha, na kiasi kadiriwa cha mtaji endeshaji ni kiasi hasi kikubwa zaidi cha mtiririko wa fedha, riba inayotafutwa kwa kutumia parameta hizo mbili imetiwa chumvi. Kurekebisha hili, tunatumia mbadala wastani wa muda wa mkopo ambao unazingatia mtririko wa fedha wa mwezi kwa kila mmweizi hadi tifikie muda wa mkopo wa kukadiria. Mbadala wa kuzalisha uzani wa wastani wa kiasi cha mtaji endeshaji, tunatengeneza uzani wa wastani wa muda wa mkopo – matokea ni sawa kwa kuangalia riba iliyozalishwa.

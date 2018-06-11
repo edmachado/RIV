@@ -1,4 +1,8 @@
-﻿## RIV4.4 PROFILE TO PROJECT
+﻿
+project.report.workingcapital=Fluxo de tesouraria mensal
+#project.report.workingcapital.sheetname=Fluxo de tesouraria mensal
+
+## RIV4.4 PROFILE TO PROJECT
 profileToProject=Conversão do anteprojecto em projecto
 profileToProject.text=Para converter um anteprojecto em projecto, é necessário rever e corrigir alguns dados. As etapas seguintes guiam esse processo
 profileToProject.asset=Para cada elemento, por favor indique: 1) o custo de manutenção, 2) se o elemento deve ser subsituido no fim da sua vida económica, e 3) o ano do projecto em que o investimento será realizado.
@@ -52,7 +56,7 @@ project.report.workingcapital.without.sheetname=Fluxo de tesouraria mensal (sem)
  
  
 # changed from earlier versions
-project.loan.interest=Interest rate (%)
+project.loan.interest=Taxa de juro anual (%)
  
 profile.createdBy.help=Utilizador que criou o anteprojecto.
 project.createdBy.help= Utilizador que criou o projecto.
@@ -73,9 +77,7 @@ project.withWithout.help=Ao incluir um cenário “sem projecto” poderá compa
 ## RIV 4.4.0
 project.report.profitability.payback=Retorno (anos)
 project.report.profitability.cumulative=Cumulativo
-project.report.profitability.lastNeg=Último ano negativo 
-project.report.workingcapital=Capital de giro
-#project.report.workingcapital.sheetname=Capital de giro
+project.report.profitability.lastNeg=Último ano negativo
 project.periodAvg=Duração media do empréstimo
 project.periodAvg.help=A "duração média do empréstimo" é um fator de correção da duração estimada do empréstimo. Uma vez que a duração estimada do empréstimo é baseada no último mês de fluxo de caixa cumulativo negativo e o montante estimado de capital de giro é o maior valor cumulativo do fluxo de caixa, o interesse calculado sobre esses dois parâmetros é superestimado. Para corrigir isso, utilizamos uma duração média do empréstimo, que é baseada no fluxo de caixa acumulado mensal de cada mês até atingir a duração estimada do empréstimo. Em vez de gerar uma média ponderada no valor do capital de giro, geramos uma média ponderada da duração do empréstimo - o resultado é o mesmo em termos de interesse gerado.
 misc.moreDetails=Para detaches osha o relatório seguinte: 

@@ -1,4 +1,6 @@
 
+project.report.workingcapital=Aylık Nakit Akışı
+
 
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Profili projeye dönüştür
@@ -74,8 +76,6 @@ project.withWithout.help=”Hariç Proje” senaryosu, yatırım projesi ile var
 project.report.profitability.payback=Geri Ödeme (Yıllar)
 project.report.profitability.cumulative=Birikimli
 project.report.profitability.lastNeg=Son Negatif Yıl
-project.report.workingcapital=İşletme Sermayesi
-#project.report.workingcapital.sheetname=İşletme Sermayesi
 project.periodAvg=Ortalama Kredi Süresi
 project.periodAvg.help=”Ortalama Kredi Süresi”, tahmini kredi süresinin bir düzeltme faktörüdür. Tahmini borç süresi, negatif birikimli nakit akışının son ayına dayandığından, ve işletme sermayesinin tahmini tutarı en büyük negatif birikimli nakit akışı olduğundan, faizin hesaplandığı bu iki parametre tahmin edilenden fazla hesaplanır.Bunu düzeltmek için, tahmini kredi süresine ulaşana kadar her ayın aylık birikimli nakit akışına dayanan ortalama bir kredi süresinden yararlanıyoruz.İşletme sermayesi tutarı üzerinde ağırlıklı ortalama üretmek yerine, kredi süresinin ağırlıklı ortalaması üretilmektedir – sonuç oluşan faiz açısından da aynıdır.
 misc.moreDetails=Ayrıntılar için takip eden rapora bakınız: 

@@ -1,3 +1,5 @@
+project.report.workingcapital=Flux mensuel trésorerie
+
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Conversion de profil à projet
 profileToProject.text=Afin de convertir un profil en projet, certaines données doivent être revues et corrigées. Les étapes suivantes vous guident dans ce processus.
@@ -65,7 +67,6 @@ project.report.workingcapital.without.sheetname=Flux mensuel trésorerie (sans)
 project.report.profitability.payback=Nombre d’années nécessaires pour couvrir l’investissement (années)
 project.report.profitability.cumulative=Cumulé
 project.report.profitability.lastNeg=Dernière année négative
-project.report.workingcapital=Flux mensuel trésorerie
 project.report.workingcapital.sheetname=Flux mensuel trésorerie
 project.periodAvg=Durée moyenne du crédit
 project.periodAvg.help=La “durée moyenne du crédit” est un facteur correctif de la durée estimée du crédit. Puisque la durée estimée du crédit est basée sur le dernier mois de flux de trésorerie cumulé négatif, et que le montant estimé du fonds de roulement est le montant le plus élevé du flux de trésorerie cumulé négatif,  l’intérêt calculé sur ces deux paramètres est surestimé. Pour le corriger, RuralInvest utilise à la place la durée moyenne du crédit qui est basée sur le flux de trésorerie mensuel cumulé jusqu’à atteindre la durée du crédit estimée. Au lieu de générer une moyenne pondérée sur le fonds de roulement, le logiciel génère une moyenne pondérée de la durée du crédit. Le résultat est le même en termes d’intérêt généré.

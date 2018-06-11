@@ -1,4 +1,7 @@
-﻿## RIV4.4 PROFILE TO PROJECT
+﻿
+project.report.workingcapital=Fluxo de caixa mensal 
+
+## RIV4.4 PROFILE TO PROJECT
 profileToProject=Conversão do perfil em projeto
 profileToProject.text=Para converter um perfil em projeto, alguns dados precisam ser revistos e corrigidos. As etapas seguintes guiam esse processo
 profileToProject.asset=Para cada elemento, por favor precise 1) o custo de manutenção, 2) se o elemento deve ser subsituido no fim da sua vida econômica, e 3) o ano do projeto quando o investimento vai ser feito.
@@ -54,7 +57,6 @@ project.periodAvg= Duração média do empréstimo
 project.report.profitability.cumulative=Cumulativo
 project.report.profitability.lastNeg=Último ano negativo
 project.report.profitability.payback=Payback (anos)
-project.report.workingcapital=Fluxo de caixa mensal 
 projectBlock.chronology.deselectAll= desmarcar todos
 
 # the below three lines can be maximum 31 characters each (Excel rules)

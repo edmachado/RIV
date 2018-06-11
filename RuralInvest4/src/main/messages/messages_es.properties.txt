@@ -1,3 +1,6 @@
+project.report.workingcapital=Flujo de efectivo mensual
+
+
 ## RIV4.4 PROFILE TO PROJECT 
 profileToProject=Convertir perfil en proyecto 
 profileToProject.text=Para convertir un perfil a un proyecto, algunos datos deben ser revisados ​​y corregidos. Los siguientes pasos lo guiarán a través de este proceso. 
@@ -70,7 +73,7 @@ project.withWithout.help=La inclusión de un escenario "sin proyecto" le permite
 project.report.profitability.payback=Período en que se repaga la inversión (años)
 project.report.profitability.cumulative=Acumulativo
 project.report.profitability.lastNeg=Último año con flujo negativo
-project.report.workingcapital=Capital de trabajo
+#project.report.workingcapital=Capital de trabajo
 #project.report.workingcapital.sheetname=Capital de trabajo
 project.periodAvg=Duración promedio del préstamo
 project.periodAvg.help=La “duración promedio del préstamo” es un factor de corrección de la duración estimada del préstamo. Ya que la duración estimada del préstamo está basada en el último mes de flujo de efectivo negativo, y el monto estimado de capital de trabajo es el mayor flujo de efectivo acumulado negativo, el interés calculado sobre esos dos parámetros es sobreestimado. Para corregir esto, utilizamos la duración promedio del préstamo, la cual está basada en el flujo de efectivo acumulativo mensual para cada mes, hasta que alcancemos la duración estimada del préstamo. En lugar de generar un promedio ponderado del monto de capital de trabajo, generamos un promedio ponderado de la duración del préstamo – el resultado es el mismo en términos de intereses devengados.
