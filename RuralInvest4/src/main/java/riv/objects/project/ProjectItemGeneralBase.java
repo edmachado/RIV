@@ -123,8 +123,12 @@ public abstract class ProjectItemGeneralBase extends HasPerYearItems<ProjectItem
 	@Override
 	public void convertCurrency(Double exchange, int scale) {
 		this.setUnitCost(this.getProject().round(this.getUnitCost()*exchange, scale));
-		for (ProjectItemGeneralPerYear year : this.getYears().values()) {
-			year.convertCurrency(exchange, scale);
+		if (this.getProject().isPerYearGeneralCosts()) {
+			for (ProjectItemGeneralPerYear year : this.getYears().values()) {
+				year.convertCurrency(exchange, scale);
+			}
+		} else {
+			this.getYears().get(0).convertCurrency(exchange, scale);
 		}
 	}
 }
