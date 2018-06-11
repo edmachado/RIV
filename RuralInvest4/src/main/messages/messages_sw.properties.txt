@@ -33,9 +33,10 @@ project.report.amortization.interestDuringGrace=Riba wakati kuna neema ya malipo
 project.report.amortization.interestDuringGraceCapital= Riba wakati kuna neema ya malipo ya kianzio.
 
 # translator: the below three items cannot exceed 31 characters each! They are names of separate sheets in Excel
-project.report.workingcapital.sheetname=Mtiririko wa fedha kwa mwezi
-project.report.workingcapital.with.sheetname=Mtiririko wa fedha kwa mwezi(Na Mradi)
-project.report.workingcapital.without.sheetname=Mtiririko wa fedha kwa mwezi(Bila Mradi)
+project.report.workingcapital.sheetname= Mtiririko fedha
+project.report.workingcapital.with.sheetname= Mtiririko fedha (Na Mradi)
+project.report.workingcapital.without.sheetname= Mtiririko fedha (Bila Mradi)
+
 project.lastUpdateBy= Ilisasaishwa mwisho na
 project.lastUpdateBy.help=Mtu wa mwisho kusahihisha mradi.
 profile.lastUpdateBy= Ilisasaishwa mwisho na
