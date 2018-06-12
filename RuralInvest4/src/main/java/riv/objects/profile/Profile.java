@@ -986,7 +986,6 @@ public class Profile extends Probase implements java.io.Serializable {
 		 proj.setWizardStep(1);
 		 proj.setPrepDate(new Date());
 		 
-		 //TODO use enum
 		 proj.setProfileUpgrade(1);
 		 
 		 // step 1

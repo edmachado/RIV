@@ -51,7 +51,7 @@
 	<jar src="@{izpack.staging}/lib/commons-io.jar" stage="install"/>
 	
 	<resources>
-		<res id="LicencePanel.licence" src="resources/Licence.txt"/>
+		<res id="HTMLLicencePanel.licence" src="resources/Licence.html"/>
 
 		<res id="Unix_shortcutSpec.xml" src="resources/Unix_shortcutSpec.xml"/>
 		<res id="Win_shortcutSpec.xml" src="resources/Win_shortcutSpec.xml"/>
@@ -90,6 +90,12 @@
 
 	<panels>
 		<panel classname="HelloPanel" />
+		<panel classname="HTMLLicencePanel" id="panel.license">
+			<configuration>
+				<param name="console-text-paging" value="true" />
+				<param name="console-text-wordwrap" value="true" />
+			</configuration>
+		</panel>
 		<panel classname="HTMLInfoPanel">
 			<actions>
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.CollectVariablesAction"/>

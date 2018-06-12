@@ -5,7 +5,7 @@
 	<version>4.4.0</version>
 	<packaging>pom</packaging>
 	<properties>
-		<izpack.version>5.0.8</izpack.version>
+		<izpack.version>5.1.2</izpack.version>
 		<javaVersion>1.8</javaVersion>
 		<maven.compiler.source>${javaVersion}</maven.compiler.source>
 		<maven.compiler.target>${javaVersion}</maven.compiler.target>
