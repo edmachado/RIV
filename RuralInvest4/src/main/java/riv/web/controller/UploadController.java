@@ -412,7 +412,7 @@ public class UploadController implements Serializable {
 		Project project = (Project)decoded;
 		
 		boolean exists = dataService.getProjectByUniqueId(project.getUniqueId()) !=null;
-		if (!exists &! project.isGeneric()) {
+		if (!exists && !project.isGeneric()) {
 			if (!markComplete) {
 				project.setWizardStep(1);
 			}
@@ -431,7 +431,7 @@ public class UploadController implements Serializable {
 		Profile profile = (Profile)decoded;
 		
 		boolean exists = dataService.getProfileByUniqueId(profile.getUniqueId())!=null;
-		if (!exists &! profile.isGeneric()) { // import directly
+		if (!exists && !profile.isGeneric()) { // import directly
 			if (!markComplete) {
 				profile.setWizardStep(1);
 			}

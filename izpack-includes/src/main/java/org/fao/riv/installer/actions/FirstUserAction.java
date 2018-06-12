@@ -53,6 +53,8 @@ public class FirstUserAction {
 	}
 	
 	private void execute(FirstUserData user) throws Exception {
+		Connection conn=null;
+		
 		try {
 			// delete riv.lck
 			File dblock = new File(user.webroot+"/riv.lck");
@@ -61,11 +63,10 @@ public class FirstUserAction {
 			Class.forName("org.hsqldb.jdbcDriver").newInstance();
 			System.out.println(String.format("Attempting to write to database: %s\n", user.webroot).getBytes());
 
-			Connection conn = DriverManager.getConnection("jdbc:hsqldb:file:" + user.webroot);
+			conn = DriverManager.getConnection("jdbc:hsqldb:file:" + user.webroot);
 
 			if (user.newInstall) {
-				try {
-					Statement delete = conn.createStatement();
+				try (Statement delete = conn.createStatement()){
 					delete.executeUpdate("DELETE FROM User");
 					delete.close();
 				} catch (SQLException sqle) {
@@ -74,59 +75,62 @@ public class FirstUserAction {
 			}
 
 			String sqlSelect = "SELECT user_id from User where username = ?";
-			PreparedStatement prepareSelect = conn.prepareStatement(sqlSelect);
-			prepareSelect.setString(1, user.username);
-
-			ResultSet rs = prepareSelect.executeQuery();
-			if (rs.next()) {
-				String sql = "UPDATE User set username = ?, description = ?, password = ?, "
-							 + "organization = ?, location = ?, telephone = ?, email = ?, "
-							 + "administrator = true, lang = ? where user_id = ?";
-				PreparedStatement st = conn.prepareStatement(sql);
-				st.setString(1, user.username);
-				st.setString(2, user.name);
-				st.setString(3, computeSha1OfByteArray(user.password.getBytes("UTF8")));
-				st.setString(4, user.organization);
-				st.setString(5, user.location);
-				st.setString(6, user.telephone);
-				st.setString(7, user.email);
-				st.setString(8, user.language);
-				st.setInt(9, rs.getInt("user_id"));
-
-				int result = st.executeUpdate();
-				System.out.println(String.format("Result of update: %d", result).getBytes());
-				st.close();
-			} else {
-				// add new user
-				String sql = "INSERT into User (username, description, password, organization, location, telephone, email, administrator, lang) "
-							 + "values (?,?,?,?,?,?,?,true,?)";
-				System.out.println(sql.getBytes());
-				PreparedStatement st = conn.prepareStatement(sql);
-				st.setString(1, user.username);
-				st.setString(2, user.name);
-				st.setString(3, computeSha1OfByteArray(user.password.getBytes("UTF8")));
-				st.setString(4, user.organization);
-				st.setString(5, user.location);
-				st.setString(6, user.telephone);
-				st.setString(7, user.email);
-				st.setString(8, user.language);
-
-				int result = st.executeUpdate();
-				System.out.println(String.format("Result of insert: %d", result).getBytes());
-				st.close();
+			
+			ResultSet rs=null;
+			try (PreparedStatement prepareSelect = conn.prepareStatement(sqlSelect);) {
+				prepareSelect.setString(1, user.username);
+	
+				rs  = prepareSelect.executeQuery();
+				if (rs.next()) {
+					String sql = "UPDATE User set username = ?, description = ?, password = ?, "
+								 + "organization = ?, location = ?, telephone = ?, email = ?, "
+								 + "administrator = true, lang = ? where user_id = ?";
+					PreparedStatement st = conn.prepareStatement(sql);
+					st.setString(1, user.username);
+					st.setString(2, user.name);
+					st.setString(3, computeSha1OfByteArray(user.password.getBytes("UTF8")));
+					st.setString(4, user.organization);
+					st.setString(5, user.location);
+					st.setString(6, user.telephone);
+					st.setString(7, user.email);
+					st.setString(8, user.language);
+					st.setInt(9, rs.getInt("user_id"));
+	
+					int result = st.executeUpdate();
+					System.out.println(String.format("Result of update: %d", result).getBytes());
+					st.close();
+				} else {
+					// add new user
+					String sql = "INSERT into User (username, description, password, organization, location, telephone, email, administrator, lang) "
+								 + "values (?,?,?,?,?,?,?,true,?)";
+					System.out.println(sql.getBytes());
+					
+					try (PreparedStatement st = conn.prepareStatement(sql);) {
+						st.setString(1, user.username);
+						st.setString(2, user.name);
+						st.setString(3, computeSha1OfByteArray(user.password.getBytes("UTF8")));
+						st.setString(4, user.organization);
+						st.setString(5, user.location);
+						st.setString(6, user.telephone);
+						st.setString(7, user.email);
+						st.setString(8, user.language);
+		
+						int result = st.executeUpdate();
+						System.out.println(String.format("Result of insert: %d", result).getBytes());
+					}
+				}
+			} finally {
+				try { rs.close(); } catch (Exception e) { /* ignore */ }
 			}
 
-
-			prepareSelect.close();
-
-			Statement close = conn.createStatement();
-           close.executeUpdate("SHUTDOWN COMPACT;");
-           close.close();
-               
-			conn.close();
+			try (Statement close = conn.createStatement();) {
+				close.executeUpdate("SHUTDOWN COMPACT;");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
+		} finally {
+			try { conn.close(); } catch (Exception e){ /* ignore */ }
 		}
 	}
 	

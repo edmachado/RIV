@@ -60,7 +60,7 @@ public class ProjectDonorController {
     	User u = (User)request.getAttribute("user");
     	Boolean accessOK = donor.getProject().isShared() || donor.getProject().getTechnician().getUserId().equals(u.getUserId());
     	List<Integer> donorsUsed = dataService.donorsUsed(donor.getProject().getProjectId());
-    	if (accessOK &! donorsUsed.contains(donor.getOrderBy())) {
+    	if (accessOK && !donorsUsed.contains(donor.getOrderBy())) {
 	    	dataService.deleteDonor(donor);
 	    	return "{\"success\": \"success\"}";
     	} else {

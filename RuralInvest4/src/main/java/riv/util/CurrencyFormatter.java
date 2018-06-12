@@ -57,7 +57,7 @@ public class CurrencyFormatter {
 		String format;
 		if (showDecimals && showThousands) {
 			format = (decimalLength!=0) ? "#,##0."+sb.toString() : "#,##0"+sb.toString();
-		} else if (showDecimals &! showThousands){
+		} else if (showDecimals && !showThousands){
 			format = (decimalLength!=0) ? "###0."+sb.toString() : "###0"+sb.toString();
 		} else if (showThousands) {
 			format = "#,##0";

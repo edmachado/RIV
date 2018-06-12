@@ -43,18 +43,27 @@ public class ProfileItemGood extends ProfileItem {
 	}
 	
 	public Double getReserve() {
- 		if (getUnitCost()==null || getSalvage()==null || getUnitNum()==null || econLife==null) return 0.0;
-		return ((getUnitCost()-getSalvage())*getUnitNum())/econLife;
+ 		if (getUnitCost()==null || getSalvage()==null || getUnitNum()==null || econLife==null) { 
+ 			return 0.0; 
+ 		} else {
+ 			return ((getUnitCost()-getSalvage())*getUnitNum())/econLife;
+ 		}
 	}
 	
     public Double getDonated() {
- 		if (getUnitNum()==null || getUnitCost()==null || getOwnResource()==null) return 0.0;
-     	return getTotal()-getOwnResource();
+ 		if (getUnitNum()==null || getUnitCost()==null || getOwnResource()==null) { 
+ 			return 0.0; 
+ 		} else {
+ 			return getTotal()-getOwnResource();
+ 		}
     }
     
     public Double getAnnualReserve() {
- 		if (getUnitCost()==null || getUnitNum()==null || salvage==null || econLife==null) return 0.0;
-    	return ((getUnitCost()*getUnitNum())-(getUnitNum()*salvage))/econLife;
+ 		if (getUnitCost()==null || getUnitNum()==null || salvage==null || econLife==null) {
+ 			return 0.0;
+ 		} else {
+ 			return ((getUnitCost()*getUnitNum())-(getUnitNum()*salvage))/econLife;
+ 		}
     }
 
 	public Double getEconLife() {

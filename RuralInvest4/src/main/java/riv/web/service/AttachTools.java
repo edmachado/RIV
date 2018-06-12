@@ -82,15 +82,15 @@ public class AttachTools implements Serializable {
 			} catch (Exception e) {
 				LOG.error("Error moving attached file from file to db.",e);
 			} finally {
-				try {
-					fis.close();
-					f.delete();
-					baos.close();
-				} catch (NullPointerException ne) {
-					LOG.error("Null pointer exception.",ne);
-				} catch (Exception e) {
-					LOG.error("Problem closing file connection.",e);
-				}
+				try { fis.close(); } catch (Exception e) { /* ignore */ } 
+				try { f.delete(); } catch (Exception e) { /* ignore */ } 
+				try { baos.close(); } catch (Exception e) { /* ignore */ }
+					
+//				} catch (NullPointerException ne) {
+//					LOG.error("Null pointer exception.",ne);
+//				} catch (Exception e) {
+//					LOG.error("Problem closing file connection.",e);
+//				}
 			}
 		}
 		probaseDir.delete();

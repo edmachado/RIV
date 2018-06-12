@@ -24,12 +24,12 @@ import riv.util.CurrencyFormatter;
 @Entity
 @Table(name="SETTING")
 public class Setting implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Transient
-	private CurrencyFormatter currencyFormatter;
+	private transient CurrencyFormatter currencyFormatter;
 	@Transient
 	private DecimalFormat decimalFormat;
-
-	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

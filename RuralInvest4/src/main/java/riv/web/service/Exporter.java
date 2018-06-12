@@ -73,11 +73,11 @@ public class Exporter {
 			
 			if (project && ig) {
 				fc.setObjType("igpj");
-			} else if (project &! ig) {
+			} else if (project && !ig) {
 				fc.setObjType("nigpj");
 			} else if (!project && ig) {
 				fc.setObjType("igpf");
-			} else if (!project &! ig) {
+			} else if (!project && !ig) {
 				fc.setObjType("nigpf");
 			}
 			if (project) {

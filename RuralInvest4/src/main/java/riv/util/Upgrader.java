@@ -79,7 +79,7 @@ public class Upgrader {
 		// check project statuses
 		// RIV < 2.2
 		// incoming rivConfig has no statses and RIV2.2 default statuses have not yet been added
-		if (rcNew.getStatuses()==null &! rivConfig.getStatuses().containsKey(-20)) { 
+		if (rcNew.getStatuses()==null && !rivConfig.getStatuses().containsKey(-20)) { 
 			rcNew.setStatuses(new HashMap<Integer, Status>());
 			Status s = new Status();
 			s.setDescription("Proposal");
@@ -102,7 +102,7 @@ public class Upgrader {
 		// check enviro categories
 		// RIV < 2.0
 		// incoming rivConfig has no enviroCategories and RIV2.0 enviro categories have not yet been added
-		if (rcNew.getEnviroCategories() == null &! rivConfig.getEnviroCategories().containsKey(-30)) {
+		if (rcNew.getEnviroCategories() == null && !rivConfig.getEnviroCategories().containsKey(-30)) {
 			rcNew.setEnviroCategories(new HashMap<Integer, EnviroCategory>());
 			EnviroCategory a = new EnviroCategory();
 			a.setDescription("A");

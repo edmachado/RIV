@@ -46,7 +46,7 @@ public class BlockLabour extends BlockItem implements HasDonations {
 				donated+=val;
 			}
 			
-		} catch (Exception e) {
+		} catch (Exception e) { /* ok: donations is still null but will be populated */		
 			
 		}
 		return donated;
@@ -61,7 +61,7 @@ public class BlockLabour extends BlockItem implements HasDonations {
 	public Map<Integer,Double> getDonations() { return donations; }
 	public void setDonations(Map<Integer,Double> donations)  { 
 		// required for XML Encoder, not used elsewhere
-		throw new RuntimeException("setDonations() field should not be used."); 
+		throw new UnsupportedOperationException("setDonations() field should not be used."); 
 	}
 	
 	public BlockBase getBlock () {

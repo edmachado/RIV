@@ -286,7 +286,7 @@ public class ExcelWorksheetBuilder {
 			String title=noTranslate? titles[i] : translate(titles[i]);
 			report.addTextCell(row, i, title, Style.LABEL);
 
-			if (title!=null &! title.equals("")) {
+			if (title!=null && !title.equals("")) {
 				//sheet.autoSizeColumn((short)i);
 			}
 		}
@@ -1407,7 +1407,7 @@ public class ExcelWorksheetBuilder {
 		report.addFormulaCell(row, 6, getColumn(6)+totalRows[0]+"+"+getColumn(6)+totalRows[1]+"+"+getColumn(6)+totalRows[2], Style.CURRENCY);
 		report.addFormulaCell(row, 7, getColumn(7)+totalRows[0]+"+"+getColumn(7)+totalRows[1]+"+"+getColumn(7)+totalRows[2], Style.CURRENCY);
 		
-		if (report.isCompleteReport() &! without) {
+		if (report.isCompleteReport() && !without) {
 			report.addLink(ExcelLink.PROJECT_INVEST_FINANCED, "'"+sheet.getSheetName()+"'!$H$"+rowNum);
 		}
 		

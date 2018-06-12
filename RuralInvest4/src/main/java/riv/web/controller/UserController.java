@@ -106,11 +106,11 @@ public class UserController {
 		// check permissions
 		User currentUser = (User)request.getAttribute("currentUser");
 
-		if (id!=-1 &! isCurrentUser(id, request) ) { return "redirect:../user"; } // cannot change another user
-		if (id==-1 &! currentUser.isAdministrator()) { return "redirect:../user"; } // only admin can add new user
+		if (id!=-1 && !isCurrentUser(id, request) ) { return "redirect:../user"; } // cannot change another user
+		if (id==-1 && !currentUser.isAdministrator()) { return "redirect:../user"; } // only admin can add new user
 		
 		// check that password is repeated correctly
-		if ((changePassword!=null || id==-1) &!user.getPassword().equals(request.getParameter("passwordRepeat"))) {
+		if ((changePassword!=null || id==-1) && !user.getPassword().equals(request.getParameter("passwordRepeat"))) {
 			result.rejectValue("password", "user.repeatedPassword.help");
 		}
 		// check that username is unique

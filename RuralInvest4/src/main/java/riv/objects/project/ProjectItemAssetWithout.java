@@ -68,7 +68,7 @@ public class ProjectItemAssetWithout extends ProjectItem implements ProjectInves
 	public Map<Integer,Double> getDonations() { return donations; }
 	public void setDonations(Map<Integer,Double> donations)  { 
 		// required for XML Encoder, not used elsewhere
-		throw new RuntimeException("setDonations() field should not be used."); 
+		throw new UnsupportedOperationException("setDonations() field should not be used."); 
 	}
 	
 	public Project getProject () {

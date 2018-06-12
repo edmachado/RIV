@@ -52,7 +52,7 @@ public class ProjectItemValidator implements Validator {
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitNum", type+nongen+".unitNum", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(i, "unitCost", type+nongen+".unitCost", errors);
 
-			if (!errors.hasFieldErrors("unitNum") &! errors.hasFieldErrors("unitCost")) {
+			if (!errors.hasFieldErrors("unitNum") && !errors.hasFieldErrors("unitCost")) {
 				ValidateUtils.rejectIfNegativeFromValue(i.getUnitNum()*i.getUnitCost(), i, "total", type+".totalCost", errors);
 			}
 			ValidateUtils.rejectIfEmptyOrNegative(i, "ownResources", type+nongen+".ownResources", errors);

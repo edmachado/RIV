@@ -46,14 +46,17 @@ public class ValidateUtils {
 				String propertyValue=null;
 				try {
 					propertyValue=(String)PropertyUtils.getProperty(bean, fieldName);
-				} catch (Exception e) {	; }
-				if (propertyValue.length()>maxLength) {
-					if (noResource) {
-						errors.rejectValue(fieldName, "error.maxLength", new Object[] {fieldCode,String.valueOf(maxLength)}, "\""+fieldCode+"\" is required");
-					} else {
-						errors.rejectValue(fieldName, "error.maxLength", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode}),String.valueOf(maxLength)}, "\""+fieldName+"\" is required");
+//				} catch (Exception e) {	; }
+				
+					if (propertyValue.length()>maxLength) {
+						if (noResource) {
+							errors.rejectValue(fieldName, "error.maxLength", new Object[] {fieldCode,String.valueOf(maxLength)}, "\""+fieldCode+"\" is required");
+						} else {
+							errors.rejectValue(fieldName, "error.maxLength", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode}),String.valueOf(maxLength)}, "\""+fieldName+"\" is required");
+						}
 					}
-				}
+				
+				} catch (Exception e) {	; }
 			}
 		}
 	}

@@ -39,8 +39,11 @@ public class ProfileItemLabour extends ProfileItem {
 	}
 	
     public Double getDonated() {
-		if (getOwnResource()==null) return 0.0;
-     	return getTotal()-getOwnResource();
+		if (getOwnResource()==null) {
+			return 0.0;
+		} else {
+			return getTotal()-getOwnResource();
+		}
      }
 	
 	public Double getOwnResource() {

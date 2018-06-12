@@ -65,7 +65,7 @@ public class ProjectItemContribution extends HasPerYearItems<ProjectItemContribu
 
 	@Override
 	public Double getUnitNum() {
-		throw new RuntimeException("UnitNum should be called on a specific year of a contribution.");
+		throw new UnsupportedOperationException("UnitNum should be called on a specific year of a contribution.");
 	}
 	
 	public Project getProject () {

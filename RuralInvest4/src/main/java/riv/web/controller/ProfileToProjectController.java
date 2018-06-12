@@ -263,7 +263,7 @@ public class ProfileToProjectController {
 				
 				validator.validate(project, result);
 			}
-		} else if (step==5 &! project.getIncomeGen()) {
+		} else if (step==5 && !project.getIncomeGen()) {
 			if (generalData!=null) {
 				ObjectMapper mapper = new ObjectMapper();
 				try (ByteArrayInputStream bais1 = new ByteArrayInputStream(URLDecoder.decode(inputData, "UTF-8").getBytes("UTF-8"));

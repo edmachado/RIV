@@ -190,11 +190,11 @@ public class BlockController {
 					for (int k=0;k<2;k++) {
 						String key=i+"-"+j+"-"+k;
 						boolean selected = request.getParameter("ch"+key).equals("true");
-						if (selected &! pb.getChrons().containsKey(key)) {
+						if (selected && !pb.getChrons().containsKey(key)) {
 							BlockChron pbc = new BlockChron();
 							pbc.setChronId(key);
 							pb.addChron(pbc);
-						} else if (pb.getChrons().containsKey(key) &! selected) {
+						} else if (pb.getChrons().containsKey(key) && !selected) {
 							pb.getChrons().remove(key);
 						}
 						if (productionNeeded && i==0 && selected) {

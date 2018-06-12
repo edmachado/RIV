@@ -49,7 +49,7 @@ public class FinanceMatrix {
 		firstYearData =  ProjectMonthsInYear.getProjectPerMonths(project, false, decimals);
 		addWorkingCapital(project);
 		if ((project.getWizardStep()==null || project.getWizardStep()>11)
-				&!(project.getLoan1Interest()==null||project.getLoan1GraceInterest()==null||project.getLoan1GraceCapital()==null||project.getLoan1Duration()==null
+				&& !(project.getLoan1Interest()==null||project.getLoan1GraceInterest()==null||project.getLoan1GraceCapital()==null||project.getLoan1Duration()==null
 				||project.getLoan2Amt()==null||project.getLoan2Interest()==null||project.getLoan2GraceInterest()==null||project.getLoan2GraceCapital()==null||project.getLoan2Duration()==null)
 		) {
 			addLoanAmortization(project);

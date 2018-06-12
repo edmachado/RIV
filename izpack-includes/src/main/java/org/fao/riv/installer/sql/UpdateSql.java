@@ -134,27 +134,29 @@ public class UpdateSql  {
 			for (Version version : sql.getVersions()) {
 				if (version.getVersionNumber() > current) {
 					System.out.println("Upgrading to: "+version.getVersionNumber());
-					Statement stmt = connection.createStatement();
-					String[] queries = version.getQuery().replace("&gt;", ">").replace("&lt;", "<").split("\n");
-					for (String q : queries) {
-						if (!q.trim().startsWith("--") && !q.trim().isEmpty()) {
-							try {
-								System.out.println(q);
-								System.out.println(stmt.execute(q));
-							} catch (Exception e) {
-								uih.logOutput("SQLException:"+e.getLocalizedMessage(), false);
-								uih.emitError("Error updating database.", "Error updating database, see log for more information.");
-								uih.finishProcess();
-								result=false;
+					
+					try (Statement stmt = connection.createStatement();) {
+						String[] queries = version.getQuery().replace("&gt;", ">").replace("&lt;", "<").split("\n");
+						for (String q : queries) {
+							if (!q.trim().startsWith("--") && !q.trim().isEmpty()) {
+								try {
+									System.out.println(q);
+									System.out.println(stmt.execute(q));
+								} catch (Exception e) {
+									uih.logOutput("SQLException:"+e.getLocalizedMessage(), false);
+									uih.emitError("Error updating database.", "Error updating database, see log for more information.");
+									uih.finishProcess();
+									result=false;
+								}
 							}
 						}
+						stmt.execute(String.format(
+								"INSERT INTO VERSION (version, description, install_time, recalculate) "+
+								"VALUES (%s, '%s', CURRENT_TIMESTAMP, true)",
+								version.getVersionNumber(), version.getVersionNumber()));
+						stmt.getConnection().commit();
 					}
-					stmt.execute(String.format(
-							"INSERT INTO VERSION (version, description, install_time, recalculate) "+
-							"VALUES (%s, '%s', CURRENT_TIMESTAMP, true)",
-							version.getVersionNumber(), version.getVersionNumber()));
-					stmt.getConnection().commit();
-					stmt.close();
+					
 					System.out.println("Completed upgrade to: "+version.getVersionNumber());
 					
 					current=version.getVersionNumber();
@@ -202,6 +204,8 @@ public class UpdateSql  {
 					System.out.println("Unable to create VERSION table");
 					throw new SQLException("Unable to create VERSION table", sqle);
 				}
+			} finally {
+				try { stmt.close(); } catch (Exception e) { /* ignore */ }
 			}
 		}
 	}

@@ -29,7 +29,6 @@ import riv.web.config.RivConfig;
 @Entity
 @DiscriminatorValue("1")
 public class BlockInput extends BlockItem implements HasDonations {
-
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -47,9 +46,7 @@ public class BlockInput extends BlockItem implements HasDonations {
 			for (double val : donations.values()) {
 				donated+=val;
 			}
-			
-		} catch (Exception e) {
-			
+		} catch (Exception e) { /* ok: donations is still null but will be populated */			
 		}
 		return donated;
 	}
@@ -63,7 +60,7 @@ public class BlockInput extends BlockItem implements HasDonations {
 	public Map<Integer,Double> getDonations() { return donations; }
 	public void setDonations(Map<Integer,Double> donations)  { 
 		// required for XML Encoder, not used elsewhere
-		throw new RuntimeException("setDonations() field should not be used."); 
+		throw new UnsupportedOperationException("setDonations() field should not be used."); 
 	}
 	
 	

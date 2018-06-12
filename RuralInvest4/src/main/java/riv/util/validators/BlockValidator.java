@@ -30,7 +30,7 @@ public class BlockValidator implements Validator {
 		}
 		
 		// length can't be longer than 1 year
-		if (b.isCycles() &! errors.hasFieldErrors("cycleLength")) {
+		if (b.isCycles() && !errors.hasFieldErrors("cycleLength")) {
 			if (b.getCyclePerYear()!=null) {// && b.getCycleFirstYear()!=null && b.getCycleFirstYearIncome()!=null) {
 				double cycleLength = 0.0; // cycle length expressed in years
 				double cycleLengthFirstYear = 0.0; // cycle length expressed in years
