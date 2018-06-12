@@ -154,8 +154,8 @@ project.general.method.perYear=Жил бүрээр
 project.general.method.simplified.help=Сонголтыг "Хялбаршуулсан" гэж авсанаар, тогтмол зардал нь төслийн бүх жилүүдэд адилхан байна.
 project.general.method.simplified=Хялбаршуулсан
  
-project.report.profitability.incomes.sales=Борлуулалт, өөрийн хэрэглээ
- 
+project.report.profitability.incomes.sales=Борлуулалт ба өөрийн хэрэглээ
+
 # өмнөх хувилбараас өөрчилөгдсөн
 # "Боловсруулсан" гэдэг нь "хураангуй болон төсөл нь бүрэн дууссан", ба "Боловсруулж байгаа" ажил биш болохыг харуулна
 mainMenu.showAll=Боловсруулсан
