@@ -14,6 +14,9 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 import riv.web.config.RivConfig;
@@ -26,6 +29,7 @@ import riv.web.config.RivConfig;
 @Entity
 @DiscriminatorValue("5")
 public class ProjectItemContribution extends HasPerYearItems<ProjectItemContributionPerYear> {
+	static final Logger LOG = LoggerFactory.getLogger(HasPerYearItems.class);
 	private static final long serialVersionUID = 1L;
 	
 
@@ -58,7 +62,7 @@ public class ProjectItemContribution extends HasPerYearItems<ProjectItemContribu
 				py.setParent(this);
 				this.getYears().put(i, py);
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOG.warn(e.getMessage());
 			}
 		}
 	}

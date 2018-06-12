@@ -46,7 +46,7 @@ public class BlockController {
 	}
 	
 	@ModelAttribute("block")
-	public BlockBase getItem(@PathVariable Integer id, @RequestParam(required=false) Integer projectId, @RequestParam(required=false) String without) throws Exception {
+	public BlockBase getItem(@PathVariable Integer id, @RequestParam(required=false) Integer projectId, @RequestParam(required=false) String without) {
 		BlockBase pp;
 		if (id!=-1) {
 			pp =dataService.getBlock(id);

@@ -27,7 +27,7 @@ public class ReportLoader {
 			return (JasperReport)JRLoader.loadObject(new File(sc.getRealPath("/WEB-INF/classes"+template)));
 		} catch (JRException e) {
 			LOG.error("Error getting jasper report file.",e);
-			throw new RuntimeException("Error getting jasper report file.",e); 
+			return null;
 		}
 	}
 }

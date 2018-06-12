@@ -10,6 +10,9 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
 import riv.web.config.RivConfig;
@@ -20,6 +23,7 @@ import riv.web.config.RivConfig;
  */
 @Entity
 public abstract class ProjectItemGeneralBase extends HasPerYearItems<ProjectItemGeneralPerYear> {
+	static final Logger LOG = LoggerFactory.getLogger(ProjectItemGeneralBase.class);
 	private static final long serialVersionUID = 1L;
 	
 	@Transient
@@ -50,7 +54,7 @@ public abstract class ProjectItemGeneralBase extends HasPerYearItems<ProjectItem
 				py.setParent(this);
 				this.getYears().put(i, py);
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOG.warn(e.getMessage());
 			}
 		}
 	}

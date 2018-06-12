@@ -11,7 +11,10 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 
+import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.Formula;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import riv.objects.HasDonations;
 /**
@@ -21,6 +24,7 @@ import riv.objects.HasDonations;
  */
 @Entity
 public abstract class ProjectItemNongenBase extends ProjectItem implements HasDonations {
+	private static final Logger LOG = LoggerFactory.getLogger(ProjectItemNongenBase.class);
 	private static final long serialVersionUID = 1L;
 	
 	@Formula(value="(SELECT ISNULL(SUM(d.amount),0) FROM project_item_donation d WHERE d.item_id=proj_item_id)")
@@ -32,7 +36,13 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 			for (double val : donations.values()) {
 				donated+=val;
 			}
-		} catch (Exception e) {}
+		} catch (LazyInitializationException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
+		} catch (NullPointerException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
+		}
 		return donated;
 	}
 	

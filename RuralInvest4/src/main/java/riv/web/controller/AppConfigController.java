@@ -44,7 +44,7 @@ public class AppConfigController {
 	}
 	
 	@ModelAttribute("appConfig")
-	public AppConfig getItem(@PathVariable String type, @PathVariable Integer id) throws Exception {
+	public AppConfig getItem(@PathVariable String type, @PathVariable Integer id) {
 		AppConfig ac=null;
 		if (id==-1) {	
 			if (type.equals("office")) {

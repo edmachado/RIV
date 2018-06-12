@@ -1,11 +1,14 @@
 package riv.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -30,10 +33,10 @@ import riv.web.service.DataService;
 @Controller
 @RequestMapping({"/project/donor"})
 public class ProjectDonorController {
+	static final Logger LOG = LoggerFactory.getLogger(ProjectDonorController.class);
+	
 	@Autowired
     private DataService dataService;
-//	@Autowired
-//	private RivConfig rivConfig;
 	@Autowired
 	MessageSource messageSource;
 	
@@ -70,7 +73,7 @@ public class ProjectDonorController {
     
     @RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public @ResponseBody String saveDonor(@Valid @ModelAttribute Donor donor, BindingResult result, @RequestParam(required=false) Integer projectId,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
     	User u = (User)request.getAttribute("user");
     	Boolean accessOK = donor.getProject().isShared() || donor.getProject().getTechnician().getUserId().equals(u.getUserId());
     	
@@ -85,8 +88,23 @@ public class ProjectDonorController {
 			}
 			sb.deleteCharAt(sb.length()-1);
 			sb.append("]");
-			response.getWriter().write(sb.toString());
-			response.flushBuffer();
+			
+			try {
+				response.getWriter().write(sb.toString());
+			} catch (IOException e) {
+				LOG.error("Cannot write to response."+e.getMessage());
+				e.printStackTrace(System.out);
+				throw e;
+			}
+			
+			try {
+				response.flushBuffer();
+			} catch (IOException e) {
+				LOG.error("Cannot flush buffer."+e.getMessage());
+				e.printStackTrace(System.out);
+				throw e;
+			}
+			
     		return null;
 		} else {
 			if (donor.getDonorId()==null)  {

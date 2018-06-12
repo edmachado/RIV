@@ -105,7 +105,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			ieEdgeFilter.addMappingForUrlPatterns(null, true, "/help/*");
 	}
 	
-	private String getRootKey() {
+	private String getRootKey()  {
 		Properties prop = new Properties();
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();           
 		InputStream stream = loader.getResourceAsStream("application.properties");
@@ -115,6 +115,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			key = prop.getProperty("rootKey");
 			stream.close();
 		} catch  (Exception e) {
+			LOG.error("Cannot load webapprootkey");
 			throw new RuntimeException("Cannot load webapprootkey", e);
 		}
 		return key;

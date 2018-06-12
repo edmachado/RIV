@@ -43,7 +43,7 @@ public class ProfileProductController {
 	}
 	
 	@ModelAttribute("profileProduct")
-	public ProfileProductBase getItem(@PathVariable Integer id, @RequestParam(required=false) Integer profileId, @RequestParam(required=false) String without) throws Exception {
+	public ProfileProductBase getItem(@PathVariable Integer id, @RequestParam(required=false) Integer profileId, @RequestParam(required=false) String without) {
 		ProfileProductBase pp;
 		if (id!=-1) {
 			pp =dataService.getProfileProduct(id);

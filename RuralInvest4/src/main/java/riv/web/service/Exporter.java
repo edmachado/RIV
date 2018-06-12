@@ -33,6 +33,7 @@ import riv.objects.profile.Profile;
 import riv.objects.profile.ProfileResult;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectResult;
+import riv.util.RivRuntimeException;
 import riv.web.config.RivConfig;
 
 @Component
@@ -88,7 +89,8 @@ public class Exporter {
 				batchExportProfiles(profiles, false, os);
 			}
 		} catch (Exception e) {
-			
+			LOG.error("Exeption exporting "+(project?"projects ":"profiles "), e.getMessage());
+			e.printStackTrace(System.out);
 		}
 	}
 	public void exportBackup(OutputStream out) {
@@ -117,7 +119,8 @@ public class Exporter {
 			files[3] = File.createTempFile("nig-profiles.",".zip"); 
 			exportPros(fc, files[3], false, false);
 		} catch (IOException e) {
-			throw new RuntimeException("Cannot create temp files", e);
+			LOG.error("Cannot create temp files", e.getMessage());
+			throw new RivRuntimeException("Cannot create temp files", e);
 		} 
 			
 		// create outer zip file
@@ -137,8 +140,8 @@ public class Exporter {
 			zos.finish();
 			zos.close();
 		} catch (IOException e) {
-			LOG.error("Error",e);
-			throw new RuntimeException("Error creating zip file", e);
+			LOG.error("Error creating zip file",e);
+			throw new RivRuntimeException("Error creating zip file", e);
 		} finally {
 //			os=null; 
 			baos=null;
@@ -290,7 +293,7 @@ public class Exporter {
 			zos.closeArchiveEntry();
 		} catch (IOException e) {
 			LOG.error("Error adding file (byte array) to zip stream.",e);
-			throw new RuntimeException("Error adding file (byte array) to zip stream.",e);
+			throw new RivRuntimeException("Error adding file (byte array) to zip stream.",e);
 		}
 	}
 	

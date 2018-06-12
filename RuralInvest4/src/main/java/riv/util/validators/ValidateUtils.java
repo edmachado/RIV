@@ -1,6 +1,7 @@
 package riv.util.validators;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.Map;
@@ -9,6 +10,8 @@ import java.util.Set;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.Errors;
 
@@ -19,6 +22,7 @@ import riv.objects.OrderByable;
  *
  */
 public class ValidateUtils {
+	static final Logger LOG = LoggerFactory.getLogger(ValidateUtils.class);
 	private static Integer getLengthFromAnnotation(Object bean, String fieldName) {
 		Integer length=null;
 		try {
@@ -31,8 +35,12 @@ public class ValidateUtils {
 			try {
 				Field field = bean.getClass().getSuperclass().getDeclaredField(fieldName);
 				Size size = field.getAnnotation(Size.class);
-				length = size.max();
-			} catch (Exception ex2) {;}	
+				if (size!=null) {
+					length = size.max();
+				}
+			} catch (NoSuchFieldException ex2) {
+				LOG.trace("Field not found.", ex2.getMessage());
+			}	
 		}
 		return length;
 	}
@@ -46,8 +54,6 @@ public class ValidateUtils {
 				String propertyValue=null;
 				try {
 					propertyValue=(String)PropertyUtils.getProperty(bean, fieldName);
-//				} catch (Exception e) {	; }
-				
 					if (propertyValue.length()>maxLength) {
 						if (noResource) {
 							errors.rejectValue(fieldName, "error.maxLength", new Object[] {fieldCode,String.valueOf(maxLength)}, "\""+fieldCode+"\" is required");
@@ -56,7 +62,10 @@ public class ValidateUtils {
 						}
 					}
 				
-				} catch (Exception e) {	; }
+				} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
+				} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
+				} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
+				} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
 			}
 		}
 	}
@@ -65,7 +74,11 @@ public class ValidateUtils {
 		Object propertyValue=null;
 		try {
 			propertyValue=PropertyUtils.getProperty(bean, fieldName);
-		} catch (Exception e) {	; }
+		} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
+		} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
+		} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
+		} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
+		
 		if (propertyValue == null || propertyValue.equals("")) {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
 		}
@@ -76,7 +89,10 @@ public class ValidateUtils {
 		String propertyValue=null;
 		try {
 			propertyValue = PropertyUtils.getProperty(bean, fieldName).toString();
-		} catch (Exception e) { }
+		} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
+		} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
+		} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
+		} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
 		
 		if (propertyValue == null || propertyValue.trim().isEmpty()) {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {fieldDesc}, "\""+fieldDesc+"\" is required");	
@@ -92,7 +108,11 @@ public class ValidateUtils {
 		Double propertyValue=null;
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
-		} catch (Exception e) {}
+		} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
+		} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
+		} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
+		} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
+		
 		rejectIfNegativeFromValue(propertyValue, bean, fieldName, fieldCode, errors, scale);
 	}
 	public static void rejectIfNegativeFromValue(Double property, Object bean, String fieldName, String fieldCode, Errors errors) {
@@ -222,7 +242,7 @@ public class ValidateUtils {
 			Object o = i.next();
 			for (String field : fields) {
 				try { if (PropertyUtils.getProperty(o, field)==null) { missingData=true; break; } }
-				catch (Exception e) {;}
+				catch (Exception e) { LOG.trace(e.getMessage());;}
 			}
 		}
 		if (missingData) {

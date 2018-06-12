@@ -13,7 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
+import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.Formula;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -22,7 +25,7 @@ import riv.web.config.RivConfig;
 @Entity
 @DiscriminatorValue("4")
 public class ProjectItemService extends ProjectItem implements ProjectInvestment {
-
+	static final Logger LOG = LoggerFactory.getLogger(ProjectItemService.class);
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
@@ -42,7 +45,13 @@ public class ProjectItemService extends ProjectItem implements ProjectInvestment
 			for (double val : donations.values()) {
 				donated+=val;
 			}
-		} catch (Exception e) {}
+		} catch (LazyInitializationException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
+		} catch (NullPointerException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
+		}
 		return donated;
 	}
 	

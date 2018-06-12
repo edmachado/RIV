@@ -48,6 +48,7 @@ import riv.objects.config.User;
 import riv.objects.profile.Profile;
 import riv.objects.project.Project;
 import riv.util.ExcelImportException;
+import riv.util.RivRuntimeException;
 import riv.util.Upgrader;
 import riv.web.config.RivConfig;
 import riv.web.config.RivLocaleResolver;
@@ -109,8 +110,7 @@ public class UploadController implements Serializable {
 					dataService.deleteProfile(existing);
 				} catch (Exception e) {
 					LOG.error("Error deleting existing profile.",e);
-					throw new RuntimeException("Error deleting existing profile.",e);
-					//return "Error deleting existing profile:"+e.getMessage();
+					throw new RivRuntimeException("Error deleting existing profile.",e);
 				}
 			} else {
 				p.setUniqueId(UUIDGenerator.getInstance().generateTimeBasedUUID().toByteArray());
@@ -121,10 +121,10 @@ public class UploadController implements Serializable {
 				attachTools.saveAttachedFilesFromZip(p, containingFile);
 			} catch (javax.validation.ConstraintViolationException ex) {
 				LOG.error("Constraint exception when importing profile");
-				throw new RuntimeException("Constraint error:"+ex.getLocalizedMessage(),ex);
+				throw new RivRuntimeException("Constraint error:"+ex.getLocalizedMessage(),ex);
 			} catch (Exception e) {
 				LOG.error("Error saving imported profile.", e);
-				throw new RuntimeException("Error saving imported profile.", e);
+				throw new RivRuntimeException("Error saving imported profile.", e);
 			}
 			
 			clearFormData();
@@ -147,7 +147,7 @@ public class UploadController implements Serializable {
 					dataService.deleteProject(existing);
 				} catch (Exception e) {
 					LOG.error("Error deleting existing project.", e);
-					throw new RuntimeException("Error deleting existing project.", e);
+					throw new RivRuntimeException("Error deleting existing project.", e);
 				}
 			} else {
 				p.setUniqueId(UUIDGenerator.getInstance().generateTimeBasedUUID().toByteArray());
@@ -158,10 +158,10 @@ public class UploadController implements Serializable {
 				attachTools.saveAttachedFilesFromZip(p,  containingFile);
 			} catch (javax.validation.ConstraintViolationException ex) {
 				LOG.error("Constraint exception when importing project");
-				throw new RuntimeException("Constraint error: "+ex.getLocalizedMessage(),ex);
+				throw new RivRuntimeException("Constraint error: "+ex.getLocalizedMessage(),ex);
 			} catch (Exception e) {
 				LOG.error("Error saving imported project.", e);
-				throw new RuntimeException("Error saving imported project.", e);
+				throw new RivRuntimeException("Error saving imported project.", e);
 			}
 			
 			clearFormData();
@@ -209,6 +209,7 @@ public class UploadController implements Serializable {
 					error = (String) model.asMap().get("error");
 				}
 			} catch (Exception e) {
+				LOG.warn(e.getMessage());
 				e.printStackTrace(System.out);
 				error = e.getMessage();
 			}
@@ -315,9 +316,11 @@ public class UploadController implements Serializable {
 					zis.close();zis=null;
 				}
 			} catch (ExcelImportException e) {
+				LOG.warn(e.getMessage());
 				e.printStackTrace(System.out);
 				error = e.getMessage();
 			} catch (Exception e) {
+				LOG.warn(e.getMessage());
 				e.printStackTrace(System.out);
 				error = e.getMessage();
 			}
@@ -337,7 +340,7 @@ public class UploadController implements Serializable {
 	
 	@RequestMapping(value = "/{type}/import", method = RequestMethod.POST)
 	public String upload(@PathVariable String type, Model model, MultipartHttpServletRequest request, HttpServletResponse response,
-			@RequestParam(required=true) Boolean allowComplete) throws Exception { 
+			@RequestParam(required=true) Boolean allowComplete) throws IOException { 
 		Locale locale=rivLocaleResolver.resolveLocale(request);
 		
 		// config import moved to own function
@@ -375,6 +378,7 @@ public class UploadController implements Serializable {
 				try {
 					decoded = decoder.readObject();
 				} catch (Exception ex) {
+					LOG.warn(ex.getMessage());
 					if (type.equals("config")) { result="error.import.notSettings"; }
 					else { result="error.import.wrongType"; }
 				} finally {
@@ -384,6 +388,7 @@ public class UploadController implements Serializable {
 				}
 			}
 		} catch (Exception e) {
+			LOG.warn("Imported file not a riv file. "+e.getMessage());
 			result="error.import.notARivFile";
 		} 
 		return result;
@@ -444,6 +449,7 @@ public class UploadController implements Serializable {
 				clearFormData();
 				return "redirect:step1/"+profile.getProfileId();
 			} catch (Exception e) {
+				LOG.error("An error occurred when saving profile. "+e.getMessage());
 				return uploadError("An error occurred when saving profile. "+e.getMessage(), model, locale);
 			}
 		} else { 

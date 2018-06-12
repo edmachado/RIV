@@ -1,5 +1,6 @@
 package riv.web.config;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,9 @@ import org.springframework.web.servlet.LocaleResolver;
 import riv.objects.config.User;
 
 @Component
-public class RivLocaleResolver implements LocaleResolver {
+public class RivLocaleResolver implements LocaleResolver, Serializable {
+	private static final long serialVersionUID = 33328591116928585L;
+	
 	@Autowired
 	private RivConfig rivConfig;
 	

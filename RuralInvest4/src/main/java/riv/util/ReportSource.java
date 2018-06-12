@@ -11,10 +11,14 @@ import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JRRewindableDataSource;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @SuppressWarnings("rawtypes")
 public class ReportSource implements JRRewindableDataSource {
+	static final Logger LOG = LoggerFactory.getLogger(ReportSource.class);
+	
 	protected HashMap fieldsToIdxMap=new HashMap();
 	protected Iterator iterator;
 	protected Object currentValue;
@@ -38,7 +42,7 @@ public class ReportSource implements JRRewindableDataSource {
 				Method getter = PropertyUtils.getReadMethod(PropertyUtils.getPropertyDescriptor(object, field.substring(5, field.length())));
 				value = getter.invoke(object, (Object[])null);
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				LOG.warn(ex.getMessage());
 			}
 		} else if (field.indexOf("__")>-1) { // NESTED VALUES
 			try {
@@ -47,7 +51,7 @@ public class ReportSource implements JRRewindableDataSource {
 				
 				value = nestedFieldValue(nestedObject, field.substring(field.indexOf("__")+2, field.length()));
 			} catch (Exception ex) {
-				//ex.printStackTrace();
+				LOG.warn(ex.getMessage());
 			}
 		} else { // OTHER VALUES
 			try {
@@ -61,7 +65,7 @@ public class ReportSource implements JRRewindableDataSource {
 					return new ReportSource((Map)value);
 				}
 			} catch (Exception ex) {
-				//ex.printStackTrace();
+				LOG.warn(ex.getMessage());
 			}
 		}
 		if (value instanceof String) {

@@ -82,9 +82,9 @@ public class AttachTools implements Serializable {
 			} catch (Exception e) {
 				LOG.error("Error moving attached file from file to db.",e);
 			} finally {
-				try { fis.close(); } catch (Exception e) { /* ignore */ } 
-				try { f.delete(); } catch (Exception e) { /* ignore */ } 
-				try { baos.close(); } catch (Exception e) { /* ignore */ }
+				try { fis.close(); } catch (Exception e) { /* ignore */ LOG.error(e.getMessage()); } 
+				try { f.delete(); } catch (Exception e) { /* ignore */ LOG.error(e.getMessage()); } 
+				try { baos.close(); } catch (Exception e) { /* ignore */ LOG.error(e.getMessage()); }
 					
 //				} catch (NullPointerException ne) {
 //					LOG.error("Null pointer exception.",ne);
@@ -140,7 +140,7 @@ public class AttachTools implements Serializable {
 		}
 	}
 	
-	public void addAttachedFilesToZip(Probase p, ZipOutputStream zos) throws Exception {
+	public void addAttachedFilesToZip(Probase p, ZipOutputStream zos) throws IOException {
 		List<AttachedFile> files = getAttached(p.getProId(), p.isProject(), true);
 		
 		for (AttachedFile file : files) {
@@ -215,25 +215,26 @@ public class AttachTools implements Serializable {
   *            the input stream to test.
   * @return
   */
- public static boolean isZipStream(InputStream in) {
-  if (!in.markSupported()) {
-   in = new BufferedInputStream(in);
-  }
-  boolean isZip = true;
-  try {
-   in.mark(MAGIC.length);
-   for (int i = 0; i < MAGIC.length; i++) {
-    if (MAGIC[i] != (byte) in.read()) {
-     isZip = false;
-     break;
-    }
-   }
-   in.reset();
-  } catch (IOException e) {
-   isZip = false;
-  }
-  return isZip;
- }
+public static boolean isZipStream(InputStream in) {
+	if (!in.markSupported()) {
+		in = new BufferedInputStream(in);
+	}
+	boolean isZip = true;
+	try {
+		in.mark(MAGIC.length);
+		for (int i = 0; i < MAGIC.length; i++) {
+			if (MAGIC[i] != (byte) in.read()) {
+				isZip = false;
+				break;
+			}
+		}
+		in.reset();
+	} catch (IOException e) {
+		LOG.debug("inputstream is not a zip.");
+		isZip = false;
+	}
+	return isZip;
+}
  
  /**
   * Test if a file is a zip file.
@@ -254,6 +255,7 @@ public class AttachTools implements Serializable {
 				}
  			}
  		} catch (Exception e) {
+ 			LOG.debug("file is not a zip.");
  			isZip = false;
  		}
  		return isZip;

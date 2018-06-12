@@ -1,5 +1,6 @@
 package riv.web.config;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -28,7 +29,8 @@ import riv.objects.config.User;
 import riv.web.service.DataService;
 
 @Component("rivConfig")
-public class RivConfig {
+public class RivConfig implements Serializable {
+	private static final long serialVersionUID = 6452356920179040568L;
 
 	@Autowired
 	ServletContext sc;

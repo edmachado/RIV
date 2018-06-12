@@ -9,12 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * An income item associated to a Profile's product or activity
  */
 @Entity
 @DiscriminatorValue("1")
 public class ProfileProductInput extends ProfileProductItem implements java.io.Serializable {
+	static final Logger LOG = LoggerFactory.getLogger(ProfileProductItem.class);
 
 	private static final long serialVersionUID = 1L;
 	@ManyToOne
@@ -49,13 +53,16 @@ public class ProfileProductInput extends ProfileProductItem implements java.io.S
     }
     
     public BigDecimal getTransport() {
-    	try {
-    		if (transport==null) return null;
-    		return this.transport.setScale(2, RoundingMode.HALF_UP);
-    	} catch (Exception e) {
-    		System.out.println("Exception rounding ppi transport.");
-    		return transport;
-    	}
+		if (transport==null) {
+			return null;
+		} else {
+			try {
+				return this.transport.setScale(2, RoundingMode.HALF_UP);
+			} catch (Exception e) {
+	    		LOG.warn("Exception rounding ppi transport.");
+	    		return transport;
+	    	}
+		}
     }
     
     public void setTransport(BigDecimal transport) {

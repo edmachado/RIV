@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JasperExportManager;
 
+import org.jfree.util.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +36,7 @@ import com.lowagie.text.pdf.PdfReader;
 @Controller
 @RequestMapping({"/report"})
 public class ReportController {
+	static final Logger LOG = LoggerFactory.getLogger(ReportController.class);
 	@Autowired
 	private PdfReportCreator reportCreator;
 	@Autowired
@@ -370,9 +374,11 @@ public class ReportController {
 	                copier.addPage(page);
 	            }
 			} catch (NullPointerException e) {
-                	throw new RuntimeException(e);
+				LOG.error(e.getMessage());
+				e.printStackTrace(System.out);
+                throw new RuntimeException(e);
             } catch (Exception e) {
-				//String mess = e.getMessage();
+            	LOG.error(e.getMessage());
 			}
 		}
 		if (copier!=null) {

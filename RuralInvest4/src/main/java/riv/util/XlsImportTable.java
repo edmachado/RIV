@@ -84,7 +84,7 @@ public class XlsImportTable<E extends OrderByable> {
 		try {
 			BeanUtils.setProperty(o, property, value);
 		} catch (Exception e) {
-			throw new RuntimeException("Programming error: property should be valid and accessible.", e);
+			throw new UnsupportedOperationException("Programming error: property should be valid and accessible.", e);
 		}
 	}
 	
@@ -162,7 +162,7 @@ public class XlsImportTable<E extends OrderByable> {
 		try {
 			item =  (E) clazz.newInstance();
 		} catch (Exception e) {
-			throw new RuntimeException("Class passed to readTable should be same as parameterized generic!", e);
+			throw new UnsupportedOperationException("Class passed to readTable should be same as parameterized generic!", e);
 		}
 		Row row=sheet.getRow(rowNum); 
 		int columnNum=0;
@@ -183,10 +183,7 @@ public class XlsImportTable<E extends OrderByable> {
 						value = cell.getStringCellValue();
 					} catch (IllegalStateException e) {
 						throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-					} 
-//					catch (NullPointerException e) {
-//						throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-//					}
+					}
 					
 					boolean found=false;
 					if (column.options.get(value)!=null) {
@@ -207,10 +204,7 @@ public class XlsImportTable<E extends OrderByable> {
 						value = cell.getNumericCellValue();
 					} catch (IllegalStateException e) {
 						throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-					} 
-//					catch (NullPointerException e) {
-//						throw ExcelImportException.createExcelException(ErrorType.NO_CELL, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
-//					}
+					}
 				
 					if (column.property.equals("donations(0)")) {
 						((riv.objects.HasDonations)item).getDonations().put(0, value);

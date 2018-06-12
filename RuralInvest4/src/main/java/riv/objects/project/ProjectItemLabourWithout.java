@@ -13,7 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
+import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.Formula;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import riv.util.CurrencyFormat;
 import riv.util.CurrencyFormatter;
@@ -26,6 +29,7 @@ import riv.web.config.RivConfig;
 @Entity
 @DiscriminatorValue("12")
 public class ProjectItemLabourWithout extends ProjectItem implements ProjectInvestment {
+	static final Logger LOG = LoggerFactory.getLogger(ProjectItemLabourWithout.class);
 	private static final long serialVersionUID = 1L;
 
 
@@ -45,7 +49,13 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 			for (double val : donations.values()) {
 				donated+=val;
 			}
-		} catch (Exception e) {}
+		} catch (LazyInitializationException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
+		} catch (NullPointerException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
+		}
 		return donated;
 	}
 	
@@ -59,7 +69,7 @@ public class ProjectItemLabourWithout extends ProjectItem implements ProjectInve
 	public Map<Integer,Double> getDonations() { return donations; }
 	public void setDonations(Map<Integer,Double> donations)  { 
 		// required for XML Encoder, not used elsewhere
-		throw new RuntimeException("setDonations() field should not be used."); 
+		throw new UnsupportedOperationException("setDonations() field should not be used."); 
 	}
 	
 	public Project getProject () {

@@ -3,6 +3,7 @@ package riv.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -52,8 +53,9 @@ import riv.objects.reference.ReferenceLabour;
 import riv.web.config.RivConfig;
 
 @Component
-public class Upgrader {
-	static final Logger LOG = LoggerFactory.getLogger(Upgrader.class);
+public class Upgrader implements Serializable {
+	private static final long serialVersionUID = -8450119406415427990L;
+	private static final Logger LOG = LoggerFactory.getLogger(Upgrader.class);
 
 	@Autowired
 	private RivConfig rivConfig;
@@ -457,7 +459,8 @@ public class Upgrader {
 				item.setOrderBy(i++);
 			}
 		} catch (NullPointerException e) {
-			// orderBy is null, can't compare to make TreeSet
+//			 orderBy is null, can't compare to make TreeSet
+			LOG.debug("imported orderbyable has null orderBy");
 			int i=0;
 			for (OrderByable o : set) {
 				o.setOrderBy(i++);

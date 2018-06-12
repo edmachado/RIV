@@ -3,6 +3,7 @@ package riv.web.service;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -97,7 +98,9 @@ import riv.objects.reference.ReferenceLabour;
 
 @Transactional
 @Repository
-public class DataRepository {
+public class DataRepository implements Serializable {
+	private static final long serialVersionUID = 4049178748504111035L;
+
 	static final Logger LOG = LoggerFactory.getLogger(DataRepository.class);
 	
 	@Autowired
@@ -769,6 +772,7 @@ public class DataRepository {
 		try {
 			return (ProjectResult) criteria.uniqueResult();
 		} catch (Exception e) {
+			LOG.error("Project result missing for project "+id);
 			return null;
 		}
 	}

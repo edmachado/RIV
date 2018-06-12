@@ -289,9 +289,9 @@ public class MainController {
 	@RequestMapping("/help/error")
 	public String exception(@RequestParam String code, @RequestParam String url) {
 		if (code.isEmpty()) {
-			throw new RuntimeException("Exception called intentionally");
+			throw new UnsupportedOperationException("Exception called intentionally");
 		} else { 
-			throw new RuntimeException(code+" exception in previous page. "+url);
+			throw new UnsupportedOperationException(code+" exception in previous page. "+url);
 		}
 	}
 	

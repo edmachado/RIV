@@ -14,7 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
 
+import org.hibernate.LazyInitializationException;
 import org.hibernate.annotations.Formula;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import riv.objects.HasDonations;
 import riv.util.CurrencyFormat;
@@ -29,7 +32,7 @@ import riv.web.config.RivConfig;
 @Entity
 @DiscriminatorValue("2")
 public class BlockLabour extends BlockItem implements HasDonations {
-
+	static final Logger LOG = LoggerFactory.getLogger(BlockLabour.class);
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -45,9 +48,12 @@ public class BlockLabour extends BlockItem implements HasDonations {
 			for (double val : donations.values()) {
 				donated+=val;
 			}
-			
-		} catch (Exception e) { /* ok: donations is still null but will be populated */		
-			
+		} catch (LazyInitializationException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
+		} catch (NullPointerException e) {
+			// use value from formula rather than calculate from collection
+			LOG.trace("using formula value for getDonated");
 		}
 		return donated;
 	}

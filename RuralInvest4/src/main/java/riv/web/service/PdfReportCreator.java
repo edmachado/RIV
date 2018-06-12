@@ -47,6 +47,7 @@ import riv.objects.project.ProjectResult;
 import riv.util.ReportLoader;
 import riv.util.ReportSource;
 import riv.util.ReportWrapper;
+import riv.util.RivRuntimeException;
 import riv.web.config.RivConfig;
 
 @Component
@@ -882,7 +883,8 @@ public class PdfReportCreator {
 		try {
 			jp= JasperFillManager.fillReport(jr, report.getParams(), report.getDataSource());
 		} catch (Exception e) {
-			throw new RuntimeException("Error running report "+report.getReportTemplate()+"\n",e);
+			LOG.error("Error running report "+report.getReportTemplate());
+			throw new RivRuntimeException("Error running report "+report.getReportTemplate()+"\n",e);
 		} finally {
 //			virtualizer.cleanup();
 		}
@@ -946,7 +948,7 @@ public class PdfReportCreator {
 			}
 		} catch (Exception e) {
 			LOG.error("Unable to write report to the output stream.",e);
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Unable to write report to the output stream.", e);
 		}
 		report=null;
 	}

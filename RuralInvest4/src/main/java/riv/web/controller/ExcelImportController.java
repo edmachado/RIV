@@ -95,9 +95,12 @@ public class ExcelImportController {
 				importContribution(id, mpf.getInputStream());
 			}
 		} catch (ExcelImportException e) {
+			LOG.warn(e.getMessage());
 			e.printStackTrace(System.out);
 			error = e.getMessage();
 		} catch (Exception e) {
+			LOG.error(e.getMessage());
+			e.printStackTrace(System.out);
 			error = messageSource.getMessage("import.excel.read", null, LocaleContextHolder.getLocale());
 		}
 		
@@ -251,6 +254,7 @@ public class ExcelImportController {
 		try {
 			workbook= getWorkbook(file);
 		} catch (POIXMLException e) {
+			LOG.warn("Cannot open workbook." + e.getMessage());
 			throw new ExcelImportException(messageSource.getMessage("import.excel.read", null, LocaleContextHolder.getLocale()));
 		}
 		return workbook;
@@ -331,6 +335,7 @@ public class ExcelImportController {
 		try {
 			file.close();
 		} catch (IOException e) {
+			LOG.error("Cannot close file." + e.getMessage());
 			throw new ExcelImportException(e.getMessage());
 		}		
 	}
@@ -443,6 +448,7 @@ public class ExcelImportController {
 		try {
 			file.close();
 		} catch (IOException e) {
+			LOG.error("Cannot close file." + e.getMessage());
 			throw new ExcelImportException(e.getMessage());
 		}
 	}
@@ -462,8 +468,10 @@ public class ExcelImportController {
 				importProfileProduct(id, mpf.getInputStream());
 			}
 		} catch (IOException e) {
+			LOG.warn("Cannot read file." + e.getMessage());
 			error = "import.excel.read";
 		} catch (ExcelImportException e) {
+			LOG.warn(e.getMessage());
 			error = e.getMessage();
 		}
 		
@@ -513,6 +521,7 @@ public class ExcelImportController {
 		try {
 			file.close();
 		} catch (IOException e) {
+			LOG.error("Cannot close file." + e.getMessage());
 			throw new ExcelImportException(e.getMessage());
 		}
 	}
@@ -544,6 +553,7 @@ public class ExcelImportController {
 		try {
 			file.close();
 		} catch (IOException e) {
+			LOG.error("Cannot close file." + e.getMessage());
 			throw new ExcelImportException(e.getMessage());
 		}
 	}
@@ -616,6 +626,7 @@ public class ExcelImportController {
 		try {
 			file.close();
 		} catch (IOException e) {
+			LOG.error("Cannot close file." + e.getMessage());
 			throw new ExcelImportException(e.getMessage());
 		}
 	}
@@ -645,6 +656,7 @@ public class ExcelImportController {
 		try {
 			workbook = new XSSFWorkbook(file);
 		} catch (IOException e) {
+			LOG.error("Cannot open workbook." + e.getMessage());
 			throw new ExcelImportException(translate("import.excel.read"));
 		}
 		return workbook;
