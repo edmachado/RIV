@@ -265,7 +265,7 @@ error.pleaseCorrect=Por favor verifique sus datos y corrija los campos marcados 
 error.unknown=Disculpe por el inconveniente
 error.maxLength=Este campo no tener más de {1} caracteres.
 error.max=Este campo no puede ser mayor de {1} caracteres.
-error.requiredNonNegative=This field cannot be negative.=Este campo no puede ser negativo
+error.requiredNonNegative=Este campo no puede ser negativo
 error.fieldRequired=Este es una información necesaria.
 error.positiveNumber=Este dato debe ser mayor que 0.
 typeMismatch.java.lang.Double=Esta información es necesaria y debe ser un número.

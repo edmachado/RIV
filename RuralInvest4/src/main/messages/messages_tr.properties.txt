@@ -21,7 +21,7 @@ error.block.noPattern=Blok "{0}": Lütfen bloğu düzenleyin ve üretim desenini
 error.activity.noPattern=Faaliyet "{0}": Lütfen etkinliği düzenleyin ve etkinlik modelini belirleyin.
 
 ## RIV 4.4 BIS
-project.loan.paymentsPerYear=Yıllık ödemeler,
+project.loan.paymentsPerYear=Yıllık ödemeler
 project.loan.paymentsPerYear.help=Yıllık olarak yapılacak kredi ödemelerinin sayısı.
 project.loan.periods=ödeme dönemleri
 project.loan.perPeriod=ödeme dönemi başına
