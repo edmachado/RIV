@@ -22,6 +22,7 @@ error.activity.noPattern=Activité "{0}": SVP rouvrir le block et préciser le c
 project.loan.paymentsPerYear=Paiements par an
 project.loan.periods=période(s) de paiement
 project.loan.perPeriod=par période de paiement
+project.loan.paymentsPerYear.help=Nombre de remboursements annuels requis par le créditeur pour toute la période de l'emprunt (p.ex. 4 pour des remboursements trimestriels, 12 si mensuels)
 
 project.report.amortization.title=Amortissement de l'emprunt
 project.report.amortization.period=Période
