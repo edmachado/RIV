@@ -40,8 +40,6 @@
 	<field name="totalCashIncome" class="java.math.BigDecimal"/>
 	<field name="totalCashCost" class="java.math.BigDecimal"/>
 	<field name="lengthUnit" class="java.lang.Integer"/>
-	<field name="cycleFirstYear" class="java.lang.Double"/>
-	<field name="cycleFirstYearIncome" class="java.lang.Double"/>
 	<field name="cycles" class="java.lang.Boolean"/>
 	<variable name="unitsPerCycle" class="java.lang.String">
 		<variableExpression><![CDATA[" - " +$R{misc.per.unitType} + " " + $F{unitType}

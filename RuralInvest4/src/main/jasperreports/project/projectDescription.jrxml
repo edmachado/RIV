@@ -3,8 +3,8 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="405"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1488"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -31,7 +31,6 @@
 	<field name="justificationQualitative" class="java.lang.Short"/>
 	<field name="market" class="java.lang.String"/>
 	<field name="marketQualitative" class="java.lang.Short"/>
-	<field name="enviroClass" class="java.lang.String"/>
 	<field name="location1" class="java.lang.String"/>
 	<field name="location2" class="java.lang.String"/>
 	<field name="location3" class="java.lang.String"/>
@@ -60,7 +59,6 @@
 	<field name="organizationQualitative" class="java.lang.Short"/>
 	<field name="assumptions" class="java.lang.String"/>
 	<field name="assumptionsQualitative" class="java.lang.Short"/>
-	<field name="sourceFunds" class="java.lang.String"/>
 	<field name="appConfig1" class="riv.objects.config.AppConfig1"/>
 	<field name="appConfig2" class="riv.objects.config.AppConfig2"/>
 	<field name="adminMisc1" class="java.lang.String"/>
@@ -100,7 +98,7 @@
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-						<font size="10"/>
+						<font size="10" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$R{project.benefName}]]></textFieldExpression>
@@ -506,7 +504,7 @@
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
-						<font size="10"/>
+						<font size="10" isBold="true"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$R{project.benefDesc}]]></textFieldExpression>
@@ -646,7 +644,7 @@
 					<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDiscountRate() + " %"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="a2fd2c8d-79ea-48a3-91c1-f7417c8decb4" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="393" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="a2fd2c8d-79ea-48a3-91c1-f7417c8decb4" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="26" y="393" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualBenefDescEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -662,7 +660,7 @@
 					<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="47630fb1-b551-4624-a906-18b30a3ec6cc" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="74" y="393" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="47630fb1-b551-4624-a906-18b30a3ec6cc" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="76" y="393" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualBenefDescEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -794,7 +792,7 @@
 					<textFieldExpression><![CDATA[$F{enviroImpact}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="55aeade8-c51e-4e4a-96a6-746f520ce6ab" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="3" y="133" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="55aeade8-c51e-4e4a-96a6-746f520ce6ab" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="3" y="133" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualAssumptionsEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -810,7 +808,7 @@
 					<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="31b0548b-c2d3-4200-bd2e-4043a9665250" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="38" y="133" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="31b0548b-c2d3-4200-bd2e-4043a9665250" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="133" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualAssumptionsEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -826,7 +824,7 @@
 					<textFieldExpression><![CDATA[$F{assumptionsQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="70a1ea2b-93b1-46bd-a95d-6db81b580e79" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="98" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="70a1ea2b-93b1-46bd-a95d-6db81b580e79" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="98" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualOrganizationEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -842,7 +840,7 @@
 					<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="8b0e452a-6939-4f1f-8ecc-786ced6cefea" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="98" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="8b0e452a-6939-4f1f-8ecc-786ced6cefea" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="98" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualOrganizationEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -858,7 +856,7 @@
 					<textFieldExpression><![CDATA[$F{organizationQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="71af359f-f6e8-4d7c-8d7d-7937755ac79d" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="61" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="71af359f-f6e8-4d7c-8d7d-7937755ac79d" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="61" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualMarketEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -874,7 +872,7 @@
 					<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="5c326ed0-511a-4f76-bbc4-e15bb0519666" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="61" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="5c326ed0-511a-4f76-bbc4-e15bb0519666" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="61" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualMarketEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -890,7 +888,7 @@
 					<textFieldExpression><![CDATA[$F{marketQualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="8e074f23-7df5-4fba-b0cd-22dc7fc8dda7" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="28" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="8e074f23-7df5-4fba-b0cd-22dc7fc8dda7" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="28" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualEnviroImpactEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -906,7 +904,7 @@
 					<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="d434ed23-252d-414c-a24f-7ab6babbc4d9" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="28" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="d434ed23-252d-414c-a24f-7ab6babbc4d9" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="28" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualEnviroImpactEnabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -1018,7 +1016,7 @@
 					<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getAdminMisc3Title()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="edf6c586-931a-4ead-993b-0569e141ee61" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="156" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="edf6c586-931a-4ead-993b-0569e141ee61" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="156" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isAdminMisc1Enabled() && $P{rivConfig}.getSetting().isQualAdminMisc1Enabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -1034,7 +1032,7 @@
 					<textFieldExpression><![CDATA[$F{adminMisc1Qualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="c4d39536-f039-4e84-a894-3453b77072a2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="156" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="c4d39536-f039-4e84-a894-3453b77072a2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="156" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isAdminMisc1Enabled() && $P{rivConfig}.getSetting().isQualAdminMisc1Enabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -1050,7 +1048,7 @@
 					<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="fb4769fd-96be-4ffc-b213-e4474431d96d" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="180" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="fb4769fd-96be-4ffc-b213-e4474431d96d" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="180" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isAdminMisc2Enabled() && $P{rivConfig}.getSetting().isQualAdminMisc2Enabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -1066,7 +1064,7 @@
 					<textFieldExpression><![CDATA[$F{adminMisc2Qualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="b3faaebf-4503-4da0-beb0-1774743b6f1b" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="180" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="b3faaebf-4503-4da0-beb0-1774743b6f1b" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="180" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isAdminMisc2Enabled() && $P{rivConfig}.getSetting().isQualAdminMisc2Enabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -1082,7 +1080,7 @@
 					<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="2bbb790b-c330-4917-8d59-a6679bc61838" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="202" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="2bbb790b-c330-4917-8d59-a6679bc61838" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="202" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isAdminMisc3Enabled() && $P{rivConfig}.getSetting().isQualAdminMisc3Enabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -1098,7 +1096,7 @@
 					<textFieldExpression><![CDATA[$F{adminMisc3Qualitative} + "/5"]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-					<reportElement uuid="155745f1-b428-4830-856b-84c31ce0d2e2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="202" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+					<reportElement uuid="155745f1-b428-4830-856b-84c31ce0d2e2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="202" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 						<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isAdminMisc3Enabled() && $P{rivConfig}.getSetting().isQualAdminMisc3Enabled()]]></printWhenExpression>
 					</reportElement>
 					<box>
@@ -1152,7 +1150,7 @@
 	<detail>
 		<band height="302" splitType="Stretch">
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a056b5a6-7944-4b36-980f-639265952f9d" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="185" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="a056b5a6-7944-4b36-980f-639265952f9d" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="185" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualActivitiesEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1168,7 +1166,7 @@
 				<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="2cbded3b-105d-4b26-b321-821d1270fb8b" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="185" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="2cbded3b-105d-4b26-b321-821d1270fb8b" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="185" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualActivitiesEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1676,7 +1674,7 @@
 				<textFieldExpression><![CDATA[$F{sustainability}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="3a9eee73-352d-4099-80c9-9e2e9e4e983b" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="290" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="3a9eee73-352d-4099-80c9-9e2e9e4e983b" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="290" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[!$F{incomeGen} && $P{rivConfig}.getSetting().isQualSustainabilityEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1692,7 +1690,7 @@
 				<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="77d37951-0574-4c46-b57b-758934688548" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="290" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="77d37951-0574-4c46-b57b-758934688548" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="290" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[!$F{incomeGen} && $P{rivConfig}.getSetting().isQualSustainabilityEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1708,7 +1706,7 @@
 				<textFieldExpression><![CDATA[$F{sustainabilityQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="cc39b20f-260c-4bbf-aa35-57d7a44f10e8" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="254" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="cc39b20f-260c-4bbf-aa35-57d7a44f10e8" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="254" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualRequirementsEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1724,7 +1722,7 @@
 				<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="e8114b84-dc69-4c25-a4c4-ff6b8a10c9e5" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="254" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="e8114b84-dc69-4c25-a4c4-ff6b8a10c9e5" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="254" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualRequirementsEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1740,7 +1738,7 @@
 				<textFieldExpression><![CDATA[$F{requirementsQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="6927e246-01a7-4991-b022-4ea2272b72c5" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="218" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="6927e246-01a7-4991-b022-4ea2272b72c5" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="218" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualTechnologyEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1756,7 +1754,7 @@
 				<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="aa1b75f2-fd83-4ecd-9786-d53ce44372e5" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="218" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="aa1b75f2-fd83-4ecd-9786-d53ce44372e5" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="218" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualTechnologyEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1772,7 +1770,7 @@
 				<textFieldExpression><![CDATA[$F{technologyQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="78dec97b-6a98-474d-bb92-ea39491343f2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="152" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="78dec97b-6a98-474d-bb92-ea39491343f2" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="152" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualProjDescEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1788,7 +1786,7 @@
 				<textFieldExpression><![CDATA[$F{projDescQualitative} + "/5"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="fdef48dd-36d5-40dd-aa72-52dd72dd4471" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="152" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="fdef48dd-36d5-40dd-aa72-52dd72dd4471" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="152" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualProjDescEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1804,7 +1802,7 @@
 				<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="07a4adcd-d6a0-4dd4-89cc-767e48764063" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="117" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="07a4adcd-d6a0-4dd4-89cc-767e48764063" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="4" y="117" width="50" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualJustificationEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1820,7 +1818,7 @@
 				<textFieldExpression><![CDATA[$R{qualitativeAnalysis.report.stars}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="7a569567-3595-43a5-ac2e-0d978638bfac" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="39" y="117" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="7a569567-3595-43a5-ac2e-0d978638bfac" key="textField-63" style="Arial_Normal" positionType="Float" mode="Opaque" x="55" y="117" width="35" height="5" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().isQualJustificationEnabled()]]></printWhenExpression>
 				</reportElement>
 				<box>

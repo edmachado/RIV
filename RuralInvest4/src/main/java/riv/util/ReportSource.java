@@ -65,7 +65,7 @@ public class ReportSource implements JRRewindableDataSource {
 					return new ReportSource((Map)value);
 				}
 			} catch (Exception ex) {
-				LOG.warn(ex.getMessage());
+				LOG.trace(ex.getMessage());
 			}
 		}
 		if (value instanceof String) {
