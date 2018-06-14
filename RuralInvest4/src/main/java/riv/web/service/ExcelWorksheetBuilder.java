@@ -1455,8 +1455,14 @@ public class ExcelWorksheetBuilder {
 		report.addTextCell(row, 0, setting.getLocation3());
 		report.addTextCell(row, 1, project.getLocation3());
 		
-	// Category
+	// Project duration
 		row = sheet.createRow(rowNum++);	row = sheet.createRow(rowNum++);	
+		report.addTextCell(row, 0, translate("project.duration"), Style.H2);
+		report.addNumericCell(row, 1, project.getDuration());
+		report.addTextCell(row, 2, translate("units.years"));
+		
+	// Category
+		row = sheet.createRow(rowNum++);	
 		report.addTextCell(row, 0, translate("project.category"), Style.H2);
 		report.addTextCell(row, 1, project.getProjCategory().getDescription());
 	

@@ -2,9 +2,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectSummary" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="1140208b-5c92-4cf0-a618-e6189c226758">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="92"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="144"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -36,6 +36,7 @@
 	<field name="annualEmploymentInvestment" class="java.lang.Double"/>
 	<field name="annualEmploymentOperation" class="java.lang.Double"/>
 	<field name="annualEmploymentGeneral" class="java.lang.Double"/>
+	<field name="duration" class="java.lang.Integer"/>
 	<variable name="investTypeTotal" class="java.lang.Double">
 		<variableExpression><![CDATA[new java.lang.Double($P{investAssets}.doubleValue() + $P{investLabour}.doubleValue() + $P{investService}.doubleValue())]]></variableExpression>
 	</variable>
@@ -76,9 +77,9 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="492" splitType="Stretch">
+		<band height="507" splitType="Stretch">
 			<rectangle radius="0">
-				<reportElement uuid="0f625003-4d33-4048-8d8a-7019b66f185a" key="rectangle-1" positionType="Float" mode="Opaque" x="0" y="419" width="528" height="16" forecolor="#000000" backcolor="#E5E5E5">
+				<reportElement uuid="0f625003-4d33-4048-8d8a-7019b66f185a" key="rectangle-1" positionType="Float" mode="Opaque" x="0" y="434" width="528" height="16" forecolor="#000000" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -212,7 +213,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getLocation3()]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="dbd85bda-ad75-4caa-a764-ca41d2923f37" key="textField-34" style="Arial_Normal" mode="Opaque" x="1" y="93" width="193" height="15" forecolor="#005CAB" backcolor="#FFFFFF"/>
+				<reportElement uuid="dbd85bda-ad75-4caa-a764-ca41d2923f37" key="textField-34" style="Arial_Normal" mode="Opaque" x="1" y="108" width="193" height="15" forecolor="#005CAB" backcolor="#FFFFFF"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -220,7 +221,7 @@
 				<textFieldExpression><![CDATA[$R{project.category}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="469d44e1-a239-4d7d-a984-bf1daad4f745" key="textField-35" style="Arial_Normal" mode="Opaque" x="198" y="93" width="330" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="469d44e1-a239-4d7d-a984-bf1daad4f745" key="textField-35" style="Arial_Normal" mode="Opaque" x="198" y="108" width="330" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -234,7 +235,7 @@
 				<textFieldExpression><![CDATA[$F{projCategory__description}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b1c4929e-ea2f-4f64-969b-432232852ae6" key="textField-36" style="Arial_Normal" mode="Opaque" x="1" y="130" width="528" height="15" forecolor="#005CAB" backcolor="#FFFFFF"/>
+				<reportElement uuid="b1c4929e-ea2f-4f64-969b-432232852ae6" key="textField-36" style="Arial_Normal" mode="Opaque" x="1" y="145" width="528" height="15" forecolor="#005CAB" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -248,7 +249,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.employment}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="19f834c6-607c-4a45-9073-fa1fd94d0b3c" key="textField-7" style="Arial_Normal" mode="Opaque" x="8" y="149" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="19f834c6-607c-4a45-9073-fa1fd94d0b3c" key="textField-7" style="Arial_Normal" mode="Opaque" x="8" y="164" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -262,7 +263,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.employment.investment}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="7f8a54f1-b764-473c-9ddd-d9639f3c9f20" key="textField-37" style="Arial_Normal" mode="Opaque" x="8" y="162" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="7f8a54f1-b764-473c-9ddd-d9639f3c9f20" key="textField-37" style="Arial_Normal" mode="Opaque" x="8" y="177" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -276,7 +277,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.employment.general}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c158e107-db20-4288-866e-76887d5ef1d7" key="textField-38" style="Arial_Normal" mode="Opaque" x="385" y="149" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="c158e107-db20-4288-866e-76887d5ef1d7" key="textField-38" style="Arial_Normal" mode="Opaque" x="385" y="164" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -290,7 +291,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($F{annualEmploymentInvestment})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9065041b-da61-4e7b-8a9e-4895e05686c4" key="textField-39" style="Arial_Normal" mode="Opaque" x="385" y="162" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="9065041b-da61-4e7b-8a9e-4895e05686c4" key="textField-39" style="Arial_Normal" mode="Opaque" x="385" y="177" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -304,7 +305,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($F{annualEmploymentGeneral})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="ea571465-1c01-4fa4-adfe-712c4c77be4f" key="textField-40" style="Arial_Normal" mode="Opaque" x="2" y="207" width="528" height="15" isRemoveLineWhenBlank="true" forecolor="#005CAB" backcolor="#FFFFFF">
+				<reportElement uuid="ea571465-1c01-4fa4-adfe-712c4c77be4f" key="textField-40" style="Arial_Normal" mode="Opaque" x="2" y="222" width="528" height="15" isRemoveLineWhenBlank="true" forecolor="#005CAB" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -320,7 +321,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.indicators}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="4acdd28b-e701-47be-b207-685adbf1c9cb" key="textField-42" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="227" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="4acdd28b-e701-47be-b207-685adbf1c9cb" key="textField-42" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="242" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -336,7 +337,7 @@
 				<textFieldExpression><![CDATA[$R{project.irr} + " (" + $R{project.report.summary.indicators.total} + ")"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="623f9044-062b-48c5-88eb-43225a7141db" key="textField-44" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="241" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="623f9044-062b-48c5-88eb-43225a7141db" key="textField-44" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="256" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -352,7 +353,7 @@
 				<textFieldExpression><![CDATA[$R{project.npv} + " (" + $R{project.report.summary.indicators.total} + ")"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b7e88aac-83a7-4f44-a231-6fffb835cdf9" key="textField-45" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="285" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="b7e88aac-83a7-4f44-a231-6fffb835cdf9" key="textField-45" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="300" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -368,7 +369,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.indicators.negativeFlow}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="28e6eb70-f56b-4608-9228-3d79bf524e3e" key="textField-46" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="227" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="28e6eb70-f56b-4608-9228-3d79bf524e3e" key="textField-46" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="242" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -386,7 +387,7 @@
 : $P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getIrr().multiply(BigDecimal.valueOf(100.0))) + "%"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="d33d747b-b063-4968-a407-4efcac5bfca3" key="textField-49" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="241" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="d33d747b-b063-4968-a407-4efcac5bfca3" key="textField-49" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="256" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -402,7 +403,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getNpv(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="18b6e4ca-48a8-40db-8a82-7e4845999c4d" key="textField-50" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="285" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="18b6e4ca-48a8-40db-8a82-7e4845999c4d" key="textField-50" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="300" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -430,13 +431,13 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="a51c8816-d756-4f95-83f8-a505d94315d8" key="line-5" mode="Opaque" x="1" y="145" width="1" height="58" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="a51c8816-d756-4f95-83f8-a505d94315d8" key="line-5" mode="Opaque" x="1" y="160" width="1" height="58" forecolor="#000000" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="1cc9ab9d-566f-4d62-9112-1642e51fcfec" key="line-6" stretchType="RelativeToBandHeight" mode="Opaque" x="2" y="222" width="1" height="78" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
+				<reportElement uuid="1cc9ab9d-566f-4d62-9112-1642e51fcfec" key="line-6" stretchType="RelativeToBandHeight" mode="Opaque" x="2" y="237" width="1" height="78" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -444,7 +445,7 @@
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="26240d4d-ec42-41a4-813f-c902ab97e7a3" key="textField-37" style="Arial_Normal" mode="Opaque" x="8" y="176" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="26240d4d-ec42-41a4-813f-c902ab97e7a3" key="textField-37" style="Arial_Normal" mode="Opaque" x="8" y="191" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -458,7 +459,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.employment.operation}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="1b549b34-9618-4fba-94db-83e700fbcdab" key="textField-39" style="Arial_Normal" mode="Opaque" x="385" y="176" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="1b549b34-9618-4fba-94db-83e700fbcdab" key="textField-39" style="Arial_Normal" mode="Opaque" x="385" y="191" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -472,7 +473,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($F{annualEmploymentOperation})]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="e2ab7449-c094-49c0-a760-a6bb70027005" key="textField-37" style="Arial_Normal" mode="Opaque" x="8" y="191" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="e2ab7449-c094-49c0-a760-a6bb70027005" key="textField-37" style="Arial_Normal" mode="Opaque" x="8" y="206" width="361" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -486,7 +487,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.employment.total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="fcefd081-973e-4eac-a743-89d53b8b40a1" key="textField-39" style="Arial_Normal" mode="Opaque" x="385" y="191" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="fcefd081-973e-4eac-a743-89d53b8b40a1" key="textField-39" style="Arial_Normal" mode="Opaque" x="385" y="206" width="80" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -500,13 +501,13 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($F{annualEmploymentOperation}.doubleValue()+$F{annualEmploymentInvestment}.doubleValue()+$F{annualEmploymentGeneral}.doubleValue())]]></textFieldExpression>
 			</textField>
 			<rectangle radius="0">
-				<reportElement uuid="ae7e796c-08e3-4513-891e-82a403b109a8" key="rectangle-1" positionType="Float" mode="Opaque" x="0" y="330" width="528" height="16" forecolor="#000000" backcolor="#E5E5E5"/>
+				<reportElement uuid="ae7e796c-08e3-4513-891e-82a403b109a8" key="rectangle-1" positionType="Float" mode="Opaque" x="0" y="345" width="528" height="16" forecolor="#000000" backcolor="#E5E5E5"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.0" lineStyle="Solid"/>
 				</graphicElement>
 			</rectangle>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="748d8e41-a74f-43e0-9252-a10e365e004a" key="textField-52" style="Arial_Normal" positionType="Float" mode="Opaque" x="0" y="313" width="528" height="15" forecolor="#005CAB" backcolor="#FFFFFF"/>
+				<reportElement uuid="748d8e41-a74f-43e0-9252-a10e365e004a" key="textField-52" style="Arial_Normal" positionType="Float" mode="Opaque" x="0" y="328" width="528" height="15" forecolor="#005CAB" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -520,7 +521,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.costs.source}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="fa3ea003-58c1-4403-8f96-7e51a6d04242" key="textField-69" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="332" width="84" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="fa3ea003-58c1-4403-8f96-7e51a6d04242" key="textField-69" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="347" width="84" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -534,7 +535,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.type}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f381684b-fd88-44cc-b977-9d55d28bf67d" key="textField-70" style="Arial_Normal" positionType="Float" mode="Opaque" x="93" y="332" width="140" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="f381684b-fd88-44cc-b977-9d55d28bf67d" key="textField-70" style="Arial_Normal" positionType="Float" mode="Opaque" x="93" y="347" width="140" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -548,7 +549,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.amount} + " (" +$P{rivConfig}.getSetting().getCurrencySym()+")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="dad2750b-af74-431b-ab12-8872ec63945c" key="textField-71" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="333" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="dad2750b-af74-431b-ab12-8872ec63945c" key="textField-71" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="348" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -562,7 +563,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.amount} + " (" + $R{units.USD} + ")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="010b1540-e4fd-4090-9569-a013b788181b" key="textField-72" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="333" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="010b1540-e4fd-4090-9569-a013b788181b" key="textField-72" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="348" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -576,7 +577,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.percent}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="cabb367a-758e-44a2-9571-1eec40ca4537" key="textField-73" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="372" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="cabb367a-758e-44a2-9571-1eec40ca4537" key="textField-73" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="387" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -590,7 +591,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.investment.source.financed}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="e077e9c3-a575-4760-8023-37a5d31a0fc1" key="textField-74" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="346" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="e077e9c3-a575-4760-8023-37a5d31a0fc1" key="textField-74" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="361" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -604,7 +605,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.investment.source.donation}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="279472d9-3845-4153-bff9-691c1d58909e" key="textField-75" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="359" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="279472d9-3845-4153-bff9-691c1d58909e" key="textField-75" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="374" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -618,7 +619,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.investment.source.ownResource}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="98b600a3-eb35-4e43-bd76-fcbe674b587f" key="textField-82" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="347" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="98b600a3-eb35-4e43-bd76-fcbe674b587f" key="textField-82" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="362" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -632,7 +633,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getTotalCostsDonated()/$P{result}.getTotalCosts()*100) + " %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f5633571-324b-46c9-bcaf-ccf030d018b9" key="textField-83" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="373" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="f5633571-324b-46c9-bcaf-ccf030d018b9" key="textField-83" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="388" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -646,7 +647,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getTotalCostsFinanced()/$P{result}.getTotalCosts()*100) + " %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="731f0d49-c747-4e65-90fd-bdc3ff46c8ef" key="textField-84" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="360" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="731f0d49-c747-4e65-90fd-bdc3ff46c8ef" key="textField-84" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="375" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -660,7 +661,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getTotalCostsOwn()/$P{result}.getTotalCosts()*100) + " %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5d35b65b-f0ed-4f71-ab40-a46e96cbc5fe" key="textField-89" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="385" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="5d35b65b-f0ed-4f71-ab40-a46e96cbc5fe" key="textField-89" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="400" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -674,7 +675,7 @@
 				<textFieldExpression><![CDATA[$R{misc.total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="3f63d8a9-5b58-4633-8bb4-a596a060d38f" key="textField-92" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="386" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="3f63d8a9-5b58-4633-8bb4-a596a060d38f" key="textField-92" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="401" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -688,7 +689,7 @@
 				<textFieldExpression><![CDATA["100 %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="54d57cb8-1e41-400e-a040-50e7815360c1" key="textField-113" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="346" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="54d57cb8-1e41-400e-a040-50e7815360c1" key="textField-113" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="361" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -702,7 +703,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCostsDonated(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="3fb2a511-cb90-4d06-a049-634a0cb75796" key="textField-114" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="372" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="3fb2a511-cb90-4d06-a049-634a0cb75796" key="textField-114" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="387" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -716,7 +717,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCostsFinanced(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="05f3d67d-c2c7-461e-a576-373e30ba8956" key="textField-115" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="359" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="05f3d67d-c2c7-461e-a576-373e30ba8956" key="textField-115" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="374" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -730,7 +731,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCostsOwn(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c02866cb-68c4-4e42-a918-0a6d5927216f" key="textField-116" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="385" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="c02866cb-68c4-4e42-a918-0a6d5927216f" key="textField-116" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="400" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -744,7 +745,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCosts(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="555b1f4c-d4c4-477e-9950-af216106637d" key="textField-120" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="347" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="555b1f4c-d4c4-477e-9950-af216106637d" key="textField-120" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="362" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -758,7 +759,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCostsDonated()/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="8273f6de-bf08-4964-8085-1e3a8aec4e31" key="textField-121" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="373" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="8273f6de-bf08-4964-8085-1e3a8aec4e31" key="textField-121" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="388" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -772,7 +773,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCostsFinanced()/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="42b5bc9c-10f3-4ace-a334-ba822bc44975" key="textField-122" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="360" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="42b5bc9c-10f3-4ace-a334-ba822bc44975" key="textField-122" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="375" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -786,7 +787,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCostsOwn()/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f9b92644-799d-4673-aa32-38e042d4a878" key="textField-123" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="386" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<reportElement uuid="f9b92644-799d-4673-aa32-38e042d4a878" key="textField-123" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="401" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -800,19 +801,19 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getTotalCosts()/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="182a74bc-82c5-4c7e-9cb2-f9718bcdc1b0" key="line-11" positionType="Float" mode="Opaque" x="1" y="385" width="483" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<reportElement uuid="182a74bc-82c5-4c7e-9cb2-f9718bcdc1b0" key="line-11" positionType="Float" mode="Opaque" x="1" y="400" width="483" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="2.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="e92c9159-a202-4a29-bcaf-b7b97436f264" key="line-8" positionType="Float" mode="Opaque" x="0" y="328" width="1" height="72" forecolor="#000000" backcolor="#FFFFFF"/>
+				<reportElement uuid="e92c9159-a202-4a29-bcaf-b7b97436f264" key="line-8" positionType="Float" mode="Opaque" x="0" y="343" width="1" height="72" forecolor="#000000" backcolor="#FFFFFF"/>
 				<graphicElement fill="Solid">
 					<pen lineWidth="0.5" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="777c03fd-8166-416b-93df-f6a225412daf" key="textField-122" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="449" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="777c03fd-8166-416b-93df-f6a225412daf" key="textField-122" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="464" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -828,7 +829,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getWcOwn()/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="16b94e2d-5e6e-446c-a578-9f4bca08a81a" key="textField-123" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="475" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="16b94e2d-5e6e-446c-a578-9f4bca08a81a" key="textField-123" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="490" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -844,7 +845,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(( $P{result}.getWcDonated()+$P{result}.getWcOwn()+$P{result}.getWcFinanced())/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5e407213-4466-4b8c-b5ed-926e0030f87e" key="textField-69" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="421" width="84" height="12" forecolor="#003365" backcolor="#E5E5E5">
+				<reportElement uuid="5e407213-4466-4b8c-b5ed-926e0030f87e" key="textField-69" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="436" width="84" height="12" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -860,7 +861,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.type}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c8b5b530-18ab-41bf-b005-90fdcbf5ecfa" key="textField-116" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="474" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="c8b5b530-18ab-41bf-b005-90fdcbf5ecfa" key="textField-116" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="489" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -880,7 +881,7 @@
 , riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="fb5af288-0f49-4552-bff6-b95d661fe2ef" key="textField-52" style="Arial_Normal" positionType="Float" mode="Opaque" x="0" y="401" width="528" height="15" forecolor="#005CAB" backcolor="#FFFFFF">
+				<reportElement uuid="fb5af288-0f49-4552-bff6-b95d661fe2ef" key="textField-52" style="Arial_Normal" positionType="Float" mode="Opaque" x="0" y="416" width="528" height="15" forecolor="#005CAB" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -896,7 +897,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.wc.source}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="827a6ce6-7d07-404b-a6cc-238ad147d7df" key="textField-74" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="435" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="827a6ce6-7d07-404b-a6cc-238ad147d7df" key="textField-74" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="450" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -912,7 +913,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.investment.source.donation}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="14091f8a-3087-4611-a54b-729996ff7f90" key="textField-84" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="449" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="14091f8a-3087-4611-a54b-729996ff7f90" key="textField-84" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="464" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -928,7 +929,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getWcOwn()/$P{result}.getWorkingCapital()*100) + " %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f7497ab2-6994-448d-b9b9-367101297967" key="textField-89" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="474" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="f7497ab2-6994-448d-b9b9-367101297967" key="textField-89" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="489" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -944,7 +945,7 @@
 				<textFieldExpression><![CDATA[$R{misc.total}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="d2385c34-4985-4974-b324-56abd850ae64" key="textField-83" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="462" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="d2385c34-4985-4974-b324-56abd850ae64" key="textField-83" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="477" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -960,7 +961,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getWcFinanced()/$P{result}.getWorkingCapital()*100) + " %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="241adf97-78c2-4177-8d86-3bfab41c8607" key="textField-92" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="475" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="241adf97-78c2-4177-8d86-3bfab41c8607" key="textField-92" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="490" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -976,7 +977,7 @@
 				<textFieldExpression><![CDATA["100 %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="af426430-9918-4b52-a03f-21139bff9df8" key="textField-121" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="462" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="af426430-9918-4b52-a03f-21139bff9df8" key="textField-121" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="477" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -992,7 +993,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getWcFinanced()/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="1323f1d3-0daf-4521-98b0-b526694c7d1d" key="line-8" positionType="Float" mode="Opaque" x="0" y="417" width="1" height="72" forecolor="#000000" backcolor="#FFFFFF">
+				<reportElement uuid="1323f1d3-0daf-4521-98b0-b526694c7d1d" key="line-8" positionType="Float" mode="Opaque" x="0" y="432" width="1" height="72" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -1000,7 +1001,7 @@
 				</graphicElement>
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="09632f90-bc97-457d-aa27-d47fd28d9a99" key="textField-70" style="Arial_Normal" positionType="Float" mode="Opaque" x="93" y="421" width="140" height="12" forecolor="#003365" backcolor="#E5E5E5">
+				<reportElement uuid="09632f90-bc97-457d-aa27-d47fd28d9a99" key="textField-70" style="Arial_Normal" positionType="Float" mode="Opaque" x="93" y="436" width="140" height="12" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1016,7 +1017,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.amount} + " (" +$P{rivConfig}.getSetting().getCurrencySym()+")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="735c2bf4-4995-4898-8e1f-a62386cb0788" key="textField-120" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="436" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="735c2bf4-4995-4898-8e1f-a62386cb0788" key="textField-120" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="451" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1032,7 +1033,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getWcDonated()/$F{exchRate}.doubleValue(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="1ba6a60b-c18a-491d-b03c-bc4909b52a91" key="textField-114" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="461" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="1ba6a60b-c18a-491d-b03c-bc4909b52a91" key="textField-114" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="476" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1048,7 +1049,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getWcFinanced(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="24cb310f-42fc-4dfa-a494-859b4098a60a" key="textField-71" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="422" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5">
+				<reportElement uuid="24cb310f-42fc-4dfa-a494-859b4098a60a" key="textField-71" style="Arial_Normal" positionType="Float" mode="Opaque" x="253" y="437" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1064,7 +1065,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.amount} + " (" + $R{units.USD} + ")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5729a507-941c-4b32-a6fd-2a482c87ee38" key="textField-82" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="436" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="5729a507-941c-4b32-a6fd-2a482c87ee38" key="textField-82" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="451" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1080,7 +1081,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getWcDonated()/$P{result}.getWorkingCapital()*100) + " %"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="dd0fb5db-90f7-45df-ad44-8f0811714780" key="textField-113" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="435" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="dd0fb5db-90f7-45df-ad44-8f0811714780" key="textField-113" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="450" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1096,7 +1097,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getWcDonated(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="0a5adba3-a29e-4948-83ba-ce59d9711116" key="textField-73" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="461" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="0a5adba3-a29e-4948-83ba-ce59d9711116" key="textField-73" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="476" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1112,7 +1113,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.investment.source.financed}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="878530d5-2115-45aa-b289-03f1d62cf6da" key="textField-115" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="448" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="878530d5-2115-45aa-b289-03f1d62cf6da" key="textField-115" style="Arial_Normal" positionType="Float" mode="Opaque" x="129" y="463" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1128,7 +1129,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getWcOwn(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="28c1d8fa-f38c-4501-99c2-d0175a6309e9" key="textField-75" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="448" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="28c1d8fa-f38c-4501-99c2-d0175a6309e9" key="textField-75" style="Arial_Normal" positionType="Float" mode="Opaque" x="2" y="463" width="104" height="12" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1144,7 +1145,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.investment.source.ownResource}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="263d06c3-b1e7-444c-8b7f-2a03b9b4bf19" key="textField-72" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="422" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5">
+				<reportElement uuid="263d06c3-b1e7-444c-8b7f-2a03b9b4bf19" key="textField-72" style="Arial_Normal" positionType="Float" mode="Opaque" x="379" y="437" width="104" height="12" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1160,7 +1161,7 @@
 				<textFieldExpression><![CDATA[$R{project.report.summary.percent}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="e0ea1eca-55ab-4274-9092-1ad54cbcb3f4" key="line-11" positionType="Float" mode="Opaque" x="2" y="474" width="483" height="1" forecolor="#007C4C" backcolor="#FFFFFF">
+				<reportElement uuid="e0ea1eca-55ab-4274-9092-1ad54cbcb3f4" key="line-11" positionType="Float" mode="Opaque" x="2" y="489" width="483" height="1" forecolor="#007C4C" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<graphicElement fill="Solid">
@@ -1168,7 +1169,7 @@
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a859b718-2ca0-43c6-a37c-a172d54a3c19" key="textField-42" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="256" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="a859b718-2ca0-43c6-a37c-a172d54a3c19" key="textField-42" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="271" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1184,7 +1185,7 @@
 				<textFieldExpression><![CDATA[$R{project.irr} + " (" + $R{project.report.profitability.totInvestApplicant} + ")"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
-				<reportElement uuid="aec4e1c0-752e-4173-91ae-7801000a9bd2" key="textField-44" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="270" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="aec4e1c0-752e-4173-91ae-7801000a9bd2" key="textField-44" style="Arial_Normal" positionType="Float" mode="Opaque" x="8" y="285" width="361" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1200,7 +1201,7 @@
 				<textFieldExpression><![CDATA[$R{project.npv} + " (" + $R{project.report.profitability.totInvestApplicant} + ")"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="03691276-1759-4251-bd31-d369e8ae7c15" key="textField-46" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="256" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="03691276-1759-4251-bd31-d369e8ae7c15" key="textField-46" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="271" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1218,7 +1219,7 @@
 : $P{rivConfig}.getSetting().getDecimalFormat().format($P{result}.getIrrWithDonation().multiply(BigDecimal.valueOf(100.0))) + "%"]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="482186c6-763a-46b5-ad55-15e9f5861427" key="textField-49" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="270" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="482186c6-763a-46b5-ad55-15e9f5861427" key="textField-49" style="Arial_Normal" positionType="Float" mode="Transparent" x="384" y="285" width="85" height="12" isRemoveLineWhenBlank="true" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{incomeGen}]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1234,7 +1235,7 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getNpvWithDonation(), riv.util.CurrencyFormat.ALL)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="13f35c85-2ef6-4800-aba5-3cd4e9cb7a8b" key="textField-34" style="Arial_Normal" mode="Opaque" x="1" y="109" width="193" height="15" forecolor="#005CAB" backcolor="#FFFFFF">
+				<reportElement uuid="13f35c85-2ef6-4800-aba5-3cd4e9cb7a8b" key="textField-34" style="Arial_Normal" mode="Opaque" x="1" y="124" width="193" height="15" forecolor="#005CAB" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().hasQualitativeFields($F{incomeGen})]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
@@ -1244,7 +1245,7 @@
 				<textFieldExpression><![CDATA[$R{qualitativeAnalysis}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="eb51da1e-3fe3-42ff-8afc-7c1d840abde0" key="textField-35" style="Arial_Normal" mode="Opaque" x="198" y="109" width="330" height="14" forecolor="#003365" backcolor="#FFFFFF">
+				<reportElement uuid="eb51da1e-3fe3-42ff-8afc-7c1d840abde0" key="textField-35" style="Arial_Normal" mode="Opaque" x="198" y="124" width="330" height="14" forecolor="#003365" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$P{rivConfig}.getSetting().hasQualitativeFields($F{incomeGen})]]></printWhenExpression>
 				</reportElement>
 				<box>
@@ -1257,8 +1258,29 @@
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getQualitative()*100, riv.util.CurrencyFormat.NODECIMALS) + " %"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($P{result}.getQualitative()*100, riv.util.CurrencyFormat.NODECIMALS) + " %"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="3ed54f23-3d28-48f8-8631-f262ad01a18e" key="textField-34" style="Arial_Normal" mode="Opaque" x="1" y="93" width="193" height="15" forecolor="#005CAB" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{project.duration}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="9f6d2f2e-227d-48ff-8621-a3af286d32b1" key="textField-35" style="Arial_Normal" mode="Opaque" x="198" y="93" width="330" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
+					<font size="10"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{duration} + " " + $R{units.years}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="376">
