@@ -190,18 +190,23 @@ public class UpdateSql  {
 				System.out.println("Current db version: "+current);
 			} catch (SQLException sqle) { // oops the database isn't yet updated.
 											// So we assume it's version 1
-				try {
-					String query = "CREATE CACHED TABLE version ("
-							+ "version DECIMAL(4,2) NOT NULL PRIMARY KEY, "
-							+ "description VARCHAR(255), "
-							+ "install_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, "
-							+ "recalculate BOOLEAN NOT NULL);";
-					stmt.execute(query);
-					stmt.getConnection().commit();
-					current = 0;
-				} catch (Exception e) {
+				if (stmt!=null) {
+					try {
+						String query = "CREATE CACHED TABLE version ("
+								+ "version DECIMAL(4,2) NOT NULL PRIMARY KEY, "
+								+ "description VARCHAR(255), "
+								+ "install_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, "
+								+ "recalculate BOOLEAN NOT NULL);";
+						stmt.execute(query);
+						stmt.getConnection().commit();
+						current = 0;
+					} catch (Exception e) {
+						System.out.println("Unable to create VERSION table");
+						throw new SQLException("Unable to create VERSION table", e);
+					}
+				} else {
 					System.out.println("Unable to create VERSION table");
-					throw new SQLException("Unable to create VERSION table", e);
+					throw new SQLException("Unable to create VERSION table");
 				}
 			} finally {
 				try { if (stmt!=null) { stmt.close(); }} catch (Exception e) { /* ignore */ }

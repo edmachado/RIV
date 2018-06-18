@@ -2668,7 +2668,7 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 		return totalPossible==0 ? 0.0 : score/totalPossible;
 	}
 	
-	public enum ProfileUpgradeStep { ASSETS, ASSETS_WITHOUT, INVEST_LABOUR, INVEST_LABOUR_WITHOUT, BLOCKS, BLOCKS_WITHOUT }
+//	public enum ProfileUpgradeStep { ASSETS, ASSETS_WITHOUT, INVEST_LABOUR, INVEST_LABOUR_WITHOUT, BLOCKS, BLOCKS_WITHOUT }
 
 	@Override
 	public int hashCode() {
