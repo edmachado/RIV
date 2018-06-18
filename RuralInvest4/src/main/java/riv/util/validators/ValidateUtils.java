@@ -32,6 +32,7 @@ public class ValidateUtils {
 				length = size.max();
 			}
 		} catch (Exception ex) {
+			LOG.trace("Looking for field in superclass.",ex);
 			try {
 				Field field = bean.getClass().getSuperclass().getDeclaredField(fieldName);
 				Size size = field.getAnnotation(Size.class);

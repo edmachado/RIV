@@ -82,15 +82,9 @@ public class AttachTools implements Serializable {
 			} catch (Exception e) {
 				LOG.error("Error moving attached file from file to db.",e);
 			} finally {
-				try { fis.close(); } catch (Exception e) { LOG.error("Cleanup error.",e); } 
+				try { if (fis!=null) { fis.close(); }} catch (Exception e) { LOG.error("Cleanup error.",e); } 
 				try { f.delete(); } catch (Exception e) { LOG.error("Cleanup error.",e); } 
-				try { baos.close(); } catch (Exception e) { LOG.error("Cleanup error.",e); }
-					
-//				} catch (NullPointerException ne) {
-//					LOG.error("Null pointer exception.",ne);
-//				} catch (Exception e) {
-//					LOG.error("Problem closing file connection.",e);
-//				}
+				try { if (baos!=null) { baos.close(); }} catch (Exception e) { LOG.error("Cleanup error.",e); }
 			}
 		}
 		probaseDir.delete();

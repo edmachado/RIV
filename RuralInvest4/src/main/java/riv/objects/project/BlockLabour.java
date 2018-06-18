@@ -129,7 +129,7 @@ public class BlockLabour extends BlockItem implements HasDonations {
 	
 	@Override
 	public void convertCurrency(Double exchange, int scale) {
-		unitCost = new BigDecimal(block.getProject().round(unitCost.doubleValue()*exchange,scale));		
+		unitCost = block.getProject().round(unitCost.multiply(BigDecimal.valueOf(exchange)),scale);		
 		for (Integer key : donations.keySet()) {
 			donations.put(key, block.getProject().round(donations.get(key)*exchange, scale));
 		}

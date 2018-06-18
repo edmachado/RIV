@@ -146,8 +146,8 @@ public class BlockInput extends BlockItem implements HasDonations {
 	
 	@Override
 	public void convertCurrency(Double exchange, int scale) {
-		Transport=new BigDecimal(block.getProject().round(Transport.doubleValue()*exchange,scale));
-		unitCost = new BigDecimal(block.getProject().round(unitCost.doubleValue()*exchange,scale));		
+		Transport= block.getProject().round(Transport.multiply(BigDecimal.valueOf(exchange)),scale);
+		unitCost = block.getProject().round(unitCost.multiply(BigDecimal.valueOf(exchange)),scale);		
 		for (Integer key : donations.keySet()) {
 			donations.put(key, block.getProject().round(donations.get(key)*exchange, scale));
 		}

@@ -109,9 +109,9 @@ public class BlockIncome extends BlockItem {
 	@Override
 	public void convertCurrency(Double exchange, int scale) {
 		if (block.getProject().getIncomeGen()) {
-			transport=new BigDecimal(block.getProject().round(transport.doubleValue()*exchange,scale));
+			transport=block.getProject().round(transport.multiply(BigDecimal.valueOf(exchange)),scale);
 		}
-		unitCost = new BigDecimal(block.getProject().round(unitCost.doubleValue()*exchange,scale));				
+		unitCost = block.getProject().round(unitCost.multiply(BigDecimal.valueOf(exchange)),scale);				
 	}
 	
 	@Override

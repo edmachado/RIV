@@ -94,7 +94,7 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 		 for(ProfileProductIncome inc : profileIncomes) {
 			 total=total.add(inc.getTotal());
 		 }
-		 return total.multiply(new BigDecimal(this.cyclePerYear*this.unitNum));
+		 return total.multiply(BigDecimal.valueOf(this.cyclePerYear*this.unitNum));
 	 }
 	 /**
 	  * Calculates the product's total cost by cycling through the input and labour collections
@@ -106,7 +106,7 @@ public abstract class ProfileProductBase  implements ProductOrBlock, Serializabl
 			 total=total.add(inp.getTotal());
 		 for (ProfileProductLabour lab:profileLabours)
 			 total=total.add(lab.getTotal());
-		 return total.multiply(new BigDecimal(this.cyclePerYear*this.unitNum));
+		 return total.multiply(BigDecimal.valueOf(this.cyclePerYear*this.unitNum));
 	 }
     
     // Property accessors

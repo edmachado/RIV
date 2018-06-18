@@ -248,7 +248,7 @@ public class ReportController {
 	   }
 	
 	@RequestMapping(value="/{id}/projectComplete.pdf", method=RequestMethod.GET)
-	   public void completeProjectReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	   public void completeProjectReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 		   Project p = dataService.getProject(id, -1);
 		   ProjectResult pr = dataService.getProjectResult(id);
 		   FinanceMatrix matrix = p.getIncomeGen() ? new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength()) : null;
@@ -330,7 +330,7 @@ public class ReportController {
    }
    
    @RequestMapping(value="/{id}/profileComplete.pdf", method=RequestMethod.GET)
-   public void completeReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+   public void completeReport(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
 	   Profile p = dataService.getProfile(id, -1);
 	   List<ReportWrapper> reports = reportCreator.profileComplete(p, response);
 	   concatReports(reports, response, "profileComplete.pdf");

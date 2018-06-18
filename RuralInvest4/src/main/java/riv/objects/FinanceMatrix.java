@@ -191,7 +191,7 @@ public class FinanceMatrix {
 			} else {
 				if (scenario==ProjectScenario.With) {
 					donations[year]=data.getIncCapitalDonation()+data.costInvestDonated;
-				} else if (scenario==ProjectScenario.With) {
+				} else if (scenario==ProjectScenario.Without) {
 					donations[year]=data.getIncCapitalDonation()+data.costInvestDonatedWithout;
 				} else { // incremental
 					donations[year]=data.getIncCapitalDonation()+data.costInvestDonated-data.costInvestDonatedWithout;
@@ -519,8 +519,8 @@ public class FinanceMatrix {
 					//double incIntern= block.getProject().getIncomeGen()
 					//		? (income.getUnitCost().doubleValue()-income.getTransport().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles
 					//				: (income.getUnitCost().doubleValue())*income.getQtyIntern().doubleValue()*prodQty*cycles;
-					yearlyData.get(i).incSalesWithout+=income.getTotal().multiply(new BigDecimal(prodQty*cycles)).doubleValue();
-					yearlyData.get(i).incSalesInternalWithout+=(income.getTotal().subtract(income.getTotalCash())).multiply(new BigDecimal(prodQty*cycles)).doubleValue();
+					yearlyData.get(i).incSalesWithout+=income.getTotal().multiply(BigDecimal.valueOf(prodQty*cycles)).doubleValue();
+					yearlyData.get(i).incSalesInternalWithout+=(income.getTotal().subtract(income.getTotalCash())).multiply(BigDecimal.valueOf(prodQty*cycles)).doubleValue();
 					
 					// use # of cycles if ending calc for first year
 					if (i==0) { cycles = block.getCyclePerYear(); }
@@ -534,8 +534,8 @@ public class FinanceMatrix {
 //					if (i==0) { cycles = block.getCycleFirstYear(); }
 					
 					double prodQty = block.getPatterns().get(i+1).getQty();
-					double opCost=input.getTotal().multiply(new BigDecimal(prodQty*cycles)).doubleValue();
-					double opInternal = input.getTotal().subtract(input.getTotalCash()).multiply(new BigDecimal(prodQty*cycles)).doubleValue();
+					double opCost=input.getTotal().multiply(BigDecimal.valueOf(prodQty*cycles)).doubleValue();
+					double opInternal = input.getTotal().subtract(input.getTotalCash()).multiply(BigDecimal.valueOf(prodQty*cycles)).doubleValue();
 					yearlyData.get(i).costOperationWithout+=opCost;
 					yearlyData.get(i).costOperationInternalWithout+=opInternal;
 					
@@ -745,12 +745,12 @@ public class FinanceMatrix {
 
        while (true) {
     	   if (Double.isInfinite(irr) || Double.isNaN(irr)) {
-    		   return new BigDecimal(1001.0);
+    		   return BigDecimal.valueOf(1001.0);
     	   }
     	   
     	   double  npv = netPresentValue ( irr, cashFlows );
 
-    	   if ( npv == 0.0 ) {				return new BigDecimal(irr); }
+    	   if ( npv == 0.0 ) {				return BigDecimal.valueOf(irr); }
     	   if (oldNpv < 0.0) {
     		   if (npv > 0.0) {				delta *= -0.9; 
     	   		} else if (npv > oldNpv) {		delta *= 1.1;
@@ -763,7 +763,7 @@ public class FinanceMatrix {
     		   } else {							delta = 0.0; }
     	   }
 
-    	   if (delta == 0.0) {	return new BigDecimal(irr); }
+    	   if (delta == 0.0) {	return BigDecimal.valueOf(irr); }
     	   irr += delta;
     	   oldNpv = npv;
        }
