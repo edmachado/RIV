@@ -2601,7 +2601,7 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	}
 	
 	public double getQualitativeAnalysis(Setting setting) {
-		double totalPossible=0.0; double score=0.0;
+		int totalPossible=0; double score=0.0;
 		
 //		if (setting.isQualitativeEnabled()) {
 			if (setting.isQualAdminMisc1Enabled()) {
@@ -2663,22 +2663,9 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 				totalPossible+=setting.getQualAssumptionsWeight()*5;
 				score+=setting.getQualAssumptionsWeight()*this.assumptionsQualitative;
 			}
-//			if (setting.isAdminMisc1Enabled() && setting.isQualAdminMisc1Enabled()) {
-//				totalPossible+=setting.getQualAdminMisc1Weight()*5;
-//				score+=setting.getQualAdminMisc1Weight()*this.adminMisc1Qualitative;
-//			}
-//			if (setting.isAdminMisc2Enabled() && setting.isQualAdminMisc2Enabled()) {
-//				totalPossible+=setting.getQualAdminMisc2Weight()*5;
-//				score+=setting.getQualAdminMisc2Weight()*this.adminMisc2Qualitative;
-//			}
-//			if (setting.isAdminMisc3Enabled() && setting.isQualAdminMisc3Enabled()) {
-//				totalPossible+=setting.getQualAdminMisc3Weight()*5;
-//				score+=setting.getQualAdminMisc3Weight()*this.adminMisc3Qualitative;
-//			}
-			
 //		}
 		
-		return totalPossible==0.0 ? 0.0 : score/totalPossible;
+		return totalPossible==0 ? 0.0 : score/totalPossible;
 	}
 	
 	public enum ProfileUpgradeStep { ASSETS, ASSETS_WITHOUT, INVEST_LABOUR, INVEST_LABOUR_WITHOUT, BLOCKS, BLOCKS_WITHOUT }
