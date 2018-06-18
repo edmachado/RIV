@@ -70,7 +70,7 @@ public class UpdateSql  {
 			logError(uih, e);
 			return false;
 		} finally {
-			try { stmt.close(); } catch (Exception e) { /* ignored */ }
+			try { if (stmt!=null) { stmt.close(); }} catch (Exception e) { /* ignored */ }
 		}
 	}
 	
@@ -182,12 +182,12 @@ public class UpdateSql  {
 			try {
 				stmt = connection.createStatement();
 				String query = "SELECT max(version) as CURRENT FROM VERSION";
-				ResultSet rs = stmt.executeQuery(query);
-				if (rs.next()) { // we can only have one max
-					current = rs.getDouble("CURRENT");
+				try (ResultSet rs = stmt.executeQuery(query);) {
+					if (rs.next()) { // we can only have one max
+						current = rs.getDouble("CURRENT");
+					}
 				}
 				System.out.println("Current db version: "+current);
-				
 			} catch (SQLException sqle) { // oops the database isn't yet updated.
 											// So we assume it's version 1
 				if (stmt != null) {
@@ -205,7 +205,7 @@ public class UpdateSql  {
 					throw new SQLException("Unable to create VERSION table", sqle);
 				}
 			} finally {
-				try { stmt.close(); } catch (Exception e) { /* ignore */ }
+				try { if (stmt!=null) { stmt.close(); }} catch (Exception e) { /* ignore */ }
 			}
 		}
 	}
@@ -219,7 +219,7 @@ public class UpdateSql  {
 					stmt = connection.createStatement();
 					stmt.execute("SHUTDOWN COMPACT");
 				} finally {
-					try { stmt.close(); } catch (Exception e) { /* ignored */ }
+					try { if (stmt!=null) { stmt.close(); }} catch (Exception e) { /* ignored */ }
 					try { connection.close(); } catch (Exception e) { /* ignored */ }
 				}
 				new File(String.format("%s/webapp/WEB-INF/data/riv.lck", installPath)).delete();

@@ -85,20 +85,20 @@ public class FirstUserAction {
 					String sql = "UPDATE User set username = ?, description = ?, password = ?, "
 								 + "organization = ?, location = ?, telephone = ?, email = ?, "
 								 + "administrator = true, lang = ? where user_id = ?";
-					PreparedStatement st = conn.prepareStatement(sql);
-					st.setString(1, user.username);
-					st.setString(2, user.name);
-					st.setString(3, computeSha1OfByteArray(user.password.getBytes("UTF8")));
-					st.setString(4, user.organization);
-					st.setString(5, user.location);
-					st.setString(6, user.telephone);
-					st.setString(7, user.email);
-					st.setString(8, user.language);
-					st.setInt(9, rs.getInt("user_id"));
-	
-					int result = st.executeUpdate();
-					System.out.println(String.format("Result of update: %d", result).getBytes());
-					st.close();
+					try (PreparedStatement st = conn.prepareStatement(sql);) {
+						st.setString(1, user.username);
+						st.setString(2, user.name);
+						st.setString(3, computeSha1OfByteArray(user.password.getBytes("UTF8")));
+						st.setString(4, user.organization);
+						st.setString(5, user.location);
+						st.setString(6, user.telephone);
+						st.setString(7, user.email);
+						st.setString(8, user.language);
+						st.setInt(9, rs.getInt("user_id"));
+		
+						int result = st.executeUpdate();
+						System.out.println(String.format("Result of update: %d", result).getBytes());
+					}
 				} else {
 					// add new user
 					String sql = "INSERT into User (username, description, password, organization, location, telephone, email, administrator, lang) "
@@ -120,7 +120,7 @@ public class FirstUserAction {
 					}
 				}
 			} finally {
-				try { rs.close(); } catch (Exception e) { /* ignore */ }
+				try { if (rs!=null) { rs.close(); } } catch (Exception e) { /* ignore */ }
 			}
 
 			try (Statement close = conn.createStatement();) {
@@ -130,7 +130,7 @@ public class FirstUserAction {
 			e.printStackTrace();
 			throw e;
 		} finally {
-			try { conn.close(); } catch (Exception e){ /* ignore */ }
+			try { if (conn!=null) { conn.close(); }} catch (Exception e){ /* ignore */ }
 		}
 	}
 	
