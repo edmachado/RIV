@@ -523,7 +523,7 @@ public class ExcelImportController {
 		try {
 			file.close();
 		} catch (IOException e) {
-			LOG.error("Cannot close file." + e.getMessage());
+			LOG.error("Cannot close file." + e);
 			throw new ExcelImportException(e.getMessage());
 		}
 	}
