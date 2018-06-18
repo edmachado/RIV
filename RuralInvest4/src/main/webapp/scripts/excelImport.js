@@ -80,9 +80,10 @@ function setupFileUploader(isRestore) {
             },
             validation: {
            	 allowedExtensions: isRestore ? ['riv'] : ['xlsx'],
-           	  sizeLimit: isRestore 
+           		  sizeLimit: 2048000 // 2Mb
+           		  /*isRestore 
            	  		? 1024000
-           	  		: 51200 // 500 kB = 500 * 1024 bytes 
+           	  		: 51200 // 500 kB = 500 * 1024 bytes */
             },
             disableCancelForFormUploads: true,
            text: { fileInputTitle: '' },
