@@ -38,10 +38,10 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 			}
 		} catch (LazyInitializationException e) {
 			// use value from formula rather than calculate from collection
-			LOG.trace("using formula value for getDonated");
+			LOG.trace("using formula value for getDonated", e);
 		} catch (NullPointerException e) {
 			// use value from formula rather than calculate from collection
-			LOG.trace("using formula value for getDonated");
+			LOG.trace("using formula value for getDonated", e);
 		}
 		return donated;
 	}
@@ -50,7 +50,7 @@ public abstract class ProjectItemNongenBase extends ProjectItem implements HasDo
 	@MapKeyColumn(name="donor_order_by")
 	@Column(name="amount")
 	@CollectionTable(name="PROJECT_ITEM_DONATION", joinColumns=@JoinColumn(name="item_id"))
-	protected Map<Integer,Double> donations = new HashMap<Integer, Double>();
+	private Map<Integer,Double> donations = new HashMap<Integer, Double>();
 	
 	public Map<Integer,Double> getDonations() { return donations; }
 	public void setDonations(Map<Integer,Double> donations)  { 

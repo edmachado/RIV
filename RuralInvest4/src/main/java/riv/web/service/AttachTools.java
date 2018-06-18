@@ -82,9 +82,9 @@ public class AttachTools implements Serializable {
 			} catch (Exception e) {
 				LOG.error("Error moving attached file from file to db.",e);
 			} finally {
-				try { fis.close(); } catch (Exception e) { /* ignore */ LOG.error(e.getMessage()); } 
-				try { f.delete(); } catch (Exception e) { /* ignore */ LOG.error(e.getMessage()); } 
-				try { baos.close(); } catch (Exception e) { /* ignore */ LOG.error(e.getMessage()); }
+				try { fis.close(); } catch (Exception e) { LOG.error("Cleanup error.",e); } 
+				try { f.delete(); } catch (Exception e) { LOG.error("Cleanup error.",e); } 
+				try { baos.close(); } catch (Exception e) { LOG.error("Cleanup error.",e); }
 					
 //				} catch (NullPointerException ne) {
 //					LOG.error("Null pointer exception.",ne);
@@ -230,7 +230,7 @@ public static boolean isZipStream(InputStream in) {
 		}
 		in.reset();
 	} catch (IOException e) {
-		LOG.debug("inputstream is not a zip.");
+		LOG.debug("inputstream is not a zip.", e);
 		isZip = false;
 	}
 	return isZip;
@@ -255,7 +255,7 @@ public static boolean isZipStream(InputStream in) {
 				}
  			}
  		} catch (Exception e) {
- 			LOG.debug("file is not a zip.");
+ 			LOG.debug("file is not a zip.", e);
  			isZip = false;
  		}
  		return isZip;

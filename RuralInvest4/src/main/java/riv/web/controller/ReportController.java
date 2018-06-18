@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JasperExportManager;
 
-import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -374,11 +373,11 @@ public class ReportController {
 	                copier.addPage(page);
 	            }
 			} catch (NullPointerException e) {
-				LOG.error(e.getMessage());
-				e.printStackTrace(System.out);
+				LOG.error(e.getMessage(), e);
+//				e.printStackTrace(System.out);
                 throw new RuntimeException(e);
             } catch (Exception e) {
-            	LOG.error(e.getMessage());
+            	LOG.error(e.getMessage(), e);
 			}
 		}
 		if (copier!=null) {

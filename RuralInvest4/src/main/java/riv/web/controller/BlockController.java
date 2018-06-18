@@ -3,6 +3,8 @@ package riv.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ import riv.web.service.DataService;
 @Controller
 @RequestMapping({"/project/block"})
 public class BlockController {
+	static final Logger LOG = LoggerFactory.getLogger(BlockController.class);
+	
 	@Autowired
     private DataService dataService;
 	@Autowired
@@ -172,6 +176,7 @@ public class BlockController {
 						pb.addPattern(pattern);
 					}
 				} catch (Exception e) {	
+					LOG.trace("rejecting value", e);
 					result.rejectValue("patternsError","error.noProdPattern");
 	
 				}

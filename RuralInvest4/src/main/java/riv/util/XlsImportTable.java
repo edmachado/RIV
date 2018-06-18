@@ -138,21 +138,7 @@ public class XlsImportTable<E extends OrderByable> {
 			}
 		}
 		if (cellsAreEmpty) { return false; }
-		
-//		cell1 = row.getCell(0);
-//		cell2 = row.getCell(1);
-//		if (
-//				(cell1==null || cell1.getCellType()==Cell.CELL_TYPE_BLANK || cell1.getStringCellValue().isEmpty())
-//				&& (cell2==null || cell2.getCellType()==Cell.CELL_TYPE_BLANK || cell2.getStringCellValue().isEmpty())
-//			){
-//			return false;
-//		}
-		
-		// throw exception if cell 1 (always "description") is not text
-//		cell1 = row.getCell(0);
-//		if (cell1!=null && cell1.getCellType()!=Cell.CELL_TYPE_STRING) {
-//			throw ExcelImportException.createExcelException(ErrorType.EXPECTED_TEXT, rowNum+1, 0, messageSource, LocaleContextHolder.getLocale());
-//		}
+
 		return true;
 	}
 	
@@ -182,6 +168,7 @@ public class XlsImportTable<E extends OrderByable> {
 					try {
 						value = cell.getStringCellValue();
 					} catch (IllegalStateException e) {
+						LOG.trace("Converting exception to ExcelImportException. This is correct behavior.",e);
 						throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 					}
 					
@@ -203,6 +190,7 @@ public class XlsImportTable<E extends OrderByable> {
 					try {
 						value = cell.getNumericCellValue();
 					} catch (IllegalStateException e) {
+						LOG.trace("Converting exception to ExcelImportException. This is correct behavior.",e);
 						throw ExcelImportException.createExcelException(ErrorType.DATA_TYPE, rowNum+1, column.column, messageSource, LocaleContextHolder.getLocale());
 					}
 				

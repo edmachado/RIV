@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 @Entity
 @DiscriminatorValue("1")
 public class ProfileProductInput extends ProfileProductItem implements java.io.Serializable {
-	static final Logger LOG = LoggerFactory.getLogger(ProfileProductItem.class);
+	static final Logger LOG = LoggerFactory.getLogger(ProfileProductInput.class);
 
 	private static final long serialVersionUID = 1L;
 	@ManyToOne

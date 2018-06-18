@@ -52,10 +52,10 @@ public class BlockInput extends BlockItem implements HasDonations {
 			}
 		} catch (LazyInitializationException e) {
 			// use value from formula rather than calculate from collection
-			LOG.trace("using formula value for getDonated");
+			LOG.trace("using formula value for getDonated", e);
 		} catch (NullPointerException e) {
 			// use value from formula rather than calculate from collection
-			LOG.trace("using formula value for getDonated");
+			LOG.trace("using formula value for getDonated", e);
 		}
 		return donated;
 	}

@@ -24,6 +24,7 @@ import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 import com.opensymphony.module.sitemesh.filter.PageFilter;
 
 import ch.qos.logback.ext.spring.web.LogbackConfigListener;
+import riv.util.RivRuntimeException;
 
 @SuppressWarnings("deprecation")
 public class WebAppInitializer implements WebApplicationInitializer {
@@ -115,8 +116,8 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			key = prop.getProperty("rootKey");
 			stream.close();
 		} catch  (Exception e) {
-			LOG.error("Cannot load webapprootkey");
-			throw new RuntimeException("Cannot load webapprootkey", e);
+			LOG.error("Cannot load webapprootkey", e);
+			throw new RivRuntimeException("Cannot load webapprootkey", e);
 		}
 		return key;
 	}

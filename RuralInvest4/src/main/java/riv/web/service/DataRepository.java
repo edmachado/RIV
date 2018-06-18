@@ -772,7 +772,7 @@ public class DataRepository implements Serializable {
 		try {
 			return (ProjectResult) criteria.uniqueResult();
 		} catch (Exception e) {
-			LOG.error("Project result missing for project "+id);
+			LOG.error("Project result missing for project "+id, e);
 			return null;
 		}
 	}

@@ -460,7 +460,7 @@ public class Upgrader implements Serializable {
 			}
 		} catch (NullPointerException e) {
 //			 orderBy is null, can't compare to make TreeSet
-			LOG.debug("imported orderbyable has null orderBy");
+			LOG.debug("imported orderbyable has null orderBy", e);
 			int i=0;
 			for (OrderByable o : set) {
 				o.setOrderBy(i++);

@@ -39,7 +39,7 @@ public class ValidateUtils {
 					length = size.max();
 				}
 			} catch (NoSuchFieldException ex2) {
-				LOG.trace("Field not found.", ex2.getMessage());
+				LOG.trace("Field not found.", ex2);
 			}	
 		}
 		return length;
@@ -62,10 +62,10 @@ public class ValidateUtils {
 						}
 					}
 				
-				} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
-				} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
-				} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
-				} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
+				} catch (NoSuchMethodException ex2) { LOG.warn("property not found", ex2);
+				} catch (IllegalAccessException ex2) { LOG.warn("property not found", ex2);
+				} catch (InvocationTargetException ex2) { LOG.warn("property not found", ex2);
+				} catch (NullPointerException ex2) { LOG.warn("property not found", ex2); }
 			}
 		}
 	}
@@ -74,10 +74,10 @@ public class ValidateUtils {
 		Object propertyValue=null;
 		try {
 			propertyValue=PropertyUtils.getProperty(bean, fieldName);
-		} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
-		} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
-		} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
-		} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
+		} catch (NoSuchMethodException ex2) { LOG.warn("property not found", ex2);
+		} catch (IllegalAccessException ex2) { LOG.warn("property not found", ex2);
+		} catch (InvocationTargetException ex2) { LOG.warn("property not found", ex2);
+		} catch (NullPointerException ex2) { LOG.warn("property not found", ex2); }
 		
 		if (propertyValue == null || propertyValue.equals("")) {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
@@ -89,10 +89,10 @@ public class ValidateUtils {
 		String propertyValue=null;
 		try {
 			propertyValue = PropertyUtils.getProperty(bean, fieldName).toString();
-		} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
-		} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
-		} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
-		} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
+		} catch (NoSuchMethodException ex2) { LOG.warn("property not found", ex2);
+		} catch (IllegalAccessException ex2) { LOG.warn("property not found", ex2);
+		} catch (InvocationTargetException ex2) { LOG.warn("property not found", ex2);
+		} catch (NullPointerException ex2) { LOG.warn("property not found", ex2); }
 		
 		if (propertyValue == null || propertyValue.trim().isEmpty()) {
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {fieldDesc}, "\""+fieldDesc+"\" is required");	
@@ -108,10 +108,10 @@ public class ValidateUtils {
 		Double propertyValue=null;
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
-		} catch (NoSuchMethodException ex2) { LOG.trace(ex2.getMessage());
-		} catch (IllegalAccessException ex2) { LOG.trace(ex2.getMessage());
-		} catch (InvocationTargetException ex2) { LOG.trace(ex2.getMessage());
-		} catch (NullPointerException ex2) { LOG.trace(ex2.getMessage()); }
+		} catch (NoSuchMethodException ex2) { LOG.warn("property not found", ex2);
+		} catch (IllegalAccessException ex2) { LOG.warn("property not found", ex2);
+		} catch (InvocationTargetException ex2) { LOG.warn("property not found", ex2);
+		} catch (NullPointerException ex2) { LOG.warn("property not found", ex2); }
 		
 		rejectIfNegativeFromValue(propertyValue, bean, fieldName, fieldCode, errors, scale);
 	}
@@ -137,7 +137,8 @@ public class ValidateUtils {
 		double propertyValue=0;
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
-		} catch (Exception e) {	
+		} catch (Exception e) {
+			LOG.trace("rejecting value", e);
 			errors.rejectValue(errorField, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
 			return;
 		}
@@ -151,6 +152,7 @@ public class ValidateUtils {
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
 		} catch (Exception e) {
+			LOG.trace("rejecting value", e);
 			errors.rejectValue(parentFieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" is required");
 			return true;
 		}
@@ -168,6 +170,7 @@ public class ValidateUtils {
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
 		} catch (Exception e) {	
+			LOG.trace("rejecting value", e);
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required");
 			return;
 		}
@@ -189,6 +192,7 @@ public class ValidateUtils {
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
 		} catch (Exception e) {
+			LOG.trace("rejecting value", e);
 			errors.rejectValue(parentFieldName, "error.perYearCost.fieldRequired", new Object[] {childKey+1, new DefaultMessageSourceResolvable(fieldCode)}, "\""+fieldName+"\" is required");
 			return true;
 		}
@@ -204,6 +208,7 @@ public class ValidateUtils {
 		try {
 			propertyValue=Double.parseDouble(map.get(key).toString());
 		} catch (Exception e) {
+			LOG.trace("rejecting value", e);
 			errors.rejectValue(mapName+"["+key.toString()+"]", "error.fieldRequired", new Object[] {fieldName}, "\""+fieldName+"\" is required");
 			return true;
 		}
@@ -219,6 +224,7 @@ public class ValidateUtils {
 		try {
 			propertyValue=Double.parseDouble(PropertyUtils.getProperty(bean, fieldName).toString());
 		} catch (Exception e) {	
+			LOG.trace("rejecting value", e);
 			errors.rejectValue(fieldName, "error.fieldRequired", new Object[] {new DefaultMessageSourceResolvable(new String[] {fieldCode})}, "\""+fieldName+"\" is required.");
 			return; 
 		}
@@ -242,7 +248,7 @@ public class ValidateUtils {
 			Object o = i.next();
 			for (String field : fields) {
 				try { if (PropertyUtils.getProperty(o, field)==null) { missingData=true; break; } }
-				catch (Exception e) { LOG.trace(e.getMessage());;}
+				catch (Exception e) { LOG.trace(e.getMessage(), e);;}
 			}
 		}
 		if (missingData) {

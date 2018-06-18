@@ -54,7 +54,7 @@ public abstract class ProjectItemGeneralBase extends HasPerYearItems<ProjectItem
 				py.setParent(this);
 				this.getYears().put(i, py);
 			} catch (Exception e) {
-				LOG.warn(e.getMessage());
+				LOG.warn(e.getMessage(), e);
 			}
 		}
 	}

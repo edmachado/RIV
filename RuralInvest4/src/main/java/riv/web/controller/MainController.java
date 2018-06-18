@@ -165,7 +165,7 @@ public class MainController {
 				try {
 					bytes = FileUtils.readFileToByteArray(f);
 				} catch (IOException e) {
-					LOG.error("Error reading logo file for migration.");
+					LOG.error("Error reading logo file for migration.", e);
 				}
 				rivConfig.getSetting().setOrgLogo(bytes);
 				dataService.storeAppSetting(rivConfig.getSetting());

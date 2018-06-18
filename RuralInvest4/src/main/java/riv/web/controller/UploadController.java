@@ -209,8 +209,8 @@ public class UploadController implements Serializable {
 					error = (String) model.asMap().get("error");
 				}
 			} catch (Exception e) {
-				LOG.warn(e.getMessage());
-				e.printStackTrace(System.out);
+				LOG.warn("Error processing upload.", e);
+//				e.printStackTrace(System.out);
 				error = e.getMessage();
 			}
 		}
@@ -316,11 +316,11 @@ public class UploadController implements Serializable {
 					zis.close();zis=null;
 				}
 			} catch (ExcelImportException e) {
-				LOG.warn(e.getMessage());
+				LOG.warn(e.getMessage(), e);
 				e.printStackTrace(System.out);
 				error = e.getMessage();
 			} catch (Exception e) {
-				LOG.warn(e.getMessage());
+				LOG.warn(e.getMessage(), e);
 				e.printStackTrace(System.out);
 				error = e.getMessage();
 			}
@@ -378,7 +378,7 @@ public class UploadController implements Serializable {
 				try {
 					decoded = decoder.readObject();
 				} catch (Exception ex) {
-					LOG.warn(ex.getMessage());
+					LOG.warn(ex.getMessage(), ex);
 					if (type.equals("config")) { result="error.import.notSettings"; }
 					else { result="error.import.wrongType"; }
 				} finally {
@@ -388,7 +388,7 @@ public class UploadController implements Serializable {
 				}
 			}
 		} catch (Exception e) {
-			LOG.warn("Imported file not a riv file. "+e.getMessage());
+			LOG.warn("Imported file not a riv file. ",e);
 			result="error.import.notARivFile";
 		} 
 		return result;

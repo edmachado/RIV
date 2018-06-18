@@ -42,7 +42,7 @@ public class ReportSource implements JRRewindableDataSource {
 				Method getter = PropertyUtils.getReadMethod(PropertyUtils.getPropertyDescriptor(object, field.substring(5, field.length())));
 				value = getter.invoke(object, (Object[])null);
 			} catch (Exception ex) {
-				LOG.warn(ex.getMessage());
+				LOG.warn("map "+field+" does not exist.", ex);
 			}
 		} else if (field.indexOf("__")>-1) { // NESTED VALUES
 			try {
@@ -51,7 +51,7 @@ public class ReportSource implements JRRewindableDataSource {
 				
 				value = nestedFieldValue(nestedObject, field.substring(field.indexOf("__")+2, field.length()));
 			} catch (Exception ex) {
-				LOG.warn(ex.getMessage());
+				LOG.warn("nested field "+field+" does not exist.", ex);
 			}
 		} else { // OTHER VALUES
 			try {
@@ -65,7 +65,7 @@ public class ReportSource implements JRRewindableDataSource {
 					return new ReportSource((Map)value);
 				}
 			} catch (Exception ex) {
-				LOG.trace(ex.getMessage());
+				LOG.trace("property "+field+" does not exist.", ex);
 			}
 		}
 		if (value instanceof String) {

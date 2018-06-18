@@ -89,7 +89,7 @@ public class Exporter {
 				batchExportProfiles(profiles, false, os);
 			}
 		} catch (Exception e) {
-			LOG.error("Exeption exporting "+(project?"projects ":"profiles "), e.getMessage());
+			LOG.error("Exeption exporting "+(project?"projects ":"profiles "), e);
 			e.printStackTrace(System.out);
 		}
 	}

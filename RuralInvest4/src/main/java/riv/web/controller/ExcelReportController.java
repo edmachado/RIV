@@ -1,7 +1,5 @@
 package riv.web.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Sheet;
@@ -23,6 +21,7 @@ import riv.objects.project.BlockBase;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectResult;
 import riv.util.ExcelWrapper;
+import riv.util.RivRuntimeException;
 import riv.web.config.RivConfig;
 import riv.web.service.DataService;
 import riv.web.service.ExcelWorksheetBuilder;
@@ -38,73 +37,61 @@ public class ExcelReportController {
 	private RivConfig rivConfig;
 
 	@RequestMapping(value = "/{id}/projectSummary.xlsx", method = RequestMethod.GET)
-	public void projectSummary(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectSummary(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.projectSummary(report, p, pr);
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectSummary.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectSummary.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
+		} catch (Exception e) {
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/projectDescription.xlsx", method = RequestMethod.GET)
-	public void projectDescription(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectDescription(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 1);
 		ExcelWrapper report = ewb.create();
+		
 		try {
 			ewb.projectGeneralDescription(report, p);
-
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectDescription.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectDescription.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectInvestDetail.xlsx", method = RequestMethod.GET)
-	public void projectInvestDetail(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void projectInvestDetail(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 7);
 		ExcelWrapper report = ewb.create();
-		try {
+		
+		try {	
 			ewb.projectInvestmentDetail(report, p, false, template != null);
-
 			if (p.isWithWithout()) {
 				ewb.projectInvestmentDetail(report, p, true, template != null);
 			}
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectInvestDetail.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectInvestDetail.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectGeneralDetail.xlsx", method = RequestMethod.GET)
-	public void projectGeneralDetail(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void projectGeneralDetail(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 8);
 		ExcelWrapper report = ewb.create();
+		
 		try {
 			if (p.getIncomeGen()) {
 				ewb.projectGeneralDetail(report, p, false, template != null);
@@ -114,42 +101,35 @@ public class ExcelReportController {
 			} else {
 				ewb.projectGeneralDetailNongen(report, p, template != null);
 			}
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectGeneralDetail.xlsx");
+			
+			response.setHeader("Content-disposition", "attachment; filename=projectGeneralDetail.xlsx");
+			
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectProduction.xlsx", method = RequestMethod.GET)
-	public void projectProduction(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectProduction(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 9);
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.projectProduction(report, p);
 
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectProduction.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectProduction.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectContributions.xlsx", method = RequestMethod.GET)
-	public void projectContributions(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void projectContributions(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 10);
 		ExcelWrapper report = ewb.create();
 		try {
@@ -157,18 +137,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectContributions.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectChronology.xlsx", method = RequestMethod.GET)
-	public void projectChronology(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectChronology(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 9);
 		ExcelWrapper report = ewb.create();
 		try {
@@ -176,18 +153,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectChronology.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectBlocks.xlsx", method = RequestMethod.GET)
-	public void projectBlocks(@PathVariable int id, HttpServletResponse response)
-			throws IOException {
+	public void projectBlocks(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 9);
 		ExcelWrapper report = ewb.create();
 		try {
@@ -198,19 +172,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectBlocks.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectBlock.xlsx", method = RequestMethod.GET)
-	public void oneBlock(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void oneBlock(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		BlockBase block = template != null ? new Block() : dataService
 				.getBlock(id, "all");
 		boolean isIg = template != null ? Boolean.parseBoolean(template)
@@ -221,18 +191,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=block.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectParameters.xlsx", method = RequestMethod.GET)
-	public void projectParameters(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectParameters(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
@@ -241,17 +208,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectParameters.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 	
 	@RequestMapping(value = "{id}/projectAmortization.xlsx", method = RequestMethod.GET)
-	public void projectAmortization(@PathVariable int id, HttpServletResponse response) throws IOException {
+	public void projectAmortization(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ExcelWrapper report = ewb.create();
@@ -261,18 +226,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectAmortization.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectCashFlow.xlsx", method = RequestMethod.GET)
-	public void projectCashFlow(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectCashFlow(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
 		ExcelWrapper report = ewb.create();
@@ -284,18 +246,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectCashFlow.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectCashFlowNongen.xlsx", method = RequestMethod.GET)
-	public void projectCashFlowNongen(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectCashFlowNongen(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
@@ -304,19 +263,15 @@ public class ExcelReportController {
 			response.setHeader("Content-disposition",
 					"attachment; filename=projectCashFlowNongen.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectWorkingCapital.xlsx", method = RequestMethod.GET)
-	public void projectWorkingCapital(@PathVariable int id,
-//			@RequestParam(required = false) String allYears,
-			HttpServletResponse response) throws IOException {
+	public void projectWorkingCapital(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		ExcelWrapper report = ewb.create();
@@ -325,21 +280,17 @@ public class ExcelReportController {
 			if (p.isWithWithout()) {
 				ewb.projectWorkingCapital(report, p, pr, true, rivConfig.getSetting().getDecimalLength());
 			}
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectWorkingCapital.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectWorkingCapital.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/projectProfitability.xlsx", method = RequestMethod.GET)
-	public void projectProfitability(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectProfitability(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, -1);
 		ProjectResult pr = dataService.getProjectResult(id);
 		FinanceMatrix matrix = new FinanceMatrix(p, rivConfig.getSetting().getDiscountRate(), rivConfig.getSetting().getDecimalLength());
@@ -350,40 +301,32 @@ public class ExcelReportController {
 				ewb.projectProfitability(report, p, pr, matrix, ProjectScenario.Without);
 				ewb.projectProfitability(report, p, pr, matrix, ProjectScenario.Incremental);
 			}
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectProfitability.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectProfitability.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/projectRecommendation.xlsx", method = RequestMethod.GET)
-	public void projectRecommendation(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void projectRecommendation(@PathVariable int id, HttpServletResponse response) {
 		Project p = dataService.getProject(id, 12);
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.projectRecommendation(report, p);
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectRecommendation.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectRecommendation.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report.",e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/projectComplete.xlsx", method = RequestMethod.GET)
-	public void completeProjectReport(@PathVariable int id,
-			HttpServletResponse response) throws Exception {
+	public void completeProjectReport(@PathVariable int id, HttpServletResponse response) {
 		Project project = dataService.getProject(id, -1);
 		ProjectResult result = dataService.getProjectResult(id);
 		 
@@ -445,41 +388,32 @@ public class ExcelReportController {
 			}
 			summary.setSelected(true);
 
-			response.setHeader("Content-disposition",
-					"attachment; filename=projectComplete.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=projectComplete.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/profileSummary.xlsx", method = RequestMethod.GET)
-	public void profileSummary(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void profileSummary(@PathVariable int id, HttpServletResponse response) {
 		Profile p = dataService.getProfile(id, 1);
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.profileSummary(report, p);
-			response.setHeader("Content-disposition",
-					"attachment; filename=profileSummary.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profileSummary.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/profileInvest.xlsx", method = RequestMethod.GET)
-	public void profileInvest(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void profileInvest(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		Profile p = dataService.getProfile(id, 4);
 		ExcelWrapper report = ewb.create();
 		try {
@@ -487,42 +421,32 @@ public class ExcelReportController {
 			if (p.getWithWithout()) {
 				ewb.profileInvest(report, p, true, template != null);
 			}
-			response.setHeader("Content-disposition",
-					"attachment; filename=profileInvest.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profileInvest.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/profileGeneral.xlsx", method = RequestMethod.GET)
-	public void profileGeneral(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void profileGeneral(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		Profile p = dataService.getProfile(id, 5);
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.profileGeneral(report, p, template != null);
-			response.setHeader("Content-disposition",
-					"attachment; filename=profileGeneral.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profileGeneral.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/profileProducts.xlsx", method = RequestMethod.GET)
-	public void profileProducts(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void profileProducts(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		Profile p = dataService.getProfile(id, 6);
 		ExcelWrapper report = ewb.create();
 		try {
@@ -530,22 +454,17 @@ public class ExcelReportController {
 			if (p.getWithWithout()) {
 				ewb.profileProducts(report, p, true);
 			}
-			response.setHeader("Content-disposition",
-					"attachment; filename=profileProducts.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profileProducts.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "{id}/profileProduct.xlsx", method = RequestMethod.GET)
-	public void oneProduct(@PathVariable int id,
-			@RequestParam(required = false) String template,
-			HttpServletResponse response) throws IOException {
+	public void oneProduct(@PathVariable int id, @RequestParam(required = false) String template, HttpServletResponse response) {
 		ProfileProductBase p = template != null ? new ProfileProduct()
 				: dataService.getProfileProduct(id, "all");
 		boolean isIg = template != null ? Boolean.parseBoolean(template) : p
@@ -553,21 +472,17 @@ public class ExcelReportController {
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.profileProduct(report, p, isIg);
-			response.setHeader("Content-disposition",
-					"attachment; filename=profileProduct.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profileProduct.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/profilePrelimAnalysis.xlsx", method = RequestMethod.GET)
-	public void profilePrelimAnalysis(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void profilePrelimAnalysis(@PathVariable int id, HttpServletResponse response) {
 		Profile p = dataService.getProfile(id, -1);
 		ProfileMatrix matrix = new ProfileMatrix(p);
 		ExcelWrapper report = ewb.create();
@@ -577,40 +492,32 @@ public class ExcelReportController {
 				ewb.profilePrelimAnalysis(report, p, ProjectScenario.Without, matrix);
 				ewb.profilePrelimAnalysis(report, p, ProjectScenario.Incremental, matrix);
 			}
-			response.setHeader("Content-disposition",
-					"attachment; filename=profilePrelimAnalysis.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profilePrelimAnalysis.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/profileRecommendation.xlsx", method = RequestMethod.GET)
-	public void profileRecommendation(@PathVariable int id,
-			HttpServletResponse response) throws IOException {
+	public void profileRecommendation(@PathVariable int id, HttpServletResponse response) {
 		Profile p = dataService.getProfile(id, 8);
 		ExcelWrapper report = ewb.create();
 		try {
 			ewb.profileRecommendation(report, p);
-			response.setHeader("Content-disposition",
-					"attachment; filename=profileRecommendation.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profileRecommendation.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
 	}
 
 	@RequestMapping(value = "/{id}/profileComplete.xlsx", method = RequestMethod.GET)
-	public void completeReport(@PathVariable int id,
-			HttpServletResponse response) throws Exception {
+	public void completeReport(@PathVariable int id, HttpServletResponse response) {
 		Profile p = dataService.getProfile(id, -1);
 		ProfileMatrix matrix = new ProfileMatrix(p);
 		ExcelWrapper report = ewb.create();
@@ -637,13 +544,10 @@ public class ExcelReportController {
 				report.getWorkbook().getSheetAt(i).setSelected(false);
 			}
 			
-			response.setHeader("Content-disposition",
-					"attachment; filename=profileComplete.xlsx");
+			response.setHeader("Content-disposition", "attachment; filename=profileComplete.xlsx");
 			report.getWorkbook().write(response.getOutputStream());
-		} catch (IOException e) {
-			throw e;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RivRuntimeException("Error creating report", e);
 		} finally {
 			report.getWorkbook().dispose();
 		}
