@@ -449,7 +449,7 @@ public class UploadController implements Serializable {
 				clearFormData();
 				return "redirect:step1/"+profile.getProfileId();
 			} catch (Exception e) {
-				LOG.error("An error occurred when saving profile. "+e.getMessage());
+				LOG.error("An error occurred when saving profile. "+e);
 				return uploadError("An error occurred when saving profile. "+e.getMessage(), model, locale);
 			}
 		} else { 

@@ -62,7 +62,7 @@ public class ProjectItemContribution extends HasPerYearItems<ProjectItemContribu
 				py.setParent(this);
 				this.getYears().put(i, py);
 			} catch (Exception e) {
-				LOG.warn(e.getMessage());
+				LOG.warn("Error adding years.", e);
 			}
 		}
 	}

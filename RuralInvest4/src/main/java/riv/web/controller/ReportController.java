@@ -24,6 +24,7 @@ import riv.objects.profile.Profile;
 import riv.objects.project.Project;
 import riv.objects.project.ProjectResult;
 import riv.util.ReportWrapper;
+import riv.util.RivRuntimeException;
 import riv.web.config.RivConfig;
 import riv.web.service.DataService;
 import riv.web.service.PdfReportCreator;
@@ -372,19 +373,14 @@ public class ReportController {
 	                page = copier.getImportedPage(reader, i);
 	                copier.addPage(page);
 	            }
-			} catch (NullPointerException e) {
+			} catch (Exception e) {
 				LOG.error(e.getMessage(), e);
-//				e.printStackTrace(System.out);
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-            	LOG.error(e.getMessage(), e);
+                throw new RivRuntimeException("Error when concatenating reports. ",e);
+//            } catch (Exception e) {
+//            	LOG.error(e.getMessage(), e);
 			}
 		}
-		if (copier!=null) {
-			copier.close();
-		}
-		if (document!=null) {
-			document.close();
-		}
+		if (copier!=null) { copier.close(); }
+		if (document!=null) { document.close(); }
 	}
 }

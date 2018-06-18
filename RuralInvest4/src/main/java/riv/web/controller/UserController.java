@@ -45,7 +45,7 @@ public class UserController {
 	}
 	
 	@ModelAttribute("user")
-	public User getItem(@PathVariable Integer id, HttpServletRequest request) throws Exception {
+	public User getItem(@PathVariable Integer id, HttpServletRequest request) {
 		// @ModelAttribute needs name equal to the class, 
 		// so we need to move the request.user (current user)
 		// to a new request attribute (currentUser) 
