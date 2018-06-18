@@ -68,7 +68,7 @@ public class Setting implements java.io.Serializable {
 	@Max(4)
 	private Integer decimalLength=2;
 	@Column(name="EXCH_RATE")
-	@NotNull
+//	@NotNull
 	@Max(9999)
 	private Double exchRate;
 	@Column(name="LOCATION1")

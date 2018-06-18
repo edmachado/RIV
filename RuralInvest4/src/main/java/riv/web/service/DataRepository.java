@@ -1825,7 +1825,7 @@ public class DataRepository implements Serializable {
 		}
 	}
 
-	@Transactional
+//	@Transactional
 	private void genericMoveOrder(String className, String idField, int itemId,
 			String parentIdName, int parentId, int orderBy, boolean dirUp) {
 		genericMoveOrderWithYear(className, idField, itemId,
@@ -1833,7 +1833,7 @@ public class DataRepository implements Serializable {
 		
 	}
 	
-	@Transactional
+//	@Transactional
 	private void genericMoveOrderWithYear(String className, String idField, int itemId,
 			String parentIdName, int parentId, int orderBy, Integer year, boolean dirUp) {
 
@@ -1863,13 +1863,13 @@ public class DataRepository implements Serializable {
 		query2.executeUpdate();
 	}
 
-	@Transactional
+//	@Transactional
 	private void genericReorder(String className, String parentIdName,
 			int parentId, int orderBy) {
 		genericReorderWithYear(className, parentIdName, parentId, orderBy, null);
 	}
 	
-	@Transactional
+//	@Transactional
 	private void genericReorderWithYear(String className, String parentIdName,
 			int parentId, int orderBy, Integer year) {
 		//className = className.substring(0,className.indexOf("_$$_javassist"));
