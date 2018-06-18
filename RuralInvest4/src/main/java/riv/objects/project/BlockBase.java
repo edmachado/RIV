@@ -115,10 +115,7 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
     }
     
     public void projectDurationChanged() {
-//    	if (patterns==null) { // could not happen because Hibernate will instantiate it. only for Sonar
-//    		return;
-//    	}
-    	if (patterns.size()==0 || patterns.size()==getProject().getDuration()) { 
+    	if (patterns==null || patterns.size()==0 || patterns.size()==getProject().getDuration()) { 
     		// do nothing
     	} else if (patterns.size()>getProject().getDuration()) {
         	// project is now shorter (need to remove extra patterns)
@@ -132,8 +129,10 @@ public abstract class BlockBase implements ProductOrBlock, Serializable, OrderBy
 	    		patterns.remove(i);
 	    	}
     	} else {
-	    	// project is now longer (need to add patterns)
-	    	double qty = patterns==null ? 0.0 : patterns.get(patterns.size()).getQty();
+    		// project is now longer (need to add patterns)
+    		double lastQty = patterns.get(patterns.size()-1).getQty();
+	    	double qty = patterns.get(patterns.size())==null ? lastQty : patterns.get(patterns.size()).getQty();
+	    
 	    	for (int i=patterns.size()+1;i<=getProject().getDuration();i++) {
 	    		BlockPattern pat = new BlockPattern();
 				pat.setQty(qty);
