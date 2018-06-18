@@ -408,9 +408,6 @@ public class Upgrader implements Serializable {
 	public byte[] upgradeXml(byte[] source) throws IOException, TransformerException, NullPointerException {
 			Source in=new StreamSource(new ByteArrayInputStream(source));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			if (getTemplates()==null) { 
-				throw new NullPointerException ("this cannot possibly occur."); 
-			}
 			Transformer transformer = getTemplates().newTransformer();
 			transformer.transform(in, new StreamResult(baos));
 			byte[] bytes = baos.toByteArray();
