@@ -793,7 +793,7 @@ public class FinanceMatrix {
     }
             
     private double getPay(double rate, double nper, double pv, double fv, double type) {
-    	if (rate==0) return -pv/nper;
+    	if (isZero(rate)) return -pv/nper;
     	double pvif, fvifa;
     	pvif = Math.pow(1 + rate, nper);
     	fvifa = (Math.pow(1 + rate, nper) - 1.0) / rate;
