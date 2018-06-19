@@ -523,7 +523,9 @@ public class DataRepository implements Serializable {
 	public void deleteProfile(Profile p) {
 		if (p.getWizardStep() == null) {
 			ProfileResult pr = getProfileResult(p.getProfileId());
-			currentSession().delete(pr);
+			if (pr!=null) {
+				currentSession().delete(pr);
+			}
 		}
 		currentSession().createQuery("delete from ProfileFile where probaseId=:id").setInteger("id", p.getProfileId()).executeUpdate();
 		currentSession().delete(p);

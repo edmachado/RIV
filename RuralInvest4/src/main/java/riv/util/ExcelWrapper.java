@@ -93,6 +93,9 @@ public class ExcelWrapper {
 		}
 	}
 	
+	public Cell addNumericCell(Row row, int cellNum, int value) {
+		return addNumericCell(row, cellNum, value+0.0, null);
+	}
 	public Cell addNumericCell(Row row, int cellNum, double value) {
 		return addNumericCell(row, cellNum, value, null);
 	}

@@ -455,14 +455,12 @@ public class ExcelWorksheetBuilder {
 		String title= (incomeGen ? translate("projectBlockIncome") : translate("projectActivityCharge")) + perUnit;
 		report.addTextCell(sheet.createRow(rowNum++), 0, title, Style.H2);
 		rowNum=tables[0].writeTable(sheet, rowNum++, block.getIncomes(), true);
-		sumRows[0]=rowNum;
-		rowNum=rowNum++;
+		sumRows[0]=rowNum++;
 		
 		// input cost
 		report.addTextCell(sheet.createRow(rowNum++), 0, translate("projectBlockInput").replace('/',' ')+ perUnit, Style.H2);
 		rowNum=tables[1].writeTable(sheet, rowNum++, block.getInputs(), true);
-		sumRows[1]=rowNum;
-		rowNum=rowNum++;
+		sumRows[1]=rowNum++;
 		
 		// labour cost
 		report.addTextCell(sheet.createRow(rowNum++), 0, translate("projectBlockLabour")+ perUnit, Style.H2);
@@ -4081,7 +4079,7 @@ public class ExcelWorksheetBuilder {
 			report.getBlockLinksWithoutProject().put(prod.getProductId(), blockLink);
 		}
 		
-		return rowNum++;
+		return rowNum;
 	}
 	
 	
