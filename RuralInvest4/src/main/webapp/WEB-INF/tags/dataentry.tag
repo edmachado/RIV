@@ -37,7 +37,7 @@
 	
 	<c:if test="${empty calculated}">
 		<c:if test="${not empty currency}"><c:set var="onkeyup" value="javascript:commasKeyup(this);"/></c:if>
-		<form:input path="${field}" cssClass="${inputClass}" size="${size}" maxLength="${maxLength}" onkeyup="${onkeyup}" onmouseout="${onmouseout}"/>
+		<form:input path="${field}" cssClass="${inputClass}" size="${size}" maxLength="${maxLength}" onkeyup="${onkeyup} ; ${onmouseout}" />
 	</c:if>
 	
 	<c:if test="${not empty calculated}">
