@@ -8,7 +8,11 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement uuid="286b3908-415d-4787-88b0-f6927a1baebf" mode="Opaque" x="0" y="0" width="35" height="20" backcolor="#FFFFFF"/>
+				<reportElement uuid="286b3908-415d-4787-88b0-f6927a1baebf" mode="Opaque" x="0" y="0" width="36" height="20" backcolor="#FFFFFF"/>
+				<box rightPadding="2">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="8"/>
 				</textElement>

@@ -62,7 +62,7 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="24" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="3a790433-ba71-4c1c-b3ef-66174867ee93" key="textField-33" mode="Opaque" x="1" y="0" width="37" height="21" forecolor="#003365" backcolor="#E5E5E5">
 					<printWhenExpression><![CDATA[($V{PAGE_NUMBER}-1)*15+$V{COLUMN_NUMBER}<=$P{duration}]]></printWhenExpression>

@@ -134,6 +134,7 @@ public class PdfReportCreator {
 		report.getParams().put("reportnameJ", "");
 		report.getParams().put("reportnameK", "");
 		report.getParams().put("reportnameL", "");
+		report.getParams().put("reportnameM", "");
 		report.getParams().put("proType", profile.getIncomeGen() ?  translate("profile.incomeGen") : translate("profile.nonIncomeGen")) ;
 		report.getParams().put("projectName", profile.getProfileName());
 		report.getParams().put("reportname", translate("profile.report.complete"));

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlowFirstOpIncomes" pageWidth="793" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="793" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" uuid="345623fb-87e6-46a0-97e4-24acbd9acaaa">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="projectCashFlowFirstOpIncomes" pageWidth="780" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="780" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" uuid="345623fb-87e6-46a0-97e4-24acbd9acaaa">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="880"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -59,14 +59,8 @@
 	</title>
 	<pageHeader>
 		<band height="29" splitType="Stretch">
-			<rectangle radius="0">
-				<reportElement uuid="73fda853-5048-4243-923c-cca7629d379b" key="rectangle-1" mode="Opaque" x="0" y="0" width="710" height="29" forecolor="#000000" backcolor="#E5E5E5"/>
-				<graphicElement fill="Solid">
-					<pen lineWidth="0.0" lineStyle="Solid"/>
-				</graphicElement>
-			</rectangle>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="ff308a05-d109-47b5-87a3-c21eae8f5795" key="textField-70" style="Arial_Normal" mode="Opaque" x="0" y="14" width="710" height="15" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="ff308a05-d109-47b5-87a3-c21eae8f5795" key="textField-70" style="Arial_Normal" mode="Opaque" x="0" y="14" width="777" height="15" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -94,168 +88,168 @@
 				<textFieldExpression><![CDATA[$R{projectBlock.name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f9163caf-7a47-450f-b6c7-ec5414705bf3" key="textField-76" style="Arial_Normal" mode="Opaque" x="158" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="f9163caf-7a47-450f-b6c7-ec5414705bf3" key="textField-76" style="Arial_Normal" mode="Opaque" x="154" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(0)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="52d49ccc-ff40-4b5d-a86d-11bd6f29805f" key="textField-77" style="Arial_Normal" mode="Opaque" x="204" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="52d49ccc-ff40-4b5d-a86d-11bd6f29805f" key="textField-77" style="Arial_Normal" mode="Opaque" x="206" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(1)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="289a762e-364b-4066-8cb6-786d48fe54a1" key="textField-78" style="Arial_Normal" mode="Opaque" x="250" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="289a762e-364b-4066-8cb6-786d48fe54a1" key="textField-78" style="Arial_Normal" mode="Opaque" x="258" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(2)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="757d0a0e-83d3-4183-be61-a0eae7b9028a" key="textField-79" style="Arial_Normal" mode="Opaque" x="296" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="757d0a0e-83d3-4183-be61-a0eae7b9028a" key="textField-79" style="Arial_Normal" mode="Opaque" x="310" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(3)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="d9159f9a-d446-4ba0-bf14-bff4abc7cbc9" key="textField-80" style="Arial_Normal" mode="Opaque" x="342" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="d9159f9a-d446-4ba0-bf14-bff4abc7cbc9" key="textField-80" style="Arial_Normal" mode="Opaque" x="362" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(4)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="4c2790b6-8bc7-42bb-bfeb-27592794812d" key="textField-81" style="Arial_Normal" mode="Opaque" x="388" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="4c2790b6-8bc7-42bb-bfeb-27592794812d" key="textField-81" style="Arial_Normal" mode="Opaque" x="414" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(5)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a9fb1982-2682-4471-9e3d-93e73b317b2f" key="textField-82" style="Arial_Normal" mode="Opaque" x="434" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="a9fb1982-2682-4471-9e3d-93e73b317b2f" key="textField-82" style="Arial_Normal" mode="Opaque" x="466" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(6)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="64e0b75f-44b4-48f2-87a3-9ec80a6b5f6b" key="textField-83" style="Arial_Normal" mode="Opaque" x="480" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="64e0b75f-44b4-48f2-87a3-9ec80a6b5f6b" key="textField-83" style="Arial_Normal" mode="Opaque" x="518" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(7)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b9b461da-2c12-454d-b66e-ba51edd3d260" key="textField-84" style="Arial_Normal" mode="Opaque" x="526" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="b9b461da-2c12-454d-b66e-ba51edd3d260" key="textField-84" style="Arial_Normal" mode="Opaque" x="570" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(8)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c14f3e34-498d-4088-874e-d8a21f746459" key="textField-85" style="Arial_Normal" mode="Opaque" x="572" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="c14f3e34-498d-4088-874e-d8a21f746459" key="textField-85" style="Arial_Normal" mode="Opaque" x="622" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(9)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="4f7f6bc8-b7c9-4d29-9b3b-02d2233decca" key="textField-86" style="Arial_Normal" mode="Opaque" x="665" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="4f7f6bc8-b7c9-4d29-9b3b-02d2233decca" key="textField-86" style="Arial_Normal" mode="Opaque" x="725" y="1" width="52" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{months}.get(11)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="1c0ed936-8909-433f-bd84-5906f6a55f1f" key="textField-87" style="Arial_Normal" mode="Opaque" x="619" y="1" width="45" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
+				<reportElement uuid="1c0ed936-8909-433f-bd84-5906f6a55f1f" key="textField-87" style="Arial_Normal" mode="Opaque" x="674" y="1" width="51" height="14" forecolor="#003365" backcolor="#E5E5E5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None">
 					<font size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
@@ -263,9 +257,6 @@
 			</textField>
 		</band>
 	</pageHeader>
-	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
 	<detail>
 		<band height="13" splitType="Stretch">
 			<line>
@@ -276,11 +267,9 @@
 			</line>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement uuid="63e27e06-f180-4fce-b8e3-0ff3fafda939" key="textField-71" style="Arial_Normal" mode="Opaque" x="0" y="1" width="153" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<box leftPadding="2">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -289,12 +278,10 @@
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="12f168f4-9e27-49a8-8d86-e9836aa069a9" key="textField-88" style="Arial_Normal" mode="Opaque" x="158" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="12f168f4-9e27-49a8-8d86-e9836aa069a9" key="textField-88" style="Arial_Normal" mode="Opaque" x="154" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -303,12 +290,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[0],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="f3ee5429-40ef-4586-b023-cdc660973cc1" key="textField-89" style="Arial_Normal" mode="Opaque" x="204" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="f3ee5429-40ef-4586-b023-cdc660973cc1" key="textField-89" style="Arial_Normal" mode="Opaque" x="206" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -317,12 +302,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[1],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5e437f82-9b5e-4aad-9a9e-b318dd716f7c" key="textField-90" style="Arial_Normal" mode="Opaque" x="250" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="5e437f82-9b5e-4aad-9a9e-b318dd716f7c" key="textField-90" style="Arial_Normal" mode="Opaque" x="258" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -331,12 +314,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[2],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a0174aa3-725c-489c-8d82-076f1166bbd1" key="textField-91" style="Arial_Normal" mode="Opaque" x="296" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="a0174aa3-725c-489c-8d82-076f1166bbd1" key="textField-91" style="Arial_Normal" mode="Opaque" x="310" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -345,12 +326,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[3],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="215d4874-86a5-417d-b30a-143ca476a0f8" key="textField-92" style="Arial_Normal" mode="Opaque" x="342" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="215d4874-86a5-417d-b30a-143ca476a0f8" key="textField-92" style="Arial_Normal" mode="Opaque" x="362" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -359,12 +338,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[4],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="ba7edd6d-dc11-4684-9f1f-7ff291c6b13e" key="textField-93" style="Arial_Normal" mode="Opaque" x="388" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="ba7edd6d-dc11-4684-9f1f-7ff291c6b13e" key="textField-93" style="Arial_Normal" mode="Opaque" x="414" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -373,12 +350,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[5],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="56ebccd9-adcf-4bbb-aa16-9c8e07e842e4" key="textField-94" style="Arial_Normal" mode="Opaque" x="434" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="56ebccd9-adcf-4bbb-aa16-9c8e07e842e4" key="textField-94" style="Arial_Normal" mode="Opaque" x="466" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -387,12 +362,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[6],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="700559fc-29ea-4600-b383-dca8c4f4ba5b" key="textField-95" style="Arial_Normal" mode="Opaque" x="480" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="700559fc-29ea-4600-b383-dca8c4f4ba5b" key="textField-95" style="Arial_Normal" mode="Opaque" x="518" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -401,12 +374,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[7],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="4128541a-d991-4073-86ab-e3775f9ba9a3" key="textField-96" style="Arial_Normal" mode="Opaque" x="526" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="4128541a-d991-4073-86ab-e3775f9ba9a3" key="textField-96" style="Arial_Normal" mode="Opaque" x="570" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -415,12 +386,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[8],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="5c2d74c1-d3e5-4232-be99-a80e0d71262b" key="textField-97" style="Arial_Normal" mode="Opaque" x="572" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="5c2d74c1-d3e5-4232-be99-a80e0d71262b" key="textField-97" style="Arial_Normal" mode="Opaque" x="622" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -429,26 +398,10 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[9],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="ac7baacf-10db-480a-81f8-e78a5d625f73" key="textField-98" style="Arial_Normal" mode="Opaque" x="664" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[11],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="51132502-be16-4e49-a628-b7e85830e32f" key="textField-99" style="Arial_Normal" mode="Opaque" x="618" y="1" width="45" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="51132502-be16-4e49-a628-b7e85830e32f" key="textField-99" style="Arial_Normal" mode="Opaque" x="674" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -456,17 +409,31 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[10],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="ac7baacf-10db-480a-81f8-e78a5d625f73" key="textField-98" style="Arial_Normal" mode="Opaque" x="726" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<bottomPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency(((double[])$F{flowData})[11],riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="17" splitType="Stretch">
+		<band height="13" splitType="Stretch">
+			<line>
+				<reportElement uuid="2dcd8d24-32de-4aea-9d21-4bb61a50a03c" key="line-3" mode="Opaque" x="0" y="0" width="777" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
+				<graphicElement fill="Solid">
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="c35233e3-7b1e-462b-828e-73f123156c4d" key="textField-102" style="Arial_Normal" mode="Opaque" x="0" y="3" width="153" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="c35233e3-7b1e-462b-828e-73f123156c4d" key="textField-102" style="Arial_Normal" mode="Opaque" x="0" y="1" width="153" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="2">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -475,12 +442,9 @@
 				<textFieldExpression><![CDATA[$R{misc.subtotal}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a4a746b1-85b6-42fc-8e94-1fa0ad664e90" key="textField-103" style="Arial_Normal" mode="Opaque" x="158" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="a4a746b1-85b6-42fc-8e94-1fa0ad664e90" key="textField-103" style="Arial_Normal" mode="Opaque" x="154" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -489,12 +453,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month1},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="b6946ba2-bb1b-470d-ad92-bee3eaf611b9" key="textField-104" style="Arial_Normal" mode="Opaque" x="204" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="b6946ba2-bb1b-470d-ad92-bee3eaf611b9" key="textField-104" style="Arial_Normal" mode="Opaque" x="206" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -503,12 +464,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month2},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="d69499dc-f939-4a52-9bc5-7fe5436aa516" key="textField-105" style="Arial_Normal" mode="Opaque" x="250" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="d69499dc-f939-4a52-9bc5-7fe5436aa516" key="textField-105" style="Arial_Normal" mode="Opaque" x="258" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -517,12 +475,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month3},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="9fbc6d5d-4575-46eb-b4b2-84f96d8dd926" key="textField-106" style="Arial_Normal" mode="Opaque" x="296" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="9fbc6d5d-4575-46eb-b4b2-84f96d8dd926" key="textField-106" style="Arial_Normal" mode="Opaque" x="310" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -531,12 +486,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month4},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="95f49e37-66f1-44d9-85c6-af9f70f96738" key="textField-107" style="Arial_Normal" mode="Opaque" x="342" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="95f49e37-66f1-44d9-85c6-af9f70f96738" key="textField-107" style="Arial_Normal" mode="Opaque" x="362" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -545,12 +497,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month5},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="e22a6e79-af9e-4887-b509-495a8f885c47" key="textField-108" style="Arial_Normal" mode="Opaque" x="388" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="e22a6e79-af9e-4887-b509-495a8f885c47" key="textField-108" style="Arial_Normal" mode="Opaque" x="414" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -559,12 +508,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month6},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a10e52e0-5940-4ada-be50-b5d3e86d75ca" key="textField-109" style="Arial_Normal" mode="Opaque" x="434" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="a10e52e0-5940-4ada-be50-b5d3e86d75ca" key="textField-109" style="Arial_Normal" mode="Opaque" x="466" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -573,12 +519,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month7},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="a5d09f84-bcf2-4b3a-a45a-539cdb5e4e1f" key="textField-110" style="Arial_Normal" mode="Opaque" x="480" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="a5d09f84-bcf2-4b3a-a45a-539cdb5e4e1f" key="textField-110" style="Arial_Normal" mode="Opaque" x="518" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -587,12 +530,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month8},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="bb42365d-652f-4360-9fca-170bda53a2fd" key="textField-111" style="Arial_Normal" mode="Opaque" x="526" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="bb42365d-652f-4360-9fca-170bda53a2fd" key="textField-111" style="Arial_Normal" mode="Opaque" x="570" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -601,12 +541,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month9},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="eabd67ab-3df6-4351-ab5b-13f68eb91691" key="textField-112" style="Arial_Normal" mode="Opaque" x="572" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="eabd67ab-3df6-4351-ab5b-13f68eb91691" key="textField-112" style="Arial_Normal" mode="Opaque" x="622" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -615,26 +552,9 @@
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month10},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="2f2592e2-2c83-492e-9382-610324a878cd" key="textField-113" style="Arial_Normal" mode="Opaque" x="664" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
-					<font size="8"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month12},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
-			</textField>
-			<textField pattern="" isBlankWhenNull="false">
-				<reportElement uuid="51f64be4-49d3-4aae-8803-3c254b9cb6cb" key="textField-114" style="Arial_Normal" mode="Opaque" x="618" y="3" width="45" height="14" forecolor="#003365" backcolor="#FFFFFF"/>
-				<box leftPadding="5">
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<reportElement uuid="51f64be4-49d3-4aae-8803-3c254b9cb6cb" key="textField-114" style="Arial_Normal" mode="Opaque" x="674" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1">
+					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
 					<font size="8"/>
@@ -642,12 +562,15 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month11},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement uuid="2dcd8d24-32de-4aea-9d21-4bb61a50a03c" key="line-3" mode="Opaque" x="0" y="2" width="710" height="1" forecolor="#007C4C" backcolor="#FFFFFF"/>
-				<graphicElement fill="Solid">
-					<pen lineWidth="0.5" lineStyle="Solid"/>
-				</graphicElement>
-			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="2f2592e2-2c83-492e-9382-610324a878cd" key="textField-113" style="Arial_Normal" mode="Opaque" x="726" y="1" width="51" height="12" forecolor="#003365" backcolor="#FFFFFF"/>
+				<box leftPadding="0" rightPadding="1"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None">
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rivConfig}.getSetting().getCurrencyFormatter().formatCurrency($V{month12},riv.util.CurrencyFormat.NODECIMALS)]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
