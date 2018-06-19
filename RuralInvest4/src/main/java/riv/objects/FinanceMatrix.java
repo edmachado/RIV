@@ -145,13 +145,13 @@ public class FinanceMatrix {
 		
 		int lastCumulativeYear = lastNegYearBefore+1<duration ? lastNegYearBefore+1 : duration-1;
 		double paybackBefore = 
-				yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityBefore(scenario)==0.0 
+				isZero(yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityBefore(scenario)) 
 				? lastNegYearBefore+1
 				: lastNegYearBefore+1 + (Math.abs(lastNegYearValueBefore)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityBefore(scenario));
 		
 		lastCumulativeYear = lastNegYearAfter+1<duration ? lastNegYearAfter+1 : duration-1;
 		double paybackAfter = 
-				yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario)==0.0
+				isZero(yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario))
 				? lastNegYearAfter+1
 				: lastNegYearAfter+1 + (Math.abs(lastNegYearValueAfter)/yearlyData.get(lastCumulativeYear).getNetIncomeProfitabilityAfter(scenario));
 		
@@ -687,6 +687,10 @@ public class FinanceMatrix {
 		    bd = bd.setScale(scale,BigDecimal.ROUND_HALF_UP);
 		    return bd.doubleValue();
 	}
+	private boolean isZero (double value) {
+		double threshold = 0.0000;
+	    return value >= -threshold && value <= threshold;
+	}
 	
 	/**
 	 * Wrapper for netPresentValue(double discountRate, double[] cashFlows).  Uses array of ProjectFinanceData to a cash flow array.
@@ -738,7 +742,7 @@ public class FinanceMatrix {
      * @return calculated IRR
      */
     private  BigDecimal  internalRateOfReturn(double irrEstimate, double[] cashFlows) {
-    	 double  irr = irrEstimate==0 ? 0.001 : irrEstimate;
+    	 double  irr = isZero(irrEstimate) ? 0.001 : irrEstimate;
 
     	 double  delta = -irr * 0.1;
     	 double  oldNpv = 0.0;
@@ -750,7 +754,7 @@ public class FinanceMatrix {
     	   
     	   double  npv = netPresentValue ( irr, cashFlows );
 
-    	   if ( npv == 0.0 ) {				return BigDecimal.valueOf(irr); }
+    	   if ( isZero(npv) ) {				return BigDecimal.valueOf(irr); }
     	   if (oldNpv < 0.0) {
     		   if (npv > 0.0) {				delta *= -0.9; 
     	   		} else if (npv > oldNpv) {		delta *= 1.1;
@@ -763,7 +767,7 @@ public class FinanceMatrix {
     		   } else {							delta = 0.0; }
     	   }
 
-    	   if (delta == 0.0) {	return BigDecimal.valueOf(irr); }
+    	   if ( isZero(delta)) {	return BigDecimal.valueOf(irr); }
     	   irr += delta;
     	   oldNpv = npv;
        }
@@ -797,7 +801,7 @@ public class FinanceMatrix {
     }
     
     private double getPrinc(double start, double pay, double rate, double period) {
-    	if (rate==0) { return pay; }
+    	if ( isZero(rate)) { return pay; }
     	return (start * Math.pow(1.0 + rate, period) +
     		pay * ((Math.pow(1 + rate, period) - 1) / rate));
     }
