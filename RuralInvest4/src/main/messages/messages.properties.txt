@@ -1,6 +1,7 @@
 ## RIV4.4 2018
 error.import.riv=Not a recognizable .riv file. The file may be corrupt.
 error.loan.pastProjectDuration=Cannot exceed project duration
+error.loan.pastLoanDuration=Must be less than loan duration
 
 #changed since previous version
 project.loan.paymentsPerYear.help=The number of payments the lender requires for loan repayment each year of loan. (e.g. '4' if loan is to be paid quarterly, '12' if loan is to be paid monthly.)
