@@ -2,7 +2,7 @@
 <html><head><title><spring:message code="project.step3"/></title>
 <script>
 $(function() {
-	$('#justificationQualitative, #projDescQualitative, #activitiesQualitative').barrating({
+	$('#justificationQualitative, #projDescQualitative, #activitiesQualitative, #adminMisc1Qualitative, #adminMisc2Qualitative, #adminMisc3Qualitative').barrating({
       theme: 'css-stars'
     });
 });
@@ -26,7 +26,7 @@ $(function() {
 			<legend><tags:help noKey="true" title="${rivConfig.setting.adminMisc1Title}" text="${rivConfig.setting.adminMisc1Help}">${rivConfig.setting.adminMisc1Title}</tags:help></legend>
 			<div class="dataentry">
 				<c:if test="${rivConfig.setting.qualAdminMisc1Enabled}">
-					<form:select path="project.qualAdminMisc1Weight">
+					<form:select path="adminMisc1Qualitative">
 						<form:option value="1"></form:option>
 						<form:option value="2"></form:option>
 						<form:option value="3"></form:option>
@@ -44,7 +44,7 @@ $(function() {
 			<legend><tags:help noKey="true" title="${rivConfig.setting.adminMisc2Title}" text="${rivConfig.setting.adminMisc2Help}">${rivConfig.setting.adminMisc2Title}</tags:help></legend>
 			<div class="dataentry">
 				<c:if test="${rivConfig.setting.qualAdminMisc2Enabled}">
-					<form:select path="${project.qualAdminMisc2Weight}">
+					<form:select path="${adminMisc2Qualitative}">
 						<form:option value="1"></form:option>
 						<form:option value="2"></form:option>
 						<form:option value="3"></form:option>
@@ -62,7 +62,7 @@ $(function() {
 			<legend><tags:help noKey="true" title="${rivConfig.setting.adminMisc3Title}" text="${rivConfig.setting.adminMisc3Help}">${rivConfig.setting.adminMisc3Title}</tags:help></legend>
 			<div class="dataentry">
 				<c:if test="${rivConfig.setting.qualAdminMisc3Enabled}">
-					<form:select path="${project.qualAdminMisc3Weight}">
+					<form:select path="${adminMisc3Qualitative}">
 						<form:option value="1"></form:option>
 						<form:option value="2"></form:option>
 						<form:option value="3"></form:option>
