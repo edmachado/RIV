@@ -2256,6 +2256,21 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 		sb.append("step12.reccDesc="+reccDesc.replace("\r", "\\r").replace("\n", "\\n")+lineSeparator);
 		sb.append("step12.reccDate="+reccDate.getDate()+"/"+(reccDate.getMonth()+1)+"/"+(reccDate.getYear()+1900)+lineSeparator);
 		
+		sb.append("qualitative.adminMisc1Qualitative="+adminMisc1Qualitative+lineSeparator);
+		sb.append("qualitative.adminMisc2Qualitative="+adminMisc2Qualitative+lineSeparator);
+		sb.append("qualitative.adminMisc3Qualitative="+adminMisc3Qualitative+lineSeparator);
+		sb.append("qualitative.justificationQualitative="+justificationQualitative+lineSeparator);
+		sb.append("qualitative.projDescQualitative="+projDescQualitative+lineSeparator);
+		sb.append("qualitative.benefDescQualitative="+benefDescQualitative+lineSeparator);
+		sb.append("qualitative.activitiesQualitative="+activitiesQualitative+lineSeparator);
+		sb.append("qualitative.technologyQualitative="+technologyQualitative+lineSeparator);
+		sb.append("qualitative.requirementsQualitative="+requirementsQualitative+lineSeparator);
+		sb.append("qualitative.sustainabilityQualitative="+sustainabilityQualitative+lineSeparator);
+		sb.append("qualitative.enviroImpactQualitative="+enviroImpactQualitative+lineSeparator);
+		sb.append("qualitative.marketQualitative="+marketQualitative+lineSeparator);
+		sb.append("qualitative.organizationQualitative="+organizationQualitative+lineSeparator);
+		sb.append("qualitative.assumptionsQualitative="+assumptionsQualitative+lineSeparator);
+		
 		return sb.toString();
 	}
 
@@ -2336,6 +2351,20 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 		newProj.setAdminMisc2(adminMisc2);
 		newProj.setAdminMisc3(adminMisc3);
 		
+		newProj.setAdminMisc1Qualitative(adminMisc1Qualitative);
+		newProj.setAdminMisc2Qualitative(adminMisc2Qualitative);
+		newProj.setAdminMisc3Qualitative(adminMisc3Qualitative);
+		newProj.setJustificationQualitative(justificationQualitative);
+		newProj.setProjDescQualitative(projDescQualitative);
+		newProj.setBenefDescQualitative(benefDescQualitative);
+		newProj.setActivitiesQualitative(activitiesQualitative);
+		newProj.setTechnologyQualitative(technologyQualitative);
+		newProj.setRequirementsQualitative(requirementsQualitative);
+		newProj.setSustainabilityQualitative(sustainabilityQualitative);
+		newProj.setEnviroImpactQualitative(enviroImpactQualitative);
+		newProj.setMarketQualitative(marketQualitative);
+		newProj.setOrganizationQualitative(organizationQualitative);
+		newProj.setAssumptionsQualitative(assumptionsQualitative);
 		
 		newProj.setAssets(new HashSet<ProjectItemAsset>());
 		newProj.setLabours(new HashSet<ProjectItemLabour>());
@@ -2603,67 +2632,65 @@ public void setAssumptionsQualitative(Short assumptionsQualitative) {
 	public double getQualitativeAnalysis(Setting setting) {
 		int totalPossible=0; double score=0.0;
 		
-//		if (setting.isQualitativeEnabled()) {
-			if (setting.isQualAdminMisc1Enabled()) {
-				totalPossible+=setting.getQualAdminMisc1Weight()*5;
-				score+=setting.getQualAdminMisc1Weight()*this.adminMisc1Qualitative;
-			}
-			if (setting.isQualAdminMisc2Enabled()) {
-				totalPossible+=setting.getQualAdminMisc2Weight()*5;
-				score+=setting.getQualAdminMisc2Weight()*this.adminMisc2Qualitative;
-			}
-			if (setting.isQualAdminMisc3Enabled()) {
-				totalPossible+=setting.getQualAdminMisc3Weight()*5;
-				score+=setting.getQualAdminMisc3Weight()*this.adminMisc3Qualitative;
-			}
-			
-			if (setting.isQualJustificationEnabled()) {
-				totalPossible+=setting.getQualJustificationWeight()*5;
-				score+=setting.getQualJustificationWeight()*this.justificationQualitative;
-			}
-			if (setting.isQualProjDescEnabled()) {
-				totalPossible+=setting.getQualProjDescWeight()*5;
-				score+=setting.getQualProjDescWeight()*this.projDescQualitative;
-			}
-			if (setting.isQualBenefDescEnabled()) {
-				totalPossible+=setting.getQualBenefDescWeight()*5;
-				score+=setting.getQualBenefDescWeight()*this.benefDescQualitative;
-			}
-			
-			if (setting.isQualActivitiesEnabled()) {
-				totalPossible+=setting.getQualActivitiesWeight()*5;
-				score+=setting.getQualActivitiesWeight()*this.activitiesQualitative;
-			}
-			if (setting.isQualTechnologyEnabled()) {
-				totalPossible+=setting.getQualTechnologyWeight()*5;
-				score+=setting.getQualTechnologyWeight()*this.technologyQualitative;
-			}
-			if (setting.isQualRequirementsEnabled()) {
-				totalPossible+=setting.getQualRequirementsWeight()*5;
-				score+=setting.getQualRequirementsWeight()*this.requirementsQualitative;
-			}
-			if (!incomeGen && setting.isQualSustainabilityEnabled()) {
-				totalPossible+=setting.getQualSustainabilityWeight()*5;
-				score+=setting.getQualSustainabilityWeight()*this.sustainabilityQualitative;
-			}
-			
-			if (setting.isQualEnviroImpactEnabled()) {
-				totalPossible+=setting.getQualEnviroImpactWeight()*5;
-				score+=setting.getQualEnviroImpactWeight()*this.enviroImpactQualitative;
-			}
-			if (setting.isQualMarketEnabled()) {
-				totalPossible+=setting.getQualMarketWeight()*5;
-				score+=setting.getQualMarketWeight()*this.marketQualitative;
-			}
-			if (setting.isQualOrganizationEnabled()) {
-				totalPossible+=setting.getQualOrganizationWeight()*5;
-				score+=setting.getQualOrganizationWeight()*this.organizationQualitative;
-			}
-			if (setting.isQualAssumptionsEnabled()) {
-				totalPossible+=setting.getQualAssumptionsWeight()*5;
-				score+=setting.getQualAssumptionsWeight()*this.assumptionsQualitative;
-			}
-//		}
+		if (setting.isQualAdminMisc1Enabled()) {
+			totalPossible+=setting.getQualAdminMisc1Weight()*5;
+			score+=setting.getQualAdminMisc1Weight()*this.adminMisc1Qualitative;
+		}
+		if (setting.isQualAdminMisc2Enabled()) {
+			totalPossible+=setting.getQualAdminMisc2Weight()*5;
+			score+=setting.getQualAdminMisc2Weight()*this.adminMisc2Qualitative;
+		}
+		if (setting.isQualAdminMisc3Enabled()) {
+			totalPossible+=setting.getQualAdminMisc3Weight()*5;
+			score+=setting.getQualAdminMisc3Weight()*this.adminMisc3Qualitative;
+		}
+		
+		if (setting.isQualJustificationEnabled()) {
+			totalPossible+=setting.getQualJustificationWeight()*5;
+			score+=setting.getQualJustificationWeight()*this.justificationQualitative;
+		}
+		if (setting.isQualProjDescEnabled()) {
+			totalPossible+=setting.getQualProjDescWeight()*5;
+			score+=setting.getQualProjDescWeight()*this.projDescQualitative;
+		}
+		if (setting.isQualBenefDescEnabled()) {
+			totalPossible+=setting.getQualBenefDescWeight()*5;
+			score+=setting.getQualBenefDescWeight()*this.benefDescQualitative;
+		}
+		
+		if (setting.isQualActivitiesEnabled()) {
+			totalPossible+=setting.getQualActivitiesWeight()*5;
+			score+=setting.getQualActivitiesWeight()*this.activitiesQualitative;
+		}
+		if (setting.isQualTechnologyEnabled()) {
+			totalPossible+=setting.getQualTechnologyWeight()*5;
+			score+=setting.getQualTechnologyWeight()*this.technologyQualitative;
+		}
+		if (setting.isQualRequirementsEnabled()) {
+			totalPossible+=setting.getQualRequirementsWeight()*5;
+			score+=setting.getQualRequirementsWeight()*this.requirementsQualitative;
+		}
+		if (!incomeGen && setting.isQualSustainabilityEnabled()) {
+			totalPossible+=setting.getQualSustainabilityWeight()*5;
+			score+=setting.getQualSustainabilityWeight()*this.sustainabilityQualitative;
+		}
+		
+		if (setting.isQualEnviroImpactEnabled()) {
+			totalPossible+=setting.getQualEnviroImpactWeight()*5;
+			score+=setting.getQualEnviroImpactWeight()*this.enviroImpactQualitative;
+		}
+		if (setting.isQualMarketEnabled()) {
+			totalPossible+=setting.getQualMarketWeight()*5;
+			score+=setting.getQualMarketWeight()*this.marketQualitative;
+		}
+		if (setting.isQualOrganizationEnabled()) {
+			totalPossible+=setting.getQualOrganizationWeight()*5;
+			score+=setting.getQualOrganizationWeight()*this.organizationQualitative;
+		}
+		if (setting.isQualAssumptionsEnabled()) {
+			totalPossible+=setting.getQualAssumptionsWeight()*5;
+			score+=setting.getQualAssumptionsWeight()*this.assumptionsQualitative;
+		}
 		
 		return totalPossible==0 ? 0.0 : score/totalPossible;
 	}

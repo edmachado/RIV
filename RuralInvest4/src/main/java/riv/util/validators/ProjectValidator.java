@@ -221,7 +221,7 @@ public class ProjectValidator implements Validator {
 					errors.rejectValue("loan1GraceInterest", "error.loan.pastProjectDuration", "Cannot exceed project duration");
 				}
 				if (!errors.hasFieldErrors("loan1GraceCapital") && !errors.hasFieldErrors("loan1Duration")
-						&& project.getLoan1GraceCapital()>=project.getLoan1Duration()) {
+						&& project.getLoan1GraceCapital()>=project.getLoan1Duration() && project.getLoan1GraceCapital()!=0) {
 					errors.rejectValue("loan1GraceCapital", "error.loan.pastLoanDuration", "Must be less than loan duration.");
 				}
 				if (!errors.hasFieldErrors("loan1GraceInterest") && !errors.hasFieldErrors("loan1GraceCapital")
@@ -240,14 +240,13 @@ public class ProjectValidator implements Validator {
 					errors.rejectValue("loan2GraceInterest", "error.loan.pastProjectDuration", "Cannot exceed project duration");
 				}
 				if (!errors.hasFieldErrors("loan2GraceCapital") && !errors.hasFieldErrors("loan2Duration")
-						&& project.getLoan2GraceCapital()>=project.getLoan2Duration()) {
+						&& project.getLoan2GraceCapital()>=project.getLoan2Duration() && project.getLoan2GraceCapital()!=0) {
 					errors.rejectValue("loan2GraceCapital", "error.loan.pastLoanDuration", "Must be less than loan duration.");
 				}
 				if (!errors.hasFieldErrors("loan2GraceInterest") && !errors.hasFieldErrors("loan2GraceCapital")
 						&& project.getLoan2GraceInterest()>project.getLoan2GraceCapital()) {
 					errors.rejectValue("loan2GraceInterest", "error.graceInterestGreaterThanCapital", "The grace period for the interest on a loan cannot be longer than the grace period for the capital.");
-				}
-				
+				}		
 							
 				// calculated values
 				ValidateUtils.rejectIfEmptyOrNegative(project, "loan1Amt", "project.loan.amount", errors);
