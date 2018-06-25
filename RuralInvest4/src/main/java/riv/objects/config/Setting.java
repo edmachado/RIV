@@ -849,7 +849,9 @@ public class Setting implements java.io.Serializable {
 		return qualBenefDescEnabled || qualProjDescEnabled || qualJustificationEnabled || qualActivitiesEnabled 
 				|| qualTechnologyEnabled || qualAssumptionsEnabled || qualEnviroImpactEnabled
 				|| qualRequirementsEnabled || qualMarketEnabled || qualOrganizationEnabled 
-				|| (!incomeGen && qualSustainabilityEnabled);
+				|| (!incomeGen && qualSustainabilityEnabled)
+				||	(qualAdminMisc1Enabled && adminMisc1Enabled)
+				||	(qualAdminMisc2Enabled && adminMisc2Enabled) ||	(qualAdminMisc3Enabled && adminMisc3Enabled);
 	}
 	
 	public Setting copy() {
