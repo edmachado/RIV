@@ -413,7 +413,9 @@ public class FinanceMatrix {
 					yearlyData.get(i).incSalvage+=asset.getSalvage()*asset.getUnitNum();
 				// salvage value for non-replacing assets
 				} else if (!asset.getReplace() && i==lastAssetYear-1) {
-					yearlyData.get(i).incSalvage+=+asset.getSalvage()*asset.getUnitNum();
+					if (i+1<=project.getDuration()) {
+						yearlyData.get(i+1).incSalvage+=+asset.getSalvage()*asset.getUnitNum();
+					}
 				}
 			}
 			yearlyData.get(yearlyData.size()-1).incResidual+=asset.getResidual();
@@ -437,7 +439,9 @@ public class FinanceMatrix {
 					yearlyData.get(i).incSalvageWithout+=asset.getSalvage()*asset.getUnitNum();
 				// salvage value for non-replacing assets
 				} else if (!asset.getReplace() && i==lastAssetYear-1 && !(asset.getYearBegin()-1+asset.getEconLife()>project.getDuration())) {
-					yearlyData.get(i).incSalvageWithout+=asset.getSalvage()*asset.getUnitNum();
+					if (i+1<=project.getDuration()) {
+						yearlyData.get(i+1).incSalvageWithout+=asset.getSalvage()*asset.getUnitNum();
+					}
 				}
 			}
 			yearlyData.get(yearlyData.size()-1).incResidualWithout+=asset.getResidual();
