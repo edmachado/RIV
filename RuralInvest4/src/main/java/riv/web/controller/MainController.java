@@ -271,6 +271,7 @@ public class MainController {
 		model.addAttribute("files",files);
 		model.addAttribute("dirSize", attachTools.humanReadableInt(dirSize));
 		model.addAttribute("freeSpace", attachTools.humanReadableInt(AttachTools.dirSizeLimit-dirSize));
+		model.addAttribute("freeSpaceBytes", AttachTools.dirSizeLimit-dirSize);
 	
 	}
 	
