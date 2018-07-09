@@ -18,6 +18,10 @@
 			</excludes>
 		</fileSet>
 		<fileSet>
+			<directory>${project.build.directory}/instructions/style</directory>
+			<outputDirectory>/style</outputDirectory>
+		</fileSet>
+		<fileSet>
 			<directory>${izpack.dir}/jre/win32</directory>
 			<outputDirectory>jre</outputDirectory>
 			<excludes>
@@ -47,6 +51,11 @@
 			<source>${izpack.dir}/jre/jre-8u66-windows-i586.exe</source>
 			<outputDirectory>jre</outputDirectory>
 			<destName>jre.exe</destName>
+		</file>
+		<file>
+			<source>${project.build.directory}/instructions/windows.html</source>
+			<outputDirectory>/</outputDirectory>
+			<destName>instructions.html</destName>
 		</file>
 	</files>
 </assembly>

@@ -12,6 +12,7 @@
         <izpack.dir>${basedir}/src/izpack</izpack.dir>
         <izpack.staging>${project.build.directory}/staging</izpack.staging>
         <cd>${project.build.directory}/CD</cd>
+        <instructions>${project.build.directory}/instructions</instructions>
         <app.version>${project.version}</app.version>
     </properties>
     <dependencies>
@@ -79,25 +80,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
-<!--                     <execution> -->
-<!--                         <id>make ftp index</id> -->
-<!--                         <phase>generate-resources</phase> -->
-<!--                         <goals> -->
-<!--                             <goal>copy-resources</goal> -->
-<!--                         </goals> -->
-<!--                         <configuration> -->
-<!--                             <outputDirectory>${project.build.directory}</outputDirectory> -->
-<!--                             <resources> -->
-<!--                                 <resource> -->
-<!--                                     <directory>${basedir}/src/distro-ftp</directory> -->
-<!--                                     <filtering>true</filtering> -->
-<!--                                     <includes> -->
-<!--                                         <include>**/*.html</include> -->
-<!--                                     </includes> -->
-<!--                                 </resource> -->
-<!--                             </resources> -->
-<!--                         </configuration> -->
-<!--                     </execution> -->
                     <execution>
                         <id>prepare-cd</id>
                         <phase>generate-resources</phase>
@@ -117,6 +99,25 @@
 <!--                                         <exclude>setup.bat</exclude> -->
 <!--                                         <exclude>**/.gitignore</exclude> -->
 <!--                                     </excludes> -->
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>prepare-instructions</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${instructions}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${izpack.dir}/instructions</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
                                 </resource>
                             </resources>
                         </configuration>

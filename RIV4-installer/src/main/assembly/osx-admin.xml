@@ -18,6 +18,10 @@
 			</excludes>
 		</fileSet>
 		<fileSet>
+			<directory>${project.build.directory}/instructions/style</directory>
+			<outputDirectory>/style</outputDirectory>
+		</fileSet>
+		<fileSet>
 			<directory>${izpack.dir}/resources/osx</directory>
 			<outputDirectory>/</outputDirectory>
 			<includes>
@@ -41,6 +45,11 @@
 			<source>${izpack.dir}/jre/jre1.8.tbz</source>
 			<outputDirectory>jre</outputDirectory>
 			<destName>jre1.8.tbz</destName>
+		</file>
+		<file>
+			<source>${project.build.directory}/instructions/macos.html</source>
+			<outputDirectory>/</outputDirectory>
+			<destName>instructions.html</destName>
 		</file>
 	</files>
 </assembly>
