@@ -10,7 +10,8 @@ public class UpdateRegistryJavaHomeAction  {
 
     public void run (AbstractUIProcessHandler uih, String[] args) {
         String jvm = args[0]+"\\bin\\client\\jvm.dll";
-    	
+        uih.logOutput("Updating Java path.", false);
+        
         try {
         	WinRegistry.writeStringValue(WinRegistry.HKEY_LOCAL_MACHINE, KEYPATH, "Jvm", jvm);
         } catch (Exception e) {
