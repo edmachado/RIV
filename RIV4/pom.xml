@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.fao.riv</groupId>
 	<artifactId>RIV4</artifactId>
-	<version>4.4.0</version>
+	<version>4.4.0-FOR-TESTING</version>
 	<packaging>pom</packaging>
 	<properties>
 		<izpack.version>5.1.2</izpack.version>
