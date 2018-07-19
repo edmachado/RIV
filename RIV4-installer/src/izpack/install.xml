@@ -99,8 +99,9 @@
 		<panel classname="HTMLInfoPanel">
 			<actions>
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.CollectVariablesAction"/>
-				<action stage="preactivate" classname="org.fao.riv.installer.actions.StopServiceAction" />
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.GetJavaHomeAction" />
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.BackupRiv3Action" />
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.BackupExistingRiv4Action" />
 				<action stage="prevalidate" classname="org.fao.riv.installer.actions.DetermineFreeHttpPortAction"/>
 			</actions>
 		</panel>
@@ -109,8 +110,7 @@
 		<panel classname="UserInputPanel" id="panel.newUser" condition="addNewUser"/>
 		<panel classname="InstallPanel">
 			<actions>
-				<action stage="preactivate" classname="org.fao.riv.installer.actions.BackupRiv3Action" />
-				<action stage="preactivate" classname="org.fao.riv.installer.actions.BackupExistingRiv4Action" />
+				<action stage="preactivate" classname="org.fao.riv.installer.actions.StopServiceAction" />
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.RemoveExistingWebapp"/>
 				<action stage="preactivate" classname="org.fao.riv.installer.actions.RemoveExistingUninstallEntriesAction"/>
 			</actions>
