@@ -24,7 +24,7 @@ public class BackupRiv3Action implements PanelAction {
 			riv3Path = iData.getVariable("RIV3_INSTALL_PATH");
 			
 			// stop old service
-			System.out.println("Stopping "+oldService+" service.");
+//			System.out.println("Stopping "+oldService+" service.");
 			
 			// backup old database
 			File oldPath = new File(riv3Path+"/jakarta-tomcat/webapps/ROOT/WEB-INF/data");
