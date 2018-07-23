@@ -33,7 +33,7 @@
 		<langpack iso3="spa"/>
 		<langpack iso3="bra"/>
 		<langpack iso3="rus"/>
-		<langpack iso3="tur"/>
+<!-- 		<langpack iso3="tur"/> -->
 	</locale>
 
 	<guiprefs width="800" height="600" resizable="no">
@@ -69,7 +69,7 @@
 		<res id="HTMLInfoPanel.info_bra" src="resources/lang/Readme_bra.html" />
 		<res id="HTMLInfoPanel.info_rus" src="resources/lang/Readme_rus.html" />
 		<res id="HTMLInfoPanel.info_spa" src="resources/lang/Readme_spa.html" />
-		<res id="HTMLInfoPanel.info_tur" src="resources/lang/Readme_tur.html" />
+<!-- 		<res id="HTMLInfoPanel.info_tur" src="resources/lang/Readme_tur.html" /> -->
 		
 		<!-- InputPanel -->
 		<res id="userInputLang.xml_eng" src="resources/lang/userInputLang_eng.xml" />
@@ -77,7 +77,7 @@
 		<res id="userInputLang.xml_fra" src="resources/lang/userInputLang_fra.xml" />
 		<res id="userInputLang.xml_bra" src="resources/lang/userInputLang_bra.xml" />
 		<res id="userInputLang.xml_rus" src="resources/lang/userInputLang_rus.xml" />
-		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang_tur.xml" />
+<!-- 		<res id="userInputLang.xml_tur" src="resources/lang/userInputLang_tur.xml" /> -->
 		
 		<!-- Group selection -->
 		<res id="CustomLangPack.xml_eng" src="resources/lang/customLangPack_eng.xml"/>
@@ -85,7 +85,7 @@
 		<res id="CustomLangPack.xml_bra" src="resources/lang/customLangPack_bra.xml"/>
 		<res id="CustomLangPack.xml_rus" src="resources/lang/customLangPack_rus.xml"/>
 		<res id="CustomLangPack.xml_spa" src="resources/lang/customLangPack_spa.xml"/>
-		<res id="CustomLangPack.xml_tur" src="resources/lang/customLangPack_tur.xml"/>
+<!-- 		<res id="CustomLangPack.xml_tur" src="resources/lang/customLangPack_tur.xml"/> -->
 	</resources>
 
 	<panels>
