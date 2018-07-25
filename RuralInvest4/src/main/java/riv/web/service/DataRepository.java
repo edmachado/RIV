@@ -1265,6 +1265,7 @@ public class DataRepository implements Serializable {
 
 	public void storeProjectResult(int id) {
 		Project project = getProject(id, -1);
+		LOG.debug("Storing project result for project "+project.getProjectId() + " "+project.getProjectName());
 		Setting setting = getAppSetting();
 		ProjectResult pr = project.getProjectResult(setting);
 		currentSession().saveOrUpdate(pr);

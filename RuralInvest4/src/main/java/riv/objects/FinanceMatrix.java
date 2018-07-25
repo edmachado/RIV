@@ -403,7 +403,10 @@ public class FinanceMatrix {
 			yearlyData.get(asset.getYearBegin()-1).costInvestDonated+=asset.getDonated();
 			
 			int lastAssetYear = asset.getReplace() ? project.getDuration() : asset.getYearBegin()-1+asset.getEconLife();
-			if (lastAssetYear>project.getDuration()) lastAssetYear = project.getDuration();
+			if (lastAssetYear>project.getDuration()) { 
+				lastAssetYear = project.getDuration(); 
+			}
+			
 			for (int i=asset.getYearBegin()-1; i<lastAssetYear; i++) {
 				// maintenance (every year)
 				yearlyData.get(i).costMaintenance+=asset.getMaintCost()*asset.getUnitNum();
@@ -413,7 +416,7 @@ public class FinanceMatrix {
 					yearlyData.get(i).incSalvage+=asset.getSalvage()*asset.getUnitNum();
 				// salvage value for non-replacing assets
 				} else if (!asset.getReplace() && i==lastAssetYear-1) {
-					if (i+1<=project.getDuration()) {
+					if (i+1<project.getDuration()) {
 						yearlyData.get(i+1).incSalvage+=+asset.getSalvage()*asset.getUnitNum();
 					}
 				}
