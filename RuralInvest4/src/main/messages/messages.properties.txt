@@ -7,6 +7,9 @@ error.loan.pastLoanDuration=Must be less than loan duration
 project.loan.paymentsPerYear.help=The number of payments the lender requires for loan repayment each year of loan. (e.g. '4' if loan is to be paid quarterly, '12' if loan is to be paid monthly.)
 project.report.workingcapital=Monthly cash flow
 
+project.report.cashFlow.profitBefore=Cash flow before financing
+project.report.cashFlow.profitAfter=Cash flow after financing
+
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Convert profile to project
 profileToProject.text=In order to convert a profile to a project some data must be reviewed and corrected. The following steps will guide you through this process.
