@@ -3689,7 +3689,7 @@ public class ExcelWorksheetBuilder {
 			report.addTextCell(row, 0, translate("profileGeneral") + " " + translate("project.without"), Style.H2);
 			rowNum = table.writeTable(sheet, rowNum, template ? null : profile.getGlsGeneralWithout(), true);
 			if (report.isCompleteReport()) {
-				report.addLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!E"+(rowNum-1));
+				report.addLink(ExcelLink.PROFILE_GENERAL_WITHOUT_TOTAL, "'"+sheet.getSheetName()+"'!E"+rowNum);
 			}
 		}
 		
