@@ -75,7 +75,7 @@
 		<h2 style="text-align:center"><spring:message code="demo.welcome"/><br/><spring:message code="demo.version"/> ${rivConfig.version}</h2>
 		
 		<p><spring:message code="demo.para1"/></p>
-		<p><spring:message code="demo.para2"/></p>
+<%-- 		<p><spring:message code="demo.para2"/></p> --%>
 		<p><spring:message code="demo.para3"/></p>
 		<ul>
 			<li><spring:message code="profile.profiles.incomeGen"/></li>
