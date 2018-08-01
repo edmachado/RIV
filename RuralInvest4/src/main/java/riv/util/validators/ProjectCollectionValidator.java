@@ -41,14 +41,18 @@ public class ProjectCollectionValidator implements Validator {
 		switch (step) {
 			case 1:
 				for (ProjectItemAsset a : project.getAssets()) {
-					if (a.getMaintCost()==null || a.getMaintCost()<0) {
+					if (a.getMaintCost()==null) {
+						errors.rejectValue("assets["+a.getOrderBy()+"].maintCost", "error.fieldRequired");
+					} else if (a.getMaintCost()<0) {
 						errors.rejectValue("assets["+a.getOrderBy()+"].maintCost", "error.requiredNonNegative");
 					}
 				}
 				break;
 			case 2:
 				for (ProjectItemAssetWithout a : project.getAssetsWithout()) {
-					if (a.getMaintCost()==null || a.getMaintCost()<0) {
+					if (a.getMaintCost()==null) {
+						errors.rejectValue("assetsWithout["+a.getOrderBy()+"].maintCost", "error.fieldRequired");
+					} else if (a.getMaintCost()==null || a.getMaintCost()<0) {
 						errors.rejectValue("assetsWithout["+a.getOrderBy()+"].maintCost", "error.requiredNonNegative");
 					}
 				}
