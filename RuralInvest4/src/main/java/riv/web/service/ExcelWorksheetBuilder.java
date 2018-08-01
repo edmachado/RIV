@@ -529,7 +529,10 @@ public class ExcelWorksheetBuilder {
 		for (int i=1; i<=24; i++) {
 			sheet.setColumnWidth(i, 30*36);
 		}
-		sheet.setSelected(true);
+		
+		if (!report.isCompleteReport()) {
+			sheet.setSelected(true);
+		}
 
 		int rowNum = 0;
 		int cellNum = 1;
@@ -1417,7 +1420,9 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectSummary(ExcelWrapper report, Project project, ProjectResult pr) {		
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_SUMMARY));
 		
-		sheet.setSelected(true);
+		if (!report.isCompleteReport()) {
+			sheet.setSelected(true);
+		}
 		Setting setting = rivConfig.getSetting();
 		setColumnWidth(sheet, 0, 300);
 		for (short i=1; i<=3; i++) {
@@ -1639,7 +1644,9 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectSustainability(ExcelWrapper report, Project project, ProjectResult result) {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CASH_FLOW_NONGEN));
 
-		sheet.setSelected(true);
+		if (!report.isCompleteReport()) {
+			sheet.setSelected(true);
+		}
 		
 		ArrayList<ProjectFinanceNongen> data = ProjectFinanceNongen.analyzeProject(project);
 		
@@ -1838,7 +1845,9 @@ public class ExcelWorksheetBuilder {
 		int yearsInReport=project.isPerYearContributions()?project.getDuration():1;
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_CONTRIBUTIONS));
 
-		sheet.setSelected(true);
+		if (!report.isCompleteReport()) {
+			sheet.setSelected(true);
+		}
 		int rowNum=0;
 		int cellNum = 0;
 		
@@ -1916,7 +1925,7 @@ public class ExcelWorksheetBuilder {
 		
 		String title=loan1 ? translate("project.loan1") : translate("project.loan2");
 		Sheet sheet = report.getWorkbook().createSheet(title);
-		if (loan1) {
+		if (!report.isCompleteReport() && loan1) {
 			sheet.setSelected(true);
 		}
 		
@@ -2108,7 +2117,9 @@ public class ExcelWorksheetBuilder {
 		}
 		
 		Sheet sheet = report.getWorkbook().createSheet(sheetname);
-		sheet.setSelected(true);
+		if (!report.isCompleteReport() && !without) {
+			sheet.setSelected(true);
+		}
 		
 		// setup header and row titles
 		int rowNum=0;
@@ -2473,7 +2484,9 @@ public class ExcelWorksheetBuilder {
 		}
 		
 		Sheet sheet = report.getWorkbook().createSheet(sheetname);
-		sheet.setSelected(true);
+		if (!report.isCompleteReport() && scenario==ProjectScenario.With) {
+			sheet.setSelected(true);
+		}
 		
 		// setup header and row titles
 		int rowNum=0;
@@ -2862,7 +2875,9 @@ public class ExcelWorksheetBuilder {
 		Sheet sheet = report.getWorkbook().createSheet(sheetname);
 		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
 		
-		sheet.setSelected(true);
+		if (!report.isCompleteReport() && !without) {
+			sheet.setSelected(true);
+		}
 		int rowNum;
 		
 		String chronSheet = "'"+translate(SheetName.PROJECT_CHRONOLOGY)+"'";
@@ -3239,7 +3254,10 @@ public class ExcelWorksheetBuilder {
 	public Sheet projectRecommendation(ExcelWrapper report, Project project) {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROJECT_RECOMMENDATION));
 
-		sheet.setSelected(true);
+		if (!report.isCompleteReport()) {
+			sheet.setSelected(true);
+		}
+		
 		int rowNum=0;
 		short cellNum = 0;
 		//short step = 7;
@@ -3272,7 +3290,9 @@ public class ExcelWorksheetBuilder {
 				? translate(SheetName.PROJECT_WORKING_CAPITAL_WITH)
 				: translate(SheetName.PROJECT_WORKING_CAPITAL);
 
-		sheet.setSelected(true);
+		if (!report.isCompleteReport()) {
+			sheet.setSelected(true);
+		}
 		int rowNum=0;
 		short cellNum = 0;
 		setColumnWidth(sheet, 0, 200);
@@ -3654,7 +3674,9 @@ public class ExcelWorksheetBuilder {
 		Sheet sheet = report.getWorkbook().createSheet(translate(SheetName.PROFILE_GENERAL));
 		((SXSSFSheet) sheet).trackAllColumnsForAutoSizing();
 		
-		sheet.setSelected(true);
+		if (!report.isCompleteReport()) {
+			sheet.setSelected(true);
+		}
 		sheet.setDefaultColumnStyle((short)3, report.getStyles().get(Style.CURRENCY));
 		sheet.setDefaultColumnStyle((short)4, report.getStyles().get(Style.CURRENCY));
 
