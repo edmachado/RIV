@@ -146,7 +146,6 @@ public class ProjectController {
 			DecimalFormat df = rivConfig.getSetting().getDecimalFormat();
 			CustomNumberEditor customNumberEditor = new CustomNumberEditor(Double.class, df, true);
 			binder.registerCustomEditor(Double.class, "exchRate", customNumberEditor);
-			binder.registerCustomEditor(Double.class, "inflationAnnual", customNumberEditor);
 		} else if (step==11) {
 			CustomNumberEditor currencyEditor = new CustomNumberEditor(Double.class, rivConfig.getSetting().getCurrencyFormatter().getDecimalFormat(CurrencyFormat.ALL), true);
 			CustomNumberEditor decimalEditor = new CustomNumberEditor(Double.class, rivConfig.getSetting().getDecimalFormat(), true);
@@ -160,6 +159,7 @@ public class ProjectController {
 			binder.registerCustomEditor(Double.class, "wcAmountFinanced", currencyEditor);
 			binder.registerCustomEditor(Double.class, "loan2Amt", currencyEditor);
 			binder.registerCustomEditor(Double.class, "loan2Interest", decimalEditor);
+			binder.registerCustomEditor(Double.class, "inflationAnnual", decimalEditor);
 			
 		} else if (step==12) {
 			CustomDateEditor de = new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true);

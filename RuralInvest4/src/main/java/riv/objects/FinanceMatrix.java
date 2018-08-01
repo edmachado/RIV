@@ -265,7 +265,7 @@ public class FinanceMatrix {
 	
 		yearlyData.get(0).workingCapitalReceived=wcValue-project.getCapitalDonate()-project.getCapitalOwn();
 		yearlyData.get(wcYear).workingCapitalCapital=yearlyData.get(0).workingCapitalReceived;
-		if (wcPeriod>0) {
+		if (wcPeriod>0 && project.getInflationAnnual()!=null) {
 			yearlyData.get(wcYear).workingCapitalInterest=round(yearlyData.get(wcYear).workingCapitalCapital*wcPeriodAvg/12*((project.getCapitalInterest()-project.getInflationAnnual())*0.01));
 		}
 	}

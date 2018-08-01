@@ -46,10 +46,6 @@ $( "#radioShared" ).buttonset();
 				<c:set var="exchRateCalcSign">${rivConfig.setting.currencyName}&nbsp;<spring:message code="units.perUSD"/></c:set>   
 				<tags:dataentry field="exchRate" labelKey="project.exchRate" size="8" calcSign="${exchRateCalcSign}"	helpText="project.exchRate.help" />				
 				
-				<c:if test="${project.incomeGen}">
-					<tags:dataentry field="inflationAnnual" labelKey="project.inflationAnnual" helpTitle="project.inflationAnnual" helpText="project.inflationAnnual.help" inputClass="num" size="8" maxLength="8" calcSignKey="units.inPercent" />
-				</c:if>
-				
 				<div class="dataentry">
 					<label><tags:help text="project.startupMonth.help" title="project.startupMonth"><spring:message code="project.startupMonth"/></tags:help></label>
 					<form:select path="startupMonth">

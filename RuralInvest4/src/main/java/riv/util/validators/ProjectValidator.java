@@ -39,9 +39,6 @@ public class ProjectValidator implements Validator {
 			ValidateUtils.rejectIfEmpty(project, "projectName", "project.projectName", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(project, "duration", "project.duration", errors);
 			ValidateUtils.rejectIfEmptyOrNegative(project, "exchRate", "project.exchRate", errors);
-			if (project.getIncomeGen()) {
-				ValidateUtils.rejectIfEmptyOrNegative(project, "inflationAnnual", "project.inflationAnnual", errors);
-			}
 			ValidateUtils.rejectIfZeroOrNegative(project, "duration", "project.duration", errors);
 			Setting setting = rivConfig.getSetting();
 			Locale locale = new Locale(setting.getLang());
@@ -201,6 +198,7 @@ public class ProjectValidator implements Validator {
 				ValidateUtils.rejectIfEmptyOrNegative(project, "capitalOwn", "project.capitalOwn", errors);
 				ValidateUtils.rejectIfEmptyOrNegativeOrOverMax(project, "loan1PaymentsPerYear", "project.loan.paymentsPerYear", 12.0, errors);
 				ValidateUtils.rejectIfEmptyOrNegativeOrOverMax(project, "loan2PaymentsPerYear", "project.loan.paymentsPerYear", 12.0, errors);
+				ValidateUtils.rejectIfEmptyOrNegative(project, "inflationAnnual", "project.inflationAnnual", errors);
 				
 				if (!errors.hasFieldErrors("loan1PaymentsPerYear")) {
 					ValidateUtils.rejectIfZeroOrNegative(project, "loan1PaymentsPerYear", "project.loan.paymentsPerYear", errors);
