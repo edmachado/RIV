@@ -966,10 +966,6 @@ project.report.summary.costs.source=Custos Totais (Distribuição por fonte de f
 
 error.import.noEnviroCategory=O projeto está classificado com uma categoria ambiental que não faz parte da configuração actual. Só projetos com a mesma configuração podem ser importados.
 
-manual.description=Os manuais que descrevendo a abordagem e a metodologia utilizadas em cada modulo do RuralInvest de modo detalhado são listados abaixo (o módulo 4 é coberto no manual do módulo 3). Os manuais são disponibilizados na língua selecionada para o RuralInvest. Os módulos descrevem o processo de identificação e preparação de projetos de investimento tanto em atividades com o objectivo de gerar rendimento como em atividades sem o objectivo de gerar rendimentos. Os manuais não descrevem o software (apenas utilizado para os módulos 2, 3 e 4). O uso do software é descrito no manual do utilizador.
-
-manual.description.2=Todos os manuais e guias podem ser descarregados para o computador do utilizador em formato pdf. As tabelas para recolha de dados de campo para construção de anteprojetos (módulo 2) são disponibilizadas em arquivos Word. É recomendável que estas tabelas sejam utilizadas como guia pelo pessoal encarregue de construir os anteprojetos, mas que os dados do anteprojeto sejam inicialmente escritos em quadros ou folhas de papel-cenário (folhas de papel de grande dimensão) numa parede, para que os dados sejam claramente visualizados pelos proponentes.
-
 project.createdBy=Elaborado por
 profile.createdBy=Elaborado por
 
@@ -1338,14 +1334,9 @@ mainMenu.searchItem=Pesquisar no RuralInvest
 
 mainMenu.searchReports=Pesquisar
 
-manual.guide=Manual de utilização do software
-
 manual.mod1=Módulo 1 de RuralInvest - Identificação participativa de prioridades locais de investimento
-
 manual.mod2=Módulo 2 de RuralInvest - Preparação e utilização de anteprojetos
-
 manual.mod3=Módulo 3 de RuralInvest - Formulação e avaliação pormenorizada de projetos
-
 manual.mod4=Módulo 4 de RuralInvest - Monitorização e avaliação de propostas e projetos RuralInvest
 
 misc.addItem=Adicionar um novo item

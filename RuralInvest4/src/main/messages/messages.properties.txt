@@ -10,6 +10,12 @@ project.report.workingcapital=Monthly cash flow
 project.report.cashFlow.profitBefore=Cash flow before financing
 project.report.cashFlow.profitAfter=Cash flow after financing
 
+mainMenu.help.manual=Resources
+resources=Online resources for RuralInvest users
+manual.description=The approach and methodology used in RuralInvest is fully described in the 3 Modules which are presented during formal trainings. 
+manual.description.2=Materials for all three modules,  plus suggested formats for compiling RuralInvest Profiles (Module 2) in the field with applicants can be downloaded from the <a href="#" target="_blank">TCI RuralInvest website</a>.
+
+
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Convert profile to project
 profileToProject.text=In order to convert a profile to a project some data must be reviewed and corrected. The following steps will guide you through this process.
@@ -642,7 +648,7 @@ mainMenu.config.statuses=Project statuses
 mainMenu.create=Create
 mainMenu.help.about=About
 mainMenu.help.faq=Frequently Asked Questions (FAQ)
-mainMenu.help.manual=User manuals
+#mainMenu.help.manual=User manuals
 mainMenu.help=Help
 mainMenu.home=Home
 mainMenu.import=Import
@@ -651,12 +657,8 @@ mainMenu.projects=Projects
 mainMenu.search=Search
 mainMenu.searchItem=Search RuralInvest
 mainMenu.searchReports=Search
-manual.description=Detailed manuals describing the approach and methodology used in each RuralInvest module are listed below (Module 4 is covered within the Module 3 Manual).  They are provided in the language selected for this software. Each module will support the identification and preparation of both income generating and non-income generating investments. The manuals do not describe the software, which is used only in Modules 2, 3 and 4. Use of the software is covered instead under the Software User Guide.
-manual.description.2=All manuals and guides can be accessed or downloaded to the user\u2019s computer as pdf files (using free Adobe software).  In addition, suggested formats for compiling RuralInvest Profiles (Module 2) in the field with applicants are provided as Word files. It is recommended that these formats are used by support staff as guides and that profile data be written initially on blackboards or large sheets of paper on the wall, where they can be easily seen by all participants.
-manual.guide=Software User Guide
 manual.mod1=RuralInvest Module 1 - Participatory identification of opportunities, constraints and investment needs
 manual.mod2=RuralInvest Module 2 - Preparation and use of investment project profiles
-manual.mod2.formats=Module 2 formats
 manual.mod3=RuralInvest Module 3 - Preparation and analysis of full investment project proposals
 manual.mod4=RuralInvest Module 4 - Using the RuralInvest software to monitor and support evaluation of projects
 misc.addItem=Add a new item

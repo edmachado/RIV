@@ -347,7 +347,7 @@ import.excel.instruction=<p>Vous pouvez importer des données directement dans R
  
 import.generic.confirm=Merci de confirmer le taux de change du dollar des Etats-Unis d’Amérique (USD):
 import.generic.info=Ce projet ou avant-projet a été converti en USD et sera converti dans la monnaie utilisée par votre configuration
-manual.description.2=Tous les manuels et guides peuvent être lus ou téléchargés au format pdf (en utilisant le logiciel gratuit Adobe Acrobate Reader). De plus, des fichiers au format Word sont proposés pour les discussions de terrain avec les promoteurs de projet, notamment pour le module 2. Il est recommandé aux agents appuyant la préparation des projets avec leurs promoteurs d’utiliser ces formats Word ainsi qu’un tableau noir ou de larges feuilles de papiers affichées au mur afin de faciliter les discussions avec l’ensemble des promoteurs concernés.
+#manual.description.2=Tous les manuels et guides peuvent être lus ou téléchargés au format pdf (en utilisant le logiciel gratuit Adobe Acrobate Reader). De plus, des fichiers au format Word sont proposés pour les discussions de terrain avec les promoteurs de projet, notamment pour le module 2. Il est recommandé aux agents appuyant la préparation des projets avec leurs promoteurs d’utiliser ces formats Word ainsi qu’un tableau noir ou de larges feuilles de papiers affichées au mur afin de faciliter les discussions avec l’ensemble des promoteurs concernés.
  
 # Text that appears when you put the mouse over the "up" and "down" buttons in tables
 misc.moveDown=Déplacer cet élément vers le bas
@@ -649,9 +649,9 @@ mainMenu.projects=Projets
 mainMenu.search=Rechercher
 mainMenu.searchItem=Rechercher dans RuralInvest
 mainMenu.searchReports=Rechercher
-manual.description=RuralInvest comprend 4 modules décrits brièvement ci-dessous. Chaque module appuie l'identification et la préparation d'investissements générateurs et non générateurs de revenus. Seuls les modules 2, 3 et 4 utilisent le logiciel RuralInvest. Tous les modules sont décrits de façon détaillée dans les manuels d'accompagnement.
-manual.description2=Les manuels techniques ainsi que les guides sont disponibles sur le site Internet du Centre d'Investissement de la FAO. Vous pouvez les consulter ou les télécharger sur votre ordinateur en tant que documents pdf (en utilisant le logiciel gratuit Adobe). En outre, les suggestions de formats nécessaires pour compiler les avant-projets RuralInvest (Module 2) sont fournies en tant que documents Word. Le personnel de support est vivement encouragé d’utiliser les formats suggérés. Durant les étapes initiales de travail, il est également conseillé au personnel de support de présenter ces formats sous forme écrite, sur un tableau noir ou sur de grandes feuilles de papier accrochés aux murs, de manière à ce qu’ils puissent être visibles à tous les participants. 
-manual.guide=Manuel de Utilisation du Logiciel (en préparation)
+#manual.description=RuralInvest comprend 4 modules décrits brièvement ci-dessous. Chaque module appuie l'identification et la préparation d'investissements générateurs et non générateurs de revenus. Seuls les modules 2, 3 et 4 utilisent le logiciel RuralInvest. Tous les modules sont décrits de façon détaillée dans les manuels d'accompagnement.
+#manual.description2=Les manuels techniques ainsi que les guides sont disponibles sur le site Internet du Centre d'Investissement de la FAO. Vous pouvez les consulter ou les télécharger sur votre ordinateur en tant que documents pdf (en utilisant le logiciel gratuit Adobe). En outre, les suggestions de formats nécessaires pour compiler les avant-projets RuralInvest (Module 2) sont fournies en tant que documents Word. Le personnel de support est vivement encouragé d’utiliser les formats suggérés. Durant les étapes initiales de travail, il est également conseillé au personnel de support de présenter ces formats sous forme écrite, sur un tableau noir ou sur de grandes feuilles de papier accrochés aux murs, de manière à ce qu’ils puissent être visibles à tous les participants. 
+#manual.guide=Manuel de Utilisation du Logiciel (en préparation)
 manual.mod1=RuralInvest Module 1 - Identification participative des priorités locales d'investissement
 manual.mod2=RuralInvest Module 2 - Préparation et analyse des avant-projets d'investissement
 manual.mod2.formats=Module 2 Annexe
