@@ -13,7 +13,7 @@ project.report.cashFlow.profitAfter= Flux de trésorerie aprés financement
 mainMenu.help.manual=Ressources
 resources=Ressources en ligne pour les utilisateurs de RuralInvest
 manual.description=L'approche et la méthodologie de RuralInvest sont décrite dans les 3 Modules présentés durant les formations. 
-manual.description.2=La documentation des trois modules, ainsi que le formulaire suggéré pour la collecte sur le terrain avec les candidats des données des profils RuralInvest (Module 2),  peuvent être téléchargés depuis <a href="http://www.fao.org/support-to-investment/knowledge-resources/learning-tools/ruralinvest/en/" target="_blank">TCI RuralInvest website</a>.
+manual.description.2=La documentation des trois modules, ainsi que le formulaire suggéré pour la collecte sur le terrain avec les candidats des données des profils RuralInvest (Module 2),  peuvent être téléchargés depuis <a href="http://www.fao.org/in-action/rural-invest/fr/" target="_blank">TCI RuralInvest website</a>.
 
 
 ## RIV4.4 PROFILE TO PROJECT
