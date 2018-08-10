@@ -13,7 +13,7 @@ project.report.cashFlow.profitAfter=Cash flow after financing
 
 mainMenu.help.manual=Resources
 manual.description=The approach and methodology used in RuralInvest is fully described in the 3 Modules which are presented during formal trainings. 
-manual.description.2=Materials for all three modules,  plus suggested formats for compiling RuralInvest Profiles (Module 2) in the field with applicants can be downloaded from the <a href="#" target="_blank">TCI RuralInvest website</a>.
+manual.description.2=Materials for all three modules,  plus suggested formats for compiling RuralInvest Profiles (Module 2) in the field with applicants can be downloaded from the <a href="http://www.fao.org/support-to-investment/knowledge-resources/learning-tools/ruralinvest/en/" target="_blank">TCI RuralInvest website</a>.
 
 
 ## RIV4.4 PROFILE TO PROJECT
