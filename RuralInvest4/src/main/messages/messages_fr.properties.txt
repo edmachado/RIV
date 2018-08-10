@@ -1,4 +1,20 @@
-project.report.workingcapital=Flux mensuel trésorerie
+## RIV4.4 2018
+error.import.riv=Ne semble pas un fichier RIV . Ce fichier pourrait être endommagé.
+error.loan.pastProjectDuration=Ne peut être supérieur à la durée du projet
+error.loan.pastLoanDuration=Doit être inférieur à la durée de l'emprunt
+
+#changed since previous version
+project.loan.paymentsPerYear.help=Nombre de paiements que le créditeur exige pour le remboursement de l'emprunt chaque année de celui-ci. (par ex . '4' si l'emprunt doit être remboursé trimestriellement , '12' si mensuellement.)
+project.report.workingcapital=Flux mensuel de trésorerie 
+
+project.report.cashFlow.profitBefore=Flux de trésorerie avant financement 
+project.report.cashFlow.profitAfter= Flux de trésorerie aprés financement 
+
+mainMenu.help.manual=Ressources
+resources=Ressources en ligne pour les utilisateurs de RuralInvest
+manual.description=L'approche et la méthodologie de RuralInvest sont décrite dans les 3 Modules présentés durant les formations. 
+manual.description.2=La documentation des trois modules, ainsi que le formulaire suggéré pour la collecte sur le terrain avec les candidats des données des profils RuralInvest (Module 2),  peuvent être téléchargés depuis ### TCI RuralInvest website ###.
+
 
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Conversion de profil à projet
@@ -22,7 +38,6 @@ error.activity.noPattern=Activité "{0}": SVP rouvrir le block et préciser le c
 project.loan.paymentsPerYear=Paiements par an
 project.loan.periods=période(s) de paiement
 project.loan.perPeriod=par période de paiement
-project.loan.paymentsPerYear.help=Nombre de remboursements annuels requis par le créditeur pour toute la période de l'emprunt (p.ex. 4 pour des remboursements trimestriels, 12 si mensuels)
 
 project.report.amortization.title=Amortissement de l'emprunt
 project.report.amortization.period=Période
@@ -640,7 +655,6 @@ mainMenu.config=Configuration
 mainMenu.create=Créer
 mainMenu.help.about=A propos
 mainMenu.help.faq=Questions fréquentes
-mainMenu.help.manual=Manuels de l'utilisateur
 mainMenu.help=Aide
 mainMenu.home=Page d'accueil
 mainMenu.import=Importer
@@ -649,9 +663,6 @@ mainMenu.projects=Projets
 mainMenu.search=Rechercher
 mainMenu.searchItem=Rechercher dans RuralInvest
 mainMenu.searchReports=Rechercher
-#manual.description=RuralInvest comprend 4 modules décrits brièvement ci-dessous. Chaque module appuie l'identification et la préparation d'investissements générateurs et non générateurs de revenus. Seuls les modules 2, 3 et 4 utilisent le logiciel RuralInvest. Tous les modules sont décrits de façon détaillée dans les manuels d'accompagnement.
-#manual.description2=Les manuels techniques ainsi que les guides sont disponibles sur le site Internet du Centre d'Investissement de la FAO. Vous pouvez les consulter ou les télécharger sur votre ordinateur en tant que documents pdf (en utilisant le logiciel gratuit Adobe). En outre, les suggestions de formats nécessaires pour compiler les avant-projets RuralInvest (Module 2) sont fournies en tant que documents Word. Le personnel de support est vivement encouragé d’utiliser les formats suggérés. Durant les étapes initiales de travail, il est également conseillé au personnel de support de présenter ces formats sous forme écrite, sur un tableau noir ou sur de grandes feuilles de papier accrochés aux murs, de manière à ce qu’ils puissent être visibles à tous les participants. 
-#manual.guide=Manuel de Utilisation du Logiciel (en préparation)
 manual.mod1=RuralInvest Module 1 - Identification participative des priorités locales d'investissement
 manual.mod2=RuralInvest Module 2 - Préparation et analyse des avant-projets d'investissement
 manual.mod2.formats=Module 2 Annexe
@@ -1061,8 +1072,6 @@ project.report.blockDetail=Détail des dépenses et recettes par bloc
 project.report.cashFlow.cumulative=Flux de trésorerie cumulé
 project.report.cashFlow.priCapital=Capital premier prêt
 project.report.cashFlow.priInterest=Intérêts premier prêt
-project.report.cashFlow.profitAfter=Solde après financement
-project.report.cashFlow.profitBefore=Solde avant financement
 project.report.cashFlow.secCapital=Capital second prêt
 project.report.cashFlow.secInterest=Intérêts second prêt
 project.report.cashFlow.wcInterest=Intérêts prêt FR
