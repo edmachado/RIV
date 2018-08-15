@@ -1,5 +1,21 @@
+## RIV4.4 2018
+error.import.riv=Isiyoweza tambulika. faili la riv. Faili laweza kuwa limeharibika.
+error.loan.pastProjectDuration=Haiwezi zidi muda wa mradi
+error.loan.pastLoanDuration=Lazima iwe chini ya muda wa mkopo
+resources=Msaada wa mtandaoni kwa watumiaji wa RuralInvest
 
-project.report.workingcapital=Mtiririko wa fedha kwa mwezi
+#changed since previous version
+project.loan.paymentsPerYear.help=Idadi ya malipo mkopeshaji anahitaji kurejeshewa mkopo wake ndani ya kila mwaka wa mkopo. (m.f. '4' kama mkopo utarejeshwa kila baada ya robo mwaka, '12' kama mkopo utarejeshwa kila mwezi.)
+project.report.workingcapital=Mtiririko wa fedha kila mwezi
+
+project.report.cashFlow.profitBefore=Mtiririko wa fedha kabla ya ufadhili 
+project.report.cashFlow.profitAfter=Mtiririko wa fedha baada ya ufadhili
+
+mainMenu.help.manual=Msaada
+
+manual.description=Njia na mbinu zinazotumika katika RuralInvest zimeelezwa kikamilifu katika moduli 3 ambazo zilielezewa wakati wa mafunzo rasmi. 
+manual.description.2=Zana za kusomea kwa moduli zote tatu, paomja na maumbizo yaliyopendekezwa kwa ajili ya kukusanya taswira ya RuralInvest (Moduli ya 2) ukiwa kazini na waombaji inaweza kupakuliwa kutoka ### tovuti ya TCI RuralInvest ###.
+
 
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Geuza Taswira kuwa Mradi
@@ -20,7 +36,6 @@ error.activity.noPattern=Shughuli "{0}": Tafadhali hariri Shughuli na bainisha m
 
 ## RIV 4.4 BIS
 project.loan.paymentsPerYear=Malipo kwa mwaka
-project.loan.paymentsPerYear.help=Idadi ya malipo ya mkopo yatakayofanyika ndani ya mwaka.
 project.loan.periods=Kipindi/Vipindi vya malipo
 project.loan.perPeriod= kwa kipindi cha malipo
 project.report.amortization.title=Ulipaji wa Mkopo
@@ -619,7 +634,6 @@ mainMenu.config.statuses=Hali ya mradi
 mainMenu.create=unda
 mainMenu.help.about=Kuhusu
 mainMenu.help.faq=Maswali yanayoulizwa mara kwa mara(FAQ)
-mainMenu.help.manual=Vitabu vya Kiada vya mtumiaji
 mainMenu.help=Msaada
 mainMenu.home=Nyumbani
 mainMenu.import=Leta
@@ -1042,8 +1056,6 @@ project.report.blockDetail=Mapato na gharama za uendeshaji kwa undani kwa fungu.
 project.report.cashFlow.cumulative=Mapato yaliyojumlishwa
 project.report.cashFlow.priCapital=Kiasi cha mkopo msingi
 project.report.cashFlow.priInterest=Riba ya mkopo msingi
-project.report.cashFlow.profitAfter=Faida baada ya ufadhili
-project.report.cashFlow.profitBefore=Faida kabla ya ufadhili
 project.report.cashFlow.secCapital=Kiasi cha mkopo sekondari
 project.report.cashFlow.secInterest=Riba ya mkopo sekondari
 project.report.cashFlow.wcInterest=Riba ya Mtaji endeshaji
