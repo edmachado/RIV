@@ -14,7 +14,7 @@ project.report.cashFlow.profitAfter=Mtiririko wa fedha baada ya ufadhili
 mainMenu.help.manual=Msaada
 
 manual.description=Njia na mbinu zinazotumika katika RuralInvest zimeelezwa kikamilifu katika moduli 3 ambazo zilielezewa wakati wa mafunzo rasmi. 
-manual.description.2=Zana za kusomea kwa moduli zote tatu, paomja na maumbizo yaliyopendekezwa kwa ajili ya kukusanya taswira ya RuralInvest (Moduli ya 2) ukiwa kazini na waombaji inaweza kupakuliwa kutoka <a href="http://www.fao.org/in-action/rural-invest/fr/" target="_blank">tovuti ya TCI RuralInvest</a>.
+manual.description.2=Zana za kusomea kwa moduli zote tatu, paomja na maumbizo yaliyopendekezwa kwa ajili ya kukusanya taswira ya RuralInvest (Moduli ya 2) ukiwa kazini na waombaji inaweza kupakuliwa kutoka <a href="http://www.fao.org/in-action/rural-invest/en/" target="_blank">tovuti ya TCI RuralInvest</a>.
 
 
 ## RIV4.4 PROFILE TO PROJECT
