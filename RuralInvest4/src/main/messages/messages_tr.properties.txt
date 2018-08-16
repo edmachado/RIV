@@ -1,5 +1,19 @@
-
-project.report.workingcapital=Aylık Nakit Akışı
+## RIV4.4 2018 
+error.import.riv=Tanınan bir .riv dosyası değildir. Dosya bozuk olabilir. 
+error.loan.pastProjectDuration=Proje süresini aşamaz. 
+error.loan.pastLoanDuration=Kredi süresinden daha az olmalıdır 
+resources=RuralInvest kullanıcıları için çevrimiçi kaynaklar 
+  
+#changed since previous version 
+project.loan.paymentsPerYear.help=Her yıl kredi geri ödemesi için borç verenin talep ettiği ödeme sayısı. (örnek: '4' Eğer kredi üç ayda bir ödenecek ise, '12' Kredi aylık olarak ödenecekse.) 
+project.report.workingcapital=Aylık nakit akışı 
+  
+project.report.cashFlow.profitBefore=Finansman öncesindeki nakit akışı 
+project.report.cashFlow.profitAfter=Finansman sonrasındaki nakit akışı  
+  
+mainMenu.help.manual=Kaynaklar 
+manual.description=RuralInvest'de kullanılan yaklaşım ve metodoloji, resmi eğitimler sırasında sunulan 3 Modülde tam olarak açıklanmıştır.  
+manual.description.2=Her üç modül için tüm materyaller, ek olarak başvuru sahipleri ile sahada RuralInvest Profilleri (Modül 2) derlemek için önerilen formatlar, <a href="http://www.fao.org/in-action/rural-invest/en/" target="_blank">TCI RuralInvest website</a> adresinden indirilebilir. 
 
 
 ## RIV4.4 PROFILE TO PROJECT
@@ -22,7 +36,6 @@ error.activity.noPattern=Faaliyet "{0}": Lütfen etkinliği düzenleyin ve etkin
 
 ## RIV 4.4 BIS
 project.loan.paymentsPerYear=Yıllık ödemeler
-project.loan.paymentsPerYear.help=Yıllık olarak yapılacak kredi ödemelerinin sayısı.
 project.loan.periods=ödeme dönemleri
 project.loan.perPeriod=ödeme dönemi başına
 project.report.amortization.title=Kredi amortismanı
@@ -730,7 +743,6 @@ mainMenu.projects=Projeler
 mainMenu.searchReports=Ara
 mainMenu.searchItem=RuralInvest'te Ara
 mainMenu.help=Yardım
-mainMenu.help.manual=Kullanım kılavuzları
 mainMenu.help.faq=Sıkça Sorulan Sorular (SSS)
 mainMenu.help.about=Hakkında
 mainMenu.config=Yapılandırma
@@ -1272,8 +1284,6 @@ project.report.cashFlowFirst.otherCosts=Diğer maliyetler
 project.report.cashFlowFirst.monthFlow=Aylık nakit akışı
 project.report.cashFlowFirst.cumFlow=Kümülatif nakit akışı
 project.report.cashFlow=Nakit akışı
-project.report.cashFlow.profitBefore=Finansman öncesi kar
-project.report.cashFlow.profitAfter=Finansman sonrası kar
 project.report.cashFlow.wcInterest=Döner sermaye faizi
 project.report.cashFlow.priCapital=Birincil sermaye
 project.report.cashFlow.priInterest=Birincil faiz
