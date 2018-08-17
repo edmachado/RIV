@@ -1,4 +1,20 @@
+## RIV4.4 2018
+error.import.riv=No es un archivo .riv reconocible. El archivo puede estar dañado. 
+error.loan.pastProjectDuration=No puede exceder la duración del proyecto
+error.loan.pastLoanDuration=Debe ser menor que la duración del préstamo
+resources=Recursos en línea para usuarios de RuralInvest
+
+#changed since previous version
+project.loan.paymentsPerYear.help=El número de pagos por año requeridos por el prestatario para repagar. Por ejemplo '4' si el préstamo debe ser pagado trimestralmente, o '12' si el préstamo debe ser pagado mensualmente.
 project.report.workingcapital=Flujo de efectivo mensual
+
+project.report.cashFlow.profitBefore=Flujo de efectivo antes de financiamiento 
+project.report.cashFlow.profitAfter=Flujo de efectivo después de financiamiento
+
+mainMenu.help.manual=Recursos
+manual.description=El abordaje y metodología utilizados en RuralInvest están ampliamente descritos en los 3 módulos que se presentan en cursos de entrenamiento formales.
+manual.description.2=Materiales para los tres módulos, más formularios sugeridos para compilar perfiles de proyecto de RuralInvest (módulo 2) En el campo con los solicitantes, pueden descargarse del <a href="http://www.fao.org/in-action/rural-invest/es/" target="_blank">sitio de TCI para RuralInvest</a>.
+
 
 
 ## RIV4.4 PROFILE TO PROJECT 
@@ -22,7 +38,6 @@ error.activity.noPattern=Actividad "{0}": edite la actividad y especifique el pa
 
 ## RIV 4.4 BIS 
 project.loan.paymentsPerYear=Pagos por año 
-project.loan.paymentsPerYear.help=El número de pagos del préstamo por año. 
 project.loan.periods=período(s) de pago 
 project.loan.perPeriod=por período de pago 
 
@@ -642,7 +657,6 @@ mainMenu.config=Configuración
 mainMenu.create=Crear
 mainMenu.help.about=Acerca
 mainMenu.help.faq=Preguntas más frequentes (FAQ)
-mainMenu.help.manual=Manuales del usuario
 mainMenu.help=Ayuda
 mainMenu.home=Inicio
 mainMenu.import=Importar
@@ -653,9 +667,6 @@ mainMenu.searchItem=Buscar RuralInvest
 mainMenu.searchReports=Búsqueda
 mainMenu.config.columns=Indicadores del proyecto 
 mainMenu.config.enviroCategories=Categorías ambientales
-#manual.description=Los manuales o guías detalladas, que describen la metodología utilizada en cada módulo de RuralInvest, están listados abajo (módulo 4 es cubierto en el manual de módulo 3). Dichos manuales están disponibles en la lengua seleccionada para el software. Todos los módulos tienen relación ya sea con la identificación o la preparación de inversiones que generan ingresos como inversiones que no generan ingresos. Los manuales no describen el software, utilizado en módulos 2, 3 y 4. Es la guía de usuarios del software, la que cubre dicha descripción.
-#manual.description.2=Todos los manuales y guías pueden ser encontradas, consultadas y descargardas de la computadora del usuario, como archivos PDF (utilizando software Adobe sin costo) en el caso de los manuales, y como archivos PowerPoint en el caso de la guía de usuarios del software. Además, se proporcionan como archivos Word los formatos sugeridos para compilar perfiles de proyecto (Módulo 2) con los solicitantes en el campo. Se recomienda que los formatos sean usados por personal de apoyo como guías, pero que los rubros y datos del perfil sean inicialmente escritos en pizarrones o en papelones adheridos a la pared, donde pueden ser visualizados fácilmente por todos los participantes.
-#manual.guide=Guía del Usuario al Software
 manual.mod1=Módulo 1 de RuralInvest - Identificación participativa de prioridades locales de inversión
 manual.mod2=Módulo 2 de RuralInvest - Preparación y empleo de perfiles de proyecto
 manual.mod3=Módulo 3 de RuralInvest - Formulación y análisis detallado de proyectos
@@ -1059,8 +1070,6 @@ project.report.blockDetail=Ingresos y costos de operación detallados por bloque
 project.report.cashFlow.cumulative=Flujo de efectivo acumulado
 project.report.cashFlow.priCapital=Capital primario
 project.report.cashFlow.priInterest=Interés primario
-project.report.cashFlow.profitAfter=Beneficio después de financiamiento
-project.report.cashFlow.profitBefore=Beneficio antes de financiamiento
 project.report.cashFlow.secCapital=Capital secundario
 project.report.cashFlow.secInterest=Interés secundario
 project.report.cashFlow.wcInterest=Interés de capital de trabajo
