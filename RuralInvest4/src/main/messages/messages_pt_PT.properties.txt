@@ -1,6 +1,21 @@
-﻿
+﻿## RIV4.4 2018
+error.import.riv=Este ficheiro não é um ficheiro .riv reconhecível pelo RuralInvest. O ficheiro pode estar corrompido.
+error.loan.pastProjectDuration=Não pode exceder a duração do projecto.
+error.loan.pastLoanDuration=Deve ser menor que a duração do empréstimo.
+resources=Materiais em linha para utilizadores de RuralInvest
+ 
+#changed since previous version
+project.loan.paymentsPerYear.help=Número de pagamentos anuais requeridos para amortização do empréstimo (por exemplo, '4' se o empréstimo é amortizado de trimestralmente, '12' se a amortização é mensal.
 project.report.workingcapital=Fluxo de tesouraria mensal
-#project.report.workingcapital.sheetname=Fluxo de tesouraria mensal
+ 
+project.report.cashFlow.profitBefore=Fluxo de tesouraria antes do empréstimo
+project.report.cashFlow.profitAfter=Fluxo de tesouraria despois do empréstimo
+ 
+mainMenu.help.manual=Fontes de informação
+manual.description=A abordagem e metodologia do RuralInvest são descritas em três módulos utilizados como guia de sessões de formação. 
+manual.description.2=Ferramentas de trabalho relativas aos três módulos, incluindo um exemplo de formulários que poderão ser desenvolvidos para recolher informação de campo para a formulação de anteprojectos (Módulo 2. Pode ser obtido a partir de <a href="http://www.fao.org/in-action/rural-invest/en/" target="_blank">sítio do Centro de Investimento da FAO (TCI) RuralInvest</a>.
+
+project.report.workingcapital=Fluxo de tesouraria mensal
 
 ## RIV4.4 PROFILE TO PROJECT
 profileToProject=Conversão do anteprojecto em projecto
@@ -46,8 +61,6 @@ qualitativeAnalysis.help=Adicione uma classificação de 1 a 5 estrelas para o c
 qualitativeAnalysis.field=Campo
 qualitativeAnalysis.weight=Peso
 qualitativeAnalysis.report.stars=estrelas:
-
-project.loan.paymentsPerYear.help=Número de prestações que o prestador de crédito requer a cada ano (por exemplo ‘4’ se o empréstimo for pago trimestralmente, ‘12’ se as prestações forem mensais).
  
 # max 31 characters
 project.report.workingcapital.sheetname=Fluxo de tesouraria mensal
@@ -1323,9 +1336,6 @@ mainMenu.create=Criar
 mainMenu.help.about=Sobre
 
 mainMenu.help.faq=Perguntas mais frequentes (FAQ)
-
-mainMenu.help.manual=Manuais do utilizador
-
 mainMenu.help=Ajuda
 
 mainMenu.home=Página inicial
@@ -2090,11 +2100,6 @@ project.report.cashFlow.cumulative=Fluxo de tesouraria cumulativo
 project.report.cashFlow.priCapital=Empréstimo base - Capital
 
 project.report.cashFlow.priInterest=Empréstimo base - Juros
-
-project.report.cashFlow.profitAfter=Lucro depois do serviço da dívida
-
-project.report.cashFlow.profitBefore=Lucro antes do financiamento
-
 project.report.cashFlow.secCapital=Empréstimo secundário - Capital
 
 project.report.cashFlow.secInterest=Rmpréstimo secundário - Juros
